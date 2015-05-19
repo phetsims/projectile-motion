@@ -4,21 +4,7 @@
   "license": "GPLv3",
   "simTitleStringKey": "PROJECTILE_MOTION/projectile-motion.name",
   "phetLibs": [
-    "projectile-motion",
-    "assert",
-    "axon",
-    "babel",
-    "brand",
-    "chipper",
-    "dot",
-    "joist",
-    "kite",
-    "phet-core",
-    "phetcommon",
-    "scenery",
-    "scenery-phet",
-    "sherpa",
-    "sun"
+    "projectile-motion"
   ],
   "repository": {
     "type": "git",
