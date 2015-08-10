@@ -2,6 +2,7 @@
   "name": "projectile-motion",
   "version": "1.0.0-dev.1",
   "license": "GPLv3",
+  "requirejsNamespace": "PROJECTILE_MOTION",
   "simTitleStringKey": "PROJECTILE_MOTION/projectile-motion.name",
   "phetLibs": [
     "projectile-motion"
