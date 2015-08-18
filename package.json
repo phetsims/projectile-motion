@@ -15,9 +15,6 @@
   },
   "phet": {
     "requirejsNamespace": "PROJECTILE_MOTION",
-    "simTitleStringKey": "PROJECTILE_MOTION/projectile-motion.name",
-    "phetLibs": [
-      "projectile-motion"
-    ]
+    "simTitleStringKey": "PROJECTILE_MOTION/projectile-motion.name"
   }
 }
