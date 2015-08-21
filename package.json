@@ -14,7 +14,6 @@
     "requirejs": "~2.1.8"
   },
   "phet": {
-    "requirejsNamespace": "PROJECTILE_MOTION",
-    "simTitleStringKey": "PROJECTILE_MOTION/projectile-motion.name"
+    "requirejsNamespace": "PROJECTILE_MOTION"
   }
 }
