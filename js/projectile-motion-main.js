@@ -14,7 +14,7 @@ define( function( require ) {
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var simTitle = require( 'string!PROJECTILE_MOTION/projectile-motion.name' );
+  var simTitle = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
   var simOptions = {
     credits: {

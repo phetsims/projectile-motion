@@ -14,7 +14,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var projectileMotionSimString = require( 'string!PROJECTILE_MOTION/projectile-motion.name' );
+  var projectileMotionSimString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
   /**
    * @constructor
