@@ -14,7 +14,7 @@ define( function( require ) {
   var Screen = require( 'JOIST/Screen' );
 
   // strings
-  var projectileMotionSimString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
+  var projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
   /**
    * @constructor
@@ -25,7 +25,7 @@ define( function( require ) {
     //If there are multiple screens, then the icon must be provided here.
     var icon = null;
 
-    Screen.call( this, projectileMotionSimString, icon,
+    Screen.call( this, projectileMotionTitleString, icon,
       function() { return new ProjectileMotionModel(); },
       function( model ) { return new ProjectileMotionScreenView( model ); },
       { backgroundColor: 'white' }
