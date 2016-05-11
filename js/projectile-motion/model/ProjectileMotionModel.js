@@ -9,15 +9,17 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
    * @constructor
    */
   function ProjectileMotionModel() {
-
     PropertySet.call( this, {} );
   }
+
+  projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 
   return inherit( PropertySet, ProjectileMotionModel, {
 

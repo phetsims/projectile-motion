@@ -9,6 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
 
@@ -30,6 +31,8 @@ define( function( require ) {
     } );
     this.addChild( resetAllButton );
   }
+
+  projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 
   return inherit( ScreenView, ProjectileMotionScreenView, {
 

@@ -8,6 +8,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/projectile-motion/model/ProjectileMotionModel' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/projectile-motion/view/ProjectileMotionScreenView' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -31,6 +32,8 @@ define( function( require ) {
       { backgroundColor: 'white' }
     );
   }
+
+  projectileMotion.register( 'ProjectileMotionScreen', ProjectileMotionScreen );
 
   return inherit( Screen, ProjectileMotionScreen );
 } );
