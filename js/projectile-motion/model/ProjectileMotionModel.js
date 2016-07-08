@@ -11,11 +11,13 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
 
   /**
    * @constructor
    */
   function ProjectileMotionModel() {
+    this.trajectory = new Trajectory( 50, 10 );
     PropertySet.call( this, {} );
   }
 
@@ -23,9 +25,14 @@ define( function( require ) {
 
   return inherit( PropertySet, ProjectileMotionModel, {
 
+    reset: function() {
+      this.trajectory.reset();
+    },
+
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     step: function( dt ) {
-      //TODO Handle model animation here.
+      this.trajectory.step( dt );
     }
   } );
 } );
+

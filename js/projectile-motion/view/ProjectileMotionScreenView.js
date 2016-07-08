@@ -12,6 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode');
 
   /**
    * @param {ProjectileMotionModel} projectileMotionModel
@@ -30,15 +31,12 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } );
     this.addChild( resetAllButton );
+
+    this.addChild( new TrajectoryNode( projectileMotionModel.trajectory ) );
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 
-  return inherit( ScreenView, ProjectileMotionScreenView, {
-
-    //TODO Called by the animation loop. Optional, so if your view has no animation, please delete this.
-    step: function( dt ) {
-      //TODO Handle view animation here.
-    }
-  } );
+  return inherit( ScreenView, ProjectileMotionScreenView );
 } );
+
