@@ -29,8 +29,7 @@ define( function( require ) {
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
     } );
 
-    
-
+  
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
   }
@@ -41,6 +40,7 @@ define( function( require ) {
 
     // @public animate particle, changing direction at min/max x
     step: function( dt ) {
+      console.log( 'stepping trajectory');
       var newXVelocity = this.xVelocity;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
@@ -56,6 +56,7 @@ define( function( require ) {
       this.y = newY;
       this.xVelocity = newXVelocity;
       this.yVelocity = newYVelocity;
+      console.log( this.x, this.y );
     }
   } );
 } );

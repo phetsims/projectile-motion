@@ -12,13 +12,30 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
    * @constructor
    */
   function ProjectileMotionModel() {
-    this.trajectory = new Trajectory( 50, 10 );
-    PropertySet.call( this, {} );
+    PropertySet.call( this, {
+      velocity: 50,
+      running: false // supposed to be false
+    } );
+
+    this.trajectory = new Trajectory( this.velocity, 10 );
+    this.trajectories = new ObservableArray( [ this.trajectory ] );
+
+    this.createTrajectory = function() {
+      console.log( 'new trajectory');
+
+      // remove the old trajectory
+      this.trajectories.pop();
+
+      // add the new trajectory
+      this.trajectories.push( new Trajectory( this.velocity, 10 ) );
+    };
+
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -27,11 +44,16 @@ define( function( require ) {
 
     reset: function() {
       this.trajectory.reset();
+      this.trajectories.reset();
+      this.running = false;
     },
 
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     step: function( dt ) {
-      this.trajectory.step( dt );
+      console.log( this.velocity, this.running );
+      if ( this.running ) {
+        this.trajectories[ 0 ].step( dt );
+      }
     }
   } );
 } );

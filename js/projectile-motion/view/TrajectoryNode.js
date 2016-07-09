@@ -33,10 +33,12 @@ define( function( require ) {
     var thisNode = this;
     trajectory.xProperty.link( function( x ) {
       thisNode.x = x;
+      console.log( 'linked x ', thisNode.x);
     } );
 
     trajectory.yProperty.link( function( y ) {
       thisNode.y = y;
+      console.log( 'linked y ', thisNode.y);
     });
   }
 
