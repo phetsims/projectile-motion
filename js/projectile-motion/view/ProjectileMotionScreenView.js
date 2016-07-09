@@ -20,29 +20,38 @@ define( function( require ) {
    */
   function ProjectileMotionScreenView( projectileMotionModel ) {
 
-    ScreenView.call( this );
+    var thisScreenView = this;
+
+    ScreenView.call( thisScreenView );
 
     // Reset All button
-    this.addChild( new ControlPanel( projectileMotionModel, {
+    thisScreenView.addChild( new ControlPanel( projectileMotionModel, {
       x: 700,
       y: 300
     } ) );
 
     function handleTrajectoryAdded( addedTrajectory ) {
+      console.log( 'handled trajectory added');
 
-      // Create and add the view representation for this bar magnet.
+      // Create and add the view representation for this trajectory
       var trajectoryNode = new TrajectoryNode( projectileMotionModel.trajectory );
 
-      this.addChild( trajectoryNode );
+      thisScreenView.addChild( trajectoryNode );
 
-      // Add the removal listener for if and when this bar magnet is removed from the model.
+      // Add the removal listener for if and when this trajectory is removed from the model.
       projectileMotionModel.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          this.removeChild( trajectoryNode );
+          thisScreenView.removeChild( trajectoryNode );
           projectileMotionModel.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
     }
+
+    // Add initial trajctory representations.
+    projectileMotionModel.trajectories.forEach( handleTrajectoryAdded );
+
+    // Whenever a trajectory is added to the model, greate a graphic for it.
+    projectileMotionModel.trajectories.addItemAddedListener( handleTrajectoryAdded );
     
     // trajectory node always listens to this initial trajectory passed to it
     // so even though you have code in the model that creates a new trajectory

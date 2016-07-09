@@ -42,6 +42,7 @@ define( function( require ) {
     var setVelocitySlider = new HSlider( projectileMotionModel.velocityProperty, { min: 0, max: 100 } );
 
     var goListener = function() {
+      console.log( 'made it into go listener function' );
       projectileMotionModel.createTrajectory();
       projectileMotionModel.running = true;
     };
@@ -49,7 +50,7 @@ define( function( require ) {
     var goButton = new RoundPushButton( {
       baseColor: '#94b830',
       listener: goListener
-    } );//green
+    } ); //green
 
     // 'Reset All' button, resets the sim to its initial state
     var resetAllButton = new ResetAllButton( {

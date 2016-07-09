@@ -27,7 +27,7 @@ define( function( require ) {
     this.trajectories = new ObservableArray( [ this.trajectory ] );
 
     this.createTrajectory = function() {
-      console.log( 'new trajectory');
+      console.log( 'new trajectory' );
 
       // remove the old trajectory
       this.trajectories.pop();
@@ -50,9 +50,11 @@ define( function( require ) {
 
     //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
     step: function( dt ) {
-      console.log( this.velocity, this.running );
+      // console.log( this.velocity, this.running );
       if ( this.running ) {
-        this.trajectories[ 0 ].step( dt );
+        this.trajectories.forEach( function( trajectory ) {
+          trajectory.step( dt );
+        } );
       }
     }
   } );
