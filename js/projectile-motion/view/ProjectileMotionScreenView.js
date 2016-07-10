@@ -12,7 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var ControlPanel = require( 'PROJECTILE_MOTION/projectile-motion/view/ControlPanel' );
-  var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode');
+  var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode' );
 
   /**
    * @param {ProjectileMotionModel} projectileMotionModel
@@ -30,34 +30,13 @@ define( function( require ) {
       y: 300
     } ) );
 
-    function handleTrajectoryAdded( addedTrajectory ) {
-      console.log( 'handled trajectory added');
 
-      // Create and add the view representation for this trajectory
-      var trajectoryNode = new TrajectoryNode( projectileMotionModel.trajectory );
 
-      thisScreenView.addChild( trajectoryNode );
-
-      // Add the removal listener for if and when this trajectory is removed from the model.
-      projectileMotionModel.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
-        if ( removedTrajectory === addedTrajectory ) {
-          thisScreenView.removeChild( trajectoryNode );
-          projectileMotionModel.trajectories.removeItemRemovedListener( removalListener );
-        }
-      } );
-    }
-
-    // Add initial trajctory representations.
-    projectileMotionModel.trajectories.forEach( handleTrajectoryAdded );
-
-    // Whenever a trajectory is added to the model, greate a graphic for it.
-    projectileMotionModel.trajectories.addItemAddedListener( handleTrajectoryAdded );
-    
     // trajectory node always listens to this initial trajectory passed to it
     // so even though you have code in the model that creates a new trajectory
     // this node doesn't know!
     // so you'll probably want an observable array
-    // this.addChild( new TrajectoryNode( projectileMotionModel.trajectory ) );
+    this.addChild( new TrajectoryNode( projectileMotionModel.trajectory ) );
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );

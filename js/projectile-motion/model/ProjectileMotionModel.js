@@ -12,7 +12,6 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
    * @constructor
@@ -20,20 +19,15 @@ define( function( require ) {
   function ProjectileMotionModel() {
     PropertySet.call( this, {
       velocity: 50,
+      angle: 10,
       running: false // supposed to be false
     } );
 
-    this.trajectory = new Trajectory( this.velocity, 10 );
-    this.trajectories = new ObservableArray( [ this.trajectory ] );
+    this.trajectory = new Trajectory( this.velocity, this.angle );
 
-    this.createTrajectory = function() {
-      console.log( 'new trajectory' );
-
-      // remove the old trajectory
-      this.trajectories.pop();
-
-      // add the new trajectory
-      this.trajectories.push( new Trajectory( this.velocity, 10 ) );
+    this.setInitialConditions = function() {
+      this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
+      this.trajectory.resetPosition();
     };
 
   }
@@ -43,18 +37,20 @@ define( function( require ) {
   return inherit( PropertySet, ProjectileMotionModel, {
 
     reset: function() {
+      // reset properties of this model.
+      // may replace with this.reset(), depending.
+      this.velocityProperty.reset();
+      this.angleProperty.reset();
+      this.runningProperty.reset();
+
+      // reset the trajectory, resetting to initial velocity and angle
       this.trajectory.reset();
-      this.trajectories.reset();
-      this.running = false;
     },
 
-    //TODO Called by the animation loop. Optional, so if your model has no animation, please delete this.
+    // @public animates trajectory if running
     step: function( dt ) {
-      // console.log( this.velocity, this.running );
       if ( this.running ) {
-        this.trajectories.forEach( function( trajectory ) {
-          trajectory.step( dt );
-        } );
+        this.trajectory.step( dt );
       }
     }
   } );

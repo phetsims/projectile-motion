@@ -13,9 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
@@ -41,15 +39,14 @@ define( function( require ) {
 
     var setVelocitySlider = new HSlider( projectileMotionModel.velocityProperty, { min: 0, max: 100 } );
 
-    var goListener = function() {
-      console.log( 'made it into go listener function' );
-      projectileMotionModel.createTrajectory();
+    var fireListener = function() {
+      projectileMotionModel.setInitialConditions();
       projectileMotionModel.running = true;
     };
 
-    var goButton = new RoundPushButton( {
+    var fireButton = new RoundPushButton( {
       baseColor: '#94b830',
-      listener: goListener
+      listener: fireListener
     } ); //green
 
     // 'Reset All' button, resets the sim to its initial state
@@ -65,7 +62,7 @@ define( function( require ) {
       spacing: 10,
       children: [
         setVelocitySlider,
-        goButton,
+        fireButton,
         resetAllButton
       ]
     } );

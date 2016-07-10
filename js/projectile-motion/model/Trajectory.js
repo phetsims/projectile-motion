@@ -28,19 +28,28 @@ define( function( require ) {
       xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
     } );
-
   
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
+
+    // mutators
+    this.setVelocityAndAngle = function( velocity, angle ) {
+      this.xVelocity = velocity * Math.cos( angle * Math.PI / 180 );
+      this.yVelocity = velocity * Math.sin( angle * Math.PI / 180 );
+    };
+
+    this.resetPosition = function() {
+      this.xProperty.reset();
+      this.yProperty.reset();
+    };
   }
 
   projectileMotion.register( 'Trajectory', Trajectory );
 
   return inherit( PropertySet, Trajectory, {
 
-    // @public animate particle, changing direction at min/max x
+    // @public animate trajectory, not taking into account air resistance
     step: function( dt ) {
-      // console.log( 'stepping trajectory');
       var newXVelocity = this.xVelocity;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
@@ -56,7 +65,6 @@ define( function( require ) {
       this.y = newY;
       this.xVelocity = newXVelocity;
       this.yVelocity = newYVelocity;
-      // console.log( this.x, this.y );
     }
   } );
 } );
