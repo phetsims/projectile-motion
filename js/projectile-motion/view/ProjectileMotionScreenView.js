@@ -30,13 +30,8 @@ define( function( require ) {
       y: 300
     } ) );
 
-
-
-    // trajectory node always listens to this initial trajectory passed to it
-    // so even though you have code in the model that creates a new trajectory
-    // this node doesn't know!
-    // so you'll probably want an observable array
-    this.addChild( new TrajectoryNode( projectileMotionModel.trajectory ) );
+    // add trajectory node
+    thisScreenView.addChild( new TrajectoryNode( projectileMotionModel.trajectory ) );
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
