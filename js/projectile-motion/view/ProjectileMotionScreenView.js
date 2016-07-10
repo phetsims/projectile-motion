@@ -24,6 +24,11 @@ define( function( require ) {
 
     ScreenView.call( thisScreenView );
 
+    // will replace the following translation with modelToViewTransform
+    // should move this into a different node, shouldn't do translations on the screenview
+    // TODO: make the following work, or find a way to see the changes
+    thisScreenView.translate( 50, 50 );
+
     // Reset All button
     thisScreenView.addChild( new ControlPanel( projectileMotionModel, {
       x: 700,

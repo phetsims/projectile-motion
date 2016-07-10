@@ -53,6 +53,7 @@ define( function( require ) {
       var newXVelocity = this.xVelocity;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
+      // TODO: check for x is in the bounds
       if ( this.y < 0 ) {
         newXVelocity = 0;
         newYVelocity = 0;
