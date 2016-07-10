@@ -4,5 +4,8 @@
   },
   "velocity": {
   	"value": "velocity"
+  },
+  "angle": {
+  	"value": "angle"
   }
 }

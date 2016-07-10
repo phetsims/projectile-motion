@@ -21,6 +21,7 @@ define( function( require ) {
 
   // strings
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
+  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
 
   /**
    * Control panel constructor
@@ -43,12 +44,25 @@ define( function( require ) {
 
     var setVelocitySlider = new HSlider(
       projectileMotionModel.velocityProperty, {
+        // range is in m/s
         min: 0,
         max: 100
       } );
 
     // in the future, move this value changer box into a function
     var velocityBox = new VBox( { children: [ velocityLabel, setVelocitySlider ] } );
+
+    var angleLabel = new Text( angleString );
+
+    var setAngleSlider = new HSlider(
+      projectileMotionModel.angleProperty, {
+        // range is in degrees
+        min: 0,
+        max: 90
+      } );
+
+    // in the future, move this value changer box into a function
+    var angleBox = new VBox( { children: [ angleLabel, setAngleSlider ] } );
 
     var fireListener = function() {
       projectileMotionModel.setInitialConditions();
@@ -73,6 +87,7 @@ define( function( require ) {
       spacing: 10,
       children: [
         velocityBox,
+        angleBox,
         fireButton,
         resetAllButton
       ]
