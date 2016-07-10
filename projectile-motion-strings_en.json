@@ -1,5 +1,8 @@
 {
   "projectile-motion.title": {
     "value": "Projectile Motion"
+  },
+  "velocity": {
+  	"value": "velocity"
   }
 }

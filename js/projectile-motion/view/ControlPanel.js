@@ -17,8 +17,10 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
   // strings
+  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
 
   /**
    * Control panel constructor
@@ -37,7 +39,16 @@ define( function( require ) {
       },
       options );
 
-    var setVelocitySlider = new HSlider( projectileMotionModel.velocityProperty, { min: 0, max: 100 } );
+    var velocityLabel = new Text( velocityString );
+
+    var setVelocitySlider = new HSlider(
+      projectileMotionModel.velocityProperty, {
+        min: 0,
+        max: 100
+      } );
+
+    // in the future, move this value changer box into a function
+    var velocityBox = new VBox( { children: [ velocityLabel, setVelocitySlider ] } );
 
     var fireListener = function() {
       projectileMotionModel.setInitialConditions();
@@ -61,7 +72,7 @@ define( function( require ) {
       align: 'center',
       spacing: 10,
       children: [
-        setVelocitySlider,
+        velocityBox,
         fireButton,
         resetAllButton
       ]
