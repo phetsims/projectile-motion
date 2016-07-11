@@ -32,6 +32,7 @@ define( function( require ) {
 
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( BALL_SIZE );
 
+    // node drawn 
     this.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
       x: modelViewTransform.modelToViewX( trajectory.x ),
       y: modelViewTransform.modelToViewY( trajectory.y ),
@@ -42,6 +43,7 @@ define( function( require ) {
 
     Property.multilink( [ trajectory.xProperty, trajectory.yProperty ], function( x, y ) {
       // add dot to path
+      // should change this to have a better path
       thisNode.addChild( new Circle( PATH_WIDTH / 2, {
         x: modelViewTransform.modelToViewX( x ),
         y: modelViewTransform.modelToViewY( y ),
