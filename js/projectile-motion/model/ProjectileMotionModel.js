@@ -18,8 +18,8 @@ define( function( require ) {
    */
   function ProjectileMotionModel() {
     PropertySet.call( this, {
-      velocity: 50,
-      angle: 10,
+      velocity: 18,
+      angle: 80,
       running: false // supposed to be false
     } );
 
@@ -29,6 +29,9 @@ define( function( require ) {
       this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
       this.trajectory.resetPosition();
     };
+
+    // for debugging, testing time
+    this.timeInSecondsSinceStart = 0;
 
   }
 
@@ -52,6 +55,10 @@ define( function( require ) {
       if ( this.running ) {
         this.trajectory.step( dt );
       }
+      // for debugging or testing time
+      //console.log( dt );
+      this.timeInSecondsSinceStart += dt;
+      console.log( this.timeInSecondsSinceStart );
     }
   } );
 } );

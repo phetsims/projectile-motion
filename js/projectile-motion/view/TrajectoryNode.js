@@ -14,7 +14,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var BALL_SIZE = 10;
+  var BALL_SIZE = 0.37; // will change, based off pumpkin size in original sim
   var color = 'black';
 
   /**
@@ -22,21 +22,23 @@ define( function( require ) {
    * @param {String|color} color
    * @constructor
    */
-  function TrajectoryNode( trajectory ) {
+  function TrajectoryNode( trajectory, modelViewTransform ) {
 
-    Rectangle.call( this, -BALL_SIZE / 2, 0, BALL_SIZE, BALL_SIZE, {
-      x: trajectory.x,
-      y: trajectory.y,
+    var transformedBallSize = modelViewTransform.modelToViewDeltaX( BALL_SIZE );
+
+    Rectangle.call( this, -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
+      x: modelViewTransform.modelToViewX( trajectory.x ),
+      y: modelViewTransform.modelToViewY( trajectory.y ),
       fill: color
     } );
 
     var thisNode = this;
     trajectory.xProperty.link( function( x ) {
-      thisNode.x = x;
+      thisNode.x = modelViewTransform.modelToViewX( x );
     } );
 
     trajectory.yProperty.link( function( y ) {
-      thisNode.y = y;
+      thisNode.y = modelViewTransform.modelToViewY( y );
     });
   }
 
