@@ -71,9 +71,9 @@ define( function( require ) {
     };
 
     var fireButton = new RoundPushButton( {
-      baseColor: '#94b830',
+      baseColor: '#94b830', //green
       listener: fireListener
-    } ); //green
+    } );
 
     // 'Reset All' button, resets the sim to its initial state
     var resetAllButton = new ResetAllButton( {
