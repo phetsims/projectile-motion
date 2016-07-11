@@ -29,10 +29,6 @@ define( function( require ) {
       this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
       this.trajectory.resetPosition();
     };
-
-    // for debugging, testing time
-    this.timeInSecondsSinceStart = 0;
-
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -55,10 +51,6 @@ define( function( require ) {
       if ( this.running ) {
         this.trajectory.step( dt );
       }
-      // for debugging or testing time
-      //console.log( dt );
-      this.timeInSecondsSinceStart += dt;
-      console.log( this.timeInSecondsSinceStart );
     }
   } );
 } );
