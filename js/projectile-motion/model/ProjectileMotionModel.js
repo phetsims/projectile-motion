@@ -29,6 +29,11 @@ define( function( require ) {
       this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
       this.trajectory.resetPosition();
     };
+
+    this.cannonFired = function() {
+      this.setInitialConditions();
+      this.trajectory.focused = false;
+    };
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );

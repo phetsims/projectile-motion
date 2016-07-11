@@ -28,6 +28,8 @@ define( function( require ) {
       xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
     } );
+
+    this.focused = true; // maybe move into property set
   
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
@@ -50,6 +52,13 @@ define( function( require ) {
 
     // @public animate trajectory, not taking into account air resistance
     step: function( dt ) {
+      if ( this.focused ) {
+        this.advancePath( dt );
+      }
+    },
+
+    // advance the trajectory path
+    advancePath: function( dt ) {
       var newXVelocity = this.xVelocity;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
