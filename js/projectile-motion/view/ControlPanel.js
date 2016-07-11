@@ -18,6 +18,7 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   // strings
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
@@ -40,7 +41,7 @@ define( function( require ) {
       },
       options );
 
-    var velocityLabel = new Text( velocityString );
+    var velocityLabel = new Text( velocityString, { font: ProjectileMotionConstants.LABEL_FONT } );
 
     var setVelocitySlider = new HSlider(
       projectileMotionModel.velocityProperty, {
@@ -52,7 +53,7 @@ define( function( require ) {
     // in the future, move this value changer box into a function
     var velocityBox = new VBox( { children: [ velocityLabel, setVelocitySlider ] } );
 
-    var angleLabel = new Text( angleString );
+    var angleLabel = new Text( angleString, { font: ProjectileMotionConstants.LABEL_FONT } );
 
     var setAngleSlider = new HSlider(
       projectileMotionModel.angleProperty, {

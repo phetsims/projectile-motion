@@ -49,8 +49,6 @@ define( function( require ) {
     var helperRectangle = new Rectangle( 0, 0, 10, 10, { fill: 'rgba(0,0,255,0.25)' } );
     thisScreenView.addChild( helperRectangle );
     helperRectangle.setRectBounds( modelViewTransform.modelToViewBounds( helperRectangle.getRectBounds() ) );
-    
-
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
