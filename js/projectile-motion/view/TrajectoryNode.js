@@ -13,13 +13,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Property = require( 'AXON/Property' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Shape = require( 'KITE/Shape' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var BALL_SIZE = 0.37; // will change, based off pumpkin size in original sim
-  var PATH_WIDTH = 1; // arbitrary
   var COLOR = 'black';
+  var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
 
   /**
    * @param {Particle} particle
@@ -29,29 +31,34 @@ define( function( require ) {
   function TrajectoryNode( trajectory, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
+    // debugger;
 
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( BALL_SIZE );
 
     // node drawn 
-    this.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
+    thisNode.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
       x: modelViewTransform.modelToViewX( trajectory.x ),
       y: modelViewTransform.modelToViewY( trajectory.y ),
       fill: COLOR
     } );
 
-    thisNode.addChild( this.projectile );
+    thisNode.addChild( thisNode.projectile );
+
+
+    thisNode.trajectoryShape = new Shape();
+    thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( Vector2.ZERO ) );
+
+    thisNode.trajectoryPath = new Path( thisNode.trajectoryShape, PATH_OPTIONS );
+
+    thisNode.addChild( thisNode.trajectoryPath );
+
 
     // watch for if the trajectory changes location
     Property.multilink( [ trajectory.xProperty, trajectory.yProperty ], function( x, y ) {
-      // add dot to path
-      // should change this to have a better path
-      thisNode.addChild( new Circle( PATH_WIDTH / 2, {
-        x: modelViewTransform.modelToViewX( x ),
-        y: modelViewTransform.modelToViewY( y ),
-        fill: COLOR
-      } ) );
 
-      // update projectile
+      // draw line to trajectory path
+      thisNode.trajectoryShape.lineTo( modelViewTransform.modelToViewX( x ), modelViewTransform.modelToViewY( y ) );
+        // update projectile
       thisNode.projectile.x = modelViewTransform.modelToViewX( x );
       thisNode.projectile.y = modelViewTransform.modelToViewY( y );
       thisNode.projectile.moveToFront();
@@ -61,7 +68,7 @@ define( function( require ) {
       // showPaths tells you if you want to see the path of the projectory
       if ( !showPaths ) {
         // erase paths
-        thisNode.setChildren( [ thisNode.projectile ] );
+        thisNode.trajectoryShape.subpaths = [];
       }
     } );
 

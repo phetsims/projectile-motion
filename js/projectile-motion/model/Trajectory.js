@@ -42,6 +42,8 @@ define( function( require ) {
     this.resetPosition = function() {
       this.xProperty.reset();
       this.yProperty.reset();
+      this.showPaths = false;
+      this.showPaths = true;
     };
   }
 
