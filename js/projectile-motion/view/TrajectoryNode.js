@@ -12,7 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  // var Property = require( 'AXON/Property' );
+  var Property = require( 'AXON/Property' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
@@ -35,43 +35,66 @@ define( function( require ) {
 
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( BALL_SIZE );
 
-    // draw projectile
+    // node drawn 
     thisNode.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
-      x: modelViewTransform.modelToViewX( trajectory.position.x ),
-      y: modelViewTransform.modelToViewY( trajectory.position.y ),
+      x: modelViewTransform.modelToViewX( trajectory.x ),
+      y: modelViewTransform.modelToViewY( trajectory.y ),
       fill: COLOR
     } );
 
     thisNode.addChild( thisNode.projectile );
 
-    thisNode.trailingShape = new Shape();
-    thisNode.trailingShape.moveToPoint( modelViewTransform.modelToViewPosition( Vector2.ZERO ) );
 
-    thisNode.trailingPath = new Path( thisNode.trailingShape, PATH_OPTIONS );
+    thisNode.trajectoryShape = new Shape();
+    thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( thisNode.projectile.center ) );
 
-    thisNode.addChild( thisNode.trailingPath );
+    thisNode.trajectoryPath = new Path( thisNode.trajectoryShape, PATH_OPTIONS );
 
-    trajectory.positionProperty.lazyLink( function( position ) {
+    thisNode.addChild( thisNode.trajectoryPath );
+
+
+    // watch for if the trajectory changes location
+    trajectory.xProperty.lazyLink( function() {
       // if it's going off screen in the model, stop drawing it screen
-      if ( position.y < thisNode.parents[0].layoutBounds.minX || position.y > thisNode.parents[0].layoutBounds.maxY ) {
-        console.log ( 'caught at edge of screen' );
+      if (
+        trajectory.x < thisNode.parents[ 0 ].layoutBounds.minX ||
+        trajectory.x > thisNode.parents[ 0 ].layoutBounds.maxY ||
+        trajectory.y < thisNode.parents[ 0 ].layoutBounds.minY ||
+        trajectory.y > thisNode.parents[ 0 ].layoutBounds.maxY
+      ) {
+        console.log( thisNode.parents[ 0 ].layoutBounds );
         return;
+      } else {
+        thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
+        thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
+
+        thisNode.trajectoryShape.lineToPoint( thisNode.projectile.center );
       }
 
-      thisNode.projectile.x = modelViewTransform.modelToViewX( position.x );
-      thisNode.projectile.y = modelViewTransform.modelToViewY( position.y );
+    } );
 
-      thisNode.trailingShape.lineTo( 
-        modelViewTransform.modelToViewX( position.x ), 
-        modelViewTransform.modelToViewY( position.y ) 
-        );
+    trajectory.yProperty.lazyLink( function() {
+      // if it's going off screen in the model, stop it right before
+      if (
+        thisNode.projectile.x < thisNode.parents[ 0 ].layoutBounds.minX ||
+        thisNode.projectile.x > thisNode.parents[ 0 ].layoutBounds.maxY ||
+        thisNode.projectile.y < thisNode.parents[ 0 ].layoutBounds.minY ||
+        thisNode.projectile.y > thisNode.parents[ 0 ].layoutBounds.maxY
+      ) {
+        console.log( thisNode.parents[ 0 ].layoutBounds );
+      } else {
+        thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
+        thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
+
+        thisNode.trajectoryShape.lineToPoint( thisNode.projectile.center );
+      }
     } );
 
     trajectory.showPathsProperty.link( function( showPaths ) {
       // showPaths tells you if you want to see the path of the projectory
       if ( !showPaths ) {
         // erase paths
-        thisNode.trailingShape.subpaths = [];
+        thisNode.trajectoryShape.subpaths = [];
       }
     } );
 

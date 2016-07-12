@@ -21,7 +21,7 @@ define( function( require ) {
     PropertySet.call( projectileMotionModel, {
       velocity: 18,
       angle: 80,
-      running: true // supposed to be false, replace later with paused
+      running: false // supposed to be false, replace later with paused
     } );
 
     projectileMotionModel.trajectory = new Trajectory( projectileMotionModel.velocity, projectileMotionModel.angle );

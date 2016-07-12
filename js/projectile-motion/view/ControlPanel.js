@@ -24,6 +24,9 @@ define( function( require ) {
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
 
+  // constants
+  var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
+
   /**
    * Control panel constructor
    * @param {BarMagnet} barMagnetModel the entire model for the bar magnet screen
@@ -41,21 +44,32 @@ define( function( require ) {
       },
       options );
 
-    var velocityLabel = new Text( velocityString, { font: ProjectileMotionConstants.LABEL_FONT } );
+    // auxiliary function that creates the string for a text label
+    var createLabelText = function( label, value ) {
+      return label + ': ' + Math.round( value );
+    };
 
+    // all things control related to velocity
+    var velocityLabel = new Text( createLabelText( velocityString, projectileMotionModel.velocity ), LABEL_OPTIONS );
+    projectileMotionModel.velocityProperty.link( function( v ) {
+      velocityLabel.text = createLabelText( velocityString, v );
+    } );
     var setVelocitySlider = new HSlider(
-      projectileMotionModel.velocityProperty, ProjectileMotionConstants.VELOCITY_RANGE );
+      projectileMotionModel.velocityProperty,
+      ProjectileMotionConstants.VELOCITY_RANGE
+    );
+    var velocityBox = new VBox( { spacing: 10, children: [ velocityLabel, setVelocitySlider ] } );
 
-    // in the future, move this value changer box into a function
-    var velocityBox = new VBox( { children: [ velocityLabel, setVelocitySlider ] } );
-
-    var angleLabel = new Text( angleString, { font: ProjectileMotionConstants.LABEL_FONT } );
-
+    // all things control related to angle
+    var angleLabel = new Text( createLabelText( angleString, projectileMotionModel.angle ), { font: ProjectileMotionConstants.LABEL_FONT } );
+    projectileMotionModel.angleProperty.link( function( a ) {
+      angleLabel.text = createLabelText( angleString, a );
+    } );
     var setAngleSlider = new HSlider(
-      projectileMotionModel.angleProperty, ProjectileMotionConstants.ANGLE_RANGE );
-
-    // in the future, move this value changer box into a function
-    var angleBox = new VBox( { children: [ angleLabel, setAngleSlider ] } );
+      projectileMotionModel.angleProperty,
+      ProjectileMotionConstants.ANGLE_RANGE
+    );
+    var angleBox = new VBox( { spacing: 10, children: [ angleLabel, setAngleSlider ] } );
 
     var fireListener = function() {
       projectileMotionModel.cannonFired();
