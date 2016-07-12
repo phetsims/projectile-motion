@@ -66,7 +66,7 @@ define( function( require ) {
     var angleBox = new VBox( { children: [ angleLabel, setAngleSlider ] } );
 
     var fireListener = function() {
-      projectileMotionModel.setInitialConditions();
+      projectileMotionModel.cannonFired();
       projectileMotionModel.running = true;
     };
 

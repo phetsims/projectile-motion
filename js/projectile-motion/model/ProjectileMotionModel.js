@@ -25,11 +25,13 @@ define( function( require ) {
 
     this.trajectory = new Trajectory( this.velocity, this.angle );
 
+    // 
     this.setInitialConditions = function() {
       this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
       this.trajectory.resetPosition();
     };
 
+    // called on when fire button is pressed
     this.cannonFired = function() {
       this.setInitialConditions();
     };

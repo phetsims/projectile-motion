@@ -25,23 +25,26 @@ define( function( require ) {
     PropertySet.call( this, {
       x: 0,
       y: 0,
-      xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
-      yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
       showPaths: true // if it is set to false, the paths are erased
     } );
 
+    this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
+    this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
 
-    // mutators
+    // given the new velocity and angle, mutates the velocity components
     this.setVelocityAndAngle = function( velocity, angle ) {
       this.xVelocity = velocity * Math.cos( angle * Math.PI / 180 );
       this.yVelocity = velocity * Math.sin( angle * Math.PI / 180 );
     };
 
+    // resets the projectile at origin and deletes all of its paths
     this.resetPosition = function() {
       this.xProperty.reset();
       this.yProperty.reset();
+
+      // the following removes paths
       this.showPaths = false;
       this.showPaths = true;
     };
@@ -53,22 +56,23 @@ define( function( require ) {
 
     // @public animate trajectory, not taking into account air resistance
     step: function( dt ) {
+      // TODO: check for x is in the bounds
+      // TODO: make it stop at exactly the bounds
+      if ( this.y < 0 ) {
+        return;
+      }
+
       var newXVelocity = this.xVelocity;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
-      // TODO: check for x is in the bounds
-      if ( this.y < 0 ) {
-        newXVelocity = 0;
-        newYVelocity = 0;
-      }
+      this.xVelocity = newXVelocity;
+      this.yVelocity = newYVelocity;
 
       var newX = this.x + this.xVelocity * dt;
       var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
 
       this.x = newX;
       this.y = newY;
-      this.xVelocity = newXVelocity;
-      this.yVelocity = newYVelocity;
     }
   } );
 } );

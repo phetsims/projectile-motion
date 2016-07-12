@@ -41,7 +41,6 @@ define( function( require ) {
       y: 25
     } ) );
 
-
     // add trajectory node
     thisScreenView.addChild( new TrajectoryNode( projectileMotionModel.trajectory, modelViewTransform ) );
 
