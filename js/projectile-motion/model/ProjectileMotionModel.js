@@ -32,7 +32,6 @@ define( function( require ) {
 
     this.cannonFired = function() {
       this.setInitialConditions();
-      // this.trajectory.focused = false; // what did this line do? removing it doesn't seem to change anything
     };
   }
 
@@ -48,6 +47,7 @@ define( function( require ) {
       this.runningProperty.reset();
 
       // reset the trajectory, resetting to initial velocity and angle
+      this.trajectory.showPaths = false;
       this.trajectory.reset();
     },
 

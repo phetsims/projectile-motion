@@ -58,12 +58,13 @@ define( function( require ) {
     } );
 
     trajectory.showPathsProperty.link( function( showPaths ) {
+      // showPaths tells you if you want to see the path of the projectory
       if ( !showPaths ) {
         // erase paths
-        thisNode.setChildren( [ this.projectile ] );
+        thisNode.setChildren( [ thisNode.projectile ] );
       }
     } );
-    
+
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
