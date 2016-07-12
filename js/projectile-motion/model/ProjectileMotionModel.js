@@ -20,7 +20,7 @@ define( function( require ) {
     PropertySet.call( this, {
       velocity: 18,
       angle: 80,
-      running: false // supposed to be false
+      running: false // supposed to be false, replace later with paused
     } );
 
     this.trajectory = new Trajectory( this.velocity, this.angle );
@@ -32,7 +32,7 @@ define( function( require ) {
 
     this.cannonFired = function() {
       this.setInitialConditions();
-      this.trajectory.focused = false;
+      // this.trajectory.focused = false; // what did this line do? removing it doesn't seem to change anything
     };
   }
 

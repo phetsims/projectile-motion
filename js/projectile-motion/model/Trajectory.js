@@ -29,6 +29,9 @@ define( function( require ) {
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
     } );
 
+    this.showPaths = true; // if its false, than the paths are erased
+
+    // if the trajectory is focused on, then it is the current trajectory
     this.focused = true; // maybe move into property set
   
     this.xAcceleration = 0;
