@@ -53,7 +53,7 @@ define( function( require ) {
       // reset the trajectory, resetting to initial velocity and angle
       // this.trajectory.showPaths = false;
       this.trajectory.resetPosition();
-      this.trajectory.reset();
+      // this.trajectory.reset();
     },
 
     // @public animates trajectory if running

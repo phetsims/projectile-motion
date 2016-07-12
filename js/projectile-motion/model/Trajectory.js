@@ -57,7 +57,7 @@ define( function( require ) {
 
     // @public animate trajectory, not taking into account air resistance
     step: function( dt ) {
-      // TODO: stop at the ground
+      // stop at the ground
       if ( this.y < 0 ) {
         return;
       }
