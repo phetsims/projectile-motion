@@ -37,8 +37,8 @@ define( function( require ) {
 
     // Reset All button
     thisScreenView.addChild( new ControlPanel( projectileMotionModel, {
-      x: 700,
-      y: 100
+      x: thisScreenView.layoutBounds.maxX - 150,
+      y: 25
     } ) );
 
 

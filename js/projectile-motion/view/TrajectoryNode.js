@@ -54,14 +54,29 @@ define( function( require ) {
 
 
     // watch for if the trajectory changes location
-    Property.multilink( [ trajectory.xProperty, trajectory.yProperty ], function( x, y ) {
-
-      // draw line to trajectory path
-      thisNode.trajectoryShape.lineTo( modelViewTransform.modelToViewX( x ), modelViewTransform.modelToViewY( y ) );
-        // update projectile
+    trajectory.xProperty.link( function( x ) {
       thisNode.projectile.x = modelViewTransform.modelToViewX( x );
+
+      // if the x moved the y probably moved as well
+      thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
+
+      thisNode.trajectoryShape.lineTo( 
+        modelViewTransform.modelToViewX( x ), 
+        modelViewTransform.modelToViewY( trajectory.y ) 
+        );
+
+    } );
+
+    trajectory.yProperty.link( function( y ) {
       thisNode.projectile.y = modelViewTransform.modelToViewY( y );
-      thisNode.projectile.moveToFront();
+
+      // if the x moved the y probably moved as well
+      thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
+
+      thisNode.trajectoryShape.lineTo( 
+        modelViewTransform.modelToViewX( trajectory.x ), 
+        modelViewTransform.modelToViewY( y ) 
+        );
     } );
 
     trajectory.showPathsProperty.link( function( showPaths ) {

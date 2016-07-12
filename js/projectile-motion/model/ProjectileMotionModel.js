@@ -47,7 +47,8 @@ define( function( require ) {
       this.runningProperty.reset();
 
       // reset the trajectory, resetting to initial velocity and angle
-      this.trajectory.showPaths = false;
+      // this.trajectory.showPaths = false;
+      this.trajectory.resetPosition();
       this.trajectory.reset();
     },
 
