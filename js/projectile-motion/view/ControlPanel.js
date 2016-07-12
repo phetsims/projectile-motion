@@ -44,11 +44,7 @@ define( function( require ) {
     var velocityLabel = new Text( velocityString, { font: ProjectileMotionConstants.LABEL_FONT } );
 
     var setVelocitySlider = new HSlider(
-      projectileMotionModel.velocityProperty, {
-        // range is in m/s
-        min: 0,
-        max: 100
-      } );
+      projectileMotionModel.velocityProperty, ProjectileMotionConstants.VELOCITY_RANGE );
 
     // in the future, move this value changer box into a function
     var velocityBox = new VBox( { children: [ velocityLabel, setVelocitySlider ] } );
@@ -56,18 +52,13 @@ define( function( require ) {
     var angleLabel = new Text( angleString, { font: ProjectileMotionConstants.LABEL_FONT } );
 
     var setAngleSlider = new HSlider(
-      projectileMotionModel.angleProperty, {
-        // range is in degrees
-        min: 0,
-        max: 90
-      } );
+      projectileMotionModel.angleProperty, ProjectileMotionConstants.ANGLE_RANGE );
 
     // in the future, move this value changer box into a function
     var angleBox = new VBox( { children: [ angleLabel, setAngleSlider ] } );
 
     var fireListener = function() {
       projectileMotionModel.cannonFired();
-      projectileMotionModel.running = true;
     };
 
     var fireButton = new RoundPushButton( {

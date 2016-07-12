@@ -16,7 +16,13 @@ define( function( require ) {
   // constants
   var ProjectileMotionConstants = {
 
-    LABEL_FONT: new PhetFont( 18 )
+    LABEL_FONT: new PhetFont( 18 ),
+
+    VELOCITY_RANGE: { min: 0, max: 50 },
+    ANGLE_RANGE: { min: -90, max: 180 },
+
+    INITIAL_TRAJECTORY_X: 0,
+    INITIAL_TRAJECTORY_Y: 2
 
   };
 

@@ -41,8 +41,10 @@ define( function( require ) {
       y: 25
     } ) );
 
+    thisScreenView.trajectoryNode = new TrajectoryNode( projectileMotionModel.trajectory, modelViewTransform );
+
     // add trajectory node
-    thisScreenView.addChild( new TrajectoryNode( projectileMotionModel.trajectory, modelViewTransform ) );
+    thisScreenView.addChild( thisScreenView.trajectoryNode );
 
     // help with visual debugging
     var helperRectangle = new Rectangle( 0, 0, 10, 10, { fill: 'rgba(0,0,255,0.25)' } );

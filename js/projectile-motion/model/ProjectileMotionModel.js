@@ -17,23 +17,25 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionModel() {
-    PropertySet.call( this, {
+    var projectileMotionModel = this;
+    PropertySet.call( projectileMotionModel, {
       velocity: 18,
       angle: 80,
-      running: false // supposed to be false, replace later with paused
+      running: true // supposed to be false, replace later with paused
     } );
 
-    this.trajectory = new Trajectory( this.velocity, this.angle );
+    projectileMotionModel.trajectory = new Trajectory( projectileMotionModel.velocity, projectileMotionModel.angle );
 
     // 
-    this.setInitialConditions = function() {
-      this.trajectory.setVelocityAndAngle( this.velocity, this.angle );
-      this.trajectory.resetPosition();
+    projectileMotionModel.setInitialConditions = function() {
+      projectileMotionModel.trajectory.setVelocityAndAngle( projectileMotionModel.velocity, projectileMotionModel.angle );
+      projectileMotionModel.trajectory.resetPosition();
     };
 
     // called on when fire button is pressed
-    this.cannonFired = function() {
-      this.setInitialConditions();
+    projectileMotionModel.cannonFired = function() {
+      projectileMotionModel.setInitialConditions();
+      projectileMotionModel.running = true;
     };
   }
 
