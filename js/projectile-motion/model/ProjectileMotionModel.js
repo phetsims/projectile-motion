@@ -21,12 +21,17 @@ define( function( require ) {
     PropertySet.call( projectileMotionModel, {
       velocity: 18,
       angle: 80,
+      mass: 5, // kg
+      diameter: 0.37, // meters
+      dragCoefficient: 6,
+      airResistanceOn: true, // should default to false
       running: false // supposed to be false, replace later with paused
     } );
 
-    projectileMotionModel.trajectory = new Trajectory( projectileMotionModel.velocity, projectileMotionModel.angle );
+    this.trajectory = new Trajectory( this.velocity, this.angle, this.mass, this.diameter,
+      this.dragCoefficient, this.airResistanceOn );
 
-    // 
+    // set velocity and angle, and reset position to origin
     projectileMotionModel.setInitialConditions = function() {
       projectileMotionModel.trajectory.setVelocityAndAngle( projectileMotionModel.velocity, projectileMotionModel.angle );
       projectileMotionModel.trajectory.resetPosition();

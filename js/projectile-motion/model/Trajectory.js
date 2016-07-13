@@ -20,17 +20,26 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Trajectory( initialVelocity, initialAngle ) {
+  function Trajectory( initialVelocity, initialAngle, mass, diameter, dragCoefficient, airResistanceOn ) {
 
     // @public
     PropertySet.call( this, {
       x: ProjectileMotionConstants.INITIAL_TRAJECTORY_X,
       y: ProjectileMotionConstants.INITIAL_TRAJECTORY_Y,
+      mass: mass,
+      diameter: diameter,
+      dragCoefficient: dragCoefficient,
+      airResistanceOn: airResistanceOn, //move to main model later
+      xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
+      yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
       showPaths: true // if it is set to false, the paths are erased
     } );
 
     this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
     this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
+
+    this.velocity = initialVelocity;
+
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
 
@@ -57,22 +66,46 @@ define( function( require ) {
 
     // @public animate trajectory, not taking into account air resistance
     step: function( dt ) {
-      // stop at the ground
+
+      // TODO: check for x is in the bounds // not working
       if ( this.y < 0 ) {
         return;
       }
 
-      var newXVelocity = this.xVelocity;
+      var airDensity; // not constant, will change due to altitude
+
+      if ( this.airResistanceOn ) {
+        airDensity = 1.23;
+      }
+      else {
+        // air resistance is turned off
+        airDensity = 0;
+      }
+
+      var area = Math.PI * this.diameter * this.diameter / 4;
+
+      var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
+      var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
+
+      this.xAcceleration = -dragForceX / this.mass;
+      this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
+
+
+      var newXVelocity = this.xVelocity + this.xAcceleration * dt;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
-      this.xVelocity = newXVelocity;
-      this.yVelocity = newYVelocity;
-
-      var newX = this.x + this.xVelocity * dt;
+      
+      
+      var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
       var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
 
       this.x = newX;
       this.y = newY;
+      this.xVelocity = newXVelocity;
+      this.yVelocity = newYVelocity;
+
+      this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
     }
   } );
 } );
+

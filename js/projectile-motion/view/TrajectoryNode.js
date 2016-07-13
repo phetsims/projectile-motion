@@ -19,7 +19,6 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var BALL_SIZE = 0.37; // will change, based off pumpkin size in original sim
   var COLOR = 'black';
   var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
 
@@ -33,7 +32,7 @@ define( function( require ) {
     Node.call( thisNode, { pickable: false } );
     // debugger;
 
-    var transformedBallSize = modelViewTransform.modelToViewDeltaX( BALL_SIZE );
+    var transformedBallSize = modelViewTransform.modelToViewDeltaX( trajectory.diameter );
 
     // node drawn 
     thisNode.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
@@ -57,9 +56,9 @@ define( function( require ) {
       // if it's going off screen in the model, stop drawing it screen
       if (
         modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxY ||
+        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
         modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-        modelViewTransform.modelToViewY( trajectory.y )> thisNode.parents[ 0 ].layoutBounds.maxY
+        modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
       ) {
         console.log( thisNode.parents[ 0 ].layoutBounds );
         return;
@@ -76,9 +75,9 @@ define( function( require ) {
       // if it's going off screen in the model, stop it right before
       if (
         modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxY ||
+        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
         modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-        modelViewTransform.modelToViewY( trajectory.y )> thisNode.parents[ 0 ].layoutBounds.maxY
+        modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
       ) {
         // console.log( thisNode.parents[ 0 ].layoutBounds );
         return;
