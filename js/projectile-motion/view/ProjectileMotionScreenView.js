@@ -61,15 +61,15 @@ define( function( require ) {
     thisScreenView.measuringTapeNode = new MeasuringTape( 
       projectileMotionModel.unitsProperty, 
       projectileMotionModel.measuringTapeProperty, { 
-        x: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
-        y: 70, //empirically determined
+        x: 150, // empirically determined
+        y: 90, //empirically determined
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
     // help with visual debugging
-    var helperRectangle = new Rectangle( 0, 0, 10, 10, { fill: 'rgba(0,0,255,0.25)' } );
+    var helperRectangle = new Rectangle( 0, -1, 20, 1, { fill: 'rgba(0,0,255,0.25)' } );
     thisScreenView.addChild( helperRectangle );
     helperRectangle.setRectBounds( modelViewTransform.modelToViewBounds( helperRectangle.getRectBounds() ) );
   }
