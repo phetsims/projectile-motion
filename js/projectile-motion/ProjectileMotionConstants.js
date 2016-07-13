@@ -22,7 +22,7 @@ define( function( require ) {
     ANGLE_RANGE: { min: -90, max: 180 },
 
     INITIAL_TRAJECTORY_X: 0,
-    INITIAL_TRAJECTORY_Y: 2
+    INITIAL_TRAJECTORY_Y: 0
 
   };
 
