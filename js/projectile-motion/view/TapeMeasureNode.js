@@ -32,13 +32,18 @@ define( function( require ) {
    * @param {String|color} color
    * @constructor
    */
-  function TapeMeasureNode( modelViewTransform ) {
+  function TapeMeasureNode( model, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode );
 
     thisNode.baseCenter = new Vector2(
-      modelViewTransform.modelToViewX( 0 ),
-      modelViewTransform.modelToViewY( 0 )
+      modelViewTransform.modelToViewX( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X ),
+      modelViewTransform.modelToViewY( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y )
+    );
+
+    thisNode.endCenter = new Vector2(
+      modelViewTransform.modelToViewX( INITIAL_TAPE_MEASURE_LENGTH ),
+      modelViewTransform.modelToViewY( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y )
     );
 
     thisNode.baseOfTapeMeasure = new Circle( modelViewTransform.modelToViewDeltaX( BASE_OF_TAPE_MEASURE_RADIUS ), {
@@ -47,11 +52,6 @@ define( function( require ) {
       cursor: 'pointer',
       fill: 'rgba(0,0,0,0.6)'
     } );
-
-    thisNode.endCenter = new Vector2(
-      modelViewTransform.modelToViewX( INITIAL_TAPE_MEASURE_LENGTH ),
-      modelViewTransform.modelToViewY( 0 )
-    );
 
     thisNode.endOfTapeMeasure = new Circle( modelViewTransform.modelToViewDeltaX( END_OF_TAPE_MEASURE_RADIUS ), {
       center: thisNode.endCenter,
@@ -85,6 +85,31 @@ define( function( require ) {
       width: 10,
       x: thisNode.baseCenter.x,
       y: thisNode.baseCenter.y + LABEL_Y_OFFSET
+    } );
+
+    // reset the ruler location and length
+    model.resetListenerProperty.link( function() {
+      thisNode.baseCenter = new Vector2(
+        modelViewTransform.modelToViewX( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X ),
+        modelViewTransform.modelToViewY( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y )
+      );
+
+      thisNode.endCenter = new Vector2(
+        modelViewTransform.modelToViewX( INITIAL_TAPE_MEASURE_LENGTH ),
+        modelViewTransform.modelToViewY( ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y )
+      );
+
+      // relocate the tape measure based on the change
+      thisNode.baseOfTapeMeasure.center = thisNode.baseCenter;
+      thisNode.endOfTapeMeasure.center = thisNode.endCenter;
+      thisNode.tape.setPoint1( thisNode.baseCenter.x, thisNode.baseCenter.y );
+      thisNode.tape.setPoint2( thisNode.endCenter.x, thisNode.endCenter.y );
+      thisNode.lengthLabel.x = thisNode.baseCenter.x;
+      thisNode.lengthLabel.y = thisNode.baseCenter.y + LABEL_Y_OFFSET;
+      
+      // update length readout
+      thisNode.length = lengthToLabel( thisNode.baseCenter.distance( thisNode.endCenter ) );
+      thisNode.lengthLabel.text = thisNode.length;
     } );
 
     // track where mouse and location of tape is when drag started
@@ -140,16 +165,16 @@ define( function( require ) {
         // update length readout
         thisNode.length = lengthToLabel( thisNode.baseCenter.distance( thisNode.endCenter ) );
         thisNode.lengthLabel.text = thisNode.length;
-
-        console.log( thisNode.length );
       }
     } ) );
-
 
     thisNode.addChild( thisNode.tape );
     thisNode.addChild( thisNode.baseOfTapeMeasure );
     thisNode.addChild( thisNode.endOfTapeMeasure );
     thisNode.addChild( thisNode.lengthLabel );
+
+
+
   }
 
   projectileMotion.register( 'TapeMeasureNode', TapeMeasureNode );

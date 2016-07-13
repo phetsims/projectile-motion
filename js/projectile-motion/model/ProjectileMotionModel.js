@@ -26,7 +26,8 @@ define( function( require ) {
       diameter: 0.37, // meters
       dragCoefficient: 6,
       airResistanceOn: true, // should default to false
-      running: false // supposed to be false, replace later with paused
+      running: false, // supposed to be false, replace later with paused
+      resetListener: 0 // a clumsy way that lets view objects listen for a reset
     } );
 
     this.cannonX = ProjectileMotionConstants.INITIAL_TRAJECTORY_X;
@@ -58,6 +59,8 @@ define( function( require ) {
       this.velocityProperty.reset();
       this.angleProperty.reset();
       this.runningProperty.reset();
+
+      this.resetListener = this.resetListener + 1;
 
       // reset the trajectory, resetting to initial velocity and angle
       // this.trajectory.showPaths = false;

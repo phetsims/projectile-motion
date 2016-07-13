@@ -52,7 +52,7 @@ define( function( require ) {
     thisScreenView.addChild( thisScreenView.cannonNode );
 
     // add tool - tape measure
-    thisScreenView.tapeMeasureNode = new TapeMeasureNode( modelViewTransform );
+    thisScreenView.tapeMeasureNode = new TapeMeasureNode( projectileMotionModel, modelViewTransform );
     thisScreenView.addChild( thisScreenView.tapeMeasureNode );
 
     // help with visual debugging
