@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
@@ -27,7 +28,9 @@ define( function( require ) {
       dragCoefficient: 6,
       airResistanceOn: true, // should default to false
       running: false, // supposed to be false, replace later with paused
-      resetListener: 0 // a clumsy way that lets view objects listen for a reset
+      resetListener: 0, // a clumsy way that lets view objects listen for a reset
+      units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
+      measuringTape: true
     } );
 
     this.cannonX = ProjectileMotionConstants.INITIAL_TRAJECTORY_X;

@@ -14,10 +14,12 @@ define( function( require ) {
   var ControlPanel = require( 'PROJECTILE_MOTION/projectile-motion/view/ControlPanel' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/projectile-motion/view/CannonNode' );
-  var TapeMeasureNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TapeMeasureNode' );
+  // var TapeMeasureNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TapeMeasureNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   // constants
 
@@ -52,8 +54,19 @@ define( function( require ) {
     thisScreenView.addChild( thisScreenView.cannonNode );
 
     // add tool - tape measure
-    thisScreenView.tapeMeasureNode = new TapeMeasureNode( projectileMotionModel, modelViewTransform );
-    thisScreenView.addChild( thisScreenView.tapeMeasureNode );
+    // thisScreenView.tapeMeasureNode = new TapeMeasureNode( projectileMotionModel, modelViewTransform );
+    // thisScreenView.addChild( thisScreenView.tapeMeasureNode );
+
+    // add common code tape measure
+    thisScreenView.measuringTapeNode = new MeasuringTape( 
+      projectileMotionModel.unitsProperty, 
+      projectileMotionModel.measuringTapeProperty, { 
+        x: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
+        y: 70, //empirically determined
+        textColor: 'black',
+        modelViewTransform: modelViewTransform
+      } );
+    thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
     // help with visual debugging
     var helperRectangle = new Rectangle( 0, 0, 10, 10, { fill: 'rgba(0,0,255,0.25)' } );
