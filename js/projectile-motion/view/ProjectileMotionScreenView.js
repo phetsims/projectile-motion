@@ -13,6 +13,7 @@ define( function( require ) {
   var ScreenView = require( 'JOIST/ScreenView' );
   var ControlPanel = require( 'PROJECTILE_MOTION/projectile-motion/view/ControlPanel' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode' );
+  var CannonNode = require( 'PROJECTILE_MOTION/projectile-motion/view/CannonNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -44,6 +45,9 @@ define( function( require ) {
     // add trajectory node
     thisScreenView.trajectoryNode = new TrajectoryNode( projectileMotionModel.trajectory, modelViewTransform );
     thisScreenView.addChild( thisScreenView.trajectoryNode );
+
+    thisScreenView.cannonNode = new CannonNode( projectileMotionModel, modelViewTransform );
+    thisScreenView.addChild( thisScreenView.cannonNode );
 
     // help with visual debugging
     var helperRectangle = new Rectangle( 0, 0, 10, 10, { fill: 'rgba(0,0,255,0.25)' } );

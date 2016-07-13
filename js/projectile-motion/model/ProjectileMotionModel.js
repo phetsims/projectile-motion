@@ -12,6 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   /**
    * @constructor
@@ -27,6 +28,9 @@ define( function( require ) {
       airResistanceOn: true, // should default to false
       running: false // supposed to be false, replace later with paused
     } );
+
+    this.cannonX = ProjectileMotionConstants.INITIAL_TRAJECTORY_X;
+    this.cannonY = ProjectileMotionConstants.INITIAL_TRAJECTORY_Y;
 
     this.trajectory = new Trajectory( this.velocity, this.angle, this.mass, this.diameter,
       this.dragCoefficient, this.airResistanceOn );
