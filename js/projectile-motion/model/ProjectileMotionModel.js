@@ -36,8 +36,8 @@ define( function( require ) {
     this.cannonX = ProjectileMotionConstants.INITIAL_TRAJECTORY_X;
     this.cannonY = ProjectileMotionConstants.INITIAL_TRAJECTORY_Y;
 
-    this.trajectory = new Trajectory( this.velocity, this.angle, this.mass, this.diameter,
-      this.dragCoefficient, this.airResistanceOn );
+    this.trajectory = new Trajectory( this, this.velocity, this.angle, this.mass, this.diameter,
+      this.dragCoefficient );
 
     // set velocity and angle, and reset position to origin
     projectileMotionModel.setInitialConditions = function() {
@@ -73,6 +73,7 @@ define( function( require ) {
 
     // @public animates trajectory if running
     step: function( dt ) {
+      console.log( this.airResistanceOn );
       if ( this.running ) {
         this.trajectory.step( dt );
       }

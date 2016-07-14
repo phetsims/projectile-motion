@@ -20,7 +20,8 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Trajectory( initialVelocity, initialAngle, mass, diameter, dragCoefficient, airResistanceOn ) {
+  function Trajectory( model, initialVelocity, initialAngle, mass, diameter, dragCoefficient ) {
+    this.projectileMotionModel = model;
 
     // @public
     PropertySet.call( this, {
@@ -29,7 +30,6 @@ define( function( require ) {
       mass: mass,
       diameter: diameter,
       dragCoefficient: dragCoefficient,
-      airResistanceOn: airResistanceOn, //move to main model later
       xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
       showPaths: true // if it is set to false, the paths are erased
@@ -74,13 +74,15 @@ define( function( require ) {
 
       var airDensity; // not constant, will change due to altitude
 
-      if ( this.airResistanceOn ) {
+      if ( this.projectileMotionModel.airResistanceOn ) {
         airDensity = 1.23;
       }
       else {
         // air resistance is turned off
         airDensity = 0;
       }
+
+      console.log( airDensity );
 
       var area = Math.PI * this.diameter * this.diameter / 4;
 
