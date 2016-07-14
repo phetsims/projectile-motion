@@ -90,13 +90,10 @@ define( function( require ) {
       this.xAcceleration = -dragForceX / this.mass;
       this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
 
-      console.log( this.mass );
-
+      // console.log( this.mass );
 
       var newXVelocity = this.xVelocity + this.xAcceleration * dt;
-      var newYVelocity = this.yVelocity + this.yAcceleration * dt;
-
-      
+      var newYVelocity = this.yVelocity + this.yAcceleration * dt;  
       
       var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
       var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;

@@ -17,9 +17,10 @@ define( function( require ) {
   // var TapeMeasureNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TapeMeasureNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   // constants
 
@@ -39,23 +40,23 @@ define( function( require ) {
       25 // scale for meters, empirically determined based off original sim
     );
 
+    // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
+    thisScreenView.trajectoriesLayer = new Node();
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
       // debugger;
       var trajectoryNode = new TrajectoryNode( addedTrajectory, modelViewTransform );
 
-
-      thisScreenView.addChild( trajectoryNode );
+      thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          thisScreenView.removeChild( trajectoryNode );
+          thisScreenView.trajectoriesLayer.removeChild( trajectoryNode );
           model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
-
     }
 
     // Control panel
@@ -63,17 +64,13 @@ define( function( require ) {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 25
     } ) );
-
-    // debugger;
+    
+    // all trajectories are in front of control panel and behind measuring tape
+    thisScreenView.addChild( thisScreenView.trajectoriesLayer );
     
     // lets view listen to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
-
-
-    // // add trajectory
-    // thisScreenView.trajectoryNode = new TrajectoryNode( model.trajectory, modelViewTransform );
-    // thisScreenView.addChild( thisScreenView.trajectoryNode );
 
     // add cannon
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
