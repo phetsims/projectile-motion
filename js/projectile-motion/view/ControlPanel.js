@@ -25,6 +25,7 @@ define( function( require ) {
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var massString = 'Mass';
+  var diameterString = 'Diameter';
   var airResistanceString = 'Air Resistance';
 
   // constants
@@ -51,7 +52,7 @@ define( function( require ) {
     // @param {String} label
     // @param {Number} value
     var createLabelText = function( label, value ) {
-      return label + ': ' + Math.round( value );
+      return label + ': ' + value.toFixed( 2 );
     };
 
     var createParameterControlBox = function( label, property, range ) {
@@ -81,6 +82,12 @@ define( function( require ) {
       ProjectileMotionConstants.MASS_RANGE
     );
 
+    var diameterBox = createParameterControlBox(
+      diameterString,
+      projectileMotionModel.diameterProperty,
+      ProjectileMotionConstants.DIAMETER_RANGE
+    );
+
     var airResistanceLabel = new Text( airResistanceString );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
 
@@ -108,6 +115,7 @@ define( function( require ) {
         velocityBox,
         angleBox,
         massBox,
+        diameterBox,
         airResistanceCheckBox,
         fireButton,
         resetAllButton

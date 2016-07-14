@@ -28,7 +28,8 @@ define( function( require ) {
 
     VELOCITY_RANGE: { min: 0, max: 50 },
     ANGLE_RANGE: { min: -90, max: 180 },
-    MASS_RANGE: { min: 1, max: 20 },
+    MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
+    DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043
 
     INITIAL_TRAJECTORY_X: 0,
     INITIAL_TRAJECTORY_Y: 0,
