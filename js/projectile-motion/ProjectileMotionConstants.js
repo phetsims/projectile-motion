@@ -16,6 +16,14 @@ define( function( require ) {
   // constants
   var ProjectileMotionConstants = {
 
+    DEFAULT_VELOCITY: 18, // m/s
+    DEFAULT_ANGLE: 80, // degrees
+    DEFAULT_MASS: 5, // kg
+    DEFAULT_DIAMETER: 0.37, // of a pumpkin, in meters
+    DEFAULT_DRAG_COEFFICIENT: 6,
+    DEFAULT_AIR_RESISTANCE_ON: false,
+
+
     LABEL_FONT: new PhetFont( 18 ),
 
     VELOCITY_RANGE: { min: 0, max: 50 },

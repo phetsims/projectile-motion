@@ -54,15 +54,16 @@ define( function( require ) {
     // watch for if the trajectory changes location
     trajectory.xProperty.lazyLink( function() {
       // if it's going off screen in the model, stop drawing it screen
-      if (
-        modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
-        modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-        modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
-      ) {
-        console.log( thisNode.parents[ 0 ].layoutBounds );
-        return;
-      }
+      // debugger;
+      // if (
+      //   modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
+      //   modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
+      //   modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
+      //   modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
+      // ) {
+      //   console.log( thisNode.parents[ 0 ].layoutBounds );
+      //   return;
+      // }
       thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
       thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
 
@@ -73,15 +74,15 @@ define( function( require ) {
 
     trajectory.yProperty.lazyLink( function() {
       // if it's going off screen in the model, stop it right before
-      if (
-        modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-        modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
-        modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-        modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
-      ) {
-        // console.log( thisNode.parents[ 0 ].layoutBounds );
-        return;
-      }
+      // if (
+      //   modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
+      //   modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
+      //   modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
+      //   modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
+      // ) {
+      //   // console.log( thisNode.parents[ 0 ].layoutBounds );
+      //   return;
+      // }
       thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
       thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
 

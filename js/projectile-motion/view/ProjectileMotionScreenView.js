@@ -24,10 +24,10 @@ define( function( require ) {
   // constants
 
   /**
-   * @param {ProjectileMotionModel} projectileMotionModel
+   * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function ProjectileMotionScreenView( projectileMotionModel ) {
+  function ProjectileMotionScreenView( model ) {
 
     var thisScreenView = this;
 
@@ -39,28 +39,50 @@ define( function( require ) {
       25 // scale for meters, empirically determined based off original sim
     );
 
-    // Reset All button
-    thisScreenView.addChild( new ControlPanel( projectileMotionModel, {
+
+    function handleTrajectoryAdded( addedTrajectory ) {
+      // Create and add the view representation for this trajectory
+      // debugger;
+      var trajectoryNode = new TrajectoryNode( addedTrajectory, modelViewTransform );
+
+
+      thisScreenView.addChild( trajectoryNode );
+
+      // Add the removal listener for if and when this trajectory is removed from the model.
+      model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
+        if ( removedTrajectory === addedTrajectory ) {
+          thisScreenView.removeChild( trajectoryNode );
+          model.trajectories.removeItemRemovedListener( removalListener );
+        }
+      } );
+
+    }
+
+    // Control panel
+    thisScreenView.addChild( new ControlPanel( model, {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 25
     } ) );
 
-    // add trajectory
-    thisScreenView.trajectoryNode = new TrajectoryNode( projectileMotionModel.trajectory, modelViewTransform );
-    thisScreenView.addChild( thisScreenView.trajectoryNode );
+    // debugger;
+    
+    // lets view listen to whether a trajectory has been added in the model
+    model.trajectories.forEach( handleTrajectoryAdded );
+    model.trajectories.addItemAddedListener( handleTrajectoryAdded );
+
+
+    // // add trajectory
+    // thisScreenView.trajectoryNode = new TrajectoryNode( model.trajectory, modelViewTransform );
+    // thisScreenView.addChild( thisScreenView.trajectoryNode );
 
     // add cannon
-    thisScreenView.cannonNode = new CannonNode( projectileMotionModel, modelViewTransform );
+    thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     thisScreenView.addChild( thisScreenView.cannonNode );
 
-    // add tool - tape measure
-    // thisScreenView.tapeMeasureNode = new TapeMeasureNode( projectileMotionModel, modelViewTransform );
-    // thisScreenView.addChild( thisScreenView.tapeMeasureNode );
-
     // add common code tape measure
-    thisScreenView.measuringTapeNode = new MeasuringTape( 
-      projectileMotionModel.unitsProperty, 
-      projectileMotionModel.measuringTapeProperty, { 
+    thisScreenView.measuringTapeNode = new MeasuringTape(
+      model.unitsProperty,
+      model.measuringTapeProperty, {
         x: 150, // empirically determined
         y: 90, //empirically determined
         textColor: 'black',
@@ -68,7 +90,7 @@ define( function( require ) {
       } );
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
-    projectileMotionModel.resetListenerProperty.link( function() {
+    model.resetListenerProperty.link( function() {
       thisScreenView.measuringTapeNode.reset();
     } );
 
