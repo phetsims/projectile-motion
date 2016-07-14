@@ -68,6 +68,10 @@ define( function( require ) {
       } );
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
+    projectileMotionModel.resetListenerProperty.link( function() {
+      thisScreenView.measuringTapeNode.reset();
+    } );
+
     // help with visual debugging
     var helperRectangle = new Rectangle( 0, -1, 20, 1, { fill: 'rgba(0,0,255,0.25)' } );
     thisScreenView.addChild( helperRectangle );

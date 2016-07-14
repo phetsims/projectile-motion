@@ -16,6 +16,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
+  var CheckBox = require( 'SUN/CheckBox' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
@@ -23,6 +24,7 @@ define( function( require ) {
   // strings
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
+  var airResistanceString = 'Air Resistance';
 
   // constants
   var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
@@ -71,6 +73,9 @@ define( function( require ) {
     );
     var angleBox = new VBox( { spacing: 10, children: [ angleLabel, setAngleSlider ] } );
 
+    var airResistanceLabel = new Text( airResistanceString );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
+
     var fireListener = function() {
       projectileMotionModel.cannonFired();
     };
@@ -94,6 +99,7 @@ define( function( require ) {
       children: [
         velocityBox,
         angleBox,
+        airResistanceCheckBox,
         fireButton,
         resetAllButton
       ]
