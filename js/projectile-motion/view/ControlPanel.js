@@ -24,6 +24,7 @@ define( function( require ) {
   // strings
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
+  var massString = 'Mass';
   var airResistanceString = 'Air Resistance';
 
   // constants
@@ -47,31 +48,38 @@ define( function( require ) {
       options );
 
     // auxiliary function that creates the string for a text label
+    // @param {String} label
+    // @param {Number} value
     var createLabelText = function( label, value ) {
       return label + ': ' + Math.round( value );
     };
 
-    // all things control related to velocity
-    var velocityLabel = new Text( createLabelText( velocityString, projectileMotionModel.velocity ), LABEL_OPTIONS );
-    projectileMotionModel.velocityProperty.link( function( v ) {
-      velocityLabel.text = createLabelText( velocityString, v );
-    } );
-    var setVelocitySlider = new HSlider(
+    var createParameterControlBox = function( label, property, range ) {
+      var parameterLabel = new Text( createLabelText( label, property.value ), LABEL_OPTIONS );
+      property.link( function( v ) {
+        parameterLabel.text = createLabelText( label, v );
+      } );
+      var setParameterSlider = new HSlider( property, range );
+      return new VBox( { spacing: 10, children: [ parameterLabel, setParameterSlider ] } );
+    };
+
+    var velocityBox = createParameterControlBox(
+      velocityString,
       projectileMotionModel.velocityProperty,
       ProjectileMotionConstants.VELOCITY_RANGE
     );
-    var velocityBox = new VBox( { spacing: 10, children: [ velocityLabel, setVelocitySlider ] } );
 
-    // all things control related to angle
-    var angleLabel = new Text( createLabelText( angleString, projectileMotionModel.angle ), { font: ProjectileMotionConstants.LABEL_FONT } );
-    projectileMotionModel.angleProperty.link( function( a ) {
-      angleLabel.text = createLabelText( angleString, a );
-    } );
-    var setAngleSlider = new HSlider(
+    var angleBox = createParameterControlBox(
+      angleString,
       projectileMotionModel.angleProperty,
       ProjectileMotionConstants.ANGLE_RANGE
     );
-    var angleBox = new VBox( { spacing: 10, children: [ angleLabel, setAngleSlider ] } );
+
+    var massBox = createParameterControlBox(
+      massString,
+      projectileMotionModel.massProperty,
+      ProjectileMotionConstants.MASS_RANGE
+    );
 
     var airResistanceLabel = new Text( airResistanceString );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
@@ -99,6 +107,7 @@ define( function( require ) {
       children: [
         velocityBox,
         angleBox,
+        massBox,
         airResistanceCheckBox,
         fireButton,
         resetAllButton

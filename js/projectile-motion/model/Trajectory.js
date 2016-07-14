@@ -82,8 +82,6 @@ define( function( require ) {
         airDensity = 0;
       }
 
-      console.log( airDensity );
-
       var area = Math.PI * this.diameter * this.diameter / 4;
 
       var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
@@ -91,6 +89,8 @@ define( function( require ) {
 
       this.xAcceleration = -dragForceX / this.mass;
       this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
+
+      console.log( this.mass );
 
 
       var newXVelocity = this.xVelocity + this.xAcceleration * dt;
