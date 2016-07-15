@@ -79,6 +79,8 @@ define( function( require ) {
     model.angleProperty.link( function( angle ) {
       thisNode.cannon.x2 = thisNode.getX2( model.angle );
       thisNode.cannon.y2 = thisNode.getY2( model.angle );
+
+      // TODO: do we need to reset base
       thisNode.adjustableHeightArea.x = thisNode.cannon.x1;
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.x = thisNode.cannon.x2;

@@ -22,6 +22,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   // strings
+  // TODO: internationalized
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var massString = 'Mass';
