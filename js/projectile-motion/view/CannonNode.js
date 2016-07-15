@@ -90,7 +90,6 @@ define( function( require ) {
       thisNode.cannon.y2 = thisNode.getY2( model.angle );
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.y = thisNode.cannon.y2;
-      console.log( thisNode.cannon.y1 );
     } );
 
     var startPoint;
