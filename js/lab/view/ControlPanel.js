@@ -1,0 +1,155 @@
+// Copyright 2013-2015, University of Colorado Boulder
+
+/**
+ * Control panel.
+ *
+ * @author Chris Malley (PixelZoom, Inc.)
+ * @author Sam Reid (PhET Interactive Simulations)
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Panel = require( 'SUN/Panel' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var HSlider = require( 'SUN/HSlider' );
+  var CheckBox = require( 'SUN/CheckBox' );
+  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/lab/ProjectileMotionConstants' );
+
+  // strings
+  // TODO: internationalized
+  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
+  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
+  var massString = 'Mass';
+  var diameterString = 'Diameter';
+  var dragCoefficientString = 'Drag Coefficient';
+  var altitudeString = 'Altitude';
+  var airResistanceString = 'Air Resistance';
+
+  // constants
+  var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
+
+  /**
+   * Control panel constructor
+   * @param {BarMagnet} barMagnetModel the entire model for the bar magnet screen
+   * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
+   * @constructor
+   */
+  function ControlPanel( projectileMotionLabModel, options ) {
+
+    // Demonstrate a common pattern for specifying options and providing default values.
+    options = _.extend( {
+        xMargin: 10,
+        yMargin: 10,
+        stroke: 'orange',
+        lineWidth: 3
+      },
+      options );
+
+    // auxiliary function that creates the string for a text label
+    // @param {String} label
+    // @param {Number} value
+    // @return {String}
+    var createLabelText = function( label, value ) {
+      return label + ': ' + value.toFixed( 2 );
+    };
+
+    // auxiliary function that creates vbox for a parameter label and slider
+    // @param {String} label
+    // @param {Property} property
+    // @param {Object} range, range has keys min and max
+    // @return {VBox}
+    var createParameterControlBox = function( label, property, range ) {
+      var parameterLabel = new Text( createLabelText( label, property.value ), LABEL_OPTIONS );
+      property.link( function( v ) {
+        parameterLabel.text = createLabelText( label, v );
+      } );
+      var setParameterSlider = new HSlider( property, range );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
+    };
+
+    var velocityBox = createParameterControlBox(
+      velocityString,
+      projectileMotionLabModel.velocityProperty,
+      ProjectileMotionConstants.VELOCITY_RANGE
+    );
+
+    var angleBox = createParameterControlBox(
+      angleString,
+      projectileMotionLabModel.angleProperty,
+      ProjectileMotionConstants.ANGLE_RANGE
+    );
+
+    var massBox = createParameterControlBox(
+      massString,
+      projectileMotionLabModel.massProperty,
+      ProjectileMotionConstants.MASS_RANGE
+    );
+
+    var diameterBox = createParameterControlBox(
+      diameterString,
+      projectileMotionLabModel.diameterProperty,
+      ProjectileMotionConstants.DIAMETER_RANGE
+    );
+
+    var dragCoefficientBox = createParameterControlBox(
+      dragCoefficientString,
+      projectileMotionLabModel.dragCoefficientProperty,
+      ProjectileMotionConstants.DRAG_COEFFICIENT_RANGE
+    );
+
+    var altitudeBox = createParameterControlBox(
+      altitudeString,
+      projectileMotionLabModel.altitudeProperty,
+      ProjectileMotionConstants.ALTITUDE_RANGE
+    );
+
+    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
+
+    var fireListener = function() {
+      projectileMotionLabModel.cannonFired();
+    };
+
+    var fireButton = new RoundPushButton( {
+      baseColor: '#94b830', //green
+      listener: fireListener
+    } );
+
+    // 'Reset All' button, resets the sim to its initial state
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        projectileMotionLabModel.reset();
+      }
+    } );
+
+    // The contents of the control panel
+    var content = new VBox( {
+      align: 'center',
+      spacing: 10,
+      children: [
+        velocityBox,
+        angleBox,
+        massBox,
+        diameterBox,
+        dragCoefficientBox,
+        airResistanceCheckBox,
+        altitudeBox,
+        fireButton,
+        resetAllButton
+      ]
+    } );
+
+    Panel.call( this, content, options );
+  }
+
+  projectileMotion.register( 'ControlPanel', ControlPanel );
+
+  return inherit( Panel, ControlPanel );
+} );
+
