@@ -14,7 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
+  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
 
   // constants
   var ACCELERATION_DUE_TO_GRAVITY = 9.8; // m/s^2
@@ -22,13 +22,13 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Trajectory( model, initialVelocity, initialAngle, mass, diameter, dragCoefficient ) {
+  function Trajectory( model, initialX, initialY, initialVelocity, initialAngle, mass, diameter, dragCoefficient ) {
     this.projectileMotionModel = model;
 
     // @public
     PropertySet.call( this, {
-      x: ProjectileMotionConstants.INITIAL_TRAJECTORY_X,
-      y: ProjectileMotionConstants.INITIAL_TRAJECTORY_Y,
+      x: initialX,
+      y: initialY,
       mass: mass,
       diameter: diameter,
       dragCoefficient: dragCoefficient,

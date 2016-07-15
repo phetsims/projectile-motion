@@ -38,17 +38,16 @@ define( function( require ) {
       measuringTapeX: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
       measuringTapeY: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y,
 
-      cannonX: ProjectileMotionConstants.INITIAL_TRAJECTORY_X,
-      cannonY: ProjectileMotionConstants.INITIAL_TRAJECTORY_Y
+      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X,
+      cannonY: ProjectileMotionConstants.INITIAL_CANNON_Y
     } );
 
     // observable array of trajectories
     this.trajectories = new ObservableArray();
-    // debugger;
 
     // called when fire button is pressed
     this.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( this, this.velocity, this.angle, this.mass,
+      projectileMotionModel.trajectories.push( new Trajectory( this, this.cannonX, this.cannonY, this.velocity, this.angle, this.mass,
         this.diameter, this.dragCoefficient ) );
     };
 
