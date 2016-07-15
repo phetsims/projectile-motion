@@ -37,7 +37,7 @@ define( function( require ) {
     INITIAL_TRAJECTORY_Y: 0,
 
     INITIAL_TAPE_MEASURE_X: 0,
-    INITIAL_TAPE_MEASURE_Y: -2 // in meters
+    INITIAL_TAPE_MEASURE_Y: 80 // location will be transformed, but not length
 
   };
 

@@ -34,7 +34,7 @@ define( function( require ) {
       dragCoefficient: dragCoefficient,
       xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
-      showPaths: true // if it is set to false, the paths are erased
+      // showPaths: true // if it is set to false, the paths are erased
     } );
 
     this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),

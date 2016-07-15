@@ -64,10 +64,10 @@ define( function( require ) {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 15
     } ) );
-    
+
     // all trajectories are in front of control panel and behind measuring tape
     thisScreenView.addChild( thisScreenView.trajectoriesLayer );
-    
+
     // lets view listen to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
@@ -80,11 +80,13 @@ define( function( require ) {
     thisScreenView.measuringTapeNode = new MeasuringTape(
       model.unitsProperty,
       model.measuringTapeProperty, {
-        x: 150, // empirically determined
-        y: 90, //empirically determined
+        x: model.measuringTapeX,
+        y: model.measuringTapeY,
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
+    console.log( thisScreenView.measuringTapeNode.x, ' ', thisScreenView.measuringTapeNode.y );
+
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
     model.resetListenerProperty.link( function() {

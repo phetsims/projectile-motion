@@ -90,13 +90,13 @@ define( function( require ) {
 
     } );
 
-    trajectory.showPathsProperty.link( function( showPaths ) {
-      // showPaths tells you if you want to see the path of the projectory
-      if ( !showPaths ) {
-        // erase paths
-        thisNode.trajectoryShape.subpaths = [];
-      }
-    } );
+    // trajectory.showPathsProperty.link( function( showPaths ) {
+    //   // showPaths tells you if you want to see the path of the projectory
+    //   if ( !showPaths ) {
+    //     // erase paths
+    //     thisNode.trajectoryShape.subpaths = [];
+    //   }
+    // } );
 
   }
 

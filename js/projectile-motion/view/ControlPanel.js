@@ -102,9 +102,7 @@ define( function( require ) {
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
-
-
-    var airResistanceLabel = new Text( airResistanceString );
+    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
 
     var fireListener = function() {
@@ -132,8 +130,8 @@ define( function( require ) {
         angleBox,
         massBox,
         diameterBox,
-        airResistanceCheckBox,
         dragCoefficientBox,
+        airResistanceCheckBox,
         altitudeBox,
         fireButton,
         resetAllButton

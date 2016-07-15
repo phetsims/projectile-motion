@@ -31,22 +31,19 @@ define( function( require ) {
       altitude: ProjectileMotionConstants.DEFAULT_ALTITUDE,
       airResistanceOn: ProjectileMotionConstants.DEFAULT_AIR_RESISTANCE_ON, // should default to false
 
-      running: false, // supposed to be false, replace later with paused
-      resetListener: 0, // a clumsy way that lets view objects listen for a reset
+      resetListener: false, // a clumsy way that lets view objects listen for a reset
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
-      measuringTape: true
+
+      measuringTape: true,
+      measuringTapeX: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
+      measuringTapeY: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y,
+
+      cannonX: ProjectileMotionConstants.INITIAL_TRAJECTORY_X,
+      cannonY: ProjectileMotionConstants.INITIAL_TRAJECTORY_Y
     } );
 
-    // properties that do not need to be linked
-    this.cannonX = ProjectileMotionConstants.INITIAL_TRAJECTORY_X;
-    this.cannonY = ProjectileMotionConstants.INITIAL_TRAJECTORY_Y;
-
-    // default trajectory
-    this.trajectory = new Trajectory( this, this.velocity, this.angle, this.mass, this.diameter,
-      this.dragCoefficient );
-
     // observable array of trajectories
-    this.trajectories = new ObservableArray( [ this.trajectory ] );
+    this.trajectories = new ObservableArray();
     // debugger;
 
     // called when fire button is pressed
@@ -55,16 +52,9 @@ define( function( require ) {
         this.diameter, this.dragCoefficient ) );
     };
 
-    // // set velocity and angle, and reset position to origin
-    // projectileMotionModel.setInitialConditions = function() {
-    //   projectileMotionModel.trajectory.setVelocityAndAngle( projectileMotionModel.velocity, projectileMotionModel.angle );
-    //   projectileMotionModel.trajectory.resetPosition();
-    // };
-
     // called on when fire button is pressed
     projectileMotionModel.cannonFired = function() {
       projectileMotionModel.addTrajectory();
-      projectileMotionModel.running = true;
     };
   }
 
@@ -73,29 +63,34 @@ define( function( require ) {
   return inherit( PropertySet, ProjectileMotionModel, {
 
     reset: function() {
-      // debugger;
-      // reset properties of this model.
-      // may replace with this.reset(), depending.
+      // reset properties of the projectile
       this.velocityProperty.reset();
       this.angleProperty.reset();
       this.massProperty.reset();
       this.diameterProperty.reset();
-      this.airResistanceOnProperty.reset();
       this.dragCoefficientProperty.reset();
-      this.altitudeProperty.reset();
-      this.runningProperty.reset();
-      this.resetListener = this.resetListener + 1;
 
-      this.trajectory.reset();
+      // reset properties of the environment
+      this.airResistanceOnProperty.reset();
+      this.altitudeProperty.reset();
+
+      this.resetListener = !this.resetListener;
+
+      // the following matters if user has changed the height of the cannon
+      this.cannonXProperty.reset();
+      this.cannonYProperty.reset();
+
+      // resets the position of the measuring tape
+      this.measuringTapeXProperty.reset();
+      this.measuringTapeYProperty.reset();
+
+      // remove all trajectories
       this.trajectories.reset();
     },
 
     // @public animates trajectory if running
     step: function( dt ) {
-      // console.log( this.airResistanceOn );
-      if ( this.running ) {
-        this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
-      }
+      this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
     }
   } );
 } );
