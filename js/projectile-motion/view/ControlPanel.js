@@ -26,6 +26,8 @@ define( function( require ) {
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var massString = 'Mass';
   var diameterString = 'Diameter';
+  var dragCoefficientString = 'Drag Coefficient';
+  var altitudeString = 'Altitude';
   var airResistanceString = 'Air Resistance';
 
   // constants
@@ -61,7 +63,7 @@ define( function( require ) {
         parameterLabel.text = createLabelText( label, v );
       } );
       var setParameterSlider = new HSlider( property, range );
-      return new VBox( { spacing: 10, children: [ parameterLabel, setParameterSlider ] } );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     };
 
     var velocityBox = createParameterControlBox(
@@ -87,6 +89,20 @@ define( function( require ) {
       projectileMotionModel.diameterProperty,
       ProjectileMotionConstants.DIAMETER_RANGE
     );
+
+    var dragCoefficientBox = createParameterControlBox(
+      dragCoefficientString,
+      projectileMotionModel.dragCoefficientProperty,
+      ProjectileMotionConstants.DRAG_COEFFICIENT_RANGE
+    );
+
+    var altitudeBox = createParameterControlBox(
+      altitudeString,
+      projectileMotionModel.altitudeProperty,
+      ProjectileMotionConstants.ALTITUDE_RANGE
+    );
+
+
 
     var airResistanceLabel = new Text( airResistanceString );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
@@ -117,6 +133,8 @@ define( function( require ) {
         massBox,
         diameterBox,
         airResistanceCheckBox,
+        dragCoefficientBox,
+        altitudeBox,
         fireButton,
         resetAllButton
       ]

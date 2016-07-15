@@ -62,7 +62,7 @@ define( function( require ) {
     // Control panel
     thisScreenView.addChild( new ControlPanel( model, {
       x: thisScreenView.layoutBounds.maxX - 150,
-      y: 25
+      y: 15
     } ) );
     
     // all trajectories are in front of control panel and behind measuring tape

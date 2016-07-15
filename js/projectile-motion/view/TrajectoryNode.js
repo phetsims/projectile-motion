@@ -12,11 +12,11 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Property = require( 'AXON/Property' );
+  // var Property = require( 'AXON/Property' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
+  // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var COLOR = 'black';

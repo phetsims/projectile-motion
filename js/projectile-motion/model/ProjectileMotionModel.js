@@ -28,6 +28,7 @@ define( function( require ) {
       mass: ProjectileMotionConstants.DEFAULT_MASS, // kg
       diameter: ProjectileMotionConstants.DEFAULT_DIAMETER, // meters
       dragCoefficient: ProjectileMotionConstants.DEFAULT_DRAG_COEFFICIENT,
+      altitude: ProjectileMotionConstants.DEFAULT_ALTITUDE,
       airResistanceOn: ProjectileMotionConstants.DEFAULT_AIR_RESISTANCE_ON, // should default to false
 
       running: false, // supposed to be false, replace later with paused
@@ -79,8 +80,9 @@ define( function( require ) {
       this.angleProperty.reset();
       this.massProperty.reset();
       this.diameterProperty.reset();
-      this.dragCoefficientProperty.reset();
       this.airResistanceOnProperty.reset();
+      this.dragCoefficientProperty.reset();
+      this.altitudeProperty.reset();
       this.runningProperty.reset();
       this.resetListener = this.resetListener + 1;
 
