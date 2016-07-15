@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var ProjectileMotionLabScreen = require( 'PROJECTILE_MOTION/lab/ProjectileMotionScreen' );
+  var ProjectileMotionLabScreen = require( 'PROJECTILE_MOTION/lab/ProjectileMotionLabScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
 
   // strings
-  var projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/lab.title' );
+  var projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
   var simOptions = {
     credits: {
