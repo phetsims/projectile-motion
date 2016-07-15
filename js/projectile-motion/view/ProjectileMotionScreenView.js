@@ -14,15 +14,12 @@ define( function( require ) {
   var ControlPanel = require( 'PROJECTILE_MOTION/projectile-motion/view/ControlPanel' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/projectile-motion/view/CannonNode' );
-  // var TapeMeasureNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TapeMeasureNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var Node = require( 'SCENERY/nodes/Node' );
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
-
-  // constants
 
   /**
    * @param {ProjectileMotionModel} model
@@ -45,7 +42,6 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
-      // debugger;
       var trajectoryNode = new TrajectoryNode( addedTrajectory, modelViewTransform );
 
       thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
@@ -85,7 +81,6 @@ define( function( require ) {
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
-    console.log( thisScreenView.measuringTapeNode.x, ' ', thisScreenView.measuringTapeNode.y );
 
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 

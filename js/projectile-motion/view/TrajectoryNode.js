@@ -13,14 +13,14 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var Property = require( 'AXON/Property' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  // var Path = require( 'SCENERY/nodes/Path' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var Shape = require( 'KITE/Shape' );
+  // var Shape = require( 'KITE/Shape' );
   // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var COLOR = 'black';
-  var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
+  // var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
 
   /**
    * @param {Particle} particle
@@ -43,18 +43,16 @@ define( function( require ) {
 
     thisNode.addChild( thisNode.projectile );
 
-
-    thisNode.trajectoryShape = new Shape();
+    // thisNode.trajectoryShape = new Shape();
     // thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( thisNode.projectile.center ) );
 
-    thisNode.trajectoryPath = new Path( thisNode.trajectoryShape, PATH_OPTIONS );
+    // thisNode.trajectoryPath = new Path( thisNode.trajectoryShape, PATH_OPTIONS );
 
-    thisNode.addChild( thisNode.trajectoryPath );
+    // thisNode.addChild( thisNode.trajectoryPath );
 
     // watch for if the trajectory changes location
     trajectory.xProperty.lazyLink( function() {
       // if it's going off screen in the model, stop drawing it screen
-      // debugger;
       // if (
       //   modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
       //   modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||

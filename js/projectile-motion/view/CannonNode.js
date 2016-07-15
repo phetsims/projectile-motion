@@ -51,7 +51,7 @@ define( function( require ) {
 
     thisNode.addChild( thisNode.cannon );
 
-    // watch for if the trajectory changes location
+    // watch for if the trajectory changes angle
     model.angleProperty.link( function( angle ) {
       thisNode.cannon.x2 = thisNode.getX2( model.angle );
       thisNode.cannon.y2 = thisNode.getY2( model.angle );

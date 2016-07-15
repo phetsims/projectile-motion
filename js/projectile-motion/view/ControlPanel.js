@@ -53,10 +53,16 @@ define( function( require ) {
     // auxiliary function that creates the string for a text label
     // @param {String} label
     // @param {Number} value
+    // @return {String}
     var createLabelText = function( label, value ) {
       return label + ': ' + value.toFixed( 2 );
     };
 
+    // auxiliary function that creates vbox for a parameter label and slider
+    // @param {String} label
+    // @param {Property} property
+    // @param {Object} range, range has keys min and max
+    // @return {VBox}
     var createParameterControlBox = function( label, property, range ) {
       var parameterLabel = new Text( createLabelText( label, property.value ), LABEL_OPTIONS );
       property.link( function( v ) {

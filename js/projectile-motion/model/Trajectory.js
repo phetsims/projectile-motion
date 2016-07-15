@@ -34,32 +34,16 @@ define( function( require ) {
       dragCoefficient: dragCoefficient,
       xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
       yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
-      // showPaths: true // if it is set to false, the paths are erased
+        // showPaths: true // if it is set to false, the paths are erased
     } );
 
-    this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
-      this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 ),
+    this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 );
+    this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 );
 
-      this.velocity = initialVelocity;
+    this.velocity = initialVelocity;
 
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
-
-    // given the new velocity and angle, mutates the velocity components
-    this.setVelocityAndAngle = function( velocity, angle ) {
-      this.xVelocity = velocity * Math.cos( angle * Math.PI / 180 );
-      this.yVelocity = velocity * Math.sin( angle * Math.PI / 180 );
-    };
-
-    // resets the projectile at origin and deletes all of its paths
-    this.resetPosition = function() {
-      this.xProperty.reset();
-      this.yProperty.reset();
-
-      // the following removes paths
-      this.showPaths = false;
-      this.showPaths = true;
-    };
   }
 
   projectileMotion.register( 'Trajectory', Trajectory );
