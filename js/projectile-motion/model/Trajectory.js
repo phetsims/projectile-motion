@@ -103,7 +103,7 @@ define( function( require ) {
         airDensity = 0;
       }
 
-      console.log ( 'air density' + airDensity, 'temperature' + temperature, 'pressure' + pressure );
+      // console.log ( 'air density' + airDensity, 'temperature' + temperature, 'pressure' + pressure );
 
       var area = Math.PI * this.diameter * this.diameter / 4;
 
