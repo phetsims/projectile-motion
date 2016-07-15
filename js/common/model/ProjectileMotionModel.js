@@ -31,6 +31,7 @@ define( function( require ) {
       altitude: ProjectileMotionConstants.DEFAULT_ALTITUDE,
       airResistanceOn: ProjectileMotionConstants.DEFAULT_AIR_RESISTANCE_ON, // should default to false
 
+      isPlaying: true,
       resetListener: false, // a clumsy way that lets view objects listen for a reset
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
 
@@ -89,6 +90,12 @@ define( function( require ) {
 
     // @public animates trajectory if running
     step: function( dt ) {
+      if ( this.isPlaying ) {
+        this.stepInternal( dt );
+      }
+    },
+
+    stepInternal: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
     }
   } );

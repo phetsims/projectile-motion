@@ -20,6 +20,11 @@ define( function( require ) {
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var Node = require( 'SCENERY/nodes/Node' );
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+
+  // constants
+  var inset = 10;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -86,6 +91,33 @@ define( function( require ) {
 
     model.resetListenerProperty.link( function() {
       thisScreenView.measuringTapeNode.reset();
+    } );
+
+    // add play/pause and step buttons
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.isPlayingProperty,
+      listener: function() { model.stepInternal( 0.016 ); },
+      radius: 12,
+      stroke: 'black',
+      fill: '#005566',
+      centerX: thisScreenView.layoutBounds.centerX + 100,
+      bottom: thisScreenView.layoutBounds.bottom
+    } );
+    thisScreenView.addChild( stepButton );
+    
+    // add play pause
+    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+      radius: 18,
+      stroke: 'black',
+      fill: '#005566',
+      y: stepButton.centerY,
+      right: stepButton.left - 2 * inset
+    } );
+    thisScreenView.addChild( playPauseButton );
+
+    var pauseSizeIncreaseFactor = 1.25;
+    model.isPlayingProperty.lazyLink( function( isPlaying ) {
+      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // help with visual tests
