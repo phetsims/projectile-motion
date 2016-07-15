@@ -11,15 +11,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var ControlPanel = require( 'PROJECTILE_MOTION/projectile-motion/view/ControlPanel' );
-  var TrajectoryNode = require( 'PROJECTILE_MOTION/projectile-motion/view/TrajectoryNode' );
-  var CannonNode = require( 'PROJECTILE_MOTION/projectile-motion/view/CannonNode' );
+  var ControlPanel = require( 'PROJECTILE_MOTION/common/view/ControlPanel' );
+  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
+  var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var Node = require( 'SCENERY/nodes/Node' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
+  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   /**
    * @param {ProjectileMotionModel} model

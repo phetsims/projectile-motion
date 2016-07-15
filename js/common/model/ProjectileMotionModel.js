@@ -11,8 +11,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Trajectory = require( 'PROJECTILE_MOTION/projectile-motion/model/Trajectory' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
+  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
@@ -43,12 +43,12 @@ define( function( require ) {
     } );
 
     // observable array of trajectories
-    this.trajectories = new ObservableArray();
+    projectileMotionModel.trajectories = new ObservableArray();
 
     // called when fire button is pressed
-    this.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( this, this.cannonX, this.cannonY, this.velocity, this.angle, this.mass,
-        this.diameter, this.dragCoefficient ) );
+    projectileMotionModel.addTrajectory = function() {
+      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, projectileMotionModel.cannonX, projectileMotionModel.cannonY, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
+        projectileMotionModel.diameter, projectileMotionModel.dragCoefficient ) );
     };
 
     // called on when fire button is pressed

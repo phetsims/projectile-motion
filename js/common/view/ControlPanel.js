@@ -19,7 +19,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/projectile-motion/ProjectileMotionConstants' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
