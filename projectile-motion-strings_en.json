@@ -2,6 +2,9 @@
   "projectile-motion.title": {
     "value": "Projectile Motion"
   },
+  "lab.title": {
+  	"value": "Lab"
+  },
   "velocity": {
   	"value": "velocity"
   },
