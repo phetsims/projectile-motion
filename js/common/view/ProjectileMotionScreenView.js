@@ -108,8 +108,6 @@ define( function( require ) {
     // add play pause
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
-      stroke: 'black',
-      fill: '#005566',
       y: stepButton.centerY,
       right: stepButton.left - 2 * inset
     } );

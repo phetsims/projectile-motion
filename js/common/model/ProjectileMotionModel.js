@@ -54,6 +54,7 @@ define( function( require ) {
 
     // called on when fire button is pressed
     projectileMotionModel.cannonFired = function() {
+      projectileMotionModel.isPlaying = true;
       projectileMotionModel.addTrajectory();
     };
   }
