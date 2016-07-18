@@ -34,8 +34,7 @@ define( function( require ) {
 
       velocityVectorComponentsOn: false,
 
-
-
+      speed: 'normal',
       isPlaying: true,
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
 
@@ -78,6 +77,7 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.altitudeProperty.reset();
 
+      this.speedProperty.reset();
       this.isPlayingProperty.reset();
 
       // the following matters if user has changed the height of the cannon
@@ -94,8 +94,11 @@ define( function( require ) {
 
     // @public animates trajectory if running
     step: function( dt ) {
+      // prevent sudden dt bursts when the user comes back to the tab after a while
+      dt = Math.min( 0.016, dt );
       if ( this.isPlaying ) {
-        this.stepInternal( dt );
+        var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
+        this.stepInternal( adjustedDT );
       }
     },
 

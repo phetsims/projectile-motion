@@ -29,13 +29,20 @@ define( function( require ) {
   var Matrix3 = require( 'DOT/Matrix3' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
+  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var Text = require( 'SCENERY/nodes/Text' );
 
+  // strings
+  var normalString = 'Normal';
+  var slowMotionString = 'Slow Motion';
 
   // constants
   var INSET = 10;
   var MIN_ZOOM = 0.5;
   var MAX_ZOOM = 5;
   var DEFAULT_ZOOM = 1.0;
+  var TEXT_MAX_WIDTH = 80;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -134,7 +141,7 @@ define( function( require ) {
 
 
     var zoomProperty = new Property( DEFAULT_ZOOM );
-    // Create a property that will contain the current zoom transformation matrix.
+    // Create a property that will contain the current zoom transformation matrix, may use in measuring tape later
     var zoomMatrixProperty = new Property();
 
     // Watch the zoom property and zoom in and out correspondingly.using 3 dimemsional matrix
@@ -182,6 +189,26 @@ define( function( require ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
+    // add sim speed controls
+    var slowText = new Text( slowMotionString, {
+      font: new PhetFont( 14 ),
+      maxWidth: TEXT_MAX_WIDTH
+    } );
+    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
+    
+    var normalText = new Text( normalString, {
+      font: new PhetFont( 14 ),
+      maxWidth: TEXT_MAX_WIDTH
+    } );
+    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 10 } );
+
+    var speedControl = new VBox( {
+      align: 'left',
+      spacing: 4,
+      children: [ slowMotionRadioBox, normalMotionRadioBox ]
+    } );
+
+    thisScreenView.addChild( speedControl.mutate( { right: playPauseButton.left - 2 * INSET, bottom: playPauseButton.bottom } ) );
 
     // 'Reset All' button, resets the sim to its initial state
     var resetAllButton = new ResetAllButton( {
