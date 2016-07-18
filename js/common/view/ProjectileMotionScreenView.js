@@ -169,6 +169,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        zoomProperty.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
