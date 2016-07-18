@@ -29,6 +29,7 @@ define( function( require ) {
   var dragCoefficientString = 'Drag Coefficient';
   var altitudeString = 'Altitude';
   var airResistanceString = 'Air Resistance';
+  var velocityVectorComponentsString = 'Velocity Vector Components';
 
   // constants
   var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
@@ -111,6 +112,11 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
 
+
+
+    var velocityVectorComponentsLabel = new Text( velocityVectorComponentsString, LABEL_OPTIONS );
+    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionModel.velocityVectorComponentsOnProperty );
+
     var fireListener = function() {
       projectileMotionModel.cannonFired();
     };
@@ -139,6 +145,7 @@ define( function( require ) {
         dragCoefficientBox,
         airResistanceCheckBox,
         altitudeBox,
+        velocityVectorComponentsCheckBox,
         fireButton,
         resetAllButton
       ]
