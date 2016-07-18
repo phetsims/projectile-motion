@@ -1,0 +1,43 @@
+// Copyright 2015, University of Colorado Boulder
+
+/**
+ *
+ * @author PhET Interactive Simulations
+ */
+define( function( require ) {
+  'use strict';
+
+  // modules
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionIntroModel = require( 'PROJECTILE_MOTION/intro/model/ProjectileMotionIntroModel' );
+  var ProjectileMotionIntroScreenView = require( 'PROJECTILE_MOTION/intro/view/ProjectileMotionIntroScreenView' );
+  var Image = require( 'SCENERY/nodes/Image' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Screen = require( 'JOIST/Screen' );
+
+  // strings
+  var introTitleString = require( 'string!PROJECTILE_MOTION/intro.title' );
+  var screenIcon = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
+
+  /**
+   * @constructor
+   */
+  function ProjectileMotionIntroScreen() {
+
+    //If this is a single-screen sim, then no icon is necessary.
+    //If there are multiple screens, then the icon must be provided here.
+    var icon = new Image( screenIcon );
+
+    Screen.call( this, introTitleString, icon,
+      function() {
+        return new ProjectileMotionIntroModel(); },
+      function( model ) {
+        return new ProjectileMotionIntroScreenView( model ); }, { backgroundColor: 'white' }
+    );
+  }
+
+  projectileMotion.register( 'ProjectileMotionIntroScreen', ProjectileMotionIntroScreen );
+
+  return inherit( Screen, ProjectileMotionIntroScreen );
+} );
+
