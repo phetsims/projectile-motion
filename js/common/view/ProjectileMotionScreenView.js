@@ -25,11 +25,13 @@ define( function( require ) {
   var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
   var Property = require( 'AXON/Property' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+
 
   // constants
   var INSET = 10;
-  var MIN_ZOOM = 0.7;
-  var MAX_ZOOM = 6;
+  var MIN_ZOOM = 0.5;
+  var MAX_ZOOM = 5;
   var DEFAULT_ZOOM = 1.0;
 
   /**
@@ -113,7 +115,7 @@ define( function( require ) {
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
-    
+
     var zoomProperty = new Property( DEFAULT_ZOOM );
     // Create a property that will contain the current zoom transformation matrix.
     var zoomMatrixProperty = new Property();
@@ -162,10 +164,16 @@ define( function( require ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
-    // help with visual tests
-    // var helperRectangle = new Rectangle( 0, -1, 20, 1, { fill: 'rgba(0,0,255,0.25)' } );
-    // thisScreenView.addChild( helperRectangle );
-    // helperRectangle.setRectBounds( modelViewTransform.modelToViewBounds( helperRectangle.getRectBounds() ) );
+    
+    // 'Reset All' button, resets the sim to its initial state
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+      },
+      right: this.layoutBounds.maxX - 10,
+      bottom: this.layoutBounds.maxY - 10
+    } );
+    thisScreenView.addChild( resetAllButton );
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );

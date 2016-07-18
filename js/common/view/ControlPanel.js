@@ -13,7 +13,6 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
   var CheckBox = require( 'SUN/CheckBox' );
@@ -126,12 +125,6 @@ define( function( require ) {
       listener: fireListener
     } );
 
-    // 'Reset All' button, resets the sim to its initial state
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        projectileMotionModel.reset();
-      }
-    } );
 
     // The contents of the control panel
     var content = new VBox( {
@@ -146,8 +139,7 @@ define( function( require ) {
         airResistanceCheckBox,
         altitudeBox,
         velocityVectorComponentsCheckBox,
-        fireButton,
-        resetAllButton
+        fireButton
       ]
     } );
 
