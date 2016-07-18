@@ -23,8 +23,9 @@ define( function( require ) {
     PropertySet.call( projectileMotionModel, {
 
       // properties of the current projectile that will be fired
-      velocity: ProjectileMotionConstants.DEFAULT_VELOCITY,
+      height: ProjectileMotionConstants.INITIAL_CANNON_Y,
       angle: ProjectileMotionConstants.DEFAULT_ANGLE,
+      velocity: ProjectileMotionConstants.DEFAULT_VELOCITY,
       mass: ProjectileMotionConstants.DEFAULT_MASS, // kg
       diameter: ProjectileMotionConstants.DEFAULT_DIAMETER, // meters
       dragCoefficient: ProjectileMotionConstants.DEFAULT_DRAG_COEFFICIENT,
@@ -43,8 +44,7 @@ define( function( require ) {
       measuringTapeX: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
       measuringTapeY: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y,
 
-      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X,
-      cannonY: ProjectileMotionConstants.INITIAL_CANNON_Y
+      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X
     } );
 
     // observable array of trajectories
@@ -52,7 +52,7 @@ define( function( require ) {
 
     // called when fire button is pressed
     projectileMotionModel.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, projectileMotionModel.cannonX, projectileMotionModel.cannonY, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
+      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, projectileMotionModel.cannonX, projectileMotionModel.height, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
         projectileMotionModel.diameter, projectileMotionModel.dragCoefficient ) );
     };
 
@@ -83,7 +83,7 @@ define( function( require ) {
 
       // the following matters if user has changed the height of the cannon
       this.cannonXProperty.reset();
-      this.cannonYProperty.reset();
+      this.heightProperty.reset();
 
       // resets the position of the measuring tape
       this.measuringTapeXProperty.reset();

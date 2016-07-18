@@ -11,23 +11,22 @@ define( function( require ) {
 
   // modules
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
   var ProjectileMotionConstants = {
 
-    DEFAULT_VELOCITY: 18, // m/s
+    DEFAULT_HEIGHT: 0, // meters
     DEFAULT_ANGLE: 80, // degrees
+    DEFAULT_VELOCITY: 18, // m/s
     DEFAULT_MASS: 5, // kg
     DEFAULT_DIAMETER: 0.37, // of a pumpkin, in meters
     DEFAULT_DRAG_COEFFICIENT: 0.6, // of a pumpkin
     DEFAULT_ALTITUDE: 0, // meters, will change to 0 meters
     DEFAULT_AIR_RESISTANCE_ON: false,
 
-    LABEL_FONT: new PhetFont( 11 ),
-
-    VELOCITY_RANGE: { min: 0, max: 50 },
+    HEIGHT_RANGE: { min: 0, max: 20 },
     ANGLE_RANGE: { min: -90, max: 180 },
+    VELOCITY_RANGE: { min: 0, max: 50 },
     MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
     DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043
     DRAG_COEFFICIENT_RANGE: { min: 0, max: 50 }, // completely arbitrary

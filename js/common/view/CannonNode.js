@@ -39,13 +39,13 @@ define( function( require ) {
     };
 
     thisNode.getY2 = function( angle ) {
-      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angle * Math.PI / 180 ) + model.cannonY );
+      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angle * Math.PI / 180 ) + model.height );
     };
 
     // node drawn 
     thisNode.cannon = new Line(
       modelViewTransform.modelToViewX( model.cannonX ),
-      modelViewTransform.modelToViewY( model.cannonY ),
+      modelViewTransform.modelToViewY( model.height ),
       thisNode.getX2( model.angle ),
       thisNode.getY2( model.angle ), {
         stroke: 'rgba(0,0,0,0.4)',
@@ -85,8 +85,8 @@ define( function( require ) {
       thisNode.rotatableArea.y = thisNode.cannon.y2;
     } );
 
-    model.cannonYProperty.link( function( cannonY ) {
-      thisNode.cannon.y1 = modelViewTransform.modelToViewY( model.cannonY );
+    model.heightProperty.link( function( height ) {
+      thisNode.cannon.y1 = modelViewTransform.modelToViewY( model.height );
       thisNode.cannon.y2 = thisNode.getY2( model.angle );
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.y = thisNode.cannon.y2;
@@ -140,7 +140,7 @@ define( function( require ) {
         var heightChange = mousePoint.y - startPoint.y;
 
         // update model height
-        model.cannonY = modelViewTransform.viewToModelY( startHeight + heightChange );
+        model.height = modelViewTransform.viewToModelY( startHeight + heightChange );
       }
 
     } ) );

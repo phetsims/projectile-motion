@@ -15,23 +15,21 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var CheckBox = require( 'SUN/CheckBox' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   // strings
-  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
+  var initialValuesString = 'Initial Values';
+  var heightString = 'Height';
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  var massString = 'Mass';
-  var diameterString = 'Diameter';
-  var dragCoefficientString = 'Drag Coefficient';
-  var altitudeString = 'Altitude';
-  var airResistanceString = 'Air Resistance';
-  var velocityVectorComponentsString = 'Velocity Vector Components';
+  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
 
   // constants
-  var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
+  var LABEL_OPTIONS = { font: new PhetFont( 11 ) };
+  var PANEL_TITLE_OPTIONS = { font: new PhetFont( 16 ), align: 'center' };
 
   /**
    * Control panel constructor
@@ -39,10 +37,11 @@ define( function( require ) {
    * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
    * @constructor
    */
-  function ControlPanel( projectileMotionModel, options ) {
+  function InitialValuesPanel( projectileMotionModel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
+        titleToControlsVerticalSpace: 5,
         xMargin: 10,
         yMargin: 10,
         stroke: 'orange',
@@ -72,6 +71,12 @@ define( function( require ) {
       return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     };
 
+    var heightBox = createParameterControlBox(
+      heightString,
+      projectileMotionModel.heightProperty,
+      ProjectileMotionConstants.HEIGHT_RANGE
+    );
+
     var velocityBox = createParameterControlBox(
       velocityString,
       projectileMotionModel.velocityProperty,
@@ -84,70 +89,33 @@ define( function( require ) {
       ProjectileMotionConstants.ANGLE_RANGE
     );
 
-    var massBox = createParameterControlBox(
-      massString,
-      projectileMotionModel.massProperty,
-      ProjectileMotionConstants.MASS_RANGE
-    );
-
-    var diameterBox = createParameterControlBox(
-      diameterString,
-      projectileMotionModel.diameterProperty,
-      ProjectileMotionConstants.DIAMETER_RANGE
-    );
-
-    var dragCoefficientBox = createParameterControlBox(
-      dragCoefficientString,
-      projectileMotionModel.dragCoefficientProperty,
-      ProjectileMotionConstants.DRAG_COEFFICIENT_RANGE
-    );
-
-    var altitudeBox = createParameterControlBox(
-      altitudeString,
-      projectileMotionModel.altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE
-    );
-
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
-
-
-
-    var velocityVectorComponentsLabel = new Text( velocityVectorComponentsString, LABEL_OPTIONS );
-    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionModel.velocityVectorComponentsOnProperty );
-
-    var fireListener = function() {
-      projectileMotionModel.cannonFired();
-    };
-
-    var fireButton = new RoundPushButton( {
-      baseColor: '#94b830', //green
-      listener: fireListener
-    } );
-
-
     // The contents of the control panel
     var content = new VBox( {
-      align: 'center',
+      align: 'left',
       spacing: 10,
       children: [
-        velocityBox,
+        heightBox,
         angleBox,
-        massBox,
-        diameterBox,
-        dragCoefficientBox,
-        airResistanceCheckBox,
-        altitudeBox,
-        velocityVectorComponentsCheckBox,
-        fireButton
+        velocityBox
       ]
     } );
 
-    Panel.call( this, content, options );
+    var initialValuesVBox = new VBox( {
+      align: 'center',
+      spacing: 10,
+      children: [
+        new Text( initialValuesString, PANEL_TITLE_OPTIONS ),
+        new VStrut( options.titleToControlsVerticalSpace ),
+        new HBox( { children: [ content ] } )
+        // TODO: add HStrut so panel size doesn't change
+      ]
+    } );
+
+    Panel.call( this, initialValuesVBox, options );
   }
 
-  projectileMotion.register( 'ControlPanel', ControlPanel );
+  projectileMotion.register( 'InitialValuesPanel', InitialValuesPanel );
 
-  return inherit( Panel, ControlPanel );
+  return inherit( Panel, InitialValuesPanel );
 } );
 

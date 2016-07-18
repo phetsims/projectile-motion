@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
-  var ControlPanel = require( 'PROJECTILE_MOTION/common/view/ControlPanel' );
+  var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -46,7 +46,7 @@ define( function( require ) {
 
 
     // Control panel
-    thisScreenView.addChild( new ControlPanel( model, {
+    thisScreenView.addChild( new InitialValuesPanel( model, {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 15
     } ) );
