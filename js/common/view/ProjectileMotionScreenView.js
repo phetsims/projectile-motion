@@ -96,7 +96,8 @@ define( function( require ) {
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
-    // add common code tape measure, TODO: its length changes with zoom, but nothing else does
+    // add common code tape measure
+    // TODO: its length changes with zoom, but nothing else does
     thisScreenView.measuringTapeNode = new MeasuringTape(
       model.unitsProperty,
       model.measuringTapeProperty, {
