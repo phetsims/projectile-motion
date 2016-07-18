@@ -24,7 +24,7 @@ define( function( require ) {
     DEFAULT_ALTITUDE: 0, // meters, will change to 0 meters
     DEFAULT_AIR_RESISTANCE_ON: false,
 
-    HEIGHT_RANGE: { min: 0, max: 20 },
+    HEIGHT_RANGE: { min: 0, max: 10 },
     ANGLE_RANGE: { min: -90, max: 180 },
     VELOCITY_RANGE: { min: 0, max: 50 },
     MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
@@ -34,6 +34,8 @@ define( function( require ) {
 
     INITIAL_CANNON_X: 0,
     INITIAL_CANNON_Y: 0,
+
+    INITIAL_TARGET_X: 15,
 
     INITIAL_TAPE_MEASURE_X: 0,
     INITIAL_TAPE_MEASURE_Y: 0, // location will be transformed, but not length

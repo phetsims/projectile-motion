@@ -42,7 +42,9 @@ define( function( require ) {
       measuringTapeX: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
       measuringTapeY: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y,
 
-      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X
+      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X,
+
+      targetX: ProjectileMotionConstants.INITIAL_TARGET_X
     } );
 
     // observable array of trajectories

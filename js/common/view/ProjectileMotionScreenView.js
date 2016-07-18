@@ -16,6 +16,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
+  var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Vector2 = require( 'DOT/Vector2' );
   // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -84,7 +85,7 @@ define( function( require ) {
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( 100, 550 ), // empirically determined based off original sim
+      new Vector2( 100, 450 ), // empirically determined based off original sim
       25 // scale for meters, empirically determined based off original sim, smaller zoom in, larger zoom out
     );
 
@@ -125,6 +126,10 @@ define( function( require ) {
     // add cannon
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
+
+    // add target
+    thisScreenView.targetNode = new TargetNode( model.targetXProperty, modelViewTransform );
+    zoomableNode.addChild( thisScreenView.targetNode );
 
     // add common code tape measure
     // TODO: its length changes with zoom, but nothing else does
