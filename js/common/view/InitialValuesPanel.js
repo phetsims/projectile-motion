@@ -92,7 +92,7 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
-      spacing: 10,
+      // spacing: 10,
       children: [
         heightBox,
         angleBox,
@@ -102,7 +102,7 @@ define( function( require ) {
 
     var initialValuesVBox = new VBox( {
       align: 'center',
-      spacing: 10,
+      // spacing: 10,
       children: [
         new Text( initialValuesString, PANEL_TITLE_OPTIONS ),
         new VStrut( options.titleToControlsVerticalSpace ),

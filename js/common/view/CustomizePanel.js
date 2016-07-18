@@ -21,14 +21,12 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
-  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
-  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var massString = 'Mass';
   var diameterString = 'Diameter';
   var dragCoefficientString = 'Drag Coefficient';
   var altitudeString = 'Altitude';
   var airResistanceString = 'Air Resistance';
-  var velocityVectorComponentsString = 'Velocity Vector Components';
+  var velocityVectorsString = 'Velocity Vectors';
 
   // constants
   var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
@@ -72,18 +70,6 @@ define( function( require ) {
       return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     };
 
-    var velocityBox = createParameterControlBox(
-      velocityString,
-      projectileMotionModel.velocityProperty,
-      ProjectileMotionConstants.VELOCITY_RANGE
-    );
-
-    var angleBox = createParameterControlBox(
-      angleString,
-      projectileMotionModel.angleProperty,
-      ProjectileMotionConstants.ANGLE_RANGE
-    );
-
     var massBox = createParameterControlBox(
       massString,
       projectileMotionModel.massProperty,
@@ -111,9 +97,7 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
 
-
-
-    var velocityVectorComponentsLabel = new Text( velocityVectorComponentsString, LABEL_OPTIONS );
+    var velocityVectorComponentsLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
     var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionModel.velocityVectorComponentsOnProperty );
 
     var fireListener = function() {
@@ -129,14 +113,12 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
-      spacing: 10,
+      // spacing: 10,
       children: [
-        velocityBox,
-        angleBox,
         massBox,
         diameterBox,
-        dragCoefficientBox,
         airResistanceCheckBox,
+        dragCoefficientBox,
         altitudeBox,
         velocityVectorComponentsCheckBox,
         fireButton

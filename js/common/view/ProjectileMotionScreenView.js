@@ -12,6 +12,8 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
+  var CustomizePanel = require( 'PROJECTILE_MOTION/common/view/CustomizePanel' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -45,12 +47,18 @@ define( function( require ) {
     ScreenView.call( thisScreenView );
 
 
-    // Control panel
-    thisScreenView.addChild( new InitialValuesPanel( model, {
-      x: thisScreenView.layoutBounds.maxX - 150,
-      y: 15
-    } ) );
+    // Control panels
+    var initialValuesPanel = new InitialValuesPanel( model );
 
+    var customizePanel = new CustomizePanel( model );
+
+    thisScreenView.addChild( new VBox( {
+      x: thisScreenView.layoutBounds.maxX - 150,
+      y: 15,
+      align: 'left',
+      spacing: 10,
+      children: [ initialValuesPanel, customizePanel ]
+    } ) );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
