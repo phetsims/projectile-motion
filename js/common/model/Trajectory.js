@@ -55,6 +55,8 @@ define( function( require ) {
 
       // TODO: check for x is in the bounds // not working
       if ( this.y < 0 ) {
+        this.xVelocity = 0;
+        this.yVelocity = 0;
         return;
       }
 

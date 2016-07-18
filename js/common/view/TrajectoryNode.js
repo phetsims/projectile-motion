@@ -13,14 +13,21 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var Property = require( 'AXON/Property' );
-  // var Path = require( 'SCENERY/nodes/Path' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
   // var Shape = require( 'KITE/Shape' );
   // var Vector2 = require( 'DOT/Vector2' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var COLOR = 'black';
   // var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
+  // constants
+  var ARROW_FILL_COLOR = 'rgb(100,100,100)';
+  var ARROW_HEAD_WIDTH = 12;
+  var ARROW_TAIL_WIDTH = 6;
+  var ARROW_SIZE_DEFAULT = 1; // can scale down
 
   /**
    * @param {Particle} particle
@@ -32,16 +39,56 @@ define( function( require ) {
     Node.call( thisNode, { pickable: false } );
     // debugger;
 
-    var transformedBallSize = modelViewTransform.modelToViewDeltaX( trajectory.diameter );
+    this.transformedBallSize = modelViewTransform.modelToViewDeltaX( trajectory.diameter );
+    this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
+    this.tranformedArrowSize = this.tranformedUnit * ARROW_SIZE_DEFAULT;
 
-    // node drawn 
-    thisNode.projectile = new Rectangle( -transformedBallSize / 2, 0, transformedBallSize, transformedBallSize, {
+    // node drawn
+    thisNode.projectile = new Circle( this.transformedBallSize / 2, {
       x: modelViewTransform.modelToViewX( trajectory.x ),
       y: modelViewTransform.modelToViewY( trajectory.y ),
       fill: COLOR
     } );
 
     thisNode.addChild( thisNode.projectile );
+
+    // add velocity arrows if necessary
+    if ( true ) { // instead of true, if velocity vectory components checkbox is checked
+      var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
+        pickable: false,
+        fill: ARROW_FILL_COLOR,
+        tailWidth: ARROW_TAIL_WIDTH,
+        headWidth: ARROW_HEAD_WIDTH
+      } );
+      thisNode.addChild( velocityXArrow );
+
+      var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
+        pickable: false,
+        fill: ARROW_FILL_COLOR,
+        tailWidth: ARROW_TAIL_WIDTH,
+        headWidth: ARROW_HEAD_WIDTH
+      } );
+      thisNode.addChild( velocityYArrow );
+
+      Property.multilink( [ trajectory.xVelocityProperty, trajectory.yVelocityProperty ], function( xVelocity, yVelocity ) {
+        // update the size of the arrow
+        if ( true ) { // if  checkbox checked
+          var x = modelViewTransform.modelToViewX( trajectory.x );
+          var y = modelViewTransform.modelToViewY( trajectory.y );
+          velocityXArrow.setTailAndTip( x,
+            y,
+            x + thisNode.tranformedArrowSize * xVelocity,
+            y
+          );
+          velocityYArrow.setTailAndTip( x,
+            y,
+            x,
+            y - thisNode.tranformedArrowSize * yVelocity
+          );
+        }
+      } );
+
+    }
 
     // thisNode.trajectoryShape = new Shape();
     // thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( thisNode.projectile.center ) );
