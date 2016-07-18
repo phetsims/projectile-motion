@@ -113,7 +113,7 @@ define( function( require ) {
     // Create a property that will contain the current zoom transformation matrix.
     var zoomMatrixProperty = new Property();
 
-    // Watch the zoom property and zoom in and out correspondingly.
+    // Watch the zoom property and zoom in and out correspondingly.using 3 dimemsional matrix
     zoomProperty.link( function( zoomFactor ) {
 
       var scaleMatrix;
