@@ -72,13 +72,6 @@ define( function( require ) {
 
     thisScreenView.addChild( thisScreenView.measuringTapeNode );
 
-    model.resetListenerProperty.link( function() {
-      thisScreenView.measuringTapeNode.reset();
-    } );
-
-
-
-
 
     // Define the root for the part that can be zoomed.
     // TODO: reset the zoom
@@ -170,6 +163,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
         zoomProperty.reset();
+        thisScreenView.measuringTapeNode.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
