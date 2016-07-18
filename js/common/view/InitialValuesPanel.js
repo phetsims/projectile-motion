@@ -20,6 +20,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  
 
   // strings
   var initialValuesString = 'Initial Values';

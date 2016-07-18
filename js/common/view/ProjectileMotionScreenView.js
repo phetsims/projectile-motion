@@ -28,6 +28,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
 
 
   // constants
@@ -59,6 +60,20 @@ define( function( require ) {
       spacing: 10,
       children: [ initialValuesPanel, customizePanel ]
     } ) );
+
+
+    var fireListener = function() {
+      model.cannonFired();
+    };
+
+    var fireButton = new RoundPushButton( {
+      x: 50, // empirically determined for now
+      y: thisScreenView.layoutBounds.maxY - 50,
+      baseColor: '#94b830', //green
+      listener: fireListener
+    } );
+
+    thisScreenView.addChild( fireButton );
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,

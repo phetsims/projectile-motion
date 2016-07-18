@@ -16,7 +16,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HSlider = require( 'SUN/HSlider' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
@@ -100,16 +99,6 @@ define( function( require ) {
     var velocityVectorComponentsLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
     var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionModel.velocityVectorComponentsOnProperty );
 
-    var fireListener = function() {
-      projectileMotionModel.cannonFired();
-    };
-
-    var fireButton = new RoundPushButton( {
-      baseColor: '#94b830', //green
-      listener: fireListener
-    } );
-
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
@@ -120,8 +109,7 @@ define( function( require ) {
         airResistanceCheckBox,
         dragCoefficientBox,
         altitudeBox,
-        velocityVectorComponentsCheckBox,
-        fireButton
+        velocityVectorComponentsCheckBox
       ]
     } );
 
