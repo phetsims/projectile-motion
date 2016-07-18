@@ -22,9 +22,15 @@ define( function( require ) {
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
+  var Property = require( 'AXON/Property' );
+  var Matrix3 = require( 'DOT/Matrix3' );
 
   // constants
-  var inset = 10;
+  var INSET = 10;
+  var MIN_ZOOM = 0.7;
+  var MAX_ZOOM = 6;
+  var DEFAULT_ZOOM = 1.0;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -36,11 +42,47 @@ define( function( require ) {
 
     ScreenView.call( thisScreenView );
 
+
+    // Control panel
+    thisScreenView.addChild( new ControlPanel( model, {
+      x: thisScreenView.layoutBounds.maxX - 150,
+      y: 15
+    } ) );
+
+
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 200, 500 ), // empirically determined based off original sim
-      25 // scale for meters, empirically determined based off original sim
+      25 // scale for meters, empirically determined based off original sim, smaller zoom in, larger zoom out
     );
+
+    this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+
+    // add common code tape measure, TODO: its length changes with zoom, but nothing else does
+    thisScreenView.measuringTapeNode = new MeasuringTape(
+      model.unitsProperty,
+      model.measuringTapeProperty, {
+        x: model.measuringTapeX,
+        y: model.measuringTapeY,
+        textColor: 'black',
+        modelViewTransform: modelViewTransform
+      } );
+
+    thisScreenView.addChild( thisScreenView.measuringTapeNode );
+
+    model.resetListenerProperty.link( function() {
+      thisScreenView.measuringTapeNode.reset();
+    } );
+
+
+
+
+
+    // Define the root for the part that can be zoomed.
+    // TODO: reset the zoom
+    var zoomableNode = new Node();
+    thisScreenView.addChild( zoomableNode );
+
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     thisScreenView.trajectoriesLayer = new Node();
@@ -60,14 +102,8 @@ define( function( require ) {
       } );
     }
 
-    // Control panel
-    thisScreenView.addChild( new ControlPanel( model, {
-      x: thisScreenView.layoutBounds.maxX - 150,
-      y: 15
-    } ) );
-
     // all trajectories are in front of control panel and behind measuring tape
-    thisScreenView.addChild( thisScreenView.trajectoriesLayer );
+    zoomableNode.addChild( thisScreenView.trajectoriesLayer );
 
     // lets view listen to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
@@ -75,23 +111,30 @@ define( function( require ) {
 
     // add cannon
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
-    thisScreenView.addChild( thisScreenView.cannonNode );
+    zoomableNode.addChild( thisScreenView.cannonNode );
 
-    // add common code tape measure
-    thisScreenView.measuringTapeNode = new MeasuringTape(
-      model.unitsProperty,
-      model.measuringTapeProperty, {
-        x: model.measuringTapeX,
-        y: model.measuringTapeY,
-        textColor: 'black',
-        modelViewTransform: modelViewTransform
-      } );
+    
+    var zoomProperty = new Property( DEFAULT_ZOOM );
+    // Create a property that will contain the current zoom transformation matrix.
+    var zoomMatrixProperty = new Property();
 
-    thisScreenView.addChild( thisScreenView.measuringTapeNode );
+    // Watch the zoom property and zoom in and out correspondingly.
+    zoomProperty.link( function( zoomFactor ) {
 
-    model.resetListenerProperty.link( function() {
-      thisScreenView.measuringTapeNode.reset();
+      var scaleMatrix;
+      var scaleAroundX = thisScreenView.transformedOrigin.x;
+      var scaleAroundY = thisScreenView.transformedOrigin.y;
+
+      scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
+
+      zoomableNode.matrix = scaleMatrix;
+      zoomMatrixProperty.value = scaleMatrix;
     } );
+
+    var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
+    thisScreenView.addChild( zoomControl );
+    zoomControl.top = 0;
+    zoomControl.left = 0;
 
     // add play/pause and step buttons
     var stepButton = new StepForwardButton( {
@@ -104,15 +147,16 @@ define( function( require ) {
       bottom: thisScreenView.layoutBounds.bottom
     } );
     thisScreenView.addChild( stepButton );
-    
+
     // add play pause
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
       y: stepButton.centerY,
-      right: stepButton.left - 2 * inset
+      right: stepButton.left - 2 * INSET
     } );
     thisScreenView.addChild( playPauseButton );
 
+    // make the play/pause button bigger when it is paused
     var pauseSizeIncreaseFactor = 1.25;
     model.isPlayingProperty.lazyLink( function( isPlaying ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
