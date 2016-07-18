@@ -47,7 +47,7 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
-      var trajectoryNode = new TrajectoryNode( addedTrajectory, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
       thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
 

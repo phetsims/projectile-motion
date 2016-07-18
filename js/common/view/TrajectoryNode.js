@@ -30,11 +30,12 @@ define( function( require ) {
   var ARROW_SIZE_DEFAULT = 1; // can scale down
 
   /**
-   * @param {Particle} particle
-   * @param {String|color} color
+   * @param {Trajectory} trajectory - model for the trajectory
+   * @param {Property} velocityVectorComponentsOnProperty - whether those vectors should be visible
+   * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */
-  function TrajectoryNode( trajectory, modelViewTransform ) {
+  function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
     // debugger;
@@ -52,43 +53,49 @@ define( function( require ) {
 
     thisNode.addChild( thisNode.projectile );
 
-    // add velocity arrows if necessary
-    if ( true ) { // instead of true, if velocity vectory components checkbox is checked
-      var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
-        pickable: false,
-        fill: ARROW_FILL_COLOR,
-        tailWidth: ARROW_TAIL_WIDTH,
-        headWidth: ARROW_HEAD_WIDTH
-      } );
-      thisNode.addChild( velocityXArrow );
+    // add vector for velocity x component
+    var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ARROW_FILL_COLOR,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    thisNode.addChild( velocityXArrow );
 
-      var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
-        pickable: false,
-        fill: ARROW_FILL_COLOR,
-        tailWidth: ARROW_TAIL_WIDTH,
-        headWidth: ARROW_HEAD_WIDTH
-      } );
-      thisNode.addChild( velocityYArrow );
+    // add vector for velocity y component
+    var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ARROW_FILL_COLOR,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    thisNode.addChild( velocityYArrow );
 
-      Property.multilink( [ trajectory.xVelocityProperty, trajectory.yVelocityProperty ], function( xVelocity, yVelocity ) {
-        // update the size of the arrow
-        if ( true ) { // if  checkbox checked
-          var x = modelViewTransform.modelToViewX( trajectory.x );
-          var y = modelViewTransform.modelToViewY( trajectory.y );
-          velocityXArrow.setTailAndTip( x,
-            y,
-            x + thisNode.tranformedArrowSize * xVelocity,
-            y
-          );
-          velocityYArrow.setTailAndTip( x,
-            y,
-            x,
-            y - thisNode.tranformedArrowSize * yVelocity
-          );
-        }
-      } );
+    Property.multilink( [
+      trajectory.xVelocityProperty,
+      trajectory.yVelocityProperty,
+      velocityVectorComponentsOnProperty
+    ], function( xVelocity, yVelocity, velocityVectorComponentsOn ) {
+      velocityXArrow.visible = velocityVectorComponentsOn;
+      velocityYArrow.visible = velocityVectorComponentsOn;
+      
+      // update size and position if checkbox is checked
+      if ( velocityVectorComponentsOn ) {
+        var x = modelViewTransform.modelToViewX( trajectory.x );
+        var y = modelViewTransform.modelToViewY( trajectory.y );
+        velocityXArrow.setTailAndTip( x,
+          y,
+          x + thisNode.tranformedArrowSize * xVelocity,
+          y
+        );
+        velocityYArrow.setTailAndTip( x,
+          y,
+          x,
+          y - thisNode.tranformedArrowSize * yVelocity
+        );
+      }
+    } );
 
-    }
 
     // thisNode.trajectoryShape = new Shape();
     // thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( thisNode.projectile.center ) );
