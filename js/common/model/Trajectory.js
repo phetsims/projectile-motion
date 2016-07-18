@@ -37,6 +37,8 @@ define( function( require ) {
         // showPaths: true // if it is set to false, the paths are erased
     } );
 
+    this.reachedGround = false;
+
     this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 );
     this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 );
 
@@ -54,7 +56,7 @@ define( function( require ) {
     step: function( dt ) {
 
       // TODO: check for x is in the bounds // not working
-      if ( this.y < 0 ) {
+      if ( this.reachedGround ) {
         this.xVelocity = 0;
         this.yVelocity = 0;
         return;
@@ -101,11 +103,20 @@ define( function( require ) {
 
       // console.log( this.mass );
 
+      var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
+      var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
+
       var newXVelocity = this.xVelocity + this.xAcceleration * dt;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
-      var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
-      var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
+      if ( newY <= 0 ) {
+        this.reachedGround = true;
+
+        // calculated by hand, the time it takes for projectile to reach the ground, within the next dt
+        var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity )/ this.yAcceleration;
+        newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
+        newY = 0;
+      }
 
       this.x = newX;
       this.y = newY;
