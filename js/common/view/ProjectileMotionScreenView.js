@@ -55,7 +55,7 @@ define( function( require ) {
 
     thisScreenView.addChild( new VBox( {
       x: thisScreenView.layoutBounds.maxX - 150,
-      y: 15,
+      y: 10,
       align: 'left',
       spacing: 10,
       children: [ initialValuesPanel, customizePanel ]
@@ -67,8 +67,8 @@ define( function( require ) {
     };
 
     var fireButton = new RoundPushButton( {
-      x: 50, // empirically determined for now
-      y: thisScreenView.layoutBounds.maxY - 50,
+      x: 40, // empirically determined for now
+      y: thisScreenView.layoutBounds.maxY - 40,
       baseColor: '#94b830', //green
       listener: fireListener
     } );
@@ -77,7 +77,7 @@ define( function( require ) {
 
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( 200, 500 ), // empirically determined based off original sim
+      new Vector2( 100, 550 ), // empirically determined based off original sim
       25 // scale for meters, empirically determined based off original sim, smaller zoom in, larger zoom out
     );
 

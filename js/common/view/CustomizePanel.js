@@ -102,7 +102,7 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
-      // spacing: 10,
+      spacing: 5,
       children: [
         massBox,
         diameterBox,
