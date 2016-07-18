@@ -44,7 +44,10 @@ define( function( require ) {
 
       cannonX: ProjectileMotionConstants.INITIAL_CANNON_X,
 
-      targetX: ProjectileMotionConstants.INITIAL_TARGET_X
+      targetX: ProjectileMotionConstants.INITIAL_TARGET_X,
+
+      showScore: false, // whether to show you have scored
+      scoredTime: 0 // amount of time Score! has been visible
     } );
 
     // observable array of trajectories
@@ -92,6 +95,10 @@ define( function( require ) {
 
       // remove all trajectories
       this.trajectories.reset();
+
+      this.targetXProperty.reset();
+      this.showScoreProperty.reset();
+      this.scoredTimeProperty.reset();
     },
 
     // @public animates trajectory if running
@@ -106,6 +113,13 @@ define( function( require ) {
 
     stepInternal: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
+      if ( this.showScore ) {
+        this.scoredTime += dt;
+      }
+      if ( this.scoredTime >= ProjectileMotionConstants.SHOW_SCORE_TIME ) { // show score for two seconds
+        this.showScore = false;
+        this.scoredTime = 0;
+      }
     }
   } );
 } );

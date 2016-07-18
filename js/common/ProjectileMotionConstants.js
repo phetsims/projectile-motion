@@ -35,12 +35,15 @@ define( function( require ) {
     INITIAL_CANNON_X: 0,
     INITIAL_CANNON_Y: 0,
 
-    INITIAL_TARGET_X: 15,
+    INITIAL_TARGET_X: 15, // meters
+    TARGET_LENGTH: 2, // meters
 
     INITIAL_TAPE_MEASURE_X: 0,
     INITIAL_TAPE_MEASURE_Y: 0, // location will be transformed, but not length
 
-    PANEL_FILL_COLOR: 'rgb(255,238,218)'
+    PANEL_FILL_COLOR: 'rgb(255,238,218)',
+
+    SHOW_SCORE_TIME: 1 // seconds
 
   };
 

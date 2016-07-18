@@ -14,6 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
@@ -101,8 +102,6 @@ define( function( require ) {
       this.xAcceleration = -dragForceX / this.mass;
       this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
 
-      // console.log( this.mass );
-
       var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
       var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
 
@@ -116,6 +115,12 @@ define( function( require ) {
         var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity )/ this.yAcceleration;
         newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
         newY = 0;
+
+        // check if projectile landed on target
+        if ( Math.abs(  newX - this.projectileMotionModel.targetX ) <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
+          this.projectileMotionModel.showScore = true;
+          this.projectileMotionModel.scoredTime = 0; // reset scored time
+        }
       }
 
       this.x = newX;

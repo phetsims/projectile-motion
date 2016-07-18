@@ -16,10 +16,10 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   // var Util = require( 'DOT/Util' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
-  var TARGET_LENGTH = 2;
+  var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH ;
   var TARGET_WIDTH = 0.5;
 
 
@@ -31,6 +31,8 @@ define( function( require ) {
   function TargetNode( targetXProperty, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode );
+
+    thisNode.targetXProperty = targetXProperty;
 
     // node drawn 
     thisNode.target = new Rectangle(
@@ -60,16 +62,16 @@ define( function( require ) {
     thisNode.target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = thisNode.target.globalToParentPoint( event.pointer.point );
-        startX = thisNode.target.centerX; // degrees
+        startX = thisNode.target.centerX; // view units
       },
 
       drag: function( event ) {
         mousePoint = thisNode.target.globalToParentPoint( event.pointer.point );
 
-        // change in x, meters
+        // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        thisNode.target.centerX = startX + xChange;
+        thisNode.targetXProperty.value = modelViewTransform.viewToModelX( startX + xChange );
       }
 
     } ) );

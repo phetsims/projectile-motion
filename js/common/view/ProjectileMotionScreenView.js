@@ -55,6 +55,23 @@ define( function( require ) {
 
     ScreenView.call( thisScreenView );
 
+    // score text, behind all other children
+    thisScreenView.score = new Text( 'Score!', {
+      font: new PhetFont( 20 ),
+      centerX: ( thisScreenView.layoutBounds.minX + thisScreenView.layoutBounds.maxX ) / 2,
+      centerY: ( thisScreenView.layoutBounds.minY + thisScreenView.layoutBounds.maxY ) / 2,
+      visible: false
+    } );
+
+    model.showScoreProperty.link( function( showScore ) {
+      if ( showScore ) {
+        thisScreenView.score.visible = true;
+      } else {
+        thisScreenView.score.visible = false;
+      }
+    } );
+
+    thisScreenView.addChild( thisScreenView.score );
 
     // Control panels
     var initialValuesPanel = new InitialValuesPanel( model );
@@ -97,6 +114,10 @@ define( function( require ) {
     var zoomableNode = new Node();
     thisScreenView.addChild( zoomableNode );
 
+    // add target
+    thisScreenView.targetNode = new TargetNode( model.targetXProperty, modelViewTransform );
+    zoomableNode.addChild( thisScreenView.targetNode );
+
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     thisScreenView.trajectoriesLayer = new Node();
@@ -127,9 +148,6 @@ define( function( require ) {
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
-    // add target
-    thisScreenView.targetNode = new TargetNode( model.targetXProperty, modelViewTransform );
-    zoomableNode.addChild( thisScreenView.targetNode );
 
     // add common code tape measure
     // TODO: its length changes with zoom, but nothing else does
@@ -200,7 +218,7 @@ define( function( require ) {
       maxWidth: TEXT_MAX_WIDTH
     } );
     var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
-    
+
     var normalText = new Text( normalString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
