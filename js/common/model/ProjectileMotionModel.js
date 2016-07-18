@@ -37,7 +37,6 @@ define( function( require ) {
 
 
       isPlaying: true,
-      resetListener: false, // a clumsy way that lets view objects listen for a reset
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
 
       measuringTape: true,
@@ -79,7 +78,7 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.altitudeProperty.reset();
 
-      this.resetListener = !this.resetListener;
+      this.isPlayingProperty.reset();
 
       // the following matters if user has changed the height of the cannon
       this.cannonXProperty.reset();

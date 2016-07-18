@@ -164,7 +164,7 @@ define( function( require ) {
       stroke: 'black',
       fill: '#005566',
       centerX: thisScreenView.layoutBounds.centerX + 100,
-      bottom: thisScreenView.layoutBounds.bottom
+      bottom: thisScreenView.layoutBounds.bottom - 20
     } );
     thisScreenView.addChild( stepButton );
 
