@@ -11,7 +11,6 @@ define( function( require ) {
   // modules
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var Property = require( 'AXON/Property' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
