@@ -60,18 +60,6 @@ define( function( require ) {
 
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-    // add common code tape measure, TODO: its length changes with zoom, but nothing else does
-    thisScreenView.measuringTapeNode = new MeasuringTape(
-      model.unitsProperty,
-      model.measuringTapeProperty, {
-        x: model.measuringTapeX,
-        y: model.measuringTapeY,
-        textColor: 'black',
-        modelViewTransform: modelViewTransform
-      } );
-
-    thisScreenView.addChild( thisScreenView.measuringTapeNode );
-
 
     // Define the root for the part that can be zoomed.
     // TODO: reset the zoom
@@ -108,6 +96,18 @@ define( function( require ) {
     thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
+    // add common code tape measure, TODO: its length changes with zoom, but nothing else does
+    thisScreenView.measuringTapeNode = new MeasuringTape(
+      model.unitsProperty,
+      model.measuringTapeProperty, {
+        x: model.measuringTapeX,
+        y: model.measuringTapeY,
+        textColor: 'black',
+        modelViewTransform: modelViewTransform
+      } );
+
+    zoomableNode.addChild( thisScreenView.measuringTapeNode );
+
 
     var zoomProperty = new Property( DEFAULT_ZOOM );
     // Create a property that will contain the current zoom transformation matrix.
@@ -124,6 +124,7 @@ define( function( require ) {
 
       zoomableNode.matrix = scaleMatrix;
       zoomMatrixProperty.value = scaleMatrix;
+
     } );
 
     var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
@@ -157,7 +158,7 @@ define( function( require ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
-    
+
     // 'Reset All' button, resets the sim to its initial state
     var resetAllButton = new ResetAllButton( {
       listener: function() {
