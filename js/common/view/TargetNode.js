@@ -17,9 +17,11 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   // var Util = require( 'DOT/Util' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // constants
-  var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH ;
+  var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH;
   var TARGET_WIDTH = 0.5;
 
 
@@ -39,7 +41,7 @@ define( function( require ) {
       0,
       0,
       modelViewTransform.modelToViewDeltaX( TARGET_LENGTH ),
-      modelViewTransform.modelToViewDeltaX( TARGET_WIDTH), {
+      modelViewTransform.modelToViewDeltaX( TARGET_WIDTH ), {
         fill: 'rgba(255,0,0,0.4)',
         pickable: true,
         cursor: 'pointer'
@@ -49,10 +51,6 @@ define( function( require ) {
     thisNode.target.center = modelViewTransform.modelToViewPosition( new Vector2( targetXProperty.value, 0 ) );
 
     thisNode.addChild( thisNode.target );
-
-    targetXProperty.link( function( targetX ) {
-      thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
-    } );
 
     var startPoint;
     var startX;
@@ -75,6 +73,19 @@ define( function( require ) {
       }
 
     } ) );
+
+    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', { font: new PhetFont( 14 ) } );
+    thisNode.distanceLabel.centerX = thisNode.target.centerX;
+    thisNode.distanceLabel.centerY = thisNode.target.centerY + 10;
+
+    thisNode.addChild( thisNode.distanceLabel );
+
+    targetXProperty.link( function( targetX ) {
+      thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
+      thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' m';
+      thisNode.distanceLabel.centerX = thisNode.target.centerX;
+      thisNode.distanceLabel.centerY = thisNode.target.centerY + 20;
+    } );
 
   }
 
