@@ -19,6 +19,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   
 
@@ -43,10 +44,10 @@ define( function( require ) {
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
         titleToControlsVerticalSpace: 5,
+        horizontalMin: 120,
         xMargin: 10,
         yMargin: 10,
-        stroke: 'orange',
-        lineWidth: 3
+        fill: ProjectileMotionConstants.PANEL_FILL_COLOR
       },
       options );
 
@@ -106,9 +107,9 @@ define( function( require ) {
       // spacing: 10,
       children: [
         new Text( initialValuesString, PANEL_TITLE_OPTIONS ),
+        new HStrut( options.horizontalMin ),
         new VStrut( options.titleToControlsVerticalSpace ),
         new HBox( { children: [ content ] } )
-        // TODO: add HStrut so panel size doesn't change
       ]
     } );
 

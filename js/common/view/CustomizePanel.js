@@ -17,7 +17,9 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var CheckBox = require( 'SUN/CheckBox' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
   var massString = 'Mass';
@@ -28,7 +30,7 @@ define( function( require ) {
   var velocityVectorsString = 'Velocity Vectors';
 
   // constants
-  var LABEL_OPTIONS = { font: ProjectileMotionConstants.LABEL_FONT };
+  var LABEL_OPTIONS = { font: new PhetFont( 11 ) };
 
   /**
    * Control panel constructor
@@ -40,10 +42,10 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
+        horizontalMin: 120,
         xMargin: 10,
         yMargin: 10,
-        stroke: 'orange',
-        lineWidth: 3
+        fill: ProjectileMotionConstants.PANEL_FILL_COLOR
       },
       options );
 
@@ -113,7 +115,15 @@ define( function( require ) {
       ]
     } );
 
-    Panel.call( this, content, options );
+    var customizeVBox = new VBox( {
+      // spacing: 10,
+      children: [
+        new HStrut( options.horizontalMin ),
+        content
+      ]
+    } );
+
+    Panel.call( this, customizeVBox, options );
   }
 
   projectileMotion.register( 'CustomizePanel', CustomizePanel );

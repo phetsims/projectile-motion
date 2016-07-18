@@ -36,7 +36,9 @@ define( function( require ) {
     INITIAL_CANNON_Y: 0,
 
     INITIAL_TAPE_MEASURE_X: 0,
-    INITIAL_TAPE_MEASURE_Y: 0 // location will be transformed, but not length
+    INITIAL_TAPE_MEASURE_Y: 0, // location will be transformed, but not length
+
+    PANEL_FILL_COLOR: 'rgb(255,238,218)'
 
   };
 
