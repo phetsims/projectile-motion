@@ -19,7 +19,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
 
   // strings
   var massString = 'Mass';
@@ -30,7 +29,7 @@ define( function( require ) {
   var velocityVectorsString = 'Velocity Vectors';
 
   // constants
-  var LABEL_OPTIONS = { font: new PhetFont( 11 ) };
+  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   /**
    * Control panel constructor

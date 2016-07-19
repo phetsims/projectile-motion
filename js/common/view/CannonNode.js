@@ -17,11 +17,11 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   // var Util = require( 'DOT/Util' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
-  var CANNON_LENGTH = 3;
-  var CANNON_WIDTH = 0.7;
+  var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
+  var CANNON_WIDTH = ProjectileMotionConstants.CANNON_WIDTH;
 
 
   /**
@@ -31,6 +31,7 @@ define( function( require ) {
    */
   function CannonNode( model, modelViewTransform ) {
     var thisNode = this;
+
     Node.call( thisNode );
 
     // auxiliary functions for setting the coordinates of the line

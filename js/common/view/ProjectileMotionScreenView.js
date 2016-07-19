@@ -22,7 +22,7 @@ define( function( require ) {
   // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var Node = require( 'SCENERY/nodes/Node' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
@@ -39,11 +39,11 @@ define( function( require ) {
   var slowMotionString = 'Slow Motion';
 
   // constants
-  var INSET = 10;
-  var MIN_ZOOM = 0.5;
-  var MAX_ZOOM = 5;
-  var DEFAULT_ZOOM = 1.0;
-  var TEXT_MAX_WIDTH = 80;
+  var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+  var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+  var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+  var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
+  var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
 
   /**
    * @param {ProjectileMotionModel} model

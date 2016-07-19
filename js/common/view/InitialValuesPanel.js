@@ -17,7 +17,6 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -30,8 +29,8 @@ define( function( require ) {
   var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
 
   // constants
-  var LABEL_OPTIONS = { font: new PhetFont( 11 ) };
-  var PANEL_TITLE_OPTIONS = { font: new PhetFont( 16 ), align: 'center' };
+  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var PANEL_TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
 
   /**
    * Control panel constructor

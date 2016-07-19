@@ -4,6 +4,7 @@
  * Model of a projectile
  * Notes: air resistance and altitude can immediately change the path of the trajectory, whereas other parameters
  * like velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired
+ * Units are meters, kilograms, and seconds (mks)
  *
  * @author Andrea Lin
  */
@@ -15,10 +16,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
-  var ACCELERATION_DUE_TO_GRAVITY = 9.8; // m/s^2
+  var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
 
   /**
    * @constructor

@@ -18,15 +18,13 @@ define( function( require ) {
   // var Vector2 = require( 'DOT/Vector2' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Property = require( 'AXON/Property' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
-  var COLOR = 'black';
-  // var PATH_OPTIONS = { stroke: 'black', lineWidth: 2 }; // width arbitrary
-  // constants
-  var ARROW_FILL_COLOR = 'rgb(100,100,100)';
-  var ARROW_HEAD_WIDTH = 12;
-  var ARROW_TAIL_WIDTH = 6;
-  var ARROW_SIZE_DEFAULT = 1; // can scale down
+  var ARROW_FILL_COLOR = ProjectileMotionConstants.ARROW_FILL_COLOR;
+  var ARROW_HEAD_WIDTH = ProjectileMotionConstants.ARROW_HEAD_WIDTH;
+  var ARROW_TAIL_WIDTH = ProjectileMotionConstants.ARROW_TAIL_WIDTH;
+  var ARROW_SIZE_DEFAULT = ProjectileMotionConstants.ARROW_SIZE_DEFAULT;
 
   /**
    * @param {Trajectory} trajectory - model for the trajectory
@@ -47,7 +45,7 @@ define( function( require ) {
     thisNode.projectile = new Circle( this.transformedBallSize / 2, {
       x: modelViewTransform.modelToViewX( trajectory.x ),
       y: modelViewTransform.modelToViewY( trajectory.y ),
-      fill: COLOR
+      fill: 'black'
     } );
 
     thisNode.addChild( thisNode.projectile );

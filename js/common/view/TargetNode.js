@@ -22,7 +22,7 @@ define( function( require ) {
 
   // constants
   var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH;
-  var TARGET_WIDTH = 0.5;
+  var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
 
 
   /**
