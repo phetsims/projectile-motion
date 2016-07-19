@@ -42,7 +42,7 @@ define( function( require ) {
       0,
       modelViewTransform.modelToViewDeltaX( TARGET_LENGTH ),
       modelViewTransform.modelToViewDeltaX( TARGET_WIDTH ), {
-        fill: 'rgba(255,0,0,0.4)',
+        fill: 'rgba( 255, 0, 0, 0.4 )',
         pickable: true,
         cursor: 'pointer'
       }

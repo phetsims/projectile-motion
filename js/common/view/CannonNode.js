@@ -49,7 +49,7 @@ define( function( require ) {
       modelViewTransform.modelToViewY( model.height ),
       thisNode.getX2( model.angle ),
       thisNode.getY2( model.angle ), {
-        stroke: 'rgba(0,0,0,0.4)',
+        stroke: 'rgba( 0, 0, 0, 0.4 )',
         lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
       }
     );
@@ -59,7 +59,6 @@ define( function( require ) {
     thisNode.adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: thisNode.cannon.x1,
       y: thisNode.cannon.y1,
-      // fill: 'rgba(0,0,0,0.6)',
       pickable: true,
       cursor: 'pointer'
     } );
@@ -69,7 +68,6 @@ define( function( require ) {
     thisNode.rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: thisNode.getX2( model.angle ),
       y: thisNode.getY2( model.angle ),
-      // fill: 'rgba(0,0,0,0.6)',
       pickable: true,
       cursor: 'pointer'
     } );

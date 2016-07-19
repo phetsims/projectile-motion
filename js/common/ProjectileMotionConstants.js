@@ -62,7 +62,7 @@ define( function( require ) {
     TAPE_MEASURE_Y_DEFAULT: 0, // location will be transformed, but not length
 
     // Panels
-    PANEL_FILL_COLOR: 'rgb(255,238,218)',
+    PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
     PANEL_TITLE_OPTIONS: { font: new PhetFont( 16 ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 11 ) },
 
