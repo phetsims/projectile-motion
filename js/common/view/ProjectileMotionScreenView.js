@@ -12,7 +12,6 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
-  var CustomizePanel = require( 'PROJECTILE_MOTION/common/view/CustomizePanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
@@ -49,11 +48,13 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function ProjectileMotionScreenView( model ) {
+  function ProjectileMotionScreenView( model, options ) {
 
     var thisScreenView = this;
 
-    ScreenView.call( thisScreenView );
+    options = options || {};
+
+    ScreenView.call( thisScreenView, options );
 
     // score text, behind all other children
     thisScreenView.score = new Text( 'Score!', {
@@ -76,14 +77,14 @@ define( function( require ) {
     // Control panels
     var initialValuesPanel = new InitialValuesPanel( model );
 
-    var customizePanel = new CustomizePanel( model );
+    var secondPanel = options.secondPanel;
 
     thisScreenView.addChild( new VBox( {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 10,
       align: 'left',
       spacing: 10,
-      children: [ initialValuesPanel, customizePanel ]
+      children: [ initialValuesPanel, secondPanel ]
     } ) );
 
 

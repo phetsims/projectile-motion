@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
    * @constructor
    */
-  function CustomizePanel( projectileMotionModel, options ) {
+  function CustomizePanel( projectileMotionLabModel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -72,33 +72,33 @@ define( function( require ) {
 
     var massBox = createParameterControlBox(
       massString,
-      projectileMotionModel.massProperty,
+      projectileMotionLabModel.massProperty,
       ProjectileMotionConstants.MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
-      projectileMotionModel.diameterProperty,
+      projectileMotionLabModel.diameterProperty,
       ProjectileMotionConstants.DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
-      projectileMotionModel.dragCoefficientProperty,
+      projectileMotionLabModel.dragCoefficientProperty,
       ProjectileMotionConstants.DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = createParameterControlBox(
       altitudeString,
-      projectileMotionModel.altitudeProperty,
+      projectileMotionLabModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionModel.airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
     var velocityVectorComponentsLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
-    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionModel.velocityVectorComponentsOnProperty );
+    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionLabModel.velocityVectorComponentsOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

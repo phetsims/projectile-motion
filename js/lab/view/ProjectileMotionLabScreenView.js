@@ -12,16 +12,21 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   // var ScreenView = require( 'JOIST/ScreenView' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+  var CustomizePanel = require( 'PROJECTILE_MOTION/lab/view/CustomizePanel' );
  
   /**
    * @param {ProjectileMotionLabModel} model
    * @constructor
    */
-  function ProjectileMotionLabScreenView( model ) {
+  function ProjectileMotionLabScreenView( model, options ) {
 
     var thisScreenView = this;
 
-    ProjectileMotionScreenView.call( thisScreenView, model );
+    options = options || {};
+
+    options = _.extend( { secondPanel: new CustomizePanel( model ) }, options );
+
+    ProjectileMotionScreenView.call( thisScreenView, model, options );
 
   }
 
