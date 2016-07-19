@@ -14,7 +14,7 @@ define( function( require ) {
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
   var CustomizePanel = require( 'PROJECTILE_MOTION/common/view/CustomizePanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
+  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -124,7 +124,7 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
-      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
+      var trajectoryNode = new ProjectileNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
       thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
 

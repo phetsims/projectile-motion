@@ -34,7 +34,7 @@ define( function( require ) {
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */
-  function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
+  function ProjectileNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
     // debugger;
@@ -151,8 +151,8 @@ define( function( require ) {
 
   }
 
-  projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
+  projectileMotion.register( 'ProjectileNode', ProjectileNode );
 
-  return inherit( Node, TrajectoryNode );
+  return inherit( Node, ProjectileNode );
 } );
 
