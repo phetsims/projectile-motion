@@ -124,14 +124,14 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
-      var trajectoryNode = new ProjectileNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
+      var projectileNode = new ProjectileNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
-      thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
+      thisScreenView.trajectoriesLayer.addChild( projectileNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          thisScreenView.trajectoriesLayer.removeChild( trajectoryNode );
+          thisScreenView.trajectoriesLayer.removeChild( projectileNode );
           model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );

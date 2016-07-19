@@ -17,6 +17,8 @@ define( function( require ) {
 
   // strings
   var labTitleString = require( 'string!PROJECTILE_MOTION/lab.title' );
+
+  // images
   var screenIcon = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
 
   /**

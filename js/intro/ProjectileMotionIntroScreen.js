@@ -17,6 +17,8 @@ define( function( require ) {
 
   // strings
   var introTitleString = require( 'string!PROJECTILE_MOTION/intro.title' );
+
+  // images
   var screenIcon = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
 
   /**
