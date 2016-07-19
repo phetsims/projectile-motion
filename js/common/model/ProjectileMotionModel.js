@@ -23,14 +23,14 @@ define( function( require ) {
     PropertySet.call( projectileMotionModel, {
 
       // properties of the current projectile that will be fired
-      height: ProjectileMotionConstants.INITIAL_CANNON_Y,
-      angle: ProjectileMotionConstants.DEFAULT_ANGLE,
-      velocity: ProjectileMotionConstants.DEFAULT_VELOCITY,
-      mass: ProjectileMotionConstants.DEFAULT_MASS, // kg
-      diameter: ProjectileMotionConstants.DEFAULT_DIAMETER, // meters
-      dragCoefficient: ProjectileMotionConstants.DEFAULT_DRAG_COEFFICIENT,
-      altitude: ProjectileMotionConstants.DEFAULT_ALTITUDE,
-      airResistanceOn: ProjectileMotionConstants.DEFAULT_AIR_RESISTANCE_ON, // should default to false
+      height: ProjectileMotionConstants.HEIGHT_DEFAULT,
+      angle: ProjectileMotionConstants.ANGLE_DEFAULT,
+      velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
+      mass: ProjectileMotionConstants.MASS_DEFAULT, // kg
+      diameter: ProjectileMotionConstants.DIAMETER_DEFAULT, // meters
+      dragCoefficient: ProjectileMotionConstants.DRAG_COEFFICIENT_DEFAULT,
+      altitude: ProjectileMotionConstants.ALTITUDE_DEFAULT,
+      airResistanceOn: ProjectileMotionConstants.AIR_RESISTANCE_ON_DEFAULT, // should default to false
 
       velocityVectorComponentsOn: false,
 
@@ -39,12 +39,10 @@ define( function( require ) {
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
 
       measuringTape: true,
-      measuringTapeX: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_X,
-      measuringTapeY: ProjectileMotionConstants.INITIAL_TAPE_MEASURE_Y,
+      measuringTapeX: ProjectileMotionConstants.TAPE_MEASURE_X_DEFAULT,
+      measuringTapeY: ProjectileMotionConstants.TAPE_MEASURE_Y_DEFAULT,
 
-      cannonX: ProjectileMotionConstants.INITIAL_CANNON_X,
-
-      targetX: ProjectileMotionConstants.INITIAL_TARGET_X,
+      targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
 
       showScore: false, // whether to show you have scored
       scoredTime: 0 // amount of time Score! has been visible
@@ -55,7 +53,7 @@ define( function( require ) {
 
     // called when fire button is pressed
     projectileMotionModel.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, projectileMotionModel.cannonX, projectileMotionModel.height, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
+      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, 0, projectileMotionModel.height, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
         projectileMotionModel.diameter, projectileMotionModel.dragCoefficient ) );
     };
 
@@ -86,7 +84,6 @@ define( function( require ) {
       this.isPlayingProperty.reset();
 
       // the following matters if user has changed the height of the cannon
-      this.cannonXProperty.reset();
       this.heightProperty.reset();
 
       // resets the position of the measuring tape

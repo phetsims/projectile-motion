@@ -36,7 +36,7 @@ define( function( require ) {
 
     // auxiliary functions for setting the coordinates of the line
     thisNode.getX2 = function( angle ) {
-      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angle * Math.PI / 180 ) + model.cannonX );
+      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angle * Math.PI / 180 ) );
     };
 
     thisNode.getY2 = function( angle ) {
@@ -45,7 +45,7 @@ define( function( require ) {
 
     // node drawn 
     thisNode.cannon = new Line(
-      modelViewTransform.modelToViewX( model.cannonX ),
+      modelViewTransform.modelToViewX( 0 ),
       modelViewTransform.modelToViewY( model.height ),
       thisNode.getX2( model.angle ),
       thisNode.getY2( model.angle ), {
