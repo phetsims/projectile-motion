@@ -48,7 +48,8 @@ define( function( require ) {
 
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
-      isPlaying: true
+      isPlaying: true,
+      stepThree: 0 // how many steps mod three, used to slow animation down to a third of normal speed
     } );
 
     // observable array of trajectories
@@ -86,13 +87,17 @@ define( function( require ) {
 
     // @public animates trajectory if running
     step: function( dt ) {
+      this.stepThree += 1;
+      this.stepThree = this.stepThree % 3;
+
       // prevent sudden dt bursts when the user comes back to the tab after a while
       dt = Math.min( 0.016, dt );
 
       if ( this.isPlaying ) {
-        // slow motion slows animation down to a third of normal speed
-        var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
-        this.stepInternal( adjustedDT );
+        // either this speed is normal, or its slow and only steps on every third frame
+        if ( this.speed === 'normal' || this.stepThree === 0 ) {
+          this.stepInternal(  dt );
+        }
       }
     },
 
