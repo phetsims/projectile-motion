@@ -49,9 +49,8 @@ define( function( require ) {
    */
   function ProjectileMotionScreenView( model, options ) {
 
-    var thisScreenView = this;
-
     options = options || {};
+    var thisScreenView = this;
 
     ScreenView.call( thisScreenView, options );
 
@@ -62,6 +61,7 @@ define( function( require ) {
       centerY: ( thisScreenView.layoutBounds.minY + thisScreenView.layoutBounds.maxY ) / 2,
       visible: false
     } );
+    thisScreenView.addChild( thisScreenView.score );
 
     model.showScoreProperty.link( function( showScore ) {
       if ( showScore ) {
@@ -71,7 +71,6 @@ define( function( require ) {
       }
     } );
 
-    thisScreenView.addChild( thisScreenView.score );
 
     // Control panels
     var initialValuesPanel = new InitialValuesPanel( model.heightProperty, model.angleProperty, model.velocityProperty );
@@ -86,25 +85,23 @@ define( function( require ) {
       children: [ initialValuesPanel, secondPanel ]
     } ) );
 
+    // Fire button
     var fireButton = new FireButton( {
       x: 40, // empirically determined for now
       y: thisScreenView.layoutBounds.maxY - 40,
       listener: model.cannonFired
     } );
-
     thisScreenView.addChild( fireButton );
 
+    // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 100, 450 ), // empirically determined based off original sim
       25 // scale for meters, empirically determined based off original sim, smaller zoom in, larger zoom out
     );
-
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
-
-    // Define the root for the part that can be zoomed.
-    // TODO: reset the zoom
+    // zoomable node layer
     var zoomableNode = new Node();
     thisScreenView.addChild( zoomableNode );
 
@@ -115,6 +112,7 @@ define( function( require ) {
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     thisScreenView.trajectoriesLayer = new Node();
+    zoomableNode.addChild( thisScreenView.trajectoriesLayer );
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
@@ -131,9 +129,6 @@ define( function( require ) {
       } );
     }
 
-    // all trajectories are in front of control panel and behind measuring tape
-    zoomableNode.addChild( thisScreenView.trajectoriesLayer );
-
     // lets view listen to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
@@ -142,8 +137,7 @@ define( function( require ) {
     thisScreenView.cannonNode = new CannonNode( model.heightProperty, model.angleProperty, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
-
-    // add common code tape measure
+    // add common code measuring tape
     // TODO: its length changes with zoom, but nothing else does
     thisScreenView.measuringTapeNode = new MeasuringTape(
       model.unitsProperty,
@@ -156,12 +150,11 @@ define( function( require ) {
 
     zoomableNode.addChild( thisScreenView.measuringTapeNode );
 
-
+    // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
-    // Create a property that will contain the current zoom transformation matrix, may use in measuring tape later
-    var zoomMatrixProperty = new Property();
-
-    // Watch the zoom property and zoom in and out correspondingly.using 3 dimemsional matrix
+  
+    // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix
+    // scale matrix algorithm taken from neuron repo
     zoomProperty.link( function( zoomFactor ) {
 
       var scaleMatrix;
@@ -171,16 +164,16 @@ define( function( require ) {
       scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
 
       zoomableNode.matrix = scaleMatrix;
-      zoomMatrixProperty.value = scaleMatrix;
-
     } );
 
     var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
     thisScreenView.addChild( zoomControl );
+
+    // position zoom control
     zoomControl.top = 0;
     zoomControl.left = 0;
 
-    // add play/pause and step buttons
+    // add step button
     var stepButton = new StepForwardButton( {
       playingProperty: model.isPlayingProperty,
       listener: function() { model.stepInternal( 0.016 ); },
@@ -192,7 +185,7 @@ define( function( require ) {
     } );
     thisScreenView.addChild( stepButton );
 
-    // add play pause
+    // add play/pause button
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
       y: stepButton.centerY,
@@ -227,7 +220,7 @@ define( function( require ) {
 
     thisScreenView.addChild( speedControl.mutate( { right: playPauseButton.left - 2 * INSET, bottom: playPauseButton.bottom } ) );
 
-    // 'Reset All' button, resets the sim to its initial state
+    // add reset all button
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
@@ -238,6 +231,7 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } );
     thisScreenView.addChild( resetAllButton );
+    
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
