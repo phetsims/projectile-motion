@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
    * @constructor
    */
-  function InitialValuesPanel( projectileMotionModel, options ) {
+  function InitialValuesPanel( heightProperty, angleProperty, velocityProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -74,19 +74,19 @@ define( function( require ) {
 
     var heightBox = createParameterControlBox(
       heightString,
-      projectileMotionModel.heightProperty,
+      heightProperty,
       ProjectileMotionConstants.HEIGHT_RANGE
     );
 
     var velocityBox = createParameterControlBox(
       velocityString,
-      projectileMotionModel.velocityProperty,
+      velocityProperty,
       ProjectileMotionConstants.VELOCITY_RANGE
     );
 
     var angleBox = createParameterControlBox(
       angleString,
-      projectileMotionModel.angleProperty,
+      angleProperty,
       ProjectileMotionConstants.ANGLE_RANGE
     );
 

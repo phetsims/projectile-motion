@@ -75,7 +75,7 @@ define( function( require ) {
     thisScreenView.addChild( thisScreenView.score );
 
     // Control panels
-    var initialValuesPanel = new InitialValuesPanel( model );
+    var initialValuesPanel = new InitialValuesPanel( model.heightProperty, model.angleProperty, model.velocityProperty );
 
     var secondPanel = options.secondPanel;
 
