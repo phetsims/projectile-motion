@@ -28,10 +28,10 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var RoundPushButton = require( 'SUN/buttons/RoundPushButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
 
   // strings
   var normalString = 'Normal';
@@ -87,16 +87,10 @@ define( function( require ) {
       children: [ initialValuesPanel, secondPanel ]
     } ) );
 
-
-    var fireListener = function() {
-      model.cannonFired();
-    };
-
-    var fireButton = new RoundPushButton( {
+    var fireButton = new FireButton( {
       x: 40, // empirically determined for now
       y: thisScreenView.layoutBounds.maxY - 40,
-      baseColor: '#94b830', //green
-      listener: fireListener
+      listener: model.cannonFired
     } );
 
     thisScreenView.addChild( fireButton );
