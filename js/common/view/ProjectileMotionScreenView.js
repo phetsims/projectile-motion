@@ -54,24 +54,6 @@ define( function( require ) {
 
     ScreenView.call( thisScreenView, options );
 
-    // score text, behind all other children
-    thisScreenView.score = new Text( 'Score!', {
-      font: new PhetFont( 20 ),
-      centerX: ( thisScreenView.layoutBounds.minX + thisScreenView.layoutBounds.maxX ) / 2,
-      centerY: ( thisScreenView.layoutBounds.minY + thisScreenView.layoutBounds.maxY ) / 2,
-      visible: false
-    } );
-    thisScreenView.addChild( thisScreenView.score );
-
-    model.showScoreProperty.link( function( showScore ) {
-      if ( showScore ) {
-        thisScreenView.score.visible = true;
-      } else {
-        thisScreenView.score.visible = false;
-      }
-    } );
-
-
     // Control panels
     var initialValuesPanel = new InitialValuesPanel( model.heightProperty, model.angleProperty, model.velocityProperty );
 
@@ -106,7 +88,7 @@ define( function( require ) {
     thisScreenView.addChild( zoomableNode );
 
     // add target
-    thisScreenView.targetNode = new TargetNode( model.targetXProperty, modelViewTransform );
+    thisScreenView.targetNode = new TargetNode( model.scoreModel, modelViewTransform );
     zoomableNode.addChild( thisScreenView.targetNode );
 
 

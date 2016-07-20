@@ -55,7 +55,6 @@ define( function( require ) {
     TARGET_X_DEFAULT: 15, // meters
     TARGET_LENGTH: 2, // meters
     TARGET_WIDTH: 0.5, // meters
-    SHOW_SCORE_TIME: 1, // seconds
 
     // Measuring tape
     TAPE_MEASURE_X_DEFAULT: 0,

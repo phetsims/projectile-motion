@@ -14,6 +14,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
+  var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
 
   /**
    * @constructor
@@ -39,11 +40,6 @@ define( function( require ) {
       // Vectors
       velocityVectorComponentsOn: false,
 
-      // Target
-      targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
-      showScore: false, // whether to show you have scored
-      scoredTime: 0, // amount of time Score! has been visible
-
       // Measuring Tape (in common code)
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
       measuringTape: true,
@@ -58,15 +54,19 @@ define( function( require ) {
     // observable array of trajectories
     projectileMotionModel.trajectories = new ObservableArray();
 
-    // called when fire button is pressed
+    // @private, adds a trajectory to the observable array
     projectileMotionModel.addTrajectory = function() {
       projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel ) );
     };
+
+    // scoring handler
+    projectileMotionModel.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
     // called on when fire button is pressed
     projectileMotionModel.cannonFired = function() {
       projectileMotionModel.isPlaying = true;
       projectileMotionModel.addTrajectory();
+      projectileMotionModel.scoreModel.turnOffScore();
     };
   }
 
@@ -80,6 +80,8 @@ define( function( require ) {
 
       // remove all trajectories
       this.trajectories.reset();
+
+      this.scoreModel.reset();
     },
 
     // @public animates trajectory if running
@@ -88,7 +90,6 @@ define( function( require ) {
       dt = Math.min( 0.016, dt );
 
       if ( this.isPlaying ) {
-
         // slow motion slows animation down to a third of normal speed
         var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
         this.stepInternal( adjustedDT );
@@ -97,13 +98,7 @@ define( function( require ) {
 
     stepInternal: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
-      if ( this.showScore ) {
-        this.scoredTime += dt;
-      }
-      if ( this.scoredTime >= ProjectileMotionConstants.SHOW_SCORE_TIME ) { // show score for two seconds
-        this.showScore = false;
-        this.scoredTime = 0;
-      }
+      this.scoreModel.step( dt );
     }
   } );
 } );

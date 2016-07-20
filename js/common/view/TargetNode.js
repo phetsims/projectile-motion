@@ -25,17 +25,17 @@ define( function( require ) {
 
 
   /**
-   * @param {Property} targetXProperty - x location of the target.
+   * @param {Score} scoreModel - model of the target and scoring algorithms
    * @param {String|color} color
    * @constructor
    */
-  function TargetNode( targetXProperty, modelViewTransform ) {
+  function TargetNode( scoreModel, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode );
 
-    thisNode.targetXProperty = targetXProperty;
+    thisNode.targetXProperty = scoreModel.targetXProperty;
 
-    // node drawn 
+    // draw target view
     thisNode.target = new Rectangle(
       0,
       0,
@@ -47,7 +47,7 @@ define( function( require ) {
       }
     );
 
-    thisNode.target.center = modelViewTransform.modelToViewPosition( new Vector2( targetXProperty.value, 0 ) );
+    thisNode.target.center = modelViewTransform.modelToViewPosition( new Vector2( scoreModel.targetXProperty.value, 0 ) );
 
     thisNode.addChild( thisNode.target );
 
@@ -55,7 +55,7 @@ define( function( require ) {
     var startX;
     var mousePoint;
 
-    // drag the tip of the cannon to change angle
+    // drag target to change horizontal position
     thisNode.target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = thisNode.target.globalToParentPoint( event.pointer.point );
@@ -73,17 +73,35 @@ define( function( require ) {
 
     } ) );
 
+    // distance from cannon text
     thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', { font: new PhetFont( 14 ) } );
     thisNode.distanceLabel.centerX = thisNode.target.centerX;
     thisNode.distanceLabel.centerY = thisNode.target.centerY + 10;
 
     thisNode.addChild( thisNode.distanceLabel );
 
-    targetXProperty.link( function( targetX ) {
+    scoreModel.targetXProperty.link( function( targetX ) {
       thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
       thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' m';
       thisNode.distanceLabel.centerX = thisNode.target.centerX;
       thisNode.distanceLabel.centerY = thisNode.target.centerY + 20;
+    } );
+
+    // score text
+    thisNode.scoreIndicator = new Text( 'Score!', {
+      font: new PhetFont( 20 )
+    } );
+    thisNode.scoreIndicator.centerX = thisNode.target.centerX + 50;
+    thisNode.scoreIndicator.centerY = thisNode.target.centerY;
+
+    thisNode.addChild( thisNode.scoreIndicator );
+
+    scoreModel.scoreVisibleProperty.link( function( visible ) {
+      if ( visible ) {
+        thisNode.scoreIndicator.visible = true;
+      } else {
+        thisNode.scoreIndicator.visible = false;
+      }
     } );
 
   }

@@ -117,10 +117,7 @@ define( function( require ) {
         newY = 0;
 
         // check if projectile landed on target
-        if ( Math.abs(  newX - this.projectileMotionModel.targetX ) <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
-          this.projectileMotionModel.showScore = true;
-          this.projectileMotionModel.scoredTime = 0; // reset scored time
-        }
+        this.projectileMotionModel.scoreModel.checkforScored( newX );
       }
 
       this.x = newX;
