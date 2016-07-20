@@ -22,30 +22,37 @@ define( function( require ) {
     var projectileMotionModel = this;
     PropertySet.call( projectileMotionModel, {
 
-      // properties of the current projectile that will be fired
+      // Variables for the next trajectory, and thus the cannon
       height: ProjectileMotionConstants.HEIGHT_DEFAULT,
       angle: ProjectileMotionConstants.ANGLE_DEFAULT,
       velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
+
+      // Parameters for the next projectile fired
       mass: ProjectileMotionConstants.MASS_DEFAULT, // kg
       diameter: ProjectileMotionConstants.DIAMETER_DEFAULT, // meters
       dragCoefficient: ProjectileMotionConstants.DRAG_COEFFICIENT_DEFAULT,
+
+      // Properties that change the environment and affect all projectiles immediately
       altitude: ProjectileMotionConstants.ALTITUDE_DEFAULT,
       airResistanceOn: ProjectileMotionConstants.AIR_RESISTANCE_ON_DEFAULT, // should default to false
 
+      // Vectors
       velocityVectorComponentsOn: false,
 
-      speed: 'normal',
-      isPlaying: true,
-      units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
+      // Target
+      targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
+      showScore: false, // whether to show you have scored
+      scoredTime: 0, // amount of time Score! has been visible
 
+      // Measuring Tape (in common code)
+      units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
       measuringTape: true,
       measuringTapeX: ProjectileMotionConstants.TAPE_MEASURE_X_DEFAULT,
       measuringTapeY: ProjectileMotionConstants.TAPE_MEASURE_Y_DEFAULT,
 
-      targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
-
-      showScore: false, // whether to show you have scored
-      scoredTime: 0 // amount of time Score! has been visible
+      // animation controls, e.g. normal/slow/play/pause/step
+      speed: 'normal',
+      isPlaying: true
     } );
 
     // observable array of trajectories
