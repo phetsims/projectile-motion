@@ -29,26 +29,26 @@ define( function( require ) {
    * @param {String|color} color
    * @constructor
    */
-  function CannonNode( model, modelViewTransform ) {
+  function CannonNode( heightProperty, angleProperty, modelViewTransform ) {
     var thisNode = this;
 
     Node.call( thisNode );
 
     // auxiliary functions for setting the coordinates of the line
-    thisNode.getX2 = function( angle ) {
-      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angle * Math.PI / 180 ) );
+    thisNode.getX2 = function() {
+      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.value * Math.PI / 180 ) );
     };
 
-    thisNode.getY2 = function( angle ) {
-      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angle * Math.PI / 180 ) + model.height );
+    thisNode.getY2 = function() {
+      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.value * Math.PI / 180 ) + heightProperty.value );
     };
 
     // node drawn 
     thisNode.cannon = new Line(
       modelViewTransform.modelToViewX( 0 ),
-      modelViewTransform.modelToViewY( model.height ),
-      thisNode.getX2( model.angle ),
-      thisNode.getY2( model.angle ), {
+      modelViewTransform.modelToViewY( heightProperty.value ),
+      thisNode.getX2(),
+      thisNode.getY2(), {
         stroke: 'rgba( 0, 0, 0, 0.4 )',
         lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
       }
@@ -66,8 +66,8 @@ define( function( require ) {
     thisNode.addChild( thisNode.adjustableHeightArea );
 
     thisNode.rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
-      x: thisNode.getX2( model.angle ),
-      y: thisNode.getY2( model.angle ),
+      x: thisNode.getX2(),
+      y: thisNode.getY2(),
       pickable: true,
       cursor: 'pointer'
     } );
@@ -75,18 +75,18 @@ define( function( require ) {
     thisNode.addChild( thisNode.rotatableArea );
 
     // watch for if the trajectory changes angle
-    model.angleProperty.link( function( angle ) {
-      thisNode.cannon.x2 = thisNode.getX2( model.angle );
-      thisNode.cannon.y2 = thisNode.getY2( model.angle );
+    angleProperty.link( function() {
+      thisNode.cannon.x2 = thisNode.getX2();
+      thisNode.cannon.y2 = thisNode.getY2();
       thisNode.adjustableHeightArea.x = thisNode.cannon.x1;
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.x = thisNode.cannon.x2;
       thisNode.rotatableArea.y = thisNode.cannon.y2;
     } );
 
-    model.heightProperty.link( function( height ) {
-      thisNode.cannon.y1 = modelViewTransform.modelToViewY( model.height );
-      thisNode.cannon.y2 = thisNode.getY2( model.angle );
+    heightProperty.link( function( height ) {
+      thisNode.cannon.y1 = modelViewTransform.modelToViewY( height );
+      thisNode.cannon.y2 = thisNode.getY2();
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.y = thisNode.cannon.y2;
     } );
@@ -99,7 +99,7 @@ define( function( require ) {
     thisNode.rotatableArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = thisNode.rotatableArea.globalToParentPoint( event.pointer.point );
-        startAngle = model.angle; // degrees
+        startAngle = angleProperty.value; // degrees
       },
 
       drag: function( event ) {
@@ -117,7 +117,7 @@ define( function( require ) {
         // model.angle = Util.clamp( startAngle + angleChangeInDegrees, ProjectileMotionConstants.ANGLE_RANGE.min, ProjectileMotionConstants.ANGLE_RANGE.max ); // degrees
 
         // update model angle
-        model.angle = startAngle + angleChangeInDegrees;
+        angleProperty.value = startAngle + angleChangeInDegrees;
       }
 
     } ) );
@@ -139,7 +139,7 @@ define( function( require ) {
         var heightChange = mousePoint.y - startPoint.y;
 
         // update model height
-        model.height = modelViewTransform.viewToModelY( startHeight + heightChange );
+        heightProperty.value = modelViewTransform.viewToModelY( startHeight + heightChange );
       }
 
     } ) );

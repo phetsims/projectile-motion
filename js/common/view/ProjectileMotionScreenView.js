@@ -140,7 +140,7 @@ define( function( require ) {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // add cannon
-    thisScreenView.cannonNode = new CannonNode( model, modelViewTransform );
+    thisScreenView.cannonNode = new CannonNode( model.heightProperty, model.angleProperty, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
 
