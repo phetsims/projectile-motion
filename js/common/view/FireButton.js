@@ -19,8 +19,6 @@ define( function( require ) {
 
   
   /**
-   * @param {Particle} particle
-   * @param {String|color} color
    * @constructor
    */
   function FireButton( options ) {

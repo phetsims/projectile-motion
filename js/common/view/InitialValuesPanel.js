@@ -34,8 +34,9 @@ define( function( require ) {
 
   /**
    * Control panel constructor
-   * @param {BarMagnet} barMagnetModel the entire model for the bar magnet screen
-   * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
+   * @param {Property} heightProperty - height of the cannon
+   * @param {Property} angleProperty - angle of the cannon
+   * @param {Property} velocityProperty - velocity of next projectile
    * @constructor
    */
   function InitialValuesPanel( heightProperty, angleProperty, velocityProperty, options ) {

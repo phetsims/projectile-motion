@@ -21,6 +21,7 @@ define( function( require ) {
   var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
 
   /**
+   * @param {ProjectileMotionModel} model
    * @constructor
    */
   function Trajectory( model ) {
@@ -92,8 +93,6 @@ define( function( require ) {
         // air resistance is turned off
         airDensity = 0;
       }
-
-      // console.log ( 'air density' + airDensity, 'temperature' + temperature, 'pressure' + pressure );
 
       var area = Math.PI * this.diameter * this.diameter / 4;
 

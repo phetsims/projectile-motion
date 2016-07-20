@@ -24,6 +24,7 @@ define( function( require ) {
 
     options = options || {};
 
+    // second panel includes customizable options
     options = _.extend( { secondPanel: new CustomizePanel( model ) }, options );
 
     ProjectileMotionScreenView.call( thisScreenView, model, options );

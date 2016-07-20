@@ -75,7 +75,6 @@ define( function( require ) {
   return inherit( PropertySet, ProjectileMotionModel, {
 
     reset: function() {
-
       // reset all properties by calling super class
       PropertySet.prototype.reset.call( this );
 
@@ -87,7 +86,10 @@ define( function( require ) {
     step: function( dt ) {
       // prevent sudden dt bursts when the user comes back to the tab after a while
       dt = Math.min( 0.016, dt );
+
       if ( this.isPlaying ) {
+
+        // slow motion slows animation down to a third of normal speed
         var adjustedDT = this.speed === 'normal' ? dt : dt * 0.33;
         this.stepInternal( adjustedDT );
       }

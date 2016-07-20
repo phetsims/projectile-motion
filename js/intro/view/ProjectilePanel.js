@@ -31,8 +31,7 @@ define( function( require ) {
 
   /**
    * Control panel constructor
-   * @param {BarMagnet} barMagnetModel the entire model for the bar magnet screen
-   * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
+   * @param {ProjectileMotionModel} model
    * @constructor
    */
   function ProjectilePanel( projectileMotionLabModel, options ) {

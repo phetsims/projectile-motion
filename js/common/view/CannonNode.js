@@ -25,8 +25,9 @@ define( function( require ) {
 
 
   /**
-   * @param {Particle} particle
-   * @param {String|color} color
+   * @param {Property} heightProperty - height of the cannon
+   * @param {Property} angleProperty - angle of the cannon
+   * @param {ModelViewTransform2} modelViewTransform - meters to units, inverted y
    * @constructor
    */
   function CannonNode( heightProperty, angleProperty, modelViewTransform ) {

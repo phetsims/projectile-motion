@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Cannon view. Angle can change when user drags the cannon
+ * Target view. X position can change when user drags the cannon, y remains constant (on the ground)
  *
  * @author Andrea Lin
  */
@@ -26,7 +26,7 @@ define( function( require ) {
 
 
   /**
-   * @param {Particle} particle
+   * @param {Property} targetXProperty - x location of the target.
    * @param {String|color} color
    * @constructor
    */
