@@ -35,7 +35,7 @@ define( function( require ) {
    * @param {Object} [options] scenery options for rendering the control panel, see the constructor for options.
    * @constructor
    */
-  function CustomizePanel( projectileMotionLabModel, options ) {
+  function ProjectilePanel( projectileMotionLabModel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -112,8 +112,8 @@ define( function( require ) {
     Panel.call( this, customizeVBox, options );
   }
 
-  projectileMotion.register( 'CustomizePanel', CustomizePanel );
+  projectileMotion.register( 'ProjectilePanel', ProjectilePanel );
 
-  return inherit( Panel, CustomizePanel );
+  return inherit( Panel, ProjectilePanel );
 } );
 
