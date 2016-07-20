@@ -18,7 +18,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   // constants
-  var LEEWAY = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
+  var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
 
 
   /**
@@ -50,7 +50,7 @@ define( function( require ) {
       for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.trajectories.get( i );
         var point = currentTrajectory.getNearestPoint( this.x, this.y );
-        if ( point && point.distanceXY( this.x, this.y ) <= LEEWAY ) {
+        if ( point && point.distanceXY( this.x, this.y ) <= SENSING_RADIUS ) {
           return point;
         }
       }
