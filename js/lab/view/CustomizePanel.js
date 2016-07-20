@@ -10,15 +10,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var CheckBox = require( 'SUN/CheckBox' );
+  var HSlider = require( 'SUN/HSlider' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HSlider = require( 'SUN/HSlider' );
-  var CheckBox = require( 'SUN/CheckBox' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var massString = 'Mass';

@@ -9,16 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  // var Property = require( 'AXON/Property' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  // var Shape = require( 'KITE/Shape' );
-  // var Vector2 = require( 'DOT/Vector2' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Property = require( 'AXON/Property' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var ARROW_FILL_COLOR = ProjectileMotionConstants.ARROW_FILL_COLOR;

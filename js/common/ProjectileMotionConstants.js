@@ -10,8 +10,8 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
   var ProjectileMotionConstants = {
 

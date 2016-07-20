@@ -8,30 +8,29 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
-  var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
-  var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Vector2 = require( 'DOT/Vector2' );
-  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
-  var Property = require( 'AXON/Property' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var Text = require( 'SCENERY/nodes/Text' );
+  var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
+  var Matrix3 = require( 'DOT/Matrix3' );
+  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
+  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
+  var Property = require( 'AXON/Property' );
+  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  var ScreenView = require( 'JOIST/ScreenView' );
+  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
 
   // strings
   var normalString = 'Normal';

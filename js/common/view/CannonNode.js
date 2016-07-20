@@ -9,15 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
-  // var Util = require( 'DOT/Util' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;

@@ -9,16 +9,15 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
-  // var Util = require( 'DOT/Util' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH;

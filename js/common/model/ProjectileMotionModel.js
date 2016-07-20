@@ -9,11 +9,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
 
   /**
    * @constructor
