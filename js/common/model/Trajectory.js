@@ -16,6 +16,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var ObservableArray = require( 'AXON/ObservableArray' );
 
   // constants
   var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
@@ -30,6 +31,7 @@ define( function( require ) {
     // @public
     PropertySet.call( this, {
       // initial values
+      time: 0, // seconds
       x: 0,
       y: model.height,
       mass: model.mass,
@@ -49,6 +51,8 @@ define( function( require ) {
 
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
+
+    this.dataPoints = new ObservableArray();
   }
 
   projectileMotion.register( 'Trajectory', Trajectory );
@@ -112,7 +116,7 @@ define( function( require ) {
         this.reachedGround = true;
 
         // calculated by hand, the time it takes for projectile to reach the ground, within the next dt
-        var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity )/ this.yAcceleration;
+        var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity ) / this.yAcceleration;
         newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
         newY = 0;
 
@@ -120,12 +124,15 @@ define( function( require ) {
         this.projectileMotionModel.scoreModel.checkforScored( newX );
       }
 
+      this.time += dt;
       this.x = newX;
       this.y = newY;
       this.xVelocity = newXVelocity;
       this.yVelocity = newYVelocity;
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
+
+      this.dataPoints.push( { time: this.time, x: this.x, y: this.y } );
     }
   } );
 } );

@@ -21,7 +21,7 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
+  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -98,14 +98,14 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // Create and add the view representation for this trajectory
-      var projectileNode = new ProjectileNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
-      thisScreenView.trajectoriesLayer.addChild( projectileNode );
+      thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          thisScreenView.trajectoriesLayer.removeChild( projectileNode );
+          thisScreenView.trajectoriesLayer.removeChild( trajectoryNode );
           model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
