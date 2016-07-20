@@ -60,8 +60,7 @@ define( function( require ) {
 
     // called when fire button is pressed
     projectileMotionModel.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel, 0, projectileMotionModel.height, projectileMotionModel.velocity, projectileMotionModel.angle, projectileMotionModel.mass,
-        projectileMotionModel.diameter, projectileMotionModel.dragCoefficient ) );
+      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel ) );
     };
 
     // called on when fire button is pressed

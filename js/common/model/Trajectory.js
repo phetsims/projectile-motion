@@ -23,27 +23,28 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function Trajectory( model, initialX, initialY, initialVelocity, initialAngle, mass, diameter, dragCoefficient ) {
+  function Trajectory( model ) {
     this.projectileMotionModel = model;
 
     // @public
     PropertySet.call( this, {
-      x: initialX,
-      y: initialY,
-      mass: mass,
-      diameter: diameter,
-      dragCoefficient: dragCoefficient,
-      xVelocity: initialVelocity * Math.cos( initialAngle * Math.PI / 180 ),
-      yVelocity: initialVelocity * Math.sin( initialAngle * Math.PI / 180 )
-        // showPaths: true // if it is set to false, the paths are erased
+      // initial values
+      x: 0,
+      y: model.height,
+      mass: model.mass,
+      diameter: model.diameter,
+      dragCoefficient: model.dragCoefficient,
+      xVelocity: model.velocity * Math.cos( model.angle * Math.PI / 180 ),
+      yVelocity: model.velocity * Math.sin( model.angle * Math.PI / 180 )
     } );
 
+    // initial values
     this.reachedGround = false;
 
-    this.xVelocity = initialVelocity * Math.cos( initialAngle * Math.PI / 180 );
-    this.yVelocity = initialVelocity * Math.sin( initialAngle * Math.PI / 180 );
+    this.xVelocity = model.velocity * Math.cos( model.angle * Math.PI / 180 );
+    this.yVelocity = model.velocity * Math.sin( model.angle * Math.PI / 180 );
 
-    this.velocity = initialVelocity;
+    this.velocity = model.velocity;
 
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
