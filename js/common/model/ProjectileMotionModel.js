@@ -69,33 +69,12 @@ define( function( require ) {
   return inherit( PropertySet, ProjectileMotionModel, {
 
     reset: function() {
-      // reset properties of the projectile
-      this.velocityProperty.reset();
-      this.angleProperty.reset();
-      this.massProperty.reset();
-      this.diameterProperty.reset();
-      this.dragCoefficientProperty.reset();
 
-      // reset properties of the environment
-      this.airResistanceOnProperty.reset();
-      this.altitudeProperty.reset();
-
-      this.speedProperty.reset();
-      this.isPlayingProperty.reset();
-
-      // the following matters if user has changed the height of the cannon
-      this.heightProperty.reset();
-
-      // resets the position of the measuring tape
-      this.measuringTapeXProperty.reset();
-      this.measuringTapeYProperty.reset();
+      // reset all properties by calling super class
+      PropertySet.prototype.reset.call( this );
 
       // remove all trajectories
       this.trajectories.reset();
-
-      this.targetXProperty.reset();
-      this.showScoreProperty.reset();
-      this.scoredTimeProperty.reset();
     },
 
     // @public animates trajectory if running
