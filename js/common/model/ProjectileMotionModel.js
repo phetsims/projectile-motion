@@ -14,6 +14,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
+  var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
 
   /**
@@ -69,6 +70,9 @@ define( function( require ) {
       projectileMotionModel.addTrajectory();
       projectileMotionModel.scoreModel.turnOffScore();
     };
+
+    // model for the tracer probe
+    projectileMotionModel.tracerModel = new Tracer( projectileMotionModel.trajectories, 10, 10 ); // location arbitrary
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -83,6 +87,8 @@ define( function( require ) {
       this.trajectories.reset();
 
       this.scoreModel.reset();
+
+      this.tracerModel.reset();
     },
 
     // @public animates trajectory if running

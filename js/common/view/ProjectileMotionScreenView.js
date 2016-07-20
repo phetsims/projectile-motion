@@ -21,6 +21,7 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
@@ -129,12 +130,17 @@ define( function( require ) {
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
-
     zoomableNode.addChild( thisScreenView.measuringTapeNode );
+
+    thisScreenView.tracerNode = new TracerNode(
+      model.tracerModel,
+      modelViewTransform
+    );
+    zoomableNode.addChild( thisScreenView.tracerNode );
 
     // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
-  
+
     // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix
     // scale matrix algorithm taken from neuron repo
     zoomProperty.link( function( zoomFactor ) {
@@ -213,7 +219,7 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } );
     thisScreenView.addChild( resetAllButton );
-    
+
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
