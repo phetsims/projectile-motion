@@ -60,6 +60,9 @@ define( function( require ) {
     TAPE_MEASURE_X_DEFAULT: 0,
     TAPE_MEASURE_Y_DEFAULT: 0, // location will be transformed, but not length
 
+    // Tracer
+    TRACER_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
+
     // Panels
     PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
     PANEL_TITLE_OPTIONS: { font: new PhetFont( 16 ), align: 'center' },

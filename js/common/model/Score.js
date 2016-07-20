@@ -31,6 +31,8 @@ define( function( require ) {
       targetX: initialTargetX
     } );
 
+    // TODO: move functions to inherit
+
     // @param {Number} projectileX - x location of the projectile, in meters
     // @returns {Boolean}
     this.checkforScored = function( projectileX ) {

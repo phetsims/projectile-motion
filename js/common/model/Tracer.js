@@ -17,6 +17,9 @@ define( function( require ) {
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  // constants
+  var LEEWAY = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
+
 
   /**
    * @param {ObservableArray} trajectories
@@ -27,15 +30,47 @@ define( function( require ) {
     PropertySet.call( this, {
       x: tracerX,
       y: tracerY,
-      point: null
+      time: null,
+      range: null,
+      height: null
     } );
-    
 
+    // array of trajectories in the model
+    this.trajectories = trajectories;
   }
 
   projectileMotion.register( 'Tracer', Tracer );
 
-  return inherit( PropertySet, Tracer );
+  return inherit( PropertySet, Tracer, {
+
+    // @private, checks for if there is a point the tracer is close to
+    // @return {DataPoint|null}
+    checkForPoint: function() {
+      var i;
+      for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
+        var currentTrajectory = this.trajectories.get( i );
+        var point = currentTrajectory.getNearestPoint( this.x, this.y );
+        if ( point && point.distanceXY( this.x, this.y ) <= LEEWAY ) {
+          return point;
+        }
+      }
+      return null;
+    },
+
+    // @public updates time, range, and height
+    updateData: function() {
+      var point = this.checkForPoint();
+      if ( !point ) { // if it is empty (null)
+        this.time = null;
+        this.range = null;
+        this.height = null;
+        return;
+      }
+      this.time = point.time;
+      this.range = point.x;
+      this.height = point.y;
+    }
+  } );
 
 } );
 

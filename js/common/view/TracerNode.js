@@ -14,10 +14,11 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   // var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  // var Text = require( 'SCENERY/nodes/Text' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
   // var Vector2 = require( 'DOT/Vector2' );
 
 
@@ -30,25 +31,53 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode );
 
+    thisNode.tracerModel = tracerModel;
+
     // draw tracer view
     thisNode.tracer = new Rectangle(
       0,
       0,
-      50,
-      20, {
+      100,
+      60, {
         fill: 'rgba( 0, 0, 255, 0.4 )',
         pickable: true,
         cursor: 'pointer'
       }
     );
+    thisNode.addChild( thisNode.tracer );
 
-    // listen for location
+    // text readouts
+    thisNode.textBox = new VBox( { align: 'left' } );
+    thisNode.addChild( thisNode.textBox );
+
+    thisNode.timeText = new Text( 'Time (s): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    thisNode.rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    thisNode.heightText = new Text( 'Height (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    thisNode.textBox.setChildren( [
+      thisNode.timeText,
+      thisNode.rangeText,
+      thisNode.heightText
+    ] );
+
+    // Listen for when time, range, and height change, and update the readouts.
+    Property.multilink( [ tracerModel.timeProperty, tracerModel.rangeProperty, tracerModel.heightProperty ], function(
+      time,
+      range,
+      height
+    ) {
+      thisNode.timeText.text = 'Time (s) ' + ( time ? time.toFixed( 2 ) : '' );
+      thisNode.rangeText.text = 'Range (m) ' + ( range ? range.toFixed( 2 ) : '' );
+      thisNode.heightText.text = 'Height (m) ' + ( height ? height.toFixed( 2 ) : '' );
+    } );
+
+    // listen for location changes, align locations, and update model
     Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
       thisNode.tracer.rectX = modelViewTransform.modelToViewX( tracerModel.x );
       thisNode.tracer.rectY = modelViewTransform.modelToViewY( tracerModel.y );
+      thisNode.textBox.top = thisNode.tracer.top;
+      thisNode.textBox.left = thisNode.tracer.left;
+      thisNode.tracerModel.updateData();
     } );
-
-    thisNode.addChild( thisNode.tracer );
 
     var startPoint;
     var startX;

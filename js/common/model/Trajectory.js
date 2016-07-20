@@ -17,6 +17,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
+  var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
 
   // constants
   var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
@@ -31,6 +32,7 @@ define( function( require ) {
     // @public
     PropertySet.call( this, {
       // initial values
+      // TODO: rename projectile, reference, trajectory holds just the data points
       time: 0, // seconds
       x: 0,
       y: model.height,
@@ -44,6 +46,7 @@ define( function( require ) {
     // initial values
     this.reachedGround = false;
 
+    // TODO: velocity and acceleration vectors
     this.xVelocity = model.velocity * Math.cos( model.angle * Math.PI / 180 );
     this.yVelocity = model.velocity * Math.sin( model.angle * Math.PI / 180 );
 
@@ -78,6 +81,8 @@ define( function( require ) {
         var altitude = this.projectileMotionModel.altitude;
         var temperature;
         var pressure;
+
+        // TODO: object? atmospheric parameters
         if ( altitude < 11000 ) {
           // troposphere
           temperature = 15.04 - 0.00649 * altitude;
@@ -132,8 +137,37 @@ define( function( require ) {
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-      this.dataPoints.push( { time: this.time, x: this.x, y: this.y } );
+      this.dataPoints.push( new DataPoint( this.time, this.x, this.y ) );
+    },
+
+
+
+    // @public
+    // @param {Number} x
+    // @param {Number} y
+    // @return {Object|null} - time, x, and y of nearest data point on trajectory pathto given coordinates
+    getNearestPoint: function( x, y ) {
+      if ( this.dataPoints.length === 0 ) {
+        return null;
+      }
+
+      var nearestPoint = this.dataPoints.get( 0 );
+      var minDistance = nearestPoint.distanceXY( x, y );
+
+      var i;
+      for ( i = 0; i < this.dataPoints.length; i++ ) {
+        var currentPoint = this.dataPoints.get( i );
+        var currentDistance = currentPoint.distanceXY( x, y );
+
+        if ( currentDistance <= minDistance ) {
+          nearestPoint = currentPoint;
+          minDistance = currentDistance;
+        }
+
+      }
+      return nearestPoint;
     }
+
   } );
 } );
 
