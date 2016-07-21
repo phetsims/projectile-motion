@@ -39,9 +39,9 @@ define( function( require ) {
       time: 0, // seconds
       x: 0,
       y: model.cannonHeight,
-      mass: model.mass,
-      diameter: model.diameter,
-      dragCoefficient: model.dragCoefficient,
+      mass: model.projectileMass,
+      diameter: model.projectileDiameter,
+      dragCoefficient: model.projectileDragCoefficient,
       xVelocity: model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
       yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
     } );

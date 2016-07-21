@@ -71,20 +71,20 @@ define( function( require ) {
 
     var massBox = createParameterControlBox(
       massString,
-      projectileMotionLabModel.massProperty,
-      ProjectileMotionConstants.MASS_RANGE
+      projectileMotionLabModel.projectileMassProperty,
+      ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
-      projectileMotionLabModel.diameterProperty,
-      ProjectileMotionConstants.DIAMETER_RANGE
+      projectileMotionLabModel.projectileDiameterProperty,
+      ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
-      projectileMotionLabModel.dragCoefficientProperty,
-      ProjectileMotionConstants.DRAG_COEFFICIENT_RANGE
+      projectileMotionLabModel.projectileDragCoefficientProperty,
+      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = createParameterControlBox(

@@ -16,6 +16,7 @@ define( function( require ) {
 
     // truths about the world
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
+    SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // initial values (defaults) for cannon/next projectile fired- used at startup and after reset
     CANNON_HEIGHT_DEFAULT: 0, // meters
@@ -23,21 +24,25 @@ define( function( require ) {
     LAUNCH_VELOCITY_DEFAULT: 18, // m/s
 
     // customizable parameters (defaults) for the next projectile fired
-    MASS_DEFAULT: 5, // kg
-    DIAMETER_DEFAULT: 0.37, // of a pumpkin, in meters
-    DRAG_COEFFICIENT_DEFAULT: 0.6, // of a pumpkin
+    PROJECTILE_MASS_DEFAULT: 5, // kg
+    PROJECTILE_DIAMETER_DEFAULT: 0.37, // of a pumpkin, in meters
+    PROJECTILE_DRAG_COEFFICIENT_DEFAULT: 0.6, // of a pumpkin
 
     // properties that change the environment (defaults)
     ALTITUDE_DEFAULT: 0, // meters, will change to 0 meters
     AIR_RESISTANCE_ON_DEFAULT: false,
 
     // productive constraints
+    
     CANNON_HEIGHT_RANGE: { min: 0, max: 10 },
     CANNON_ANGLE_RANGE: { min: -90, max: 180 },
     LAUNCH_VELOCITY_RANGE: { min: 0, max: 50 },
-    MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
-    DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043
-    DRAG_COEFFICIENT_RANGE: { min: 0, max: 50 }, // completely arbitrary
+
+    PROJECTILE_MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
+    PROJECTILE_DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043
+
+    // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
+    PROJECTILE_DRAG_COEFFICIENT_RANGE: { min: 0.05, max: 1.1 },
     ALTITUDE_RANGE: { min: 0, max: 30000 }, // meters, max is arbitrary but in upper stratosphere
 
     // vectors
