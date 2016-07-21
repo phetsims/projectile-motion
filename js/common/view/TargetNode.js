@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Target view. X position can change when user drags the cannon, y remains constant (on the ground)
+ * View for the target. X position can change when user drags the cannon, y remains constant (on the ground)
  *
  * @author Andrea Lin
  */
@@ -26,7 +26,7 @@ define( function( require ) {
 
   /**
    * @param {Score} scoreModel - model of the target and scoring algorithms
-   * @param {String|color} color
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
   function TargetNode( scoreModel, modelViewTransform ) {
@@ -51,6 +51,7 @@ define( function( require ) {
 
     thisNode.addChild( thisNode.target );
 
+    // @private variables used in drag handler
     var startPoint;
     var startX;
     var mousePoint;
@@ -75,10 +76,11 @@ define( function( require ) {
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
     thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', { font: new PhetFont( 14 ) } );
-    thisNode.distanceLabel.centerX = thisNode.target.centerX;
-    thisNode.distanceLabel.centerY = thisNode.target.centerY + 10;
-
     thisNode.addChild( thisNode.distanceLabel );
+
+    // score indicator, currently text
+    thisNode.scoreIndicator = new Text( 'Score!', { font: new PhetFont( 20 ) } );
+    thisNode.addChild( thisNode.scoreIndicator );
 
     // listen to horizontal position changes
     scoreModel.targetXProperty.link( function( targetX ) {
@@ -86,18 +88,11 @@ define( function( require ) {
       thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' m';
       thisNode.distanceLabel.centerX = thisNode.target.centerX;
       thisNode.distanceLabel.centerY = thisNode.target.centerY + 20;
+      thisNode.scoreIndicator.centerX = thisNode.target.centerX + 70;
+      thisNode.scoreIndicator.centerY = thisNode.target.centerY;
     } );
 
-    // score indicator, currently text
-    thisNode.scoreIndicator = new Text( 'Score!', {
-      font: new PhetFont( 20 )
-    } );
-    thisNode.scoreIndicator.centerX = thisNode.target.centerX + 50;
-    thisNode.scoreIndicator.centerY = thisNode.target.centerY;
-
-    thisNode.addChild( thisNode.scoreIndicator );
-
-    // listen to model to whether score indicator should be shown
+    // listen to model for whether score indicator should be shown
     scoreModel.scoreVisibleProperty.link( function( visible ) {
       if ( visible ) {
         thisNode.scoreIndicator.visible = true;
