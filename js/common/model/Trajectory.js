@@ -38,7 +38,7 @@ define( function( require ) {
       // TODO: rename projectile, reference, trajectory holds just the data points
       time: 0, // seconds
       x: 0,
-      y: model.height,
+      y: model.cannonHeight,
       mass: model.mass,
       diameter: model.diameter,
       dragCoefficient: model.dragCoefficient,

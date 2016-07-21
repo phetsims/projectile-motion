@@ -56,7 +56,7 @@ define( function( require ) {
     ScreenView.call( thisScreenView, options );
 
     // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.heightProperty, model.angleProperty, model.velocityProperty );
+    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.angleProperty, model.velocityProperty );
 
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
@@ -118,7 +118,7 @@ define( function( require ) {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // add cannon
-    thisScreenView.cannonNode = new CannonNode( model.heightProperty, model.angleProperty, modelViewTransform );
+    thisScreenView.cannonNode = new CannonNode( model.cannonHeightProperty, model.angleProperty, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
     // add common code measuring tape
@@ -190,7 +190,7 @@ define( function( require ) {
     } );
 
     // add sim speed controls
-    
+
     var slowText = new Text( slowMotionString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH

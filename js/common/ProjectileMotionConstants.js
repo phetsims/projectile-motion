@@ -18,7 +18,7 @@ define( function( require ) {
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
 
     // initial values (defaults) for cannon/next projectile fired- used at startup and after reset
-    HEIGHT_DEFAULT: 0, // meters
+    CANNON_HEIGHT_DEFAULT: 0, // meters
     ANGLE_DEFAULT: 80, // degrees
     VELOCITY_DEFAULT: 18, // m/s
 
@@ -32,7 +32,7 @@ define( function( require ) {
     AIR_RESISTANCE_ON_DEFAULT: false,
 
     // productive constraints
-    HEIGHT_RANGE: { min: 0, max: 10 },
+    CANNON_HEIGHT_RANGE: { min: 0, max: 10 },
     ANGLE_RANGE: { min: -90, max: 180 },
     VELOCITY_RANGE: { min: 0, max: 50 },
     MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000

@@ -29,7 +29,7 @@ define( function( require ) {
       // variables for the next trajectory, and thus the cannon
       // TODO: height --> cannonHeight, cannonAngle, launchVelocity
       // @public
-      height: ProjectileMotionConstants.HEIGHT_DEFAULT,
+      cannonHeight: ProjectileMotionConstants.CANNON_HEIGHT_DEFAULT,
       angle: ProjectileMotionConstants.ANGLE_DEFAULT,
       velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
 
