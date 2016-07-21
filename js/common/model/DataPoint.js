@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * a data point on a trajectory path. Contains time, x, and y
+ * A data point on a trajectory path. Contains time, x, and y
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
@@ -13,6 +13,9 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
  
   /**
+   * {number} time - total time since fire at this point on the trajectory
+   * {number} x - x position of the data point, also called range
+   * {number} y - y position of the data point, also called height
    * @constructor
    */
   function DataPoint( time, x, y ) {

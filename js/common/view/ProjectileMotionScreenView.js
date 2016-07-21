@@ -124,15 +124,14 @@ define( function( require ) {
 
     // add common code measuring tape
     // TODO: its length changes with zoom, but nothing else does
-    thisScreenView.measuringTapeNode = new MeasuringTape(
+    var measuringTape = new MeasuringTape(
       model.unitsProperty,
       model.measuringTapeVisibleProperty, {
-        basePositionProperty: model.measuringTapeBaseProperty,
-        tipPositionProperty: model.measuringTapeTipProperty,
+        basePositionProperty: new Property( new Vector2( 0, 0 ) ),
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
-    zoomableNode.addChild( thisScreenView.measuringTapeNode );
+    zoomableNode.addChild( measuringTape );
 
     // add view for tracer
     thisScreenView.tracerNode = new TracerNode(
@@ -167,7 +166,7 @@ define( function( require ) {
     // add step button
     var stepButton = new StepForwardButton( {
       playingProperty: model.isPlayingProperty,
-      listener: function() { model.stepInternal( 0.016 ); },
+      listener: function() { model.stepModelElements( 0.016 ); },
       radius: 12,
       stroke: 'black',
       fill: '#005566',
@@ -191,7 +190,6 @@ define( function( require ) {
     } );
 
     // add sim speed controls
-
     var slowText = new Text( slowMotionString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
@@ -212,11 +210,12 @@ define( function( require ) {
 
     thisScreenView.addChild( speedControl.mutate( { right: playPauseButton.left - 2 * INSET, bottom: playPauseButton.bottom } ) );
 
-    // add reset all button
+    // reset all button, also a closure for zoomProperty and measuringTape
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         zoomProperty.reset();
+        measuringTape.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10

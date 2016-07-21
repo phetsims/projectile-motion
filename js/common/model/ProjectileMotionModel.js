@@ -47,41 +47,21 @@ define( function( require ) {
       // @public measuring tape properties
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
       measuringTapeVisible: true,
-      measuringTapeBase: new Vector2(
-        ProjectileMotionConstants.MEASURING_TAPE_X_DEFAULT,
-        ProjectileMotionConstants.MEASURING_TAPE_Y_DEFAULT
-      ),
-      measuringTapeTip: this.measuringTapeBase.plusXY( ProjectileMotionConstants.MEASURING_TAPE_LENGTH_DEFAULT, 0 ),
 
-      // animation controls, e.g. normal/slow/play/pause/step
+      // @public animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
       isPlaying: true
     } );
 
-    // TODO: rename stepCount?
-    this.stepThree = 0; // @private, how many steps mod three, used to slow animation down to a third of normal speed
+    this.stepCount = 0; // @private, how many steps mod three, used to slow animation down to a third of normal speed
 
-    // observable array of trajectories
+    // @public {ObservableArray.<Trajectory>} observable array of trajectories
     projectileMotionModel.trajectories = new ObservableArray();
 
-    // TODO: move functions into inherit
-
-    // @private, adds a trajectory to the observable array
-    projectileMotionModel.addTrajectory = function() {
-      projectileMotionModel.trajectories.push( new Trajectory( projectileMotionModel ) );
-    };
-
-    // scoring handler
+    // @public {Score} model for handling scoring ( if/when projectile hits target )
     projectileMotionModel.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
-    // called on when fire button is pressed
-    projectileMotionModel.cannonFired = function() {
-      projectileMotionModel.isPlaying = true;
-      projectileMotionModel.addTrajectory();
-      projectileMotionModel.scoreModel.turnOffScore();
-    };
-
-    // model for the tracer probe
+    // @public {Tracer} model for the tracer probe
     projectileMotionModel.tracerModel = new Tracer( projectileMotionModel.trajectories, 10, 10 ); // location arbitrary
   }
 
@@ -89,6 +69,7 @@ define( function( require ) {
 
   return inherit( PropertySet, ProjectileMotionModel, {
 
+    // @public resets all model elements
     reset: function() {
       // reset all properties by calling super class
       PropertySet.prototype.reset.call( this );
@@ -97,16 +78,15 @@ define( function( require ) {
       this.trajectories.reset();
 
       this.scoreModel.reset();
-
       this.tracerModel.reset();
     },
 
-    // @public animates trajectory if running
+    // @public determines animation based on play/pause and speed
     step: function( dt ) {
 
       //TODO: why?
-      this.stepThree += 1;
-      this.stepThree = this.stepThree % 3;
+      this.stepCount += 1;
+      this.stepCount = this.stepCount % 3;
 
       // prevent sudden dt bursts when the user comes back to the tab after a while
       dt = Math.min( 0.064, dt );
@@ -114,18 +94,30 @@ define( function( require ) {
       if ( this.isPlaying ) {
         // either this speed is normal, or its slow and only steps on every third frame
         // TODO: revert back to one second = one third of a second
-        if ( this.speed === 'normal' || this.stepThree === 0 ) {
-          this.stepInternal( dt );
+        if ( this.speed === 'normal' || this.stepCount === 0 ) {
+          this.stepModelElements( dt );
         }
       }
     },
 
-    // TODO: rename to stepModelElements
-    // @public
-    stepInternal: function( dt ) {
+    // @public animate model elements given a time step
+    stepModelElements: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
       this.scoreModel.step( dt );
+    },
+
+    // @private, adds a trajectory to the observable array
+    addTrajectory: function() {
+      this.trajectories.push( new Trajectory( this ) );
+    },
+
+    // @public fires cannon, called on by fire button
+    cannonFired: function() {
+      this.isPlaying = true;
+      this.addTrajectory();
+      this.scoreModel.turnOffScore();
     }
+
   } );
 } );
 

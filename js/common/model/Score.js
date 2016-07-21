@@ -2,8 +2,8 @@
 
 /**
  * The model for scoring algorithm, knows about the target. Landed projectiles give their x location to this model.
- * Each time a projectile hits the target, the score indicator appears after 0.2 seconds
- * Each time a projectile is fired, the score indicator disappears. The 0.05 s delay is so that 
+ * Each time a projectile hits the target, the score indicator appears after a small delay time
+ * Each time a projectile is fired, the score indicator disappears. The appearance delay of 0.05 is so that 
  * if multiple projectiles hit the target after the last fire, the score indicator seems to reappear
  * 
  * @author Andrea Lin (PhET Interactive Simulations)
@@ -17,6 +17,9 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
 
+  // constants
+  var APPEARANCE_DELAY = 0.05; // seconds
+
   /**
    * @param {number} initialTargetX - x position of the target
    * @constructor
@@ -27,31 +30,10 @@ define( function( require ) {
     PropertySet.call( this, {
       scoreVisible: false, // indicates whether user has scored
       scoringAnimation: false, // whether scoring animation should be on
-      timeBeforeVisible: 0, // indicates how long score visible
+      timeBeforeVisible: 0, // indicates how before score indicator should be made visible
       targetX: initialTargetX
     } );
 
-    // TODO: move functions to inherit
-
-    // @param {number} projectileX - x location of the projectile, in meters
-    // @returns {Boolean}
-    this.checkforScored = function( projectileX ) {
-      var distance = Math.abs( projectileX - this.targetX );
-      if ( distance <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
-        this.score();
-      }
-    };
-
-    // restarts time before visible and turns on animation
-    this.score = function() {
-      this.timeBeforeVisible = 0;
-      this.scoringAnimation = true;
-    };
-
-    // turns off animation
-    this.turnOffScore = function() {
-      this.scoringAnimation = false;
-    };
   }
 
   projectileMotion.register( 'Score', Score );
@@ -64,7 +46,7 @@ define( function( require ) {
       if ( this.scoringAnimation ) {
 
         // hasn't reached time to make score visible yet
-        if ( this.timeBeforeVisible < 0.05 ) { 
+        if ( this.timeBeforeVisible < APPEARANCE_DELAY ) { 
           this.scoreVisible = false;
           this.timeBeforeVisible += dt; // update time before making score visible
         }
@@ -79,6 +61,26 @@ define( function( require ) {
       else {
         this.scoreVisible = false;
       }
+    },
+
+
+    // Determines {boolean} whether projectile has scored based on {number} x position of the landed projectile
+    checkforScored: function( projectileX ) {
+      var distance = Math.abs( projectileX - this.targetX );
+      if ( distance <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
+        this.score();
+      }
+    },
+
+    // @public restarts time before visible and turns on animation
+    score: function() {
+      this.timeBeforeVisible = 0;
+      this.scoringAnimation = true;
+    },
+
+    // @public turns off animation
+    turnOffScore: function() {
+      this.scoringAnimation = false;
     }
 
   } );
