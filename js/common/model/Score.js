@@ -3,7 +3,7 @@
 /**
  * Contains the scoring algorithm, involving the target and landed projectiles
  * Each time a projectile hits the target, the score indicator appears after 0.2 seconds
- * Each time a projectile is fired, the score indicator disappears. The delay is so that 
+ * Each time a projectile is fired, the score indicator disappears. The 0.05 s delay is so that 
  * if multiple projectiles hit the target after the last fire, the score indicator seems to reappear
  * 
  * @author Andrea Lin
@@ -59,14 +59,24 @@ define( function( require ) {
   return inherit( PropertySet, Score, {
 
     step: function( dt ) {
-      if ( this.scoringAnimation ) { // scoring animation on
-        if ( this.timeBeforeVisible < 0.05 ) { // hasn't reached time to make score visible yet
+
+      // scoring animation on
+      if ( this.scoringAnimation ) {
+
+        // hasn't reached time to make score visible yet
+        if ( this.timeBeforeVisible < 0.05 ) { 
           this.scoreVisible = false;
           this.timeBeforeVisible += dt; // update time before making score visible
-        } else { // time to make score visible
+        }
+
+        // It is time to make score visible.
+        else {
           this.scoreVisible = true;
         }
-      } else { // no scoring animation
+      }
+
+      // scoring animation off
+      else {
         this.scoreVisible = false;
       }
     }

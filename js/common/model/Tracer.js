@@ -57,7 +57,7 @@ define( function( require ) {
       return null;
     },
 
-    // @public updates time, range, and height
+    // @public, updates time, range, and height
     updateData: function() {
       var point = this.checkForPoint();
       if ( !point ) { // if it is empty (null)

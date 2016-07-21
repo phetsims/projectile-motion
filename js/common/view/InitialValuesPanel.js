@@ -51,7 +51,7 @@ define( function( require ) {
       },
       options );
 
-    // auxiliary function that creates the string for a text label
+    // auxiliary function that takes variable and value, and creates string with value to two digits
     // @param {String} label
     // @param {Number} value
     // @return {String}
@@ -91,7 +91,7 @@ define( function( require ) {
       ProjectileMotionConstants.ANGLE_RANGE
     );
 
-    // The contents of the control panel
+    // contents of the panel
     var content = new VBox( {
       align: 'left',
       // spacing: 10,

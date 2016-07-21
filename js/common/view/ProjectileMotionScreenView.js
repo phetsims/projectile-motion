@@ -55,11 +55,13 @@ define( function( require ) {
 
     ScreenView.call( thisScreenView, options );
 
-    // Control panels
+    // control panels
     var initialValuesPanel = new InitialValuesPanel( model.heightProperty, model.angleProperty, model.velocityProperty );
 
+    // second panel is specified in different screens
     var secondPanel = options.secondPanel;
 
+    // vbox contains the control panels
     thisScreenView.addChild( new VBox( {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 10,
@@ -68,7 +70,7 @@ define( function( require ) {
       children: [ initialValuesPanel, secondPanel ]
     } ) );
 
-    // Fire button
+    // fire button
     var fireButton = new FireButton( {
       x: 40, // empirically determined for now
       y: thisScreenView.layoutBounds.maxY - 40,
@@ -80,7 +82,7 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       new Vector2( 100, 450 ), // empirically determined based off original sim
-      25 // scale for meters, empirically determined based off original sim, smaller zoom in, larger zoom out
+      25 // scale for meters to view units, empirically determined based off original sim
     );
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
@@ -92,13 +94,12 @@ define( function( require ) {
     thisScreenView.targetNode = new TargetNode( model.scoreModel, modelViewTransform );
     zoomableNode.addChild( thisScreenView.targetNode );
 
-
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     thisScreenView.trajectoriesLayer = new Node();
     zoomableNode.addChild( thisScreenView.trajectoriesLayer );
 
     function handleTrajectoryAdded( addedTrajectory ) {
-      // Create and add the view representation for this trajectory
+      // create the view representation for added trajectory 
       var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
       thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
@@ -112,7 +113,7 @@ define( function( require ) {
       } );
     }
 
-    // lets view listen to whether a trajectory has been added in the model
+    // view listens to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
@@ -132,6 +133,7 @@ define( function( require ) {
       } );
     zoomableNode.addChild( thisScreenView.measuringTapeNode );
 
+    // add view for tracer
     thisScreenView.tracerNode = new TracerNode(
       model.tracerModel,
       modelViewTransform
@@ -141,7 +143,7 @@ define( function( require ) {
     // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
 
-    // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix
+    // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
     // scale matrix algorithm taken from neuron repo
     zoomProperty.link( function( zoomFactor ) {
 
@@ -188,6 +190,7 @@ define( function( require ) {
     } );
 
     // add sim speed controls
+    
     var slowText = new Text( slowMotionString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH

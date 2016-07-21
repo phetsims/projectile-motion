@@ -33,7 +33,6 @@ define( function( require ) {
   function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
-    // debugger;
 
     this.transformedBallSize = modelViewTransform.modelToViewDeltaX( trajectory.diameter );
     this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
@@ -43,7 +42,7 @@ define( function( require ) {
     thisNode.projectile = new ProjectileNode( this.transformedBallSize / 2 );
     thisNode.addChild( thisNode.projectile );
 
-    // add vector for velocity x component
+    // add vector view for velocity x component
     var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ARROW_FILL_COLOR,
@@ -52,7 +51,7 @@ define( function( require ) {
     } );
     thisNode.addChild( velocityXArrow );
 
-    // add vector for velocity y component
+    // add vector view for velocity y component
     var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ARROW_FILL_COLOR,
@@ -61,7 +60,7 @@ define( function( require ) {
     } );
     thisNode.addChild( velocityYArrow );
 
-    // update velocity vectors
+    // update velocity vector visibilities, positions, and magnitudes
     Property.multilink( [
       trajectory.xVelocityProperty,
       trajectory.yVelocityProperty,
@@ -87,7 +86,7 @@ define( function( require ) {
       }
     } );
 
-    // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
+    // datapoints layer, represented as dots (circles with radius 1)
     thisNode.pathLayer = new Node();
     thisNode.addChild( thisNode.pathLayer );
 
@@ -114,64 +113,9 @@ define( function( require ) {
       } );
     }
 
-    // lets view listen to whether a trajectory has been added in the model
+    // view listens to whether a datapoint has been added in the model
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
-
-
-    // // thisNode.trajectoryShape = new Shape();
-    // // thisNode.trajectoryShape.moveToPoint( modelViewTransform.modelToViewPosition( thisNode.projectile.center ) );
-
-    // // thisNode.trajectoryPath = new Path( thisNode.trajectoryShape, PATH_OPTIONS );
-
-    // // thisNode.addChild( thisNode.trajectoryPath );
-
-    // // watch for if the trajectory changes location
-    // trajectory.xProperty.lazyLink( function() {
-    //   // if it's going off screen in the model, stop drawing it screen
-    //   // if (
-    //   //   modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-    //   //   modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
-    //   //   modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-    //   //   modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
-    //   // ) {
-    //   //   console.log( thisNode.parents[ 0 ].layoutBounds );
-    //   //   return;
-    //   // }
-    //   thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
-    //   thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
-
-    //   // thisNode.trajectoryShape.lineToPoint( thisNode.projectile.center );
-
-
-    // } );
-
-    // trajectory.yProperty.lazyLink( function() {
-    //   // if it's going off screen in the model, stop it right before
-    //   // if (
-    //   //   modelViewTransform.modelToViewX( trajectory.x ) < thisNode.parents[ 0 ].layoutBounds.minX ||
-    //   //   modelViewTransform.modelToViewX( trajectory.x ) > thisNode.parents[ 0 ].layoutBounds.maxX ||
-    //   //   modelViewTransform.modelToViewY( trajectory.y ) < thisNode.parents[ 0 ].layoutBounds.minY ||
-    //   //   modelViewTransform.modelToViewY( trajectory.y ) > thisNode.parents[ 0 ].layoutBounds.maxY
-    //   // ) {
-    //   //   // console.log( thisNode.parents[ 0 ].layoutBounds );
-    //   //   return;
-    //   // }
-    //   thisNode.projectile.y = modelViewTransform.modelToViewY( trajectory.y );
-    //   thisNode.projectile.x = modelViewTransform.modelToViewX( trajectory.x );
-
-    //   // thisNode.trajectoryShape.lineToPoint( thisNode.projectile.center );
-
-    // } );
-
-    // trajectory.showPathsProperty.link( function( showPaths ) {
-    //   // showPaths tells you if you want to see the path of the projectory
-    //   if ( !showPaths ) {
-    //     // erase paths
-    //     thisNode.trajectoryShape.subpaths = [];
-    //   }
-    // } );
-
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );

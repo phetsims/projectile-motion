@@ -24,30 +24,29 @@ define( function( require ) {
     var projectileMotionModel = this;
     PropertySet.call( projectileMotionModel, {
 
-      // TODO: clean up capitalization
       // TODO: add visibility annotations
 
-      // Variables for the next trajectory, and thus the cannon
+      // variables for the next trajectory, and thus the cannon
       // TODO: height --> cannonHeight, cannonAngle, launchVelocity
       // @public
       height: ProjectileMotionConstants.HEIGHT_DEFAULT,
       angle: ProjectileMotionConstants.ANGLE_DEFAULT,
       velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
 
-      // Parameters for the next projectile fired
+      // parameters for the next projectile fired
       // TODO: rename to projectile
       mass: ProjectileMotionConstants.MASS_DEFAULT, // kg
       diameter: ProjectileMotionConstants.DIAMETER_DEFAULT, // meters
       dragCoefficient: ProjectileMotionConstants.DRAG_COEFFICIENT_DEFAULT,
 
-      // Properties that change the environment and affect all projectiles immediately
+      // properties that change the environment and affect all projectiles immediately
       altitude: ProjectileMotionConstants.ALTITUDE_DEFAULT,
       airResistanceOn: ProjectileMotionConstants.AIR_RESISTANCE_ON_DEFAULT, // should default to false
 
-      // Vectors
+      // vectors
       velocityVectorComponentsOn: false,
 
-      // Measuring Tape (in common code)
+      // measuring tape
       // TODO: measuringTapeVisible
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
       measuringTape: true,
@@ -122,7 +121,8 @@ define( function( require ) {
       }
     },
 
-    // TODO: public, rename to stepModelElements
+    // TODO: rename to stepModelElements
+    // @public
     stepInternal: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
       this.scoreModel.step( dt );

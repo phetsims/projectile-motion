@@ -33,7 +33,7 @@ define( function( require ) {
 
     thisNode.tracerModel = tracerModel;
 
-    // draw tracer view
+    // add view for tracer
     thisNode.tracer = new Rectangle(
       0,
       0,
@@ -84,7 +84,7 @@ define( function( require ) {
     var startY;
     var mousePoint;
 
-    // drag tracer to change horizontal position
+    // drag tracer to change position
     thisNode.tracer.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = thisNode.tracer.globalToParentPoint( event.pointer.point );

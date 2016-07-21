@@ -5,6 +5,9 @@
  * Notes: air resistance and altitude can immediately change the path of the trajectory, whereas other parameters
  * like velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired
  * Units are meters, kilograms, and seconds (mks)
+ * 
+ * Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
+ * Checked values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
  *
  * @author Andrea Lin
  */
@@ -31,7 +34,7 @@ define( function( require ) {
 
     // @public
     PropertySet.call( this, {
-      // initial values
+      // initial values for the projectile
       // TODO: rename projectile, reference, trajectory holds just the data points
       time: 0, // seconds
       x: 0,
@@ -72,12 +75,12 @@ define( function( require ) {
         return;
       }
 
-      var airDensity; // not constant, will change due to altitude
+      // Air density is not constant, will change due to altitude.
+      var airDensity;
 
+      // Air resistance is turned on.
       if ( this.projectileMotionModel.airResistanceOn ) {
 
-        // atmospheric model, algorithm from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
-        // checked values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
         var altitude = this.projectileMotionModel.altitude;
         var temperature;
         var pressure;
@@ -92,17 +95,20 @@ define( function( require ) {
           temperature = -56.46;
           pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
         } else {
-          // altitude >= 25000 meters, upper stratosphere
+          // upper stratosphere (altitude >= 25000 meters)
           temperature = -131.21 + 0.00299 * altitude;
           pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
         }
 
         airDensity = pressure / ( 0.2869 * ( temperature + 273.1 ) );
-      } else {
-        // air resistance is turned off
+      }
+
+      // Air resistance is turned off.
+      else {
         airDensity = 0;
       }
 
+      // cross sectional area of the projectile
       var area = Math.PI * this.diameter * this.diameter / 4;
 
       var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
@@ -125,7 +131,7 @@ define( function( require ) {
         newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
         newY = 0;
 
-        // check if projectile landed on target
+        // Check if projectile landed on target, and scoreModel will handle the rest.
         this.projectileMotionModel.scoreModel.checkforScored( newX );
       }
 
@@ -142,18 +148,24 @@ define( function( require ) {
 
 
 
+    // Finds the data point with the least 2d distance to the x and y coordinates
     // @public
     // @param {Number} x
     // @param {Number} y
     // @return {Object|null} - time, x, and y of nearest data point on trajectory pathto given coordinates
     getNearestPoint: function( x, y ) {
+
+      // If there haven't been any data points collected, return null.
       if ( this.dataPoints.length === 0 ) {
         return null;
       }
 
+      // First, set nearest point and corresponding distance to the first datapoint.
       var nearestPoint = this.dataPoints.get( 0 );
       var minDistance = nearestPoint.distanceXY( x, y );
 
+      // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
+      // later in total time since fired is chosen.
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {
         var currentPoint = this.dataPoints.get( i );

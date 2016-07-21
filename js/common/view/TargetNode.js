@@ -73,13 +73,14 @@ define( function( require ) {
 
     } ) );
 
-    // distance from cannon text
+    // text readout for horizontal distance from fire, which is origin, which is base of cannon
     thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', { font: new PhetFont( 14 ) } );
     thisNode.distanceLabel.centerX = thisNode.target.centerX;
     thisNode.distanceLabel.centerY = thisNode.target.centerY + 10;
 
     thisNode.addChild( thisNode.distanceLabel );
 
+    // listen to horizontal position changes
     scoreModel.targetXProperty.link( function( targetX ) {
       thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
       thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' m';
@@ -87,7 +88,7 @@ define( function( require ) {
       thisNode.distanceLabel.centerY = thisNode.target.centerY + 20;
     } );
 
-    // score text
+    // score indicator, currently text
     thisNode.scoreIndicator = new Text( 'Score!', {
       font: new PhetFont( 20 )
     } );
@@ -96,6 +97,7 @@ define( function( require ) {
 
     thisNode.addChild( thisNode.scoreIndicator );
 
+    // listen to model to whether score indicator should be shown
     scoreModel.scoreVisibleProperty.link( function( visible ) {
       if ( visible ) {
         thisNode.scoreIndicator.visible = true;
