@@ -75,7 +75,7 @@ define( function( require ) {
     var fireButton = new FireButton( {
       x: 40, // empirically determined for now
       y: thisScreenView.layoutBounds.maxY - 40,
-      listener: model.cannonFired
+      listener: function() { model.cannonFired(); }
     } );
     thisScreenView.addChild( fireButton );
 

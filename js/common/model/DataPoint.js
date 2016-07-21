@@ -20,6 +20,8 @@ define( function( require ) {
    */
   function DataPoint( time, x, y ) {
     Vector2.call( this, x, y );
+
+    // @public
     this.time = time;
   }
 

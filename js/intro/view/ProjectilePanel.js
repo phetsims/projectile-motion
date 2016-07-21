@@ -104,7 +104,7 @@ define( function( require ) {
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max
-     * @return {VBox}
+     * @returns {VBox}
      * @private
      */
     createParameterControlBox: function( label, property, range ) {

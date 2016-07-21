@@ -54,7 +54,7 @@ define( function( require ) {
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 11 ) },
 
     // zooming
-    MIN_ZOOM: 0.5,
+    MIN_ZOOM: 0.1,
     MAX_ZOOM: 5,
     DEFAULT_ZOOM: 1.0,
 

@@ -7,7 +7,7 @@
  * Units are meters, kilograms, and seconds (mks)
  * 
  * Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
- * Checked values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
+ * Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
  *
  * @author Andrea Lin
  */
@@ -21,6 +21,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
+  // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
@@ -31,12 +32,11 @@ define( function( require ) {
    */
   function Trajectory( model ) {
     this.projectileMotionModel = model;
+    // TODO: rename projectile, referenced, trajectory holds just the data points
 
     // @public
     PropertySet.call( this, {
-      // initial values for the projectile
-      // TODO: rename projectile, reference, trajectory holds just the data points
-      time: 0, // seconds
+      totalTime: 0, // total time (s) since the projectile was fired
       x: 0,
       y: model.cannonHeight,
       mass: model.projectileMass,
@@ -46,18 +46,19 @@ define( function( require ) {
       yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
     } );
 
-    // initial values
+    // @public is the projectile on the ground?
     this.reachedGround = false;
 
     // TODO: velocity and acceleration vectors
+
+    // @public
     this.xVelocity = model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 );
     this.yVelocity = model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 );
-
     this.velocity = model.launchVelocity;
-
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
 
+    // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
   }
 
@@ -65,10 +66,10 @@ define( function( require ) {
 
   return inherit( PropertySet, Trajectory, {
 
-    // @public animate trajectory, not taking into account air resistance
+    // @public animate trajectory given {number} time step in seconds
     step: function( dt ) {
 
-      // TODO: check for x is in the bounds // not working
+      // Stops moving projectile has reached ground
       if ( this.reachedGround ) {
         this.xVelocity = 0;
         this.yVelocity = 0;
@@ -135,7 +136,7 @@ define( function( require ) {
         this.projectileMotionModel.scoreModel.checkforScored( newX );
       }
 
-      this.time += dt;
+      this.totalTime += dt;
       this.x = newX;
       this.y = newY;
       this.xVelocity = newXVelocity;
@@ -143,19 +144,15 @@ define( function( require ) {
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-      this.dataPoints.push( new DataPoint( this.time, this.x, this.y ) );
+      this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y ) );
     },
 
-
-
-    // Finds the data point with the least 2d distance to the x and y coordinates
-    // @public
-    // @param {number} x
-    // @param {number} y
-    // @return {Object|null} - time, x, and y of nearest data point on trajectory pathto given coordinates
+    /**
+     * Finds the {DataPoint|null} data point with the least euclidian distance to the point with
+     * {number} x and {number} y coordinates, or null if there aren't haven't been any data points collected.
+     * @public
+     */
     getNearestPoint: function( x, y ) {
-
-      // If there haven't been any data points collected, return null.
       if ( this.dataPoints.length === 0 ) {
         return null;
       }

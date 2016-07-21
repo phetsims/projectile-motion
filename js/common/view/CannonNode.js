@@ -34,8 +34,8 @@ define( function( require ) {
 
     Node.call( thisNode );
 
-    // auxiliary functions for setting the second coordinates of the line
-    // TODO: move to inherit
+    // @private auxiliary functions for setting the second coordinates of the line
+    // TODO: remove when you use rotate
     thisNode.getX2 = function() {
       return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.value * Math.PI / 180 ) );
     };
@@ -91,9 +91,11 @@ define( function( require ) {
       thisNode.rotatableArea.y = thisNode.cannon.y2;
     } );
 
+    // @private variables used for drag handlers
     var startPoint;
     var startAngle;
     var mousePoint;
+    var startHeight;
 
     // drag the tip of the cannon to change angle
     thisNode.rotatableArea.addInputListener( new SimpleDragHandler( {
@@ -109,7 +111,6 @@ define( function( require ) {
         var startPointAngle = new Vector2( startPoint.x - thisNode.cannon.x1, startPoint.y - thisNode.cannon.y1 ).angle();
         var mousePointAngle = new Vector2( mousePoint.x - thisNode.cannon.x1, mousePoint.y - thisNode.cannon.y1 ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
-
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
         ///TODO: constrain angle to range
@@ -120,8 +121,6 @@ define( function( require ) {
 
     } ) );
 
-    var startHeight;
-
     // drag the base of the cannon to change height
     thisNode.adjustableHeightArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
@@ -131,16 +130,12 @@ define( function( require ) {
 
       drag: function( event ) {
         mousePoint = thisNode.adjustableHeightArea.globalToParentPoint( event.pointer.point );
-
         var heightChange = mousePoint.y - startPoint.y;
 
         // update model height
         heightProperty.value = modelViewTransform.viewToModelY( startHeight + heightChange );
       }
-
     } ) );
-
-
   }
 
   projectileMotion.register( 'CannonNode', CannonNode );

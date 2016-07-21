@@ -25,7 +25,6 @@ define( function( require ) {
    * @constructor
    */
   function Score( initialTargetX ) {
-
     // @public
     PropertySet.call( this, {
       scoreVisible: false, // indicates whether user has scored
@@ -40,6 +39,7 @@ define( function( require ) {
 
   return inherit( PropertySet, Score, {
 
+    //@ public
     step: function( dt ) {
 
       // scoring animation on
@@ -64,7 +64,7 @@ define( function( require ) {
     },
 
 
-    // Determines {boolean} whether projectile has scored based on {number} x position of the landed projectile
+    // @public Determines {boolean} whether projectile has scored based on {number} x position of the landed projectile
     checkforScored: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetX );
       if ( distance <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {

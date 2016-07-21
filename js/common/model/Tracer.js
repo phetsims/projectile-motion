@@ -22,7 +22,7 @@ define( function( require ) {
 
 
   /**
-   * @param {ObservableArray} trajectories
+   * @param {ObservableArray.<Trajectory>} trajectories
    * @constructor
    */
   function Tracer( trajectories, tracerX, tracerY ) {
@@ -35,7 +35,7 @@ define( function( require ) {
       height: null
     } );
 
-    // array of trajectories in the model
+    // @public {ObservableArray.<Trajectory>} array of trajectories in the model
     this.trajectories = trajectories;
   }
 
@@ -43,8 +43,8 @@ define( function( require ) {
 
   return inherit( PropertySet, Tracer, {
 
-    // @private, checks for if there is a point the tracer is close to
-    // @return {DataPoint|null}
+    // @private checks for if there is a point the tracer is close to
+    // @returns {DataPoint|null}
     checkForPoint: function() {
       var i;
       for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
@@ -57,15 +57,19 @@ define( function( require ) {
       return null;
     },
 
-    // @public, updates time, range, and height
+    // @public updates time, range, and height
     updateData: function() {
       var point = this.checkForPoint();
-      if ( !point ) { // if it is empty (null)
+
+      // If no point has been found to be close enough to the tracer, set information to null.
+      if ( !point ) {
         this.time = null;
         this.range = null;
         this.height = null;
         return;
       }
+
+      // Otherwise, update the information.
       this.time = point.time;
       this.range = point.x;
       this.height = point.y;
