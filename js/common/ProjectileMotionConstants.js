@@ -19,7 +19,7 @@ define( function( require ) {
 
     // initial values (defaults) for cannon/next projectile fired- used at startup and after reset
     CANNON_HEIGHT_DEFAULT: 0, // meters
-    ANGLE_DEFAULT: 80, // degrees
+    CANNON_ANGLE_DEFAULT: 80, // degrees
     VELOCITY_DEFAULT: 18, // m/s
 
     // customizable parameters (defaults) for the next projectile fired
@@ -33,7 +33,7 @@ define( function( require ) {
 
     // productive constraints
     CANNON_HEIGHT_RANGE: { min: 0, max: 10 },
-    ANGLE_RANGE: { min: -90, max: 180 },
+    CANNON_ANGLE_RANGE: { min: -90, max: 180 },
     VELOCITY_RANGE: { min: 0, max: 50 },
     MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
     DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043

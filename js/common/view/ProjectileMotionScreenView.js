@@ -56,7 +56,7 @@ define( function( require ) {
     ScreenView.call( thisScreenView, options );
 
     // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.angleProperty, model.velocityProperty );
+    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.velocityProperty );
 
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
@@ -118,7 +118,7 @@ define( function( require ) {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // add cannon
-    thisScreenView.cannonNode = new CannonNode( model.cannonHeightProperty, model.angleProperty, modelViewTransform );
+    thisScreenView.cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
     zoomableNode.addChild( thisScreenView.cannonNode );
 
     // add common code measuring tape

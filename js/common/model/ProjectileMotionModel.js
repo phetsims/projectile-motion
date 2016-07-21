@@ -1,8 +1,8 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2002-2016, University of Colorado Boulder
 
 /**
  *
- * @author PhET Interactive Simulations
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -30,7 +30,7 @@ define( function( require ) {
       // TODO: height --> cannonHeight, cannonAngle, launchVelocity
       // @public
       cannonHeight: ProjectileMotionConstants.CANNON_HEIGHT_DEFAULT,
-      angle: ProjectileMotionConstants.ANGLE_DEFAULT,
+      cannonAngle: ProjectileMotionConstants.CANNON_ANGLE_DEFAULT,
       velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
 
       // parameters for the next projectile fired
