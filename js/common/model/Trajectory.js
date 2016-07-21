@@ -42,18 +42,18 @@ define( function( require ) {
       mass: model.mass,
       diameter: model.diameter,
       dragCoefficient: model.dragCoefficient,
-      xVelocity: model.velocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
-      yVelocity: model.velocity * Math.sin( model.cannonAngle * Math.PI / 180 )
+      xVelocity: model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
+      yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
     } );
 
     // initial values
     this.reachedGround = false;
 
     // TODO: velocity and acceleration vectors
-    this.xVelocity = model.velocity * Math.cos( model.cannonAngle * Math.PI / 180 );
-    this.yVelocity = model.velocity * Math.sin( model.cannonAngle * Math.PI / 180 );
+    this.xVelocity = model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 );
+    this.yVelocity = model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 );
 
-    this.velocity = model.velocity;
+    this.velocity = model.launchVelocity;
 
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;

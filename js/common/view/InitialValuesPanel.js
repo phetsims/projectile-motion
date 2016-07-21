@@ -82,7 +82,7 @@ define( function( require ) {
     var velocityBox = createParameterControlBox(
       velocityString,
       velocityProperty,
-      ProjectileMotionConstants.VELOCITY_RANGE
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 
     var angleBox = createParameterControlBox(

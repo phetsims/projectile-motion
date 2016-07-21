@@ -31,7 +31,7 @@ define( function( require ) {
       // @public
       cannonHeight: ProjectileMotionConstants.CANNON_HEIGHT_DEFAULT,
       cannonAngle: ProjectileMotionConstants.CANNON_ANGLE_DEFAULT,
-      velocity: ProjectileMotionConstants.VELOCITY_DEFAULT,
+      launchVelocity: ProjectileMotionConstants.LAUNCH_VELOCITY_DEFAULT,
 
       // parameters for the next projectile fired
       // TODO: rename to projectile
