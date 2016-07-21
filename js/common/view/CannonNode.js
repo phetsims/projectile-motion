@@ -34,21 +34,21 @@ define( function( require ) {
 
     Node.call( thisNode );
 
-    // @private auxiliary functions for setting the second coordinates of the line
+    // @private auxiliary functions, closures for setting the second coordinates of the line
     // TODO: remove when you use rotate
-    thisNode.getX2 = function() {
+    function getX2() {
       return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.value * Math.PI / 180 ) );
-    };
-    thisNode.getY2 = function() {
+    }
+    function getY2() {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.value * Math.PI / 180 ) + heightProperty.value );
-    };
+    }
 
     // draw cannon
     thisNode.cannon = new Line(
       modelViewTransform.modelToViewX( 0 ),
       modelViewTransform.modelToViewY( heightProperty.value ),
-      thisNode.getX2(),
-      thisNode.getY2(), {
+      getX2(),
+      getY2(), {
         stroke: 'rgba( 0, 0, 0, 0.4 )',
         lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
       }
@@ -66,8 +66,8 @@ define( function( require ) {
 
     // add invisible node for dragging angle
     thisNode.rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
-      x: thisNode.getX2(),
-      y: thisNode.getY2(),
+      x: getX2(),
+      y: getY2(),
       pickable: true,
       cursor: 'pointer'
     } );
@@ -75,8 +75,8 @@ define( function( require ) {
 
     // watch for if angle changes
     angleProperty.link( function() {
-      thisNode.cannon.x2 = thisNode.getX2();
-      thisNode.cannon.y2 = thisNode.getY2();
+      thisNode.cannon.x2 = getX2();
+      thisNode.cannon.y2 = getY2();
       thisNode.adjustableHeightArea.x = thisNode.cannon.x1;
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.x = thisNode.cannon.x2;
@@ -86,7 +86,7 @@ define( function( require ) {
     // watch for if height changes
     heightProperty.link( function( height ) {
       thisNode.cannon.y1 = modelViewTransform.modelToViewY( height );
-      thisNode.cannon.y2 = thisNode.getY2();
+      thisNode.cannon.y2 = getY2();
       thisNode.adjustableHeightArea.y = thisNode.cannon.y1;
       thisNode.rotatableArea.y = thisNode.cannon.y2;
     } );

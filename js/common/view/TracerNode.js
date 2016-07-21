@@ -69,7 +69,7 @@ define( function( require ) {
       thisNode.heightText.text = 'Height (m) ' + ( height ? height.toFixed( 2 ) : '' );
     } );
 
-    // listen for location changes, align locations, and update model
+    // Listen for location changes, align locations, and update model.
     Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
       thisNode.tracer.rectX = modelViewTransform.modelToViewX( tracerModel.x );
       thisNode.tracer.rectY = modelViewTransform.modelToViewY( tracerModel.y );
@@ -78,6 +78,7 @@ define( function( require ) {
       thisNode.tracerModel.updateData();
     } );
 
+    // @private variables used for drag handler
     var startPoint;
     var startX;
     var startY;

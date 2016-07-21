@@ -92,13 +92,12 @@ define( function( require ) {
     thisNode.addChild( thisNode.pathLayer );
 
     function handleDataPointAdded( addedPoint ) {
-      // Create and add the view representation for this trajectory
+      // Create and add the view representation for this trajectory.
       var addedPointNode = new Circle( 1, {
         x: modelViewTransform.modelToViewX( addedPoint.x ),
         y: modelViewTransform.modelToViewY( addedPoint.y ),
         fill: 'black'
       } );
-
       thisNode.pathLayer.addChild( addedPointNode );
 
       // move projectile to new position
