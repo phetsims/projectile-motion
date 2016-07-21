@@ -34,9 +34,9 @@ define( function( require ) {
 
   /**
    * Control panel constructor
-   * @param {Property} cannonHeightProperty - height of the cannon
-   * @param {Property} cannonAngleProperty - angle of the cannon
-   * @param {Property} velocityProperty - velocity of next projectile
+   * @param {Property.<number>} cannonHeightProperty - height of the cannon
+   * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in radians
+   * @param {Property.<number>} velocityProperty - velocity of next projectile
    * @constructor
    */
   function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, options ) {
@@ -51,41 +51,19 @@ define( function( require ) {
       },
       options );
 
-    // auxiliary function that takes variable and value, and creates string with value to two digits
-    // @param {String} label
-    // @param {Number} value
-    // @return {String}
-    var createLabelText = function( label, value ) {
-      return label + ': ' + value.toFixed( 2 );
-    };
-
-    // auxiliary function that creates vbox for a parameter label and slider
-    // @param {String} label
-    // @param {Property} property
-    // @param {Object} range, range has keys min and max
-    // @return {VBox}
-    var createParameterControlBox = function( label, property, range ) {
-      var parameterLabel = new Text( createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = createLabelText( label, v );
-      } );
-      var setParameterSlider = new HSlider( property, range );
-      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
-    };
-
-    var heightBox = createParameterControlBox(
+    var heightBox = this.createParameterControlBox(
       heightString,
       cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
-    var velocityBox = createParameterControlBox(
+    var velocityBox = this.createParameterControlBox(
       velocityString,
       velocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 
-    var angleBox = createParameterControlBox(
+    var angleBox = this.createParameterControlBox(
       angleString,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE
@@ -118,6 +96,32 @@ define( function( require ) {
 
   projectileMotion.register( 'InitialValuesPanel', InitialValuesPanel );
 
-  return inherit( Panel, InitialValuesPanel );
+  return inherit( Panel, InitialValuesPanel, {
+
+    // @private Auxiliary function takes {string} label and {number} value
+    // and returns {string} label and the value to two digits
+    createLabelText: function( label, value ) {
+      return label + ': ' + value.toFixed( 2 );
+    },
+
+    /**
+     * Auxiliary function that creates vbox for a parameter label and slider
+     * @param {string} label
+     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Object} range, range has keys min and max
+     * @return {VBox}
+     * @private
+     */
+    createParameterControlBox: function( label, property, range ) {
+      var thisPanel = this;
+      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
+      property.link( function( v ) {
+        parameterLabel.text = thisPanel.createLabelText( label, v );
+      } );
+      var setParameterSlider = new HSlider( property, range );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
+    }
+
+  } );
 } );
 

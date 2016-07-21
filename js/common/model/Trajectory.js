@@ -150,8 +150,8 @@ define( function( require ) {
 
     // Finds the data point with the least 2d distance to the x and y coordinates
     // @public
-    // @param {Number} x
-    // @param {Number} y
+    // @param {number} x
+    // @param {number} y
     // @return {Object|null} - time, x, and y of nearest data point on trajectory pathto given coordinates
     getNearestPoint: function( x, y ) {
 

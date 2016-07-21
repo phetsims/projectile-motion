@@ -1,12 +1,12 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Contains the scoring algorithm, involving the target and landed projectiles
+ * The model for scoring algorithm, knows about the target. Landed projectiles give their x location to this model.
  * Each time a projectile hits the target, the score indicator appears after 0.2 seconds
  * Each time a projectile is fired, the score indicator disappears. The 0.05 s delay is so that 
  * if multiple projectiles hit the target after the last fire, the score indicator seems to reappear
  * 
- * @author Andrea Lin
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -18,7 +18,7 @@ define( function( require ) {
   var PropertySet = require( 'AXON/PropertySet' );
 
   /**
-   * @param {Number} initialTargetX - x position of the target
+   * @param {number} initialTargetX - x position of the target
    * @constructor
    */
   function Score( initialTargetX ) {
@@ -33,7 +33,7 @@ define( function( require ) {
 
     // TODO: move functions to inherit
 
-    // @param {Number} projectileX - x location of the projectile, in meters
+    // @param {number} projectileX - x location of the projectile, in meters
     // @returns {Boolean}
     this.checkforScored = function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetX );

@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * tracer view. X position can change when user drags the cannon, y remains constant (on the ground)
+ * View for the tracer, which can be dragged to change location.
  *
  * @author Andrea Lin
  */

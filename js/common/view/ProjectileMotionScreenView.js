@@ -1,8 +1,9 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
- *
- * @author PhET Interactive Simulations
+ * Common view for a screen.
+ * 
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

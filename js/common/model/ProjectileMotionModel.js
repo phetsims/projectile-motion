@@ -26,13 +26,12 @@ define( function( require ) {
 
       // TODO: add visibility annotations
 
-      // @public, variables for the next trajectory, and thus the cannon
+      // @public variables for the next trajectory, and thus the cannon
       cannonHeight: ProjectileMotionConstants.CANNON_HEIGHT_DEFAULT,
       cannonAngle: ProjectileMotionConstants.CANNON_ANGLE_DEFAULT,
       launchVelocity: ProjectileMotionConstants.LAUNCH_VELOCITY_DEFAULT,
 
-      // @public, parameters for the next projectile fired
-      // TODO: rename to projectile
+      // @public parameters for the next projectile fired
       projectileMass: ProjectileMotionConstants.PROJECTILE_MASS_DEFAULT, // kg
       projectileDiameter: ProjectileMotionConstants.PROJECTILE_DIAMETER_DEFAULT, // meters
       projectileDragCoefficient: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_DEFAULT,

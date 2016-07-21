@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Trajectory view.
+ * View for a trajectory. Calls on ProjectileNode to create a view for the projectile at the end of its path.
+ * Listens to an observable array in the trajectory model to draw dots on the trajectory path.
  *
  * @author Andrea Lin
  */
@@ -26,7 +27,7 @@ define( function( require ) {
 
   /**
    * @param {Trajectory} trajectory - model for the trajectory
-   * @param {Property} velocityVectorComponentsOnProperty - whether those vectors should be visible
+   * @param {Property.<boolean>} velocityVectorComponentsOnProperty - whether those vectors should be visible
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */

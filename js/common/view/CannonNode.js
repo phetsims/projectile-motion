@@ -1,4 +1,4 @@
-// Copyright 2016, University of Colorado Boulder
+// Copyright 2002-2016, University of Colorado Boulder
 
 /**
  * Cannon view. Angle can change when user drags the cannon tip. Height can change when user drags cannon base.
@@ -24,8 +24,8 @@ define( function( require ) {
 
 
   /**
-   * @param {Property} heightProperty - height of the cannon
-   * @param {Property} angleProperty - angle of the cannon
+   * @param {Property.<number>} heightProperty - height of the cannon
+   * @param {Property.<number>} angleProperty - angle of the cannon, in radians
    * @param {ModelViewTransform2} modelViewTransform - meters to units, inverted y
    * @constructor
    */

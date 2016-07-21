@@ -1,10 +1,9 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Control panel.
- *
- * @author Chris Malley (PixelZoom, Inc.)
- * @author Sam Reid (PhET Interactive Simulations)
+ * Customize panel allows the user to change a projectile's parameters
+ * Includes a customize button that pulls up a form to change all fields
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
@@ -32,7 +31,6 @@ define( function( require ) {
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   /**
-   * Control panel constructor
    * @param {ProjectileMotionModel} model
    * @constructor
    */
@@ -47,47 +45,25 @@ define( function( require ) {
       },
       options );
 
-    // auxiliary function that creates the string for a text label
-    // @param {String} label
-    // @param {Number} value
-    // @return {String}
-    var createLabelText = function( label, value ) {
-      return label + ': ' + value.toFixed( 2 );
-    };
-
-    // auxiliary function that creates vbox for a parameter label and slider
-    // @param {String} label
-    // @param {Property} property
-    // @param {Object} range, range has keys min and max
-    // @return {VBox}
-    var createParameterControlBox = function( label, property, range ) {
-      var parameterLabel = new Text( createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = createLabelText( label, v );
-      } );
-      var setParameterSlider = new HSlider( property, range );
-      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
-    };
-
-    var massBox = createParameterControlBox(
+    var massBox = this.createParameterControlBox(
       massString,
       projectileMotionLabModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
-    var diameterBox = createParameterControlBox(
+    var diameterBox = this.createParameterControlBox(
       diameterString,
       projectileMotionLabModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
-    var dragCoefficientBox = createParameterControlBox(
+    var dragCoefficientBox = this.createParameterControlBox(
       dragCoefficientString,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
-    var altitudeBox = createParameterControlBox(
+    var altitudeBox = this.createParameterControlBox(
       altitudeString,
       projectileMotionLabModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
@@ -126,6 +102,32 @@ define( function( require ) {
 
   projectileMotion.register( 'CustomizePanel', CustomizePanel );
 
-  return inherit( Panel, CustomizePanel );
+  return inherit( Panel, CustomizePanel, {
+
+    // @private Auxiliary function takes {string} label and {number} value
+    // and returns {string} label and the value to two digits
+    createLabelText: function( label, value ) {
+      return label + ': ' + value.toFixed( 2 );
+    },
+
+    /**
+     * Auxiliary function that creates vbox for a parameter label and slider
+     * @param {string} label
+     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Object} range, range has keys min and max
+     * @return {VBox}
+     * @private
+     */
+    createParameterControlBox: function( label, property, range ) {
+      var thisPanel = this;
+      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
+      property.link( function( v ) {
+        parameterLabel.text = thisPanel.createLabelText( label, v );
+      } );
+      var setParameterSlider = new HSlider( property, range );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
+    }
+
+  } );
 } );
 

@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Trajectory view.
+ * View for the projectile.
  *
  * @author Andrea Lin
  */
@@ -14,9 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
   /**
-   * @param {Trajectory} trajectory - model for the trajectory
-   * @param {Property} velocityVectorComponentsOnProperty - whether those vectors should be visible
-   * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
+   * @param {number} radius - radius of the projectile
    * @constructor
    */
   function ProjectileNode( radius, options ) {

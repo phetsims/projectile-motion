@@ -1,8 +1,9 @@
-// Copyright 2015, University of Colorado Boulder
+// Copyright 2016, University of Colorado Boulder
 
 /**
+ * View for the 'Lab' screen. A subtype of the common screen view, ProjectileMotionScreenView
  *
- * @author PhET Interactive Simulations
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
