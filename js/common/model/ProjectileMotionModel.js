@@ -36,17 +36,16 @@ define( function( require ) {
       projectileDiameter: ProjectileMotionConstants.PROJECTILE_DIAMETER_DEFAULT, // meters
       projectileDragCoefficient: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_DEFAULT,
 
-      // properties that change the environment and affect all projectiles immediately
+      // @public properties that change the environment and affect all projectiles immediately
       altitude: ProjectileMotionConstants.ALTITUDE_DEFAULT,
       airResistanceOn: ProjectileMotionConstants.AIR_RESISTANCE_ON_DEFAULT, // should default to false
 
-      // vectors
+      // @public vectors visibility
       velocityVectorComponentsOn: false,
 
-      // measuring tape
-      // TODO: measuringTapeVisible
+      // @public measuring tape
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
-      measuringTape: true,
+      measuringTapeVisible: true,
       // TODO: make Vector2 for basePositionProperty
       measuringTapeX: ProjectileMotionConstants.TAPE_MEASURE_X_DEFAULT,
       measuringTapeY: ProjectileMotionConstants.TAPE_MEASURE_Y_DEFAULT,

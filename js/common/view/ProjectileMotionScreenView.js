@@ -126,7 +126,7 @@ define( function( require ) {
     // TODO: its length changes with zoom, but nothing else does
     thisScreenView.measuringTapeNode = new MeasuringTape(
       model.unitsProperty,
-      model.measuringTapeProperty, {
+      model.measuringTapeVisibleProperty, {
         x: model.measuringTapeX,
         y: model.measuringTapeY,
         textColor: 'black',
