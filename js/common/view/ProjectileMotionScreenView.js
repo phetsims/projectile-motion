@@ -127,8 +127,8 @@ define( function( require ) {
     thisScreenView.measuringTapeNode = new MeasuringTape(
       model.unitsProperty,
       model.measuringTapeVisibleProperty, {
-        x: model.measuringTapeX,
-        y: model.measuringTapeY,
+        basePositionProperty: model.measuringTapeBaseProperty,
+        tipPositionProperty: model.measuringTapeTipProperty,
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
@@ -217,7 +217,6 @@ define( function( require ) {
       listener: function() {
         model.reset();
         zoomProperty.reset();
-        thisScreenView.measuringTapeNode.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10

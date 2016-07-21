@@ -16,6 +16,7 @@ define( function( require ) {
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @constructor
@@ -43,12 +44,14 @@ define( function( require ) {
       // @public vectors visibility
       velocityVectorComponentsOn: false,
 
-      // @public measuring tape
+      // @public measuring tape properties
       units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
       measuringTapeVisible: true,
-      // TODO: make Vector2 for basePositionProperty
-      measuringTapeX: ProjectileMotionConstants.TAPE_MEASURE_X_DEFAULT,
-      measuringTapeY: ProjectileMotionConstants.TAPE_MEASURE_Y_DEFAULT,
+      measuringTapeBase: new Vector2(
+        ProjectileMotionConstants.MEASURING_TAPE_X_DEFAULT,
+        ProjectileMotionConstants.MEASURING_TAPE_Y_DEFAULT
+      ),
+      measuringTapeTip: this.measuringTapeBase.plusXY( ProjectileMotionConstants.MEASURING_TAPE_LENGTH_DEFAULT, 0 ),
 
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
@@ -57,7 +60,7 @@ define( function( require ) {
 
     // TODO: rename stepCount?
     this.stepThree = 0; // @private, how many steps mod three, used to slow animation down to a third of normal speed
-   
+
     // observable array of trajectories
     projectileMotionModel.trajectories = new ObservableArray();
 
@@ -112,7 +115,7 @@ define( function( require ) {
         // either this speed is normal, or its slow and only steps on every third frame
         // TODO: revert back to one second = one third of a second
         if ( this.speed === 'normal' || this.stepThree === 0 ) {
-          this.stepInternal(  dt );
+          this.stepInternal( dt );
         }
       }
     },

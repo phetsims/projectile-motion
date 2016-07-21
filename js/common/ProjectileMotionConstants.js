@@ -61,8 +61,9 @@ define( function( require ) {
     TARGET_WIDTH: 0.5, // meters
 
     // measuring tape
-    TAPE_MEASURE_X_DEFAULT: 0,
-    TAPE_MEASURE_Y_DEFAULT: 0, // location will be transformed, but not length
+    MEASURING_TAPE_X_DEFAULT: 0,
+    MEASURING_TAPE_Y_DEFAULT: 0, // location will be transformed, but not length
+    MEASURING_TAPE_LENGTH_DEFAULT: 1, // meters
 
     // tracer
     TRACER_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
