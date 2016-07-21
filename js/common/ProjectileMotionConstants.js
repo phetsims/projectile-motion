@@ -18,22 +18,7 @@ define( function( require ) {
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
-    // initial values (defaults) for cannon/next projectile fired- used at startup and after reset
-    CANNON_HEIGHT_DEFAULT: 0, // meters
-    CANNON_ANGLE_DEFAULT: 80, // degrees
-    LAUNCH_VELOCITY_DEFAULT: 18, // m/s
-
-    // customizable parameters (defaults) for the next projectile fired
-    PROJECTILE_MASS_DEFAULT: 5, // kg
-    PROJECTILE_DIAMETER_DEFAULT: 0.37, // of a pumpkin, in meters
-    PROJECTILE_DRAG_COEFFICIENT_DEFAULT: 0.6, // of a pumpkin
-
-    // properties that change the environment (defaults)
-    ALTITUDE_DEFAULT: 0, // meters, will change to 0 meters
-    AIR_RESISTANCE_ON_DEFAULT: false,
-
     // productive constraints
-    
     CANNON_HEIGHT_RANGE: { min: 0, max: 10 },
     CANNON_ANGLE_RANGE: { min: -90, max: 180 },
     LAUNCH_VELOCITY_RANGE: { min: 0, max: 50 },

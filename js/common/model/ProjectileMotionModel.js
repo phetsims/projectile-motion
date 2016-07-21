@@ -16,7 +16,7 @@ define( function( require ) {
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
-  var Vector2 = require( 'DOT/Vector2' );
+  // var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @constructor
@@ -28,18 +28,18 @@ define( function( require ) {
       // TODO: add visibility annotations
 
       // @public variables for the next trajectory, and thus the cannon
-      cannonHeight: ProjectileMotionConstants.CANNON_HEIGHT_DEFAULT,
-      cannonAngle: ProjectileMotionConstants.CANNON_ANGLE_DEFAULT,
-      launchVelocity: ProjectileMotionConstants.LAUNCH_VELOCITY_DEFAULT,
+      cannonHeight: 0, // meters
+      cannonAngle: 80, // degrees
+      launchVelocity: 18, // m/s
 
       // @public parameters for the next projectile fired
-      projectileMass: ProjectileMotionConstants.PROJECTILE_MASS_DEFAULT, // kg
-      projectileDiameter: ProjectileMotionConstants.PROJECTILE_DIAMETER_DEFAULT, // meters
-      projectileDragCoefficient: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_DEFAULT,
+      projectileMass: 5, // kg
+      projectileDiameter: 0.37, // meters
+      projectileDragCoefficient: 0.6, // of a pumpkin
 
       // @public properties that change the environment and affect all projectiles immediately
-      altitude: ProjectileMotionConstants.ALTITUDE_DEFAULT,
-      airResistanceOn: ProjectileMotionConstants.AIR_RESISTANCE_ON_DEFAULT, // should default to false
+      altitude: 0, // meters
+      airResistanceOn: false, // defaults to air resistance off
 
       // @public vectors visibility
       velocityVectorComponentsOn: false,

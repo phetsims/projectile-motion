@@ -25,7 +25,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
-   * @param {Property.<number>} angleProperty - angle of the cannon, in radians
+   * @param {Property.<number>} angleProperty - angle of the cannon, in degrees
    * @param {ModelViewTransform2} modelViewTransform - meters to units, inverted y
    * @constructor
    */
