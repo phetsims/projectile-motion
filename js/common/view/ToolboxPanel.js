@@ -19,15 +19,16 @@ define( function( require ) {
   // var Vector2 = require( 'DOT/Vector2' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Property = require( 'AXON/Property' );
+  // var Property = require( 'AXON/Property' );
 
   /**
    * Toolbox constructor
-   * @param {MeasuringTape} measuringTape
+   * @param {ProjectileMotionMeasuringTape} measuringTape
+   * @param {MeasuringTapeNode} measuringTapeNode
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ToolboxPanel( measuringTape, modelViewTransform, options ) {
+  function ToolboxPanel( measuringTape, measuringTapeNode, modelViewTransform, options ) {
 
     options = options || {};
     var toolboxPanel = this;
@@ -41,9 +42,6 @@ define( function( require ) {
       children: [ measuringTapeIconNode ],
       pickable: true
     } );
-
-    // move measuring tape to icon location
-    measuringTape.center =  measuringTapeIconNode.center;
 
     // Options for the panel
     options = _.extend( {
@@ -60,35 +58,26 @@ define( function( require ) {
     // determine the distance (in model coordinates) between the tip and the base position of the measuring tape
     var tipToBasePosition = measuringTape.tipPositionProperty.get().minus( measuringTape.basePositionProperty.get() );
 
-    // add an is active property to measuring tape
-    // TODO: is it bad to add properties to things that are common code?
-    measuringTape.isActiveProperty = new Property( false );
-
-    var measuringTapeMovableDragHandler = {
+    // Add the listener that will allow the user to click on this and create a model element, then position it in the model.
+    measuringTapeIconNode.addInputListener( {
       down: function( event ) {
         // Ignore non-left-mouse-button
         if ( event.pointer.isMouse && event.domEvent.button !== 0 ) {
           return;
         }
 
-        measuringTape.isActiveProperty.set( true );
+        measuringTape.isActive = true;
 
-        var initialViewPosition = toolboxPanel.globalToParentPoint( event.pointer.point ).minus( measuringTape.getLocalBaseCenter() );
-        // var initialViewPosition = toolboxPanel.globalToParentPoint( event.pointer.point ).minus( measuringTapeNode.getLocalBaseCenter() );
+        var initialViewPosition = toolboxPanel.globalToParentPoint( event.pointer.point ).minus( measuringTapeNode.getLocalBaseCenter() );
         measuringTape.basePosition = modelViewTransform.viewToModelPosition( initialViewPosition );
         measuringTape.tipPosition = measuringTape.basePosition.plus( tipToBasePosition );
 
-        measuringTape.startBaseDrag( event );
-        // measuringTapeNode.startBaseDrag( event );
+        measuringTapeNode.startBaseDrag( event );
       }
-    };
-
-    // Add the listener that will allow the user to click on this and create a model element, then position it in the model.
-    measuringTapeIconNode.addInputListener( measuringTapeMovableDragHandler );
+    } );
 
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
     measuringTape.isActiveProperty.link( function( active ) {
-      measuringTape.visible = active;
       measuringTapeIconNode.visible = !active;
     } );
 

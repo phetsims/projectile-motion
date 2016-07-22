@@ -16,51 +16,56 @@ define( function( require ) {
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
   // var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @constructor
    */
   function ProjectileMotionModel() {
-    var projectileMotionModel = this;
-    PropertySet.call( projectileMotionModel, {
+    // @public
+    PropertySet.call( this, {
 
-      // @public variables for the next trajectory, and thus the cannon
+      // variables for the next trajectory, and thus the cannon
       cannonHeight: 0, // meters
       cannonAngle: 80, // degrees
       launchVelocity: 18, // m/s
 
-      // @public parameters for the next projectile fired
+      // parameters for the next projectile fired
       projectileMass: 5, // kg
       projectileDiameter: 0.37, // meters
       projectileDragCoefficient: 0.6, // of a pumpkin
 
-      // @public properties that change the environment and affect all projectiles immediately
+      // properties that change the environment and affect all projectiles immediately
       altitude: 0, // meters
       airResistanceOn: false, // defaults to air resistance off
 
-      // @public vectors visibility
+      // vectors visibility
       velocityVectorComponentsOn: false,
 
-      // @public measuring tape properties
-      units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
-      measuringTapeVisible: true,
+      // measuring tape properties
+      // units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
+      // measuringTapeVisible: true,
 
-      // @public animation controls, e.g. normal/slow/play/pause/step
+      // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
       isPlaying: true
     } );
 
-    this.stepCount = 0; // @private, how many steps mod three, used to slow animation down to a third of normal speed
+    // @private, how many steps mod three, used to slow animation down to a third of normal speed
+    this.stepCount = 0;
 
     // @public {ObservableArray.<Trajectory>} observable array of trajectories
-    projectileMotionModel.trajectories = new ObservableArray();
+    this.trajectories = new ObservableArray();
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
-    projectileMotionModel.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
+    this.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
+
+    // @public {ProjectileMotionMeasuringTape} model for measuring tape
+    this.measuringTape = new ProjectileMotionMeasuringTape();
 
     // @public {Tracer} model for the tracer probe
-    projectileMotionModel.tracerModel = new Tracer( projectileMotionModel.trajectories, 10, 10 ); // location arbitrary
+    this.tracerModel = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );

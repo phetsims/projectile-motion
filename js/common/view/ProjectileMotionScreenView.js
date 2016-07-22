@@ -16,7 +16,6 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
   // var Matrix3 = require( 'DOT/Matrix3' );
-  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
@@ -25,7 +24,8 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
-  var Property = require( 'AXON/Property' );
+  // var Property = require( 'AXON/Property' );
+  var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
@@ -98,14 +98,16 @@ define( function( require ) {
 
     // common code measuring tape
     // TODO: its length changes with zoom, but nothing else does
-    var measuringTape = new MeasuringTape(
-      model.unitsProperty,
-      model.measuringTapeVisibleProperty, {
-        visible: false,
-        isActiveProperty: new Property( false ), // add is active property
-        textColor: 'black',
-        modelViewTransform: modelViewTransform
-      } );
+    // var measuringTape = new MeasuringTape(
+    //   new Property( { name: 'meters', multiplier: 1 } ),
+    //   new Property( false ), {
+    //     isActiveProperty: new Property( false ), // add is active property
+    //     textColor: 'black',
+    //     modelViewTransform: modelViewTransform
+    //   } );
+
+    // Create a measuring tape (set to invisible initially)
+    var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
 
     // add view for tracer
     var tracerNode = new TracerNode(
@@ -166,8 +168,17 @@ define( function( require ) {
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
 
-    // final panel is the toolbox panel. lab screen will add a tracer tool
-    var toolboxPanel = new ToolboxPanel( measuringTape, modelViewTransform );
+    // toolbox panel contains measuring tape. lab screen will add a tracer tool
+    var toolboxPanel = new ToolboxPanel( model.measuringTape, measuringTapeNode, modelViewTransform );
+
+    // listens to the isUserControlled property of the measuring tape
+    // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
+    measuringTapeNode.isBaseUserControlledProperty.link( function( isUserControlled ) {
+      var tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
+      if ( !isUserControlled && toolboxPanel.bounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
+        model.measuringTape.isActive = false;
+      }
+    } );
 
     // vbox contains the control panels
     var panelsBox = new VBox( {
@@ -228,7 +239,6 @@ define( function( require ) {
       listener: function() {
         model.reset();
         // zoomProperty.reset();
-        measuringTape.reset();
       },
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
@@ -241,7 +251,7 @@ define( function( require ) {
       trajectoriesLayer,
       cannonNode,
       panelsBox,
-      measuringTape,
+      measuringTapeNode,
       tracerNode,
       fireButton,
       eraserButton,
