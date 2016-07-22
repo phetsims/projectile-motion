@@ -18,7 +18,13 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  // var Vector2 = require( 'DOT/Vector2' );
+  var Vector2 = require( 'DOT/Vector2' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+
+  // constants
+  var CIRCLE_RADIUS = 10; // view units, will not be transformed
 
 
   /**
@@ -28,55 +34,24 @@ define( function( require ) {
    */
   function TracerNode( tracerModel, modelViewTransform ) {
     var thisNode = this;
-    Node.call( thisNode );
 
+    // Define properties in one place ----------------------------------------------------------------------------------
     thisNode.tracerModel = tracerModel;
+    thisNode.probeOrigin = new Vector2( 0, 0 );
 
-    // add view for tracer
-    thisNode.tracer = new Rectangle(
+    // Declarations and listeners in one place -------------------------------------------------------------------------
+
+    // draggable node
+    var rectangle = new Rectangle(
       0,
       0,
       120,
       60, {
-        fill: 'rgba( 0, 255, 10, 0.4 )',
+        fill: 'rgba( 0, 255, 100, 0.4 )',
         pickable: true,
         cursor: 'pointer'
       }
     );
-    thisNode.addChild( thisNode.tracer );
-
-    // text readouts
-    thisNode.textBox = new VBox( { align: 'left' } );
-    thisNode.addChild( thisNode.textBox );
-
-    thisNode.timeText = new Text( 'Time (s): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    thisNode.rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    thisNode.heightText = new Text( 'Height (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    thisNode.textBox.setChildren( [
-      thisNode.timeText,
-      thisNode.rangeText,
-      thisNode.heightText
-    ] );
-
-    // Listen for when time, range, and height change, and update the readouts.
-    Property.multilink( [ tracerModel.timeProperty, tracerModel.rangeProperty, tracerModel.heightProperty ], function(
-      time,
-      range,
-      height
-    ) {
-      thisNode.timeText.text = 'Time (s): ' + ( time ? time.toFixed( 2 ) : '' );
-      thisNode.rangeText.text = 'Range (m): ' + ( range ? range.toFixed( 2 ) : '' );
-      thisNode.heightText.text = 'Height (m): ' + ( height ? height.toFixed( 2 ) : '' );
-    } );
-
-    // Listen for location changes, align locations, and update model.
-    Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
-      thisNode.tracer.rectX = modelViewTransform.modelToViewX( tracerModel.x );
-      thisNode.tracer.rectY = modelViewTransform.modelToViewY( tracerModel.y );
-      thisNode.textBox.top = thisNode.tracer.top + 10;
-      thisNode.textBox.left = thisNode.tracer.left + 10;
-      thisNode.tracerModel.updateData();
-    } );
 
     // @private variables used for drag handler
     var startPoint;
@@ -85,15 +60,15 @@ define( function( require ) {
     var mousePoint;
 
     // drag tracer to change position
-    thisNode.tracer.addInputListener( new SimpleDragHandler( {
+    rectangle.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = thisNode.tracer.globalToParentPoint( event.pointer.point );
-        startX = thisNode.tracer.rectX; // view units
-        startY = thisNode.tracer.rectY; // view units
+        startPoint = rectangle.globalToParentPoint( event.pointer.point );
+        startX = thisNode.probeOrigin.x; // view units
+        startY = thisNode.probeOrigin.y; // view units
       },
 
       drag: function( event ) {
-        mousePoint = thisNode.tracer.globalToParentPoint( event.pointer.point );
+        mousePoint = rectangle.globalToParentPoint( event.pointer.point );
 
         // change in x, view units
         var change = mousePoint.minus( startPoint );
@@ -101,8 +76,68 @@ define( function( require ) {
         tracerModel.x = modelViewTransform.viewToModelX( startX + change.x );
         tracerModel.y = modelViewTransform.viewToModelY( startY + change.y );
       }
-
     } ) );
+
+    // crosshair view
+    var crosshairShape = new Shape()
+      .moveTo( -CIRCLE_RADIUS, 0 )
+      .lineTo( CIRCLE_RADIUS, 0 )
+      .moveTo( 0, -CIRCLE_RADIUS )
+      .lineTo( 0, CIRCLE_RADIUS );
+
+    var crosshair = new Path( crosshairShape, { stroke: 'black' } );
+
+    var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black' } );
+
+    // information readouts
+    var timeText = new Text( 'Time (s): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    var rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    var heightText = new Text( 'Height (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+
+    var textBox = new VBox( {
+      align: 'left',
+      children: [
+        timeText,
+        rangeText,
+        heightText
+      ]
+    } );
+
+    // Listen for when time, range, and height change, and update the readouts.
+    Property.multilink( [ tracerModel.timeProperty, tracerModel.rangeProperty, tracerModel.heightProperty ], function(
+      time,
+      range,
+      height
+    ) {
+      timeText.text = 'Time (s): ' + ( time ? time.toFixed( 2 ) : '' );
+      rangeText.text = 'Range (m): ' + ( range ? range.toFixed( 2 ) : '' );
+      heightText.text = 'Height (m): ' + ( height ? height.toFixed( 2 ) : '' );
+    } );
+
+    // Listen for location changes, align locations, and update model.
+    Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
+      thisNode.probeOrigin.x = modelViewTransform.modelToViewX( tracerModel.x );
+      thisNode.probeOrigin.y = modelViewTransform.modelToViewY( tracerModel.y );
+
+      crosshair.center = thisNode.probeOrigin;
+      circle.center = thisNode.probeOrigin;
+      rectangle.centerX = thisNode.probeOrigin.x;
+      rectangle.top = thisNode.probeOrigin.y + CIRCLE_RADIUS;
+      textBox.left = rectangle.left + 10;
+      textBox.top = rectangle.top + 5;
+
+      thisNode.tracerModel.updateData(); // TODO: investiage, this may be create a cycle
+    } );
+
+    // Rendering order
+    Node.call( thisNode, {
+      children: [
+        crosshair,
+        circle,
+        rectangle,
+        textBox
+      ]
+    } );
 
   }
 
