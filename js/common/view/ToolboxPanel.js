@@ -10,13 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
+  // var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  // var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  var Vector2 = require( 'DOT/Vector2' );
+  // var Vector2 = require( 'DOT/Vector2' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
@@ -33,7 +33,7 @@ define( function( require ) {
     var toolboxPanel = this;
 
     // Create the icon image for the measuring Tape
-    var measuringTapeIconNode = this.createMeasuringTapeIcon(); // {Node}
+    var measuringTapeIconNode = MeasuringTape.createMeasuringTapeIcon(); // {Node}
 
     // The content panel with the two icons
     var panelContent = new LayoutBox( {
@@ -96,34 +96,6 @@ define( function( require ) {
 
   projectileMotion.register( 'ToolboxPanel', ToolboxPanel );
 
-  return inherit( Panel, ToolboxPanel, {
-
-    /**
-     * Returns an icon of the measuring tape
-     * @private
-     * @returns {Node}
-     */
-    createMeasuringTapeIcon: function() {
-      // procedure to create an icon Image of a measuringTape
-      // first, create an actual measuring tape
-
-      var unspooledMeterTape = 30; // in view coordinates
-      var measuringTape = new MeasuringTape( new Property( { name: '', multiplier: 1 } ), new Property( true ), {
-        tipPositionProperty: new Property( new Vector2( unspooledMeterTape, 0 ) ),
-        scale: 0.8 // make it a bit small
-      } );
-      measuringTape.setTextVisibility( false ); // let's hide the text label value (the length) for the icon
-
-      // second, create the measuringTape icon
-      var measuringTapeIcon = new Node( { children: [ measuringTape ] } );
-
-      // Create the measuringTape icon using toImage
-      measuringTape.toImage( function( image ) {
-        measuringTapeIcon.children = [ new Image( image, { cursor: 'pointer' } ) ];
-      }, measuringTape.width - unspooledMeterTape, measuringTape.height - 5, measuringTape.width, measuringTape.height );
-
-      return measuringTapeIcon;
-    }
-  } );
+  return inherit( Panel, ToolboxPanel );
 } );
 
