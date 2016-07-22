@@ -26,9 +26,9 @@ define( function( require ) {
 
     options = _.extend( {
       baseColor: 'rgb( 255, 0, 0 )', // red
-      minWidth: 50,
-      minHeight: 45,
-      iconWidth: 40 // width of icon, used for scaling, the aspect ratio will determine height
+      // minWidth: 50,
+      // minHeight: 45,
+      iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
     }, options );
 
     // fire button icon

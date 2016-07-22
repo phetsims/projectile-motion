@@ -111,6 +111,11 @@ define( function( require ) {
       this.trajectories.push( new Trajectory( this ) );
     },
 
+    // @public, removes all trajectories
+    eraseTrajectories: function() {
+      this.trajectories.clear();
+    },
+
     // @public fires cannon, called on by fire button
     cannonFired: function() {
       this.isPlaying = true;

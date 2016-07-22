@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
+  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
@@ -148,6 +149,12 @@ define( function( require ) {
       listener: function() { model.cannonFired(); }
     } );
 
+    var eraserButton = new EraserButton( {
+      left: fireButton.right + 10,
+      y: thisScreenView.layoutBounds.maxY - 40,
+      listener: function() { model.eraseTrajectories(); }
+    } );
+
     // control panels
     var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
 
@@ -224,6 +231,7 @@ define( function( require ) {
       zoomableNode,
       panelsBox,
       fireButton,
+      eraserButton,
       speedControl,
       stepButton,
       playPauseButton,
