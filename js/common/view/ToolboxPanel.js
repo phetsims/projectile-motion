@@ -77,6 +77,7 @@ define( function( require ) {
       }
     } );
 
+    // TODO: fuzzMouse can move measuringTape and expand toolbox bounds
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
     measuringTape.isActiveProperty.link( function( active ) {
       measuringTapeIconNode.visible = !active;
