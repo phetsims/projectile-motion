@@ -25,8 +25,6 @@ define( function( require ) {
     var projectileMotionModel = this;
     PropertySet.call( projectileMotionModel, {
 
-      // TODO: add visibility annotations
-
       // @public variables for the next trajectory, and thus the cannon
       cannonHeight: 0, // meters
       cannonAngle: 80, // degrees
@@ -84,7 +82,7 @@ define( function( require ) {
     // @public determines animation based on play/pause and speed
     step: function( dt ) {
 
-      //TODO: why?
+      // stepCount tracks how many frames mod 3, so slow motion is slowed down to once every three frames
       this.stepCount += 1;
       this.stepCount = this.stepCount % 3;
 
