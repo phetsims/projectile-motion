@@ -47,7 +47,7 @@ define( function( require ) {
       0,
       120,
       60, {
-        fill: 'rgba( 0, 255, 100, 0.4 )',
+        fill: 'rgb( 100, 255, 170 )',
         pickable: true,
         cursor: 'pointer'
       }
@@ -123,7 +123,7 @@ define( function( require ) {
       circle.center = thisNode.probeOrigin;
       rectangle.centerX = thisNode.probeOrigin.x;
       rectangle.top = thisNode.probeOrigin.y + CIRCLE_RADIUS;
-      textBox.left = rectangle.left + 10;
+      textBox.left = rectangle.left + 5;
       textBox.top = rectangle.top + 5;
 
       thisNode.tracerModel.updateData(); // TODO: investiage, this may be create a cycle
@@ -132,9 +132,9 @@ define( function( require ) {
     // Rendering order
     Node.call( thisNode, {
       children: [
+        rectangle,
         crosshair,
         circle,
-        rectangle,
         textBox
       ]
     } );
