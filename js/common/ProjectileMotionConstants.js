@@ -52,6 +52,8 @@ define( function( require ) {
     PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
     PANEL_TITLE_OPTIONS: { font: new PhetFont( 16 ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 11 ) },
+    PANEL_LINE_WIDTH: 1,
+    PANEL_STROKE: 'black',
 
     // zooming
     MIN_ZOOM: 0.1,

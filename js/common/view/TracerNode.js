@@ -32,7 +32,8 @@ define( function( require ) {
    * @param {String|color} color
    * @constructor
    */
-  function TracerNode( tracerModel, modelViewTransform ) {
+  function TracerNode( tracerModel, modelViewTransform, options ) {
+    options = options || {};
     var thisNode = this;
 
     // Define properties in one place ----------------------------------------------------------------------------------
@@ -130,14 +131,14 @@ define( function( require ) {
     } );
 
     // Rendering order
-    Node.call( thisNode, {
-      children: [
-        rectangle,
-        crosshair,
-        circle,
-        textBox
-      ]
-    } );
+    options.children = [
+      rectangle,
+      crosshair,
+      circle,
+      textBox
+    ];
+
+    Node.call( thisNode, options );
 
   }
 

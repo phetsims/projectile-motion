@@ -15,7 +15,7 @@ define( function( require ) {
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
-  var Matrix3 = require( 'DOT/Matrix3' );
+  // var Matrix3 = require( 'DOT/Matrix3' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -31,18 +31,19 @@ define( function( require ) {
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
+  // var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
 
   // strings
   var normalString = 'Normal';
   var slowMotionString = 'Slow Motion';
 
   // constants
-  var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
-  var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
-  var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+  // var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+  // var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+  // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
 
@@ -65,7 +66,7 @@ define( function( require ) {
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
     // zoomable node layer
-    var zoomableNode = new Node();
+    // var zoomableNode = new Node();
 
     // target
     var targetNode = new TargetNode( model.scoreModel, modelViewTransform );
@@ -100,7 +101,8 @@ define( function( require ) {
     var measuringTape = new MeasuringTape(
       model.unitsProperty,
       model.measuringTapeVisibleProperty, {
-        basePositionProperty: new Property( new Vector2( 0, 0 ) ),
+        visible: false,
+        isActiveProperty: new Property( false ), // add is active property
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
@@ -111,36 +113,39 @@ define( function( require ) {
       modelViewTransform
     );
 
-    zoomableNode.mutate( {
-      children: [
-        targetNode,
-        trajectoriesLayer,
-        cannonNode,
-        measuringTape,
-        tracerNode
-      ]
-    } );
+    // zoomableNode.mutate( {
+    //   children: [
+    //     targetNode,
+    //     trajectoriesLayer,
+    //     cannonNode
+    //   ]
+    // } );
 
-    // zoom property
-    var zoomProperty = new Property( DEFAULT_ZOOM );
+    // // zoom property
+    // var zoomProperty = new Property( DEFAULT_ZOOM );
 
-    // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
-    // scale matrix algorithm taken from neuron repo
-    zoomProperty.link( function( zoomFactor ) {
+    // // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
+    // // scale matrix algorithm taken from neuron repo
+    // zoomProperty.link( function( zoomFactor ) {
 
-      var scaleMatrix;
-      var scaleAroundX = thisScreenView.transformedOrigin.x;
-      var scaleAroundY = thisScreenView.transformedOrigin.y;
+    //   var scaleMatrix;
+    //   var scaleAroundX = thisScreenView.transformedOrigin.x;
+    //   var scaleAroundY = thisScreenView.transformedOrigin.y;
 
-      scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
+    //   scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
 
-      zoomableNode.matrix = scaleMatrix;
-    } );
+    //   zoomableNode.matrix = scaleMatrix;
+    //   // measuringTape.modelViewTransform = new ModelViewTransform2( scaleMatrix );
+    //   // targetNode.target.matrix = scaleMatrix;
+    //   // trajectoriesLayer.matrix = scaleMatrix;
+    //   // cannonNode.matrix = scaleMatrix;
+    //   // measuringTape.mutate( { modelViewTransform: modelViewTransform.})
+    // } );
 
-    // zoom control view and position it
-    var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
-    zoomControl.top = 0;
-    zoomControl.left = 0;
+    // // zoom control view and position it
+    // var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
+    // zoomControl.top = 0;
+    // zoomControl.left = 0;
 
     // fire button
     var fireButton = new FireButton( {
@@ -161,13 +166,16 @@ define( function( require ) {
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
 
+    // final panel is the toolbox panel. lab screen will add a tracer tool
+    var toolboxPanel = new ToolboxPanel( measuringTape, modelViewTransform );
+
     // vbox contains the control panels
     var panelsBox = new VBox( {
       x: thisScreenView.layoutBounds.maxX - 150,
       y: 10,
       align: 'left',
       spacing: 10,
-      children: [ initialValuesPanel, secondPanel ]
+      children: [ initialValuesPanel, secondPanel, toolboxPanel ]
     } );
 
     // step button
@@ -219,7 +227,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        zoomProperty.reset();
+        // zoomProperty.reset();
         measuringTape.reset();
       },
       right: this.layoutBounds.maxX - 10,
@@ -228,14 +236,19 @@ define( function( require ) {
 
     // rendering order
     thisScreenView.setChildren( [
-      zoomableNode,
+      // zoomableNode,
+      targetNode,
+      trajectoriesLayer,
+      cannonNode,
       panelsBox,
+      measuringTape,
+      tracerNode,
       fireButton,
       eraserButton,
       speedControl,
       stepButton,
       playPauseButton,
-      zoomControl,
+      // zoomControl,
       resetAllButton
     ] );
   }
