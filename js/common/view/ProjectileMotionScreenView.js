@@ -160,20 +160,10 @@ define( function( require ) {
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, measuringTapeNode, modelViewTransform );
-
-    // TODO: drop isn't working
-    // listens to the isUserControlled property of the measuring tape
-    // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
-    measuringTapeNode.isBaseUserControlledProperty.link( function( isUserControlled ) {
-      var tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
-      if ( !isUserControlled && toolboxPanel.bounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
-        model.measuringTape.isActive = false;
-      }
-    } );
-
+    
     // vbox contains the control panels
     var panelsBox = new VBox( {
-      x: thisScreenView.layoutBounds.maxX - 150,
+      x: thisScreenView.layoutBounds.maxX - 200,
       y: 10,
       align: 'left',
       spacing: 10,
