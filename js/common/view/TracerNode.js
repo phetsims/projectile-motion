@@ -36,9 +36,9 @@ define( function( require ) {
     thisNode.tracer = new Rectangle(
       0,
       0,
-      100,
+      120,
       60, {
-        fill: 'rgba( 0, 0, 255, 0.4 )',
+        fill: 'rgba( 0, 255, 10, 0.4 )',
         pickable: true,
         cursor: 'pointer'
       }
@@ -64,17 +64,17 @@ define( function( require ) {
       range,
       height
     ) {
-      thisNode.timeText.text = 'Time (s) ' + ( time ? time.toFixed( 2 ) : '' );
-      thisNode.rangeText.text = 'Range (m) ' + ( range ? range.toFixed( 2 ) : '' );
-      thisNode.heightText.text = 'Height (m) ' + ( height ? height.toFixed( 2 ) : '' );
+      thisNode.timeText.text = 'Time (s): ' + ( time ? time.toFixed( 2 ) : '' );
+      thisNode.rangeText.text = 'Range (m): ' + ( range ? range.toFixed( 2 ) : '' );
+      thisNode.heightText.text = 'Height (m): ' + ( height ? height.toFixed( 2 ) : '' );
     } );
 
     // Listen for location changes, align locations, and update model.
     Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
       thisNode.tracer.rectX = modelViewTransform.modelToViewX( tracerModel.x );
       thisNode.tracer.rectY = modelViewTransform.modelToViewY( tracerModel.y );
-      thisNode.textBox.top = thisNode.tracer.top;
-      thisNode.textBox.left = thisNode.tracer.left;
+      thisNode.textBox.top = thisNode.tracer.top + 10;
+      thisNode.textBox.left = thisNode.tracer.left + 10;
       thisNode.tracerModel.updateData();
     } );
 
