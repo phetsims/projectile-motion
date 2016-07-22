@@ -53,31 +53,7 @@ define( function( require ) {
 
     options = options || {};
     var thisScreenView = this;
-
-    ScreenView.call( thisScreenView, options );
-
-    // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
-
-    // second panel is specified in different screens
-    var secondPanel = options.secondPanel;
-
-    // vbox contains the control panels
-    thisScreenView.addChild( new VBox( {
-      x: thisScreenView.layoutBounds.maxX - 150,
-      y: 10,
-      align: 'left',
-      spacing: 10,
-      children: [ initialValuesPanel, secondPanel ]
-    } ) );
-
-    // fire button
-    var fireButton = new FireButton( {
-      x: 40, // empirically determined for now
-      y: thisScreenView.layoutBounds.maxY - 40,
-      listener: function() { model.cannonFired(); }
-    } );
-    thisScreenView.addChild( fireButton );
+    ScreenView.call( this, options );
 
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -89,26 +65,23 @@ define( function( require ) {
 
     // zoomable node layer
     var zoomableNode = new Node();
-    thisScreenView.addChild( zoomableNode );
 
-    // add target
-    thisScreenView.targetNode = new TargetNode( model.scoreModel, modelViewTransform );
-    zoomableNode.addChild( thisScreenView.targetNode );
+    // target
+    var targetNode = new TargetNode( model.scoreModel, modelViewTransform );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
-    thisScreenView.trajectoriesLayer = new Node();
-    zoomableNode.addChild( thisScreenView.trajectoriesLayer );
+    var trajectoriesLayer = new Node();
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // create the view representation for added trajectory 
       var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
-      thisScreenView.trajectoriesLayer.addChild( trajectoryNode );
+      trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          thisScreenView.trajectoriesLayer.removeChild( trajectoryNode );
+          trajectoriesLayer.removeChild( trajectoryNode );
           model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
@@ -118,11 +91,10 @@ define( function( require ) {
     model.trajectories.forEach( handleTrajectoryAdded );
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
-    // add cannon
-    thisScreenView.cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
-    zoomableNode.addChild( thisScreenView.cannonNode );
+    // cannon
+    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
 
-    // add common code measuring tape
+    // common code measuring tape
     // TODO: its length changes with zoom, but nothing else does
     var measuringTape = new MeasuringTape(
       model.unitsProperty,
@@ -131,14 +103,22 @@ define( function( require ) {
         textColor: 'black',
         modelViewTransform: modelViewTransform
       } );
-    zoomableNode.addChild( measuringTape );
 
     // add view for tracer
-    thisScreenView.tracerNode = new TracerNode(
+    var tracerNode = new TracerNode(
       model.tracerModel,
       modelViewTransform
     );
-    zoomableNode.addChild( thisScreenView.tracerNode );
+
+    zoomableNode.mutate( {
+      children: [
+        targetNode,
+        trajectoriesLayer,
+        cannonNode,
+        measuringTape,
+        tracerNode
+      ]
+    } );
 
     // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
@@ -156,14 +136,34 @@ define( function( require ) {
       zoomableNode.matrix = scaleMatrix;
     } );
 
+    // zoom control view and position it
     var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
-    thisScreenView.addChild( zoomControl );
-
-    // position zoom control
     zoomControl.top = 0;
     zoomControl.left = 0;
 
-    // add step button
+    // fire button
+    var fireButton = new FireButton( {
+      x: 40, // empirically determined for now
+      y: thisScreenView.layoutBounds.maxY - 40,
+      listener: function() { model.cannonFired(); }
+    } );
+
+    // control panels
+    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
+
+    // second panel is specified in different screens
+    var secondPanel = options.secondPanel;
+
+    // vbox contains the control panels
+    var panelsBox = new VBox( {
+      x: thisScreenView.layoutBounds.maxX - 150,
+      y: 10,
+      align: 'left',
+      spacing: 10,
+      children: [ initialValuesPanel, secondPanel ]
+    } );
+
+    // step button
     var stepButton = new StepForwardButton( {
       playingProperty: model.isPlayingProperty,
       listener: function() { model.stepModelElements( 0.016 ); },
@@ -173,15 +173,13 @@ define( function( require ) {
       centerX: thisScreenView.layoutBounds.centerX + 100,
       bottom: thisScreenView.layoutBounds.bottom - 20
     } );
-    thisScreenView.addChild( stepButton );
 
-    // add play/pause button
+    // play/pause button
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
       y: stepButton.centerY,
       right: stepButton.left - 2 * INSET
     } );
-    thisScreenView.addChild( playPauseButton );
 
     // make the play/pause button bigger when it is paused
     var pauseSizeIncreaseFactor = 1.25;
@@ -189,7 +187,7 @@ define( function( require ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
-    // add sim speed controls
+    // sim speed controls
     var slowText = new Text( slowMotionString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
@@ -205,10 +203,10 @@ define( function( require ) {
     var speedControl = new VBox( {
       align: 'left',
       spacing: 4,
+      right: playPauseButton.left - 2 * INSET,
+      bottom: playPauseButton.bottom,
       children: [ slowMotionRadioBox, normalMotionRadioBox ]
     } );
-
-    thisScreenView.addChild( speedControl.mutate( { right: playPauseButton.left - 2 * INSET, bottom: playPauseButton.bottom } ) );
 
     // reset all button, also a closure for zoomProperty and measuringTape
     var resetAllButton = new ResetAllButton( {
@@ -220,8 +218,18 @@ define( function( require ) {
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
-    thisScreenView.addChild( resetAllButton );
 
+    // rendering order
+    thisScreenView.setChildren( [
+      zoomableNode,
+      panelsBox,
+      fireButton,
+      speedControl,
+      stepButton,
+      playPauseButton,
+      zoomControl,
+      resetAllButton
+    ] );
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );

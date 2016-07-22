@@ -46,7 +46,7 @@ define( function( require ) {
     TARGET_WIDTH: 0.5, // meters
 
     // tracer
-    TRACER_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
+    LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
     // control panels
     PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',

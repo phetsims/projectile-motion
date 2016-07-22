@@ -90,9 +90,9 @@ define( function( require ) {
     var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black' } );
 
     // information readouts
-    var timeText = new Text( 'Time (s): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    var rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    var heightText = new Text( 'Height (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    var timeText = new Text( 'Time (s): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    var rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    var heightText = new Text( 'Height (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 
     var textBox = new VBox( {
       align: 'left',
