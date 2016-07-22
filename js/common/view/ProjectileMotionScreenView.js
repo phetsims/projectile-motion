@@ -96,16 +96,6 @@ define( function( require ) {
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
 
-    // common code measuring tape
-    // TODO: its length changes with zoom, but nothing else does
-    // var measuringTape = new MeasuringTape(
-    //   new Property( { name: 'meters', multiplier: 1 } ),
-    //   new Property( false ), {
-    //     isActiveProperty: new Property( false ), // add is active property
-    //     textColor: 'black',
-    //     modelViewTransform: modelViewTransform
-    //   } );
-
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
 
@@ -171,6 +161,7 @@ define( function( require ) {
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, measuringTapeNode, modelViewTransform );
 
+    // TODO: drop isn't working
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.link( function( isUserControlled ) {

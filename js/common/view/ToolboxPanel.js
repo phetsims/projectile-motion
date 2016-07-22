@@ -72,6 +72,7 @@ define( function( require ) {
         measuringTape.basePosition = modelViewTransform.viewToModelPosition( initialViewPosition );
         measuringTape.tipPosition = measuringTape.basePosition.plus( tipToBasePosition );
 
+        // TODO: drag isn't coordinated
         measuringTapeNode.startBaseDrag( event );
       }
     } );
