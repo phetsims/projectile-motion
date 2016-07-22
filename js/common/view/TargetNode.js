@@ -22,6 +22,7 @@ define( function( require ) {
   // constants
   var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH;
   var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
+  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
 
   /**
@@ -41,7 +42,7 @@ define( function( require ) {
       0,
       modelViewTransform.modelToViewDeltaX( TARGET_LENGTH ),
       modelViewTransform.modelToViewDeltaX( TARGET_WIDTH ), {
-        fill: 'rgba( 255, 0, 0, 0.4 )',
+        fill: 'rgb( 255, 150, 150 )',
         pickable: true,
         cursor: 'pointer'
       }
@@ -75,7 +76,7 @@ define( function( require ) {
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', { font: new PhetFont( 14 ) } );
+    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', LABEL_OPTIONS );
     thisNode.addChild( thisNode.distanceLabel );
 
     // score indicator, currently text

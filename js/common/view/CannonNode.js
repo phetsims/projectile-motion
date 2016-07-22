@@ -49,7 +49,7 @@ define( function( require ) {
       modelViewTransform.modelToViewY( heightProperty.value ),
       getX2(),
       getY2(), {
-        stroke: 'rgba( 0, 0, 0, 0.4 )',
+        stroke: 'rgb( 100, 100, 100 )',
         lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
       }
     );
