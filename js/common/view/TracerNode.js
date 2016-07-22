@@ -49,9 +49,9 @@ define( function( require ) {
     thisNode.textBox = new VBox( { align: 'left' } );
     thisNode.addChild( thisNode.textBox );
 
-    thisNode.timeText = new Text( 'Time (s): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    thisNode.rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
-    thisNode.heightText = new Text( 'Height (m): ', ProjectileMotionConstants.TRACER_TEXT_OPTIONS );
+    thisNode.timeText = new Text( 'Time (s): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    thisNode.rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    thisNode.heightText = new Text( 'Height (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
     thisNode.textBox.setChildren( [
       thisNode.timeText,
       thisNode.rangeText,

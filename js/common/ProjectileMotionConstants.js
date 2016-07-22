@@ -45,7 +45,7 @@ define( function( require ) {
     TARGET_LENGTH: 2, // meters
     TARGET_WIDTH: 0.5, // meters
 
-    // tracer
+    // tracer and target labels
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
     // control panels
