@@ -18,6 +18,7 @@ define( function( require ) {
   // var Matrix3 = require( 'DOT/Matrix3' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberKeypad = require( 'SCENERY_PHET/NumberKeypad' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -160,7 +161,7 @@ define( function( require ) {
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, measuringTapeNode, modelViewTransform );
-    
+
     // vbox contains the control panels
     var panelsBox = new VBox( {
       x: thisScreenView.layoutBounds.maxX - 200,
@@ -225,6 +226,10 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - 10
     } );
 
+    var numberKeypad = new NumberKeypad( { decimalPointKey: true } );
+    numberKeypad.right = panelsBox.left - 10;
+    numberKeypad.top = panelsBox.top;
+
     // rendering order
     thisScreenView.setChildren( [
       // zoomableNode,
@@ -240,7 +245,8 @@ define( function( require ) {
       stepButton,
       playPauseButton,
       // zoomControl,
-      resetAllButton
+      resetAllButton,
+      numberKeypad
     ] );
   }
 
