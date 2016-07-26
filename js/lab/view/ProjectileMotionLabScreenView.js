@@ -23,13 +23,14 @@ define( function( require ) {
 
     options = options || {};
 
+    // customize panel that becomes visible when customize button in second panel is pressed
+    this.customizePanel = new CustomizePanel( model );
+
     // second panel includes customizable options
-    options = _.extend( { secondPanel: new LabSecondPanel( model ) }, options );
+    options = _.extend( { secondPanel: new LabSecondPanel( model, this.customizePanel ) }, options );
 
     ProjectileMotionScreenView.call( this, model, options );
 
-    // customize panel that becomes visible when customize button in second panel is pressed
-    this.customizePanel = new CustomizePanel( model );
     this.customizePanel.center = this.center;
     this.addChild( this.customizePanel );
 

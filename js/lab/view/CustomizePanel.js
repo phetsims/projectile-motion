@@ -1,8 +1,8 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Customize panel allows the user to change a projectile's parameters
- * Includes a customize button that pulls up a form to change all fields
+ * Customize panel in the center that allows users to change on parameters
+ * Invisible until called, disappears on submit
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -38,7 +38,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function LabSecondPanel( projectileMotionLabModel, options ) {
+  function CustomizePanel( projectileMotionLabModel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -46,7 +46,7 @@ define( function( require ) {
         xMargin: 10,
         yMargin: 10,
         fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
-        visible: true // TODO: change to false
+        visible: false
       },
       options );
 
@@ -66,9 +66,14 @@ define( function( require ) {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'LabSecondPanel', LabSecondPanel );
+  projectileMotion.register( 'CustomizePanel', CustomizePanel );
 
-  return inherit( Panel, LabSecondPanel, {
+  return inherit( Panel, CustomizePanel, {
+
+    // @public shows this panel
+    showSelf: function() {
+      this.visible = true; // TODO: change to true
+    },
 
     // @private Auxiliary function takes {string} label and {number} value
     // and returns {string} label and the value to two digits

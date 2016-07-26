@@ -37,9 +37,10 @@ define( function( require ) {
 
   /**
    * @param {ProjectileMotionModel} model
+   * @param {CustomizePanel} customizePanel - panel linked to customize button
    * @constructor
    */
-  function LabSecondPanel( projectileMotionLabModel, options ) {
+  function LabSecondPanel( projectileMotionLabModel, customizePanel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -52,6 +53,9 @@ define( function( require ) {
 
     var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
+
+    var customizeButtonListener = customizePanel.showSelf.bind( customizePanel );
+    customizeButton.addListener( customizeButtonListener );
 
     var massBox = this.createParameterControlBox(
       massString,
