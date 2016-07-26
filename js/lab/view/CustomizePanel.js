@@ -182,6 +182,7 @@ define( function( require ) {
 
     /**
      * Auxiliary function that creates hbox for a parameter label, text readout, and pencil button
+     * Also adds value text and associated property to the running list, an array called parameters
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max
@@ -194,6 +195,7 @@ define( function( require ) {
       // value
       var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
 
+      // add text and property to running list
       this.parameters.push( { valueText: valueText, property: property } );
 
       // @private background
