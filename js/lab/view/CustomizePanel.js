@@ -23,6 +23,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Property = require( 'AXON/Property' );
 
   // strings
   var heightString = 'Height';
@@ -62,6 +63,7 @@ define( function( require ) {
 
     // @private {array.<{ Text, Property }>} parameters contains the text of parameters and associated properties
     this.parameters = [];
+    this.numberKeypadStringProperty = new Property( '' );
 
     var heightBox = this.createParameterControlBox(
       heightString,
@@ -124,8 +126,9 @@ define( function( require ) {
       ]
     } );
 
-    var numberKeypad = new NumberKeypad( {
-      decimalPointKey: true
+    this.numberKeypad = new NumberKeypad( {
+      decimalPointKey: true,
+      digitStringProperty: this.numberKeypadStringProperty
     } );
 
     var submitButtonOptions = _.extend( { weight: 'bold' }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
@@ -138,7 +141,7 @@ define( function( require ) {
       align: 'center',
       spacing: 10,
       children: [
-        numberKeypad,
+        this.numberKeypad,
         submitButton
       ]
     } );
@@ -190,6 +193,7 @@ define( function( require ) {
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
+      var self = this;
       var parameterLabel = new Text( label, LABEL_OPTIONS );
 
       // value
@@ -213,13 +217,25 @@ define( function( require ) {
       valueText.left = backgroundNode.left + TEXT_MARGIN;
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
+ 
+      var linkTextToKeypad = function( numberKeypadString ) {
+        valueText.setText( numberKeypadString );
+      };
+
+      var pencilButtonListener = function() {
+        // digitStringProperty doesn't have any listeners except defined in this function, so unlink all is safe
+        self.numberKeypad.digitStringProperty.unlinkAll();
+        self.numberKeypad.clear();
+        self.numberKeypad.armForNewEntry();
+        self.numberKeypad.digitStringProperty.link( linkTextToKeypad );
+      };
 
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
-        minHeight: 20
-          // listener: function() { console.log( 'pencil button pressed' ); }
-      } );
+        minHeight: 20,
+        listener: pencilButtonListener
 
+      } );
       return new HBox( { spacing: 10, children: [ parameterLabel, valueNode, pencilButton ] } );
     }
 
