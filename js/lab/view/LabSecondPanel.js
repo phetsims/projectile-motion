@@ -37,7 +37,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function CustomizePanel( projectileMotionLabModel, options ) {
+  function LabSecondPanel( projectileMotionLabModel, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -103,9 +103,9 @@ define( function( require ) {
     Panel.call( this, customizeVBox, options );
   }
 
-  projectileMotion.register( 'CustomizePanel', CustomizePanel );
+  projectileMotion.register( 'LabSecondPanel', LabSecondPanel );
 
-  return inherit( Panel, CustomizePanel, {
+  return inherit( Panel, LabSecondPanel, {
 
     // @private Auxiliary function takes {string} label and {number} value
     // and returns {string} label and the value to two digits

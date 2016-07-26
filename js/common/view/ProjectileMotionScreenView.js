@@ -25,7 +25,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
-  // var Property = require( 'AXON/Property' );
+  var Property = require( 'AXON/Property' );
   var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
@@ -153,8 +153,22 @@ define( function( require ) {
       listener: function() { model.eraseTrajectories(); }
     } );
 
+    // TODO: link to actual number property
+    this.keypadStringProperty = new Property( '' );
+    var numberKeypad = new NumberKeypad( {
+      decimalPointKey: true,
+      digitStringProperty: this.keypadStringProperty
+    } );
+    // numberKeypad.center = this.layoutBounds.center;
+    this.linkKeypad = function( property ) {
+      debugger;
+      thisScreenView.keypadStringProperty.link( function( valueAsString ) {
+        property.set( parseFloat( valueAsString ) );
+      } );
+    };
+
     // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
+    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty, this.linkKeypad );
 
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
@@ -225,10 +239,6 @@ define( function( require ) {
       right: this.layoutBounds.maxX - 10,
       bottom: this.layoutBounds.maxY - 10
     } );
-
-    var numberKeypad = new NumberKeypad( { decimalPointKey: true } );
-    numberKeypad.right = panelsBox.left - 10;
-    numberKeypad.top = panelsBox.top;
 
     // rendering order
     thisScreenView.setChildren( [

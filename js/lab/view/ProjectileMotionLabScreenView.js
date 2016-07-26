@@ -12,7 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   // var ScreenView = require( 'JOIST/ScreenView' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  var CustomizePanel = require( 'PROJECTILE_MOTION/lab/view/CustomizePanel' );
+  var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
  
   /**
    * @param {ProjectileMotionLabModel} model
@@ -25,7 +25,7 @@ define( function( require ) {
     options = options || {};
 
     // second panel includes customizable options
-    options = _.extend( { secondPanel: new CustomizePanel( model ) }, options );
+    options = _.extend( { secondPanel: new LabSecondPanel( model ) }, options );
 
     ProjectileMotionScreenView.call( thisScreenView, model, options );
 

@@ -39,9 +39,13 @@ define( function( require ) {
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
    * @param {Property.<number>} velocityProperty - velocity of next projectile
+   * @param {function} linkKeypad - TODO: move to separate invisible panel
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, options ) {
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, linkKeypad, options ) {
+
+    this.linkKeypad = linkKeypad;
+    assert && assert( linkKeypad, 'linkKeypad function not provided' );
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -115,10 +119,10 @@ define( function( require ) {
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
-      var thisPanel = this;
+      var self = this;
       var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
       property.link( function( v ) {
-        parameterLabel.text = thisPanel.createLabelText( label, v );
+        parameterLabel.text = self.createLabelText( label, v );
       } );
       var setParameterSlider = new HSlider( property, range, {
         maxHeight: 30,
@@ -127,7 +131,7 @@ define( function( require ) {
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20,
-        listener: function() { console.log( 'pencil button pressed' ); }
+        listener: function() { self.linkKeypad( property ); }
       } );
       var leftBox = new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
       return new HBox( { spacing: 10, children: [ leftBox, pencilButton ] } );
