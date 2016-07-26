@@ -19,10 +19,12 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
+  var customizeString = 'Customize';
   var massString = 'Mass';
   var diameterString = 'Diameter';
   var dragCoefficientString = 'Drag Coefficient';
@@ -47,6 +49,9 @@ define( function( require ) {
         fill: ProjectileMotionConstants.PANEL_FILL_COLOR
       },
       options );
+
+    var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
+    var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
 
     var massBox = this.createParameterControlBox(
       massString,
@@ -81,8 +86,9 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
-      spacing: 5,
+      spacing: 10,
       children: [
+        customizeButton,
         massBox,
         diameterBox,
         airResistanceCheckBox,
@@ -93,7 +99,6 @@ define( function( require ) {
     } );
 
     var customizeVBox = new VBox( {
-      // spacing: 10,
       children: [
         new HStrut( options.horizontalMin ),
         content

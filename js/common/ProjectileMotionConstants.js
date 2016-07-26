@@ -54,6 +54,11 @@ define( function( require ) {
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 11 ) },
     PANEL_LINE_WIDTH: 1,
     PANEL_STROKE: 'black',
+    YELLOW_BUTTON_OPTIONS:  {
+      font: new PhetFont( 16 ),
+      baseColor: '#F2E916', //TODO: change to rgb?
+      cornerRadius: 4
+    },
 
     // zooming
     MIN_ZOOM: 0.1,
