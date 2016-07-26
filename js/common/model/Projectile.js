@@ -2,7 +2,7 @@
 
 /**
  * Model of a projectile
- * Notes: air resistance and altitude can immediately change the path of the trajectory, whereas other parameters
+ * Notes: air resistance and altitude can immediately change the path of the projectile, whereas other parameters
  * like velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired
  * Units are meters, kilograms, and seconds (mks)
  * 
@@ -30,7 +30,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function Trajectory( model ) {
+  function Projectile( model ) {
     this.projectileMotionModel = model;
     // TODO: rename projectile, referenced, trajectory holds just the data points
 
@@ -62,11 +62,11 @@ define( function( require ) {
     this.dataPoints = new ObservableArray();
   }
 
-  projectileMotion.register( 'Trajectory', Trajectory );
+  projectileMotion.register( 'Projectile', Projectile );
 
-  return inherit( PropertySet, Trajectory, {
+  return inherit( PropertySet, Projectile, {
 
-    // @public animate trajectory given {number} time step in seconds
+    // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
 
       // Stops moving projectile has reached ground

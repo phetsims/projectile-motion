@@ -13,7 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
-  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
+  var Projectile = require( 'PROJECTILE_MOTION/common/model/Projectile' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
@@ -55,8 +55,8 @@ define( function( require ) {
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
 
-    // @public {ObservableArray.<Trajectory>} observable array of trajectories
-    this.trajectories = new ObservableArray();
+    // @public {ObservableArray.<Trajectory>} observable array of projectiles
+    this.projectiles = new ObservableArray();
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
@@ -65,7 +65,7 @@ define( function( require ) {
     this.measuringTape = new ProjectileMotionMeasuringTape();
 
     // @public {Tracer} model for the tracer probe
-    this.tracerModel = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
+    this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -77,8 +77,8 @@ define( function( require ) {
       // reset all properties by calling super class
       PropertySet.prototype.reset.call( this );
 
-      // remove all trajectories
-      this.trajectories.reset();
+      // remove all projectiles
+      this.projectiles.reset();
 
       this.scoreModel.reset();
       this.tracerModel.reset();
@@ -105,18 +105,18 @@ define( function( require ) {
 
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
-      this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
+      this.projectiles.forEach( function( trajectory ) { trajectory.step( dt ); } );
       this.scoreModel.step( dt );
     },
 
     // @private, adds a trajectory to the observable array
     addTrajectory: function() {
-      this.trajectories.push( new Trajectory( this ) );
+      this.projectiles.push( new Projectile( this ) );
     },
 
-    // @public, removes all trajectories
+    // @public, removes all projectiles
     eraseTrajectories: function() {
-      this.trajectories.clear();
+      this.projectiles.clear();
     },
 
     // @public fires cannon, called on by fire button

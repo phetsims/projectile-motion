@@ -75,24 +75,24 @@ define( function( require ) {
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();
 
-    function handleTrajectoryAdded( addedTrajectory ) {
+    function handleProjectileAdded( addedProjectile ) {
       // create the view representation for added trajectory 
-      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
       trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
-      model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
-        if ( removedTrajectory === addedTrajectory ) {
+      model.projectiles.addItemRemovedListener( function removalListener( removedProjectile ) {
+        if ( removedProjectile === addedProjectile ) {
           trajectoriesLayer.removeChild( trajectoryNode );
-          model.trajectories.removeItemRemovedListener( removalListener );
+          model.projectiles.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a trajectory has been added in the model
-    model.trajectories.forEach( handleTrajectoryAdded );
-    model.trajectories.addItemAddedListener( handleTrajectoryAdded );
+    model.projectiles.forEach( handleProjectileAdded );
+    model.projectiles.addItemAddedListener( handleProjectileAdded );
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
