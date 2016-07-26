@@ -198,7 +198,7 @@ define( function( require ) {
       // add text and property to running list
       this.parameters.push( { valueText: valueText, property: property } );
 
-      // @private background
+      // @private background for text
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
