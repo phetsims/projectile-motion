@@ -20,6 +20,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
@@ -77,14 +78,16 @@ define( function( require ) {
 
     function handleProjectileAdded( addedProjectile ) {
       // create the view representation for added trajectory 
-      var trajectoryNode = new TrajectoryNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
-
+      var trajectoryNode = new TrajectoryNode( addedProjectile, modelViewTransform );
+      var projectileNode = new ProjectileNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
       trajectoriesLayer.addChild( trajectoryNode );
+      trajectoriesLayer.addChild( projectileNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.projectiles.addItemRemovedListener( function removalListener( removedProjectile ) {
         if ( removedProjectile === addedProjectile ) {
           trajectoriesLayer.removeChild( trajectoryNode );
+          trajectoriesLayer.removeChild( projectileNode );
           model.projectiles.removeItemRemovedListener( removalListener );
         }
       } );
