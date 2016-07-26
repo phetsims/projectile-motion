@@ -38,10 +38,10 @@ define( function( require ) {
    * Control panel constructor
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
-   * @param {Property.<number>} velocityProperty - velocity of next projectile
+   * @param {Property.<number>} launchVelocityProperty - velocity of next projectile
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, options ) {
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, launchVelocityProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -59,16 +59,16 @@ define( function( require ) {
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
-    var velocityBox = this.createParameterControlBox(
-      velocityString,
-      velocityProperty,
-      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
-    );
-
     var angleBox = this.createParameterControlBox(
       angleString,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE
+    );
+
+    var velocityBox = this.createParameterControlBox(
+      velocityString,
+      launchVelocityProperty,
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 
     // contents of the panel
