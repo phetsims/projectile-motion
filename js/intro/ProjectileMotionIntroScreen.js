@@ -12,15 +12,13 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionIntroModel = require( 'PROJECTILE_MOTION/intro/model/ProjectileMotionIntroModel' );
   var ProjectileMotionIntroScreenView = require( 'PROJECTILE_MOTION/intro/view/ProjectileMotionIntroScreenView' );
-  var Image = require( 'SCENERY/nodes/Image' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  // var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Screen = require( 'JOIST/Screen' );
 
   // strings
   var introTitleString = require( 'string!PROJECTILE_MOTION/intro.title' );
-
-  // images
-  var screenIcon = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
 
   /**
    * @constructor
@@ -29,7 +27,7 @@ define( function( require ) {
 
     //If this is a single-screen sim, then no icon is necessary.
     //If there are multiple screens, then the icon must be provided here.
-    var icon = new Image( screenIcon );
+    var icon = ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon();
 
     Screen.call( this, introTitleString, icon,
       function() {

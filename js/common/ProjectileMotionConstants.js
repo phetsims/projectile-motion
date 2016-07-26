@@ -11,8 +11,12 @@ define( function( require ) {
   // modules
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var RandomIconFactory = require( 'PROJECTILE_MOTION/common/RandomIconFactory' );
 
   var ProjectileMotionConstants = {
+
+    // TODO: take this away eventually
+    RANDOM_ICON_FACTORY: new RandomIconFactory( 6 ),
 
     // truths about the world
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
