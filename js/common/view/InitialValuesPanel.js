@@ -21,7 +21,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
 
   // strings
@@ -39,13 +39,9 @@ define( function( require ) {
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
    * @param {Property.<number>} velocityProperty - velocity of next projectile
-   * @param {function} linkKeypad - TODO: move to separate invisible panel
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, linkKeypad, options ) {
-
-    this.linkKeypad = linkKeypad;
-    assert && assert( linkKeypad, 'linkKeypad function not provided' );
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, velocityProperty, options ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
@@ -128,13 +124,7 @@ define( function( require ) {
         maxHeight: 30,
         trackSize: new Dimension2( 150, 6 )
       } );
-      var pencilButton = new RectangularPushButton( {
-        minWidth: 25,
-        minHeight: 20,
-        listener: function() { self.linkKeypad( property ); }
-      } );
-      var leftBox = new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
-      return new HBox( { spacing: 10, children: [ leftBox, pencilButton ] } );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     }
 
   } );

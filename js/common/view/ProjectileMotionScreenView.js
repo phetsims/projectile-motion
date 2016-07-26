@@ -153,7 +153,7 @@ define( function( require ) {
     } );
 
     // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty, this.linkKeypad );
+    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
 
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;

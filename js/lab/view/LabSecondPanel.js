@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
   var CheckBox = require( 'SUN/CheckBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
+  // var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -20,7 +20,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
   var massString = 'Mass';
@@ -131,13 +131,7 @@ define( function( require ) {
         maxHeight: 30,
         trackSize: new Dimension2( 150, 6 )
       } );
-      var pencilButton = new RectangularPushButton( {
-        minWidth: 25,
-        minHeight: 20,
-        listener: function() { console.log( 'pencil button pressed' ); }
-      } );
-      var leftBox = new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
-      return new HBox( { spacing: 10, children: [ leftBox, pencilButton ] } );
+      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     }
 
   } );
