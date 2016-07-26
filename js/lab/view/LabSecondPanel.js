@@ -54,7 +54,7 @@ define( function( require ) {
     var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
 
-    var customizeButtonListener = customizePanel.showSelf.bind( customizePanel );
+    var customizeButtonListener = customizePanel.openSelf.bind( customizePanel );
     customizeButton.addListener( customizeButtonListener );
 
     var massBox = this.createParameterControlBox(

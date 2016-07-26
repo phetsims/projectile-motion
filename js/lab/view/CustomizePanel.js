@@ -20,6 +20,8 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   // strings
   var heightString = 'Height';
@@ -33,6 +35,12 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var TEXT_BACKGROUND_OPTIONS = {
+    fill: 'white',
+    stroke: 'black'
+  };
+  var TEXT_WIDTH = 70;
+  var TEXT_MARGIN = 4;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -48,6 +56,9 @@ define( function( require ) {
         visible: false
       },
       options );
+
+    // @private {array.<{ Text, Property }>} parameters contains the text of parameters and associated properties
+    this.parameters = [];
 
     var heightBox = this.createParameterControlBox(
       heightString,
@@ -136,10 +147,16 @@ define( function( require ) {
       this.visible = true; // TODO: change to true
     },
 
-    // @private Auxiliary function takes {string} label and {number} value
-    // and returns {string} label and the value to two digits
-    createLabelText: function( label, value ) {
-      return label + ': ' + value.toFixed( 2 );
+    // @public set values when customize button is clicked
+    setParameterValues: function() {
+      this.parameters.forEach( function( parameter ) {
+        parameter.valueText.setText( parameter.property.get().toFixed( 2 ) );
+      } );
+    },
+
+    openSelf: function() {
+      this.setParameterValues();
+      this.showSelf();
     },
 
     /**
@@ -151,17 +168,36 @@ define( function( require ) {
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
-      var thisPanel = this;
-      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = thisPanel.createLabelText( label, v );
-      } );
+      var parameterLabel = new Text( label, LABEL_OPTIONS );
+
+      // value
+      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+
+      this.parameters.push( { valueText: valueText, property: property } );
+
+      // @private background
+      var backgroundNode = new Rectangle(
+        0, // x
+        0, // y
+        TEXT_WIDTH, // width
+        valueText.height + 2 * TEXT_MARGIN, // height
+        4, // cornerXRadius
+        4, // cornerYRadius
+        TEXT_BACKGROUND_OPTIONS
+      );
+
+      valueText.centerY = backgroundNode.centerY;
+      valueText.left = backgroundNode.left + TEXT_MARGIN;
+
+      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
+
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20
-        // listener: function() { console.log( 'pencil button pressed' ); }
+          // listener: function() { console.log( 'pencil button pressed' ); }
       } );
-      return new HBox( { spacing: 10, children: [ parameterLabel, pencilButton ] } );
+
+      return new HBox( { spacing: 10, children: [ parameterLabel, valueNode, pencilButton ] } );
     }
 
   } );
