@@ -2,7 +2,7 @@
 
 /**
  * View for a trajectory. Calls on ProjectileNode to create a view for the projectile at the end of its path.
- * Listens to an observable array in the trajectory model to draw dots on the trajectory path.
+ * Listens to an observable array in the model to draw dots on the trajectory.
  *
  * @author Andrea Lin
  */

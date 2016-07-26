@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Cannon view. Angle can change when user drags the cannon
+ * Fire button that adds a projectile.
  *
  * @author Andrea Lin
  */

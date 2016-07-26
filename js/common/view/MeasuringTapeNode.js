@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * View for a draggable measuring tape for Charges and Fields.
+ * View for a draggable measuring tape, subtype of SCENERY_PHET.MeasuringTape
  *
  * @author Jonathan Olson <jonathan.olson@colorado.edu>
  */
