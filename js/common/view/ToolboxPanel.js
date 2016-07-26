@@ -76,9 +76,9 @@ define( function( require ) {
       // debugger;
       var tapeBaseBounds = parentScreenView.globalToLocalBounds( measuringTapeNode.getGlobalBounds() );
       var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
-      console.log( 'tape ', tapeBaseBounds );
-      console.log( 'toolbox ', toolboxBounds );
-      console.log( 'screen view ', parentScreenView.bounds ); 
+      // console.log( 'tape ', tapeBaseBounds );
+      // console.log( 'toolbox ', toolboxBounds );
+      // console.log( 'screen view ', parentScreenView.bounds ); 
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActive = false;
       }
@@ -114,7 +114,7 @@ define( function( require ) {
 
         var tapeBasePosition = parentScreenView.globalToLocalPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tapeBasePosition );
-        console.log( 'initial view ', initialViewPosition );
+        // console.log( 'initial view ', initialViewPosition );
         measuringTape.basePosition = modelViewTransform.viewToModelPosition( initialViewPosition );
         measuringTape.tipPosition = measuringTape.basePosition.plus( tipToBasePosition );
 

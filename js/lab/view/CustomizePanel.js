@@ -40,7 +40,6 @@ define( function( require ) {
    */
   function CustomizePanel( projectileMotionLabModel, options ) {
 
-    // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
         horizontalMin: 120,
         xMargin: 10,
@@ -97,7 +96,7 @@ define( function( require ) {
 
     // The contents of the control panel
     var leftSideReadouts = new VBox( {
-      align: 'left',
+      align: 'right',
       spacing: 10,
       children: [
         heightBox,
@@ -160,7 +159,7 @@ define( function( require ) {
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20,
-        listener: function() { console.log( 'pencil button pressed' ); }
+        // listener: function() { console.log( 'pencil button pressed' ); }
       } );
       return new HBox( { spacing: 10, children: [ parameterLabel, pencilButton ] } );
     }
