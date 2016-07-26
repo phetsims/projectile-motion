@@ -44,7 +44,7 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        horizontalMin: 120,
+        horizontalMin: 180,
         xMargin: 10,
         yMargin: 10,
         fill: ProjectileMotionConstants.PANEL_FILL_COLOR
@@ -123,7 +123,7 @@ define( function( require ) {
     },
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and slider
+     * Auxiliary function that creates vbox for a parameter label and TODO: readouts
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max

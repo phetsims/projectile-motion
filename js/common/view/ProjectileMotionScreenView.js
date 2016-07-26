@@ -46,6 +46,7 @@ define( function( require ) {
   // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
+  var MARGIN = 10;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -163,12 +164,12 @@ define( function( require ) {
 
     // vbox contains the control panels
     var panelsBox = new VBox( {
-      x: thisScreenView.layoutBounds.maxX - 200,
-      y: 10,
-      align: 'left',
+      align: 'right',
       spacing: 10,
       children: [ initialValuesPanel, secondPanel, toolboxPanel ]
     } );
+    panelsBox.right = this.layoutBounds.right - MARGIN;
+    panelsBox.top = this.layoutBounds.top + MARGIN;
 
     // step button
     var stepButton = new StepForwardButton( {
