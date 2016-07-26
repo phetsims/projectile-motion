@@ -18,6 +18,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
@@ -32,6 +33,7 @@ define( function( require ) {
   var dragCoefficientString = 'Drag Coefficient';
   var altitudeString = 'Altitude';
   var airResistanceString = 'Air Resistance';
+  var submitString = 'Submit';
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -107,7 +109,7 @@ define( function( require ) {
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
     // The contents of the control panel
-    var leftSideReadouts = new VBox( {
+    var leftSideContent = new VBox( {
       align: 'right',
       spacing: 10,
       children: [
@@ -126,14 +128,29 @@ define( function( require ) {
       decimalPointKey: true
     } );
 
+    var submitButtonOptions = _.extend( { weight: 'bold' }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
+    var submitButton = new TextPushButton( submitString, submitButtonOptions );
+
+    var submitButtonListener = this.closeSelf.bind( this );
+    submitButton.addListener( submitButtonListener );
+
+    var rightSideContent = new VBox( {
+      align: 'center',
+      spacing: 10,
+      children: [
+        numberKeypad,
+        submitButton
+      ]
+    } );
+
     // The contents of the control panel
     var content = new HBox( {
       align: 'center',
       children: [
         new HStrut( Y_MARGIN ),
-        leftSideReadouts,
+        leftSideContent,
         new HStrut( Y_MARGIN ),
-        numberKeypad,
+        rightSideContent,
         new HStrut( Y_MARGIN )
       ]
     } );
@@ -145,21 +162,22 @@ define( function( require ) {
 
   return inherit( Panel, CustomizePanel, {
 
-    // @public shows this panel
-    showSelf: function() {
-      this.visible = true; // TODO: change to true
-    },
-
-    // @public set values when customize button is clicked
-    setParameterValues: function() {
+    // @public sets values and shows self
+    openSelf: function() {
+      // set text readouts to the property values
       this.parameters.forEach( function( parameter ) {
         parameter.valueText.setText( parameter.property.get().toFixed( 2 ) );
       } );
+      this.visible = true;
     },
 
-    openSelf: function() {
-      this.setParameterValues();
-      this.showSelf();
+    // not sure @public or @private, closes self and sets values
+    closeSelf: function() {
+      // set the properties with values in the text readouts
+      this.parameters.forEach( function( parameter ) {
+        parameter.property.set( Number( parameter.valueText.getText() ) );
+      } );
+      this.visible = false;
     },
 
     /**
