@@ -225,9 +225,9 @@ define( function( require ) {
       var pencilButtonListener = function() {
         // digitStringProperty doesn't have any listeners except defined in this function, so unlink all is safe
         self.numberKeypad.digitStringProperty.unlinkAll();
-        self.numberKeypad.clear();
         self.numberKeypad.armForNewEntry();
-        self.numberKeypad.digitStringProperty.link( linkTextToKeypad );
+        self.numberKeypad.digitStringProperty.lazyLink( linkTextToKeypad );
+        // TODO: if no entry for this parameter on submit, set to default, or what it was before
       };
 
       var pencilButton = new RectangularPushButton( {
