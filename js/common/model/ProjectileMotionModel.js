@@ -106,19 +106,19 @@ define( function( require ) {
     },
 
     // @private, adds a trajectory to the observable array
-    addTrajectory: function() {
+    addProjectile: function() {
       this.projectiles.push( new Projectile( this ) );
     },
 
     // @public, removes all projectiles
-    eraseTrajectories: function() {
+    eraseProjectiles: function() {
       this.projectiles.clear();
     },
 
     // @public fires cannon, called on by fire button
     cannonFired: function() {
       this.isPlaying = true;
-      this.addTrajectory();
+      this.addProjectile();
       this.scoreModel.turnOffScore();
     }
 

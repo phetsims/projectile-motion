@@ -150,7 +150,7 @@ define( function( require ) {
     var eraserButton = new EraserButton( {
       left: fireButton.right + 10,
       y: thisScreenView.layoutBounds.maxY - 40,
-      listener: function() { model.eraseTrajectories(); }
+      listener: function() { model.eraseProjectiles(); }
     } );
 
     // control panels
