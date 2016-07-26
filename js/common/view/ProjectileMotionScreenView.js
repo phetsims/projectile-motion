@@ -161,7 +161,6 @@ define( function( require ) {
     } );
     // numberKeypad.center = this.layoutBounds.center;
     this.linkKeypad = function( property ) {
-      debugger;
       thisScreenView.keypadStringProperty.link( function( valueAsString ) {
         property.set( parseFloat( valueAsString ) );
       } );
