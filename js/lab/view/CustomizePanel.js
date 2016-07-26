@@ -24,6 +24,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Property = require( 'AXON/Property' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
 
   // strings
   var heightString = 'Height';
@@ -52,6 +53,7 @@ define( function( require ) {
    */
   function CustomizePanel( projectileMotionLabModel, options ) {
 
+    // TODO: formatting
     options = _.extend( {
         horizontalMin: 120,
         xMargin: 10,
@@ -59,10 +61,12 @@ define( function( require ) {
         fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
         visible: false
       },
-      options );
+      options
+    );
 
     // @private {array.<{valueText, property}>} contains the text of parameters and associated properties
     this.parameters = [];
+    // TODO: this.currentParameter
 
     this.numberKeypadStringProperty = new Property( '' );
 
@@ -181,6 +185,8 @@ define( function( require ) {
 
     // not sure @public or @private, closes self and sets values
     closeSelf: function() {
+      this.numberKeypad.digitStringProperty.unlinkAll();
+
       // set the properties with values in the text readouts
       this.parameters.forEach( function( parameter ) {
         parameter.property.set( Number( parameter.valueText.getText() ) );
@@ -222,13 +228,16 @@ define( function( require ) {
       valueText.left = backgroundNode.left + TEXT_MARGIN;
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
- 
+
       var linkTextToKeypad = function( numberKeypadString ) {
         valueText.setText( numberKeypadString );
       };
 
+      var pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
+
       var pencilButtonListener = function() {
         // This property doesn't have any listeners except defined in this function, so unlink all is safe.
+        // TODO: figure out how to keep reference to previously linked
         self.numberKeypad.digitStringProperty.unlinkAll();
         self.numberKeypad.armForNewEntry();
         self.numberKeypad.digitStringProperty.lazyLink( linkTextToKeypad );
@@ -238,7 +247,8 @@ define( function( require ) {
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20,
-        listener: pencilButtonListener
+        listener: pencilButtonListener,
+        content: pencilIcon
       } );
 
       return new HBox( { spacing: 10, children: [ parameterLabel, valueNode, pencilButton ] } );
