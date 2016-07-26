@@ -57,7 +57,9 @@ define( function( require ) {
     YELLOW_BUTTON_OPTIONS:  {
       font: new PhetFont( 16 ),
       baseColor: '#F2E916', //TODO: change to rgb?
-      cornerRadius: 4
+      cornerRadius: 4,
+      xMargin: 12,
+      yMargin: 7
     },
 
     // zooming
