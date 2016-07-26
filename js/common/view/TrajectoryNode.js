@@ -16,15 +16,15 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   /**
-   * @param {Projectile} projectile - model for the projectile
+   * @param {ObservableArray.<DataPoint>} dataPoints - array of data points on the trajectory
    * @constructor
    */
-  function TrajectoryNode( projectile, modelViewTransform ) {
+  function TrajectoryNode( dataPoints, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
 
     function handleDataPointAdded( addedPoint ) {
-      // Create and add the view representation for this projectile.
+      // Create and add the view representation for each datapoint.
       var addedPointNode = new Circle( 1, {
         x: modelViewTransform.modelToViewX( addedPoint.x ),
         y: modelViewTransform.modelToViewY( addedPoint.y ),
@@ -33,17 +33,17 @@ define( function( require ) {
       thisNode.addChild( addedPointNode );
 
       // Add the removal listener for if and when this datapoint is removed from the model.
-      projectile.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
+      dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedPoint ) {
           thisNode.removeChild( addedPointNode );
-          projectile.dataPoints.removeItemRemovedListener( removalListener );
+          dataPoints.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a datapoint has been added in the model
-    projectile.dataPoints.forEach( handleDataPointAdded );
-    projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
+    dataPoints.forEach( handleDataPointAdded );
+    dataPoints.addItemAddedListener( handleDataPointAdded );
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
