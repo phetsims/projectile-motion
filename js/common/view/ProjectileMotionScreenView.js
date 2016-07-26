@@ -18,7 +18,6 @@ define( function( require ) {
   // var Matrix3 = require( 'DOT/Matrix3' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var NumberKeypad = require( 'SCENERY_PHET/NumberKeypad' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -153,19 +152,6 @@ define( function( require ) {
       listener: function() { model.eraseTrajectories(); }
     } );
 
-    // TODO: link to actual number property
-    this.keypadStringProperty = new Property( '' );
-    var numberKeypad = new NumberKeypad( {
-      decimalPointKey: true,
-      digitStringProperty: this.keypadStringProperty
-    } );
-    // numberKeypad.center = this.layoutBounds.center;
-    this.linkKeypad = function( property ) {
-      thisScreenView.keypadStringProperty.link( function( valueAsString ) {
-        property.set( parseFloat( valueAsString ) );
-      } );
-    };
-
     // control panels
     var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty, this.linkKeypad );
 
@@ -254,8 +240,7 @@ define( function( require ) {
       stepButton,
       playPauseButton,
       // zoomControl,
-      resetAllButton,
-      numberKeypad
+      resetAllButton
     ] );
   }
 
