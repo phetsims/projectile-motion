@@ -158,7 +158,7 @@ define( function( require ) {
       } );
       var pencilButton = new RectangularPushButton( {
         minWidth: 25,
-        minHeight: 20,
+        minHeight: 20
         // listener: function() { console.log( 'pencil button pressed' ); }
       } );
       return new HBox( { spacing: 10, children: [ parameterLabel, pencilButton ] } );
