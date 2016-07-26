@@ -16,7 +16,7 @@ define( function( require ) {
   var ProjectileMotionConstants = {
 
     // TODO: take this away eventually
-    RANDOM_ICON_FACTORY: new RandomIconFactory( 6 ),
+    RANDOM_ICON_FACTORY: new RandomIconFactory( -33 ),
 
     // truths about the world
     ACCELERATION_DUE_TO_GRAVITY: 9.8,

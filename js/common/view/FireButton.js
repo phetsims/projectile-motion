@@ -9,13 +9,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
+  // var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // images
-  var fireImage = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
+  // var fireImage = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
 
   
   /**
@@ -32,7 +33,9 @@ define( function( require ) {
     }, options );
 
     // fire button icon
-    options.content = new Image( fireImage );
+    // TODO: replace with real image
+    // options.content = new Image( fireImage );
+    options.content = ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon();
     options.content.scale( options.iconWidth / options.content.width );
 
     RectangularPushButton.call( this, options );
