@@ -26,16 +26,16 @@ define( function( require ) {
   var ARROW_SIZE_DEFAULT = ProjectileMotionConstants.ARROW_SIZE_DEFAULT;
 
   /**
-   * @param {Trajectory} trajectory - model for the trajectory
+   * @param {Projectile} projectile - model for the projectile
    * @param {Property.<boolean>} velocityVectorComponentsOnProperty - whether those vectors should be visible
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */
-  function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
+  function TrajectoryNode( projectile, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
 
-    this.transformedBallSize = modelViewTransform.modelToViewDeltaX( trajectory.diameter );
+    this.transformedBallSize = modelViewTransform.modelToViewDeltaX( projectile.diameter );
     this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
     this.tranformedArrowSize = this.tranformedUnit * ARROW_SIZE_DEFAULT;
 
@@ -63,8 +63,8 @@ define( function( require ) {
 
     // update velocity vector visibilities, positions, and magnitudes
     Property.multilink( [
-      trajectory.xVelocityProperty,
-      trajectory.yVelocityProperty,
+      projectile.xVelocityProperty,
+      projectile.yVelocityProperty,
       velocityVectorComponentsOnProperty
     ], function( xVelocity, yVelocity, velocityVectorComponentsOn ) {
       velocityXArrow.visible = velocityVectorComponentsOn;
@@ -72,8 +72,8 @@ define( function( require ) {
 
       // update size and position if checkbox is checked
       if ( velocityVectorComponentsOn ) {
-        var x = modelViewTransform.modelToViewX( trajectory.x );
-        var y = modelViewTransform.modelToViewY( trajectory.y );
+        var x = modelViewTransform.modelToViewX( projectile.x );
+        var y = modelViewTransform.modelToViewY( projectile.y );
         velocityXArrow.setTailAndTip( x,
           y,
           x + thisNode.tranformedArrowSize * xVelocity,
@@ -92,7 +92,7 @@ define( function( require ) {
     thisNode.addChild( thisNode.pathLayer );
 
     function handleDataPointAdded( addedPoint ) {
-      // Create and add the view representation for this trajectory.
+      // Create and add the view representation for this projectile.
       var addedPointNode = new Circle( 1, {
         x: modelViewTransform.modelToViewX( addedPoint.x ),
         y: modelViewTransform.modelToViewY( addedPoint.y ),
@@ -105,17 +105,17 @@ define( function( require ) {
       thisNode.projectile.y = modelViewTransform.modelToViewY( addedPoint.y );
 
       // Add the removal listener for if and when this datapoint is removed from the model.
-      trajectory.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
+      projectile.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedPoint ) {
           thisNode.pathLayer.removeChild( addedPointNode );
-          trajectory.dataPoints.removeItemRemovedListener( removalListener );
+          projectile.dataPoints.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a datapoint has been added in the model
-    trajectory.dataPoints.forEach( handleDataPointAdded );
-    trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
+    projectile.dataPoints.forEach( handleDataPointAdded );
+    projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
