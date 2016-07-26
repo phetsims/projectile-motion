@@ -56,14 +56,12 @@ define( function( require ) {
 
     // TODO: formatting
     options = _.extend( {
-        horizontalMin: 120,
-        xMargin: 10,
-        yMargin: 10,
-        fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
-        visible: false
-      },
-      options
-    );
+      horizontalMin: 120,
+      xMargin: 10,
+      yMargin: 10,
+      fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
+      visible: false
+    }, options );
 
     // @private {array.<{Object}>} parameters contains objects like currentParameter
     this.parameters;
@@ -152,7 +150,9 @@ define( function( require ) {
     } );
 
     // create submit button
-    var submitButtonOptions = _.extend( { weight: 'bold' }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
+    var submitButtonOptions = _.extend( {
+      weight: 'bold'
+    }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var submitButton = new TextPushButton( submitString, submitButtonOptions );
 
     // submit button closes this panel and updates the properties

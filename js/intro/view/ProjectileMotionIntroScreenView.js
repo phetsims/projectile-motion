@@ -12,7 +12,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var ProjectilePanel = require( 'PROJECTILE_MOTION/intro/view/ProjectilePanel' );
- 
+
   /**
    * @param {ProjectileMotionIntroModel} model
    * @constructor
@@ -24,7 +24,9 @@ define( function( require ) {
     options = options || {};
 
     // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
-    options = _.extend( { secondPanel: new ProjectilePanel( model ) }, options );
+    options = _.extend( {
+      secondPanel: new ProjectilePanel( model )
+    }, options );
 
     ProjectileMotionScreenView.call( thisScreenView, model, options );
 

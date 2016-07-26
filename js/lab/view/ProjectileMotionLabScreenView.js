@@ -14,7 +14,7 @@ define( function( require ) {
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
   var CustomizePanel = require( 'PROJECTILE_MOTION/lab/view/CustomizePanel' );
- 
+
   /**
    * @param {ProjectileMotionLabModel} model
    * @constructor
@@ -27,7 +27,9 @@ define( function( require ) {
     this.customizePanel = new CustomizePanel( model );
 
     // second panel includes customizable options
-    options = _.extend( { secondPanel: new LabSecondPanel( model, this.customizePanel ) }, options );
+    options = _.extend( {
+      secondPanel: new LabSecondPanel( model, this.customizePanel )
+    }, options );
 
     ProjectileMotionScreenView.call( this, model, options );
 

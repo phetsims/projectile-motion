@@ -44,12 +44,11 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        horizontalMin: 180,
-        xMargin: 10,
-        yMargin: 10,
-        fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-      },
-      options );
+      horizontalMin: 180,
+      xMargin: 10,
+      yMargin: 10,
+      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
+    }, options );
 
     var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );

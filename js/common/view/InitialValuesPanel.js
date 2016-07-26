@@ -45,13 +45,12 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        titleToControlsVerticalSpace: 5,
-        horizontalMin: 180,
-        xMargin: 10,
-        yMargin: 10,
-        fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-      },
-      options );
+      titleToControlsVerticalSpace: 5,
+      horizontalMin: 180,
+      xMargin: 10,
+      yMargin: 10,
+      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
+    }, options );
 
     var heightBox = this.createParameterControlBox(
       heightString,

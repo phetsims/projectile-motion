@@ -41,12 +41,11 @@ define( function( require ) {
 
     // Demonstrate a common pattern for specifying options and providing default values.
     options = _.extend( {
-        horizontalMin: 180,
-        xMargin: 10,
-        yMargin: 10,
-        fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-      },
-      options );
+      horizontalMin: 180,
+      xMargin: 10,
+      yMargin: 10,
+      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
+    }, options );
 
     var massBox = this.createParameterControlBox(
       massString,
@@ -125,3 +124,4 @@ define( function( require ) {
 
   } );
 } );
+
