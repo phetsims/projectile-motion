@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  // var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberKeypad = require( 'SCENERY_PHET/NumberKeypad' );
   var Panel = require( 'SUN/Panel' );
@@ -39,8 +39,9 @@ define( function( require ) {
     fill: 'white',
     stroke: 'black'
   };
-  var TEXT_WIDTH = 70;
+  var TEXT_WIDTH = 100;
   var TEXT_MARGIN = 4;
+  var Y_MARGIN = 40;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -128,10 +129,12 @@ define( function( require ) {
     // The contents of the control panel
     var content = new HBox( {
       align: 'center',
-      spacing: 15,
       children: [
+        new HStrut( Y_MARGIN ),
         leftSideReadouts,
-        numberKeypad
+        new HStrut( Y_MARGIN ),
+        numberKeypad,
+        new HStrut( Y_MARGIN )
       ]
     } );
 
@@ -160,7 +163,7 @@ define( function( require ) {
     },
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and slider
+     * Auxiliary function that creates hbox for a parameter label, text readout, and pencil button
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max
