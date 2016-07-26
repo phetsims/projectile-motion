@@ -1,10 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Model of a projectile
- * Notes: air resistance and altitude can immediately change the path of the trajectory, whereas other parameters
- * like velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired
- * Units are meters, kilograms, and seconds (mks)
+ * Model for the tracer tool. Knows about projectiles, which contain arrays of points on their projectiles.
  *
  * @author Andrea Lin
  */
@@ -22,10 +19,10 @@ define( function( require ) {
 
 
   /**
-   * @param {ObservableArray.<Trajectory>} trajectories
+   * @param {ObservableArray.<Projectile>} projectiles
    * @constructor
    */
-  function Tracer( trajectories, tracerX, tracerY ) {
+  function Tracer( projectiles, tracerX, tracerY ) {
     // @public
     PropertySet.call( this, {
       x: tracerX,
@@ -35,8 +32,8 @@ define( function( require ) {
       height: null
     } );
 
-    // @public {ObservableArray.<Trajectory>} array of trajectories in the model
-    this.trajectories = trajectories;
+    // @public {ObservableArray.<Trajectory>} array of projectiles in the model
+    this.projectiles = projectiles;
   }
 
   projectileMotion.register( 'Tracer', Tracer );
@@ -47,8 +44,8 @@ define( function( require ) {
     // @returns {DataPoint|null}
     checkForPoint: function() {
       var i;
-      for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
-        var currentTrajectory = this.trajectories.get( i );
+      for ( i = this.projectiles.length - 1; i >= 0; i-- ) {
+        var currentTrajectory = this.projectiles.get( i );
         var point = currentTrajectory.getNearestPoint( this.x, this.y );
         if ( point && point.distanceXY( this.x, this.y ) <= SENSING_RADIUS ) {
           return point;

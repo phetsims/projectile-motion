@@ -36,11 +36,8 @@ define( function( require ) {
     options = options || {};
     var thisNode = this;
 
-    // Define properties in one place ----------------------------------------------------------------------------------
     thisNode.tracerModel = tracerModel;
     thisNode.probeOrigin = new Vector2( 0, 0 );
-
-    // Declarations and listeners in one place -------------------------------------------------------------------------
 
     // draggable node
     var rectangle = new Rectangle(

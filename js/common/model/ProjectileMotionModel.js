@@ -43,10 +43,6 @@ define( function( require ) {
       // vectors visibility
       velocityVectorComponentsOn: false,
 
-      // measuring tape properties
-      // units: { name: 'meters', multiplier: 1 }, // for common code measuringtape
-      // measuringTapeVisible: true,
-
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
       isPlaying: true
