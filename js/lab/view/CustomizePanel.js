@@ -61,10 +61,12 @@ define( function( require ) {
       },
       options );
 
-    // @private {array.<{ Text, Property }>} parameters contains the text of parameters and associated properties
+    // @private {array.<{valueText, property}>} contains the text of parameters and associated properties
     this.parameters = [];
+
     this.numberKeypadStringProperty = new Property( '' );
 
+    // create hboxes for the parameter label, readout, and pencil button
     var heightBox = this.createParameterControlBox(
       heightString,
       projectileMotionLabModel.cannonHeightProperty,
@@ -126,14 +128,17 @@ define( function( require ) {
       ]
     } );
 
+    // create number keypad
     this.numberKeypad = new NumberKeypad( {
       decimalPointKey: true,
       digitStringProperty: this.numberKeypadStringProperty
     } );
 
+    // create submit button
     var submitButtonOptions = _.extend( { weight: 'bold' }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var submitButton = new TextPushButton( submitString, submitButtonOptions );
 
+    // submit button closes this panel and updates the properties
     var submitButtonListener = this.closeSelf.bind( this );
     submitButton.addListener( submitButtonListener );
 
@@ -185,9 +190,9 @@ define( function( require ) {
 
     /**
      * Auxiliary function that creates hbox for a parameter label, text readout, and pencil button
-     * Also adds value text and associated property to the running list, an array called parameters
+     * Also adds value text and associated property to the running list of parameters, {array.{Object}} parameters
      * @param {string} label
-     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Property.<number>} property - the property that is used and set
      * @param {Object} range, range has keys min and max
      * @returns {VBox}
      * @private
@@ -223,7 +228,7 @@ define( function( require ) {
       };
 
       var pencilButtonListener = function() {
-        // digitStringProperty doesn't have any listeners except defined in this function, so unlink all is safe
+        // This property doesn't have any listeners except defined in this function, so unlink all is safe.
         self.numberKeypad.digitStringProperty.unlinkAll();
         self.numberKeypad.armForNewEntry();
         self.numberKeypad.digitStringProperty.lazyLink( linkTextToKeypad );
@@ -234,8 +239,8 @@ define( function( require ) {
         minWidth: 25,
         minHeight: 20,
         listener: pencilButtonListener
-
       } );
+
       return new HBox( { spacing: 10, children: [ parameterLabel, valueNode, pencilButton ] } );
     }
 
