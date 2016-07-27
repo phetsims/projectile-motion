@@ -70,11 +70,6 @@ define( function( require ) {
       // value text
       var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
       
-      // text node updates if property value changes
-      property.link( function( value ) {
-        valueText.setText( value );
-      } );
-
       // background for text
       var backgroundNode = new Rectangle(
         0, // x
@@ -85,7 +80,12 @@ define( function( require ) {
         4, // cornerYRadius
         TEXT_BACKGROUND_OPTIONS
       );
-      valueText.center = backgroundNode.center;
+
+      // text node updates if property value changes
+      property.link( function( value ) {
+        valueText.setText( value );
+        valueText.center = backgroundNode.center;
+      } );
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
