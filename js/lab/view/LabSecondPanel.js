@@ -63,7 +63,7 @@ define( function( require ) {
     var customizeButtonListener = customizePanel.openSelf.bind( customizePanel );
     customizeButton.addListener( customizeButtonListener );
 
-     /**
+    /**
      * Auxiliary function that creates vbox for a parameter label and TODO: readouts
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
