@@ -68,12 +68,12 @@ define( function( require ) {
     //Light gray, used as the 'disabled' color
     LIGHT_GRAY: 'rgb( 220, 220, 220 )',
 
-    PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 16, weight: 'bold' } ), align: 'center' },
-    PANEL_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
-    PANEL_BIGGER_LABEL_OPTIONS: { font: new PhetFont( 18 ) },
+    PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ), align: 'center' },
+    PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
+    PANEL_BIGGER_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
 
     YELLOW_BUTTON_OPTIONS: {
-      font: new PhetFont( 16 ),
+      font: new PhetFont( 14 ),
       baseColor: '#F2E916', //TODO: change to rgb?
       cornerRadius: 4,
       xMargin: 12,
