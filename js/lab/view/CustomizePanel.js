@@ -200,8 +200,21 @@ define( function( require ) {
 
       // set the properties with values in the text readouts
       this.parameters.forEach( function( parameter ) {
-        parameter.property.set( Number( parameter.valueText.getText() ) );
+        var newUnboundedValue = Number( parameter.valueText.getText() );
+        // mouse dragged angle is within angle range
+        if ( parameter.range.contains( newUnboundedValue ) ) {
+          parameter.property.set( newUnboundedValue );
+        }
+        // the submitted value is greater than range
+        else if ( newUnboundedValue > parameter.range.max ) {
+          parameter.property.set( parameter.range.max );
+        }
+        // the submitted value is less than range
+        else {
+          parameter.property.set( parameter.range.min );
+        }
       } );
+
       this.modelAirResistanceProperty.set( this.detachedAirResistanceProperty.get() );
       this.visible = false;
     },
@@ -240,8 +253,9 @@ define( function( require ) {
      * Also adds value text and associated property to the running list of parameters, {array.{Object}} parameters
      * @param {string} label
      * @param {Property.<number>} property - the property that is used and set
-     * @param {Object} range, range has keys min and max
-     * @returns {Object}: {HBox} node, {Text} valueText, {Rectangle} focusRectangle, {Property} property, {function} keypadListener
+     * @param {Range} range, range has keys min and max
+     * @returns {Object}: {HBox} node, {Text} valueText, {Rectangle} focusRectangle, {Property} property, 
+     *  {Range} range, {function} keypadListener
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
@@ -292,6 +306,7 @@ define( function( require ) {
       parameterBox.valueText = valueText;
       parameterBox.focusRectangle = focusRectangle;
       parameterBox.property = property;
+      parameterBox.range = range;
       parameterBox.keypadListener = function( numberKeypadString ) {
         valueText.setText( numberKeypadString );
       };
