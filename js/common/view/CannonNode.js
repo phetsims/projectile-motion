@@ -21,6 +21,8 @@ define( function( require ) {
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
   var CANNON_WIDTH = ProjectileMotionConstants.CANNON_WIDTH;
+  var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
+  var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
 
 
   /**
@@ -39,6 +41,7 @@ define( function( require ) {
     function getX2() {
       return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.value * Math.PI / 180 ) );
     }
+
     function getY2() {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.value * Math.PI / 180 ) + heightProperty.value );
     }
@@ -114,10 +117,21 @@ define( function( require ) {
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
-        ///TODO: constrain angle to range, a.k.a. bounded angle
+        var unboundedNewAngle = startAngle + angleChangeInDegrees;
 
-        // update model angle
-        angleProperty.value = startAngle + angleChangeInDegrees;
+        // mouse dragged angle is within angle range
+        if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
+          angleProperty.value = startAngle + angleChangeInDegrees;
+        }
+        // the current, unchanged, angle is closer to max than min
+        else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
+          angleProperty.set( ANGLE_RANGE.max );
+        }
+        // the current, unchanged, angle is closer or same distance to min than max
+        else {
+          angleProperty.set( ANGLE_RANGE.min );
+        }
+
       }
 
     } ) );
