@@ -24,9 +24,9 @@ define( function( require ) {
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // productive constraints
-    CANNON_HEIGHT_RANGE: new Range( 0, 10 ),
-    CANNON_ANGLE_RANGE: new Range( -90, 180 ),
-    LAUNCH_VELOCITY_RANGE: new Range( 0, 50 ),
+    CANNON_HEIGHT_RANGE: new Range( 0, 20 ),
+    CANNON_ANGLE_RANGE: new Range( 0, 90 ),
+    LAUNCH_VELOCITY_RANGE: new Range( 0, 100 ),
 
     PROJECTILE_MASS_RANGE: new Range( 0.04, 100 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 2.5 ), // in original, smallest is 0.043
