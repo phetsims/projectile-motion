@@ -121,7 +121,7 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
-          angleProperty.value = startAngle + angleChangeInDegrees;
+          angleProperty.value = unboundedNewAngle;
         }
         // the current, unchanged, angle is closer to max than min
         else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
@@ -147,8 +147,20 @@ define( function( require ) {
         mousePoint = thisNode.adjustableHeightArea.globalToParentPoint( event.pointer.point );
         var heightChange = mousePoint.y - startPoint.y;
 
-        // update model height
-        heightProperty.value = modelViewTransform.viewToModelY( startHeight + heightChange );
+        var unboundedNewHeight = modelViewTransform.viewToModelY( startHeight + heightChange );
+
+        // mouse dragged height is within height range
+        if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
+          heightProperty.value = unboundedNewHeight;
+        }
+        // the current, unchanged, height is closer to max than min
+        else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {
+          heightProperty.set( HEIGHT_RANGE.max );
+        }
+        // the current, unchanged, height is closer or same distance to min than max
+        else {
+          heightProperty.set( HEIGHT_RANGE.min );
+        }
       }
     } ) );
   }
