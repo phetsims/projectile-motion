@@ -9,10 +9,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
+  // var Dimension2 = require( 'DOT/Dimension2' );
   var CheckBox = require( 'SUN/CheckBox' );
   // var HBox = require( 'SCENERY/nodes/HBox' );
-  var HSlider = require( 'SUN/HSlider' );
+  // var HSlider = require( 'SUN/HSlider' );
   // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -21,6 +21,9 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  // var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
@@ -123,18 +126,30 @@ define( function( require ) {
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
-      var thisPanel = this;
-      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = thisPanel.createLabelText( label, v );
-      } );
+      // label
+      var parameterLabel = new Text( label, LABEL_OPTIONS );
+
+      // value text
+      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+
+      // // background for text
+      // var backgroundNode = new Rectangle(
+      //   0, // x
+      //   0, // y
+      //   TEXT_WIDTH, // width
+      //   valueText.height + 2 * TEXT_MARGIN, // height
+      //   4, // cornerXRadius
+      //   4, // cornerYRadius
+      //   TEXT_BACKGROUND_OPTIONS
+      // );
+      // valueText.centerY = backgroundNode.centerY;
+      // valueText.left = backgroundNode.left + TEXT_MARGIN;
+
+      var valueNode = new Node( { children: [ /*backgroundNode, */valueText ] } );
 
       // TODO: var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
-      var setParameterSlider = new HSlider( property, range, {
-        maxHeight: 30,
-        trackSize: new Dimension2( 150, 6 )
-      } );
-      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
+
+      return new HBox( { spacing: 10, children: [ parameterLabel, valueNode ] } );
     }
 
   } );

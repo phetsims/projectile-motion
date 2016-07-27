@@ -12,6 +12,7 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var RandomIconFactory = require( 'PROJECTILE_MOTION/common/RandomIconFactory' );
+  var Range = require( 'DOT/Range' );
 
   var ProjectileMotionConstants = {
 
@@ -23,16 +24,16 @@ define( function( require ) {
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // productive constraints
-    CANNON_HEIGHT_RANGE: { min: 0, max: 10 },
-    CANNON_ANGLE_RANGE: { min: -90, max: 180 },
-    LAUNCH_VELOCITY_RANGE: { min: 0, max: 50 },
+    CANNON_HEIGHT_RANGE: new Range( 0, 10 ),
+    CANNON_ANGLE_RANGE: new Range( -90, 180 ),
+    LAUNCH_VELOCITY_RANGE: new Range( 0, 50 ),
 
-    PROJECTILE_MASS_RANGE: { min: 0.04, max: 100 }, // in original, highest is 1000
-    PROJECTILE_DIAMETER_RANGE: { min: 0.1, max: 2.5 }, // in original, smallest is 0.043
+    PROJECTILE_MASS_RANGE: new Range( 0.04, 100 ), // in original, highest is 1000
+    PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 2.5 ), // in original, smallest is 0.043
 
     // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
-    PROJECTILE_DRAG_COEFFICIENT_RANGE: { min: 0.05, max: 1.1 },
-    ALTITUDE_RANGE: { min: 0, max: 30000 }, // meters, max is arbitrary but in upper stratosphere
+    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.05, 1.1 ),
+    ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
 
     // vectors
     ARROW_SIZE_DEFAULT: 1, // 1 means velocity of 1 m/s is represented with 1 m length, can scale down
