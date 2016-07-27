@@ -43,6 +43,7 @@ define( function( require ) {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.value * Math.PI / 180 ) + heightProperty.value );
     }
 
+    // TODO: use image and rotation, fix pickable area. See FaucetNode
     // draw cannon
     thisNode.cannon = new Line(
       modelViewTransform.modelToViewX( 0 ),
@@ -113,7 +114,7 @@ define( function( require ) {
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
-        ///TODO: constrain angle to range
+        ///TODO: constrain angle to range, a.k.a. bounded angle
 
         // update model angle
         angleProperty.value = startAngle + angleChangeInDegrees;

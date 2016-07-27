@@ -56,6 +56,8 @@ define( function( require ) {
     var customizeButtonListener = customizePanel.openSelf.bind( customizePanel );
     customizeButton.addListener( customizeButtonListener );
 
+    // TODO: update control types: readouts instead of sliders
+    
     var massBox = this.createParameterControlBox(
       massString,
       projectileMotionLabModel.projectileMassProperty,

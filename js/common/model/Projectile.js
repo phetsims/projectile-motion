@@ -76,6 +76,9 @@ define( function( require ) {
         return;
       }
 
+      // TODO: air density doesn't need to be calculated inside propjectile, move to model?
+      //   and link to airResistanceOnProperty?
+
       // Air density is not constant, will change due to altitude.
       var airDensity;
 
@@ -115,6 +118,7 @@ define( function( require ) {
       var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
       var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
 
+      // TODO: in calculating new position, new acceleration is used, but current velocities are used
       this.xAcceleration = -dragForceX / this.mass;
       this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
 

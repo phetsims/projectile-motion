@@ -53,8 +53,8 @@ define( function( require ) {
    * @constructor
    */
   function CustomizePanel( projectileMotionLabModel, options ) {
+    // TODO: rename to CustomizeDialogBox?
 
-    // TODO: formatting
     options = _.extend( {
       horizontalMin: 120,
       xMargin: 10,

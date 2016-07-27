@@ -24,6 +24,8 @@ define( function( require ) {
     Node.call( thisNode, { pickable: false } );
 
     function handleDataPointAdded( addedPoint ) {
+
+      // TODO: change color of dot if air resistance was on. May have to add something in model.
       // Create and add the view representation for each datapoint.
       var addedPointNode = new Circle( 1, {
         x: modelViewTransform.modelToViewX( addedPoint.x ),

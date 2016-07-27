@@ -31,6 +31,8 @@ define( function( require ) {
    */
   function ToolboxPanel( measuringTape, measuringTapeNode, modelViewTransform, options ) {
 
+    // TODO: add tracer tool to toolbox, see example ElectricPotentialSensorNode
+
     options = options || {};
     var self = this;
 
@@ -120,7 +122,7 @@ define( function( require ) {
 
         // console.log( modelViewTransform.modelToViewPosition( measuringTape.basePosition ), initialViewPosition );
 
-        // TODO: drag isn't coordinated
+        // TODO: fix, drag isn't coordinated
         measuringTapeNode.startBaseDrag( event );
       }
     } );

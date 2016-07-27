@@ -59,6 +59,12 @@ define( function( require ) {
     var thisScreenView = this;
     ScreenView.call( this, options );
 
+    // TODO: Spacing for panels around edges of visible bounds
+    //   ScreenView.visibleBoundsProperty, using this.visibleBoundsProperty.link
+    //   See cck and expression exchange
+
+    // TODO: Constrain dragging to visible bounds
+
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
@@ -100,9 +106,12 @@ define( function( require ) {
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
 
+    // TODO: draw road, grass, sky
+
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
 
+    // TODO: move tracer and file to lab screen
     // add view for tracer
     var tracerNode = new TracerNode(
       model.tracerModel,
@@ -143,6 +152,8 @@ define( function( require ) {
     // zoomControl.top = 0;
     // zoomControl.left = 0;
 
+    // TODO: make fire button and eraser button the same size
+
     // fire button
     var fireButton = new FireButton( {
       x: 40, // empirically determined for now
@@ -150,6 +161,7 @@ define( function( require ) {
       listener: function() { model.cannonFired(); }
     } );
 
+    // eraser button
     var eraserButton = new EraserButton( {
       left: fireButton.right + 10,
       y: thisScreenView.layoutBounds.maxY - 40,
@@ -173,6 +185,8 @@ define( function( require ) {
     } );
     panelsBox.right = this.layoutBounds.right - MARGIN;
     panelsBox.top = this.layoutBounds.top + MARGIN;
+
+    // TODO: Add container node at bottom of screen for fire, erase, normal/slow/play/pause/step, reset
 
     // step button
     var stepButton = new StepForwardButton( {
@@ -223,6 +237,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        // TODO: reset customize panel ( to be invisible )
         // zoomProperty.reset();
       },
       right: this.layoutBounds.maxX - 10,

@@ -55,6 +55,9 @@ define( function( require ) {
       fill: ProjectileMotionConstants.PANEL_FILL_COLOR
     }, options );
 
+    // TODO: fix number spinner size and alignment
+    // TODO: make a base class for the three panels?
+
     var heightBox = this.createParameterControlBox(
       heightString,
       cannonHeightProperty,
