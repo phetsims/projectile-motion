@@ -65,6 +65,9 @@ define( function( require ) {
       stroke: 'black'
     },
 
+    //Light gray, used as the 'disabled' color
+    LIGHT_GRAY: 'rgb( 220, 220, 220 )',
+
     PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 16, weight: 'bold' } ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
     PANEL_BIGGER_LABEL_OPTIONS: { font: new PhetFont( 18 ) },

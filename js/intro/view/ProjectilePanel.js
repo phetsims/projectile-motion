@@ -68,8 +68,8 @@ define( function( require ) {
       var parameterLabel = new Text( label, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
-      
+      var valueText = new Text( property.get().toFixed( 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
+
       // background for text
       var backgroundNode = new Rectangle(
         0, // x
@@ -78,7 +78,7 @@ define( function( require ) {
         valueText.height + 2 * TEXT_Y_MARGIN, // height
         4, // cornerXRadius
         4, // cornerYRadius
-        TEXT_BACKGROUND_OPTIONS
+        _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
