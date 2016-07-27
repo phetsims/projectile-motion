@@ -28,8 +28,8 @@ define( function( require ) {
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
-  var massString = 'Mass';
-  var diameterString = 'Diameter';
+  var massString = 'Mass (kg) ';
+  var diameterString = 'Diameter (m)';
   var dragCoefficientString = 'Drag Coefficient';
   var airResistanceString = 'Air Resistance';
 

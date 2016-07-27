@@ -27,10 +27,10 @@ define( function( require ) {
 
   // strings
   var customizeString = 'Customize';
-  var massString = 'Mass';
-  var diameterString = 'Diameter';
+  var massString = 'Mass (kg)';
+  var diameterString = 'Diameter (m)';
   var dragCoefficientString = 'Drag Coefficient';
-  var altitudeString = 'Altitude';
+  var altitudeString = 'Altitude (m)';
   var airResistanceString = 'Air Resistance';
   var velocityVectorsString = 'Velocity Vectors';
 
