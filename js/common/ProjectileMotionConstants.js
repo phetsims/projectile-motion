@@ -53,6 +53,8 @@ define( function( require ) {
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
     // control panels
+    PANEL_HORIZONTAL_MIN: 240, // TODO: calculate based off content
+    PANEL_MARGIN: 10,
     PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
     PANEL_TITLE_OPTIONS: { font: new PhetFont( 18 ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
