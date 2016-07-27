@@ -101,10 +101,13 @@ define( function( require ) {
     );
 
     var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-      maxHeight: 15,
-      trackSize: new Dimension2( options.minWidth, 6 )
+      majorTickLength: 5,
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
+      thumbSize: new Dimension2( 16, 28 )
     } );
-    velocitySlider.scale( ( options.minWidth - 2 * options.xMargin - 20 ) / velocitySlider.width );
+    velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min );
+    velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max );
+    // velocitySlider.scale( ( options.minWidth - 2 * options.xMargin - 20 ) / velocitySlider.width );
 
     // contents of the panel
     var content = new VBox( {
