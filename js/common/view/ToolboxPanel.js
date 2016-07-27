@@ -39,7 +39,11 @@ define( function( require ) {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { xMargin: 12, yMargin: 10 }, options );
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      xMargin: 12,
+      yMargin: 10,
+      fill: 'white'
+    }, options );
 
     // Create the icon image for the measuring Tape
     var measuringTapeIconNode = MeasuringTape.createMeasuringTapeIcon(); // {Node}
