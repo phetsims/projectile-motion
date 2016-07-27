@@ -14,7 +14,6 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Projectile = require( 'PROJECTILE_MOTION/common/model/Projectile' );
-  var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
   // var Vector2 = require( 'DOT/Vector2' );
@@ -59,9 +58,6 @@ define( function( require ) {
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
     this.measuringTape = new ProjectileMotionMeasuringTape();
-
-    // @public {Tracer} model for the tracer probe
-    this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );

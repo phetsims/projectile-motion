@@ -23,7 +23,6 @@ define( function( require ) {
   var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   // var Property = require( 'AXON/Property' );
   var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
@@ -71,6 +70,7 @@ define( function( require ) {
       new Vector2( 100, 450 ), // empirically determined based off original sim
       25 // scale for meters to view units, empirically determined based off original sim
     );
+    this.modelViewTransform = modelViewTransform;
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
 
     // zoomable node layer
@@ -110,13 +110,6 @@ define( function( require ) {
 
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
-
-    // TODO: move tracer and file to lab screen
-    // add view for tracer
-    var tracerNode = new TracerNode(
-      model.tracerModel,
-      modelViewTransform
-    );
 
     // zoomableNode.mutate( {
     //   children: [
@@ -252,7 +245,6 @@ define( function( require ) {
       cannonNode,
       panelsBox,
       measuringTapeNode,
-      tracerNode,
       fireButton,
       eraserButton,
       speedControl,
