@@ -14,7 +14,6 @@ define( function( require ) {
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
   var CustomizePanel = require( 'PROJECTILE_MOTION/lab/view/CustomizePanel' );
-  var TracerNode = require( 'PROJECTILE_MOTION/lab/view/TracerNode' );
 
   /**
    * @param {ProjectileMotionLabModel} model
@@ -33,13 +32,6 @@ define( function( require ) {
     }, options );
 
     ProjectileMotionScreenView.call( this, model, options );
-
-    // add view for tracer
-    var tracerNode = new TracerNode(
-      model.tracerModel,
-      this.modelViewTransform
-    );
-    this.addChild( tracerNode );
 
     this.customizePanel.center = this.center;
     this.addChild( this.customizePanel );
