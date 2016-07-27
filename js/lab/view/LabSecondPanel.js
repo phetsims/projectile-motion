@@ -13,7 +13,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   // var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
