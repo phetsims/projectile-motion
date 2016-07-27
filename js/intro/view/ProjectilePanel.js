@@ -11,10 +11,10 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
+  // var Dimension2 = require( 'DOT/Dimension2' );
   var CheckBox = require( 'SUN/CheckBox' );
   // var HBox = require( 'SCENERY/nodes/HBox' );
-  var HSlider = require( 'SUN/HSlider' );
+  // var HSlider = require( 'SUN/HSlider' );
   // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -22,6 +22,9 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
@@ -32,6 +35,13 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
+  var TEXT_BACKGROUND_OPTIONS = {
+    fill: 'white',
+    stroke: 'black'
+  };
+  var TEXT_WIDTH = 60;
+  var TEXT_Y_MARGIN = 4;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -45,30 +55,64 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    var massBox = this.createParameterControlBox(
+    /**
+     * Auxiliary function that creates vbox for a parameter label and readouts
+     * @param {string} label
+     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Object} range, range has keys min and max
+     * @returns {VBox}
+     * @private
+     */
+    function createParameterControlBox( label, property, range ) {
+      // label
+      var parameterLabel = new Text( label, LABEL_OPTIONS );
+
+      // value text
+      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+
+      // background for text
+      var backgroundNode = new Rectangle(
+        0, // x
+        0, // y
+        TEXT_WIDTH, // width
+        valueText.height + 2 * TEXT_Y_MARGIN, // height
+        4, // cornerXRadius
+        4, // cornerYRadius
+        TEXT_BACKGROUND_OPTIONS
+      );
+      valueText.center = backgroundNode.center;
+
+      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
+
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+
+      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+    }
+
+    var massBox = createParameterControlBox(
       massString,
       projectileMotionLabModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
-    var diameterBox = this.createParameterControlBox(
+    var diameterBox = createParameterControlBox(
       diameterString,
       projectileMotionLabModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
-    var dragCoefficientBox = this.createParameterControlBox(
+    var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {
-      align: 'center',
+      align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
         massBox,
@@ -83,36 +127,6 @@ define( function( require ) {
 
   projectileMotion.register( 'ProjectilePanel', ProjectilePanel );
 
-  return inherit( Panel, ProjectilePanel, {
-
-    // @private Auxiliary function takes {string} label and {number} value
-    // and returns {string} label and the value to two digits
-    createLabelText: function( label, value ) {
-      return label + ': ' + value.toFixed( 2 );
-    },
-
-    /**
-     * Auxiliary function that creates vbox for a parameter label and slider
-     * @param {string} label
-     * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Object} range, range has keys min and max
-     * @returns {VBox}
-     * @private
-     */
-    createParameterControlBox: function( label, property, range ) {
-      var thisPanel = this;
-      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = thisPanel.createLabelText( label, v );
-      } );
-      // TODO: var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
-      var setParameterSlider = new HSlider( property, range, {
-        maxHeight: 30,
-        trackSize: new Dimension2( 150, 6 )
-      } );
-      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
-    }
-
-  } );
+  return inherit( Panel, ProjectilePanel );
 } );
 
