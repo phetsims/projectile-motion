@@ -53,14 +53,21 @@ define( function( require ) {
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
     // control panels
-    PANEL_HORIZONTAL_MIN: 240, // TODO: calculate based off content
-    PANEL_MARGIN: 10,
-    PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
+    RIGHTSIDE_PANEL_OPTIONS: {
+      align: 'center',
+      controlsVerticalSpace: 10,
+      minWidth: 240,
+      xMargin: 10,
+      yMargin: 10,
+      fill: 'rgb( 255, 238, 218 )',
+      lineWidth: 1,
+      stroke: 'black'
+    },
+
     PANEL_TITLE_OPTIONS: { font: new PhetFont( 18 ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
-    PANEL_LINE_WIDTH: 1,
-    PANEL_STROKE: 'black',
-    YELLOW_BUTTON_OPTIONS:  {
+
+    YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 16 ),
       baseColor: '#F2E916', //TODO: change to rgb?
       cornerRadius: 4,

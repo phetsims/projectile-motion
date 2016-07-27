@@ -179,7 +179,7 @@ define( function( require ) {
 
     // vbox contains the control panels
     var panelsBox = new VBox( {
-      align: 'right',
+      // align: 'right',
       spacing: 10,
       children: [ initialValuesPanel, secondPanel, toolboxPanel ]
     } );

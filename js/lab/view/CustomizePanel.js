@@ -54,14 +54,11 @@ define( function( require ) {
    */
   function CustomizePanel( projectileMotionLabModel, options ) {
     // TODO: rename to CustomizeDialogBox?
-
-    options = _.extend( {
-      horizontalMin: 120,
-      xMargin: 10,
-      yMargin: 10,
-      fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
-      visible: false
-    }, options );
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { visible: false }, options );
 
     // @private {array.<{Object}>} parameters contains objects like currentParameter
     this.parameters;
@@ -130,7 +127,7 @@ define( function( require ) {
     // The contents of the control panel
     var leftSideContent = new VBox( {
       align: 'right',
-      spacing: 10,
+      spacing: options.controlsVerticalSpace,
       children: [
         heightBox.node,
         angleBox.node,

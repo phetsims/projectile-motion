@@ -13,7 +13,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberSpinner = require( 'SUN/NumberSpinner' );
   var Panel = require( 'SUN/Panel' );
@@ -21,7 +21,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
+  // var VStrut = require( 'SCENERY/nodes/VStrut' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
 
@@ -32,10 +32,8 @@ define( function( require ) {
   var speedString = 'Speed (m/s)';
 
   // constants
-  var PANEL_HORIZONTAL_MIN = ProjectileMotionConstants.PANEL_HORIZONTAL_MIN;
-  var PANEL_MARGIN = ProjectileMotionConstants.PANEL_MARGIN;
+  var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var PANEL_TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
 
   /**
    * Control panel constructor
@@ -46,71 +44,11 @@ define( function( require ) {
    */
   function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, launchVelocityProperty, options ) {
 
-    // Demonstrate a common pattern for specifying options and providing default values.
-    options = _.extend( {
-      titleToControlsVerticalSpace: 5,
-      horizontalMin: PANEL_HORIZONTAL_MIN,
-      xMargin: PANEL_MARGIN,
-      yMargin: PANEL_MARGIN,
-      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-    }, options );
-
-    // TODO: fix number spinner size and alignment
-    // TODO: make a base class for the three panels?
-
-    var heightBox = this.createParameterControlBox(
-      heightString,
-      cannonHeightProperty,
-      ProjectileMotionConstants.CANNON_HEIGHT_RANGE
-    );
-
-    var angleBox = this.createParameterControlBox(
-      angleString,
-      cannonAngleProperty,
-      ProjectileMotionConstants.CANNON_ANGLE_RANGE
-    );
-
-    var velocityBox = this.createParameterControlBox(
-      speedString,
-      launchVelocityProperty,
-      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
-    );
-
-    var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-      maxHeight: 15,
-      trackSize: new Dimension2( ProjectileMotionConstants.PANEL_HORIZONTAL_MIN, 6 )
-    } );
-    velocitySlider.scale( ( PANEL_HORIZONTAL_MIN - 2 * PANEL_MARGIN - 20 ) / velocitySlider.width );
-
-    // contents of the panel
-    var content = new VBox( {
-      align: 'left',
-      spacing: 10,
-      children: [
-        heightBox,
-        angleBox,
-        velocityBox
-      ]
-    } );
-
-    var initialValuesVBox = new VBox( {
-      align: 'center',
-      // spacing: 10,
-      children: [
-        new Text( initialValuesString, PANEL_TITLE_OPTIONS ),
-        new HStrut( options.horizontalMin ),
-        new VStrut( options.titleToControlsVerticalSpace ),
-        content,
-        velocitySlider
-      ]
-    } );
-
-    Panel.call( this, initialValuesVBox, options );
-  }
-
-  projectileMotion.register( 'InitialValuesPanel', InitialValuesPanel );
-
-  return inherit( Panel, InitialValuesPanel, {
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
@@ -120,7 +58,7 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    createParameterControlBox: function( label, property, range ) {
+    function createParameterControlBox( label, property, range ) {
       var parameterLabel = new Text( label, LABEL_OPTIONS );
 
       // TODO: degrees units for angle
@@ -130,7 +68,7 @@ define( function( require ) {
         yMargin: 5
       }, LABEL_OPTIONS ) );
 
-      var xSpacing = PANEL_HORIZONTAL_MIN - 2 * PANEL_MARGIN - parameterLabel.width - setParameterSpinner.width;
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
 
       var parameterBox = new HBox( {
         align: 'top',
@@ -141,6 +79,59 @@ define( function( require ) {
       return parameterBox;
     }
 
-  } );
+    // TODO: fix number spinner size and alignment
+    // TODO: make a base class for the three panels?
+
+    var heightBox = createParameterControlBox(
+      heightString,
+      cannonHeightProperty,
+      ProjectileMotionConstants.CANNON_HEIGHT_RANGE
+    );
+
+    var angleBox = createParameterControlBox(
+      angleString,
+      cannonAngleProperty,
+      ProjectileMotionConstants.CANNON_ANGLE_RANGE
+    );
+
+    var velocityBox = createParameterControlBox(
+      speedString,
+      launchVelocityProperty,
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
+    );
+
+    var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
+      maxHeight: 15,
+      trackSize: new Dimension2( options.minWidth, 6 )
+    } );
+    velocitySlider.scale( ( options.minWidth - 2 * options.xMargin - 20 ) / velocitySlider.width );
+
+    // contents of the panel
+    var content = new VBox( {
+      align: 'left',
+      spacing: options.controlsVerticalSpace,
+      children: [
+        heightBox,
+        angleBox,
+        velocityBox
+      ]
+    } );
+
+    var initialValuesVBox = new VBox( {
+      align: 'center',
+      spacing: options.controlsVerticalSpace,
+      children: [
+        new Text( initialValuesString, TITLE_OPTIONS ),
+        content,
+        velocitySlider
+      ]
+    } );
+
+    Panel.call( this, initialValuesVBox, options );
+  }
+
+  projectileMotion.register( 'InitialValuesPanel', InitialValuesPanel );
+
+  return inherit( Panel, InitialValuesPanel );
 } );
 

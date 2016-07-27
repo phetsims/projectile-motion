@@ -42,13 +42,13 @@ define( function( require ) {
    */
   function LabSecondPanel( projectileMotionLabModel, customizePanel, options ) {
 
-    // Demonstrate a common pattern for specifying options and providing default values.
-    options = _.extend( {
-      horizontalMin: 180,
-      xMargin: 10,
-      yMargin: 10,
-      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-    }, options );
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+
+    console.log( options );
 
     var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
@@ -57,7 +57,7 @@ define( function( require ) {
     customizeButton.addListener( customizeButtonListener );
 
     // TODO: update control types: readouts instead of sliders
-    
+
     var massBox = this.createParameterControlBox(
       massString,
       projectileMotionLabModel.projectileMassProperty,
@@ -91,7 +91,7 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
-      spacing: 10,
+      spacing: options.controlsVerticalSpace,
       children: [
         customizeButton,
         massBox,
@@ -103,14 +103,7 @@ define( function( require ) {
       ]
     } );
 
-    var customizeVBox = new VBox( {
-      children: [
-        new HStrut( options.horizontalMin ),
-        content
-      ]
-    } );
-
-    Panel.call( this, customizeVBox, options );
+    Panel.call( this, content, options );
   }
 
   projectileMotion.register( 'LabSecondPanel', LabSecondPanel );
@@ -137,6 +130,8 @@ define( function( require ) {
       property.link( function( v ) {
         parameterLabel.text = thisPanel.createLabelText( label, v );
       } );
+
+      // TODO: var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
       var setParameterSlider = new HSlider( property, range, {
         maxHeight: 30,
         trackSize: new Dimension2( 150, 6 )

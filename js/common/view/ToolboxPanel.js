@@ -30,11 +30,16 @@ define( function( require ) {
    * @constructor
    */
   function ToolboxPanel( measuringTape, measuringTapeNode, modelViewTransform, options ) {
+    var self = this;
 
     // TODO: add tracer tool to toolbox, see example ElectricPotentialSensorNode
 
-    options = options || {};
-    var self = this;
+
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { xMargin: 12, yMargin: 10 }, options );
 
     // Create the icon image for the measuring Tape
     var measuringTapeIconNode = MeasuringTape.createMeasuringTapeIcon(); // {Node}
@@ -46,20 +51,10 @@ define( function( require ) {
       pickable: true
     } );
 
-    // Options for the panel
-    options = _.extend( {
-      lineWidth: ProjectileMotionConstants.PANEL_LINE_WIDTH,
-      xMargin: 12,
-      yMargin: 10,
-      fill: ProjectileMotionConstants.PANEL_FILL_COLOR,
-      stroke: ProjectileMotionConstants.PANEL_STROKE
-    }, options );
-
     // add the panelContent
     Panel.call( this, panelContent, options );
 
     var parentScreenView = null; // needed for coordinate transforms
-    // TODO: drop isn't working
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
@@ -122,7 +117,7 @@ define( function( require ) {
 
         // console.log( modelViewTransform.modelToViewPosition( measuringTape.basePosition ), initialViewPosition );
 
-        // TODO: fix, drag isn't coordinated
+        // TODO: fix, drag isn't coordinated. Notes: y drag is correct, x drag is much bigger than correct
         measuringTapeNode.startBaseDrag( event );
       }
     } );

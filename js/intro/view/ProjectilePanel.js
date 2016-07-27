@@ -15,7 +15,7 @@ define( function( require ) {
   var CheckBox = require( 'SUN/CheckBox' );
   // var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
+  // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -39,13 +39,11 @@ define( function( require ) {
    */
   function ProjectilePanel( projectileMotionLabModel, options ) {
 
-    // Demonstrate a common pattern for specifying options and providing default values.
-    options = _.extend( {
-      horizontalMin: 180,
-      xMargin: 10,
-      yMargin: 10,
-      fill: ProjectileMotionConstants.PANEL_FILL_COLOR
-    }, options );
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     var massBox = this.createParameterControlBox(
       massString,
@@ -71,7 +69,7 @@ define( function( require ) {
     // The contents of the control panel
     var content = new VBox( {
       align: 'center',
-      spacing: 5,
+      spacing: options.controlsVerticalSpace,
       children: [
         massBox,
         diameterBox,
@@ -80,15 +78,7 @@ define( function( require ) {
       ]
     } );
 
-    var customizeVBox = new VBox( {
-      // spacing: 10,
-      children: [
-        new HStrut( options.horizontalMin ),
-        content
-      ]
-    } );
-
-    Panel.call( this, customizeVBox, options );
+    Panel.call( this, content, options );
   }
 
   projectileMotion.register( 'ProjectilePanel', ProjectilePanel );
@@ -115,6 +105,7 @@ define( function( require ) {
       property.link( function( v ) {
         parameterLabel.text = thisPanel.createLabelText( label, v );
       } );
+      // TODO: var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
       var setParameterSlider = new HSlider( property, range, {
         maxHeight: 30,
         trackSize: new Dimension2( 150, 6 )
