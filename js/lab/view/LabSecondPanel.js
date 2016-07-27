@@ -36,6 +36,7 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
     stroke: 'black'
@@ -120,10 +121,10 @@ define( function( require ) {
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
-    var velocityVectorComponentsLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
+    var velocityVectorComponentsLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
     var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionLabModel.velocityVectorComponentsOnProperty );
 
     // The contents of the control panel
