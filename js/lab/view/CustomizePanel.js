@@ -28,18 +28,20 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
 
   // strings
-  var heightString = 'Height';
-  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
-  var massString = 'Mass';
-  var diameterString = 'Diameter';
+  var initialHeightString = 'Initial Height (m)';
+  var angleString = 'Angle (degrees)';
+  var initialSpeedString = 'Initial Speed (m/s)';
+  var massString = 'Mass (g)';
+  var diameterString = 'Diameter (m)';
   var dragCoefficientString = 'Drag Coefficient';
-  var altitudeString = 'Altitude';
+  var altitudeString = 'Altitude (m)';
   var airResistanceString = 'Air Resistance';
   var submitString = 'Submit';
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var BOLD_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BOLD_LABEL_OPTIONS;
+  var BIGGER_BOLD_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_BOLD_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
     stroke: 'black'
@@ -68,7 +70,7 @@ define( function( require ) {
 
     // create hboxes for the parameter label, readout, and edit button
     var heightBox = this.createParameterControlBox(
-      heightString,
+      initialHeightString,
       projectileMotionLabModel.cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
@@ -80,7 +82,7 @@ define( function( require ) {
     );
 
     var velocityBox = this.createParameterControlBox(
-      velocityString,
+      initialSpeedString,
       projectileMotionLabModel.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
@@ -119,7 +121,7 @@ define( function( require ) {
       altitudeBox
     ];
 
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    var airResistanceLabel = new Text( airResistanceString, BIGGER_BOLD_LABEL_OPTIONS );
     this.modelAirResistanceProperty = projectileMotionLabModel.airResistanceOnProperty;
     this.detachedAirResistanceProperty = new Property( this.modelAirResistanceProperty.get() );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, this.detachedAirResistanceProperty );
@@ -149,7 +151,7 @@ define( function( require ) {
     // create submit button
     var submitButtonOptions = _.extend( {
       weight: 'bold'
-    }, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
+    }, _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS, BOLD_LABEL_OPTIONS ) );
     var submitButton = new TextPushButton( submitString, submitButtonOptions );
 
     // submit button closes this panel and updates the properties
@@ -298,6 +300,7 @@ define( function( require ) {
         minWidth: 25,
         minHeight: 20,
         content: pencilIcon,
+        baseColor: 'white',
         listener: self.editButtonListener.bind( self, parameterBox )
       } );
 
