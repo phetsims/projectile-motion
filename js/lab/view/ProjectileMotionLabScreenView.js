@@ -33,7 +33,7 @@ define( function( require ) {
 
     ProjectileMotionScreenView.call( this, model, options );
 
-    this.customizePanel.center = this.center;
+    this.customizePanel.center = this.center.minusXY( 50, 0 );
     this.addChild( this.customizePanel );
 
   }
