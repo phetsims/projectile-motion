@@ -155,11 +155,6 @@ define( function( require ) {
 
   projectileMotion.register( 'LabSecondPanel', LabSecondPanel );
 
-  return inherit( Panel, LabSecondPanel, {
-
-
-   
-
-  } );
+  return inherit( Panel, LabSecondPanel );
 } );
 
