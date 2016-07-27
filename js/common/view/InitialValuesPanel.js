@@ -10,11 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Dimension2 = require( 'DOT/Dimension2' );
+  // var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
-  var HSlider = require( 'SUN/HSlider' );
+  // var HSlider = require( 'SUN/HSlider' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberSpinner = require( 'SUN/NumberSpinner' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -26,10 +27,10 @@ define( function( require ) {
 
   // strings
   var initialValuesString = 'Initial Values';
-  var heightString = 'Height';
+  var heightString = 'Height (m)';
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  var velocityString = require( 'string!PROJECTILE_MOTION/velocity' );
-
+  var speedString = 'Speed (m/s)'
+  
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var PANEL_TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
@@ -65,7 +66,7 @@ define( function( require ) {
     );
 
     var velocityBox = this.createParameterControlBox(
-      velocityString,
+      speedString,
       launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
@@ -73,7 +74,7 @@ define( function( require ) {
     // contents of the panel
     var content = new VBox( {
       align: 'left',
-      // spacing: 10,
+      spacing: 10,
       children: [
         heightBox,
         angleBox,
@@ -99,12 +100,6 @@ define( function( require ) {
 
   return inherit( Panel, InitialValuesPanel, {
 
-    // @private Auxiliary function takes {string} label and {number} value
-    // and returns {string} label and the value to two digits
-    createLabelText: function( label, value ) {
-      return label + ': ' + value.toFixed( 2 );
-    },
-
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
      * @param {string} label
@@ -114,16 +109,15 @@ define( function( require ) {
      * @private
      */
     createParameterControlBox: function( label, property, range ) {
-      var self = this;
-      var parameterLabel = new Text( this.createLabelText( label, property.value ), LABEL_OPTIONS );
-      property.link( function( v ) {
-        parameterLabel.text = self.createLabelText( label, v );
+      var parameterLabel = new Text( label, LABEL_OPTIONS );
+      var setParameterSpinner = new NumberSpinner( property, range, _.extend( {
+        arrowsPosition: 'leftRight'
+      }, LABEL_OPTIONS ) );
+      return new HBox( {
+        align: 'top',
+        spacing: 2,
+        children: [ parameterLabel, setParameterSpinner ]
       } );
-      var setParameterSlider = new HSlider( property, range, {
-        maxHeight: 30,
-        trackSize: new Dimension2( 150, 6 )
-      } );
-      return new VBox( { spacing: 2, children: [ parameterLabel, setParameterSlider ] } );
     }
 
   } );

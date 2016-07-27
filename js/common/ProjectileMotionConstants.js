@@ -54,12 +54,12 @@ define( function( require ) {
 
     // control panels
     PANEL_FILL_COLOR: 'rgb( 255, 238, 218 )',
-    PANEL_TITLE_OPTIONS: { font: new PhetFont( 20 ), align: 'center' },
-    PANEL_LABEL_OPTIONS: { font: new PhetFont( 18 ) },
+    PANEL_TITLE_OPTIONS: { font: new PhetFont( 18 ), align: 'center' },
+    PANEL_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
     PANEL_LINE_WIDTH: 1,
     PANEL_STROKE: 'black',
     YELLOW_BUTTON_OPTIONS:  {
-      font: new PhetFont( 18 ),
+      font: new PhetFont( 16 ),
       baseColor: '#F2E916', //TODO: change to rgb?
       cornerRadius: 4,
       xMargin: 12,
