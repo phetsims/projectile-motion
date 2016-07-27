@@ -69,6 +69,11 @@ define( function( require ) {
 
       // value text
       var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+      
+      // text node updates if property value changes
+      property.link( function( value ) {
+        valueText.setText( value );
+      } );
 
       // background for text
       var backgroundNode = new Rectangle(
