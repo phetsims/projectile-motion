@@ -32,7 +32,6 @@ define( function( require ) {
    */
   function Projectile( model ) {
     this.projectileMotionModel = model;
-    // TODO: rename projectile, referenced, trajectory holds just the data points
 
     // @public
     PropertySet.call( this, {

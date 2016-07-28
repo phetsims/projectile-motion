@@ -80,7 +80,6 @@ define( function( require ) {
     }
 
     // TODO: fix number spinner size and alignment
-    // TODO: make a base class for the three panels?
 
     var heightBox = createParameterControlBox(
       heightString,

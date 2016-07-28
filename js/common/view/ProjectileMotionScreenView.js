@@ -111,7 +111,6 @@ define( function( require ) {
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
 
-    // TODO: move tracer and file to lab screen
     // add view for tracer
     var tracerNode = new TracerNode(
       model.tracerModel,
