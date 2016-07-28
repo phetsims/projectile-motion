@@ -46,13 +46,13 @@ define( function( require ) {
     }, options );
 
     // Create the icon image for the measuring Tape
-    var measuringTapeIconNode = MeasuringTape.createMeasuringTapeIcon(); // {Node}
+    var measuringTapeIconNode = MeasuringTape.createIcon();
+    measuringTapeIconNode.cursor = 'pointer';
 
+    //TODO Unless you have additional icons, you don't need panelContent. Add measuringTapeIconNode directly to Panel.
     // The content panel with the two icons
     var panelContent = new LayoutBox( {
-      spacing: 20,
-      children: [ measuringTapeIconNode ],
-      pickable: true
+      children: [ measuringTapeIconNode ]
     } );
 
     // add the panelContent
