@@ -101,12 +101,19 @@ define( function( require ) {
 
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
-      this.projectiles.forEach( function( trajectory ) { trajectory.step( dt ); } );
+      this.projectiles.forEach( function( projectile ) { projectile.step( dt ); } );
       this.scoreModel.step( dt );
     },
 
-    // @private, adds a trajectory to the observable array
+    // @private, adds a projectile to the observable array
     addProjectile: function() {
+      var self = this;
+      this.projectiles.forEach( function( projectile ) {
+        projectile.projectilesInModelAfterSelfFiredCount++;
+        if ( projectile.projectilesInModelAfterSelfFiredCount >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+          self.projectiles.remove( projectile );
+        }
+      } );
       this.projectiles.push( new Projectile( this ) );
     },
 

@@ -84,7 +84,7 @@ define( function( require ) {
 
     function handleProjectileAdded( addedProjectile ) {
       // create the view representation for added trajectory 
-      var trajectoryNode = new TrajectoryNode( addedProjectile.dataPoints, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode( addedProjectile, modelViewTransform );
       var projectileNode = new ProjectileNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
       trajectoriesLayer.addChild( trajectoryNode );
       trajectoriesLayer.addChild( projectileNode );

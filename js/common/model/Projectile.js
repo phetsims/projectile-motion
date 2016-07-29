@@ -42,7 +42,10 @@ define( function( require ) {
       diameter: model.projectileDiameter,
       dragCoefficient: model.projectileDragCoefficient,
       xVelocity: model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
-      yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
+      yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 ),
+
+      // counts how old this projectile is
+      projectilesInModelAfterSelfFiredCount: 0
     } );
 
     // @public is the projectile on the ground?

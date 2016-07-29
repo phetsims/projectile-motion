@@ -24,6 +24,8 @@ define( function( require ) {
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // productive constraints
+    MAX_NUMBER_OF_PROJECTILES: 5,
+
     CANNON_HEIGHT_RANGE: new Range( 0, 20 ),
     CANNON_ANGLE_RANGE: new Range( 0, 90 ),
     LAUNCH_VELOCITY_RANGE: new Range( 0, 100 ),

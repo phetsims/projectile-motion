@@ -17,12 +17,16 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Color = require( 'SCENERY/util/Color' );
+
+  // constants
+  var MAX_COUNT = 5;
 
   /**
-   * @param {ObservableArray.<DataPoint>} dataPoints - array of data points on the trajectory
+   * @param {Projectile} projectile - model for the projectile
    * @constructor
    */
-  function TrajectoryNode( dataPoints, modelViewTransform ) {
+  function TrajectoryNode( projectile, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
 
@@ -38,8 +42,8 @@ define( function( require ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
       if ( viewLastPoint ) {
-        trajectoryPath.shape.moveTo( viewLastPoint.x, viewLastPoint.y );
-        trajectoryPath.shape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
+        trajectoryShape.moveTo( viewLastPoint.x, viewLastPoint.y );
+        trajectoryShape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
       }
       viewLastPoint = viewAddedPoint.copy();
 
@@ -54,17 +58,25 @@ define( function( require ) {
       thisNode.addChild( addedPointNode );
 
       // Add the removal listener for if and when this datapoint is removed from the model.
-      dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
+      projectile.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedPoint ) {
           thisNode.removeChild( addedPointNode );
-          dataPoints.removeItemRemovedListener( removalListener );
+          projectile.dataPoints.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a datapoint has been added in the model
-    dataPoints.forEach( handleDataPointAdded );
-    dataPoints.addItemAddedListener( handleDataPointAdded );
+    projectile.dataPoints.forEach( handleDataPointAdded );
+    projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
+
+    // change color and decrease in opacity which each success next projectile fired
+    projectile.projectilesInModelAfterSelfFiredCountProperty.link( function( count ) {
+      if ( count > 0 ) {
+        var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
+        trajectoryPath.stroke = new Color( 0, 0, 0, opacity );
+      }
+    } );
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
