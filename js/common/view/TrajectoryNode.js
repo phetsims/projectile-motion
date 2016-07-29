@@ -28,8 +28,8 @@ define( function( require ) {
 
     var trajectoryShape = new Shape();
 
-    // TODO: make line width smaller if it is no longer the current trajectory
-    var trajectoryPath = new Path( trajectoryShape, { lineWidth: 2, stroke: 'black' } );
+    // TODO: make line width smaller or change color to gray if it is no longer the current trajectory
+    var trajectoryPath = new Path( trajectoryShape, { lineWidth: 2, stroke: 'blue' } );
     thisNode.addChild( trajectoryPath );
 
     var viewLastPoint;
