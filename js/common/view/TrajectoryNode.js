@@ -38,11 +38,10 @@ define( function( require ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
       if ( viewLastPoint ) {
-        trajectoryShape.moveTo( viewLastPoint.x, viewLastPoint.y );
-        trajectoryShape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
+        trajectoryPath.shape.moveTo( viewLastPoint.x, viewLastPoint.y );
+        trajectoryPath.shape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
       }
       viewLastPoint = viewAddedPoint.copy();
-      trajectoryPath.setShape( trajectoryShape );
 
       // TODO: change color of dot if air resistance was on. May have to add something in model.
       // Create and add the view representation for each datapoint.
