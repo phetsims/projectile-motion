@@ -14,6 +14,9 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {ObservableArray.<DataPoint>} dataPoints - array of data points on the trajectory
@@ -23,11 +26,28 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
 
+    var trajectoryShape = new Shape();
+
+    // TODO: make line width smaller if it is no longer the current trajectory
+    var trajectoryPath = new Path( trajectoryShape, { lineWidth: 2, stroke: 'black' } );
+    thisNode.addChild( trajectoryPath );
+
+    var viewLastPoint;
+
     function handleDataPointAdded( addedPoint ) {
+      var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
+
+      if ( viewLastPoint ) {
+        trajectoryShape.moveTo( viewLastPoint.x, viewLastPoint.y );
+        trajectoryShape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
+      }
+      viewLastPoint = viewAddedPoint.copy();
+      trajectoryPath.setShape( trajectoryShape );
 
       // TODO: change color of dot if air resistance was on. May have to add something in model.
       // Create and add the view representation for each datapoint.
-      var addedPointNode = new Circle( 1, {
+      // TODO: pull out datapoint radius into constants
+      var addedPointNode = new Circle( 2, {
         x: modelViewTransform.modelToViewX( addedPoint.x ),
         y: modelViewTransform.modelToViewY( addedPoint.y ),
         fill: 'black'
