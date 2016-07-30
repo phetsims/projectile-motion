@@ -18,6 +18,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Vector2 = require( 'DOT/Vector2' );
   var Color = require( 'SCENERY/util/Color' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
   var MAX_COUNT = 5;
@@ -50,12 +51,16 @@ define( function( require ) {
       // TODO: change color of dot if air resistance was on. May have to add something in model.
       // Create and add the view representation for each datapoint.
       // TODO: pull out datapoint radius into constants
-      var addedPointNode = new Circle( 2, {
-        x: modelViewTransform.modelToViewX( addedPoint.x ),
-        y: modelViewTransform.modelToViewY( addedPoint.y ),
-        fill: 'black'
-      } );
-      thisNode.addChild( addedPointNode );
+
+      // draw dot if it is time for data point should be shown
+      if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % ProjectileMotionConstants.TIME_PER_SHOWN_POINT === 0 ) {
+        var addedPointNode = new Circle( 2, {
+          x: modelViewTransform.modelToViewX( addedPoint.x ),
+          y: modelViewTransform.modelToViewY( addedPoint.y ),
+          fill: 'black'
+        } );
+        thisNode.addChild( addedPointNode );
+      }
 
       // Add the removal listener for if and when this datapoint is removed from the model.
       projectile.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
