@@ -79,7 +79,10 @@ define( function( require ) {
     projectile.projectilesInModelAfterSelfFiredCountProperty.link( function( count ) {
       if ( count > 0 ) {
         var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
-        trajectoryPath.stroke = new Color( 0, 0, 0, opacity );
+        trajectoryPath.stroke = 'gray';
+        thisNode.children.forEach( function( child ) {
+          child.opacity = opacity;
+        } );
       }
     } );
   }
