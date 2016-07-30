@@ -20,7 +20,11 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // constants
-  var MAX_COUNT = 5;
+  var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
+  var DOT_DIAMETER = 4;
+  var PATH_WIDTH = 2;
+  var CURRENT_PATH_COLOR = 'blue';
+  var OLD_PATH_COLOR = 'gray';
 
   /**
    * @param {Projectile} projectile - model for the projectile
@@ -33,7 +37,7 @@ define( function( require ) {
     var trajectoryShape = new Shape();
 
     // TODO: make line width smaller or change color to gray if it is no longer the current trajectory
-    var trajectoryPath = new Path( trajectoryShape, { lineWidth: 2, stroke: 'blue' } );
+    var trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH, stroke: CURRENT_PATH_COLOR } );
     thisNode.addChild( trajectoryPath );
 
     var viewLastPoint;
@@ -53,7 +57,7 @@ define( function( require ) {
 
       // draw dot if it is time for data point should be shown
       if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % ProjectileMotionConstants.TIME_PER_SHOWN_POINT === 0 ) {
-        var addedPointNode = new Circle( 2, {
+        var addedPointNode = new Circle( DOT_DIAMETER / 2, {
           x: modelViewTransform.modelToViewX( addedPoint.x ),
           y: modelViewTransform.modelToViewY( addedPoint.y ),
           fill: 'black'
@@ -78,7 +82,7 @@ define( function( require ) {
     projectile.projectilesInModelAfterSelfFiredCountProperty.link( function( count ) {
       if ( count > 0 ) {
         var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
-        trajectoryPath.stroke = 'gray';
+        trajectoryPath.stroke = OLD_PATH_COLOR;
         thisNode.children.forEach( function( child ) {
           child.opacity = opacity;
         } );
