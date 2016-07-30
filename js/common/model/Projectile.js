@@ -62,6 +62,9 @@ define( function( require ) {
 
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
+
+    // add data point for initial conditions
+    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y ) );
   }
 
   projectileMotion.register( 'Projectile', Projectile );
