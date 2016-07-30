@@ -33,6 +33,10 @@ define( function( require ) {
     PROJECTILE_MASS_RANGE: new Range( 0.04, 100 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 2.5 ), // in original, smallest is 0.043
 
+    // data point collection along the trajectory
+    TIME_PER_DATA_POINT: 16, // milliseconds
+    TIME_PER_SHOWN_POINT: 48, // milliseconds
+
     // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.05, 1.1 ),
     ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere

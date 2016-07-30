@@ -19,6 +19,9 @@ define( function( require ) {
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
   // var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
+  var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // in ms
+
   /**
    * @constructor
    */
@@ -91,14 +94,14 @@ define( function( require ) {
       this.stepCount = this.stepCount % 3;
 
       // prevent sudden dt bursts when the user comes back to the tab after a while
-      dt = Math.min( 0.064, dt );
+      dt = Math.min( TIME_PER_DATA_POINT * 3 / 1000, dt );
 
       this.residualTime += dt * 1000; // in milliseconds
-      
-      // number of model steps to clock this frame
-      var numberSteps = ( this.residualTime / 16 ).toFixed( 0 ) / 1000;
 
-      this.residualTime = this.residualTime % 16;
+      // number of model steps to clock this frame
+      var numberSteps = ( this.residualTime / TIME_PER_DATA_POINT ).toFixed( 0 ) / 1000;
+
+      this.residualTime = this.residualTime % TIME_PER_DATA_POINT;
 
       if ( this.isPlaying ) {
         // for every 3 * 16 ms, stepModelElements is called for 16 ms
@@ -106,7 +109,7 @@ define( function( require ) {
         if ( this.speed === 'normal' || this.stepCount === 0 ) {
           var i;
           for ( i = 0; i < numberSteps; i++ ) {
-            this.stepModelElements( 0.016 );
+            this.stepModelElements( TIME_PER_DATA_POINT / 1000 );
           }
         }
       }
