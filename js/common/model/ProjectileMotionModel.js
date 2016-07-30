@@ -51,6 +51,9 @@ define( function( require ) {
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
 
+    // @private, tracks remaining time mod 16 ms
+    this.residualTime = 0;
+
     // @public {ObservableArray.<Trajectory>} observable array of projectiles
     this.projectiles = new ObservableArray();
 
@@ -90,11 +93,21 @@ define( function( require ) {
       // prevent sudden dt bursts when the user comes back to the tab after a while
       dt = Math.min( 0.064, dt );
 
+      this.residualTime += dt * 1000; // in milliseconds
+      
+      // number of model steps to clock this frame
+      var numberSteps = ( this.residualTime / 16 ).toFixed( 0 ) / 1000;
+
+      this.residualTime = this.residualTime % 16;
+
       if ( this.isPlaying ) {
-        // either this speed is normal, or its slow and only steps on every third frame
+        // for every 3 * 16 ms, stepModelElements is called for 16 ms
         // TODO: revert back to one second = one third of a second
         if ( this.speed === 'normal' || this.stepCount === 0 ) {
-          this.stepModelElements( dt );
+          var i;
+          for ( i = 0; i < numberSteps; i++ ) {
+            this.stepModelElements( 0.016 );
+          }
         }
       }
     },
