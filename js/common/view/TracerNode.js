@@ -104,13 +104,11 @@ define( function( require ) {
     // Listen for when time, range, and height change, and update the readouts.
     tracerModel.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        console.log( 'point' );
         timeText.text = 'Time (s): ' + point.time.toFixed( 2 );
         rangeText.text = 'Range (m): ' + point.x.toFixed( 2 );
         heightText.text = 'Height (m): ' + point.y.toFixed( 2 );
       }
       else {
-        console.log( 'no point' );
         timeText.text = 'Time (s): ';
         rangeText.text = 'Range (m): ';
         heightText.text = 'Height (m): ';
