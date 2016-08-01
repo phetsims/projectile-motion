@@ -64,7 +64,7 @@ define( function( require ) {
     this.dataPoints = new ObservableArray();
 
     // add data point for initial conditions
-    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y ) );
+    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, model.airDensity ) );
   }
 
   projectileMotion.register( 'Projectile', Projectile );
@@ -121,7 +121,7 @@ define( function( require ) {
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-      this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y ) );
+      this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
     },
 
     /**

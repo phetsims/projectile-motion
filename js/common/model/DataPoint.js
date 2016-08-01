@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A data point on a trajectory path. Contains time, x, and y
+ * A data point on a trajectory path. Subtype of Vector2. Contains time, x, y, and airDensity at the time.
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
@@ -18,11 +18,12 @@ define( function( require ) {
    * {number} y - y position of the data point, also called height
    * @constructor
    */
-  function DataPoint( time, x, y ) {
+  function DataPoint( time, x, y, airDensity ) {
     Vector2.call( this, x, y );
 
     // @public
     this.time = time;
+    this.airDensity = airDensity;
   }
 
   projectileMotion.register( 'DataPoint', DataPoint );

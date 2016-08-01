@@ -14,8 +14,8 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Circle = require( 'SCENERY/nodes/Circle' );
-  var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
+  // var Shape = require( 'KITE/Shape' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Vector2 = require( 'DOT/Vector2' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
@@ -24,7 +24,8 @@ define( function( require ) {
   var DOT_DIAMETER = 4;
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
-  var OLD_PATH_COLOR = 'gray';
+  var AIR_RESISTANCE_ON_COLOR = 'red';
+  // var OLD_PATH_COLOR = 'gray';
 
   /**
    * @param {Projectile} projectile - model for the projectile
@@ -34,11 +35,10 @@ define( function( require ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
 
-    var trajectoryShape = new Shape();
-
-    // TODO: make line width smaller or change color to gray if it is no longer the current trajectory
-    var trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH, stroke: CURRENT_PATH_COLOR } );
-    thisNode.addChild( trajectoryPath );
+    var pathsLayer = new Node();
+    var dotsLayer = new Node;
+    this.addChild( pathsLayer );
+    this.addChild( dotsLayer );
 
     var viewLastPoint;
 
@@ -46,8 +46,12 @@ define( function( require ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
       if ( viewLastPoint ) {
-        trajectoryShape.moveTo( viewLastPoint.x, viewLastPoint.y );
-        trajectoryShape.lineTo( viewAddedPoint.x, viewAddedPoint.y );
+        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
+        var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
+          lineWidth: PATH_WIDTH,
+          stroke: pathStroke
+        } );
+        pathsLayer.addChild( lineSegment );
       }
       viewLastPoint = viewAddedPoint.copy();
 
@@ -62,16 +66,8 @@ define( function( require ) {
           y: modelViewTransform.modelToViewY( addedPoint.y ),
           fill: 'black'
         } );
-        thisNode.addChild( addedPointNode );
+        dotsLayer.addChild( addedPointNode );
       }
-
-      // Add the removal listener for if and when this datapoint is removed from the model.
-      projectile.dataPoints.addItemRemovedListener( function removalListener( removedTrajectory ) {
-        if ( removedTrajectory === addedPoint ) {
-          thisNode.removeChild( addedPointNode );
-          projectile.dataPoints.removeItemRemovedListener( removalListener );
-        }
-      } );
     }
 
     // view listens to whether a datapoint has been added in the model
@@ -82,7 +78,7 @@ define( function( require ) {
     projectile.projectilesInModelAfterSelfFiredCountProperty.link( function( count ) {
       if ( count > 0 ) {
         var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
-        trajectoryPath.stroke = OLD_PATH_COLOR;
+        // trajectoryPath.stroke = OLD_PATH_COLOR;
         thisNode.children.forEach( function( child ) {
           child.opacity = opacity;
         } );
