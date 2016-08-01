@@ -13,6 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Projectile = require( 'PROJECTILE_MOTION/common/model/Projectile' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
@@ -42,6 +43,7 @@ define( function( require ) {
       // properties that change the environment and affect all projectiles immediately
       altitude: 0, // meters
       airResistanceOn: false, // defaults to air resistance off
+      airDensity: 0,
 
       // vectors visibility
       velocityVectorComponentsOn: false,
@@ -68,6 +70,9 @@ define( function( require ) {
 
     // @public {Tracer} model for the tracer probe
     this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
+
+    // update air density in the model if air resistance turns on or off, or altitude changes
+    Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], this.updateAirDensity.bind( this ) );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -143,6 +148,39 @@ define( function( require ) {
       this.isPlaying = true;
       this.addProjectile();
       this.scoreModel.turnOffScore();
+    },
+
+    // @private, updates air density property based on air resistance and altitude
+    updateAirDensity: function() {
+      // Air resistance is turned on.
+      if ( this.airResistanceOn ) {
+
+        var altitude = this.altitude;
+        var temperature;
+        var pressure;
+
+        if ( altitude < 11000 ) {
+          // troposphere
+          temperature = 15.04 - 0.00649 * altitude;
+          pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
+        } else if ( altitude < 25000 ) {
+          // lower stratosphere
+          temperature = -56.46;
+          pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
+        } else {
+          // upper stratosphere (altitude >= 25000 meters)
+          temperature = -131.21 + 0.00299 * altitude;
+          pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
+        }
+
+        this.airDensityProperty.set( pressure / ( 0.2869 * ( temperature + 273.1 ) ) );
+      }
+
+      // Air resistance is turned off.
+      else {
+        this.airDensityProperty.set( 0 );
+      }
+
     }
 
   } );
