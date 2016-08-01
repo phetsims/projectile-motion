@@ -81,57 +81,8 @@ define( function( require ) {
         return;
       }
 
-      // TODO: air density doesn't need to be calculated inside propjectile, move to model?
-      //   and link to airResistanceOnProperty?
-
-      // Air density is not constant, will change due to altitude.
-      var airDensity;
-
-      // Air resistance is turned on.
-      if ( this.projectileMotionModel.airResistanceOn ) {
-
-        var altitude = this.projectileMotionModel.altitude;
-        var temperature;
-        var pressure;
-
-        // TODO: object? atmospheric parameters
-        if ( altitude < 11000 ) {
-          // troposphere
-          temperature = 15.04 - 0.00649 * altitude;
-          pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-        } else if ( altitude < 25000 ) {
-          // lower stratosphere
-          temperature = -56.46;
-          pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-        } else {
-          // upper stratosphere (altitude >= 25000 meters)
-          temperature = -131.21 + 0.00299 * altitude;
-          pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
-        }
-
-        airDensity = pressure / ( 0.2869 * ( temperature + 273.1 ) );
-      }
-
-      // Air resistance is turned off.
-      else {
-        airDensity = 0;
-      }
-
-      // cross sectional area of the projectile
-      var area = Math.PI * this.diameter * this.diameter / 4;
-
-      var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
-      var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
-
-      // TODO: in calculating new position, new acceleration is used, but current velocities are used
-      this.xAcceleration = -dragForceX / this.mass;
-      this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
-
       var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
       var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
-
-      var newXVelocity = this.xVelocity + this.xAcceleration * dt;
-      var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
       if ( newY <= 0 ) {
         this.reachedGround = true;
@@ -145,11 +96,28 @@ define( function( require ) {
         this.projectileMotionModel.scoreModel.checkforScored( newX );
       }
 
+      var newXVelocity = this.xVelocity + this.xAcceleration * dt;
+      var newYVelocity = this.yVelocity + this.yAcceleration * dt;
+      
+      var airDensity = this.projectileMotionModel.airDensity;    
+
+      // cross sectional area of the projectile
+      var area = Math.PI * this.diameter * this.diameter / 4;
+
+      var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
+      var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
+
+      // TODO: in calculating new position, new acceleration is used, but current velocities are used
+      var newXAcceleration = -dragForceX / this.mass;
+      var newYAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
+
       this.totalTime += dt;
       this.x = newX;
       this.y = newY;
       this.xVelocity = newXVelocity;
       this.yVelocity = newYVelocity;
+      this.xAcceleration = newXAcceleration;
+      this.yAcceleration = newYAcceleration;
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
