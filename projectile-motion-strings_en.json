@@ -8,6 +8,9 @@
   "intro.title": {
     "value": "Intro"
   },
+  "drag.title": {
+    "value": "Drag"
+  },
   "velocity": {
   	"value": "Velocity"
   },
