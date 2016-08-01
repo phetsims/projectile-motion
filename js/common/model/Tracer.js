@@ -27,9 +27,7 @@ define( function( require ) {
     PropertySet.call( this, {
       x: tracerX,
       y: tracerY,
-      time: null,
-      range: null,
-      height: null
+      point: null
     } );
 
     // @public {ObservableArray.<Trajectory>} array of projectiles in the model
@@ -48,28 +46,16 @@ define( function( require ) {
         var currentTrajectory = this.projectiles.get( i );
         var point = currentTrajectory.getNearestPoint( this.x, this.y );
         if ( point && point.distanceXY( this.x, this.y ) <= SENSING_RADIUS ) {
-          return point;
+          this.pointProperty.set( point );
+          return;
         }
       }
-      return null;
+      this.pointProperty.set( null );
     },
 
     // @public updates time, range, and height
     updateData: function() {
-      var point = this.checkForPoint();
-
-      // If no point has been found to be close enough to the tracer, set information to null.
-      if ( !point ) {
-        this.time = null;
-        this.range = null;
-        this.height = null;
-        return;
-      }
-
-      // Otherwise, update the information.
-      this.time = point.time;
-      this.range = point.x;
-      this.height = point.y;
+      this.checkForPoint();
     }
   } );
 
