@@ -18,6 +18,7 @@ define( function( require ) {
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
+  var ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
   // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -52,6 +53,11 @@ define( function( require ) {
       speed: 'normal',
       isPlaying: true
     } );
+
+    this.projectileObjectChoices = [
+      ProjectileObject.TANKSHELL,
+      ProjectileObject.PUMPKIN
+    ];
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;

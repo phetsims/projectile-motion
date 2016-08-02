@@ -23,8 +23,10 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var ComboBox = require( 'SUN/ComboBox' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
@@ -44,16 +46,59 @@ define( function( require ) {
   var TEXT_Y_MARGIN = 4;
 
   /**
-   * @param {ProjectileMotionModel} model
+   * @param {ProjectileMotionIntroModel} projectileMotionIntroModel
    * @constructor
    */
-  function IntroSecondPanel( projectileMotionLabModel, options ) {
+  function IntroSecondPanel( projectileMotionIntroModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+
+    var projectileObjects = projectileMotionIntroModel.projectileObjectChoices;
+
+    var firstItemNode = new VBox( {
+      align: 'left',
+      children: [
+        new Text( projectileObjects[ 0 ].name, LABEL_OPTIONS )
+      ]
+    } );
+
+    var comboBoxWidth = options.minWidth - 2 * options.xMargin;
+    var itemXMargin = 6;
+    var buttonXMargin = 10;
+    var comboBoxLineWidth = 1;
+    
+    // first item contains horizontal strut that sets width of combobox
+    var firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
+    firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
+
+    var comboBoxItems = [];
+    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, projectileObjects[ 0 ] );
+
+    var i;
+    for ( i = 1; i < projectileObjects.length; i++ ) {
+      var projectileObject = projectileObjects[ i ];
+      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
+    }
+
+    var comboBoxParent = new Node();
+
+    var projectileChoiceComboBox = new ComboBox(
+      comboBoxItems,
+      projectileMotionIntroModel.selectedProjectileObjectProperty,
+      comboBoxParent, {
+        itemXMargin: itemXMargin,
+        buttonXMargin: buttonXMargin,
+        buttonLineWidth: comboBoxLineWidth,
+        listLineWidth: comboBoxLineWidth,
+        itemHighlightLineWidth: comboBoxLineWidth
+      }
+    );
+
+    comboBoxParent.addChild( projectileChoiceComboBox );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -96,24 +141,24 @@ define( function( require ) {
 
     var massBox = createParameterControlBox(
       massString,
-      projectileMotionLabModel.projectileMassProperty,
+      projectileMotionIntroModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
-      projectileMotionLabModel.projectileDiameterProperty,
+      projectileMotionIntroModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
-      projectileMotionLabModel.projectileDragCoefficientProperty,
+      projectileMotionIntroModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionIntroModel.airResistanceOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {
@@ -127,7 +172,18 @@ define( function( require ) {
       ]
     } );
 
-    Panel.call( this, content, options );
+    var introSecondBox = new Node( {
+      children: [
+        content,
+        comboBoxParent
+      ]
+    } );
+
+    comboBoxParent.center = content.center;
+    // content.top = projectileChoiceComboBox.bottom;
+    content.top = comboBoxParent.top + projectileChoiceComboBox.height + options.controlsVerticalSpace;
+
+    Panel.call( this, introSecondBox, options );
   }
 
   projectileMotion.register( 'IntroSecondPanel', IntroSecondPanel );

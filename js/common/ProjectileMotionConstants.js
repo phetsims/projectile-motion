@@ -30,7 +30,7 @@ define( function( require ) {
     CANNON_ANGLE_RANGE: new Range( -90, 90 ),
     LAUNCH_VELOCITY_RANGE: new Range( 0, 100 ),
 
-    PROJECTILE_MASS_RANGE: new Range( 0.04, 100 ), // in original, highest is 1000
+    PROJECTILE_MASS_RANGE: new Range( 0.04, 200 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 2.5 ), // in original, smallest is 0.043
 
     // data point collection along the trajectory
