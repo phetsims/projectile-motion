@@ -34,6 +34,7 @@ define( function( require ) {
 
     this.name = name;
     this.mass = mass;
+    this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
 
   }
