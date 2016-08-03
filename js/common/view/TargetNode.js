@@ -14,15 +14,15 @@ define( function( require ) {
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var TARGET_LENGTH = ProjectileMotionConstants.TARGET_LENGTH;
+  var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_LENGTH;
   var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
-  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
+  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 
 
   /**
@@ -37,16 +37,15 @@ define( function( require ) {
     thisNode.targetXProperty = scoreModel.targetXProperty;
 
     // draw target view
-    thisNode.target = new Rectangle(
-      0,
-      0,
-      modelViewTransform.modelToViewDeltaX( TARGET_LENGTH ),
-      modelViewTransform.modelToViewDeltaX( TARGET_WIDTH ), {
-        fill: 'rgb( 255, 150, 150 )',
+    thisNode.target = new Circle(
+      modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2, {
+        fill: 'rgb( 255, 100, 100 )',
         pickable: true,
         cursor: 'pointer'
       }
     );
+
+    thisNode.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
     thisNode.target.center = modelViewTransform.modelToViewPosition( new Vector2( scoreModel.targetXProperty.value, 0 ) );
 
@@ -76,21 +75,21 @@ define( function( require ) {
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' m', LABEL_OPTIONS );
+    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' meters', LABEL_OPTIONS );
     thisNode.addChild( thisNode.distanceLabel );
 
     // score indicator, currently text
-    thisNode.scoreIndicator = new Text( 'Score!', { font: new PhetFont( 20 ) } );
+    thisNode.scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
+    thisNode.scoreIndicator.centerX = 450;
+    thisNode.scoreIndicator.centerY = 100;
     thisNode.addChild( thisNode.scoreIndicator );
 
     // listen to horizontal position changes
     scoreModel.targetXProperty.link( function( targetX ) {
       thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
-      thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' m';
+      thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' meters';
       thisNode.distanceLabel.centerX = thisNode.target.centerX;
-      thisNode.distanceLabel.centerY = thisNode.target.centerY + 20;
-      thisNode.scoreIndicator.centerX = thisNode.target.centerX + 70;
-      thisNode.scoreIndicator.centerY = thisNode.target.centerY;
+      thisNode.distanceLabel.top = thisNode.target.bottom + 2;
     } );
 
     // listen to model for whether score indicator should be shown
