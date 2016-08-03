@@ -48,7 +48,7 @@ define( function( require ) {
   // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
-  var X_MARGIN = 10;
+  var X_MARGIN = 40;
   var Y_MARGIN = 5;
 
   /**
@@ -172,10 +172,6 @@ define( function( require ) {
       spacing: 10,
       children: [ initialValuesPanel, secondPanel, toolboxPanel ]
     } );
-    panelsBox.right = this.layoutBounds.right - X_MARGIN;
-    panelsBox.top = this.layoutBounds.top + Y_MARGIN;
-
-    // TODO: Add container node at bottom of screen for fire, erase, normal/slow/play/pause/step, reset
 
     // step button
     var stepButton = new StepForwardButton( {
@@ -250,9 +246,12 @@ define( function( require ) {
         // TODO: reset customize panel ( to be invisible )
         // zoomProperty.reset();
       },
-      right: this.layoutBounds.maxX - X_MARGIN,
       bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
+
+    // properties
+    this.panelsBox = panelsBox;
+    this.resetAllButton = resetAllButton;
 
     // rendering order
     thisScreenView.setChildren( [
@@ -298,6 +297,10 @@ define( function( require ) {
       this.translate( offsetX, offsetY );
 
       this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
+
+      this.panelsBox.right = width / scale - offsetX - X_MARGIN;
+      this.panelsBox.top = Y_MARGIN - offsetY;
+      this.resetAllButton.right = this.panelsBox.right;
     }
 
   } );
