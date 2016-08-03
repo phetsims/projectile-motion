@@ -36,20 +36,28 @@ define( function( require ) {
 
     thisNode.targetXProperty = scoreModel.targetXProperty;
 
+    var viewRadius = modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+
+    var outerCircle = new Circle( viewRadius, { fill: 'red', stroke: 'black', lineWidth: 1 } );
+    var middleCircle = new Circle( viewRadius * 2 / 3, { fill: 'white', stroke: 'black', lineWidth: 0.5 } );
+    var innerCircle = new Circle( viewRadius / 3, { fill: 'red', stroke: 'black', lineWidth: 0.5 } );
+
     // draw target view
-    thisNode.target = new Circle(
-      modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2, {
-        fill: 'rgb( 255, 100, 100 )',
-        pickable: true,
-        cursor: 'pointer'
-      }
-    );
+    this.target = new Node( {
+      pickable: true,
+      cursor: 'pointer',
+      children: [
+        outerCircle,
+        middleCircle,
+        innerCircle
+      ]
+    } );
 
-    thisNode.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
+    this.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
-    thisNode.target.center = modelViewTransform.modelToViewPosition( new Vector2( scoreModel.targetXProperty.value, 0 ) );
+    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( scoreModel.targetXProperty.value, 0 ) );
 
-    thisNode.addChild( thisNode.target );
+    this.addChild( this.target );
 
     // @private variables used in drag handler
     var startPoint;
@@ -57,7 +65,7 @@ define( function( require ) {
     var mousePoint;
 
     // drag target to change horizontal position
-    thisNode.target.addInputListener( new SimpleDragHandler( {
+    this.target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = thisNode.target.globalToParentPoint( event.pointer.point );
         startX = thisNode.target.centerX; // view units
