@@ -18,13 +18,20 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Circle = require( 'SCENERY/nodes/Circle' );
 
   // constants
-  var CIRCLE_RADIUS = 10; // view units, will not be transformed
+  var CIRCLE_RADIUS = 15; // view units, will not be transformed
+  var OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
+  var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
+  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+  var SPACING = 4;
+  // var TRANSPARENT_BLUE = 'rgba( 0, 0, 255, 0.8 )';
+  // var TRANSPARENT_GRAY = 'rgba( 100, 100, 100, 0.8 ';
 
 
   /**
@@ -43,9 +50,14 @@ define( function( require ) {
     var rectangle = new Rectangle(
       0,
       0,
-      120,
-      60, {
-        fill: 'rgb( 100, 255, 170 )',
+      150,
+      95,
+      8,
+      8, {
+        fill: OPAQUE_BLUE,
+        stroke: 'gray',
+        lineWidth: 4,
+        opacity: 0.8,
         pickable: true,
         cursor: 'pointer'
       }
@@ -84,34 +96,74 @@ define( function( require ) {
       .lineTo( 0, CIRCLE_RADIUS );
 
     var crosshair = new Path( crosshairShape, { stroke: 'black' } );
+    var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
 
-    var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black' } );
+    // Create the base of the crosshair
+    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
 
-    // information readouts
-    var timeText = new Text( 'Time (s): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-    var rangeText = new Text( 'Range (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-    var heightText = new Text( 'Height (m): ', ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    // @private auxiliary function to create label and number readout for information
+    // @param {string} label
+    // @param {Property} readoutProperty
+    function informationBox( label, readoutProperty ) {
+      var labelText = new Text( label, LABEL_OPTIONS );
+      // number
+      var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+
+      var backgroundWidth = 50;
+      var backgroundNode = new Rectangle(
+        0,
+        0,
+        backgroundWidth,
+        numberNode.height + 2 * SPACING,
+        4,
+        4, {
+          fill: 'white',
+          stroke: 'black',
+          lineWidth: 0.5
+        }
+      );
+
+      // update text readout if information changes
+      readoutProperty.link( function( value ) {
+        numberNode.setText( value );
+        numberNode.center = backgroundNode.center;
+      } );
+      
+      var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
+
+      var spacing = rectangle.width - labelText.width - readoutParent.width - 4 * SPACING;
+
+      return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
+    }
+
+    var timeReadoutProperty = new Property( '-' );
+    var rangeReadoutProperty = new Property( '-' );
+    var heightReadoutProperty = new Property( '-' );
+
+    var timeBox = informationBox( 'Time (s)', timeReadoutProperty );
+    var rangeBox = informationBox( 'Range (m)', rangeReadoutProperty );
+    var heightBox = informationBox( 'Height (m)', heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
+      spacing: SPACING,
       children: [
-        timeText,
-        rangeText,
-        heightText
+        timeBox,
+        rangeBox,
+        heightBox
       ]
     } );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracerModel.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        timeText.text = 'Time (s): ' + point.time.toFixed( 2 );
-        rangeText.text = 'Range (m): ' + point.x.toFixed( 2 );
-        heightText.text = 'Height (m): ' + point.y.toFixed( 2 );
-      }
-      else {
-        timeText.text = 'Time (s): ';
-        rangeText.text = 'Range (m): ';
-        heightText.text = 'Height (m): ';
+        timeReadoutProperty.set( point.time.toFixed( 2 ) );
+        rangeReadoutProperty.set( point.x.toFixed( 2 ) );
+        heightReadoutProperty.set( point.y.toFixed( 2 ) );
+      } else {
+        timeReadoutProperty.set( '-' );
+        rangeReadoutProperty.set( '-' );
+        heightReadoutProperty.set( '-' );
       }
     } );
 
@@ -122,19 +174,22 @@ define( function( require ) {
 
       crosshair.center = thisNode.probeOrigin;
       circle.center = thisNode.probeOrigin;
+      crosshairMount.centerX = thisNode.probeOrigin.x;
+      crosshairMount.top = thisNode.probeOrigin.y + CIRCLE_RADIUS;
       rectangle.centerX = thisNode.probeOrigin.x;
-      rectangle.top = thisNode.probeOrigin.y + CIRCLE_RADIUS;
-      textBox.left = rectangle.left + 5;
-      textBox.top = rectangle.top + 5;
+      rectangle.top = crosshairMount.bottom;
+      textBox.left = rectangle.left + 2 * SPACING;
+      textBox.top = rectangle.top + 2 * SPACING;
 
       thisNode.tracerModel.updateData(); // TODO: investiage, this may be create a cycle
     } );
 
     // Rendering order
     options.children = [
+      crosshairMount,
       rectangle,
-      crosshair,
       circle,
+      crosshair,
       textBox
     ];
 
