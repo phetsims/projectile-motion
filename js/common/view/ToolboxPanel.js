@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   // var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LayoutBox = require( 'SCENERY/nodes/LayoutBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   // var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -25,11 +25,13 @@ define( function( require ) {
   /**
    * Toolbox constructor
    * @param {ProjectileMotionMeasuringTape} measuringTape
+   * @param {Tracer} tracer
    * @param {MeasuringTapeNode} measuringTapeNode
+   * @param {TracerNode} tracerNode
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function ToolboxPanel( measuringTape, measuringTapeNode, modelViewTransform, options ) {
+  function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, modelViewTransform, options ) {
     var self = this;
 
     // TODO: add tracer tool to toolbox, see example ElectricPotentialSensorNode
@@ -44,21 +46,86 @@ define( function( require ) {
       yMargin: 10,
       fill: 'white'
     }, options );
+  
+    var tracerIconNode = tracerNode.createIcon();
+    tracerIconNode.cursor = 'pointer';
+    tracerIconNode.scale( 0.4 );
 
     // Create the icon image for the measuring Tape
     var measuringTapeIconNode = MeasuringTape.createIcon();
     measuringTapeIconNode.cursor = 'pointer';
+    measuringTapeIconNode.scale( 0.8 );
 
     //TODO Unless you have additional icons, you don't need panelContent. Add measuringTapeIconNode directly to Panel.
     // The content panel with the two icons
-    var panelContent = new LayoutBox( {
-      children: [ measuringTapeIconNode ]
+    var panelContent = new HBox( {
+      spacing: 30,
+      children: [ tracerIconNode, measuringTapeIconNode ]
     } );
 
     // add the panelContent
     Panel.call( this, panelContent, options );
 
     var parentScreenView = null; // needed for coordinate transforms
+
+    // listens to the isUserControlled property of the tracer tool
+    // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
+    tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
+      // find the parent screen if not already found by moving up the scene graph
+      if ( !parentScreenView ) {
+        var testNode = self;
+        while ( testNode !== null ) {
+          if ( testNode instanceof ScreenView ) {
+            parentScreenView = testNode;
+            break;
+          }
+          testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
+        }
+        assert && assert( parentScreenView, 'unable to find parent screen view' );
+      }
+      // debugger;
+      var tracerNodeBounds = parentScreenView.globalToLocalBounds( tracerNode.getGlobalBounds() );
+      var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
+      if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
+        tracer.isActive = false;
+      }
+    } );
+
+    // When pressed, creates a model element and triggers startDrag() on the corresponding view
+    tracerIconNode.addInputListener( {
+      down: function( event ) {
+        // find the parent screen if not already found by moving up the scene graph
+        if ( !parentScreenView ) {
+          var testNode = self;
+          while ( testNode !== null ) {
+            if ( testNode instanceof ScreenView ) {
+              parentScreenView = testNode;
+              break;
+            }
+            testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
+          }
+          assert && assert( parentScreenView, 'unable to find parent screen view' );
+        }
+        // Ignore non-left-mouse-button
+        if ( event.pointer.isMouse && event.domEvent.button !== 0 ) {
+          return;
+        }
+
+        tracer.isActive = true;
+
+        var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.position ) );
+        var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition );
+        tracer.position = modelViewTransform.viewToModelPosition( initialViewPosition );
+
+        tracerNode.movableDragHandler.startDrag( event );
+      }
+    } );
+
+    // tracer visibility has the opposite visibility of the tracerIcon
+    tracer.isActiveProperty.link( function( active ) {
+      tracerIconNode.visible = !active;
+    } );
+
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
@@ -77,9 +144,6 @@ define( function( require ) {
       // debugger;
       var tapeBaseBounds = parentScreenView.globalToLocalBounds( measuringTapeNode.getGlobalBounds() );
       var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
-      // console.log( 'tape ', tapeBaseBounds );
-      // console.log( 'toolbox ', toolboxBounds );
-      // console.log( 'screen view ', parentScreenView.bounds ); 
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActive = false;
       }

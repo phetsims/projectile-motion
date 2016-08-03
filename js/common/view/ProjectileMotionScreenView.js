@@ -174,7 +174,7 @@ define( function( require ) {
     var secondPanel = options.secondPanel;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    var toolboxPanel = new ToolboxPanel( model.measuringTape, measuringTapeNode, modelViewTransform );
+    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracerModel, measuringTapeNode, tracerNode, modelViewTransform );
 
     // vbox contains the control panels
     var panelsBox = new VBox( {

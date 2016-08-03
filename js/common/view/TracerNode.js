@@ -15,7 +15,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -41,10 +41,13 @@ define( function( require ) {
    */
   function TracerNode( tracerModel, modelViewTransform, options ) {
     options = options || {};
-    var thisNode = this;
+    var self = this;
 
-    thisNode.tracerModel = tracerModel;
-    thisNode.probeOrigin = new Vector2( 0, 0 );
+    this.isUserControlledProperty = new Property( false );
+
+    this.spacing = SPACING;
+    this.tracerModel = tracerModel;
+    this.probeOrigin = new Vector2( 0, 0 );
 
     // draggable node
     var rectangle = new Rectangle(
@@ -62,31 +65,21 @@ define( function( require ) {
         cursor: 'pointer'
       }
     );
+    this.rectangle = rectangle;
 
-    // @private variables used for drag handler
-    var startPoint;
-    var startX;
-    var startY;
-    var mousePoint;
-
-    // drag tracer to change position
-    rectangle.addInputListener( new SimpleDragHandler( {
-      start: function( event ) {
-        startPoint = rectangle.globalToParentPoint( event.pointer.point );
-        startX = thisNode.probeOrigin.x; // view units
-        startY = thisNode.probeOrigin.y; // view units
+    // Should be added as a listener by our parent when the time is right
+    this.movableDragHandler = new MovableDragHandler( tracerModel.positionProperty, {
+      modelViewTransform: modelViewTransform,
+      startDrag: function( event ) {
+        self.isUserControlledProperty.set( true );
       },
-
-      drag: function( event ) {
-        mousePoint = rectangle.globalToParentPoint( event.pointer.point );
-
-        // change in x, view units
-        var change = mousePoint.minus( startPoint );
-
-        tracerModel.x = modelViewTransform.viewToModelX( startX + change.x );
-        tracerModel.y = modelViewTransform.viewToModelY( startY + change.y );
+      endDrag: function( event ) {
+        self.isUserControlledProperty.set( false );
       }
-    } ) );
+    } );
+
+    // When dragging, move the electric potential sensor
+    rectangle.addInputListener( this.movableDragHandler );
 
     // crosshair view
     var crosshairShape = new Shape()
@@ -101,48 +94,13 @@ define( function( require ) {
     // Create the base of the crosshair
     var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
 
-    // @private auxiliary function to create label and number readout for information
-    // @param {string} label
-    // @param {Property} readoutProperty
-    function informationBox( label, readoutProperty ) {
-      var labelText = new Text( label, LABEL_OPTIONS );
-      // number
-      var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-
-      var backgroundWidth = 50;
-      var backgroundNode = new Rectangle(
-        0,
-        0,
-        backgroundWidth,
-        numberNode.height + 2 * SPACING,
-        4,
-        4, {
-          fill: 'white',
-          stroke: 'black',
-          lineWidth: 0.5
-        }
-      );
-
-      // update text readout if information changes
-      readoutProperty.link( function( value ) {
-        numberNode.setText( value );
-        numberNode.center = backgroundNode.center;
-      } );
-      
-      var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
-
-      var spacing = rectangle.width - labelText.width - readoutParent.width - 4 * SPACING;
-
-      return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
-    }
-
     var timeReadoutProperty = new Property( '-' );
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = informationBox( 'Time (s)', timeReadoutProperty );
-    var rangeBox = informationBox( 'Range (m)', rangeReadoutProperty );
-    var heightBox = informationBox( 'Height (m)', heightReadoutProperty );
+    var timeBox = this.createInformationBox( 'Time (s)', timeReadoutProperty );
+    var rangeBox = this.createInformationBox( 'Range (m)', rangeReadoutProperty );
+    var heightBox = this.createInformationBox( 'Height (m)', heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -168,20 +126,19 @@ define( function( require ) {
     } );
 
     // Listen for location changes, align locations, and update model.
-    Property.multilink( [ tracerModel.xProperty, tracerModel.yProperty ], function() {
-      thisNode.probeOrigin.x = modelViewTransform.modelToViewX( tracerModel.x );
-      thisNode.probeOrigin.y = modelViewTransform.modelToViewY( tracerModel.y );
+    tracerModel.positionProperty.link( function( position ) {
+      self.probeOrigin = modelViewTransform.modelToViewPosition( position );
 
-      crosshair.center = thisNode.probeOrigin;
-      circle.center = thisNode.probeOrigin;
-      crosshairMount.centerX = thisNode.probeOrigin.x;
-      crosshairMount.top = thisNode.probeOrigin.y + CIRCLE_RADIUS;
-      rectangle.centerX = thisNode.probeOrigin.x;
+      crosshair.center = self.probeOrigin;
+      circle.center = self.probeOrigin;
+      crosshairMount.centerX = self.probeOrigin.x;
+      crosshairMount.top = self.probeOrigin.y + CIRCLE_RADIUS;
+      rectangle.centerX = self.probeOrigin.x;
       rectangle.top = crosshairMount.bottom;
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      thisNode.tracerModel.updateData(); // TODO: investiage, this may be create a cycle
+      self.tracerModel.updateData(); // TODO: investiage, this may be create a cycle
     } );
 
     // Rendering order
@@ -193,12 +150,120 @@ define( function( require ) {
       textBox
     ];
 
-    Node.call( thisNode, options );
+    Node.call( self, options );
 
+    // visibility
+    tracerModel.isActiveProperty.link( function( active ) {
+      self.visible = active;
+    });
   }
 
   projectileMotion.register( 'TracerNode', TracerNode );
 
-  return inherit( Node, TracerNode );
+  return inherit( Node, TracerNode, {
+    // @private auxiliary function to create label and number readout for information
+    // @param {string} label
+    // @param {Property} readoutProperty
+    createInformationBox: function( label, readoutProperty ) {
+      var labelText = new Text( label, LABEL_OPTIONS );
+      // number
+      var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+
+      var backgroundWidth = 50;
+      var backgroundNode = new Rectangle(
+        0,
+        0,
+        backgroundWidth,
+        numberNode.height + 2 * SPACING,
+        4,
+        4, {
+          fill: 'white',
+          stroke: 'black',
+          lineWidth: 0.5
+        }
+      );
+
+      // update text readout if information changes
+      readoutProperty.link( function( value ) {
+        numberNode.setText( value );
+        numberNode.center = backgroundNode.center;
+      } );
+
+      var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
+
+      var spacing = this.rectangle.width - labelText.width - readoutParent.width - 4 * this.spacing;
+
+      return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
+    },
+
+    // @public
+    createIcon: function( options ) {
+      options = options || {};
+      var rectangle = new Rectangle(
+        0,
+        0,
+        150,
+        95,
+        8,
+        8, {
+          fill: OPAQUE_BLUE,
+          stroke: 'gray',
+          lineWidth: 4,
+          opacity: 0.8,
+          pickable: true,
+          cursor: 'pointer'
+        }
+      );
+
+      // crosshair view
+      var crosshairShape = new Shape()
+        .moveTo( -CIRCLE_RADIUS, 0 )
+        .lineTo( CIRCLE_RADIUS, 0 )
+        .moveTo( 0, -CIRCLE_RADIUS )
+        .lineTo( 0, CIRCLE_RADIUS );
+
+      var crosshair = new Path( crosshairShape, { stroke: 'black' } );
+      var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
+
+      // Create the base of the crosshair
+      var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
+
+      var timeBox = this.createInformationBox( 'Time (s)', new Property( '-' ) );
+      var rangeBox = this.createInformationBox( 'Range (m)', new Property( '-' ) );
+      var heightBox = this.createInformationBox( 'Height (m)', new Property( '-' ) );
+
+      var textBox = new VBox( {
+        align: 'left',
+        spacing: SPACING,
+        children: [
+          timeBox,
+          rangeBox,
+          heightBox
+        ]
+      } );
+
+      var probeOrigin = new Vector2( 0, 0 );
+
+      crosshair.center = probeOrigin;
+      circle.center = probeOrigin;
+      crosshairMount.centerX = probeOrigin.x;
+      crosshairMount.top = probeOrigin.y + CIRCLE_RADIUS;
+      rectangle.centerX = probeOrigin.x;
+      rectangle.top = crosshairMount.bottom;
+      textBox.left = rectangle.left + 2 * SPACING;
+      textBox.top = rectangle.top + 2 * SPACING;
+
+      var tracerIcon = new Node( {
+        children: [
+          crosshairMount,
+          rectangle,
+          circle,
+          crosshair,
+          textBox
+        ]
+      } );
+      return tracerIcon;
+    }
+  } );
 } );
 

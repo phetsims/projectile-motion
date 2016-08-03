@@ -13,7 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
-
+  var Vector2 = require( 'DOT/Vector2' );
   // constants
   var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
 
@@ -25,9 +25,11 @@ define( function( require ) {
   function Tracer( projectiles, tracerX, tracerY ) {
     // @public
     PropertySet.call( this, {
-      x: tracerX,
-      y: tracerY,
-      point: null
+      position: new Vector2( tracerX, tracerY ),
+      point: null,
+
+      // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
+      isActive: false
     } );
 
     // @public {ObservableArray.<Trajectory>} array of projectiles in the model
@@ -44,8 +46,8 @@ define( function( require ) {
       var i;
       for ( i = this.projectiles.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.projectiles.get( i );
-        var point = currentTrajectory.getNearestPoint( this.x, this.y );
-        if ( point && point.distanceXY( this.x, this.y ) <= SENSING_RADIUS ) {
+        var point = currentTrajectory.getNearestPoint( this.position.x, this.position.y );
+        if ( point && point.distance( this.position ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
           return;
         }
