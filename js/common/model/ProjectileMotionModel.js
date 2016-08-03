@@ -89,6 +89,7 @@ define( function( require ) {
       this.projectiles.reset();
 
       this.scoreModel.reset();
+      this.measuringTape.reset();
       this.tracerModel.reset();
     },
 
