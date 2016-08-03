@@ -126,8 +126,13 @@ define( function( require ) {
       this.scoreModel.step( dt );
     },
 
-    // @private, adds a projectile to the observable array
+    // @protected, adds a projectile to the observable array
     addProjectile: function() {
+      this.projectiles.push( new Projectile( this ) );
+    },
+
+    // @private, check number of projectiles against max, update array and counts
+    checkNumberOfProjectiles: function() {
       var self = this;
       this.projectiles.forEach( function( projectile ) {
         projectile.projectilesInModelAfterSelfFiredCount++;
@@ -135,7 +140,6 @@ define( function( require ) {
           self.projectiles.remove( projectile );
         }
       } );
-      this.projectiles.push( new Projectile( this ) );
     },
 
     // @public, removes all projectiles
@@ -147,6 +151,7 @@ define( function( require ) {
     cannonFired: function() {
       this.isPlaying = true;
       this.addProjectile();
+      this.checkNumberOfProjectiles();
       this.scoreModel.turnOffScore();
     },
 
