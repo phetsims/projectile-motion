@@ -152,8 +152,8 @@ define( function( require ) {
     // @public fires cannon, called on by fire button
     cannonFired: function() {
       this.isPlaying = true;
-      this.addProjectile();
       this.checkNumberOfProjectiles();
+      this.addProjectile();
       this.scoreModel.turnOffScore();
     },
 
