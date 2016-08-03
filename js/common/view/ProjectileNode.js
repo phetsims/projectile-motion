@@ -16,6 +16,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
 
 
   // constants
@@ -35,12 +36,16 @@ define( function( require ) {
     options = options || {};
     Node.call( thisNode, options );
 
-    this.transformedBallSize = modelViewTransform.modelToViewDeltaX( projectile.diameter );
     this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
     this.tranformedArrowSize = this.tranformedUnit * ARROW_SIZE_DEFAULT;
 
     // add view for projectile
-    this.projectileView = new Circle( this.transformedBallSize / 2, { fill: 'black' } );
+    if ( projectile.projectileObject ) {
+      this.projectileView = ProjectileObjectViewFactory.createObjectView( projectile.projectileObject, modelViewTransform );
+    } else {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectile.diameter );
+      this.projectileView = ProjectileObjectViewFactory.createCustom( transformedBallSize, projectile.dragCoefficient );
+    }
     this.addChild( this.projectileView );
 
     // move projectile view if new data points are added

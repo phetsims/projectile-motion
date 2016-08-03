@@ -33,6 +33,10 @@ define( function( require ) {
   function Projectile( model ) {
     this.projectileMotionModel = model;
 
+    if ( model.selectedProjectileObjectProperty ) {
+      this.projectileObject = model.selectedProjectileObjectProperty.get(); // may be undefined
+    }
+
     // @public
     PropertySet.call( this, {
       totalTime: 0, // total time (s) since the projectile was fired
@@ -98,8 +102,8 @@ define( function( require ) {
 
       var newXVelocity = this.xVelocity + this.xAcceleration * dt;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
-      
-      var airDensity = this.projectileMotionModel.airDensity;    
+
+      var airDensity = this.projectileMotionModel.airDensity;
 
       // cross sectional area of the projectile
       var area = Math.PI * this.diameter * this.diameter / 4;

@@ -30,12 +30,13 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ProjectileObject( name, mass, diameter, dragCoefficient ) {
+  function ProjectileObject( name, mass, diameter, dragCoefficient, type ) {
 
     this.name = name;
     this.mass = mass;
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
+    this.type = type || null;
 
   }
 
@@ -47,9 +48,9 @@ define( function( require ) {
   // Specific projectile objects below ...
   //-------------------------------------------------------------------------------------------
 
-  ProjectileObject.TANKSHELL = new ProjectileObject( tankShellString, 150, 0.15, 0.05 );
+  ProjectileObject.TANKSHELL = new ProjectileObject( tankShellString, 150, 0.15, 0.05, 'tankShell' );
 
-  ProjectileObject.PUMPKIN = new ProjectileObject( pumpkinString, 5, 0.37, 0.6 );
+  ProjectileObject.PUMPKIN = new ProjectileObject( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
 
   return ProjectileObject;
 } );
