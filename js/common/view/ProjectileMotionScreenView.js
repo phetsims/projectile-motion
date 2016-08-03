@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  var BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
@@ -68,10 +69,12 @@ define( function( require ) {
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      new Vector2( 100, 450 ), // empirically determined based off original sim
+      ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
       25 // scale for meters to view units, empirically determined based off original sim
     );
     this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
+
+    this.backgroundNode = new BackgroundNode( this.layoutBounds );
 
     // zoomable node layer
     // var zoomableNode = new Node();
@@ -245,6 +248,7 @@ define( function( require ) {
 
     // rendering order
     thisScreenView.setChildren( [
+      this.backgroundNode,
       // zoomableNode,
       targetNode,
       trajectoriesLayer,
@@ -264,6 +268,30 @@ define( function( require ) {
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 
-  return inherit( ScreenView, ProjectileMotionScreenView );
+  return inherit( ScreenView, ProjectileMotionScreenView, {
+    layout: function( width, height ) {
+      this.resetTransform();
+
+      var scale = this.getLayoutScale( width, height );
+      this.setScaleMagnitude( scale );
+
+      var offsetX = 0;
+      var offsetY = 0;
+
+      // Move to bottom vertically
+      if ( scale === width / this.layoutBounds.width ) {
+        offsetY = (height / scale - this.layoutBounds.height);
+      }
+
+      // center horizontally
+      else if ( scale === height / this.layoutBounds.height ) {
+        offsetX = (width - this.layoutBounds.width * scale) / 2 / scale;
+      }
+      this.translate( offsetX, offsetY );
+
+      this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
+    }
+
+  } );
 } );
 

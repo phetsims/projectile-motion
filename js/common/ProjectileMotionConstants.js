@@ -13,6 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var RandomIconFactory = require( 'PROJECTILE_MOTION/common/RandomIconFactory' );
   var Range = require( 'DOT/Range' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var ProjectileMotionConstants = {
 
@@ -22,6 +23,9 @@ define( function( require ) {
     // truths about the world
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
+
+    // screen view layout
+    VIEW_ORIGIN: new Vector2( 100, 520 ),
 
     // cannonball defaults
     CANNONBALL_MASS: 100,
