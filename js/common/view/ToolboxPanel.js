@@ -56,7 +56,6 @@ define( function( require ) {
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );
 
-    //TODO Unless you have additional icons, you don't need panelContent. Add measuringTapeIconNode directly to Panel.
     // The content panel with the two icons
     var panelContent = new HBox( {
       spacing: 30,
@@ -89,6 +88,7 @@ define( function( require ) {
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
         tracer.isActive = false;
       }
+      // TODO: both measuring tape and tracer tool leave the cursor still as pointer even when released
     } );
 
     // When pressed, creates a model element and triggers startDrag() on the corresponding view
@@ -117,6 +117,7 @@ define( function( require ) {
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition );
         tracer.position = modelViewTransform.viewToModelPosition( initialViewPosition );
 
+        // TODO: where to have tracer jump to
         tracerNode.movableDragHandler.startDrag( event );
       }
     } );
@@ -179,18 +180,13 @@ define( function( require ) {
 
         var tapeBasePosition = parentScreenView.globalToLocalPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tapeBasePosition );
-        // console.log( 'initial view ', initialViewPosition );
         measuringTape.basePosition = modelViewTransform.viewToModelPosition( initialViewPosition );
         measuringTape.tipPosition = measuringTape.basePosition.plus( tipToBasePosition );
 
-        // console.log( modelViewTransform.modelToViewPosition( measuringTape.basePosition ), initialViewPosition );
-
-        // TODO: fix, drag isn't coordinated. Notes: y drag is correct, x drag is much bigger than correct
         measuringTapeNode.startBaseDrag( event );
       }
     } );
 
-    // TODO: fuzzMouse can move measuringTape and expand toolbox bounds
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
     measuringTape.isActiveProperty.link( function( active ) {
       measuringTapeIconNode.visible = !active;
