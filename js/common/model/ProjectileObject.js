@@ -17,8 +17,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
+  var cannonballString = 'Cannonball';
   var tankShellString = 'Tank Shell';
   var pumpkinString = 'Pumpkin';
 
@@ -48,7 +50,15 @@ define( function( require ) {
   // Specific projectile objects below ...
   //-------------------------------------------------------------------------------------------
 
-  ProjectileObject.TANKSHELL = new ProjectileObject( tankShellString, 150, 0.15, 0.05, 'tankShell' );
+  ProjectileObject.CANNONBALL = new ProjectileObject(
+    cannonballString,
+    ProjectileMotionConstants.CANNONBALL_MASS,
+    ProjectileMotionConstants.CANNONBALL_DIAMETER,
+    ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
+    'cannonball'
+  );
+
+  ProjectileObject.TANK_SHELL = new ProjectileObject( tankShellString, 150, 0.15, 0.05, 'tankShell' );
 
   ProjectileObject.PUMPKIN = new ProjectileObject( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
 

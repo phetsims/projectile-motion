@@ -23,6 +23,11 @@ define( function( require ) {
     ACCELERATION_DUE_TO_GRAVITY: 9.8,
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
+    // cannonball defaults
+    CANNONBALL_MASS: 100,
+    CANNONBALL_DIAMETER: 0.3,
+    CANNONBALL_DRAG_COEFFICIENT: 0.45,
+
     // productive constraints
     MAX_NUMBER_OF_PROJECTILES: 5,
 

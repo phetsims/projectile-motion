@@ -43,7 +43,7 @@ define( function( require ) {
       this.projectileView = ProjectileObjectViewFactory.createObjectView( projectile.projectileObject, modelViewTransform );
     } else {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectile.diameter );
-      this.projectileView = ProjectileObjectViewFactory.createCustom( transformedBallSize, projectile.dragCoefficient );
+      this.projectileView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, projectile.dragCoefficient );
     }
     this.addChild( this.projectileView );
 

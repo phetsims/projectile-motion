@@ -21,7 +21,7 @@ define( function( require ) {
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
-  var DOT_DIAMETER = 4;
+  var DOT_DIAMETER = 4; // view units
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'red';

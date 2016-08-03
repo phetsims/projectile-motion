@@ -36,9 +36,10 @@ define( function( require ) {
       launchVelocity: 18, // m/s
 
       // parameters for the next projectile fired
-      projectileMass: 5, // kg
-      projectileDiameter: 0.37, // meters
-      projectileDragCoefficient: 0.6, // of a pumpkin
+      // defaults are to the cannonball
+      projectileMass: ProjectileMotionConstants.CANNONBALL_MASS, // kg
+      projectileDiameter: ProjectileMotionConstants.CANNONBALL_DIAMETER, // meters
+      projectileDragCoefficient: ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT, // of a pumpkin
 
       // properties that change the environment and affect all projectiles immediately
       altitude: 0, // meters

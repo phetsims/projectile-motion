@@ -22,7 +22,8 @@ define( function( require ) {
     ProjectileMotionModel.call( self );
 
     this.projectileObjectChoices = [
-      ProjectileObject.TANKSHELL,
+      ProjectileObject.CANNONBALL,
+      ProjectileObject.TANK_SHELL,
       ProjectileObject.PUMPKIN
     ];
 

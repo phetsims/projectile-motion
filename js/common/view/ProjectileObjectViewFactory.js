@@ -23,8 +23,10 @@ define( function( require ) {
     createObjectView: function( projectileObjectModel, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
       switch ( projectileObjectModel.type ) {
-        case 'tankShell':
+        case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
+        case 'tankShell':
+          return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
           return new Circle( transformedBallSize / 2, { fill: 'orange', stroke: 'black' } );
         default:
