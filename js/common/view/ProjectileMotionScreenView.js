@@ -40,7 +40,7 @@ define( function( require ) {
 
   // strings
   var normalString = 'Normal';
-  var slowMotionString = 'Slow Motion';
+  var slowString = 'Slow';
 
   // constants
   // var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
@@ -48,7 +48,8 @@ define( function( require ) {
   // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
-  var MARGIN = 10;
+  var X_MARGIN = 10;
+  var Y_MARGIN = 5;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -156,20 +157,6 @@ define( function( require ) {
 
     // TODO: make fire button and eraser button the same size
 
-    // fire button
-    var fireButton = new FireButton( {
-      x: 40, // empirically determined for now
-      y: thisScreenView.layoutBounds.maxY - 40,
-      listener: function() { model.cannonFired(); }
-    } );
-
-    // eraser button
-    var eraserButton = new EraserButton( {
-      left: fireButton.right + 10,
-      y: thisScreenView.layoutBounds.maxY - 40,
-      listener: function() { model.eraseProjectiles(); }
-    } );
-
     // control panels
     var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
 
@@ -185,8 +172,8 @@ define( function( require ) {
       spacing: 10,
       children: [ initialValuesPanel, secondPanel, toolboxPanel ]
     } );
-    panelsBox.right = this.layoutBounds.right - MARGIN;
-    panelsBox.top = this.layoutBounds.top + MARGIN;
+    panelsBox.right = this.layoutBounds.right - X_MARGIN;
+    panelsBox.top = this.layoutBounds.top + Y_MARGIN;
 
     // TODO: Add container node at bottom of screen for fire, erase, normal/slow/play/pause/step, reset
 
@@ -197,16 +184,17 @@ define( function( require ) {
       radius: 12,
       stroke: 'black',
       fill: '#005566',
-      centerX: thisScreenView.layoutBounds.centerX + 100,
-      bottom: thisScreenView.layoutBounds.bottom - 20
+      centerX: thisScreenView.layoutBounds.centerX + 100
     } );
 
     // play/pause button
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
-      y: stepButton.centerY,
+      bottom: this.layoutBounds.bottom - Y_MARGIN,
       right: stepButton.left - 2 * INSET
     } );
+
+    stepButton.centerY = playPauseButton.centerY;
 
     // make the play/pause button bigger when it is paused
     var pauseSizeIncreaseFactor = 1.25;
@@ -215,24 +203,44 @@ define( function( require ) {
     } );
 
     // sim speed controls
-    var slowText = new Text( slowMotionString, {
-      font: new PhetFont( 14 ),
-      maxWidth: TEXT_MAX_WIDTH
-    } );
-    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
-
     var normalText = new Text( normalString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
     } );
     var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 10 } );
 
+    var slowText = new Text( slowString, {
+      font: new PhetFont( 14 ),
+      maxWidth: TEXT_MAX_WIDTH
+    } );
+    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
+
     var speedControl = new VBox( {
       align: 'left',
       spacing: 4,
       right: playPauseButton.left - 2 * INSET,
       bottom: playPauseButton.bottom,
-      children: [ slowMotionRadioBox, normalMotionRadioBox ]
+      children: [ normalMotionRadioBox, slowMotionRadioBox ]
+    } );
+
+    // fire button
+    var fireButton = new FireButton( {
+      right: this.transformedOrigin.x,
+      centerY: speedControl.centerY,
+      minWidth: 50,
+      iconWidth: 30,
+      minHeight: 40,
+      listener: function() { model.cannonFired(); }
+    } );
+
+    // eraser button
+    var eraserButton = new EraserButton( {
+      left: fireButton.right + 10,
+      centerY: speedControl.centerY,
+      minWidth: 50,
+      iconWidth: 30,
+      minHeight: 40,
+      listener: function() { model.eraseProjectiles(); }
     } );
 
     // reset all button, also a closure for zoomProperty and measuringTape
@@ -242,8 +250,8 @@ define( function( require ) {
         // TODO: reset customize panel ( to be invisible )
         // zoomProperty.reset();
       },
-      right: this.layoutBounds.maxX - 10,
-      bottom: this.layoutBounds.maxY - 10
+      right: this.layoutBounds.maxX - X_MARGIN,
+      bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
 
     // rendering order
