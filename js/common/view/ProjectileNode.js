@@ -12,17 +12,15 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
   var Node = require( 'SCENERY/nodes/Node' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
 
-
   // constants
-  var ARROW_FILL_COLOR = ProjectileMotionConstants.ARROW_FILL_COLOR;
-  var ARROW_HEAD_WIDTH = ProjectileMotionConstants.ARROW_HEAD_WIDTH;
-  var ARROW_TAIL_WIDTH = ProjectileMotionConstants.ARROW_TAIL_WIDTH;
-  var ARROW_SIZE_DEFAULT = ProjectileMotionConstants.ARROW_SIZE_DEFAULT;
+  var ARROW_FILL_COLOR = 'rgb( 100, 100, 100 )';
+  var ARROW_HEAD_WIDTH = 12;
+  var ARROW_TAIL_WIDTH = 6;
+  var ARROW_SIZE_DEFAULT = 1;
 
   /**
    * @param {Projectile} projectile - model for the projectile

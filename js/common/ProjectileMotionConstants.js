@@ -49,12 +49,6 @@ define( function( require ) {
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.05, 1.1 ),
     ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
 
-    // vectors
-    ARROW_SIZE_DEFAULT: 1, // 1 means velocity of 1 m/s is represented with 1 m length, can scale down
-    ARROW_FILL_COLOR: 'rgb( 100, 100, 100 )',
-    ARROW_HEAD_WIDTH: 12, // view units
-    ARROW_TAIL_WIDTH: 6, // view units
-
     // cannon
     CANNON_LENGTH: 3, // meters
     CANNON_WIDTH: 0.7, // meters
