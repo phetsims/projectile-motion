@@ -44,7 +44,6 @@ define( function( require ) {
 
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 16, // milliseconds
-    TIME_PER_SHOWN_POINT: 48, // milliseconds
 
     // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.05, 1.1 ),

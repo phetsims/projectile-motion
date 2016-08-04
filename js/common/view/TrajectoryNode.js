@@ -25,6 +25,8 @@ define( function( require ) {
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'red';
+  var TIME_PER_SHOWN_DOT = 48; // milliseconds
+
   // var OLD_PATH_COLOR = 'gray';
 
   /**
@@ -60,7 +62,7 @@ define( function( require ) {
       // TODO: pull out datapoint radius into constants
 
       // draw dot if it is time for data point should be shown
-      if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % ProjectileMotionConstants.TIME_PER_SHOWN_POINT === 0 ) {
+      if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
         var addedPointNode = new Circle( DOT_DIAMETER / 2, {
           x: modelViewTransform.modelToViewX( addedPoint.x ),
           y: modelViewTransform.modelToViewY( addedPoint.y ),
