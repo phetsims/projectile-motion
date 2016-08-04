@@ -55,6 +55,9 @@ define( function( require ) {
    * @constructor
    */
   function CustomizePanel( projectileMotionLabModel, options ) {
+
+    var customizePanel = this;
+
     // TODO: rename to CustomizeDialogBox?
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -155,8 +158,9 @@ define( function( require ) {
     var submitButton = new TextPushButton( submitString, submitButtonOptions );
 
     // submit button closes this panel and updates the properties
-    var submitButtonListener = this.closeSelf.bind( this );
-    submitButton.addListener( submitButtonListener );
+    submitButton.addListener( function() {
+      projectileMotionLabModel.customizeDialogVisibleProperty.set( false );
+    } );
 
     var rightSideContent = new VBox( {
       align: 'center',
@@ -180,6 +184,18 @@ define( function( require ) {
     } );
 
     Panel.call( this, content, options );
+
+    // When the dialog is shown, initialize the values in the panel.
+    // When the dialog is closed, set the values from the customize panel to the true model.
+    // Lazy link so that we do not set the values from the panel when the application launches.
+    projectileMotionLabModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
+      if ( customizeDialogVisible ) {
+        customizePanel.openSelf();
+      }
+      else {
+        customizePanel.closeSelf();
+      }
+    } );
   }
 
   projectileMotion.register( 'CustomizePanel', CustomizePanel );
@@ -256,7 +272,7 @@ define( function( require ) {
      * @param {string} label
      * @param {Property.<number>} property - the property that is used and set
      * @param {Range} range, range has keys min and max
-     * @returns {Object}: {HBox} node, {Text} valueText, {Rectangle} focusRectangle, {Property} property, 
+     * @returns {Object}: {HBox} node, {Text} valueText, {Rectangle} focusRectangle, {Property} property,
      *  {Range} range, {function} keypadListener
      * @private
      */

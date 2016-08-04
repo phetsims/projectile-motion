@@ -49,7 +49,7 @@ define( function( require ) {
    * @param {CustomizePanel} customizePanel - panel linked to customize button
    * @constructor
    */
-  function LabSecondPanel( projectileMotionLabModel, customizePanel, options ) {
+  function LabSecondPanel( projectileMotionLabModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -60,8 +60,9 @@ define( function( require ) {
     var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
 
-    var customizeButtonListener = customizePanel.openSelf.bind( customizePanel );
-    customizeButton.addListener( customizeButtonListener );
+    customizeButton.addListener( function() {
+      projectileMotionLabModel.customizeDialogVisibleProperty.set( true );
+    } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -88,7 +89,7 @@ define( function( require ) {
         4, // cornerYRadius
         TEXT_BACKGROUND_OPTIONS
       );
-      
+
       // text node updates if property value changes
       property.link( function( value ) {
         valueText.setText( value );

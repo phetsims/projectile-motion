@@ -18,11 +18,15 @@ define( function( require ) {
    */
   function ProjectileMotionLabModel() {
     var projectileMotionLabModel = this;
-    ProjectileMotionModel.call( projectileMotionLabModel );
+    ProjectileMotionModel.call( projectileMotionLabModel, {
+
+      // This Property indicates whether the CustomizePanel is visible
+      customizeDialogVisible: false
+    } );
   }
 
   projectileMotion.register( 'ProjectileMotionLabModel', ProjectileMotionLabModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionLabModel);
+  return inherit( ProjectileMotionModel, ProjectileMotionLabModel );
 } );
 

@@ -26,9 +26,10 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionModel() {
+  function ProjectileMotionModel( additionalProperties ) {
+
     // @public
-    PropertySet.call( this, {
+    PropertySet.call( this, _.extend( {
 
       // variables for the next trajectory, and thus the cannon
       cannonHeight: 0, // meters
@@ -52,7 +53,7 @@ define( function( require ) {
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
       isPlaying: true
-    } );
+    }, additionalProperties ) );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -170,11 +171,13 @@ define( function( require ) {
           // troposphere
           temperature = 15.04 - 0.00649 * altitude;
           pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-        } else if ( altitude < 25000 ) {
+        }
+        else if ( altitude < 25000 ) {
           // lower stratosphere
           temperature = -56.46;
           pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-        } else {
+        }
+        else {
           // upper stratosphere (altitude >= 25000 meters)
           temperature = -131.21 + 0.00299 * altitude;
           pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
