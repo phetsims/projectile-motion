@@ -110,8 +110,6 @@ define( function( require ) {
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
 
-    // TODO: draw road, grass, sky
-
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
 
@@ -154,8 +152,6 @@ define( function( require ) {
     // var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
     // zoomControl.top = 0;
     // zoomControl.left = 0;
-
-    // TODO: make fire button and eraser button the same size
 
     // control panels
     var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
@@ -243,7 +239,6 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
-        // TODO: reset customize panel ( to be invisible )
         // zoomProperty.reset();
       },
       bottom: this.layoutBounds.maxY - Y_MARGIN
