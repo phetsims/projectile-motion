@@ -74,9 +74,6 @@ define( function( require ) {
     // @public {Tracer} model for the tracer probe
     this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
 
-    // @private keeps track of a shadow projectile we want to keep on screen, for example if it the same path as current
-    this.shadowProjectile;
-
     // update air density in the model if air resistance turns on or off, or altitude changes
     Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], function() {
       self.updateAirDensity();
@@ -88,10 +85,8 @@ define( function( require ) {
           projectile.countRank = groundShift;
         }
       } );
-      console.log( 'groundShift', groundShift );
       self.projectiles.forEach( function( projectile ) {
         projectile.countRank -= groundShift;
-        console.log( projectile.countRank );
         if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
           self.projectiles.remove( projectile );
         }
@@ -181,11 +176,6 @@ define( function( require ) {
 
       // add projectile
       this.projectiles.push( newProjectile );
-
-      console.log( 'order' );
-      this.projectiles.forEach( function( projectile ) {
-        console.log( projectile.countRank );
-      } );
     },
 
     // @public, removes all projectiles

@@ -78,13 +78,10 @@ define( function( require ) {
 
     // change color and decrease in opacity which each success next projectile fired
     projectile.countRankProperty.link( function( count ) {
-      if ( count > 0 ) {
-        var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
-        // trajectoryPath.stroke = OLD_PATH_COLOR;
-        thisNode.children.forEach( function( child ) {
-          child.opacity = opacity;
-        } );
-      }
+      var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
+      thisNode.children.forEach( function( child ) {
+        child.opacity = opacity;
+      } );
     } );
   }
 
