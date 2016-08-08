@@ -47,6 +47,7 @@ define( function( require ) {
       dragCoefficient: model.projectileDragCoefficient,
       xVelocity: model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
       yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 ),
+      airDensity: model.airDensity,
 
       // counts how old this projectile is
       countRank: 0
@@ -54,6 +55,9 @@ define( function( require ) {
 
     // @public is the projectile on the ground?
     this.reachedGround = false;
+
+    // @public did the trajectory path change in mid air due to air density change
+    this.changedInMidAir = false;
 
     // TODO: velocity and acceleration vectors
 
@@ -162,6 +166,9 @@ define( function( require ) {
     // @public returns {boolean} whether this projectile's trajectory is equal to another {Projectile}
     equals: function( projectile ) {
       var i;
+      if ( this.changedInMidAir ) {
+        return false;
+      }
       for ( i = 0; i < this.keys.length; i++) {
         var key = this.keys[ i ];
         var selfPropertyValue = this[ key + 'Property' ].initialValue;

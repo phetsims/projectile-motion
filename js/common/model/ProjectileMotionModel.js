@@ -27,6 +27,7 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionModel( additionalProperties ) {
+    var self = this;
 
     // @public
     PropertySet.call( this, _.extend( {
@@ -77,7 +78,25 @@ define( function( require ) {
     this.shadowProjectile;
 
     // update air density in the model if air resistance turns on or off, or altitude changes
-    Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], this.updateAirDensity.bind( this ) );
+    Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], function() {
+      self.updateAirDensity();
+      var groundShift = 1;
+      self.projectiles.forEach( function( projectile ) {
+        if ( !projectile.reachedGround ) {
+          projectile.changedInMidAir = true;
+          groundShift--;
+          projectile.countRank = groundShift;
+        }
+      } );
+      console.log( 'groundShift', groundShift );
+      self.projectiles.forEach( function( projectile ) {
+        projectile.countRank -= groundShift;
+        console.log( projectile.countRank );
+        if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+          self.projectiles.remove( projectile );
+        }
+      } );
+    } );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -99,7 +118,6 @@ define( function( require ) {
 
     // @public determines animation based on play/pause and speed
     step: function( dt ) {
-
       // stepCount tracks how many frames mod 3, so slow motion is slowed down to once every three frames
       this.stepCount += 1;
       this.stepCount = this.stepCount % 3;
@@ -163,6 +181,11 @@ define( function( require ) {
 
       // add projectile
       this.projectiles.push( newProjectile );
+
+      console.log( 'order' );
+      this.projectiles.forEach( function( projectile ) {
+        console.log( projectile.countRank );
+      } );
     },
 
     // @public, removes all projectiles
