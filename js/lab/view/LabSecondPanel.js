@@ -41,8 +41,6 @@ define( function( require ) {
     fill: 'white',
     stroke: 'black'
   };
-  var TEXT_WIDTH = 60;
-  var TEXT_Y_MARGIN = 4;
 
   /**
    * @param {ProjectileMotionModel} model
