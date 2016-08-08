@@ -77,7 +77,7 @@ define( function( require ) {
     projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
 
     // change color and decrease in opacity which each success next projectile fired
-    projectile.projectilesInModelAfterSelfFiredCountProperty.link( function( count ) {
+    projectile.countRankProperty.link( function( count ) {
       if ( count > 0 ) {
         var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
         // trajectoryPath.stroke = OLD_PATH_COLOR;

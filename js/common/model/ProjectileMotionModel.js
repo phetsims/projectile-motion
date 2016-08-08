@@ -73,6 +73,9 @@ define( function( require ) {
     // @public {Tracer} model for the tracer probe
     this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
 
+    // @private keeps track of a shadow projectile we want to keep on screen, for example if it the same path as current
+    this.shadowProjectile;
+
     // update air density in the model if air resistance turns on or off, or altitude changes
     Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], this.updateAirDensity.bind( this ) );
   }
@@ -131,18 +134,35 @@ define( function( require ) {
 
     // @protected, adds a projectile to the observable array
     addProjectile: function() {
-      this.projectiles.push( new Projectile( this ) );
-    },
-
-    // @private, check number of projectiles against max, update array and counts
-    checkNumberOfProjectiles: function() {
       var self = this;
+      var newProjectile = new Projectile( this );
+      var removedCountRank = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
+
+      // increment counts
       this.projectiles.forEach( function( projectile ) {
-        projectile.projectilesInModelAfterSelfFiredCount++;
-        if ( projectile.projectilesInModelAfterSelfFiredCount >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+        projectile.countRank++;
+      } );
+
+      // search for equal projectile and add old equal to front, if found
+      this.projectiles.forEach( function( projectile ) {
+        if ( newProjectile.equals( projectile ) ) {
+          removedCountRank = projectile.countRank;
+          projectile.countRank = 0;
+        }
+      } );
+
+      // shift up projectiles after the moved to front projectile and delete if over the limit
+      this.projectiles.forEach( function( projectile ) {
+        if ( projectile.countRank > removedCountRank ) {
+          projectile.countRank--;
+        }
+        if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
           self.projectiles.remove( projectile );
         }
       } );
+
+      // add projectile
+      this.projectiles.push( newProjectile );
     },
 
     // @public, removes all projectiles
@@ -153,7 +173,6 @@ define( function( require ) {
     // @public fires cannon, called on by fire button
     cannonFired: function() {
       this.isPlaying = true;
-      this.checkNumberOfProjectiles();
       this.addProjectile();
       this.scoreModel.turnOffScore();
     },
@@ -171,13 +190,11 @@ define( function( require ) {
           // troposphere
           temperature = 15.04 - 0.00649 * altitude;
           pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-        }
-        else if ( altitude < 25000 ) {
+        } else if ( altitude < 25000 ) {
           // lower stratosphere
           temperature = -56.46;
           pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-        }
-        else {
+        } else {
           // upper stratosphere (altitude >= 25000 meters)
           temperature = -131.21 + 0.00299 * altitude;
           pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );

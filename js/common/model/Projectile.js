@@ -49,7 +49,7 @@ define( function( require ) {
       yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 ),
 
       // counts how old this projectile is
-      projectilesInModelAfterSelfFiredCount: 0
+      countRank: 0
     } );
 
     // @public is the projectile on the ground?
@@ -101,6 +101,7 @@ define( function( require ) {
       }
 
       var newXVelocity = this.xVelocity + this.xAcceleration * dt;
+      newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
       var airDensity = this.projectileMotionModel.airDensity;
@@ -156,6 +157,20 @@ define( function( require ) {
 
       }
       return nearestPoint;
+    },
+
+    // @public returns {boolean} whether this projectile's trajectory is equal to another {Projectile}
+    equals: function( projectile ) {
+      var i;
+      for ( i = 0; i < this.keys.length; i++) {
+        var key = this.keys[ i ];
+        var selfPropertyValue = this[ key + 'Property' ].initialValue;
+        var projectilePropertyValue = projectile[ key + 'Property' ].initialValue;
+        if ( selfPropertyValue !== projectilePropertyValue && key !== 'countRank') {
+          return false;
+        }
+      }
+      return true;
     }
 
   } );
