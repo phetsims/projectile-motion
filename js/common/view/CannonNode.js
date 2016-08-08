@@ -121,7 +121,7 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
-          angleProperty.value = unboundedNewAngle;
+          angleProperty.value = Math.round( unboundedNewAngle );
         }
         // the current, unchanged, angle is closer to max than min
         else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
@@ -151,7 +151,7 @@ define( function( require ) {
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
-          heightProperty.value = unboundedNewHeight;
+          heightProperty.value = Math.round( unboundedNewHeight );
         }
         // the current, unchanged, height is closer to max than min
         else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {
