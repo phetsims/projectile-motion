@@ -83,8 +83,8 @@ define( function( require ) {
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        TEXT_WIDTH, // width
-        valueText.height + 2 * TEXT_Y_MARGIN, // height
+        options.textDisplayWidth, // width
+        valueText.height + 2 * options.textDisplayYMargin, // height
         4, // cornerXRadius
         4, // cornerYRadius
         TEXT_BACKGROUND_OPTIONS

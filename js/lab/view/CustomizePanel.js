@@ -47,7 +47,7 @@ define( function( require ) {
     stroke: 'black'
   };
   var TEXT_WIDTH = 100;
-  var TEXT_MARGIN = 4;
+  var TEXT_X_MARGIN = 6;
   var Y_MARGIN = 40;
 
   /**
@@ -64,6 +64,7 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { visible: false }, options );
+    this.textDisplayYMargin = options.textDisplayYMargin;
 
     // @private {array.<{Object}>} parameters contains objects like currentParameter
     this.parameters;
@@ -293,13 +294,13 @@ define( function( require ) {
         0, // x
         0, // y
         TEXT_WIDTH, // width
-        valueText.height + 2 * TEXT_MARGIN, // height
+        valueText.height + 2 * this.textDisplayYMargin, // height
         4, // cornerXRadius
         4, // cornerYRadius
         TEXT_BACKGROUND_OPTIONS
       );
       valueText.centerY = backgroundNode.centerY;
-      valueText.left = backgroundNode.left + TEXT_MARGIN;
+      valueText.left = backgroundNode.left + TEXT_X_MARGIN;
 
       // visible if text field is focused on
       var focusRectangle = new Path( backgroundNode.getShape(), {

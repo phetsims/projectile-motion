@@ -42,8 +42,6 @@ define( function( require ) {
     fill: 'white',
     stroke: 'black'
   };
-  var TEXT_WIDTH = 60;
-  var TEXT_Y_MARGIN = 4;
 
   /**
    * @param {ProjectileMotionIntroModel} projectileMotionIntroModel
@@ -119,8 +117,8 @@ define( function( require ) {
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        TEXT_WIDTH, // width
-        valueText.height + 2 * TEXT_Y_MARGIN, // height
+        options.textDisplayWidth, // width
+        valueText.height + 2 * options.textDisplayYMargin, // height
         4, // cornerXRadius
         4, // cornerYRadius
         _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )

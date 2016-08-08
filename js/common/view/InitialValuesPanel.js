@@ -30,6 +30,7 @@ define( function( require ) {
   var heightString = 'Height (m)';
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var speedString = 'Speed (m/s)';
+  var degreeValueString = '{0}\xB0';
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
@@ -58,14 +59,16 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( label, property, range ) {
+    function createParameterControlBox( label, property, range, patternString ) {
       var parameterLabel = new Text( label, LABEL_OPTIONS );
 
       // TODO: degrees units for angle
       var setParameterSpinner = new NumberSpinner( property, range, _.extend( {
         arrowsPosition: 'leftRight',
         xMargin: 8,
-        yMargin: 5
+        yMargin: options.textDisplayYMargin,
+        backgroundMinWidth: options.textDisplayWidth,
+        valuePattern: patternString || '{0}'
       }, LABEL_OPTIONS ) );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
@@ -90,7 +93,8 @@ define( function( require ) {
     var angleBox = createParameterControlBox(
       angleString,
       cannonAngleProperty,
-      ProjectileMotionConstants.CANNON_ANGLE_RANGE
+      ProjectileMotionConstants.CANNON_ANGLE_RANGE,
+      degreeValueString
     );
 
     var velocityBox = createParameterControlBox(

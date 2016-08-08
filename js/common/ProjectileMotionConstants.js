@@ -70,7 +70,9 @@ define( function( require ) {
       yMargin: 10,
       fill: 'rgb( 255, 238, 218 )',
       lineWidth: 1,
-      stroke: 'black'
+      stroke: 'black',
+      textDisplayWidth: 50,
+      textDisplayYMargin: 4
     },
 
     //Light gray, used as the 'disabled' color
