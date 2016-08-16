@@ -20,9 +20,9 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
-  var cannonballString = 'Cannonball';
-  var tankShellString = 'Tank Shell';
-  var pumpkinString = 'Pumpkin';
+  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball');
+  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell');
+  var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin');
 
   /**
    * @param {string} name

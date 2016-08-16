@@ -26,17 +26,24 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var Path = require( 'SCENERY/nodes/Path' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
 
   // strings
-  var initialHeightString = 'Initial Height (m)';
-  var angleString = 'Angle (degrees)';
-  var initialSpeedString = 'Initial Speed (m/s)';
-  var massString = 'Mass (g)';
-  var diameterString = 'Diameter (m)';
-  var dragCoefficientString = 'Drag Coefficient';
-  var altitudeString = 'Altitude (m)';
-  var airResistanceString = 'Air Resistance';
-  var submitString = 'Submit';
+  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var initialHeightString = require( 'string!PROJECTILE_MOTION/initialHeight' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
+  var degreesString = require( 'string!PROJECTILE_MOTION/degrees' );
+  var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
+  var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+  var massString = require( 'string!PROJECTILE_MOTION/mass' );
+  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
+  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var submitString = require( 'string!PROJECTILE_MOTION/submit');
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -75,42 +82,49 @@ define( function( require ) {
     // create hboxes for the parameter label, readout, and edit button
     var heightBox = this.createParameterControlBox(
       initialHeightString,
+      mString,
       projectileMotionLabModel.cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
     var angleBox = this.createParameterControlBox(
       angleString,
+      degreesString,
       projectileMotionLabModel.cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE
     );
 
     var velocityBox = this.createParameterControlBox(
       initialSpeedString,
+      metersPerSecondString,
       projectileMotionLabModel.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 
     var massBox = this.createParameterControlBox(
       massString,
+      kgString,
       projectileMotionLabModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = this.createParameterControlBox(
       diameterString,
+      mString,
       projectileMotionLabModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = this.createParameterControlBox(
       dragCoefficientString,
+      null,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = this.createParameterControlBox(
       altitudeString,
+      mString,
       projectileMotionLabModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
@@ -192,8 +206,7 @@ define( function( require ) {
     projectileMotionLabModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
       if ( customizeDialogVisible ) {
         customizePanel.openSelf();
-      }
-      else {
+      } else {
         customizePanel.closeSelf();
       }
     } );
@@ -277,14 +290,16 @@ define( function( require ) {
      *  {Range} range, {function} keypadListener
      * @private
      */
-    createParameterControlBox: function( label, property, range ) {
+    createParameterControlBox: function( labelString, unitsString, property, range ) {
       var self = this;
 
       // this will be returned
       var parameterBox = new Object();
 
       // label
-      var parameterLabel = new Text( label, LABEL_OPTIONS );
+      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
+        LABEL_OPTIONS
+      );
 
       // value text
       var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );

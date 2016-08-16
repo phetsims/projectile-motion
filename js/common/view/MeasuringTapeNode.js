@@ -14,6 +14,8 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
+  // strings
+  var metersString = require( 'string!PROJECTILE_MOTION/meters');
 
   /**
    * @constructor
@@ -27,7 +29,7 @@ define( function( require ) {
 
     this.measuringTape = measuringTape;
 
-    MeasuringTape.call( this, new Property( { name: 'meters', multiplier: 1 } ), measuringTape.isActiveProperty, {
+    MeasuringTape.call( this, new Property( { name: metersString, multiplier: 1 } ), measuringTape.isActiveProperty, {
       modelViewTransform: modelViewTransform,
       basePositionProperty: measuringTape.basePositionProperty,
       tipPositionProperty: measuringTape.tipPositionProperty,

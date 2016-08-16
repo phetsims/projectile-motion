@@ -23,16 +23,20 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
-  var customizeString = 'Customize';
-  var massString = 'Mass (kg)';
-  var diameterString = 'Diameter (m)';
-  var dragCoefficientString = 'Drag Coefficient';
-  var altitudeString = 'Altitude (m)';
-  var airResistanceString = 'Air Resistance';
-  var velocityVectorsString = 'Velocity Vectors';
+  var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
+  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var massString = require( 'string!PROJECTILE_MOTION/mass' );
+  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
+  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var customizeString = require( 'string!PROJECTILE_MOTION/customize' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -70,9 +74,11 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( label, property, range ) {
+    function createParameterControlBox( labelString, unitsString, property, range ) {
       // label
-      var parameterLabel = new Text( label, LABEL_OPTIONS );
+      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
+        LABEL_OPTIONS
+      );
 
       // value text
       var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
@@ -103,24 +109,28 @@ define( function( require ) {
 
     var massBox = createParameterControlBox(
       massString,
+      kgString,
       projectileMotionLabModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
+      mString,
       projectileMotionLabModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
+      null,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = createParameterControlBox(
       altitudeString,
+      mString,
       projectileMotionLabModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );

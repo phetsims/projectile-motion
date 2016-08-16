@@ -18,6 +18,11 @@ define( function( require ) {
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+
+  // strings
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
 
   // constants
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_LENGTH;
@@ -83,7 +88,7 @@ define( function( require ) {
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    thisNode.distanceLabel = new Text( thisNode.targetXProperty.value.toFixed( 2 ) + ' meters', LABEL_OPTIONS );
+    thisNode.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, thisNode.targetXProperty.value.toFixed( 2 ), metersString ), LABEL_OPTIONS );
     thisNode.addChild( thisNode.distanceLabel );
 
     // score indicator, currently text
@@ -95,7 +100,7 @@ define( function( require ) {
     // listen to horizontal position changes
     scoreModel.targetXProperty.link( function( targetX ) {
       thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
-      thisNode.distanceLabel.text = thisNode.targetXProperty.value.toFixed( 2 ) + ' meters';
+      thisNode.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, thisNode.targetXProperty.value.toFixed( 2 ), metersString );
       thisNode.distanceLabel.centerX = thisNode.target.centerX;
       thisNode.distanceLabel.top = thisNode.target.bottom + 2;
     } );

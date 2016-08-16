@@ -25,13 +25,17 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
-  var massString = 'Mass (kg) ';
-  var diameterString = 'Diameter (m)';
-  var dragCoefficientString = 'Drag Coefficient';
-  var airResistanceString = 'Air Resistance';
+  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var massString = require( 'string!PROJECTILE_MOTION/mass' );
+  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -61,9 +65,11 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( label, property, range ) {
+    function createParameterControlBox( labelString, unitsString, property, range ) {
       // label
-      var parameterLabel = new Text( label, LABEL_OPTIONS );
+      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
+        LABEL_OPTIONS
+      );
 
       // value text
       var valueText = new Text( property.get().toFixed( 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
@@ -94,18 +100,21 @@ define( function( require ) {
 
     var massBox = createParameterControlBox(
       massString,
+      kgString,
       projectileMotionLabModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
+      mString,
       projectileMotionLabModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
+      null,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );

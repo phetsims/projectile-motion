@@ -65,7 +65,7 @@ define( function( require ) {
     RIGHTSIDE_PANEL_OPTIONS: {
       align: 'center',
       controlsVerticalSpace: 10,
-      minWidth: 240,
+      minWidth: 240, // TODO: calculate based off max string width
       xMargin: 10,
       yMargin: 10,
       fill: 'rgb( 255, 238, 218 )',

@@ -39,8 +39,8 @@ define( function( require ) {
   // var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
 
   // strings
-  var normalString = 'Normal';
-  var slowString = 'Slow';
+  var normalString = require( 'string!PROJECTILE_MOTION/normal' );
+  var slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
   // var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;

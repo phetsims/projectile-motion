@@ -19,6 +19,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   // var VStrut = require( 'SCENERY/nodes/VStrut' );
@@ -26,11 +27,15 @@ define( function( require ) {
 
 
   // strings
-  var initialValuesString = 'Initial Values';
-  var heightString = 'Height (m)';
+  var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
+  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
+  var heightString = require( 'string!PROJECTILE_MOTION/height' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  var speedString = 'Speed (m/s)';
-  var degreeValueString = '{0}\xB0';
+  var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
+  var speedString = require( 'string!PROJECTILE_MOTION/speed' );
+  var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
@@ -59,8 +64,10 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( label, property, range, patternString ) {
-      var parameterLabel = new Text( label, LABEL_OPTIONS );
+    function createParameterControlBox( labelString, unitsString, property, range, valueUnitsString ) {
+      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
+        LABEL_OPTIONS
+      );
 
       // TODO: degrees units for angle
       var setParameterSpinner = new NumberSpinner( property, range, _.extend( {
@@ -68,7 +75,7 @@ define( function( require ) {
         xMargin: 8,
         yMargin: options.textDisplayYMargin,
         backgroundMinWidth: options.textDisplayWidth,
-        valuePattern: patternString || '{0}'
+        valuePattern: valueUnitsString ? StringUtils.format( pattern0Value1UnitsString, '{0}', valueUnitsString ) : '{0}'
       }, LABEL_OPTIONS ) );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
@@ -86,19 +93,22 @@ define( function( require ) {
 
     var heightBox = createParameterControlBox(
       heightString,
+      mString,
       cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
     var angleBox = createParameterControlBox(
       angleString,
+      null,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE,
-      degreeValueString
+      degreesSymbolString
     );
 
     var velocityBox = createParameterControlBox(
       speedString,
+      metersPerSecondString,
       launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );

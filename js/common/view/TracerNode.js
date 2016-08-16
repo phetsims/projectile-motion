@@ -21,8 +21,17 @@ define( function( require ) {
   var HBox = require( 'SCENERY/nodes/HBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var Shape = require( 'KITE/Shape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+
+  // strings
+  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var timeString = require( 'string!PROJECTILE_MOTION/time' );
+  var sString = require( 'string!PROJECTILE_MOTION/s');
+  var rangeString = require( 'string!PROJECTILE_MOTION/range' );
+  var heightString = require( 'string!PROJECTILE_MOTION/height');
+  var mString = require( 'string!PROJECTILE_MOTION/m');
 
   // constants
   var CIRCLE_RADIUS = 15; // view units, will not be transformed
@@ -98,9 +107,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( 'Time (s)', timeReadoutProperty );
-    var rangeBox = this.createInformationBox( 'Range (m)', rangeReadoutProperty );
-    var heightBox = this.createInformationBox( 'Height (m)', heightReadoutProperty );
+    var timeBox = this.createInformationBox( timeString, sString, timeReadoutProperty );
+    var rangeBox = this.createInformationBox( rangeString, mString, rangeReadoutProperty );
+    var heightBox = this.createInformationBox( heightString, mString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -164,8 +173,10 @@ define( function( require ) {
     // @private auxiliary function to create label and number readout for information
     // @param {string} label
     // @param {Property} readoutProperty
-    createInformationBox: function( label, readoutProperty ) {
-      var labelText = new Text( label, LABEL_OPTIONS );
+    createInformationBox: function( labelString, unitsString, readoutProperty ) {
+      var labelText = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
+        LABEL_OPTIONS
+      );
       // number
       var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 
@@ -227,10 +238,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
-
-      var timeBox = this.createInformationBox( 'Time (s)', new Property( '-' ) );
-      var rangeBox = this.createInformationBox( 'Range (m)', new Property( '-' ) );
-      var heightBox = this.createInformationBox( 'Height (m)', new Property( '-' ) );
+      var timeBox = this.createInformationBox( timeString, sString, new Property( '-' ) );
+      var rangeBox = this.createInformationBox( rangeString, mString, new Property( '-' ) );
+      var heightBox = this.createInformationBox( heightString, mString, new Property( '-' ) );
 
       var textBox = new VBox( {
         align: 'left',

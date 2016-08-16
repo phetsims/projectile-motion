@@ -3,7 +3,7 @@
     "value": "Projectile Motion"
   },
   "lab.title": {
-  	"value": "Lab"
+    "value": "Lab"
   },
   "intro.title": {
     "value": "Intro"
@@ -11,10 +11,104 @@
   "drag.title": {
     "value": "Drag"
   },
+  "pattern0Label1Units": {
+    "value": "{0} ({1})"
+  },
+  "pattern0Value1Units": {
+    "value": "{0}{1}"
+  },
+  "pattern0Value1UnitsWithSpace": {
+    "value": "{0} {1}"
+  },
   "velocity": {
-  	"value": "Velocity"
+    "value": "Velocity"
   },
   "angle": {
-  	"value": "Angle"
+    "value": "Angle"
+  },
+  "height": {
+    "value": "Height"
+  },
+  "m": {
+    "value": "m"
+  },
+  "meters": {
+    "value": "meters"
+  },
+  "mass": {
+    "value": "Mass"
+  },
+  "kg": {
+    "value": "kg"
+  },
+  "diameter": {
+    "value": "Diameter"
+  },
+  "initialHeight": {
+    "value": "Initial Height"
+  },
+  "initialSpeed": {
+    "value": "Initial Speed"
+  },
+  "altitude": {
+    "value": "Altitude"
+  },
+  "degrees": {
+    "value": "degrees"
+  },
+  "speed": {
+    "value": "Speed"
+  },
+  "metersPerSecond": {
+    "value": "m/s"
+  },
+  "degreesSymbol": {
+    "value": "˚"
+  },
+  "dragCoefficient": {
+    "value": "Drag Coefficient"
+  },
+  "airResistance": {
+    "value": "Air Resistance"
+  },
+  "time": {
+    "value": "Time"
+  },
+  "s": {
+    "value": "s"
+  },
+  "range": {
+    "value": "Range"
+  },
+  "customize": {
+    "value": "Customize"
+  },
+  "submit": {
+    "value": "Submit"
+  },
+  "cannonball": {
+    "value": "Cannonball"
+  },
+  "tankShell": {
+    "value": "Tank Shell"
+  },
+  "pumpkin": {
+    "value": "Pumpkin"
+  },
+  "initialValues": {
+    "value": "Initial Values"
+  },
+  "normal": {
+    "value": "Normal"
+  },
+  "slow": {
+    "value": "Slow"
+  },
+  "score": {
+    "value": "Score!"
+  },
+  "velocityVectors": {
+    "value": "Velocity Vectors"
   }
 }
+
