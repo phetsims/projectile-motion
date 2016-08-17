@@ -20,7 +20,7 @@ define( function( require ) {
     var projectileMotionLabModel = this;
     ProjectileMotionModel.call( projectileMotionLabModel, {
 
-      // This Property indicates whether the CustomizePanel is visible
+      // This Property indicates whether the CustomizeDialog is visible
       customizeDialogVisible: false
     } );
   }

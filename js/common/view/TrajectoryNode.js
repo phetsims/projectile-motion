@@ -57,9 +57,7 @@ define( function( require ) {
       }
       viewLastPoint = viewAddedPoint.copy();
 
-      // TODO: change color of dot if air resistance was on. May have to add something in model.
       // Create and add the view representation for each datapoint.
-      // TODO: pull out datapoint radius into constants
 
       // draw dot if it is time for data point should be shown
       if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {

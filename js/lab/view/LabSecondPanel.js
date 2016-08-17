@@ -48,7 +48,7 @@ define( function( require ) {
 
   /**
    * @param {ProjectileMotionModel} model
-   * @param {CustomizePanel} customizePanel - panel linked to customize button
+   * @param {CustomizeDialog} customizeDialog - panel linked to customize button
    * @constructor
    */
   function LabSecondPanel( projectileMotionLabModel, options ) {

@@ -61,11 +61,10 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function CustomizePanel( projectileMotionLabModel, options ) {
+  function CustomizeDialog( projectileMotionLabModel, options ) {
 
-    var customizePanel = this;
+    var customizeDialog = this;
 
-    // TODO: rename to CustomizeDialogBox?
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
@@ -205,16 +204,16 @@ define( function( require ) {
     // Lazy link so that we do not set the values from the panel when the application launches.
     projectileMotionLabModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
       if ( customizeDialogVisible ) {
-        customizePanel.openSelf();
+        customizeDialog.openSelf();
       } else {
-        customizePanel.closeSelf();
+        customizeDialog.closeSelf();
       }
     } );
   }
 
-  projectileMotion.register( 'CustomizePanel', CustomizePanel );
+  projectileMotion.register( 'CustomizeDialog', CustomizeDialog );
 
-  return inherit( Panel, CustomizePanel, {
+  return inherit( Panel, CustomizeDialog, {
 
     // @public sets values and shows self
     openSelf: function() {

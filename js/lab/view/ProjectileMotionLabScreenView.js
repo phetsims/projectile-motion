@@ -13,7 +13,7 @@ define( function( require ) {
   // var ScreenView = require( 'JOIST/ScreenView' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
-  var CustomizePanel = require( 'PROJECTILE_MOTION/lab/view/CustomizePanel' );
+  var CustomizeDialog = require( 'PROJECTILE_MOTION/lab/view/CustomizeDialog' );
 
   /**
    * @param {ProjectileMotionLabModel} model
@@ -24,7 +24,7 @@ define( function( require ) {
     options = options || {};
 
     // customize panel that becomes visible when customize button in second panel is pressed
-    this.customizePanel = new CustomizePanel( model );
+    this.customizeDialog = new CustomizeDialog( model );
 
     // second panel includes customizable options
     options = _.extend( {
@@ -33,8 +33,8 @@ define( function( require ) {
 
     ProjectileMotionScreenView.call( this, model, options );
 
-    this.customizePanel.center = this.visibleBoundsProperty.get().center.minusXY( 50, 0 );
-    this.addChild( this.customizePanel );
+    this.customizeDialog.center = this.visibleBoundsProperty.get().center.minusXY( 50, 0 );
+    this.addChild( this.customizeDialog );
 
   }
 
