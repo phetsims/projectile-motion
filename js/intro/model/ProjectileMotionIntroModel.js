@@ -11,8 +11,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
-  var Property = require( 'AXON/Property' );
   var ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
+  var Property = require( 'AXON/Property' );
 
   /**
    * @constructor

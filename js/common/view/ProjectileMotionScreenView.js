@@ -16,27 +16,24 @@ define( function( require ) {
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
-  // var Matrix3 = require( 'DOT/Matrix3' );
+  var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
-  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
-  // var Property = require( 'AXON/Property' );
-  var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
+  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
+  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  // var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
 
   // strings
   var normalString = require( 'string!PROJECTILE_MOTION/normal' );

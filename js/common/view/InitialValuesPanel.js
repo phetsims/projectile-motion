@@ -13,7 +13,6 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  // var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var NumberSpinner = require( 'SUN/NumberSpinner' );
   var Panel = require( 'SUN/Panel' );
@@ -22,9 +21,6 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  // var VStrut = require( 'SCENERY/nodes/VStrut' );
-  // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-
 
   // strings
   var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );

@@ -11,8 +11,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
-  var Property = require( 'AXON/Property' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Property = require( 'AXON/Property' );
 
   // strings
   var metersString = require( 'string!PROJECTILE_MOTION/meters');

@@ -11,24 +11,19 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var Dimension2 = require( 'DOT/Dimension2' );
   var CheckBox = require( 'SUN/CheckBox' );
-  // var HBox = require( 'SCENERY/nodes/HBox' );
-  // var HSlider = require( 'SUN/HSlider' );
-  // var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var ComboBox = require( 'SUN/ComboBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var ComboBox = require( 'SUN/ComboBox' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  // var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );

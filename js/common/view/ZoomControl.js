@@ -5,20 +5,21 @@
  *
  * @author John Blanco
  * @author Sharfudeen Ashraf (for Ghent University)
+ * @author Andrea Lin
  */
 define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HSlider = require( 'SUN/HSlider' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   /**
    * @param {Property.<number>} zoomProperty - property that indicates how far zoomed in the simulation is, between

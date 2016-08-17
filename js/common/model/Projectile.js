@@ -16,12 +16,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
-  // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;

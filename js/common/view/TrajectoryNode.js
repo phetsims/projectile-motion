@@ -10,14 +10,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  // var Shape = require( 'KITE/Shape' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Vector2 = require( 'DOT/Vector2' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
@@ -26,8 +25,6 @@ define( function( require ) {
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'red';
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
-
-  // var OLD_PATH_COLOR = 'gray';
 
   /**
    * @param {Projectile} projectile - model for the projectile

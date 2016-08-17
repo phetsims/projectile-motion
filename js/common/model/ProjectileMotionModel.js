@@ -18,7 +18,6 @@ define( function( require ) {
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
-  // var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // in ms

@@ -8,12 +8,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  // var ScreenView = require( 'JOIST/ScreenView' );
-  var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
   var CustomizeDialog = require( 'PROJECTILE_MOTION/lab/view/CustomizeDialog' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
 
   /**
    * @param {ProjectileMotionLabModel} model

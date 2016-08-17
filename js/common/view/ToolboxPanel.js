@@ -10,16 +10,12 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
-  // var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
-  // var Vector2 = require( 'DOT/Vector2' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  // var Property = require( 'AXON/Property' );
   var ScreenView = require( 'JOIST/ScreenView' );
 
   /**

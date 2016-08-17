@@ -7,11 +7,10 @@
  */
 define( function( require ) {
   'use strict';
+  
   // modules
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  // var Node = require( 'SCENERY/nodes/Node' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
   var ProjectileObjectViewFactory = {
 

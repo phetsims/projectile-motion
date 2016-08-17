@@ -9,9 +9,9 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var IntroSecondPanel = require( 'PROJECTILE_MOTION/intro/view/IntroSecondPanel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  var IntroSecondPanel = require( 'PROJECTILE_MOTION/intro/view/IntroSecondPanel' );
 
   /**
    * @param {ProjectileMotionIntroModel} model

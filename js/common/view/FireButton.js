@@ -9,16 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  // var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
-  // images
-  // var fireImage = require( 'image!PROJECTILE_MOTION/PlumPuddingAtom-screen-icon.png' );
-
-  
   /**
    * @constructor
    */
