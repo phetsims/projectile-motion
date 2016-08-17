@@ -65,7 +65,6 @@ define( function( require ) {
         LABEL_OPTIONS
       );
 
-      // TODO: degrees units for angle
       var setParameterSpinner = new NumberSpinner( property, range, _.extend( {
         arrowsPosition: 'leftRight',
         xMargin: 8,
@@ -84,8 +83,6 @@ define( function( require ) {
 
       return parameterBox;
     }
-
-    // TODO: fix number spinner size and alignment
 
     var heightBox = createParameterControlBox(
       heightString,

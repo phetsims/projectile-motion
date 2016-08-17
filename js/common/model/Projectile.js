@@ -115,7 +115,6 @@ define( function( require ) {
       var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
       var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
 
-      // TODO: in calculating new position, new acceleration is used, but current velocities are used
       var newXAcceleration = -dragForceX / this.mass;
       var newYAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
 
