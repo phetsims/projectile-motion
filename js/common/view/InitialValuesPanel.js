@@ -18,6 +18,8 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Property = require( 'AXON/Property' );
+  var Range = require( 'DOT/Range' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -52,6 +54,20 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
+    // find max label width
+    var exampleParameterSpinner = new NumberSpinner( new Property( 0 ), new Range( 0, 1 ), _.extend( {
+      arrowsPosition: 'leftRight',
+      xMargin: 8,
+      yMargin: options.textDisplayYMargin,
+      backgroundMinWidth: options.textDisplayWidth
+    }, LABEL_OPTIONS ) );
+    var maxLabelWidth = options.minWidth - 2 * options.xMargin - exampleParameterSpinner.width - options.xSpacing;
+
+    var labelScale = Math.min( 1, maxLabelWidth / Math.max( new Text( StringUtils.format( pattern0Label1UnitsString, heightString, mString ), LABEL_OPTIONS ).width,
+      new Text( angleString, LABEL_OPTIONS ).width,
+      new Text( StringUtils.format( pattern0Label1UnitsString, speedString, metersPerSecondString ), LABEL_OPTIONS ).width
+    ) );
+
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
      * @param {string} label
@@ -70,16 +86,23 @@ define( function( require ) {
         xMargin: 8,
         yMargin: options.textDisplayYMargin,
         backgroundMinWidth: options.textDisplayWidth,
+        backgroundMaxWidth: options.textDisplayWidth,
         valuePattern: valueUnitsString ? StringUtils.format( pattern0Value1UnitsString, '{0}', valueUnitsString ) : '{0}'
       }, LABEL_OPTIONS ) );
+
+      // TODO: layout for internationalized angle pattern string? E.g. backgroundMaxWidth?
+
+      parameterLabel.scale( labelScale );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - setParameterSpinner.width;
 
       var parameterBox = new HBox( {
-        align: 'top',
+        align: 'center',
         spacing: xSpacing,
         children: [ parameterLabel, setParameterSpinner ]
       } );
+
+      parameterBox.parameterLabel = parameterLabel; // attach as property to resize
 
       return parameterBox;
     }
@@ -113,7 +136,6 @@ define( function( require ) {
     } );
     velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min );
     velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max );
-    // velocitySlider.scale( ( options.minWidth - 2 * options.xMargin - 20 ) / velocitySlider.width );
 
     // contents of the panel
     var content = new VBox( {
@@ -126,11 +148,15 @@ define( function( require ) {
       ]
     } );
 
+    var initialValuesTitle = new Text( initialValuesString, TITLE_OPTIONS );
+    initialValuesTitle.maxWidth = options.minWidth - 2 * options.xMargin;
+
+
     var initialValuesVBox = new VBox( {
       align: 'center',
       spacing: options.controlsVerticalSpace,
       children: [
-        new Text( initialValuesString, TITLE_OPTIONS ),
+        initialValuesTitle,
         content,
         velocitySlider
       ]
