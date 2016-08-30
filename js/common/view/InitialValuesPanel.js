@@ -132,7 +132,9 @@ define( function( require ) {
     var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
       majorTickLength: 5,
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
-      thumbSize: new Dimension2( 16, 28 )
+      thumbSize: new Dimension2( 16, 28 ),
+      thumbTouchAreaXDilation: 6,
+      thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
     } );
     velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min );
     velocitySlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max );

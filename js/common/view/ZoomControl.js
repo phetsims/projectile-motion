@@ -12,7 +12,7 @@ define( function( require ) {
 
   // modules
   var Dimension2 = require( 'DOT/Dimension2' );
-  var HSlider = require( 'SUN/HSlider' );
+  var HSlider = require( 'SUN/HSlider' ); // TODO: change thumb touch area x and ys, if needed, see https://github.com/phetsims/projectile-motion/issues/12
   var inherit = require( 'PHET_CORE/inherit' );
   var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
