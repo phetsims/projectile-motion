@@ -44,6 +44,12 @@ define( function( require ) {
     function handleDataPointAdded( addedPoint ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
+      // if projectile path is the same as original, just update the last point and end this function
+      if ( projectile.sameExistingProjectile ) {
+        viewLastPoint = viewAddedPoint.copy();
+        return;
+      }
+
       if ( viewLastPoint ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
         var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {

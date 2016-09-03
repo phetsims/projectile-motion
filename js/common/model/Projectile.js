@@ -52,11 +52,17 @@ define( function( require ) {
       countRank: 0
     } );
 
+    // TODO: do I need to define all of these properties here, just to explain what they are?
+    // Cause I could just add doc when I assign the property later
+
     // @public is the projectile on the ground?
     this.reachedGround = false;
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
+
+    // @public if it exists, a Projectile that already exists, that has the same path as this one
+    this.sameExistingProjectile = null;
 
     // TODO: velocity and acceleration vectors
 
@@ -69,9 +75,6 @@ define( function( require ) {
 
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
-
-    // add data point for initial conditions
-    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, model.airDensity ) );
   }
 
   projectileMotion.register( 'Projectile', Projectile );
@@ -80,6 +83,21 @@ define( function( require ) {
 
     // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
+
+      if ( this.changedInMidAir ) {
+        this.sameExistingProjectile = null;
+      }
+      
+      var airDensity = this.projectileMotionModel.airDensity;
+
+      // add data point for initial conditions
+      if ( this.dataPoints.length === 0 ) {
+        if ( this.sameExistingProjectile ) {
+          this.dataPoints.push( this.sameExistingProjectile.dataPoints.get( 0 ) );
+        } else {
+          this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
+        }
+      }
 
       // Stops moving projectile has reached ground
       if ( this.reachedGround ) {
@@ -107,8 +125,6 @@ define( function( require ) {
       newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
       var newYVelocity = this.yVelocity + this.yAcceleration * dt;
 
-      var airDensity = this.projectileMotionModel.airDensity;
-
       // cross sectional area of the projectile
       var area = Math.PI * this.diameter * this.diameter / 4;
 
@@ -128,7 +144,12 @@ define( function( require ) {
 
       this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-      this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
+      // if the trajectory is exactly the same as the original, use the same dataPoint object
+      if ( this.sameExistingProjectile ) {
+        this.dataPoints.push( this.sameExistingProjectile.dataPoints.get( this.dataPoints.length ) );
+      } else {
+        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
+      }
     },
 
     /**
@@ -167,11 +188,11 @@ define( function( require ) {
       if ( this.changedInMidAir ) {
         return false;
       }
-      for ( i = 0; i < this.keys.length; i++) {
+      for ( i = 0; i < this.keys.length; i++ ) {
         var key = this.keys[ i ];
         var selfPropertyValue = this[ key + 'Property' ].initialValue;
         var projectilePropertyValue = projectile[ key + 'Property' ].initialValue;
-        if ( selfPropertyValue !== projectilePropertyValue && key !== 'countRank') {
+        if ( selfPropertyValue !== projectilePropertyValue && key !== 'countRank' ) {
           return false;
         }
       }

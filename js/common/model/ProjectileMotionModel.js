@@ -158,6 +158,7 @@ define( function( require ) {
       // search for equal projectile and add old equal to front, if found
       this.projectiles.forEach( function( projectile ) {
         if ( newProjectile.equals( projectile ) ) {
+          newProjectile.sameExistingProjectile = projectile;
           removedCountRank = projectile.countRank;
           projectile.countRank = 0;
         }
