@@ -174,6 +174,9 @@ define( function( require ) {
       var labelText = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
         LABEL_OPTIONS
       );
+      // TODO: make sure scales are the same for all labels
+      labelText.scale( Math.min( 1, 70 / labelText.width ) );
+
       // number
       var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 
