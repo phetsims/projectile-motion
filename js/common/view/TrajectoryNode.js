@@ -33,9 +33,15 @@ define( function( require ) {
   function TrajectoryNode( projectile, modelViewTransform ) {
     var thisNode = this;
     Node.call( thisNode, { pickable: false } );
+    this.projectileModel = projectile;
+
+    // @public
+    this.sameExistingTrajectory = null;
 
     var pathsLayer = new Node();
     var dotsLayer = new Node;
+    this.pathsLayer = pathsLayer;
+    this.dotsLayer = dotsLayer;
     this.addChild( pathsLayer );
     this.addChild( dotsLayer );
 
@@ -44,32 +50,34 @@ define( function( require ) {
     function handleDataPointAdded( addedPoint ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
-      // if projectile path is the same as original, just update the last point and end this function
-      if ( projectile.sameExistingProjectile ) {
-        viewLastPoint = viewAddedPoint.copy();
-        return;
-      }
-
       if ( viewLastPoint ) {
-        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
-        var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
-          lineWidth: PATH_WIDTH,
-          stroke: pathStroke
-        } );
-        pathsLayer.addChild( lineSegment );
+        if ( projectile.sameExistingProjectile ) {
+          // TODO: the following line worsens performance
+          pathsLayer.addChild( thisNode.sameExistingTrajectory.pathsLayer.children[ pathsLayer.children.length ] );
+        } else {
+          var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
+          var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
+            lineWidth: PATH_WIDTH,
+            stroke: pathStroke
+          } );
+          pathsLayer.addChild( lineSegment );
+        }
       }
       viewLastPoint = viewAddedPoint.copy();
 
-      // Create and add the view representation for each datapoint.
-
       // draw dot if it is time for data point should be shown
       if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
-        var addedPointNode = new Circle( DOT_DIAMETER / 2, {
-          x: modelViewTransform.modelToViewX( addedPoint.x ),
-          y: modelViewTransform.modelToViewY( addedPoint.y ),
-          fill: 'black'
-        } );
-        dotsLayer.addChild( addedPointNode );
+        if ( projectile.sameExistingProjectile ) {
+          // TODO: the following line worsense performance
+          dotsLayer.addChild( thisNode.sameExistingTrajectory.dotsLayer.children[ dotsLayer.children.length ] );
+        } else {
+          var addedPointNode = new Circle( DOT_DIAMETER / 2, {
+            x: modelViewTransform.modelToViewX( addedPoint.x ),
+            y: modelViewTransform.modelToViewY( addedPoint.y ),
+            fill: 'black'
+          } );
+          dotsLayer.addChild( addedPointNode );
+        }
       }
     }
 
