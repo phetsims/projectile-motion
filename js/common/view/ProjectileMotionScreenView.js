@@ -86,6 +86,16 @@ define( function( require ) {
     function handleProjectileAdded( addedProjectile ) {
       // create the view representation for added trajectory 
       var trajectoryNode = new TrajectoryNode( addedProjectile, modelViewTransform );
+
+      // find a same trajectory node, if it exists
+      var i;
+      for ( i = 0; i < trajectoriesLayer.children.length; i++ ) {
+        if ( trajectoriesLayer.children[ i ].projectileModel === addedProjectile.sameExistingProjectile ) {
+          trajectoryNode.sameExistingTrajectory = trajectoriesLayer.children[ i ];
+          break;
+        }
+      }
+
       var projectileNode = new ProjectileNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
       trajectoriesLayer.addChild( trajectoryNode );
       trajectoriesLayer.addChild( projectileNode );
@@ -279,12 +289,12 @@ define( function( require ) {
 
       // Move to bottom vertically
       if ( scale === width / this.layoutBounds.width ) {
-        offsetY = (height / scale - this.layoutBounds.height);
+        offsetY = ( height / scale - this.layoutBounds.height );
       }
 
       // center horizontally
       else if ( scale === height / this.layoutBounds.height ) {
-        offsetX = (width - this.layoutBounds.width * scale) / 2 / scale;
+        offsetX = ( width - this.layoutBounds.width * scale ) / 2 / scale;
       }
       this.translate( offsetX, offsetY );
 
