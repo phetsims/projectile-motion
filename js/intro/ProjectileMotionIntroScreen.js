@@ -24,15 +24,16 @@ define( function( require ) {
    */
   function ProjectileMotionIntroScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon();
+    var options = {
+      name: introTitleString,
+      backgroundColor: 'white',
+      homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
+    };
 
-    Screen.call( this, introTitleString, icon,
-      function() {
-        return new ProjectileMotionIntroModel(); },
-      function( model ) {
-        return new ProjectileMotionIntroScreenView( model ); }, { backgroundColor: 'white' }
+    Screen.call( this,
+      function() { return new ProjectileMotionIntroModel(); },
+      function( model ) { return new ProjectileMotionIntroScreenView( model ); },
+      options
     );
   }
 

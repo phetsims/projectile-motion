@@ -24,14 +24,16 @@ define( function( require ) {
    */
   function ProjectileMotionLabScreen() {
 
-    //If this is a single-screen sim, then no icon is necessary.
-    //If there are multiple screens, then the icon must be provided here.
-    var icon = ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon();
+    var options = {
+      name: labTitleString,
+      backgroundColor: 'white',
+      homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
+    };
 
-    Screen.call( this, labTitleString, icon,
+    Screen.call( this,
       function() { return new ProjectileMotionLabModel(); },
       function( model ) { return new ProjectileMotionLabScreenView( model ); },
-      { backgroundColor: 'white' }
+      options
     );
   }
 
