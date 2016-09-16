@@ -16,8 +16,8 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionDragModel() {
-    var projectileMotionDragModel = this;
-    ProjectileMotionModel.call( projectileMotionDragModel );
+    var self = this;
+    ProjectileMotionModel.call( self );
   }
 
   projectileMotion.register( 'ProjectileMotionDragModel', ProjectileMotionDragModel );

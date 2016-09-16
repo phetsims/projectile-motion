@@ -55,7 +55,7 @@ define( function( require ) {
   function ProjectileMotionScreenView( model, options ) {
 
     options = options || {};
-    var thisScreenView = this;
+    var self = this;
     ScreenView.call( this, options );
 
     // TODO: Spacing for panels around edges of visible bounds
@@ -183,7 +183,7 @@ define( function( require ) {
       radius: 12,
       stroke: 'black',
       fill: '#005566',
-      centerX: thisScreenView.layoutBounds.centerX + 100
+      centerX: self.layoutBounds.centerX + 100
     } );
 
     // play/pause button
@@ -256,7 +256,7 @@ define( function( require ) {
     this.resetAllButton = resetAllButton;
 
     // rendering order
-    thisScreenView.setChildren( [
+    self.setChildren( [
       this.backgroundNode,
       // zoomableNode,
       targetNode,

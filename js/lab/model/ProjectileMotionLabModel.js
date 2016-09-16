@@ -16,8 +16,8 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionLabModel() {
-    var projectileMotionLabModel = this;
-    ProjectileMotionModel.call( projectileMotionLabModel, {
+    var self = this;
+    ProjectileMotionModel.call( self, {
 
       // This Property indicates whether the CustomizeDialog is visible
       customizeDialogVisible: false

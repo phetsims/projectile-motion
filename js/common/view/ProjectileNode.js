@@ -29,9 +29,9 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileNode( projectile, velocityVectorComponentsOnProperty, modelViewTransform, options ) {
-    var thisNode = this;
+    var self = this;
     options = options || {};
-    Node.call( thisNode, options );
+    Node.call( self, options );
 
     this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
     this.tranformedArrowSize = this.tranformedUnit * ARROW_SIZE_DEFAULT;
@@ -48,8 +48,8 @@ define( function( require ) {
     // move projectile view if new data points are added
     function handleDataPointAdded( addedPoint ) {
       // move projectile to new position
-      thisNode.projectileView.x = modelViewTransform.modelToViewX( addedPoint.x );
-      thisNode.projectileView.y = modelViewTransform.modelToViewY( addedPoint.y );
+      self.projectileView.x = modelViewTransform.modelToViewX( addedPoint.x );
+      self.projectileView.y = modelViewTransform.modelToViewY( addedPoint.y );
     }
 
     // view listens to whether a datapoint has been added in the model
@@ -63,7 +63,7 @@ define( function( require ) {
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    thisNode.addChild( velocityXArrow );
+    self.addChild( velocityXArrow );
 
     // add vector view for velocity y component
     var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -72,7 +72,7 @@ define( function( require ) {
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    thisNode.addChild( velocityYArrow );
+    self.addChild( velocityYArrow );
 
     // update velocity vector visibilities, positions, and magnitudes
     Property.multilink( [
@@ -89,13 +89,13 @@ define( function( require ) {
         var y = modelViewTransform.modelToViewY( projectile.y );
         velocityXArrow.setTailAndTip( x,
           y,
-          x + thisNode.tranformedArrowSize * xVelocity,
+          x + self.tranformedArrowSize * xVelocity,
           y
         );
         velocityYArrow.setTailAndTip( x,
           y,
           x,
-          y - thisNode.tranformedArrowSize * yVelocity
+          y - self.tranformedArrowSize * yVelocity
         );
       }
     } );

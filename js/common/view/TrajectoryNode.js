@@ -31,8 +31,8 @@ define( function( require ) {
    * @constructor
    */
   function TrajectoryNode( projectile, modelViewTransform ) {
-    var thisNode = this;
-    Node.call( thisNode, { pickable: false } );
+    var self = this;
+    Node.call( self, { pickable: false } );
     this.projectileModel = projectile;
 
     // @public
@@ -53,7 +53,7 @@ define( function( require ) {
       if ( viewLastPoint ) {
         if ( projectile.sameExistingProjectile ) {
           // TODO: the following line worsens performance
-          pathsLayer.addChild( thisNode.sameExistingTrajectory.pathsLayer.children[ pathsLayer.children.length ] );
+          pathsLayer.addChild( self.sameExistingTrajectory.pathsLayer.children[ pathsLayer.children.length ] );
         } else {
           var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
           var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
@@ -69,7 +69,7 @@ define( function( require ) {
       if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
         if ( projectile.sameExistingProjectile ) {
           // TODO: the following line worsense performance
-          dotsLayer.addChild( thisNode.sameExistingTrajectory.dotsLayer.children[ dotsLayer.children.length ] );
+          dotsLayer.addChild( self.sameExistingTrajectory.dotsLayer.children[ dotsLayer.children.length ] );
         } else {
           var addedPointNode = new Circle( DOT_DIAMETER / 2, {
             x: modelViewTransform.modelToViewX( addedPoint.x ),
@@ -88,7 +88,7 @@ define( function( require ) {
     // change color and decrease in opacity which each success next projectile fired
     projectile.countRankProperty.link( function( count ) {
       var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
-      thisNode.children.forEach( function( child ) {
+      self.children.forEach( function( child ) {
         child.opacity = opacity;
       } );
     } );

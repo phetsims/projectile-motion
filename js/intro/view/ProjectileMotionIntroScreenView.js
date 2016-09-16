@@ -19,7 +19,7 @@ define( function( require ) {
    */
   function ProjectileMotionIntroScreenView( model, options ) {
 
-    var thisScreenView = this;
+    var self = this;
 
     options = options || {};
 
@@ -28,7 +28,7 @@ define( function( require ) {
       secondPanel: new IntroSecondPanel( model )
     }, options );
 
-    ProjectileMotionScreenView.call( thisScreenView, model, options );
+    ProjectileMotionScreenView.call( self, model, options );
 
   }
 

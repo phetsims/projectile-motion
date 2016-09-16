@@ -36,10 +36,10 @@ define( function( require ) {
    * @constructor
    */
   function TargetNode( scoreModel, modelViewTransform ) {
-    var thisNode = this;
-    Node.call( thisNode );
+    var self = this;
+    Node.call( self );
 
-    thisNode.targetXProperty = scoreModel.targetXProperty;
+    self.targetXProperty = scoreModel.targetXProperty;
 
     var viewRadius = modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
 
@@ -72,45 +72,45 @@ define( function( require ) {
     // drag target to change horizontal position
     this.target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = thisNode.target.globalToParentPoint( event.pointer.point );
-        startX = thisNode.target.centerX; // view units
+        startPoint = self.target.globalToParentPoint( event.pointer.point );
+        startX = self.target.centerX; // view units
       },
 
       drag: function( event ) {
-        mousePoint = thisNode.target.globalToParentPoint( event.pointer.point );
+        mousePoint = self.target.globalToParentPoint( event.pointer.point );
 
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        thisNode.targetXProperty.value = modelViewTransform.viewToModelX( startX + xChange );
+        self.targetXProperty.value = modelViewTransform.viewToModelX( startX + xChange );
       }
 
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    thisNode.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, thisNode.targetXProperty.value.toFixed( 2 ), metersString ), LABEL_OPTIONS );
-    thisNode.addChild( thisNode.distanceLabel );
+    self.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, self.targetXProperty.value.toFixed( 2 ), metersString ), LABEL_OPTIONS );
+    self.addChild( self.distanceLabel );
 
     // score indicator, currently text
-    thisNode.scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
-    thisNode.scoreIndicator.centerX = 450;
-    thisNode.scoreIndicator.centerY = 100;
-    thisNode.addChild( thisNode.scoreIndicator );
+    self.scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
+    self.scoreIndicator.centerX = 450;
+    self.scoreIndicator.centerY = 100;
+    self.addChild( self.scoreIndicator );
 
     // listen to horizontal position changes
     scoreModel.targetXProperty.link( function( targetX ) {
-      thisNode.target.centerX = modelViewTransform.modelToViewX( targetX );
-      thisNode.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, thisNode.targetXProperty.value.toFixed( 2 ), metersString );
-      thisNode.distanceLabel.centerX = thisNode.target.centerX;
-      thisNode.distanceLabel.top = thisNode.target.bottom + 2;
+      self.target.centerX = modelViewTransform.modelToViewX( targetX );
+      self.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, self.targetXProperty.value.toFixed( 2 ), metersString );
+      self.distanceLabel.centerX = self.target.centerX;
+      self.distanceLabel.top = self.target.bottom + 2;
     } );
 
     // listen to model for whether score indicator should be shown
     scoreModel.scoreVisibleProperty.link( function( visible ) {
       if ( visible ) {
-        thisNode.scoreIndicator.visible = true;
+        self.scoreIndicator.visible = true;
       } else {
-        thisNode.scoreIndicator.visible = false;
+        self.scoreIndicator.visible = false;
       }
     } );
 

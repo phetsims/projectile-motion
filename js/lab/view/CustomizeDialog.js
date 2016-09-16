@@ -62,7 +62,7 @@ define( function( require ) {
    */
   function CustomizeDialog( projectileMotionLabModel, options ) {
 
-    var customizeDialog = this;
+    var self = this;
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -203,9 +203,9 @@ define( function( require ) {
     // Lazy link so that we do not set the values from the panel when the application launches.
     projectileMotionLabModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
       if ( customizeDialogVisible ) {
-        customizeDialog.openSelf();
+        self.openSelf();
       } else {
-        customizeDialog.closeSelf();
+        self.closeSelf();
       }
     } );
   }
