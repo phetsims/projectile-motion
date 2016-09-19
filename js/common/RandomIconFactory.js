@@ -42,8 +42,8 @@ define( function( require ) {
      */
     createIcon: function( caption ) {
       var self = this;
-      var maxX = Screen.HOME_SCREEN_ICON_SIZE.width;
-      var maxY = Screen.HOME_SCREEN_ICON_SIZE.height;
+      var maxX = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+      var maxY = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
 
       // add the background
       var background = new Rectangle( 0, 0, maxX, maxY, 0, 0, {
