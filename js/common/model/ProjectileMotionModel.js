@@ -14,7 +14,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
-  var Projectile = require( 'PROJECTILE_MOTION/common/model/Projectile' );
+  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
@@ -61,8 +61,11 @@ define( function( require ) {
     // @private, tracks remaining time mod 16 ms
     this.residualTime = 0;
 
-    // @public {ObservableArray.<Trajectory>} observable array of projectiles
-    this.projectiles = new ObservableArray();
+    // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
+    this.trajectories = new ObservableArray();
+
+    // @public {ObservableArray.<ProjectileObject>} observable array of projectile objects
+    this.projectileObjects = new ObservableArray();
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
@@ -71,23 +74,23 @@ define( function( require ) {
     this.measuringTape = new ProjectileMotionMeasuringTape();
 
     // @public {Tracer} model for the tracer probe
-    this.tracerModel = new Tracer( this.projectiles, 10, 10 ); // location arbitrary
+    this.tracerModel = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
 
-    // update air density in the model if air resistance turns on or off, or altitude changes
+    // update air density as needed, and change status of projectiles
     Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], function() {
       self.updateAirDensity();
       var groundShift = 1;
-      self.projectiles.forEach( function( projectile ) {
+      self.trajectories.forEach( function( projectile ) {
         if ( !projectile.reachedGround ) {
           projectile.changedInMidAir = true;
           groundShift--;
           projectile.countRank = groundShift;
         }
       } );
-      self.projectiles.forEach( function( projectile ) {
+      self.trajectories.forEach( function( projectile ) {
         projectile.countRank -= groundShift;
         if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
-          self.projectiles.remove( projectile );
+          self.trajectories.remove( projectile );
         }
       } );
     } );
@@ -103,7 +106,7 @@ define( function( require ) {
       PropertySet.prototype.reset.call( this );
 
       // remove all projectiles
-      this.projectiles.reset();
+      this.trajectories.reset();
 
       this.scoreModel.reset();
       this.measuringTape.reset();
@@ -140,23 +143,23 @@ define( function( require ) {
 
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
-      this.projectiles.forEach( function( projectile ) { projectile.step( dt ); } );
+      this.trajectories.forEach( function( projectile ) { projectile.step( dt ); } );
       this.scoreModel.step( dt );
     },
 
     // @protected, adds a projectile to the observable array
     addProjectile: function() {
       var self = this;
-      var newProjectile = new Projectile( this );
+      var newProjectile = new Trajectory( this );
       var removedCountRank = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
 
       // increment counts
-      this.projectiles.forEach( function( projectile ) {
+      this.trajectories.forEach( function( projectile ) {
         projectile.countRank++;
       } );
 
       // search for equal projectile and add old equal to front, if found
-      this.projectiles.forEach( function( projectile ) {
+      this.trajectories.forEach( function( projectile ) {
         if ( newProjectile.equals( projectile ) ) {
           newProjectile.sameExistingProjectile = projectile;
           removedCountRank = projectile.countRank;
@@ -165,22 +168,22 @@ define( function( require ) {
       } );
 
       // shift up projectiles after the moved to front projectile and delete if over the limit
-      this.projectiles.forEach( function( projectile ) {
+      this.trajectories.forEach( function( projectile ) {
         if ( projectile.countRank > removedCountRank ) {
           projectile.countRank--;
         }
         if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
-          self.projectiles.remove( projectile );
+          self.trajectories.remove( projectile );
         }
       } );
 
       // add projectile
-      this.projectiles.push( newProjectile );
+      this.trajectories.push( newProjectile );
     },
 
     // @public, removes all projectiles
     eraseProjectiles: function() {
-      this.projectiles.clear();
+      this.trajectories.clear();
     },
 
     // @public fires cannon, called on by fire button

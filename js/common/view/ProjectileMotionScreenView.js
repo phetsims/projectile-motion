@@ -101,18 +101,18 @@ define( function( require ) {
       trajectoriesLayer.addChild( projectileNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
-      model.projectiles.addItemRemovedListener( function removalListener( removedProjectile ) {
+      model.trajectories.addItemRemovedListener( function removalListener( removedProjectile ) {
         if ( removedProjectile === addedProjectile ) {
           trajectoriesLayer.removeChild( trajectoryNode );
           trajectoriesLayer.removeChild( projectileNode );
-          model.projectiles.removeItemRemovedListener( removalListener );
+          model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a trajectory has been added in the model
-    model.projectiles.forEach( handleProjectileAdded );
-    model.projectiles.addItemAddedListener( handleProjectileAdded );
+    model.trajectories.forEach( handleProjectileAdded );
+    model.trajectories.addItemAddedListener( handleProjectileAdded );
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );

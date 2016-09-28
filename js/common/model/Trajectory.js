@@ -29,7 +29,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function Projectile( model ) {
+  function Trajectory( model ) {
     this.projectileMotionModel = model;
 
     if ( model.selectedProjectileObjectProperty ) {
@@ -61,7 +61,7 @@ define( function( require ) {
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
 
-    // @public if it exists, a Projectile that already exists, that has the same path as this one
+    // @public if it exists, a Trajectory that already exists, that has the same path as this one
     this.sameExistingProjectile = null;
 
     // TODO: velocity and acceleration vectors
@@ -77,9 +77,9 @@ define( function( require ) {
     this.dataPoints = new ObservableArray();
   }
 
-  projectileMotion.register( 'Projectile', Projectile );
+  projectileMotion.register( 'Trajectory', Trajectory );
 
-  return inherit( PropertySet, Projectile, {
+  return inherit( PropertySet, Trajectory, {
 
     // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
@@ -182,7 +182,7 @@ define( function( require ) {
       return nearestPoint;
     },
 
-    // @public returns {boolean} whether this projectile's trajectory is equal to another {Projectile}
+    // @public returns {boolean} whether this projectile's trajectory is equal to another {Trajectory}
     equals: function( projectile ) {
       var i;
       if ( this.changedInMidAir ) {
