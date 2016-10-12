@@ -94,13 +94,17 @@ define( function( require ) {
     projectile.projectileObjects.forEach( handleProjectileObjectAdded );
     projectile.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
 
-    // TODO: update because countrank doesn't work anymore
-    // change color and decrease in opacity which each success next projectile fired
-    projectile.countRankProperty.link( function( count ) {
-      var opacity = ( MAX_COUNT - count ) / MAX_COUNT;
+    // change decrease in opacity with each successive projectiled fired
+    projectile.rankProperty.link( function( rank ) {
+      var opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
       self.children.forEach( function( child ) {
         child.opacity = opacity;
       } );
+      // TODO: move to front if it has been shifted to the most recent rank
+      // Following implementation slows down sim
+      // if ( rank == 0 ) {
+      //   self.moveToFront();
+      // }
     } );
   }
 

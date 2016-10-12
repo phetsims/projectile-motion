@@ -20,7 +20,7 @@ define( function( require ) {
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
 
   // constants
-  var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // in ms
+  var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
   /**
    * @constructor
@@ -94,7 +94,7 @@ define( function( require ) {
         }
       } );
 
-      // delete over the limit trajectories
+      // delete over-the-max trajectories
       self.limitTrajectories();
 
     } );
@@ -151,39 +151,50 @@ define( function( require ) {
       this.scoreModel.step( dt );
     },
 
-    // @protected, adds a projectile to the observable array
+    // @protected, adds a projectile to the model
     addProjectile: function() {
-      var self = this;
-
-      var equalsExistingTrajectory = false;
+      var equalsExistingTrajectory = false; // whether the added p
+      var removedRank = this.trajectories.length;
 
       // search for equal trajectory and add a new projectile object to it, if found
       this.trajectories.forEach( function( trajectory ) {
         if ( trajectory.equalsCurrent() ) {
           trajectory.addProjectileObject();
-          // shift trajectory to the the most recent slot
-          self.trajectories.remove( trajectory );
-          self.trajectories.push( trajectory );
-          equalsExistingTrajectory = true;
 
-          // removedCountRank = projectile.countRank;
-          // projectile.countRank = 0;
+          equalsExistingTrajectory = true;
+          // shift trajectory to the the most recent slot
+          removedRank = trajectory.rank;
+          trajectory.rank = 0;
+        }
+        else {
+          trajectory.rank ++;
         }
       } );
 
+      // if there has been an equal trajectory found, create a new trajectory
       if (!equalsExistingTrajectory ) {
         this.trajectories.push( new Trajectory( this ) );
-        this.limitTrajectories();
       }
+
+      // decrement ranks after the shifted trajectory
+      this.trajectories.forEach( function( trajectory) {
+        if ( trajectory.rank > removedRank ) {
+          trajectory.rank --;
+        }
+      } );
+
+      this.limitTrajectories();
+
     },
 
     // @private remove old trajectories that are over the limit from the observable array
     limitTrajectories: function() {
-      var numberOfTrajectories = this.trajectories.length;
-      var i;
-      for ( i = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES; i < numberOfTrajectories; i++ ) {
-        this.trajectories.remove( this.trajectories.get( numberOfTrajectories - i - 1 ) );
-      }
+      var trajectories = this.trajectories;
+      trajectories.forEach( function( trajectory ) {
+        if ( trajectory.rank > ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+          trajectories.remove( trajectory );
+        }
+      } );
     },
 
     // @public, removes all projectiles

@@ -1,7 +1,9 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * View for the projectile. Listens to projectile model and whether velocity vectors should be turned on.
+ * View for the projectile.
+ * Constructed based on many individually passed parameters
+ * Listens to a datapoint and whether velocity vectors should be turned on.
  *
  * @author Andrea Lin
  */
@@ -31,14 +33,15 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileNode(
-    dataPointProperty,
-    objectType,
-    diameter,
-    dragCoefficient,
-    modelViewTransform,
-    velocityVectorComponentsOnProperty,
-    options
+                          dataPointProperty,
+                          objectType,
+                          diameter,
+                          dragCoefficient,
+                          modelViewTransform,
+                          velocityVectorComponentsOnProperty,
+                          options
   ) {
+    
     var self = this;
     options = options || {};
     Node.call( self, options );

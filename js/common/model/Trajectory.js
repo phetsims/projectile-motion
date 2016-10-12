@@ -50,11 +50,8 @@ define( function( require ) {
       airDensity: model.airDensity,
 
       // counts how old this projectile is
-      countRank: 0
+      rank: 0
     } );
-
-    // TODO: do I need to define all of these properties here, just to explain what they are?
-    // Cause I could just add doc when I assign the property later
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -76,7 +73,7 @@ define( function( require ) {
 
     this.projectileObjects = new ObservableArray();
 
-    //add first projectile object
+    // add first projectile object
     this.addProjectileObject();
   }
 
@@ -179,8 +176,6 @@ define( function( require ) {
 
     // @public add a projectile object that starts at the first data point
     addProjectileObject: function() {
-      // TODO: unshift is not an observable array object. Change to push, and remember to do that in 
-      // model. This changes how limitTrajectories the indexing and removing works.
       this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
     },
 
@@ -196,8 +191,8 @@ define( function( require ) {
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
 
-      // update trajectories position
-      // TODO: make less redundant
+      // update trajectory's position
+      // TODO: make less repetitive
       var dataPoint = projectileObject.dataPointProperty.get();
       newTrajectory.totalTimeProperty.set( dataPoint.time ); // total time (s) since the projectile was fired
       newTrajectory.xProperty.set( dataPoint.x );
