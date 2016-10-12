@@ -19,6 +19,7 @@ define( function( require ) {
   var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Property = require( 'AXON/Property' );
   var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
 
@@ -33,7 +34,7 @@ define( function( require ) {
     this.projectileMotionModel = model;
 
     if ( model.selectedProjectileObjectProperty ) {
-      this.projectileObject = model.selectedProjectileObjectProperty.get(); // may be undefined
+      this.projectileObjectType = model.selectedProjectileObjectProperty.get(); // may be undefined
     }
 
     // @public
@@ -55,16 +56,10 @@ define( function( require ) {
     // TODO: do I need to define all of these properties here, just to explain what they are?
     // Cause I could just add doc when I assign the property later
 
-    // @public is the projectile on the ground?
-    this.reachedGround = false;
-
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
 
-    // @public if it exists, a Trajectory that already exists, that has the same path as this one
-    this.sameExistingProjectile = null;
-
-    // TODO: velocity and acceleration vectors
+    // TODO: velocity and acceleration vectors? Or keep as component variables
 
     // @public
     this.xVelocity = model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 );
@@ -75,6 +70,14 @@ define( function( require ) {
 
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
+
+    // add dataPoint for initial conditions
+    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, this.airDensity, this.xVelocity, this.yVelocity ) );
+
+    this.projectileObjects = new ObservableArray();
+
+    //add first projectile object
+    this.addProjectileObject();
   }
 
   projectileMotion.register( 'Trajectory', Trajectory );
@@ -83,73 +86,65 @@ define( function( require ) {
 
     // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
+      var self = this;
 
-      if ( this.changedInMidAir ) {
-        this.sameExistingProjectile = null;
-      }
-      
-      var airDensity = this.projectileMotionModel.airDensity;
-
-      // add data point for initial conditions
-      if ( this.dataPoints.length === 0 ) {
-        if ( this.sameExistingProjectile ) {
-          this.dataPoints.push( this.sameExistingProjectile.dataPoints.get( 0 ) );
-        } else {
-          this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
-        }
-      }
-
-      // Stops moving projectile has reached ground
+      // All datapoints have been collected because we have reached the ground
       if ( this.reachedGround ) {
         this.xVelocity = 0;
         this.yVelocity = 0;
-        return;
       }
 
-      var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
-      var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
+      // Haven't reached ground, so continue collecting datapoints
+      else {
 
-      if ( newY <= 0 ) {
-        this.reachedGround = true;
+        var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
+        var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
 
-        // calculated by hand, the time it takes for projectile to reach the ground, within the next dt
-        var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity ) / this.yAcceleration;
-        newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
-        newY = 0;
+        if ( newY <= 0 ) {
+          this.reachedGround = true; // store the information that it has reached the ground
+          // calculated by hand, the time it takes for projectile to reach the ground, within the next dt
+          var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity ) / this.yAcceleration;
+          newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
+          newY = 0;
 
-        // Check if projectile landed on target, and scoreModel will handle the rest.
-        this.projectileMotionModel.scoreModel.checkforScored( newX );
+          // Check if projectile landed on target, and scoreModel will handle the rest.
+          this.projectileMotionModel.scoreModel.checkforScored( newX );
+        }
+
+        var newXVelocity = this.xVelocity + this.xAcceleration * dt;
+        newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
+        var newYVelocity = this.yVelocity + this.yAcceleration * dt;
+
+        // cross sectional area of the projectile
+        var area = Math.PI * this.diameter * this.diameter / 4;
+        var airDensity = this.projectileMotionModel.airDensity;
+
+        var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
+        var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
+
+        var newXAcceleration = -dragForceX / this.mass;
+        var newYAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
+
+        this.totalTime += dt;
+        this.x = newX;
+        this.y = newY;
+        this.xVelocity = newXVelocity;
+        this.yVelocity = newYVelocity;
+        this.xAcceleration = newXAcceleration;
+        this.yAcceleration = newYAcceleration;
+
+        this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
+
+        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity ) );
       }
 
-      var newXVelocity = this.xVelocity + this.xAcceleration * dt;
-      newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
-      var newYVelocity = this.yVelocity + this.yAcceleration * dt;
-
-      // cross sectional area of the projectile
-      var area = Math.PI * this.diameter * this.diameter / 4;
-
-      var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
-      var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
-
-      var newXAcceleration = -dragForceX / this.mass;
-      var newYAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
-
-      this.totalTime += dt;
-      this.x = newX;
-      this.y = newY;
-      this.xVelocity = newXVelocity;
-      this.yVelocity = newYVelocity;
-      this.xAcceleration = newXAcceleration;
-      this.yAcceleration = newYAcceleration;
-
-      this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
-
-      // if the trajectory is exactly the same as the original, use the same dataPoint object
-      if ( this.sameExistingProjectile ) {
-        this.dataPoints.push( this.sameExistingProjectile.dataPoints.get( this.dataPoints.length ) );
-      } else {
-        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity ) );
-      }
+      // increment position of projectile objects, unless it has reached the end
+      this.projectileObjects.forEach( function( object ) {
+        if ( object.index < self.dataPoints.length - 1 ) {
+          object.index ++;
+          object.dataPointProperty.set( self.dataPoints.get( object.index ) );
+        }
+      } );
     },
 
     /**
@@ -182,21 +177,49 @@ define( function( require ) {
       return nearestPoint;
     },
 
-    // @public returns {boolean} whether this projectile's trajectory is equal to another {Trajectory}
-    equals: function( projectile ) {
+    // @public add a projectile object that starts at the first data point
+    addProjectileObject: function() {
+      // TODO: unshift is not an observable array object. Change to push, and remember to do that in 
+      // model. This changes how limitTrajectories the indexing and removing works.
+      this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
+    },
+
+    // @public returns a new {Trajectory} that is a copy of this one, but with one projectile object
+    newTrajectory: function( projectileObject ) {
+      var newTrajectory = new Trajectory( this.projectileMotionModel );
+      newTrajectory.projectileObjects.clear();
+      newTrajectory.projectileObjects.push( projectileObject );
+      newTrajectory.dataPoints.clear();
       var i;
-      if ( this.changedInMidAir ) {
-        return false;
+      for ( i = 0; i <= projectileObject.index; i++ ) {
+        newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
-      for ( i = 0; i < this.keys.length; i++ ) {
-        var key = this.keys[ i ];
-        var selfPropertyValue = this[ key + 'Property' ].initialValue;
-        var projectilePropertyValue = projectile[ key + 'Property' ].initialValue;
-        if ( selfPropertyValue !== projectilePropertyValue && key !== 'countRank' ) {
-          return false;
-        }
-      }
-      return true;
+      projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
+
+      // update trajectories position
+      // TODO: make less redundant
+      var dataPoint = projectileObject.dataPointProperty.get();
+      newTrajectory.totalTimeProperty.set( dataPoint.time ); // total time (s) since the projectile was fired
+      newTrajectory.xProperty.set( dataPoint.x );
+      newTrajectory.yProperty.set( dataPoint.y );
+      newTrajectory.xVelocityProperty.set( dataPoint.xVelocity );
+      newTrajectory.yVelocityProperty.set( dataPoint.yVelocity );
+      newTrajectory.airDensityProperty.set( dataPoint.airDensity );
+
+      return newTrajectory;
+    },
+
+    // @public whether {boolean} this trajectory is equal to the one set up in the model
+    equalsCurrent: function() {
+      var model = this.projectileMotionModel;
+      return !this.changedInMidAir
+        && this.yProperty.initialValue === model.cannonHeight
+        && this.massProperty.initialValue === model.projectileMass
+        && this.diameterProperty.initialValue === model.projectileDiameter
+        && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficient
+        && this.xVelocityProperty.initialValue === model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 )
+        && this.yVelocityProperty.initialValue === model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
+        && this.airDensityProperty.initialValue === model.airDensity;
     }
 
   } );

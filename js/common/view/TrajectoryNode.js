@@ -16,7 +16,9 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var Vector2 = require( 'DOT/Vector2' );
+
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
@@ -28,22 +30,23 @@ define( function( require ) {
 
   /**
    * @param {Projectile} projectile - model for the projectile
+   * @param {Property.<boolean>} velocityVectorComponentsOnProperty - passed through to ProjectileNode
    * @constructor
    */
-  function TrajectoryNode( projectile, modelViewTransform ) {
+  function TrajectoryNode( projectile, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var self = this;
-    Node.call( self, { pickable: false } );
+    Node.call( this, { pickable: false } );
     this.projectileModel = projectile;
-
-    // @public
-    this.sameExistingTrajectory = null;
+    this.modelViewTransform = modelViewTransform;
 
     var pathsLayer = new Node();
-    var dotsLayer = new Node;
+    var dotsLayer = new Node();
+    var projectileObjectsLayer = new Node();
     this.pathsLayer = pathsLayer;
     this.dotsLayer = dotsLayer;
     this.addChild( pathsLayer );
     this.addChild( dotsLayer );
+    this.addChild( projectileObjectsLayer );
 
     var viewLastPoint;
 
@@ -51,33 +54,23 @@ define( function( require ) {
       var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
       if ( viewLastPoint ) {
-        if ( projectile.sameExistingProjectile ) {
-          // TODO: the following line worsens performance
-          pathsLayer.addChild( self.sameExistingTrajectory.pathsLayer.children[ pathsLayer.children.length ] );
-        } else {
-          var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
-          var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
-            lineWidth: PATH_WIDTH,
-            stroke: pathStroke
-          } );
-          pathsLayer.addChild( lineSegment );
-        }
+        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
+        var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
+          lineWidth: PATH_WIDTH,
+          stroke: pathStroke
+        } );
+        pathsLayer.addChild( lineSegment );
       }
       viewLastPoint = viewAddedPoint.copy();
 
       // draw dot if it is time for data point should be shown
       if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
-        if ( projectile.sameExistingProjectile ) {
-          // TODO: the following line worsense performance
-          dotsLayer.addChild( self.sameExistingTrajectory.dotsLayer.children[ dotsLayer.children.length ] );
-        } else {
-          var addedPointNode = new Circle( DOT_DIAMETER / 2, {
-            x: modelViewTransform.modelToViewX( addedPoint.x ),
-            y: modelViewTransform.modelToViewY( addedPoint.y ),
-            fill: 'black'
-          } );
-          dotsLayer.addChild( addedPointNode );
-        }
+        var addedPointNode = new Circle( DOT_DIAMETER / 2, {
+          x: modelViewTransform.modelToViewX( addedPoint.x ),
+          y: modelViewTransform.modelToViewY( addedPoint.y ),
+          fill: 'black'
+        } );
+        dotsLayer.addChild( addedPointNode );
       }
     }
 
@@ -85,6 +78,23 @@ define( function( require ) {
     projectile.dataPoints.forEach( handleDataPointAdded );
     projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
 
+    function handleProjectileObjectAdded( projectileObject ) {
+      var newProjectileNode = new ProjectileNode(
+        projectileObject.dataPointProperty,
+        projectile.projectileObjectType,
+        projectile.diameter,
+        projectile.dragCoefficient,
+        self.modelViewTransform,
+        velocityVectorComponentsOnProperty
+      );
+      projectileObjectsLayer.addChild( newProjectileNode );
+    }
+
+    // view adds projectile object if another one is created in the model
+    projectile.projectileObjects.forEach( handleProjectileObjectAdded );
+    projectile.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
+
+    // TODO: update because countrank doesn't work anymore
     // change color and decrease in opacity which each success next projectile fired
     projectile.countRankProperty.link( function( count ) {
       var opacity = ( MAX_COUNT - count ) / MAX_COUNT;

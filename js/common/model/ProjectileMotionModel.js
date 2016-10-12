@@ -79,20 +79,24 @@ define( function( require ) {
     // update air density as needed, and change status of projectiles
     Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], function() {
       self.updateAirDensity();
-      var groundShift = 1;
-      self.trajectories.forEach( function( projectile ) {
-        if ( !projectile.reachedGround ) {
-          projectile.changedInMidAir = true;
-          groundShift--;
-          projectile.countRank = groundShift;
+      self.trajectories.forEach( function( trajectory ) {
+        trajectory.changedInMidAir = true;
+
+        var i;
+        for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
+          var projectileObject = trajectory.projectileObjects.get( i );
+          if ( projectileObject.dataPointProperty.get().y > 0 ) {
+            // object is still in the air so a new trajectory needs to be created
+            var newTrajectory = trajectory.newTrajectory( projectileObject );
+            newTrajectory.changedInMidAir = true;
+            self.trajectories.push( newTrajectory );
+          }
         }
       } );
-      self.trajectories.forEach( function( projectile ) {
-        projectile.countRank -= groundShift;
-        if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
-          self.trajectories.remove( projectile );
-        }
-      } );
+
+      // delete over the limit trajectories
+      self.limitTrajectories();
+
     } );
   }
 
@@ -150,35 +154,36 @@ define( function( require ) {
     // @protected, adds a projectile to the observable array
     addProjectile: function() {
       var self = this;
-      var newProjectile = new Trajectory( this );
-      var removedCountRank = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
 
-      // increment counts
-      this.trajectories.forEach( function( projectile ) {
-        projectile.countRank++;
-      } );
+      var equalsExistingTrajectory = false;
 
-      // search for equal projectile and add old equal to front, if found
-      this.trajectories.forEach( function( projectile ) {
-        if ( newProjectile.equals( projectile ) ) {
-          newProjectile.sameExistingProjectile = projectile;
-          removedCountRank = projectile.countRank;
-          projectile.countRank = 0;
+      // search for equal trajectory and add a new projectile object to it, if found
+      this.trajectories.forEach( function( trajectory ) {
+        if ( trajectory.equalsCurrent() ) {
+          trajectory.addProjectileObject();
+          // shift trajectory to the the most recent slot
+          self.trajectories.remove( trajectory );
+          self.trajectories.push( trajectory );
+          equalsExistingTrajectory = true;
+
+          // removedCountRank = projectile.countRank;
+          // projectile.countRank = 0;
         }
       } );
 
-      // shift up projectiles after the moved to front projectile and delete if over the limit
-      this.trajectories.forEach( function( projectile ) {
-        if ( projectile.countRank > removedCountRank ) {
-          projectile.countRank--;
-        }
-        if ( projectile.countRank >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
-          self.trajectories.remove( projectile );
-        }
-      } );
+      if (!equalsExistingTrajectory ) {
+        this.trajectories.push( new Trajectory( this ) );
+        this.limitTrajectories();
+      }
+    },
 
-      // add projectile
-      this.trajectories.push( newProjectile );
+    // @private remove old trajectories that are over the limit from the observable array
+    limitTrajectories: function() {
+      var numberOfTrajectories = this.trajectories.length;
+      var i;
+      for ( i = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES; i < numberOfTrajectories; i++ ) {
+        this.trajectories.remove( this.trajectories.get( numberOfTrajectories - i - 1 ) );
+      }
     },
 
     // @public, removes all projectiles

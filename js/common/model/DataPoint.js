@@ -18,12 +18,14 @@ define( function( require ) {
    * {number} y - y position of the data point, also called height
    * @constructor
    */
-  function DataPoint( time, x, y, airDensity ) {
+  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity ) {
     Vector2.call( this, x, y );
 
     // @public
     this.time = time;
     this.airDensity = airDensity;
+    this.xVelocity = xVelocity;
+    this.yVelocity = yVelocity;
   }
 
   projectileMotion.register( 'DataPoint', DataPoint );

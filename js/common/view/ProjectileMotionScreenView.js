@@ -23,7 +23,6 @@ define( function( require ) {
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
@@ -83,36 +82,24 @@ define( function( require ) {
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();
 
-    function handleProjectileAdded( addedProjectile ) {
+    function handleTrajectoryAdded( addedTrajectory ) {
       // create the view representation for added trajectory 
-      var trajectoryNode = new TrajectoryNode( addedProjectile, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
 
-      // find a same trajectory node, if it exists
-      var i;
-      for ( i = 0; i < trajectoriesLayer.children.length; i++ ) {
-        if ( trajectoriesLayer.children[ i ].projectileModel === addedProjectile.sameExistingProjectile ) {
-          trajectoryNode.sameExistingTrajectory = trajectoriesLayer.children[ i ];
-          break;
-        }
-      }
-
-      var projectileNode = new ProjectileNode( addedProjectile, model.velocityVectorComponentsOnProperty, modelViewTransform );
       trajectoriesLayer.addChild( trajectoryNode );
-      trajectoriesLayer.addChild( projectileNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedProjectile ) {
-        if ( removedProjectile === addedProjectile ) {
+        if ( removedProjectile === addedTrajectory ) {
           trajectoriesLayer.removeChild( trajectoryNode );
-          trajectoriesLayer.removeChild( projectileNode );
           model.trajectories.removeItemRemovedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a trajectory has been added in the model
-    model.trajectories.forEach( handleProjectileAdded );
-    model.trajectories.addItemAddedListener( handleProjectileAdded );
+    model.trajectories.forEach( handleTrajectoryAdded );
+    model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
