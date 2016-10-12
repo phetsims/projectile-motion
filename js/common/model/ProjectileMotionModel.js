@@ -64,9 +64,6 @@ define( function( require ) {
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
     this.trajectories = new ObservableArray();
 
-    // @public {ObservableArray.<ProjectileObject>} observable array of projectile objects
-    this.projectileObjects = new ObservableArray();
-
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
@@ -147,7 +144,7 @@ define( function( require ) {
 
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
-      this.trajectories.forEach( function( projectile ) { projectile.step( dt ); } );
+      this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
       this.scoreModel.step( dt );
     },
 

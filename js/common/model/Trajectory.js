@@ -33,8 +33,8 @@ define( function( require ) {
   function Trajectory( model ) {
     this.projectileMotionModel = model;
 
-    if ( model.selectedProjectileObjectProperty ) {
-      this.projectileObjectType = model.selectedProjectileObjectProperty.get(); // may be undefined
+    if ( model.selectedProjectileObjectTypeProperty ) {
+      this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
     }
 
     // @public

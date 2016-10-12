@@ -11,7 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
-  var ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
+  var ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
   var Property = require( 'AXON/Property' );
 
   /**
@@ -21,18 +21,18 @@ define( function( require ) {
     var self = this;
     ProjectileMotionModel.call( self );
 
-    this.projectileObjectChoices = [
-      ProjectileObject.CANNONBALL,
-      ProjectileObject.TANK_SHELL,
-      ProjectileObject.PUMPKIN
+    this.objectTypes = [
+      ProjectileObjectType.CANNONBALL,
+      ProjectileObjectType.TANK_SHELL,
+      ProjectileObjectType.PUMPKIN
     ];
 
-    this.selectedProjectileObjectProperty = new Property( this.projectileObjectChoices[ 0 ] );
+    this.selectedProjectileObjectTypeProperty = new Property( this.objectTypes[ 0 ] );
 
-    this.selectedProjectileObjectProperty.link( function( selectedProjectileObject ) {
-      self.projectileMassProperty.set( selectedProjectileObject.mass );
-      self.projectileDiameterProperty.set( selectedProjectileObject.diameter );
-      self.projectileDragCoefficientProperty.set( selectedProjectileObject.dragCoefficient );
+    this.selectedProjectileObjectTypeProperty.link( function( selectedProjectileObjectType ) {
+      self.projectileMassProperty.set( selectedProjectileObjectType.mass );
+      self.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
+      self.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
     } );
   }
 

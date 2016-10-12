@@ -54,12 +54,12 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    var projectileObjects = projectileMotionIntroModel.projectileObjectChoices;
+    var objectTypes = projectileMotionIntroModel.objectTypes;
 
     var firstItemNode = new VBox( {
       align: 'left',
       children: [
-        new Text( projectileObjects[ 0 ].name, LABEL_OPTIONS )
+        new Text( objectTypes[ 0 ].name, LABEL_OPTIONS )
       ]
     } );
 
@@ -73,11 +73,11 @@ define( function( require ) {
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     var comboBoxItems = [];
-    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, projectileObjects[ 0 ] );
+    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, objectTypes[ 0 ] );
 
     var i;
-    for ( i = 1; i < projectileObjects.length; i++ ) {
-      var projectileObject = projectileObjects[ i ];
+    for ( i = 1; i < objectTypes.length; i++ ) {
+      var projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
     }
 
@@ -85,7 +85,7 @@ define( function( require ) {
 
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
-      projectileMotionIntroModel.selectedProjectileObjectProperty,
+      projectileMotionIntroModel.selectedProjectileObjectTypeProperty,
       comboBoxParent, {
         itemXMargin: itemXMargin,
         buttonXMargin: buttonXMargin,

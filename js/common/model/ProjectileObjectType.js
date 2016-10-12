@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ProjectileObject( name, mass, diameter, dragCoefficient, type ) {
+  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type ) {
 
     this.name = name;
     this.mass = mass;
@@ -42,15 +42,15 @@ define( function( require ) {
 
   }
 
-  projectileMotion.register( 'ProjectileObject', ProjectileObject );
+  projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
 
-  inherit( Object, ProjectileObject );
+  inherit( Object, ProjectileObjectType );
 
   //-------------------------------------------------------------------------------------------
   // Specific projectile objects below ...
   //-------------------------------------------------------------------------------------------
 
-  ProjectileObject.CANNONBALL = new ProjectileObject(
+  ProjectileObjectType.CANNONBALL = new ProjectileObjectType(
     cannonballString,
     ProjectileMotionConstants.CANNONBALL_MASS,
     ProjectileMotionConstants.CANNONBALL_DIAMETER,
@@ -58,10 +58,10 @@ define( function( require ) {
     'cannonball'
   );
 
-  ProjectileObject.TANK_SHELL = new ProjectileObject( tankShellString, 150, 0.15, 0.05, 'tankShell' );
+  ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 150, 0.15, 0.05, 'tankShell' );
 
-  ProjectileObject.PUMPKIN = new ProjectileObject( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
+  ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
 
-  return ProjectileObject;
+  return ProjectileObjectType;
 } );
 

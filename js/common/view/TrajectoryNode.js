@@ -2,7 +2,8 @@
 
 /**
  * View for a trajectory.
- * Listens to an observable array in the model to draw dots on the trajectory.
+ * Listens to an observable array in the model to draw dots on the trajectory
+ * Creates and contains projectileNodes
  *
  * @author Andrea Lin
  */
@@ -29,24 +30,22 @@ define( function( require ) {
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
 
   /**
-   * @param {Projectile} projectile - model for the projectile
+   * @param {Trajectory} trajectory - model for the trajectory
    * @param {Property.<boolean>} velocityVectorComponentsOnProperty - passed through to ProjectileNode
    * @constructor
    */
-  function TrajectoryNode( projectile, velocityVectorComponentsOnProperty, modelViewTransform ) {
+  function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
     var self = this;
     Node.call( this, { pickable: false } );
-    this.projectileModel = projectile;
-    this.modelViewTransform = modelViewTransform;
 
     var pathsLayer = new Node();
     var dotsLayer = new Node();
-    var projectileObjectsLayer = new Node();
+    var projectileNodesLayer = new Node();
     this.pathsLayer = pathsLayer;
     this.dotsLayer = dotsLayer;
     this.addChild( pathsLayer );
     this.addChild( dotsLayer );
-    this.addChild( projectileObjectsLayer );
+    this.addChild( projectileNodesLayer );
 
     var viewLastPoint;
 
@@ -75,27 +74,27 @@ define( function( require ) {
     }
 
     // view listens to whether a datapoint has been added in the model
-    projectile.dataPoints.forEach( handleDataPointAdded );
-    projectile.dataPoints.addItemAddedListener( handleDataPointAdded );
+    trajectory.dataPoints.forEach( handleDataPointAdded );
+    trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
     function handleProjectileObjectAdded( projectileObject ) {
       var newProjectileNode = new ProjectileNode(
         projectileObject.dataPointProperty,
-        projectile.projectileObjectType,
-        projectile.diameter,
-        projectile.dragCoefficient,
-        self.modelViewTransform,
+        trajectory.projectileObjectType,
+        trajectory.diameter,
+        trajectory.dragCoefficient,
+        modelViewTransform,
         velocityVectorComponentsOnProperty
       );
-      projectileObjectsLayer.addChild( newProjectileNode );
+      projectileNodesLayer.addChild( newProjectileNode );
     }
 
     // view adds projectile object if another one is created in the model
-    projectile.projectileObjects.forEach( handleProjectileObjectAdded );
-    projectile.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
+    trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
+    trajectory.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
 
     // change decrease in opacity with each successive projectiled fired
-    projectile.rankProperty.link( function( rank ) {
+    trajectory.rankProperty.link( function( rank ) {
       var opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
       self.children.forEach( function( child ) {
         child.opacity = opacity;

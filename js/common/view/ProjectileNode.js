@@ -41,7 +41,7 @@ define( function( require ) {
                           velocityVectorComponentsOnProperty,
                           options
   ) {
-    
+
     var self = this;
     options = options || {};
     Node.call( self, options );
@@ -51,12 +51,12 @@ define( function( require ) {
 
     // add view for projectile
     if ( objectType ) {
-      this.projectileView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
+      this.projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
     } else {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      this.projectileView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
+      this.projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
     }
-    this.addChild( this.projectileView );
+    this.addChild( this.projectileObjectView );
 
     // add vector view for velocity x component
     var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -84,8 +84,8 @@ define( function( require ) {
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
-      self.projectileView.x = modelViewTransform.modelToViewX( dataPoint.x );
-      self.projectileView.y = modelViewTransform.modelToViewY( dataPoint.y );
+      self.projectileObjectView.x = modelViewTransform.modelToViewX( dataPoint.x );
+      self.projectileObjectView.y = modelViewTransform.modelToViewY( dataPoint.y );
 
       var x = modelViewTransform.modelToViewX( dataPoint.x );
       var y = modelViewTransform.modelToViewY( dataPoint.y );
