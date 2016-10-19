@@ -130,6 +130,7 @@ define( function( require ) {
     );
 
     var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
+      constrainValue: function( value ) { return Math.round( value ); },
       majorTickLength: 5,
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
       thumbSize: new Dimension2( 16, 28 ),
