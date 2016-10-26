@@ -52,9 +52,9 @@ define( function( require ) {
       }
       else if ( dragCoefficient <= 1.17 ) { // hemisphere
         var hemisphere = new Shape();
-        hemisphere.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, true );
-        hemisphere.moveTo( 0, radius );
-        hemisphere.lineTo( 0, -radius );
+        hemisphere.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
+        hemisphere.moveTo( 0, -radius );
+        hemisphere.lineTo( 0, radius );
         return new Path( hemisphere, { fill: 'black' } );
       }
       else if ( dragCoefficient <= 1.28 ) { // flat plate
