@@ -12,7 +12,9 @@ define( function( require ) {
 
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -57,17 +59,18 @@ define( function( require ) {
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max
+     * @param {boolean} whether value display is activated or grayed out with blue text
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range ) {
+    function createParameterControlBox( labelString, unitsString, property, range, activated ) {
       // label
       var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
         LABEL_OPTIONS
       );
 
       // value text
-      var valueText = new Text( property.get().toFixed( 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
+      var valueText = new Text( property.get().toFixed( 2 ), activated ? LABEL_OPTIONS: _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -77,7 +80,7 @@ define( function( require ) {
         valueText.height + 2 * options.textDisplayYMargin, // height
         4, // cornerXRadius
         4, // cornerYRadius
-        _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
+        activated ? TEXT_BACKGROUND_OPTIONS : _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
@@ -111,8 +114,22 @@ define( function( require ) {
       dragCoefficientString,
       null,
       projectileMotionLabModel.projectileDragCoefficientProperty,
-      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
+      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
+      true
     );
+
+    var dragSlider = new HSlider(
+      projectileMotionLabModel.projectileDragCoefficientProperty,
+      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE, {
+      constrainValue: function( value ) { return Math.round( value * 100 ) / 100; }, // two decimal place accuracy
+      majorTickLength: 5,
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
+      thumbSize: new Dimension2( 16, 28 ),
+      thumbTouchAreaXDilation: 6,
+      thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
+    } );
+    dragSlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min );
+    dragSlider.addMajorTick( ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max );
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
@@ -129,7 +146,16 @@ define( function( require ) {
       ]
     } );
 
-    Panel.call( this, content, options );
+    var initialValuesVBox = new VBox( {
+      align: 'center',
+      spacing: options.controlsVerticalSpace,
+      children: [
+        content,
+        dragSlider
+      ]
+    } );
+
+    Panel.call( this, initialValuesVBox, options );
   }
 
   projectileMotion.register( 'ProjectilePanel', ProjectilePanel );
