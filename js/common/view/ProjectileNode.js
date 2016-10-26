@@ -87,6 +87,9 @@ define( function( require ) {
       self.projectileObjectView.x = modelViewTransform.modelToViewX( dataPoint.x );
       self.projectileObjectView.y = modelViewTransform.modelToViewY( dataPoint.y );
 
+      var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity );
+      self.projectileObjectView.setRotation( -angle );
+
       var x = modelViewTransform.modelToViewX( dataPoint.x );
       var y = modelViewTransform.modelToViewY( dataPoint.y );
       velocityXArrow.setTailAndTip( x,
