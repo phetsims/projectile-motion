@@ -30,7 +30,7 @@ define( function( require ) {
     // cannonball defaults
     CANNONBALL_MASS: 100,
     CANNONBALL_DIAMETER: 0.3,
-    CANNONBALL_DRAG_COEFFICIENT: 0.45,
+    CANNONBALL_DRAG_COEFFICIENT: 0.47,
 
     // productive constraints
     MAX_NUMBER_OF_PROJECTILES: 5,
@@ -46,7 +46,7 @@ define( function( require ) {
     TIME_PER_DATA_POINT: 16, // milliseconds
 
     // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
-    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.05, 1.1 ),
+    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.28 ),
     ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
 
     // cannon
