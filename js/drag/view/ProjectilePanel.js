@@ -20,6 +20,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -59,18 +60,18 @@ define( function( require ) {
      * @param {string} label
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Object} range, range has keys min and max
-     * @param {boolean} whether value display is activated or grayed out with blue text
+     * @param {Node} a view display to be shown with the value
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range, activated ) {
+    function createParameterControlBox( labelString, unitsString, property, range, viewNode ) {
       // label
       var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
         LABEL_OPTIONS
       );
 
       // value text
-      var valueText = new Text( property.get().toFixed( 2 ), activated ? LABEL_OPTIONS: _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
+      var valueText = new Text( property.get().toFixed( 2 ), viewNode ? LABEL_OPTIONS: _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -80,7 +81,7 @@ define( function( require ) {
         valueText.height + 2 * options.textDisplayYMargin, // height
         4, // cornerXRadius
         4, // cornerYRadius
-        activated ? TEXT_BACKGROUND_OPTIONS : _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
+        viewNode ? TEXT_BACKGROUND_OPTIONS : _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
@@ -91,9 +92,16 @@ define( function( require ) {
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      if ( viewNode ) {
+        var valueAndDisplay = new HBox( { spacing: options.xMargin, children: [ viewNode, valueNode ] } );
+        var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueAndDisplay.width;
+        return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueAndDisplay ] } );
+      }
 
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+      else {
+        xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+        return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+      }
     }
 
     var massBox = createParameterControlBox(
@@ -110,13 +118,54 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
+    var dragObjectDisplay = new Node();
+    var radius = 8;
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.04 ) ); // teardrop
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.30 ) ); // bullet
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.47 ) ); // sphere
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.59 ) ); // ellipsoid
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 1.17 ) ); // hemisphere
+    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 1.28 ) ); // flat plate
+    var i;
+    for ( i = 0; i < dragObjectDisplay.children.length; i++ ) {
+      dragObjectDisplay.children[ i ].visible = false;
+    }
+
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
       projectileMotionLabModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
-      true
+      dragObjectDisplay
     );
+
+    projectileMotionLabModel.projectileDragCoefficientProperty.link( function( dragCoefficient ) {
+      var i;
+      for ( i = 0; i < dragObjectDisplay.children.length; i++ ) {
+        dragObjectDisplay.children[ i ].visible = false;
+      }
+      if ( dragCoefficient <= 0.04 ) { // teardrop
+        dragObjectDisplay.children[ 0 ].visible = true;
+      }
+      else if ( dragCoefficient <= 0.30 ) { // bullet
+        dragObjectDisplay.children[ 1 ].visible = true;
+      }
+      else if ( dragCoefficient <= 0.47 ) { // sphere
+        dragObjectDisplay.children[ 2 ].visible = true;
+      }
+      else if ( dragCoefficient <= 0.59 ) { // ellipsoid
+        dragObjectDisplay.children[ 3 ].visible = true;
+      }
+      else if ( dragCoefficient <= 1.17 ) { // hemisphere
+        dragObjectDisplay.children[ 4 ].visible = true;
+      }
+      else if ( dragCoefficient <= 1.28 ) { // flat plate
+        dragObjectDisplay.children[ 5 ].visible = true;
+      }
+      else {
+        throw new Error( 'dragCoefficient out of range' );
+      }
+    });
 
     var dragSlider = new HSlider(
       projectileMotionLabModel.projectileDragCoefficientProperty,
