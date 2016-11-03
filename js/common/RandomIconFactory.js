@@ -38,7 +38,7 @@ define( function( require ) {
 
     /**
      * create a random icon with an optional caption
-     * @param {String} [caption]
+     * @param {string} [caption]
      */
     createIcon: function( caption ) {
       var self = this;
