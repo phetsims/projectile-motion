@@ -14,6 +14,7 @@ define( function( require ) {
   var RandomIconFactory = require( 'PROJECTILE_MOTION/common/RandomIconFactory' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   var ProjectileMotionConstants = {
 
@@ -87,7 +88,7 @@ define( function( require ) {
 
     YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 14 ),
-      baseColor: '#F2E916', //TODO: change to rgb?
+      baseColor: PhetColorScheme.PHET_YELLOW,
       cornerRadius: 4,
       xMargin: 12,
       yMargin: 7
