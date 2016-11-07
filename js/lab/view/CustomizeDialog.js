@@ -161,7 +161,7 @@ define( function( require ) {
     // create number keypad
     this.numberKeypad = new NumberKeypad( {
       decimalPointKey: true,
-      digitStringProperty: this.numberKeypadStringProperty
+      valueStringProperty: this.numberKeypadStringProperty
     } );
 
     // create submit button
@@ -256,7 +256,7 @@ define( function( require ) {
       // TODO: right after clicking pencil button, clicking backspace does not clear. It should.
       var linkListener = this.currentParameter.keypadListener;
       this.numberKeypad.armForNewEntry();
-      this.numberKeypad.digitStringProperty.lazyLink( linkListener );
+      this.numberKeypad.valueStringProperty.lazyLink( linkListener );
       this.currentParameter.focusRectangle.visible = true;
     },
 
@@ -267,7 +267,7 @@ define( function( require ) {
         return;
       }
       var linkListener = this.currentParameter.keypadListener;
-      this.numberKeypad.digitStringProperty.unlink( linkListener );
+      this.numberKeypad.valueStringProperty.unlink( linkListener );
       this.currentParameter.focusRectangle.visible = false;
       // TODO: if no entry for this parameter on unfocus, or submit, set to default, or what it was before
     },
