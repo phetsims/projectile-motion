@@ -255,7 +255,7 @@ define( function( require ) {
       this.currentParameter = parameterBox;
       // TODO: right after clicking pencil button, clicking backspace does not clear. It should.
       var linkListener = this.currentParameter.keypadListener;
-      this.numberKeypad.armedForNewEntry = true;
+      this.numberKeypad.clearOnNextKeyPress = true;
       this.numberKeypad.valueStringProperty.lazyLink( linkListener );
       this.currentParameter.focusRectangle.visible = true;
     },
