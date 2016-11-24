@@ -15,6 +15,8 @@ define( function( require ) {
   var ProjectileMotionIntroModel = require( 'PROJECTILE_MOTION/intro/model/ProjectileMotionIntroModel' );
   var ProjectileMotionIntroScreenView = require( 'PROJECTILE_MOTION/intro/view/ProjectileMotionIntroScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var introTitleString = require( 'string!PROJECTILE_MOTION/intro.title' );
@@ -26,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: introTitleString,
-      backgroundColor: 'white',
+      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
       homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
     };
 

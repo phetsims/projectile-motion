@@ -15,6 +15,8 @@ define( function( require ) {
   var ProjectileMotionDragModel = require( 'PROJECTILE_MOTION/drag/model/ProjectileMotionDragModel' );
   var ProjectileMotionDragScreenView = require( 'PROJECTILE_MOTION/drag/view/ProjectileMotionDragScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var dragTitleString = require( 'string!PROJECTILE_MOTION/drag.title' );
@@ -26,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: dragTitleString,
-      backgroundColor: 'white',
+      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
       homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
     };
 

@@ -15,6 +15,8 @@ define( function( require ) {
   var ProjectileMotionLabModel = require( 'PROJECTILE_MOTION/lab/model/ProjectileMotionLabModel' );
   var ProjectileMotionLabScreenView = require( 'PROJECTILE_MOTION/lab/view/ProjectileMotionLabScreenView' );
   var Screen = require( 'JOIST/Screen' );
+  var Property = require( 'AXON/Property' );
+  var Color = require( 'SCENERY/util/Color' );
 
   // strings
   var labTitleString = require( 'string!PROJECTILE_MOTION/lab.title' );
@@ -26,7 +28,7 @@ define( function( require ) {
 
     var options = {
       name: labTitleString,
-      backgroundColor: 'white',
+      backgroundColorProperty: new Property( Color.toColor( 'white' ) ),
       homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
     };
 
