@@ -88,7 +88,7 @@ define( function( require ) {
 
     YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 14 ),
-      baseColor: PhetColorScheme.PHET_YELLOW,
+      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
       cornerRadius: 4,
       xMargin: 12,
       yMargin: 7
