@@ -14,6 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
+  var Util = require( 'DOT/Util' );
 
   var ProjectileObjectViewFactory = {
 
@@ -25,44 +26,57 @@ define( function( require ) {
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
       // TODO: the remaining cases
       // TODO: rotate the projectile based on change in angle
-      if ( dragCoefficient <= 0.04 ) { // teardrop
-        var teardrop = new Shape();
-        teardrop.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, true );
-        teardrop.moveTo( 0, radius );
-        teardrop.lineTo( -radius * 2, 0 );
-        teardrop.lineTo( 0, -radius );
-        return new Path( teardrop, { fill: 'black' } );
+      if ( dragCoefficient <= 0.47 ) { // teardrop (inclusive) to sphere (inclusive)
+        // [ 0.04 , 0.47 ]
+        // vary m from 0 to 7
+        // TODO: source url
+        var m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
+        var shape = new Shape();
+        shape.moveTo( -radius, 0 );
+        var t;
+        for ( t = Math.PI / 12; t < 2 * Math.PI; t += Math.PI / 12 ) {
+          var x = -Math.cos( t ) * radius;
+          var y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), m ) * radius;
+          shape.lineTo( x, y );
+        }
+        shape.lineTo( -radius, 0 );
+        return new Path( shape, { fill: 'black' } );
       }
-      else if ( dragCoefficient <= 0.30 ) { // bullet
-        var bullet = new Shape();
-        bullet.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, true );
-        bullet.moveTo( 0, radius );
-        bullet.lineTo( -radius * 2, radius );
-        bullet.lineTo( -radius * 2, -radius );
-        bullet.lineTo( 0, -radius );
-        return new Path( bullet, { fill: 'black' } );
+      else if ( dragCoefficient < 1.17 ) { // sphere (exclusive) to hemisphere (exclusive)
+        // ( 0.47 , 1.17 )
+        var shape = new Shape();
+        shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
+        shape.moveTo( 0, -radius );
+
+        var angle = Util.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
+        var newRadius = radius / Math.sin( angle );
+        var newCenterX = -radius / Math.tan( angle );
+        shape.arc( newCenterX, 0, newRadius, -angle, angle, false );
+        return new Path( shape, { fill: 'black' } );
       }
-      else if ( dragCoefficient <= 0.47 ) { // sphere
-        return new Circle( radius, { fill: 'black' } );
+      else if ( dragCoefficient === 1.17 ) { // hemisphere
+        var shape = new Shape();
+        shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
+
+        shape.moveTo( 0, -radius );
+        shape.lineTo( 0, radius );
+        return new Path( shape, { fill: 'black' } );
       }
-      else if ( dragCoefficient <= 0.59 ) { // ellipsoid
-        var ellipsoid = new Shape();
-        ellipsoid.ellipticalArc( 0, 0, radius * 2, radius, 0, 0, Math.PI * 2 );
-        return new Path( ellipsoid, { fill: 'black' } );
-      }
-      else if ( dragCoefficient <= 1.17 ) { // hemisphere
-        var hemisphere = new Shape();
-        hemisphere.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
-        hemisphere.moveTo( 0, -radius );
-        hemisphere.lineTo( 0, radius );
-        return new Path( hemisphere, { fill: 'black' } );
-      }
-      else if ( dragCoefficient <= 1.28 ) { // flat plate
-        return new Rectangle( -radius / 4, - radius, radius / 2, 2 * radius, { fill: 'black' } );
-      }
-      else {
-        throw new Error( 'dragCoefficient out of range' );
-      }
+      else { // hemisphere (exclusive) to flat disc (inclusive)
+        // ( 1.17 , 1.28 ]
+        // width of disc is 0.3, height is 2
+        var shape = new Shape();
+        shape.moveTo( -0.3 * radius, -radius );
+        shape.lineTo( 0, -radius );
+        shape.lineTo( 0, radius );
+        shape.lineTo( -0.3 * radius, radius );
+
+        var angle = Util.linear( 1.17, 1.281, Math.atan( 1 / 0.3 ), 0, dragCoefficient );
+        var newRadius = radius / Math.sin( angle );
+        var newCenterX = radius / Math.tan( angle ) - 0.3 * radius;
+        shape.arc( newCenterX, 0, newRadius, -Math.PI + angle, Math.PI - angle, true );
+        return new Path( shape, { fill: 'black' } );
+     }
     },
 
     createObjectView: function( projectileObjectModel, modelViewTransform ) {

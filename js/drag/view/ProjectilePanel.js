@@ -15,6 +15,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -42,6 +43,7 @@ define( function( require ) {
     fill: 'white',
     stroke: 'black'
   };
+  var DRAG_OBJECT_DISPLAY_RADIUS = 12;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -119,17 +121,7 @@ define( function( require ) {
     );
 
     var dragObjectDisplay = new Node();
-    var radius = 8;
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.04 ) ); // teardrop
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.30 ) ); // bullet
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.47 ) ); // sphere
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 0.59 ) ); // ellipsoid
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 1.17 ) ); // hemisphere
-    dragObjectDisplay.addChild( ProjectileObjectViewFactory.createCustom( radius, 1.28 ) ); // flat plate
-    var i;
-    for ( i = 0; i < dragObjectDisplay.children.length; i++ ) {
-      dragObjectDisplay.children[ i ].visible = false;
-    }
+    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_RADIUS * 2 ) );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
@@ -140,31 +132,12 @@ define( function( require ) {
     );
 
     projectileMotionLabModel.projectileDragCoefficientProperty.link( function( dragCoefficient ) {
-      var i;
-      for ( i = 0; i < dragObjectDisplay.children.length; i++ ) {
-        dragObjectDisplay.children[ i ].visible = false;
+      if ( dragObjectDisplay.children.length > 1 ) {
+        dragObjectDisplay.removeChildAt( 1 );
       }
-      if ( dragCoefficient <= 0.04 ) { // teardrop
-        dragObjectDisplay.children[ 0 ].visible = true;
-      }
-      else if ( dragCoefficient <= 0.30 ) { // bullet
-        dragObjectDisplay.children[ 1 ].visible = true;
-      }
-      else if ( dragCoefficient <= 0.47 ) { // sphere
-        dragObjectDisplay.children[ 2 ].visible = true;
-      }
-      else if ( dragCoefficient <= 0.59 ) { // ellipsoid
-        dragObjectDisplay.children[ 3 ].visible = true;
-      }
-      else if ( dragCoefficient <= 1.17 ) { // hemisphere
-        dragObjectDisplay.children[ 4 ].visible = true;
-      }
-      else if ( dragCoefficient <= 1.28 ) { // flat plate
-        dragObjectDisplay.children[ 5 ].visible = true;
-      }
-      else {
-        throw new Error( 'dragCoefficient out of range' );
-      }
+      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, dragCoefficient );
+      objectView.center = dragObjectDisplay.center;
+      dragObjectDisplay.addChild( objectView );
     });
 
     var dragSlider = new HSlider(
