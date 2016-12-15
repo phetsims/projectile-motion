@@ -20,9 +20,6 @@
   "pattern0Value1UnitsWithSpace": {
     "value": "{0} {1}"
   },
-  "velocity": {
-    "value": "Velocity"
-  },
   "angle": {
     "value": "Angle"
   },
@@ -103,9 +100,6 @@
   },
   "slow": {
     "value": "Slow"
-  },
-  "score": {
-    "value": "Score!"
   },
   "velocityVectors": {
     "value": "Velocity Vectors"
