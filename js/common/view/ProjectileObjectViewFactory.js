@@ -12,7 +12,6 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
 
@@ -26,12 +25,16 @@ define( function( require ) {
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
       // TODO: the remaining cases
       // TODO: rotate the projectile based on change in angle
+      var shape;
+      var angle;
+      var newRadius;
+      var newCenterX;
       if ( dragCoefficient <= 0.47 ) { // teardrop (inclusive) to sphere (inclusive)
         // [ 0.04 , 0.47 ]
         // vary m from 0 to 7
         // TODO: source url
         var m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
-        var shape = new Shape();
+        shape = new Shape();
         shape.moveTo( -radius, 0 );
         var t;
         for ( t = Math.PI / 12; t < 2 * Math.PI; t += Math.PI / 12 ) {
@@ -44,18 +47,18 @@ define( function( require ) {
       }
       else if ( dragCoefficient < 1.17 ) { // sphere (exclusive) to hemisphere (exclusive)
         // ( 0.47 , 1.17 )
-        var shape = new Shape();
+        shape = new Shape();
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
         shape.moveTo( 0, -radius );
 
-        var angle = Util.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
-        var newRadius = radius / Math.sin( angle );
-        var newCenterX = -radius / Math.tan( angle );
+        angle = Util.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
+        newRadius = radius / Math.sin( angle );
+        newCenterX = -radius / Math.tan( angle );
         shape.arc( newCenterX, 0, newRadius, -angle, angle, false );
         return new Path( shape, { fill: 'black' } );
       }
       else if ( dragCoefficient === 1.17 ) { // hemisphere
-        var shape = new Shape();
+        shape = new Shape();
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
 
         shape.moveTo( 0, -radius );
@@ -65,15 +68,15 @@ define( function( require ) {
       else { // hemisphere (exclusive) to flat disc (inclusive)
         // ( 1.17 , 1.28 ]
         // width of disc is 0.3, height is 2
-        var shape = new Shape();
+        shape = new Shape();
         shape.moveTo( -0.3 * radius, -radius );
         shape.lineTo( 0, -radius );
         shape.lineTo( 0, radius );
         shape.lineTo( -0.3 * radius, radius );
 
-        var angle = Util.linear( 1.17, 1.281, Math.atan( 1 / 0.3 ), 0, dragCoefficient );
-        var newRadius = radius / Math.sin( angle );
-        var newCenterX = radius / Math.tan( angle ) - 0.3 * radius;
+        angle = Util.linear( 1.17, 1.281, Math.atan( 1 / 0.3 ), 0, dragCoefficient );
+        newRadius = radius / Math.sin( angle );
+        newCenterX = radius / Math.tan( angle ) - 0.3 * radius;
         shape.arc( newCenterX, 0, newRadius, -Math.PI + angle, Math.PI - angle, true );
         return new Path( shape, { fill: 'black' } );
      }
