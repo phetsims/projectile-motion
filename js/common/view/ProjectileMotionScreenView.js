@@ -44,7 +44,7 @@ define( function( require ) {
   // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
-  var X_MARGIN = 40;
+  var X_MARGIN = 10;
   var Y_MARGIN = 5;
 
   /**
@@ -160,7 +160,7 @@ define( function( require ) {
     var panelsBox = new VBox( {
       // align: 'right',
       spacing: 10,
-      children: [ initialValuesPanel, secondPanel, toolboxPanel ]
+      children: [ initialValuesPanel, secondPanel ]
     } );
 
     // step button
@@ -240,6 +240,7 @@ define( function( require ) {
 
     // properties
     this.panelsBox = panelsBox;
+    this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
 
     // rendering order
@@ -250,6 +251,7 @@ define( function( require ) {
       trajectoriesLayer,
       cannonNode,
       panelsBox,
+      toolboxPanel,
       measuringTapeNode,
       tracerNode,
       fireButton,
@@ -289,6 +291,7 @@ define( function( require ) {
 
       this.panelsBox.right = width / scale - offsetX - X_MARGIN;
       this.panelsBox.top = Y_MARGIN - offsetY;
+      this.toolboxPanel.setRightTop( this.panelsBox.leftTop.minusXY( X_MARGIN, 0 ) );
       this.resetAllButton.right = this.panelsBox.right;
     }
 
