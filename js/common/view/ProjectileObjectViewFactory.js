@@ -82,6 +82,7 @@ define( function( require ) {
      }
     },
 
+    // only used by intro screen
     createObjectView: function( projectileObjectModel, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
       switch ( projectileObjectModel.type ) {

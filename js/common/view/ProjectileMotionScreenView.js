@@ -12,6 +12,7 @@ define( function( require ) {
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -19,6 +20,7 @@ define( function( require ) {
   var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -26,6 +28,7 @@ define( function( require ) {
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   var Text = require( 'SCENERY/nodes/Text' );
   var ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
@@ -35,13 +38,18 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // strings
+  var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
   var normalString = require( 'string!PROJECTILE_MOTION/normal' );
   var slowString = require( 'string!PROJECTILE_MOTION/slow' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+
 
   // constants
   // var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
   // var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
   // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
   var X_MARGIN = 10;
@@ -103,6 +111,25 @@ define( function( require ) {
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
+
+    // initial speed readout, slider, and tweakers
+    // TODO: pass in range because it is different for each screen
+    var initialSpeedAdjuster = new NumberControl(
+      initialSpeedString, model.launchVelocityProperty,
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
+        leftTop: cannonNode.leftBottom,
+        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondString ),
+        titleFont: TEXT_FONT,
+        valueFont: TEXT_FONT,
+        constrainValue: function( value ) { return Math.round( value ); },
+        majorTickLength: 5,
+        majorTicks: [ { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min }, { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max } ],
+        trackSize: new Dimension2( 180, 0.5 ), // 180 may change
+        thumbSize: new Dimension2( 16, 28 ),
+        thumbTouchAreaXDilation: 6,
+        thumbTouchAreaYDilation: 4
+      }
+    );
 
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
@@ -250,6 +277,7 @@ define( function( require ) {
       targetNode,
       trajectoriesLayer,
       cannonNode,
+      initialSpeedAdjuster,
       panelsBox,
       toolboxPanel,
       measuringTapeNode,
