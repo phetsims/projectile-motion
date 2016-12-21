@@ -77,6 +77,14 @@ define( function( require ) {
       textDisplayYMargin: 4
     },
 
+    INITIAL_SPEED_PANEL_OPTIONS: {
+      fill: 'rgb( 235, 235, 235 )',
+      lineWidth: 1,
+      stroke: 'black',
+      xMargin: 20,
+      yMargin: 5
+    },
+
     //Light gray, used as the 'disabled' color
     LIGHT_GRAY: 'rgb( 220, 220, 220 )',
 

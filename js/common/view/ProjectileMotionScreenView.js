@@ -20,6 +20,7 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -113,21 +114,27 @@ define( function( require ) {
 
     // initial speed readout, slider, and tweakers
     // TODO: pass in range because it is different for each screen
-    var initialSpeedAdjuster = new NumberControl(
+    var initialSpeedControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-        leftTop: cannonNode.leftBottom,
         valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondString ),
+        valueBackgroundStroke: 'gray',
+        valueAlign: 'center',
         titleFont: TEXT_FONT,
         valueFont: TEXT_FONT,
         constrainValue: function( value ) { return Math.round( value ); },
         majorTickLength: 5,
         majorTicks: [ { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min }, { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max } ],
-        trackSize: new Dimension2( 180, 0.5 ), // 180 may change
+        trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
         thumbSize: new Dimension2( 16, 28 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4
       }
+    );
+
+    var initialSpeedPanel = new Panel(
+      initialSpeedControl,
+      _.extend( { leftTop: cannonNode.leftBottom }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
     // Create a measuring tape (set to invisible initially)
@@ -265,8 +272,8 @@ define( function( require ) {
       // zoomableNode,
       targetNode,
       trajectoriesLayer,
+      initialSpeedPanel,
       cannonNode,
-      initialSpeedAdjuster,
       secondPanel,
       toolboxPanel,
       measuringTapeNode,
