@@ -231,7 +231,7 @@ define( function( require ) {
       iconWidth: 30,
       minHeight: 40,
       listener: function() { model.cannonFired(); },
-      bottom: this.layoutBounds.maxY - 120 // determined empirically
+      bottom: ProjectileMotionConstants.VIEW_ORIGIN.y - 30
     } );
 
     // eraser button

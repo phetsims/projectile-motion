@@ -26,7 +26,7 @@ define( function( require ) {
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // screen view layout
-    VIEW_ORIGIN: new Vector2( 100, 530 ),
+    VIEW_ORIGIN: new Vector2( 100, 520 ),
 
     // cannonball defaults
     CANNONBALL_MASS: 100,

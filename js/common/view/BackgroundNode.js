@@ -18,8 +18,8 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var cementWidth = 40;
-  var grassWidth = 10;
+  var cementWidth = 25;
+  var grassWidth = 5;
   var lineWidth = 2;
 
   /**
@@ -66,7 +66,7 @@ define( function( require ) {
       this.sky.setRect( -offsetX, -offsetY, width / layoutScale, height / layoutScale );
       this.sky.fill = new LinearGradient( 0, 0, 0, 2 * height / 3 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.road.setRect( -offsetX, dashedLineY - 0.35 * cementWidth, width / layoutScale, cementWidth );
+      this.road.setRect( -offsetX, dashedLineY - 0.5 * cementWidth, width / layoutScale, cementWidth );
       this.road.fill = new LinearGradient( 0, 0, 0, dashedLineY ).addColorStop( 0, 'rgb( 163, 172, 162 )' ).addColorStop( 1, 'rgb( 77, 77, 75 )' );
 
       this.topGrass.setRect( -offsetX, this.road.top - grassWidth, width / layoutScale, height / layoutScale );
