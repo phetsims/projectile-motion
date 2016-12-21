@@ -16,7 +16,6 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var InitialValuesPanel = require( 'PROJECTILE_MOTION/common/view/InitialValuesPanel' );
   var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -174,21 +173,11 @@ define( function( require ) {
     // zoomControl.top = 0;
     // zoomControl.left = 0;
 
-    // control panels
-    var initialValuesPanel = new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty );
-
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracerModel, measuringTapeNode, tracerNode, modelViewTransform );
-
-    // vbox contains the control panels
-    var panelsBox = new VBox( {
-      // align: 'right',
-      spacing: 10,
-      children: [ initialValuesPanel, secondPanel ]
-    } );
 
     // step button
     var stepButton = new StepForwardButton( {
@@ -264,7 +253,7 @@ define( function( require ) {
     } );
 
     // properties
-    this.panelsBox = panelsBox;
+    this.secondPanel = secondPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
     this.fireButton = fireButton;
@@ -278,7 +267,7 @@ define( function( require ) {
       trajectoriesLayer,
       cannonNode,
       initialSpeedAdjuster,
-      panelsBox,
+      secondPanel,
       toolboxPanel,
       measuringTapeNode,
       tracerNode,
@@ -317,12 +306,12 @@ define( function( require ) {
 
       this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
 
-      this.panelsBox.right = width / scale - offsetX - X_MARGIN;
-      this.panelsBox.top = Y_MARGIN - offsetY;
-      this.toolboxPanel.setRightTop( this.panelsBox.leftTop.minusXY( X_MARGIN, 0 ) );
-      this.eraserButton.left = this.panelsBox.centerX + X_MARGIN;
-      this.fireButton.right = this.panelsBox.centerX - X_MARGIN;
-      this.resetAllButton.right = this.panelsBox.right;
+      this.secondPanel.right = width / scale - offsetX - X_MARGIN;
+      this.secondPanel.top = Y_MARGIN - offsetY;
+      this.toolboxPanel.setRightTop( this.secondPanel.leftTop.minusXY( X_MARGIN, 0 ) );
+      this.eraserButton.left = this.secondPanel.centerX + X_MARGIN;
+      this.fireButton.right = this.secondPanel.centerX - X_MARGIN;
+      this.resetAllButton.right = this.secondPanel.right;
     }
 
   } );
