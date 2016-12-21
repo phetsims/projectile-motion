@@ -211,22 +211,20 @@ define( function( require ) {
 
     // fire button
     var fireButton = new FireButton( {
-      right: this.transformedOrigin.x,
-      centerY: speedControl.centerY,
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.cannonFired(); }
+      listener: function() { model.cannonFired(); },
+      bottom: this.layoutBounds.maxY - 120 // determined empirically
     } );
 
     // eraser button
     var eraserButton = new EraserButton( {
-      left: fireButton.right + 10,
-      centerY: speedControl.centerY,
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.eraseProjectiles(); }
+      listener: function() { model.eraseProjectiles(); },
+      bottom: fireButton.bottom
     } );
 
     // reset all button, also a closure for zoomProperty and measuringTape
@@ -242,6 +240,8 @@ define( function( require ) {
     this.panelsBox = panelsBox;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
+    this.fireButton = fireButton;
+    this.eraserButton = eraserButton;
 
     // rendering order
     self.setChildren( [
@@ -292,6 +292,8 @@ define( function( require ) {
       this.panelsBox.right = width / scale - offsetX - X_MARGIN;
       this.panelsBox.top = Y_MARGIN - offsetY;
       this.toolboxPanel.setRightTop( this.panelsBox.leftTop.minusXY( X_MARGIN, 0 ) );
+      this.eraserButton.left = this.panelsBox.centerX + X_MARGIN;
+      this.fireButton.right = this.panelsBox.centerX - X_MARGIN;
       this.resetAllButton.right = this.panelsBox.right;
     }
 
