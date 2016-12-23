@@ -89,6 +89,7 @@ define( function( require ) {
       if ( this.reachedGround ) {
         this.xVelocity = 0;
         this.yVelocity = 0;
+        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity ) );
       }
 
       // Haven't reached ground, so continue collecting datapoints
