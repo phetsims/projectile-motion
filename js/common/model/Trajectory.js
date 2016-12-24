@@ -69,7 +69,7 @@ define( function( require ) {
     this.dataPoints = new ObservableArray();
 
     // add dataPoint for initial conditions
-    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, this.airDensity, this.xVelocity, this.yVelocity ) );
+    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, this.airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
 
     this.projectileObjects = new ObservableArray();
 
@@ -89,7 +89,9 @@ define( function( require ) {
       if ( this.reachedGround ) {
         this.xVelocity = 0;
         this.yVelocity = 0;
-        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity ) );
+        this.xAcceleration = 0;
+        this.yAcceleration = 0; // there is still acceleration due to gravity, but normal force makes net acceleration zero
+        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
       }
 
       // Haven't reached ground, so continue collecting datapoints
@@ -133,7 +135,7 @@ define( function( require ) {
 
         this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity ) );
+        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
       }
 
       // increment position of projectile objects, unless it has reached the end

@@ -16,9 +16,14 @@ define( function( require ) {
    * {number} time - total time since fire at this point on the trajectory
    * {number} x - x position of the data point, also called range
    * {number} y - y position of the data point, also called height
+   * {number} airDensity
+   * {number} xVelocity
+   * {number} yVelocity
+   * {number} xAcceleration
+   * {number} yAcceleration
    * @constructor
    */
-  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity ) {
+  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity, xAcceleration, yAcceleration ) {
     Vector2.call( this, x, y );
 
     // @public
@@ -26,6 +31,8 @@ define( function( require ) {
     this.airDensity = airDensity;
     this.xVelocity = xVelocity;
     this.yVelocity = yVelocity;
+    this.xAcceleration = xAcceleration;
+    this.yAcceleration = yAcceleration;
   }
 
   projectileMotion.register( 'DataPoint', DataPoint );

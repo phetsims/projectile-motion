@@ -18,10 +18,12 @@ define( function( require ) {
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
 
   // constants
-  var ARROW_FILL_COLOR = 'rgb( 100, 100, 100 )';
+  var VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
+  var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
-  var ARROW_SIZE_DEFAULT = 1;
+  var VELOCITY_SCALAR = 1; // scales the velocity arrow representations
+  var ACCELERATION_SCALAR = 0.5; // scales the acceleration arrow represenations
 
   /**
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
@@ -47,7 +49,8 @@ define( function( require ) {
     Node.call( self, options );
 
     this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
-    this.tranformedArrowSize = this.tranformedUnit * ARROW_SIZE_DEFAULT;
+    this.tranformedVelocityScalar = this.tranformedUnit * VELOCITY_SCALAR;
+    this.tranformedAccelerationScalar = this.tranformedUnit * ACCELERATION_SCALAR;
 
     // add view for projectile
     if ( objectType ) {
@@ -61,7 +64,7 @@ define( function( require ) {
     // add vector view for velocity x component
     var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
-      fill: ARROW_FILL_COLOR,
+      fill: VELOCITY_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
@@ -70,7 +73,7 @@ define( function( require ) {
     // add vector view for velocity y component
     var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
-      fill: ARROW_FILL_COLOR,
+      fill: VELOCITY_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
@@ -79,17 +82,37 @@ define( function( require ) {
     // add vector view for total velocity
     var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
-      fill: ARROW_FILL_COLOR,
+      fill: VELOCITY_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
     self.addChild( totalVelocityArrow );
+
+    // add vector view for acceleration x component
+    var accelerationXArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ACCELERATION_ARROW_FILL,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    self.addChild( accelerationXArrow );
+
+    // add vector view for acceleration y component
+    var accelerationYArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ACCELERATION_ARROW_FILL,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    self.addChild( accelerationYArrow );
 
     // listen to whether velocity vectors should be on
     velocityVectorComponentsOnProperty.link( function( velocityVectorComponentsOn ) {
       velocityXArrow.visible = velocityVectorComponentsOn;
       velocityYArrow.visible = velocityVectorComponentsOn;
       totalVelocityArrow.visible = velocityVectorComponentsOn;
+      accelerationXArrow.visible = velocityVectorComponentsOn;
+      accelerationYArrow.visible = velocityVectorComponentsOn;
     } );
 
     // update if data point changes
@@ -104,20 +127,29 @@ define( function( require ) {
       var y = modelViewTransform.modelToViewY( dataPoint.y );
       velocityXArrow.setTailAndTip( x,
         y,
-        x + self.tranformedArrowSize * dataPoint.xVelocity,
+        x + self.tranformedVelocityScalar * dataPoint.xVelocity,
         y
       );
       velocityYArrow.setTailAndTip( x,
         y,
         x,
-        y - self.tranformedArrowSize * dataPoint.yVelocity
+        y - self.tranformedVelocityScalar * dataPoint.yVelocity
       );
       totalVelocityArrow.setTailAndTip( x,
         y,
-        x + self.tranformedArrowSize * dataPoint.xVelocity,
-        y - self.tranformedArrowSize * dataPoint.yVelocity
+        x + self.tranformedVelocityScalar * dataPoint.xVelocity,
+        y - self.tranformedVelocityScalar * dataPoint.yVelocity
       );
-
+      accelerationXArrow.setTailAndTip( x,
+        y,
+        x + self.tranformedAccelerationScalar * dataPoint.xAcceleration,
+        y
+      );
+      accelerationYArrow.setTailAndTip( x,
+        y,
+        x,
+        y - self.tranformedAccelerationScalar * dataPoint.yAcceleration
+      );
     } );
 
   }
