@@ -76,10 +76,20 @@ define( function( require ) {
     } );
     self.addChild( velocityYArrow );
 
+    // add vector view for total velocity
+    var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ARROW_FILL_COLOR,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    self.addChild( totalVelocityArrow );
+
     // listen to whether velocity vectors should be on
     velocityVectorComponentsOnProperty.link( function( velocityVectorComponentsOn ) {
       velocityXArrow.visible = velocityVectorComponentsOn;
       velocityYArrow.visible = velocityVectorComponentsOn;
+      totalVelocityArrow.visible = velocityVectorComponentsOn;
     } );
 
     // update if data point changes
@@ -100,6 +110,11 @@ define( function( require ) {
       velocityYArrow.setTailAndTip( x,
         y,
         x,
+        y - self.tranformedArrowSize * dataPoint.yVelocity
+      );
+      totalVelocityArrow.setTailAndTip( x,
+        y,
+        x + self.tranformedArrowSize * dataPoint.xVelocity,
         y - self.tranformedArrowSize * dataPoint.yVelocity
       );
 
