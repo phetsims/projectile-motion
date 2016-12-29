@@ -12,18 +12,33 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
   var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
-  var ARROW_HEAD_WIDTH = 12;
   var ARROW_TAIL_WIDTH = 6;
+  var ARROW_HEAD_WIDTH = 12;
   var VELOCITY_SCALAR = 1; // scales the velocity arrow representations
   var ACCELERATION_SCALAR = 0.5; // scales the acceleration arrow represenations
+
+  var FORCE_ARROW_OPTIONS = {
+      pickable: false,
+      fill: 'black',
+      tailWidth: 2,
+      headWidth: 6
+  };
+  var FREE_BODY_RADIUS = 5;
+  var FORCE_SCALAR = 0.005;
+  var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
+  var FORCES_BOX_DILATION = 7;
+  var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
 
   /**
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
@@ -48,9 +63,10 @@ define( function( require ) {
     options = options || {};
     Node.call( self, options );
 
-    this.tranformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
-    this.tranformedVelocityScalar = this.tranformedUnit * VELOCITY_SCALAR;
-    this.tranformedAccelerationScalar = this.tranformedUnit * ACCELERATION_SCALAR;
+    this.transformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
+    this.transformedVelocityScalar = this.transformedUnit * VELOCITY_SCALAR;
+    this.transformedAccelerationScalar = this.transformedUnit * ACCELERATION_SCALAR;
+    this.transformedForceScalar = this.transformedUnit * FORCE_SCALAR;
 
     // add view for projectile
     if ( objectType ) {
@@ -62,22 +78,22 @@ define( function( require ) {
     this.addChild( this.projectileObjectView );
 
     // add vector view for velocity x component
-    var velocityXArrow = new ArrowNode( 0, 0, 0, 0, {
+    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    self.addChild( velocityXArrow );
+    this.addChild( xVelocityArrow );
 
     // add vector view for velocity y component
-    var velocityYArrow = new ArrowNode( 0, 0, 0, 0, {
+    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    self.addChild( velocityYArrow );
+    this.addChild( yVelocityArrow );
 
     // add vector view for total velocity
     var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -86,33 +102,60 @@ define( function( require ) {
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    self.addChild( totalVelocityArrow );
+    this.addChild( totalVelocityArrow );
 
     // add vector view for acceleration x component
-    var accelerationXArrow = new ArrowNode( 0, 0, 0, 0, {
+    var xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ACCELERATION_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    self.addChild( accelerationXArrow );
+    this.addChild( xAccelerationArrow );
 
     // add vector view for acceleration y component
-    var accelerationYArrow = new ArrowNode( 0, 0, 0, 0, {
+    var yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ACCELERATION_ARROW_FILL,
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
-    self.addChild( accelerationYArrow );
+    this.addChild( yAccelerationArrow );
+
+    // forces view
+    var forcesBox = new Rectangle( 0, 0, 10, 50, {
+      fill: TRANSPARENT_WHITE,
+      lineWidth: 0,
+    } );
+    this.addChild( forcesBox );
+
+    var freeBodyDiagram = new Node();
+    this.addChild( freeBodyDiagram );
+
+    var freeBody = new Circle( FREE_BODY_RADIUS, { x: 0, y: 0, fill: 'black' } );
+    freeBodyDiagram.addChild( freeBody );
+
+    var xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
+    freeBodyDiagram.addChild( xDragForceArrow );
+
+    var yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
+    freeBodyDiagram.addChild( yDragForceArrow );
+
+    var forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
+    freeBodyDiagram.addChild( forceGravityArrow );
+
+    var totalForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
+    freeBodyDiagram.addChild( totalForceArrow );
 
     // listen to whether velocity vectors should be on
     velocityVectorComponentsOnProperty.link( function( velocityVectorComponentsOn ) {
-      velocityXArrow.visible = velocityVectorComponentsOn;
-      velocityYArrow.visible = velocityVectorComponentsOn;
+      xVelocityArrow.visible = velocityVectorComponentsOn;
+      yVelocityArrow.visible = velocityVectorComponentsOn;
       totalVelocityArrow.visible = velocityVectorComponentsOn;
-      accelerationXArrow.visible = velocityVectorComponentsOn;
-      accelerationYArrow.visible = velocityVectorComponentsOn;
+      xAccelerationArrow.visible = velocityVectorComponentsOn;
+      yAccelerationArrow.visible = velocityVectorComponentsOn;
+      freeBodyDiagram.visible = velocityVectorComponentsOn;
+      forcesBox.visible = velocityVectorComponentsOn;
     } );
 
     // update if data point changes
@@ -125,31 +168,54 @@ define( function( require ) {
 
       var x = modelViewTransform.modelToViewX( dataPoint.x );
       var y = modelViewTransform.modelToViewY( dataPoint.y );
-      velocityXArrow.setTailAndTip( x,
+      xVelocityArrow.setTailAndTip( x,
         y,
-        x + self.tranformedVelocityScalar * dataPoint.xVelocity,
+        x + self.transformedVelocityScalar * dataPoint.xVelocity,
         y
       );
-      velocityYArrow.setTailAndTip( x,
+      yVelocityArrow.setTailAndTip( x,
         y,
         x,
-        y - self.tranformedVelocityScalar * dataPoint.yVelocity
+        y - self.transformedVelocityScalar * dataPoint.yVelocity
       );
       totalVelocityArrow.setTailAndTip( x,
         y,
-        x + self.tranformedVelocityScalar * dataPoint.xVelocity,
-        y - self.tranformedVelocityScalar * dataPoint.yVelocity
+        x + self.transformedVelocityScalar * dataPoint.xVelocity,
+        y - self.transformedVelocityScalar * dataPoint.yVelocity
       );
-      accelerationXArrow.setTailAndTip( x,
+      xAccelerationArrow.setTailAndTip( x,
         y,
-        x + self.tranformedAccelerationScalar * dataPoint.xAcceleration,
+        x + self.transformedAccelerationScalar * dataPoint.xAcceleration,
         y
       );
-      accelerationYArrow.setTailAndTip( x,
+      yAccelerationArrow.setTailAndTip( x,
         y,
         x,
-        y - self.tranformedAccelerationScalar * dataPoint.yAcceleration
+        y - self.transformedAccelerationScalar * dataPoint.yAcceleration
       );
+      freeBody.x = x + FREE_BODY_OFFSET.x;
+      freeBody.y = y + FREE_BODY_OFFSET.y;
+      xDragForceArrow.setTailAndTip( freeBody.x,
+        freeBody.y,
+        freeBody.x + self.transformedForceScalar * dataPoint.xDragForce,
+        freeBody.y
+      );
+      yDragForceArrow.setTailAndTip( freeBody.x,
+        freeBody.y,
+        freeBody.x,
+        freeBody.y - self.transformedForceScalar * dataPoint.yDragForce
+      );
+      forceGravityArrow.setTailAndTip( freeBody.x,
+        freeBody.y,
+        freeBody.x,
+        freeBody.y - self.transformedForceScalar * dataPoint.forceGravity
+      );
+      totalForceArrow.setTailAndTip( freeBody.x,
+        freeBody.y,
+        freeBody.x + self.transformedForceScalar * dataPoint.xDragForce,
+        freeBody.y - self.transformedForceScalar * dataPoint.yDragForce - self.transformedForceScalar * dataPoint.forceGravity
+      );
+      forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
     } );
 
   }

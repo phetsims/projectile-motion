@@ -21,9 +21,12 @@ define( function( require ) {
    * {number} yVelocity
    * {number} xAcceleration
    * {number} yAcceleration
+   * {number} xDragForce
+   * {number} yDragForce
+   * {number} forceGravity
    * @constructor
    */
-  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity, xAcceleration, yAcceleration ) {
+  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity, xAcceleration, yAcceleration, xDragForce, yDragForce, forceGravity ) {
     Vector2.call( this, x, y );
 
     // @public
@@ -33,6 +36,9 @@ define( function( require ) {
     this.yVelocity = yVelocity;
     this.xAcceleration = xAcceleration;
     this.yAcceleration = yAcceleration;
+    this.xDragForce = xDragForce;
+    this.yDragForce = yDragForce;
+    this.forceGravity = forceGravity;
   }
 
   projectileMotion.register( 'DataPoint', DataPoint );

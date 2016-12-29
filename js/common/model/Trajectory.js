@@ -64,12 +64,27 @@ define( function( require ) {
     this.velocity = model.launchVelocity;
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
+    this.xDragForce = 0;
+    this.yDragForce = 0;
+    this.forceGravity = -ACCELERATION_DUE_TO_GRAVITY * this.mass;
 
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
     // add dataPoint for initial conditions
-    this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, this.airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
+    this.dataPoints.push( new DataPoint(
+      this.totalTime,
+      this.x,
+      this.y,
+      this.airDensity,
+      this.xVelocity,
+      this.yVelocity,
+      this.xAcceleration,
+      this.yAcceleration,
+      this.xDragForce,
+      this.yDragForce,
+      this.forceGravity
+    ) );
 
     this.projectileObjects = new ObservableArray();
 
@@ -91,7 +106,21 @@ define( function( require ) {
         this.yVelocity = 0;
         this.xAcceleration = 0;
         this.yAcceleration = 0; // there is still acceleration due to gravity, but normal force makes net acceleration zero
-        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
+        this.xDragForce = 0;
+        this.yDragForce = 0;
+        this.dataPoints.push( new DataPoint(
+          this.totalTime,
+          this.x,
+          this.y,
+          this.airDensity,
+          this.xVelocity,
+          this.yVelocity,
+          this.xAcceleration,
+          this.yAcceleration,
+          this.xDragForce,
+          this.yDragForce,
+          this.forceGravity
+        ) );
       }
 
       // Haven't reached ground, so continue collecting datapoints
@@ -111,31 +140,40 @@ define( function( require ) {
           this.projectileMotionModel.scoreModel.checkforScored( newX );
         }
 
+        this.x = newX;
+        this.y = newY;
+
         var newXVelocity = this.xVelocity + this.xAcceleration * dt;
-        newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
-        var newYVelocity = this.yVelocity + this.yAcceleration * dt;
+        this.xVelocity = newXVelocity >= 0 ? newXVelocity : 0;
+        this.yVelocity = this.yVelocity + this.yAcceleration * dt;
 
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
         var airDensity = this.projectileMotionModel.airDensity;
 
-        var dragForceX = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
-        var dragForceY = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
+        this.xDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
+        this.yDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
 
-        var newXAcceleration = -dragForceX / this.mass;
-        var newYAcceleration = -ACCELERATION_DUE_TO_GRAVITY - dragForceY / this.mass;
+        this.xAcceleration = -this.xDragForce / this.mass;
+        this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - this.yDragForce / this.mass;
 
         this.totalTime += dt;
-        this.x = newX;
-        this.y = newY;
-        this.xVelocity = newXVelocity;
-        this.yVelocity = newYVelocity;
-        this.xAcceleration = newXAcceleration;
-        this.yAcceleration = newYAcceleration;
 
         this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
-        this.dataPoints.push( new DataPoint( this.totalTime, this.x, this.y, airDensity, this.xVelocity, this.yVelocity, this.xAcceleration, this.yAcceleration ) );
+        this.dataPoints.push( new DataPoint(
+          this.totalTime,
+          this.x,
+          this.y,
+          this.airDensity,
+          this.xVelocity,
+          this.yVelocity,
+          this.xAcceleration,
+          this.yAcceleration,
+          this.xDragForce,
+          this.yDragForce,
+          this.forceGravity
+        ) );
       }
 
       // increment position of projectile objects, unless it has reached the end
