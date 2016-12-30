@@ -48,7 +48,9 @@ define( function( require ) {
       airDensity: 0,
 
       // vectors visibility
-      velocityVectorComponentsOn: false,
+      totalVelocityVectorOn: false,
+      componentsVelocityVectorsOn: false,
+      componentsAccelerationVectorsOn: false,
 
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',

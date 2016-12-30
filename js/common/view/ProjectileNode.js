@@ -45,7 +45,7 @@ define( function( require ) {
    * @param {string} objectType - pumpkin? human? canonball?
    * @param {number} diameter - how big the object is
    * @param {number} dragCoefficient - shape of the object
-   * @param {Property.<boolean>} - velocityVectorComponentsOnProperty
+   * @param {Property.<boolean>} - componentsVelocityVectorsOnProperty
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */
@@ -55,7 +55,9 @@ define( function( require ) {
                           diameter,
                           dragCoefficient,
                           modelViewTransform,
-                          velocityVectorComponentsOnProperty,
+                          totalVelocityVectorOnProperty,
+                          componentsVelocityVectorsOnProperty,
+                          componentsAccelerationVectorsOnProperty,
                           options
   ) {
 
@@ -147,16 +149,34 @@ define( function( require ) {
     var totalForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( totalForceArrow );
 
-    // listen to whether velocity vectors should be on
-    velocityVectorComponentsOnProperty.link( function( velocityVectorComponentsOn ) {
-      xVelocityArrow.visible = velocityVectorComponentsOn;
-      yVelocityArrow.visible = velocityVectorComponentsOn;
-      totalVelocityArrow.visible = velocityVectorComponentsOn;
-      xAccelerationArrow.visible = velocityVectorComponentsOn;
-      yAccelerationArrow.visible = velocityVectorComponentsOn;
-      freeBodyDiagram.visible = velocityVectorComponentsOn;
-      forcesBox.visible = velocityVectorComponentsOn;
+    // listen to whether components velocity vectors should be on
+    componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
+      xVelocityArrow.visible = componentsVelocityVectorsOn;
+      yVelocityArrow.visible = componentsVelocityVectorsOn;
     } );
+
+    // listen to whether total velocity vector should be on
+    totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
+      totalVelocityArrow.visible = totalVelocityVectorOn;
+    } );
+
+    // listen to whether components acceleration vectors should be on
+    componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
+      xAccelerationArrow.visible = componentsAccelerationVectorsOn;
+      yAccelerationArrow.visible = componentsAccelerationVectorsOn;
+    } );
+
+    // listen to whether everything should be on
+    // TODO: delete later
+    // allVectorsOnProperty.link( function( allVectorsOn ) {
+    //   xVelocityArrow.visible = allVectorsOn;
+    //   yVelocityArrow.visible = allVectorsOn;
+    //   totalVelocityArrow.visible = allVectorsOn;
+    //   xAccelerationArrow.visible = allVectorsOn;
+    //   yAccelerationArrow.visible = allVectorsOn;
+    //   freeBodyDiagram.visible = allVectorsOn;
+    //   forcesBox.visible = allVectorsOn;
+    // } );
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {

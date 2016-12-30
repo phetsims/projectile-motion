@@ -92,7 +92,13 @@ define( function( require ) {
 
     function handleTrajectoryAdded( addedTrajectory ) {
       // create the view representation for added trajectory 
-      var trajectoryNode = new TrajectoryNode( addedTrajectory, model.velocityVectorComponentsOnProperty, modelViewTransform );
+      var trajectoryNode = new TrajectoryNode(
+        addedTrajectory,
+        model.totalVelocityVectorOnProperty,
+        model.componentsVelocityVectorsOnProperty,
+        model.componentsAccelerationVectorsOnProperty,
+        modelViewTransform
+      );
 
       trajectoriesLayer.addChild( trajectoryNode );
 
@@ -182,6 +188,7 @@ define( function( require ) {
 
     // second panel is specified in different screens
     var secondPanel = options.secondPanel;
+    var vectorsPanel = options.vectorsPanel;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracerModel, measuringTapeNode, tracerNode, modelViewTransform );
@@ -261,6 +268,7 @@ define( function( require ) {
 
     // properties
     this.secondPanel = secondPanel;
+    this.vectorsPanel = vectorsPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
     this.fireButton = fireButton;
@@ -275,6 +283,7 @@ define( function( require ) {
       initialSpeedPanel,
       cannonNode,
       secondPanel,
+      vectorsPanel,
       toolboxPanel,
       measuringTapeNode,
       tracerNode,
@@ -315,6 +324,7 @@ define( function( require ) {
 
       this.secondPanel.right = width / scale - offsetX - X_MARGIN;
       this.secondPanel.top = Y_MARGIN - offsetY;
+      this.vectorsPanel.setRightTop( this.secondPanel.rightBottom.plusXY( 0, Y_MARGIN) );
       this.toolboxPanel.setRightTop( this.secondPanel.leftTop.minusXY( X_MARGIN, 0 ) );
       this.eraserButton.left = this.secondPanel.centerX + X_MARGIN;
       this.fireButton.right = this.secondPanel.centerX - X_MARGIN;

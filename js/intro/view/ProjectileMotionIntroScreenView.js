@@ -10,6 +10,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroSecondPanel = require( 'PROJECTILE_MOTION/intro/view/IntroSecondPanel' );
+  var IntroVectorsPanel = require( 'PROJECTILE_MOTION/intro/view/IntroVectorsPanel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
 
@@ -25,7 +26,8 @@ define( function( require ) {
 
     // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
     options = _.extend( {
-      secondPanel: new IntroSecondPanel( model )
+      secondPanel: new IntroSecondPanel( model ),
+      vectorsPanel: new IntroVectorsPanel( model )
     }, options );
 
     ProjectileMotionScreenView.call( self, model, options );

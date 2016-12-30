@@ -135,7 +135,7 @@ define( function( require ) {
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
     var velocityVectorComponentsLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
-    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionLabModel.velocityVectorComponentsOnProperty );
+    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionLabModel.componentsVelocityVectorsOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

@@ -31,10 +31,16 @@ define( function( require ) {
 
   /**
    * @param {Trajectory} trajectory - model for the trajectory
-   * @param {Property.<boolean>} velocityVectorComponentsOnProperty - passed through to ProjectileNode
+   * @param {Property.<boolean>} componentsVelocityVectorsOnProperty - passed through to ProjectileNode
    * @constructor
    */
-  function TrajectoryNode( trajectory, velocityVectorComponentsOnProperty, modelViewTransform ) {
+  function TrajectoryNode(
+    trajectory,
+    totalVelocityVectorOnProperty,
+    componentsVelocityVectorsOnProperty,
+    componentsAccelerationVectorsOnProperty,
+    modelViewTransform
+  ) {
     var self = this;
     Node.call( this, { pickable: false } );
 
@@ -84,7 +90,9 @@ define( function( require ) {
         trajectory.diameter,
         trajectory.dragCoefficient,
         modelViewTransform,
-        velocityVectorComponentsOnProperty
+        totalVelocityVectorOnProperty,
+        componentsVelocityVectorsOnProperty,
+        componentsAccelerationVectorsOnProperty
       );
       projectileNodesLayer.addChild( newProjectileNode );
     }

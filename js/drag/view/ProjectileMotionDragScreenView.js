@@ -25,7 +25,8 @@ define( function( require ) {
 
     // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
     options = _.extend( {
-      secondPanel: new ProjectilePanel( model )
+      secondPanel: new ProjectilePanel( model ),
+      vectorsPanel: new ProjectilePanel( model )
     }, options );
 
     ProjectileMotionScreenView.call( self, model, options );

@@ -27,7 +27,8 @@ define( function( require ) {
 
     // second panel includes customizable options
     options = _.extend( {
-      secondPanel: new LabSecondPanel( model )
+      secondPanel: new LabSecondPanel( model ),
+      vectorsPanel: new LabSecondPanel( model )
     }, options );
 
     ProjectileMotionScreenView.call( this, model, options );

@@ -103,6 +103,15 @@
   },
   "velocityVectors": {
     "value": "Velocity Vectors"
+  },
+  "accelerationVectors": {
+    "value": "Acceleration Vectors"
+  },
+  "total": {
+    "value": "Total"
+  },
+  "components": {
+    "value": "Components"
   }
 }
 
