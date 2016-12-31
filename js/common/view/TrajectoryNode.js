@@ -35,10 +35,11 @@ define( function( require ) {
    * @constructor
    */
   function TrajectoryNode(
+    projectileMotionModel,
     trajectory,
-    totalVelocityVectorOnProperty,
-    componentsVelocityVectorsOnProperty,
-    componentsAccelerationVectorsOnProperty,
+    // totalVelocityVectorOnProperty,
+    // componentsVelocityVectorsOnProperty,
+    // componentsAccelerationVectorsOnProperty,
     modelViewTransform
   ) {
     var self = this;
@@ -85,14 +86,15 @@ define( function( require ) {
 
     function handleProjectileObjectAdded( projectileObject ) {
       var newProjectileNode = new ProjectileNode(
+        projectileMotionModel,
         projectileObject.dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,
-        modelViewTransform,
-        totalVelocityVectorOnProperty,
-        componentsVelocityVectorsOnProperty,
-        componentsAccelerationVectorsOnProperty
+        modelViewTransform
+        // totalVelocityVectorOnProperty,
+        // componentsVelocityVectorsOnProperty,
+        // componentsAccelerationVectorsOnProperty
       );
       projectileNodesLayer.addChild( newProjectileNode );
     }

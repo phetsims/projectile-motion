@@ -107,6 +107,9 @@
   "accelerationVectors": {
     "value": "Acceleration Vectors"
   },
+  "forceVectors": {
+    "value": "Force Vectors"
+  },
   "total": {
     "value": "Total"
   },

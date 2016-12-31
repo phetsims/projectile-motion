@@ -18,6 +18,7 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -50,14 +51,15 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileNode(
+                          model,
                           dataPointProperty,
                           objectType,
                           diameter,
                           dragCoefficient,
                           modelViewTransform,
-                          totalVelocityVectorOnProperty,
-                          componentsVelocityVectorsOnProperty,
-                          componentsAccelerationVectorsOnProperty,
+                          // totalVelocityVectorOnProperty,
+                          // componentsVelocityVectorsOnProperty,
+                          // componentsAccelerationVectorsOnProperty,
                           options
   ) {
 
@@ -150,20 +152,32 @@ define( function( require ) {
     freeBodyDiagram.addChild( totalForceArrow );
 
     // listen to whether components velocity vectors should be on
-    componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
+    model.componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
       xVelocityArrow.visible = componentsVelocityVectorsOn;
       yVelocityArrow.visible = componentsVelocityVectorsOn;
     } );
 
     // listen to whether total velocity vector should be on
-    totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
+    model.totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
       totalVelocityArrow.visible = totalVelocityVectorOn;
     } );
 
     // listen to whether components acceleration vectors should be on
-    componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
+    model.componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
       xAccelerationArrow.visible = componentsAccelerationVectorsOn;
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
+    } );
+
+    Property.multilink( [ model.velocityVectorsOnProperty, model.forceVectorsOnProperty, model.totalOrComponentsProperty ],  function() {
+      totalVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'total';
+      xVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'components';
+      yVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'components';
+      forcesBox.visible = model.forceVectorsOn;
+      freeBodyDiagram.visible = model.forceVectorsOn;
+      totalForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'total';
+      xDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
+      yDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
+      forceGravityArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
     } );
 
     // listen to whether everything should be on
@@ -230,11 +244,16 @@ define( function( require ) {
         freeBody.x,
         freeBody.y - self.transformedForceScalar * dataPoint.forceGravity
       );
+
+      // net force is zero if projectile is on ground
+      var xTotalForce = dataPoint.y === 0 ? 0 : dataPoint.xDragForce;
+      var yTotalForce = dataPoint.y === 0 ? 0 : dataPoint.yDragForce + dataPoint.forceGravity;
       totalForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
-        freeBody.x + self.transformedForceScalar * dataPoint.xDragForce,
-        freeBody.y - self.transformedForceScalar * dataPoint.yDragForce - self.transformedForceScalar * dataPoint.forceGravity
+        freeBody.x + self.transformedForceScalar * xTotalForce,
+        freeBody.y - self.transformedForceScalar * yTotalForce
       );
+
       forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
     } );
 

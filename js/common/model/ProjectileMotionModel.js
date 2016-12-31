@@ -52,6 +52,10 @@ define( function( require ) {
       componentsVelocityVectorsOn: false,
       componentsAccelerationVectorsOn: false,
 
+      velocityVectorsOn: false,
+      forceVectorsOn: false,
+      totalOrComponents: 'total', // or 'components'
+
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
       isPlaying: true

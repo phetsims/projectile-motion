@@ -93,10 +93,11 @@ define( function( require ) {
     function handleTrajectoryAdded( addedTrajectory ) {
       // create the view representation for added trajectory 
       var trajectoryNode = new TrajectoryNode(
+        model,
         addedTrajectory,
-        model.totalVelocityVectorOnProperty,
-        model.componentsVelocityVectorsOnProperty,
-        model.componentsAccelerationVectorsOnProperty,
+        // model.totalVelocityVectorOnProperty,
+        // model.componentsVelocityVectorsOnProperty,
+        // model.componentsAccelerationVectorsOnProperty,
         modelViewTransform
       );
 
