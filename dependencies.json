@@ -1,0 +1,67 @@
+{
+  "comment": "# projectile-motion 1.0.0-dev.1 Tue Jan 10 2017 18:30:18 GMT-0700 (Mountain Standard Time)",
+  "assert": {
+    "sha": "a707328cc11048787a807714496af23e0bd25be1",
+    "branch": "master"
+  },
+  "axon": {
+    "sha": "eef11d1f3be82859b48fd4c1cad60c1f101e878a",
+    "branch": "master"
+  },
+  "brand": {
+    "sha": "0be722ee4e70a5689a86a246e86651f1b844574d",
+    "branch": "master"
+  },
+  "chipper": {
+    "sha": "f84bfa91a04b2d6971836e10b47c86b25c12810d",
+    "branch": "master"
+  },
+  "dot": {
+    "sha": "2b15e064999bb86ae5cf6d22ecf014f4144f13f9",
+    "branch": "master"
+  },
+  "joist": {
+    "sha": "b0260eac599251c4628fee9b01dbf1e7726a7548",
+    "branch": "master"
+  },
+  "kite": {
+    "sha": "197fef793822240fbc3a0e3b1edfb593c4e6050c",
+    "branch": "master"
+  },
+  "phet-core": {
+    "sha": "84747dff066a54fc6f6220aabd2b1a2195ebb6e6",
+    "branch": "master"
+  },
+  "phetcommon": {
+    "sha": "1cb33196c7b03661a71e82d189e66d95c92cc061",
+    "branch": "master"
+  },
+  "projectile-motion": {
+    "sha": "35660c35a0417cc3b01e2cd11a5227263cca5aa7",
+    "branch": "master"
+  },
+  "query-string-machine": {
+    "sha": "d8a4ff18a12aff003e4896213c1dfed5a79c1a30",
+    "branch": "master"
+  },
+  "scenery": {
+    "sha": "894c02720e1c9e30770d5ca374f509b2a62d5061",
+    "branch": "master"
+  },
+  "scenery-phet": {
+    "sha": "4c435b4a055b952c86cf13c830b1e2df73a81862",
+    "branch": "master"
+  },
+  "sherpa": {
+    "sha": "785a536c157f34ab1af195b0d40cff3fff023a2b",
+    "branch": "master"
+  },
+  "sun": {
+    "sha": "f860b08b74ed44d10aea1abee2e8e6c175f4e72b",
+    "branch": "master"
+  },
+  "tandem": {
+    "sha": "f2aec319d5689fdf815d6445d489aad417bb450e",
+    "branch": "master"
+  }
+}
