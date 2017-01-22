@@ -17,11 +17,14 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   var Property = require( 'AXON/Property' );
+  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
+  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
   var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
   var ARROW_TAIL_WIDTH = 6;
@@ -142,14 +145,26 @@ define( function( require ) {
     var xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( xDragForceArrow );
 
+    var xDragForceLabel = new SubSupText( 'F<sub>dx</sub>', LABEL_OPTIONS );
+    freeBodyDiagram.addChild( xDragForceLabel );
+
     var yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( yDragForceArrow );
+
+    var yDragForceLabel = new SubSupText( 'F<sub>dy</sub>', LABEL_OPTIONS );
+    freeBodyDiagram.addChild( yDragForceLabel );
 
     var forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( forceGravityArrow );
 
+    var forceGravityLabel = new SubSupText( 'F<sub>g</sub>', LABEL_OPTIONS );
+    freeBodyDiagram.addChild( forceGravityLabel );
+
     var totalDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( totalDragForceArrow );
+
+    var totalDragForceLabel = new SubSupText( 'F<sub>d</sub>', LABEL_OPTIONS );
+    freeBodyDiagram.addChild( totalDragForceLabel );
 
     // listen to whether components velocity vectors should be on
     model.componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
@@ -175,22 +190,14 @@ define( function( require ) {
       forcesBox.visible = model.forceVectorsOn;
       freeBodyDiagram.visible = model.forceVectorsOn;
       xDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
+      xDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
       yDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
+      yDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
       forceGravityArrow.visible = model.forceVectorsOn;
+      forceGravityLabel.visible = model.forceVectorsOn;
       totalDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'total';
+      totalDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'total';
     } );
-
-    // listen to whether everything should be on
-    // TODO: delete later
-    // allVectorsOnProperty.link( function( allVectorsOn ) {
-    //   xVelocityArrow.visible = allVectorsOn;
-    //   yVelocityArrow.visible = allVectorsOn;
-    //   totalVelocityArrow.visible = allVectorsOn;
-    //   xAccelerationArrow.visible = allVectorsOn;
-    //   yAccelerationArrow.visible = allVectorsOn;
-    //   freeBodyDiagram.visible = allVectorsOn;
-    //   forcesBox.visible = allVectorsOn;
-    // } );
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
@@ -229,21 +236,30 @@ define( function( require ) {
       );
       freeBody.x = x + FREE_BODY_OFFSET.x;
       freeBody.y = y + FREE_BODY_OFFSET.y;
+
       xDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x - 100 * self.transformedForceScalar * dataPoint.xDragForce,
         freeBody.y
       );
+      xDragForceLabel.right = xDragForceArrow.tipX - 5;
+      xDragForceLabel.y = xDragForceArrow.tipY;
+
       yDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x,
         freeBody.y + 100 * self.transformedForceScalar * dataPoint.yDragForce
       );
+      yDragForceLabel.left = yDragForceArrow.tipX + 5;
+      yDragForceLabel.y = yDragForceArrow.tipY;
+
       forceGravityArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x,
         freeBody.y - self.transformedForceScalar * dataPoint.forceGravity
       );
+      forceGravityLabel.left = forceGravityArrow.tipX + 5;
+      forceGravityLabel.y = forceGravityArrow.tipY;
 
       // net force is zero if projectile is on ground
       var xTotalForce = dataPoint.y === 0 ? 0 : dataPoint.xDragForce;
@@ -253,6 +269,8 @@ define( function( require ) {
         freeBody.x - 100 * self.transformedForceScalar * xTotalForce,
         freeBody.y + 100 * self.transformedForceScalar * yTotalForce
       );
+      totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
+      totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
 
       forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
     } );
