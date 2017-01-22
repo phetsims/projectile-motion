@@ -235,6 +235,9 @@ define( function( require ) {
       freeBody.x = x + FREE_BODY_OFFSET.x;
       freeBody.y = y + FREE_BODY_OFFSET.y;
 
+      // TODO: is multiplying by 100 for the drag force arrows okay? Cause you can't see it otherwise
+      // If so, should we multiply the acceleration x component by 100 as well?
+
       xDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x - 100 * self.transformedForceScalar * dataPoint.xDragForce,
