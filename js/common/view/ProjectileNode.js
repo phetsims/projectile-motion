@@ -183,20 +183,18 @@ define( function( require ) {
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
     } );
 
-    Property.multilink( [ model.velocityVectorsOnProperty, model.forceVectorsOnProperty, model.totalOrComponentsProperty ],  function() {
-      totalVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'total';
-      xVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'components';
-      yVelocityArrow.visible = model.velocityVectorsOn && model.totalOrComponents === 'components';
-      forcesBox.visible = model.forceVectorsOn;
-      freeBodyDiagram.visible = model.forceVectorsOn;
-      xDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
-      xDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
-      yDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
-      yDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'components';
-      forceGravityArrow.visible = model.forceVectorsOn;
-      forceGravityLabel.visible = model.forceVectorsOn;
-      totalDragForceArrow.visible = model.forceVectorsOn && model.totalOrComponents === 'total';
-      totalDragForceLabel.visible = model.forceVectorsOn && model.totalOrComponents === 'total';
+    // listen to which force vectors should be on
+    Property.multilink( [ model.componentsForceVectorsOnProperty, model.totalForceVectorOnProperty ], function() {
+      forceGravityArrow.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
+      forceGravityLabel.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
+      forcesBox.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
+      freeBodyDiagram.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
+      xDragForceArrow.visible = model.componentsForceVectorsOn;
+      xDragForceLabel.visible = model.componentsForceVectorsOn;
+      yDragForceArrow.visible = model.componentsForceVectorsOn;
+      yDragForceLabel.visible = model.componentsForceVectorsOn;
+      totalDragForceArrow.visible = model.totalForceVectorOn;
+      totalDragForceLabel.visible = model.totalForceVectorOn;
     } );
 
     // update if data point changes

@@ -50,11 +50,9 @@ define( function( require ) {
       // vectors visibility
       totalVelocityVectorOn: false,
       componentsVelocityVectorsOn: false,
+      totalForceVectorOn: false,
+      componentsForceVectorsOn: false,
       componentsAccelerationVectorsOn: false,
-
-      velocityVectorsOn: false,
-      forceVectorsOn: false,
-      totalOrComponents: 'total', // or 'components'
 
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
