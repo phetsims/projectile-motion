@@ -183,12 +183,12 @@ define( function( require ) {
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
     } );
 
+    var dataPoint = dataPointProperty.get();
+
     // listen to which force vectors should be on
     Property.multilink( [ model.componentsForceVectorsOnProperty, model.totalForceVectorOnProperty ], function() {
-      forceGravityArrow.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
-      forceGravityLabel.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
-      forcesBox.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
-      freeBodyDiagram.visible = model.componentsForceVectorsOn || model.totalForceVectorOn;
+      forcesBox.visible = ( model.componentsForceVectorsOn || model.totalForceVectorOn ) && !dataPoint.reachedGround;
+      freeBodyDiagram.visible = ( model.componentsForceVectorsOn || model.totalForceVectorOn ) && !dataPoint.reachedGround;
       xDragForceArrow.visible = model.componentsForceVectorsOn;
       xDragForceLabel.visible = model.componentsForceVectorsOn;
       yDragForceArrow.visible = model.componentsForceVectorsOn;
@@ -232,6 +232,14 @@ define( function( require ) {
         x,
         y - self.transformedAccelerationScalar * dataPoint.yAcceleration
       );
+
+      // When the projectile lands, remove the force diagram
+      if ( dataPoint.reachedGround ) {
+        forcesBox.visible = false;
+        freeBodyDiagram.visible = false;
+        return;
+      }
+
       freeBody.x = x + FREE_BODY_OFFSET.x;
       freeBody.y = y + FREE_BODY_OFFSET.y;
 
