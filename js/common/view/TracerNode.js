@@ -137,10 +137,10 @@ define( function( require ) {
 
       crosshair.center = self.probeOrigin;
       circle.center = self.probeOrigin;
-      crosshairMount.centerX = self.probeOrigin.x;
-      crosshairMount.top = self.probeOrigin.y + CIRCLE_RADIUS;
-      rectangle.centerX = self.probeOrigin.x;
-      rectangle.top = crosshairMount.bottom;
+      crosshairMount.left = self.probeOrigin.x + CIRCLE_RADIUS;
+      crosshairMount.centerY = self.probeOrigin.y;
+      rectangle.left = crosshairMount.right;
+      rectangle.centerY = self.probeOrigin.y;
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
@@ -256,10 +256,10 @@ define( function( require ) {
 
       crosshair.center = probeOrigin;
       circle.center = probeOrigin;
-      crosshairMount.centerX = probeOrigin.x;
-      crosshairMount.top = probeOrigin.y + CIRCLE_RADIUS;
-      rectangle.centerX = probeOrigin.x;
-      rectangle.top = crosshairMount.bottom;
+      crosshairMount.left = probeOrigin.x + CIRCLE_RADIUS;
+      crosshairMount.centerY = probeOrigin.y;
+      rectangle.left = crosshairMount.right;
+      rectangle.centerY = probeOrigin.y;
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
