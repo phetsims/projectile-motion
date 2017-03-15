@@ -50,6 +50,7 @@ define( function( require ) {
    * @constructor
    */
   function ProjectilePanel( projectileMotionLabModel, options ) {
+    // TODO: rename projectileMotionLabModel to projectileMotionViewModel
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -95,7 +96,9 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
       if ( viewNode ) {
-        var valueAndDisplay = new HBox( { spacing: options.xMargin, children: [ viewNode, valueNode ] } );
+        var viewAndValueNodes = new HBox( { spacing: options.xMargin, children: [ viewNode, valueNode ] } );
+        var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in viewNode
+        var valueAndDisplay = new VBox( { align: 'right', children: [ strut, viewAndValueNodes ] } );
         var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueAndDisplay.width;
         return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueAndDisplay ] } );
       }

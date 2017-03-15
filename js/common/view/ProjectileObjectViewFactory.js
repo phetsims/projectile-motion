@@ -10,6 +10,7 @@ define( function( require ) {
   
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Matrix3 = require( 'DOT/Matrix3' );
   var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Shape = require( 'KITE/Shape' );
@@ -43,6 +44,12 @@ define( function( require ) {
           shape.lineTo( x, y );
         }
         shape.lineTo( -radius, 0 );
+
+        // to maintain the same cross sectional area
+        var currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
+        var scaleFactor = radius / currentCrossSectionalRadius;
+        shape = shape.transformed ( Matrix3.scaling( scaleFactor, scaleFactor ) );
+
         return new Path( shape, { fill: 'black' } );
       }
       else if ( dragCoefficient < 1.17 ) { // sphere (exclusive) to hemisphere (exclusive)
