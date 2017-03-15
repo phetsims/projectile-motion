@@ -18,7 +18,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var cementWidth = 25;
+  var cementWidth = 20;
   var grassWidth = 5;
   var lineWidth = 2;
 
