@@ -31,7 +31,7 @@ define( function( require ) {
       self.componentsForceVectorsOn = self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components';
     } );
 
-    this.airResistanceOn = true;
+    this.airResistanceOn = true; // since this screen explores drag, always leave air resistance on
   }
 
   projectileMotion.register( 'ProjectileMotionDragModel', ProjectileMotionDragModel );
