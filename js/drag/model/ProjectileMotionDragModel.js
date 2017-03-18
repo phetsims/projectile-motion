@@ -30,6 +30,8 @@ define( function( require ) {
       self.totalForceVectorOn = self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total';
       self.componentsForceVectorsOn = self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components';
     } );
+
+    this.airResistanceOn = true;
   }
 
   projectileMotion.register( 'ProjectileMotionDragModel', ProjectileMotionDragModel );
