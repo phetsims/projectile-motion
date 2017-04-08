@@ -14,6 +14,9 @@
   "pattern0Label1Units": {
     "value": "{0} ({1})"
   },
+  "pattern0Value1Units": {
+     "value": "{0}{1}"
+  },
   "pattern0Value1UnitsWithSpace": {
     "value": "{0} {1}"
   },
@@ -50,8 +53,14 @@
   "degrees": {
     "value": "degrees"
   },
+  "speed": {
+     "value": "Speed"
+  },
   "metersPerSecond": {
     "value": "m/s"
+  },
+  "degreesSymbol": {
+     "value": "˚"
   },
   "dragCoefficient": {
     "value": "Drag Coefficient"
@@ -83,6 +92,9 @@
   "pumpkin": {
     "value": "Pumpkin"
   },
+  "initialValues": {
+    "value": "Initial Values"
+  },
   "normal": {
     "value": "Normal"
   },
@@ -105,4 +117,3 @@
     "value": "Components"
   }
 }
-
