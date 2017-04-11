@@ -23,7 +23,6 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
@@ -134,9 +133,6 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
 
-    var velocityVectorComponentsLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
-    var velocityVectorComponentsCheckBox = new CheckBox( velocityVectorComponentsLabel, projectileMotionLabModel.componentsVelocityVectorsOnProperty );
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
@@ -146,8 +142,7 @@ define( function( require ) {
         diameterBox,
         airResistanceCheckBox,
         dragCoefficientBox,
-        altitudeBox,
-        velocityVectorComponentsCheckBox
+        altitudeBox
       ]
     } );
 
