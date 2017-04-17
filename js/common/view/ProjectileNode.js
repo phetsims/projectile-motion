@@ -20,7 +20,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   var Property = require( 'AXON/Property' );
-  var SubSupText = require( 'SCENERY_PHET/SubSupText' );
+  var RichText = require( 'SCENERY_PHET/RichText' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -145,25 +145,25 @@ define( function( require ) {
     var xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( xDragForceArrow );
 
-    var xDragForceLabel = new SubSupText( 'F<sub>dx</sub>', LABEL_OPTIONS );
+    var xDragForceLabel = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
     freeBodyDiagram.addChild( xDragForceLabel );
 
     var yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( yDragForceArrow );
 
-    var yDragForceLabel = new SubSupText( 'F<sub>dy</sub>', LABEL_OPTIONS );
+    var yDragForceLabel = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
     freeBodyDiagram.addChild( yDragForceLabel );
 
     var forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( forceGravityArrow );
 
-    var forceGravityLabel = new SubSupText( 'F<sub>g</sub>', LABEL_OPTIONS );
+    var forceGravityLabel = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
     freeBodyDiagram.addChild( forceGravityLabel );
 
     var totalDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyDiagram.addChild( totalDragForceArrow );
 
-    var totalDragForceLabel = new SubSupText( 'F<sub>d</sub>', LABEL_OPTIONS );
+    var totalDragForceLabel = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
     freeBodyDiagram.addChild( totalDragForceLabel );
 
     // listen to whether components velocity vectors should be on
