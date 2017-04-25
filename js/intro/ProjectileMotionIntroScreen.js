@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * View for the 'Intro' screen. A subtype of the common screen view, ProjectileMotionScreenView
+ * The 'Intro' screen.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
