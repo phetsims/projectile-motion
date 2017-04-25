@@ -13,17 +13,17 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
  
   /**
-   * {number} time - total time since fire at this point on the trajectory
-   * {number} x - x position of the data point, also called range
-   * {number} y - y position of the data point, also called height
-   * {number} airDensity
-   * {number} xVelocity
-   * {number} yVelocity
-   * {number} xAcceleration
-   * {number} yAcceleration
-   * {number} xDragForce
-   * {number} yDragForce
-   * {number} forceGravity
+   * @param {number} time - total time since fire at this point on the trajectory
+   * @param {number} x - x position of the data point, also called range
+   * @param {number} y - y position of the data point, also called height
+   * @param {number} airDensity
+   * @param {number} xVelocity
+   * @param {number} yVelocity
+   * @param {number} xAcceleration
+   * @param {number} yAcceleration
+   * @param {number} xDragForce
+   * @param {number} yDragForce
+   * @param {number} forceGravity
    * @constructor
    */
   function DataPoint( time, x, y, airDensity, xVelocity, yVelocity, xAcceleration, yAcceleration, xDragForce, yDragForce, forceGravity ) {
