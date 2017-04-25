@@ -3,7 +3,7 @@
 /**
  * RequireJS configuration file for the sim.
  *
- * @author PhET Interactive Simulations
+ * @author John Blanco
  */
 require.config( {
   // An array of dependencies to load. Useful when require is defined as a config object before require.js

@@ -3,7 +3,7 @@
 /**
  * Main entry point for the sim.
  *
- * @author PhET Interactive Simulations
+ * @author John Blanco
  */
 define( function( require ) {
   'use strict';
