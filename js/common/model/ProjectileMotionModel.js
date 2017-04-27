@@ -31,9 +31,6 @@ define( function( require ) {
     // @public
     PropertySet.call( this, _.extend( {
 
-      // variables for the next trajectory, and thus the cannon
-      launchVelocity: 18, // m/s
-
       // parameters for the next projectile fired
       // defaults are to the cannonball
       projectileMass: ProjectileMotionConstants.CANNONBALL_MASS, // kg
@@ -62,6 +59,9 @@ define( function( require ) {
 
     // @public {Property.<number>} angle of the cannon, in degrees
     this.cannonAngleProperty = new Property( 80 );
+
+    // @public {Property.<number>} launch speed, in meters per second
+    this.launchVelocityProperty = new Property( 18 );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -116,6 +116,7 @@ define( function( require ) {
 
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
+      this.launchVelocityProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
