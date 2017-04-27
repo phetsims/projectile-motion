@@ -41,7 +41,7 @@ define( function( require ) {
     PropertySet.call( this, {
       totalTime: 0, // total time (s) since the projectile was fired
       x: 0,
-      y: model.cannonHeight,
+      y: model.cannonHeightProperty.get(),
       mass: model.projectileMass,
       diameter: model.projectileDiameter,
       dragCoefficient: model.projectileDragCoefficient,
@@ -252,7 +252,7 @@ define( function( require ) {
     equalsCurrent: function() {
       var model = this.projectileMotionModel;
       return !this.changedInMidAir
-        && this.yProperty.initialValue === model.cannonHeight
+        && this.yProperty.initialValue === model.cannonHeightProperty.get()
         && this.massProperty.initialValue === model.projectileMass
         && this.diameterProperty.initialValue === model.projectileDiameter
         && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficient

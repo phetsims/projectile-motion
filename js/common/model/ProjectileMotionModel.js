@@ -32,7 +32,6 @@ define( function( require ) {
     PropertySet.call( this, _.extend( {
 
       // variables for the next trajectory, and thus the cannon
-      cannonHeight: 0, // meters
       cannonAngle: 80, // degrees
       launchVelocity: 18, // m/s
 
@@ -58,6 +57,9 @@ define( function( require ) {
       speed: 'normal',
       isPlaying: true
     }, additionalProperties ) );
+
+    // @public {Property.<number>} height of the cannon, in meters
+    this.cannonHeightProperty = new Property( 0 );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -109,6 +111,8 @@ define( function( require ) {
     reset: function() {
       // reset all properties by calling super class
       PropertySet.prototype.reset.call( this );
+      
+      this.cannonHeightProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
