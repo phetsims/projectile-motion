@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -22,19 +22,33 @@ define( function( require ) {
    */
   function ProjectileMotionMeasuringTape() {
 
-    PropertySet.call( this, {
-      // @public - Base (start of tape from the container) position
-      basePosition: new Vector2( 0, 0 ),
+    // @public - Base (start of tape from the container) position
+    this.basePositionProperty = new Property( new Vector2( 0, 0 ) );
 
-      // @public - Tip (end of measuring tape) position
-      tipPosition: new Vector2( 1, 0 ),
+    // @public - Tip (end of measuring tape) position
+    this.tipPositionProperty = new Property( new Vector2( 1, 0 ) );
 
-      // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
-      isActive: false
-    } );
+    // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
+    this.isActiveProperty = new Property( false );
+
+    // TODO: doc is this public or private
+    this.resetProjectileMotionMeasuringTape = function() {
+      this.basePositionProperty.reset();
+      this.tipPositionProperty.reset();
+      this.isActiveProperty.reset();
+    };
+
   }
 
   projectileMotion.register( 'ProjectileMotionMeasuringTape', ProjectileMotionMeasuringTape );
 
-  return inherit( PropertySet, ProjectileMotionMeasuringTape );
+  return inherit( Object, ProjectileMotionMeasuringTape, {
+
+    // @public
+    reset: function() {
+      this.resetProjectileMotionMeasuringTape();
+    }
+
+  } );
+
 } );

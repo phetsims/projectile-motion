@@ -139,7 +139,7 @@ define( function( require ) {
       var tapeBaseBounds = parentScreenView.globalToLocalBounds( measuringTapeNode.getGlobalBounds() );
       var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
-        measuringTape.isActive = false;
+        measuringTape.isActiveProperty.set( false );
       }
     } );
 
@@ -166,15 +166,15 @@ define( function( require ) {
           return;
         }
 
-        measuringTape.isActive = true;
+        measuringTape.isActiveProperty.set( true );
         // debugger;
 
         assert && assert( parentScreenView, 'parent screen view has not been set' );
 
         var tapeBasePosition = parentScreenView.globalToLocalPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tapeBasePosition );
-        measuringTape.basePosition = modelViewTransform.viewToModelPosition( initialViewPosition );
-        measuringTape.tipPosition = measuringTape.basePosition.plus( tipToBasePosition );
+        measuringTape.basePositionProperty.set( modelViewTransform.viewToModelPosition( initialViewPosition ) );
+        measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
         measuringTapeNode.startBaseDrag( event );
       }
