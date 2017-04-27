@@ -42,9 +42,9 @@ define( function( require ) {
       totalTime: 0, // total time (s) since the projectile was fired
       x: 0,
       y: model.cannonHeightProperty.get(),
-      mass: model.projectileMass,
-      diameter: model.projectileDiameter,
-      dragCoefficient: model.projectileDragCoefficient,
+      mass: model.projectileMassProperty.get(),
+      diameter: model.projectileDiameterProperty.get(),
+      dragCoefficient: model.projectileDragCoefficientProperty.get(),
       xVelocity: model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ),
       yVelocity: model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ),
       airDensity: model.airDensity,
@@ -253,9 +253,9 @@ define( function( require ) {
       var model = this.projectileMotionModel;
       return !this.changedInMidAir
         && this.yProperty.initialValue === model.cannonHeightProperty.get()
-        && this.massProperty.initialValue === model.projectileMass
-        && this.diameterProperty.initialValue === model.projectileDiameter
-        && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficient
+        && this.massProperty.initialValue === model.projectileMassProperty.get()
+        && this.diameterProperty.initialValue === model.projectileDiameterProperty.get()
+        && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficientProperty.get()
         && this.xVelocityProperty.initialValue === model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 )
         && this.yVelocityProperty.initialValue === model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
         && this.airDensityProperty.initialValue === model.airDensity;

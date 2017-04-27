@@ -31,12 +31,6 @@ define( function( require ) {
     // @public
     PropertySet.call( this, _.extend( {
 
-      // parameters for the next projectile fired
-      // defaults are to the cannonball
-      projectileMass: ProjectileMotionConstants.CANNONBALL_MASS, // kg
-      projectileDiameter: ProjectileMotionConstants.CANNONBALL_DIAMETER, // meters
-      projectileDragCoefficient: ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT, // of a pumpkin
-
       // properties that change the environment and affect all projectiles immediately
       altitude: 0, // meters
       airResistanceOn: false, // defaults to air resistance off
@@ -54,6 +48,8 @@ define( function( require ) {
       isPlaying: true
     }, additionalProperties ) );
 
+    // --initial values
+
     // @public {Property.<number>} height of the cannon, in meters
     this.cannonHeightProperty = new Property( 0 );
 
@@ -62,6 +58,17 @@ define( function( require ) {
 
     // @public {Property.<number>} launch speed, in meters per second
     this.launchVelocityProperty = new Property( 18 );
+
+    // --parameters for next projectile fired, defaults to a cannonball
+
+    // @public {Property.<number>} mass of the projectile, in kilograms
+    this.projectileMassProperty = new Property( ProjectileMotionConstants.CANNONBALL_MASS );
+
+    // @public {Property.<number>} diameter of the projectile, in meters
+    this.projectileDiameterProperty = new Property( ProjectileMotionConstants.CANNONBALL_DIAMETER );
+
+    // @public {Property.<number>} drag coefficient of the projectile
+    this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -117,6 +124,9 @@ define( function( require ) {
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
       this.launchVelocityProperty.reset();
+      this.projectileMassProperty.reset();
+      this.projectileDiameterProperty.reset();
+      this.projectileDragCoefficientProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
