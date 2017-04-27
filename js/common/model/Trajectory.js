@@ -45,8 +45,8 @@ define( function( require ) {
       mass: model.projectileMass,
       diameter: model.projectileDiameter,
       dragCoefficient: model.projectileDragCoefficient,
-      xVelocity: model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 ),
-      yVelocity: model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 ),
+      xVelocity: model.launchVelocity * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ),
+      yVelocity: model.launchVelocity * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ),
       airDensity: model.airDensity,
 
       // counts how old this projectile is
@@ -59,8 +59,8 @@ define( function( require ) {
     // TODO: velocity and acceleration vectors? Or keep as component variables
 
     // @public
-    this.xVelocity = model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 );
-    this.yVelocity = model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 );
+    this.xVelocity = model.launchVelocity * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 );
+    this.yVelocity = model.launchVelocity * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 );
     this.velocity = model.launchVelocity;
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
@@ -256,8 +256,8 @@ define( function( require ) {
         && this.massProperty.initialValue === model.projectileMass
         && this.diameterProperty.initialValue === model.projectileDiameter
         && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficient
-        && this.xVelocityProperty.initialValue === model.launchVelocity * Math.cos( model.cannonAngle * Math.PI / 180 )
-        && this.yVelocityProperty.initialValue === model.launchVelocity * Math.sin( model.cannonAngle * Math.PI / 180 )
+        && this.xVelocityProperty.initialValue === model.launchVelocity * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 )
+        && this.yVelocityProperty.initialValue === model.launchVelocity * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
         && this.airDensityProperty.initialValue === model.airDensity;
     }
 
