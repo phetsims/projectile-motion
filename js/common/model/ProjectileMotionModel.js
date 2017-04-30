@@ -32,12 +32,7 @@ define( function( require ) {
     // @public
     PropertySet.call( this, _.extend( {
 
-      // vectors visibility
-      totalVelocityVectorOn: false,
-      componentsVelocityVectorsOn: false,
-      totalForceVectorOn: false,
-      componentsForceVectorsOn: false,
-      componentsAccelerationVectorsOn: false,
+      
 
       // animation controls, e.g. normal/slow/play/pause/step
       speed: 'normal',
@@ -103,6 +98,23 @@ define( function( require ) {
         }
       } );
 
+    // --vectors visibility
+
+    // @public {Property.<boolean>} whether total velocity vector is showing
+    this.totalVelocityVectorOnProperty = new Property( false );
+
+    // @public {Property.<boolean>} whether component velocity vectors are showing
+    this.componentsVelocityVectorsOnProperty = new Property( false );
+
+    // @public {Property.<boolean>} whether total force vector is showing
+    this.totalForceVectorOnProperty = new Property( false );
+
+    // @public {Property.<boolean>} whether component force vectors are showing
+    this.componentsForceVectorsOnProperty = new Property( false );
+
+    // @public {Property.<boolean>} whether component acceleration vectors are showing
+    this.componentsAccelerationVectorsOnProperty = new Property( false );
+
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
 
@@ -161,6 +173,11 @@ define( function( require ) {
       this.projectileDragCoefficientProperty.reset();
       this.altitudeProperty.reset();
       this.airResistanceOnProperty.reset();
+      this.totalVelocityVectorOnProperty.reset();
+      this.componentsVelocityVectorsOnProperty.reset();
+      this.totalForceVectorOnProperty.reset();
+      this.componentsForceVectorsOnProperty.reset();
+      this.componentsAccelerationVectorsOnProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();

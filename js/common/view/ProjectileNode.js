@@ -187,14 +187,14 @@ define( function( require ) {
 
     // listen to which force vectors should be on
     Property.multilink( [ model.componentsForceVectorsOnProperty, model.totalForceVectorOnProperty ], function() {
-      forcesBox.visible = ( model.componentsForceVectorsOn || model.totalForceVectorOn ) && !dataPoint.reachedGround;
-      freeBodyDiagram.visible = ( model.componentsForceVectorsOn || model.totalForceVectorOn ) && !dataPoint.reachedGround;
-      xDragForceArrow.visible = model.componentsForceVectorsOn;
-      xDragForceLabel.visible = model.componentsForceVectorsOn;
-      yDragForceArrow.visible = model.componentsForceVectorsOn;
-      yDragForceLabel.visible = model.componentsForceVectorsOn;
-      totalDragForceArrow.visible = model.totalForceVectorOn;
-      totalDragForceLabel.visible = model.totalForceVectorOn;
+      forcesBox.visible = ( model.componentsForceVectorsOnProperty.get() || model.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
+      freeBodyDiagram.visible = ( model.componentsForceVectorsOnProperty.get() || model.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
+      xDragForceArrow.visible = model.componentsForceVectorsOnProperty.get();
+      xDragForceLabel.visible = model.componentsForceVectorsOnProperty.get();
+      yDragForceArrow.visible = model.componentsForceVectorsOnProperty.get();
+      yDragForceLabel.visible = model.componentsForceVectorsOnProperty.get();
+      totalDragForceArrow.visible = model.totalForceVectorOnProperty.get();
+      totalDragForceLabel.visible = model.totalForceVectorOnProperty.get();
     } );
 
     // update if data point changes

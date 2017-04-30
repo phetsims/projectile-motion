@@ -23,12 +23,13 @@ define( function( require ) {
     this.velocityVectorsOnProperty = new Property( false );
     this.forceVectorsOnProperty = new Property( false );
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
+    
     // update which vectors to show based on controls
     Property.multilink( [ this.velocityVectorsOnProperty, this.forceVectorsOnProperty, this.totalOrComponentsProperty ], function() {
-      self.totalVelocityVectorOn = self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total';
-      self.componentsVelocityVectorsOn = self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components';
-      self.totalForceVectorOn = self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total';
-      self.componentsForceVectorsOn = self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components';
+      self.totalVelocityVectorOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
+      self.componentsVelocityVectorsOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
+      self.totalForceVectorOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
+      self.componentsForceVectorsOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
     } );
 
     this.airResistanceOnProperty.set( true ); // since this screen explores drag, always leave air resistance on
@@ -36,6 +37,14 @@ define( function( require ) {
 
   projectileMotion.register( 'ProjectileMotionDragModel', ProjectileMotionDragModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionDragModel);
+  return inherit( ProjectileMotionModel, ProjectileMotionDragModel, {
+    // @public resets all drag model elements, first calling the super class' reset
+    reset: function() {
+      ProjectileMotionModel.prototype.reset.call( this );
+      this.velocityVectorsOnProperty.reset();
+      this.forceVectorsOnProperty.reset();
+      this.totalOrComponentsProperty.reset();
+    }
+  } );
 } );
 
