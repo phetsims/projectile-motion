@@ -15,58 +15,71 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
 
   // constants
   var APPEARANCE_DELAY = 0.05; // seconds
 
   /**
-   * @param {number} initialTargetX - x position of the target
+   * @param {number} initialTargetX - initial x position of the target
    * @constructor
    */
   function Score( initialTargetX ) {
-    // @public
-    PropertySet.call( this, {
-      scoreVisible: false, // indicates whether user has scored
-      scoringAnimation: false, // whether scoring animation should be on
-      timeBeforeVisible: 0, // indicates how before score indicator should be made visible
-      targetX: initialTargetX
-    } );
+
+    // @public {Property.<boolean>} whether user has scored
+    this.scoreVisibleProperty = new Property( false );
+
+    // @public {Property.<boolean>} whether scoring animation should be on
+    this.scoringAnimationProperty = new Property( false );
+    
+    // @public {Property.<number>} how long before score indicator should be made visible
+    this.timeBeforeVisibleProperty = new Property( 0 );
+    
+    // @public {Property.<number>} x position of target
+    this.targetXProperty = new Property( initialTargetX );
 
   }
 
   projectileMotion.register( 'Score', Score );
 
-  return inherit( PropertySet, Score, {
+  return inherit( Object, Score, {
 
-    //@ public
+    // @public
+    reset: function() {
+      this.scoreVisibleProperty.reset();
+      this.scoringAnimationProperty.reset();
+      this.timeBeforeVisibleProperty.reset();
+      this.targetXProperty.reset();
+    },
+
+    // @public
     step: function( dt ) {
 
       // scoring animation on
-      if ( this.scoringAnimation ) {
+      if ( this.scoringAnimationProperty.get() ) {
 
         // hasn't reached time to make score visible yet
-        if ( this.timeBeforeVisible < APPEARANCE_DELAY ) { 
-          this.scoreVisible = false;
-          this.timeBeforeVisible += dt; // update time before making score visible
+        if ( this.timeBeforeVisibleProperty.get() < APPEARANCE_DELAY ) { 
+          this.scoreVisibleProperty.set( false );
+          this.timeBeforeVisibleProperty.set( this.timeBeforeVisibleProperty.get() + dt ); // update time before making score visible
         }
 
         // It is time to make score visible.
         else {
-          this.scoreVisible = true;
+          this.scoreVisibleProperty.set( true );
         }
       }
 
       // scoring animation off
       else {
-        this.scoreVisible = false;
+        this.scoreVisibleProperty.set( false );
       }
     },
 
 
     // @public Determines {boolean} whether projectile has scored based on {number} x position of the landed projectile
     checkforScored: function( projectileX ) {
-      var distance = Math.abs( projectileX - this.targetX );
+      var distance = Math.abs( projectileX - this.targetXProperty.get() );
       if ( distance <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
         this.score();
       }
@@ -74,13 +87,13 @@ define( function( require ) {
 
     // @public restarts time before visible and turns on animation
     score: function() {
-      this.timeBeforeVisible = 0;
-      this.scoringAnimation = true;
+      this.timeBeforeVisibleProperty.set( 0 );
+      this.scoringAnimationProperty.set( true );
     },
 
     // @public turns off animation
     turnOffScore: function() {
-      this.scoringAnimation = false;
+      this.scoringAnimationProperty.set( false );
     }
 
   } );
