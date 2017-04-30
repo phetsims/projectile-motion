@@ -9,6 +9,7 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -30,8 +31,6 @@ define( function( require ) {
 
     // @public
     PropertySet.call( this, _.extend( {
-
-     
 
       // vectors visibility
       totalVelocityVectorOn: false,
@@ -75,8 +74,34 @@ define( function( require ) {
     // @public {Property.<boolean>} whether air resistance is on
     this.airResistanceOnProperty = new Property( false );
 
-    // @public {Property.<number>} air density
-    this.airDensityProperty = new Property( 0 );
+    // @public {Property.<number>} air density, which depends on altitude and whether air resistance is on
+    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ],
+      function( altitude, airResistanceOn ) {
+        if ( airResistanceOn ) {
+          var temperature;
+          var pressure;
+
+          if ( altitude < 11000 ) {
+            // troposphere
+            temperature = 15.04 - 0.00649 * altitude;
+            pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
+          } else if ( altitude < 25000 ) {
+            // lower stratosphere
+            temperature = -56.46;
+            pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
+          } else {
+            // upper stratosphere (altitude >= 25000 meters)
+            temperature = -131.21 + 0.00299 * altitude;
+            pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
+          }
+
+          return pressure / ( 0.2869 * ( temperature + 273.1 ) );
+
+        }
+        else {
+          return 0;
+        }
+      } );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -97,8 +122,7 @@ define( function( require ) {
     this.tracerModel = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
 
     // update air density as needed, and change status of projectiles
-    Property.multilink( [ this.airResistanceOnProperty, this.altitudeProperty ], function() {
-      self.updateAirDensity();
+    this.airDensityProperty.link( function() {
       self.trajectories.forEach( function( trajectory ) {
         trajectory.changedInMidAir = true;
 
@@ -137,7 +161,6 @@ define( function( require ) {
       this.projectileDragCoefficientProperty.reset();
       this.altitudeProperty.reset();
       this.airResistanceOnProperty.reset();
-      this.airDensityProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
