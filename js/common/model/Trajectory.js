@@ -47,7 +47,7 @@ define( function( require ) {
       dragCoefficient: model.projectileDragCoefficientProperty.get(),
       xVelocity: model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ),
       yVelocity: model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ),
-      airDensity: model.airDensity,
+      airDensity: model.airDensityProperty.get(),
 
       // counts how old this projectile is
       rank: 0
@@ -152,7 +152,7 @@ define( function( require ) {
 
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
-        var airDensity = this.projectileMotionModel.airDensity;
+        var airDensity = this.projectileMotionModel.airDensityProperty.get();
 
         this.xDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
         this.yDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
@@ -258,7 +258,7 @@ define( function( require ) {
         && this.dragCoefficientProperty.initialValue === model.projectileDragCoefficientProperty.get()
         && this.xVelocityProperty.initialValue === model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 )
         && this.yVelocityProperty.initialValue === model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
-        && this.airDensityProperty.initialValue === model.airDensity;
+        && this.airDensityProperty.initialValue === model.airDensityProperty.get();
     }
 
   } );

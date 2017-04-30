@@ -31,10 +31,7 @@ define( function( require ) {
     // @public
     PropertySet.call( this, _.extend( {
 
-      // properties that change the environment and affect all projectiles immediately
-      altitude: 0, // meters
-      airResistanceOn: false, // defaults to air resistance off
-      airDensity: 0,
+     
 
       // vectors visibility
       totalVelocityVectorOn: false,
@@ -69,6 +66,17 @@ define( function( require ) {
 
     // @public {Property.<number>} drag coefficient of the projectile
     this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+
+    // --properties that change the environment and affect all projectiles
+
+    // @public {Property.<number>} altitude of the environment, in meters
+    this.altitudeProperty = new Property( 0 );
+
+    // @public {Property.<boolean>} whether air resistance is on
+    this.airResistanceOnProperty = new Property( false );
+
+    // @public {Property.<number>} air density
+    this.airDensityProperty = new Property( 0 );
 
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
@@ -127,6 +135,9 @@ define( function( require ) {
       this.projectileMassProperty.reset();
       this.projectileDiameterProperty.reset();
       this.projectileDragCoefficientProperty.reset();
+      this.altitudeProperty.reset();
+      this.airResistanceOnProperty.reset();
+      this.airDensityProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
@@ -231,9 +242,9 @@ define( function( require ) {
     // @private, updates air density property based on air resistance and altitude
     updateAirDensity: function() {
       // Air resistance is turned on.
-      if ( this.airResistanceOn ) {
+      if ( this.airResistanceOnProperty.get() ) {
 
-        var altitude = this.altitude;
+        var altitude = this.altitudeProperty.get();
         var temperature;
         var pressure;
 
