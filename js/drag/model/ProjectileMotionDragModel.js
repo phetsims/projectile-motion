@@ -44,6 +44,7 @@ define( function( require ) {
       this.velocityVectorsOnProperty.reset();
       this.forceVectorsOnProperty.reset();
       this.totalOrComponentsProperty.reset();
+      this.airResistanceOnProperty.set( true );// since this screen explores drag, always leave air resistance on
     }
   } );
 } );

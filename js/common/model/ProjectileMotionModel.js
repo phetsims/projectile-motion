@@ -13,7 +13,6 @@ define( function( require ) {
   var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var Property = require( 'AXON/Property' );
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
@@ -26,18 +25,8 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionModel( additionalProperties ) {
+  function ProjectileMotionModel() {
     var self = this;
-
-    // @public
-    PropertySet.call( this, _.extend( {
-
-      
-
-      // animation controls, e.g. normal/slow/play/pause/step
-      speed: 'normal',
-      isPlaying: true
-    }, additionalProperties ) );
 
     // --initial values
 
@@ -115,6 +104,14 @@ define( function( require ) {
     // @public {Property.<boolean>} whether component acceleration vectors are showing
     this.componentsAccelerationVectorsOnProperty = new Property( false );
 
+    // --animation playing controls
+
+    // @public {Property.<String>} speed of animation, normal/slow
+    this.speedProperty = new Property( 'normal' );
+
+    // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
+    this.isPlayingProperty = new Property( true );
+
     // @private, how many steps mod three, used to slow animation down to a third of normal speed
     this.stepCount = 0;
 
@@ -158,12 +155,10 @@ define( function( require ) {
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 
-  return inherit( PropertySet, ProjectileMotionModel, {
+  return inherit( Object, ProjectileMotionModel, {
 
     // @public resets all model elements
     reset: function() {
-      // reset all properties by calling super class
-      PropertySet.prototype.reset.call( this );
 
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
@@ -178,6 +173,8 @@ define( function( require ) {
       this.totalForceVectorOnProperty.reset();
       this.componentsForceVectorsOnProperty.reset();
       this.componentsAccelerationVectorsOnProperty.reset();
+      this.speedProperty.reset();
+      this.isPlayingProperty.reset();
 
       // remove all projectiles
       this.trajectories.reset();
@@ -203,10 +200,10 @@ define( function( require ) {
 
       this.residualTime = this.residualTime % TIME_PER_DATA_POINT;
 
-      if ( this.isPlaying ) {
+      if ( this.isPlayingProperty.get() ) {
         // for every 3 * 16 ms, stepModelElements is called for 16 ms
         // TODO: revert back to one second = one third of a second
-        if ( this.speed === 'normal' || this.stepCount === 0 ) {
+        if ( this.speedProperty.get() === 'normal' || this.stepCount === 0 ) {
           var i;
           for ( i = 0; i < numberSteps; i++ ) {
             this.stepModelElements( TIME_PER_DATA_POINT / 1000 );
@@ -274,7 +271,7 @@ define( function( require ) {
 
     // @public fires cannon, called on by fire button
     cannonFired: function() {
-      this.isPlaying = true;
+      this.isPlayingProperty.set( true );
       this.addProjectile();
       this.scoreModel.turnOffScore();
     },

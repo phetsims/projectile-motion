@@ -11,21 +11,27 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
- 
+  var Property = require( 'AXON/Property' );
+
   /**
    * @constructor
    */
   function ProjectileMotionLabModel() {
     var self = this;
-    ProjectileMotionModel.call( self, {
+    ProjectileMotionModel.call( self );
 
-      // This Property indicates whether the CustomizeDialog is visible
-      customizeDialogVisible: false
-    } );
+    // @public {Property.<boolean>} whether the CustomizeDialog is visible
+    this.customizeDialogVisibleProperty = new Property( false );
   }
 
   projectileMotion.register( 'ProjectileMotionLabModel', ProjectileMotionLabModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionLabModel );
+  return inherit( ProjectileMotionModel, ProjectileMotionLabModel, {
+    // @public resets all drag model elements, first calling the super class' reset
+    reset: function() {
+      ProjectileMotionModel.prototype.reset.call( this );
+      this.customizeDialogVisibleProperty.reset();
+    }
+  } );
 } );
 
