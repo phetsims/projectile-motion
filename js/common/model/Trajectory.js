@@ -36,34 +36,34 @@ define( function( require ) {
       this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
     }
 
-    // @public {PropertySet.<number>} total time since the projectile was fired, in seconds
+    // @public {Property.<number>} total time since the projectile was fired, in seconds
     this.totalTimeProperty = new Property( 0 );
 
-    // @public {PropertySet.<number>} x coordinate of most recent data calculated
+    // @public {Property.<number>} x coordinate of most recent data calculated
     this.xProperty = new Property( 0 );
 
-    // @public {PropertySet.<number>} y coordinate of most recent data calculated
+    // @public {Property.<number>} y coordinate of most recent data calculated
     this.yProperty = new Property( model.cannonHeightProperty.get() );
 
-    // @public {PropertySet.<number>} mass of projectiles in kilograms
+    // @public {Property.<number>} mass of projectiles in kilograms
     this.massProperty = new Property( model.projectileMassProperty.get() );
 
-    // @public {PropertySet.<number>} diameter of projectiles in meters
+    // @public {Property.<number>} diameter of projectiles in meters
     this.diameterProperty = new Property( model.projectileDiameterProperty.get() );
 
-    // @public {PropertySet.<number>} drag coefficient of the projectiles
+    // @public {Property.<number>} drag coefficient of the projectiles
     this.dragCoefficientProperty = new Property( model.projectileDragCoefficientProperty.get() );
 
-    // @public {PropertySet.<number>} x velocity of the most recent data collected
+    // @public {Property.<number>} x velocity of the most recent data collected
     this.xVelocityProperty = new Property( model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ) );
 
-    // @public {PropertySet.<number>} y velocity of the most recent data collected
+    // @public {Property.<number>} y velocity of the most recent data collected
     this.yVelocityProperty = new Property( model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ) );
 
-    // @public {PropertySet.<number>} air density of the most recent data collected
+    // @public {Property.<number>} air density of the most recent data collected
     this.airDensityProperty = new Property( model.airDensityProperty.get() );
 
-    // @public {PropertySet.<number>} counts how old this projectile is
+    // @public {Property.<number>} counts how old this projectile is
     this.rankProperty = new Property( 0 );
 
     // @public did the trajectory path change in mid air due to air density change
