@@ -79,7 +79,7 @@ define( function( require ) {
       var tracerNodeBounds = parentScreenView.globalToLocalBounds( tracerNode.getGlobalBounds() );
       var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
-        tracer.isActive = false;
+        tracer.isActiveProperty.set( false );
       }
       // TODO: both measuring tape and tracer tool leave the cursor still as pointer even when released
     } );
@@ -104,11 +104,11 @@ define( function( require ) {
           return;
         }
 
-        tracer.isActive = true;
+        tracer.isActiveProperty.set( true );
 
-        var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.position ) );
+        var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition );
-        tracer.position = modelViewTransform.viewToModelPosition( initialViewPosition );
+        tracer.positionProperty.set( modelViewTransform.viewToModelPosition( initialViewPosition ) );
 
         // TODO: where to have tracer jump to
         tracerNode.movableDragHandler.startDrag( event );

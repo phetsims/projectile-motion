@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var PropertySet = require( 'AXON/PropertySet' );
+  var Property = require( 'AXON/Property' );
   var Vector2 = require( 'DOT/Vector2' );
   
   // constants
@@ -23,14 +23,15 @@ define( function( require ) {
    * @constructor
    */
   function Tracer( projectiles, tracerX, tracerY ) {
-    // @public
-    PropertySet.call( this, {
-      position: new Vector2( tracerX, tracerY ),
-      point: null,
 
-      // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
-      isActive: false
-    } );
+    // @public {Property.<Vector2>} position of the tracer
+    this.positionProperty = new Property( new Vector2( tracerX, tracerY ) );
+
+    // @public {Property.<DataPoint/null>} point that the tracer is displaying information about
+    this.pointProperty = new Property( null );
+
+    // @public {Property.<boolean>} whether the tracer is out in the play area (false when in toolbox)
+    this.isActiveProperty = new Property( false );
 
     // @public {ObservableArray.<Trajectory>} array of projectiles in the model
     this.projectiles = projectiles;
@@ -38,16 +39,23 @@ define( function( require ) {
 
   projectileMotion.register( 'Tracer', Tracer );
 
-  return inherit( PropertySet, Tracer, {
+  return inherit( Object, Tracer, {
 
-    // @private checks for if there is a point the tracer is close to
-    // @returns {DataPoint|null}
-    checkForPoint: function() {
+    // @public resets properties of this tracer model
+    reset: function() {
+      this.positionProperty.reset();
+      this.pointProperty.reset();
+      this.isActiveProperty.reset();
+    },
+
+    // @public checks for if there is a point the tracer is close to. if so, updates pointProperty
+    // @returns nothing
+    updateData: function() {
       var i;
       for ( i = this.projectiles.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.projectiles.get( i );
-        var point = currentTrajectory.getNearestPoint( this.position.x, this.position.y );
-        if ( point && point.distance( this.position ) <= SENSING_RADIUS ) {
+        var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
+        if ( point && point.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
           return;
         }
@@ -55,10 +63,6 @@ define( function( require ) {
       this.pointProperty.set( null );
     },
 
-    // @public updates time, range, and height
-    updateData: function() {
-      this.checkForPoint();
-    }
   } );
 
 } );
