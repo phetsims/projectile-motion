@@ -39,7 +39,6 @@ define( function( require ) {
 
     // @public
     PropertySet.call( this, {
-      totalTime: 0, // total time (s) since the projectile was fired
       x: 0,
       y: model.cannonHeightProperty.get(),
       mass: model.projectileMassProperty.get(),
@@ -52,6 +51,9 @@ define( function( require ) {
       // counts how old this projectile is
       rank: 0
     } );
+
+    // @public {PropertySet.<number>} total time since the projectile was fired, in seconds
+    this.totalTimeProperty = new Property( 0 );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -73,7 +75,7 @@ define( function( require ) {
 
     // add dataPoint for initial conditions
     this.dataPoints.push( new DataPoint(
-      this.totalTime,
+      this.totalTimeProperty.get(),
       this.x,
       this.y,
       this.airDensity,
@@ -95,6 +97,10 @@ define( function( require ) {
   projectileMotion.register( 'Trajectory', Trajectory );
 
   return inherit( PropertySet, Trajectory, {
+    // @public reset properties for this trajectory
+    reset: function() {
+      this.totalTimeProperty.reset();
+    },
 
     // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
@@ -109,7 +115,7 @@ define( function( require ) {
         this.xDragForce = 0;
         this.yDragForce = 0;
         var finalDataPoint = new DataPoint(
-          this.totalTime,
+          this.totalTimeProperty.get(),
           this.x,
           this.y,
           this.airDensity,
@@ -160,12 +166,12 @@ define( function( require ) {
         this.xAcceleration = -this.xDragForce / this.mass;
         this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - this.yDragForce / this.mass;
 
-        this.totalTime += dt;
+        this.totalTimeProperty.set( this.totalTimeProperty.get() + dt );
 
         this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
 
         this.dataPoints.push( new DataPoint(
-          this.totalTime,
+          this.totalTimeProperty.get(),
           this.x,
           this.y,
           this.airDensity,
