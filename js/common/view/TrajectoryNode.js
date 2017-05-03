@@ -89,8 +89,8 @@ define( function( require ) {
         projectileMotionModel,
         projectileObject.dataPointProperty,
         trajectory.projectileObjectType,
-        trajectory.diameter,
-        trajectory.dragCoefficient,
+        trajectory.diameterProperty.get(),
+        trajectory.dragCoefficientProperty.get(),
         modelViewTransform
         // totalVelocityVectorOnProperty,
         // componentsVelocityVectorsOnProperty,

@@ -20,7 +20,6 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
-  var PropertySet = require( 'AXON/PropertySet' );
   var ObservableArray = require( 'AXON/ObservableArray' );
 
   // constants
@@ -37,23 +36,35 @@ define( function( require ) {
       this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
     }
 
-    // @public
-    PropertySet.call( this, {
-      x: 0,
-      y: model.cannonHeightProperty.get(),
-      mass: model.projectileMassProperty.get(),
-      diameter: model.projectileDiameterProperty.get(),
-      dragCoefficient: model.projectileDragCoefficientProperty.get(),
-      xVelocity: model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ),
-      yVelocity: model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ),
-      airDensity: model.airDensityProperty.get(),
-
-      // counts how old this projectile is
-      rank: 0
-    } );
-
     // @public {PropertySet.<number>} total time since the projectile was fired, in seconds
     this.totalTimeProperty = new Property( 0 );
+
+    // @public {PropertySet.<number>} x coordinate of most recent data calculated
+    this.xProperty = new Property( 0 );
+
+    // @public {PropertySet.<number>} y coordinate of most recent data calculated
+    this.yProperty = new Property( model.cannonHeightProperty.get() );
+
+    // @public {PropertySet.<number>} mass of projectiles in kilograms
+    this.massProperty = new Property( model.projectileMassProperty.get() );
+
+    // @public {PropertySet.<number>} diameter of projectiles in meters
+    this.diameterProperty = new Property( model.projectileDiameterProperty.get() );
+
+    // @public {PropertySet.<number>} drag coefficient of the projectiles
+    this.dragCoefficientProperty = new Property( model.projectileDragCoefficientProperty.get() );
+
+    // @public {PropertySet.<number>} x velocity of the most recent data collected
+    this.xVelocityProperty = new Property( model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ) );
+
+    // @public {PropertySet.<number>} y velocity of the most recent data collected
+    this.yVelocityProperty = new Property( model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ) );
+
+    // @public {PropertySet.<number>} air density of the most recent data collected
+    this.airDensityProperty = new Property( model.airDensityProperty.get() );
+
+    // @public {PropertySet.<number>} counts how old this projectile is
+    this.rankProperty = new Property( 0 );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -61,14 +72,14 @@ define( function( require ) {
     // TODO: velocity and acceleration vectors? Or keep as component variables
 
     // @public
-    this.xVelocity = model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 );
-    this.yVelocity = model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 );
+    this.xVelocityProperty.set( model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ) );
+    this.yVelocityProperty.set( model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ) );
     this.velocity = model.launchVelocityProperty.get();
     this.xAcceleration = 0;
     this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY;
     this.xDragForce = 0;
     this.yDragForce = 0;
-    this.forceGravity = -ACCELERATION_DUE_TO_GRAVITY * this.mass;
+    this.forceGravity = -ACCELERATION_DUE_TO_GRAVITY * this.massProperty.get();
 
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
@@ -76,11 +87,11 @@ define( function( require ) {
     // add dataPoint for initial conditions
     this.dataPoints.push( new DataPoint(
       this.totalTimeProperty.get(),
-      this.x,
-      this.y,
-      this.airDensity,
-      this.xVelocity,
-      this.yVelocity,
+      this.xProperty.get(),
+      this.yProperty.get(),
+      this.airDensityProperty.get(),
+      this.xVelocityProperty.get(),
+      this.yVelocityProperty.get(),
       this.xAcceleration,
       this.yAcceleration,
       this.xDragForce,
@@ -96,10 +107,20 @@ define( function( require ) {
 
   projectileMotion.register( 'Trajectory', Trajectory );
 
-  return inherit( PropertySet, Trajectory, {
+  return inherit( Object, Trajectory, {
     // @public reset properties for this trajectory
+    // TODO: I don't think this reset is ever called
     reset: function() {
       this.totalTimeProperty.reset();
+      this.xProperty.reset();
+      this.yProperty.reset();
+      this.massProperty.reset();
+      this.diameterProperty.reset();
+      this.dragCoefficientProperty.reset();
+      this.xVelocityProperty.reset();
+      this.yVelocityProperty.reset();
+      this.airDensityProperty.reset();
+      this.rankProperty.reset();
     },
 
     // @public animate projectile given {number} time step in seconds
@@ -108,19 +129,19 @@ define( function( require ) {
 
       // All datapoints have been collected because we have reached the ground
       if ( this.reachedGround ) {
-        this.xVelocity = 0;
-        this.yVelocity = 0;
+        this.xVelocityProperty.set( 0 );
+        this.yVelocityProperty.set( 0 );
         this.xAcceleration = 0;
         this.yAcceleration = 0; // there is still acceleration due to gravity, but normal force makes net acceleration zero
         this.xDragForce = 0;
         this.yDragForce = 0;
         var finalDataPoint = new DataPoint(
           this.totalTimeProperty.get(),
-          this.x,
-          this.y,
-          this.airDensity,
-          this.xVelocity,
-          this.yVelocity,
+          this.xProperty.get(),
+          this.yProperty.get(),
+          this.airDensityProperty.get(),
+          this.xVelocityProperty.get(),
+          this.yVelocityProperty.get(),
           this.xAcceleration,
           this.yAcceleration,
           this.xDragForce,
@@ -135,48 +156,48 @@ define( function( require ) {
       // Haven't reached ground, so continue collecting datapoints
       else {
 
-        var newX = this.x + this.xVelocity * dt + 0.5 * this.xAcceleration * dt * dt;
-        var newY = this.y + this.yVelocity * dt + 0.5 * this.yAcceleration * dt * dt;
+        var newX = this.xProperty.get() + this.xVelocityProperty.get() * dt + 0.5 * this.xAcceleration * dt * dt;
+        var newY = this.yProperty.get() + this.yVelocityProperty.get() * dt + 0.5 * this.yAcceleration * dt * dt;
 
         if ( newY <= 0 ) {
           this.reachedGround = true; // store the information that it has reached the ground
           // calculated by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( -Math.sqrt( this.yVelocity * this.yVelocity - 2 * this.yAcceleration * this.y ) - this.yVelocity ) / this.yAcceleration;
-          newX = this.x + this.xVelocity * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
+          var timeToGround = ( -Math.sqrt( this.yVelocityProperty.get() * this.yVelocityProperty.get() - 2 * this.yAcceleration * this.yProperty.get() ) - this.yVelocityProperty.get() ) / this.yAcceleration;
+          newX = this.xProperty.get() + this.xVelocityProperty.get() * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
           newY = 0;
 
           // Check if projectile landed on target, and scoreModel will handle the rest.
           this.projectileMotionModel.scoreModel.checkforScored( newX );
         }
 
-        this.x = newX;
-        this.y = newY;
+        this.xProperty.set( newX );
+        this.yProperty.set( newY );
 
-        var newXVelocity = this.xVelocity + this.xAcceleration * dt;
-        this.xVelocity = newXVelocity >= 0 ? newXVelocity : 0;
-        this.yVelocity = this.yVelocity + this.yAcceleration * dt;
+        var newXVelocity = this.xVelocityProperty.get() + this.xAcceleration * dt;
+        this.xVelocityProperty.set( newXVelocity >= 0 ? newXVelocity : 0 );
+        this.yVelocityProperty.set( this.yVelocityProperty.get() + this.yAcceleration * dt );
 
         // cross sectional area of the projectile
-        var area = Math.PI * this.diameter * this.diameter / 4;
+        var area = Math.PI * this.diameterProperty.get() * this.diameterProperty.get() / 4;
         var airDensity = this.projectileMotionModel.airDensityProperty.get();
 
-        this.xDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.xVelocity;
-        this.yDragForce = 0.5 * airDensity * area * this.dragCoefficient * this.velocity * this.yVelocity;
+        this.xDragForce = 0.5 * airDensity * area * this.dragCoefficientProperty.get() * this.velocity * this.xVelocityProperty.get();
+        this.yDragForce = 0.5 * airDensity * area * this.dragCoefficientProperty.get() * this.velocity * this.yVelocityProperty.get();
 
-        this.xAcceleration = -this.xDragForce / this.mass;
-        this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - this.yDragForce / this.mass;
+        this.xAcceleration = -this.xDragForce / this.massProperty.get();
+        this.yAcceleration = -ACCELERATION_DUE_TO_GRAVITY - this.yDragForce / this.massProperty.get();
 
         this.totalTimeProperty.set( this.totalTimeProperty.get() + dt );
 
-        this.velocity = Math.sqrt( this.xVelocity * this.xVelocity + this.yVelocity * this.yVelocity );
+        this.velocity = Math.sqrt( this.xVelocityProperty.get() * this.xVelocityProperty.get() + this.yVelocityProperty.get() * this.yVelocityProperty.get() );
 
         this.dataPoints.push( new DataPoint(
           this.totalTimeProperty.get(),
-          this.x,
-          this.y,
-          this.airDensity,
-          this.xVelocity,
-          this.yVelocity,
+          this.xProperty.get(),
+          this.yProperty.get(),
+          this.airDensityProperty.get(),
+          this.xVelocityProperty.get(),
+          this.yVelocityProperty.get(),
           this.xAcceleration,
           this.yAcceleration,
           this.xDragForce,

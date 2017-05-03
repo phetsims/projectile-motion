@@ -230,11 +230,11 @@ define( function( require ) {
 
           equalsExistingTrajectory = true;
           // shift trajectory to the the most recent slot
-          removedRank = trajectory.rank;
-          trajectory.rank = 0;
+          removedRank = trajectory.rankProperty.get();
+          trajectory.rankProperty.set( 0 );
         }
         else {
-          trajectory.rank ++;
+          trajectory.rankProperty.set( trajectory.rankProperty.get() + 1 );
         }
       } );
 
@@ -245,8 +245,8 @@ define( function( require ) {
 
       // decrement ranks after the shifted trajectory
       this.trajectories.forEach( function( trajectory) {
-        if ( trajectory.rank > removedRank ) {
-          trajectory.rank --;
+        if ( trajectory.rankProperty.get() > removedRank ) {
+          trajectory.rankProperty.set( trajectory.rankProperty.get() - 1 );
         }
       } );
 
@@ -258,7 +258,7 @@ define( function( require ) {
     limitTrajectories: function() {
       var trajectories = this.trajectories;
       trajectories.forEach( function( trajectory ) {
-        if ( trajectory.rank > ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+        if ( trajectory.rankProperty.get() > ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
           trajectories.remove( trajectory );
         }
       } );
