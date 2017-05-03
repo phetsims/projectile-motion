@@ -274,39 +274,6 @@ define( function( require ) {
       this.isPlayingProperty.set( true );
       this.addProjectile();
       this.scoreModel.turnOffScore();
-    },
-
-    // @private, updates air density property based on air resistance and altitude
-    updateAirDensity: function() {
-      // Air resistance is turned on.
-      if ( this.airResistanceOnProperty.get() ) {
-
-        var altitude = this.altitudeProperty.get();
-        var temperature;
-        var pressure;
-
-        if ( altitude < 11000 ) {
-          // troposphere
-          temperature = 15.04 - 0.00649 * altitude;
-          pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-        } else if ( altitude < 25000 ) {
-          // lower stratosphere
-          temperature = -56.46;
-          pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-        } else {
-          // upper stratosphere (altitude >= 25000 meters)
-          temperature = -131.21 + 0.00299 * altitude;
-          pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
-        }
-
-        this.airDensityProperty.set( pressure / ( 0.2869 * ( temperature + 273.1 ) ) );
-      }
-
-      // Air resistance is turned off.
-      else {
-        this.airDensityProperty.set( 0 );
-      }
-
     }
 
   } );
