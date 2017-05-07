@@ -108,11 +108,7 @@ define( function( require ) {
 
     // listen to model for whether score indicator should be shown
     score.scoreVisibleProperty.link( function( visible ) {
-      if ( visible ) {
-        self.scoreIndicator.visible = true;
-      } else {
-        self.scoreIndicator.visible = false;
-      }
+      self.scoreIndicator.visible = visible;
     } );
 
   }
