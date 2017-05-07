@@ -16,7 +16,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionLabModel() {
+  function LabModel() {
     var self = this;
     ProjectileMotionModel.call( self );
 
@@ -24,9 +24,9 @@ define( function( require ) {
     this.customizeDialogVisibleProperty = new Property( false );
   }
 
-  projectileMotion.register( 'ProjectileMotionLabModel', ProjectileMotionLabModel );
+  projectileMotion.register( 'LabModel', LabModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionLabModel, {
+  return inherit( ProjectileMotionModel, LabModel, {
     // @public resets all drag model elements, first calling the super class' reset
     reset: function() {
       ProjectileMotionModel.prototype.reset.call( this );

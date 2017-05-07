@@ -16,10 +16,10 @@ define( function( require ) {
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
 
   /**
-   * @param {ProjectileMotionLabModel} model
+   * @param {LabModel} model
    * @constructor
    */
-  function ProjectileMotionLabScreenView( model, options ) {
+  function LabScreenView( model, options ) {
 
     options = options || {};
 
@@ -39,8 +39,8 @@ define( function( require ) {
 
   }
 
-  projectileMotion.register( 'ProjectileMotionLabScreenView', ProjectileMotionLabScreenView );
+  projectileMotion.register( 'LabScreenView', LabScreenView );
 
-  return inherit( ProjectileMotionScreenView, ProjectileMotionLabScreenView );
+  return inherit( ProjectileMotionScreenView, LabScreenView );
 } );
 

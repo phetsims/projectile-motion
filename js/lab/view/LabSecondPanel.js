@@ -46,7 +46,7 @@ define( function( require ) {
    * @param {CustomizeDialog} customizeDialog - panel linked to customize button
    * @constructor
    */
-  function LabSecondPanel( projectileMotionLabModel, options ) {
+  function LabSecondPanel( labModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -58,7 +58,7 @@ define( function( require ) {
     var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
 
     customizeButton.addListener( function() {
-      projectileMotionLabModel.customizeDialogVisibleProperty.set( true );
+      labModel.customizeDialogVisibleProperty.set( true );
     } );
 
     /**
@@ -105,33 +105,33 @@ define( function( require ) {
     var massBox = createParameterControlBox(
       massString,
       kgString,
-      projectileMotionLabModel.projectileMassProperty,
+      labModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
       mString,
-      projectileMotionLabModel.projectileDiameterProperty,
+      labModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
-      projectileMotionLabModel.projectileDragCoefficientProperty,
+      labModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = createParameterControlBox(
       altitudeString,
       mString,
-      projectileMotionLabModel.altitudeProperty,
+      labModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, projectileMotionLabModel.airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, labModel.airResistanceOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

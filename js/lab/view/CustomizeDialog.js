@@ -60,7 +60,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function CustomizeDialog( projectileMotionLabModel, options ) {
+  function CustomizeDialog( labModel, options ) {
 
     var self = this;
 
@@ -81,49 +81,49 @@ define( function( require ) {
     var heightBox = this.createParameterControlBox(
       initialHeightString,
       mString,
-      projectileMotionLabModel.cannonHeightProperty,
+      labModel.cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
     var angleBox = this.createParameterControlBox(
       angleString,
       degreesString,
-      projectileMotionLabModel.cannonAngleProperty,
+      labModel.cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE
     );
 
     var velocityBox = this.createParameterControlBox(
       initialSpeedString,
       metersPerSecondString,
-      projectileMotionLabModel.launchVelocityProperty,
+      labModel.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 
     var massBox = this.createParameterControlBox(
       massString,
       kgString,
-      projectileMotionLabModel.projectileMassProperty,
+      labModel.projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = this.createParameterControlBox(
       diameterString,
       mString,
-      projectileMotionLabModel.projectileDiameterProperty,
+      labModel.projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = this.createParameterControlBox(
       dragCoefficientString,
       null,
-      projectileMotionLabModel.projectileDragCoefficientProperty,
+      labModel.projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var altitudeBox = this.createParameterControlBox(
       altitudeString,
       mString,
-      projectileMotionLabModel.altitudeProperty,
+      labModel.altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
@@ -138,7 +138,7 @@ define( function( require ) {
     ];
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_BOLD_LABEL_OPTIONS );
-    this.modelAirResistanceProperty = projectileMotionLabModel.airResistanceOnProperty;
+    this.modelAirResistanceProperty = labModel.airResistanceOnProperty;
     this.detachedAirResistanceProperty = new Property( this.modelAirResistanceProperty.get() );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, this.detachedAirResistanceProperty );
 
@@ -172,7 +172,7 @@ define( function( require ) {
 
     // submit button closes this panel and updates the properties
     submitButton.addListener( function() {
-      projectileMotionLabModel.customizeDialogVisibleProperty.set( false );
+      labModel.customizeDialogVisibleProperty.set( false );
     } );
 
     var rightSideContent = new VBox( {
@@ -201,7 +201,7 @@ define( function( require ) {
     // When the dialog is shown, initialize the values in the panel.
     // When the dialog is closed, set the values from the customize panel to the true model.
     // Lazy link so that we do not set the values from the panel when the application launches.
-    projectileMotionLabModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
+    labModel.customizeDialogVisibleProperty.lazyLink( function( customizeDialogVisible ) {
       if ( customizeDialogVisible ) {
         self.openSelf();
       } else {

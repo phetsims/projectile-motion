@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileMotionLabModel = require( 'PROJECTILE_MOTION/lab/model/ProjectileMotionLabModel' );
-  var ProjectileMotionLabScreenView = require( 'PROJECTILE_MOTION/lab/view/ProjectileMotionLabScreenView' );
+  var LabModel = require( 'PROJECTILE_MOTION/lab/model/LabModel' );
+  var LabScreenView = require( 'PROJECTILE_MOTION/lab/view/LabScreenView' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
 
@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionLabScreen() {
+  function LabScreen() {
 
     var options = {
       name: labTitleString,
@@ -32,13 +32,13 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new ProjectileMotionLabModel(); },
-      function( model ) { return new ProjectileMotionLabScreenView( model ); },
+      function() { return new LabModel(); },
+      function( model ) { return new LabScreenView( model ); },
       options
     );
   }
 
-  projectileMotion.register( 'ProjectileMotionLabScreen', ProjectileMotionLabScreen );
+  projectileMotion.register( 'LabScreen', LabScreen );
 
-  return inherit( Screen, ProjectileMotionLabScreen );
+  return inherit( Screen, LabScreen );
 } );
