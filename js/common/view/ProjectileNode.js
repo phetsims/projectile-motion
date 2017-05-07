@@ -5,7 +5,7 @@
  * Constructed based on many individually passed parameters
  * Listens to a datapoint and whether velocity vectors should be turned on.
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

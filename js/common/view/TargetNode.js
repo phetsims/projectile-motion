@@ -3,7 +3,7 @@
 /**
  * View for the target. X position can change when user drags the cannon, y remains constant (on the ground)
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

@@ -9,7 +9,7 @@
  * Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
  * Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

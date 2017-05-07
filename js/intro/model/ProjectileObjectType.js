@@ -9,7 +9,7 @@
  * Note that this model does not use the Solute model from the Concentration screen, because
  * we have very different needs wrt color scheme, properties, etc.
  *
- * @author Chris Malley (PixelZoom, Inc.)
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

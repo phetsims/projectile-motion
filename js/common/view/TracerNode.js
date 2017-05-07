@@ -3,7 +3,7 @@
 /**
  * View for the tracer, which can be dragged to change location.
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

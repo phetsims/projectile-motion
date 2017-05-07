@@ -4,7 +4,7 @@
  * Toolbox from which the user can drag (or otherwise enable) tools.
  * The toolbox includes a measuring tape and an electric potential sensor
  *
- * @author Martin Veillette (Berea College)
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

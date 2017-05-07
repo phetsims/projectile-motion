@@ -3,7 +3,7 @@
 /**
  * Fire button that adds a projectile.
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

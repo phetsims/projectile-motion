@@ -3,8 +3,7 @@
 /**
  * First control panel on the right.
  *
- * @author Chris Malley (PixelZoom, Inc.)
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

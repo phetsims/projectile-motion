@@ -3,7 +3,7 @@
 /**
  * Scenery node that shows the background, including the sky, grass, and road
  *
- * @author Sam Reid
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

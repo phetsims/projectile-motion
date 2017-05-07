@@ -3,7 +3,7 @@
 /**
  * Model for the tracer tool. Knows about projectiles, which contain arrays of points on their projectiles.
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

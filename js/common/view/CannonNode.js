@@ -3,7 +3,7 @@
 /**
  * Cannon view. Angle can change when user drags the cannon tip. Height can change when user drags cannon base.
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

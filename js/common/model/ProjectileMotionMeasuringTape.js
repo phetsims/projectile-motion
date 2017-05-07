@@ -3,7 +3,7 @@
 /**
  * Model for the measuring tape.
  *
- * @author Jonathan Olson <jonathan.olson@colorado.edu
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 
 define( function( require ) {

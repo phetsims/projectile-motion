@@ -3,7 +3,7 @@
 /**
  * Functions that create nodes for the projectile objects
  *
- * @author Andrea Lin
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

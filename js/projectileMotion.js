@@ -3,7 +3,7 @@
 /**
  * Creates the namespace for this simulation.
  *
- * @author John Blanco
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';

@@ -4,8 +4,7 @@
  * Projectile panel is a control panel that allows users to choose which projectile to fire.
  * Also includes a checkbox whether there is air resistance
  *
- * @author Chris Malley (PixelZoom, Inc.)
- * @author Sam Reid (PhET Interactive Simulations)
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';
