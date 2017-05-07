@@ -46,7 +46,7 @@ define( function( require ) {
    * @param {IntroModel} introModel
    * @constructor
    */
-  function IntroSecondPanel( introModel, options ) {
+  function IntroProjectilePanel( introModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -188,8 +188,8 @@ define( function( require ) {
     Panel.call( this, introSecondBox, options );
   }
 
-  projectileMotion.register( 'IntroSecondPanel', IntroSecondPanel );
+  projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
 
-  return inherit( Panel, IntroSecondPanel );
+  return inherit( Panel, IntroProjectilePanel );
 } );
 

@@ -48,7 +48,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function ProjectilePanel( labModel, options ) {
+  function DragProjectilePanel( labModel, options ) {
     // TODO: rename labModel to projectileMotionViewModel
 
     // The first object is a placeholder so none of the others get mutated
@@ -179,8 +179,8 @@ define( function( require ) {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'ProjectilePanel', ProjectilePanel );
+  projectileMotion.register( 'DragProjectilePanel', DragProjectilePanel );
 
-  return inherit( Panel, ProjectilePanel );
+  return inherit( Panel, DragProjectilePanel );
 } );
 

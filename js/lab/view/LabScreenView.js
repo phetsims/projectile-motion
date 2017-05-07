@@ -10,7 +10,7 @@ define( function( require ) {
   // modules
   var CustomizeDialog = require( 'PROJECTILE_MOTION/lab/view/CustomizeDialog' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var LabSecondPanel = require( 'PROJECTILE_MOTION/lab/view/LabSecondPanel' );
+  var LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
@@ -29,7 +29,7 @@ define( function( require ) {
     // second panel includes customizable options
     options = _.extend( {
       secondPanel: new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty ),
-      vectorsPanel: new LabSecondPanel( model )
+      vectorsPanel: new LabProjectilePanel( model )
     }, options );
 
     ProjectileMotionScreenView.call( this, model, options );

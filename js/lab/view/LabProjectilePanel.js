@@ -46,7 +46,7 @@ define( function( require ) {
    * @param {CustomizeDialog} customizeDialog - panel linked to customize button
    * @constructor
    */
-  function LabSecondPanel( labModel, options ) {
+  function LabProjectilePanel( labModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -158,8 +158,8 @@ define( function( require ) {
     Panel.call( this, LabSecondVBox, options );
   }
 
-  projectileMotion.register( 'LabSecondPanel', LabSecondPanel );
+  projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
-  return inherit( Panel, LabSecondPanel );
+  return inherit( Panel, LabProjectilePanel );
 } );
 
