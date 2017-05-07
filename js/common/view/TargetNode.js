@@ -31,15 +31,15 @@ define( function( require ) {
 
 
   /**
-   * @param {Score} scoreModel - model of the target and scoring algorithms
+   * @param {Score} score - model of the target and scoring algorithms
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
-  function TargetNode( scoreModel, modelViewTransform ) {
+  function TargetNode( score, modelViewTransform ) {
     var self = this;
     Node.call( self );
 
-    self.targetXProperty = scoreModel.targetXProperty;
+    self.targetXProperty = score.targetXProperty;
 
     var viewRadius = modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
 
@@ -60,7 +60,7 @@ define( function( require ) {
 
     this.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
-    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( scoreModel.targetXProperty.value, 0 ) );
+    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.value, 0 ) );
 
     this.addChild( this.target );
 
@@ -98,7 +98,7 @@ define( function( require ) {
     self.addChild( self.scoreIndicator );
 
     // listen to horizontal position changes
-    scoreModel.targetXProperty.link( function( targetX ) {
+    score.targetXProperty.link( function( targetX ) {
       self.target.centerX = modelViewTransform.modelToViewX( targetX );
       self.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, self.targetXProperty.value.toFixed( 2 ), metersString );
       self.distanceLabel.centerX = self.target.centerX;
@@ -106,7 +106,7 @@ define( function( require ) {
     } );
 
     // listen to model for whether score indicator should be shown
-    scoreModel.scoreVisibleProperty.link( function( visible ) {
+    score.scoreVisibleProperty.link( function( visible ) {
       if ( visible ) {
         self.scoreIndicator.visible = true;
       } else {

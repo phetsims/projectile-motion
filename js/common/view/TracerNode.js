@@ -41,7 +41,7 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
-   * @param {Score} scoreModel - model of the tracer and scoring algorithms
+   * @param {Score} score - model of the tracer and scoring algorithms
    * @param {String|color} color
    * @constructor
    */

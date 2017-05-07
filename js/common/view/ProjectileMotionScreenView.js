@@ -85,7 +85,7 @@ define( function( require ) {
     // var zoomableNode = new Node();
 
     // target
-    var targetNode = new TargetNode( model.scoreModel, modelViewTransform );
+    var targetNode = new TargetNode( model.score, modelViewTransform );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();

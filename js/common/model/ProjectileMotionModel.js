@@ -122,7 +122,7 @@ define( function( require ) {
     this.trajectories = new ObservableArray();
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
-    this.scoreModel = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
+    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
     this.measuringTape = new ProjectileMotionMeasuringTape();
@@ -179,7 +179,7 @@ define( function( require ) {
       // remove all projectiles
       this.trajectories.reset();
 
-      this.scoreModel.reset();
+      this.score.reset();
       this.measuringTape.reset();
       this.tracerModel.reset();
     },
@@ -215,7 +215,7 @@ define( function( require ) {
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
-      this.scoreModel.step( dt );
+      this.score.step( dt );
     },
 
     // @protected, adds a projectile to the model
@@ -273,7 +273,7 @@ define( function( require ) {
     cannonFired: function() {
       this.isPlayingProperty.set( true );
       this.addProjectile();
-      this.scoreModel.turnOffScore();
+      this.score.turnOffScore();
     }
 
   } );

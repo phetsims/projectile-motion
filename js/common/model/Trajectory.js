@@ -166,8 +166,8 @@ define( function( require ) {
           newX = this.xProperty.get() + this.xVelocityProperty.get() * timeToGround + 0.5 * this.xAcceleration * timeToGround * timeToGround;
           newY = 0;
 
-          // Check if projectile landed on target, and scoreModel will handle the rest.
-          this.projectileMotionModel.scoreModel.checkforScored( newX );
+          // Check if projectile landed on target, and score will handle the rest.
+          this.projectileMotionModel.score.checkforScored( newX );
         }
 
         this.xProperty.set( newX );
