@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Model for the tracer tool. Knows about projectiles, which contain arrays of points on their projectiles.
+ * Model for the tracer tool.
+ * Knows about projectiles, which contain arrays of points on their projectiles.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

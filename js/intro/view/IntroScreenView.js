@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
- *
+ * ScreenView for the 'Intro' screen
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {

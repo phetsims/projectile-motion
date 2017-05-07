@@ -1,7 +1,7 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Fire button that adds a projectile.
+ * Fire button, just a simple subtype of RectangularPushButton.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

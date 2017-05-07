@@ -1,13 +1,8 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Projectile object model for the choice of different projectiles.
- * <p/>
- * The numeric values for specific solutions were arrived at by running lab experiments,
- * and are documented in doc/Beers-Law-Lab-design.pdf and doc/BeersLawLabData.xlsx.
- * <p/>
- * Note that this model does not use the Solute model from the Concentration screen, because
- * we have very different needs wrt color scheme, properties, etc.
+ * Projectile object that contains properties of the projectile
+ * Creates constants that are used by projectile choice dropdown on the Intro Screen.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

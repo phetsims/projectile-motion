@@ -1,7 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
-// TODO: update all copyrights and authors
+
 /**
- * First control panel on the right.
+ * Control panel that allows users to modify initial values for how the cannon fires a projectile.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

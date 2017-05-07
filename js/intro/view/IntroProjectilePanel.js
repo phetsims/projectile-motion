@@ -1,8 +1,9 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Projectile panel is a control panel that allows users to choose which projectile to fire.
- * Also includes a checkbox whether there is air resistance
+ * Control panel that allows users to choose what kind of projectile to fire
+ * and view the properties of this projectile.
+ * Also includes a checkbox for turning on and off air resistance.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

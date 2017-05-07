@@ -1,8 +1,8 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Projectile panel is a control panel that allows users to choose which projectile to fire.
- * Also includes a checkbox whether there is air resistance
+ * Control panel that allows users to alter properties of the projectile fired.
+ * Also includes a slider for changing altitude, which changes air density.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

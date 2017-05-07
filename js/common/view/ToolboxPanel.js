@@ -2,7 +2,7 @@
 
 /**
  * Toolbox from which the user can drag (or otherwise enable) tools.
- * The toolbox includes a measuring tape and an electric potential sensor
+ * The toolbox includes a measuring tape and a tracer tool.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

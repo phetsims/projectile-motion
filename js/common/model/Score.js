@@ -1,10 +1,12 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * The model for scoring algorithm, knows about the target. Landed projectiles give their x location to this model.
+ * The model for scoring algorithm.
+ * Landed projectiles give their x location to this model.
  * Each time a projectile hits the target, the score indicator appears after a small delay time
- * Each time a projectile is fired, the score indicator disappears. The appearance delay of 0.05 is so that 
- * if multiple projectiles hit the target after the last fire, the score indicator seems to reappear
+ * Each time a projectile is fired, the score indicator disappears.
+ * The appearance delay of 0.05 is so that if multiple projectiles hit the target after the last fire,
+ * the score indicator seems to reappear TODO: this part does not work anymore
  * 
  * @author Andrea Lin (PhET Interactive Simulations)
  */

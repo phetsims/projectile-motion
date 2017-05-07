@@ -1,7 +1,8 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * A data point on a trajectory path. Subtype of Vector2. Contains time, x, y, and airDensity at the time.
+ * A subtype of Vector2 that contains information about a data point on a trajectory.
+ *
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {

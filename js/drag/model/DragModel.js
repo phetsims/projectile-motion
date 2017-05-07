@@ -1,6 +1,7 @@
 // Copyright 2015, University of Colorado Boulder
 
 /**
+ * Model for the 'Drag' Screen.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

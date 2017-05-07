@@ -3,6 +3,7 @@
 /**
  * Customize panel in the center that allows users to change on parameters
  * Invisible until called, disappears on submit
+ * 
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {

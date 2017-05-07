@@ -1,6 +1,7 @@
 // Copyright 2002-2016, University of Colorado Boulder
 
 /**
+ * Common model (base type) for Projectile Motion.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */

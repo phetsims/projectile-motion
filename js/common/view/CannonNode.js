@@ -1,7 +1,8 @@
 // Copyright 2002-2016, University of Colorado Boulder
 
 /**
- * Cannon view. Angle can change when user drags the cannon tip. Height can change when user drags cannon base.
+ * Cannon view.
+ * Angle can change when user drags the cannon tip. Height can change when user drags cannon base.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

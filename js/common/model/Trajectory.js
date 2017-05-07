@@ -1,9 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * Model of a projectile
- * Notes: air resistance and altitude can immediately change the path of the projectile, whereas other parameters
- * like velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired
+ * Model of a trajectory.
+ * One trajectory can have multiple projectiles on its path.
+ * Air resistance and altitude can immediately change the path of the projectiles in the air.
+ * Velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired.
  * Units are meters, kilograms, and seconds (mks)
  * 
  * Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html

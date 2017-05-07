@@ -1,9 +1,10 @@
 // Copyright 2016, University of Colorado Boulder
 
 /**
- * View for the projectile.
- * Constructed based on many individually passed parameters
- * Listens to a datapoint and whether velocity vectors should be turned on.
+ * View for a projectile including the flying object and the vectors.
+ * Constructed based on many individually passed parameters about the projectile.
+ * Listens to the model for vector visibility properties.
+ * Listens to a DataPoint property to figure out when to move.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */
@@ -60,9 +61,6 @@ define( function( require ) {
                           diameter,
                           dragCoefficient,
                           modelViewTransform,
-                          // totalVelocityVectorOnProperty,
-                          // componentsVelocityVectorsOnProperty,
-                          // componentsAccelerationVectorsOnProperty,
                           options
   ) {
 

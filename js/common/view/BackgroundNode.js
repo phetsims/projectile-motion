@@ -1,7 +1,7 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Scenery node that shows the background, including the sky, grass, and road
+ * Scenery node that shows the background, including the sky, grass, and road.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

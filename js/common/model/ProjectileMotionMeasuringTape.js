@@ -1,7 +1,7 @@
 // Copyright 2014-2015, University of Colorado Boulder
 
 /**
- * Model for the measuring tape.
+ * Model for the measuring tape in projectile motion.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
  */

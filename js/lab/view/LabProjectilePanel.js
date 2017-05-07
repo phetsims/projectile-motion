@@ -1,8 +1,9 @@
 // Copyright 2013-2015, University of Colorado Boulder
 
 /**
- * Customize panel allows the user to change a projectile's parameters
+ * Control panel allows the user to change a projectile's parameters
  * Includes a customize button that pulls up a form to change all fields
+ *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
