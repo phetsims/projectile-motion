@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileMotionDragModel = require( 'PROJECTILE_MOTION/drag/model/ProjectileMotionDragModel' );
-  var ProjectileMotionDragScreenView = require( 'PROJECTILE_MOTION/drag/view/ProjectileMotionDragScreenView' );
+  var DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
+  var DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
 
@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionDragScreen() {
+  function DragScreen() {
 
     var options = {
       name: dragTitleString,
@@ -32,14 +32,14 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new ProjectileMotionDragModel(); },
-      function( model ) { return new ProjectileMotionDragScreenView( model ); },
+      function() { return new DragModel(); },
+      function( model ) { return new DragScreenView( model ); },
       options
     );
   }
 
-  projectileMotion.register( 'ProjectileMotionDragScreen', ProjectileMotionDragScreen );
+  projectileMotion.register( 'DragScreen', DragScreen );
 
-  return inherit( Screen, ProjectileMotionDragScreen );
+  return inherit( Screen, DragScreen );
 } );
 

@@ -29,10 +29,10 @@ define( function( require ) {
   var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
 
   /**
-   * @param {ProjectileMotionDragModel} projectileMotionDragModel
+   * @param {DragModel} dragModel
    * @constructor
    */
-  function DragVectorsPanel( projectileMotionDragModel, options ) {
+  function DragVectorsPanel( dragModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -44,8 +44,8 @@ define( function( require ) {
     var componentsLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
     
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
-      { node: totalLabel, property: projectileMotionDragModel.totalOrComponentsProperty, value: 'total' },
-      { node: componentsLabel, property: projectileMotionDragModel.totalOrComponentsProperty, value: 'components' }
+      { node: totalLabel, property: dragModel.totalOrComponentsProperty, value: 'total' },
+      { node: componentsLabel, property: dragModel.totalOrComponentsProperty, value: 'components' }
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
@@ -53,10 +53,10 @@ define( function( require ) {
     } );
 
     var velocityLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
-    var velocityCheckBox = new CheckBox( velocityLabel, projectileMotionDragModel.velocityVectorsOnProperty );
+    var velocityCheckBox = new CheckBox( velocityLabel, dragModel.velocityVectorsOnProperty );
     
     var forceLabel = new Text( forceVectorsString, BIGGER_LABEL_OPTIONS );
-    var forceCheckBox = new CheckBox( forceLabel, projectileMotionDragModel.forceVectorsOnProperty );
+    var forceCheckBox = new CheckBox( forceLabel, dragModel.forceVectorsOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

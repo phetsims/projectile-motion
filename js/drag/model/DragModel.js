@@ -15,7 +15,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionDragModel() {
+  function DragModel() {
     var self = this;
     ProjectileMotionModel.call( self );
 
@@ -35,9 +35,9 @@ define( function( require ) {
     this.airResistanceOnProperty.set( true ); // since this screen explores drag, always leave air resistance on
   }
 
-  projectileMotion.register( 'ProjectileMotionDragModel', ProjectileMotionDragModel );
+  projectileMotion.register( 'DragModel', DragModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionDragModel, {
+  return inherit( ProjectileMotionModel, DragModel, {
     // @public resets all drag model elements, first calling the super class' reset
     reset: function() {
       ProjectileMotionModel.prototype.reset.call( this );

@@ -10,7 +10,7 @@ define( function( require ) {
 
   // modules
   var ProjectileMotionIntroScreen = require( 'PROJECTILE_MOTION/intro/ProjectileMotionIntroScreen' );
-  var ProjectileMotionDragScreen = require( 'PROJECTILE_MOTION/drag/ProjectileMotionDragScreen' );
+  var DragScreen = require( 'PROJECTILE_MOTION/drag/DragScreen' );
   var ProjectileMotionLabScreen = require( 'PROJECTILE_MOTION/lab/ProjectileMotionLabScreen' );
   var Sim = require( 'JOIST/Sim' );
   var SimLauncher = require( 'JOIST/SimLauncher' );
@@ -33,7 +33,7 @@ define( function( require ) {
   SimLauncher.launch( function() {
     var sim = new Sim( projectileMotionTitleString, [
       new ProjectileMotionIntroScreen(),
-      new ProjectileMotionDragScreen(),
+      new DragScreen(),
       new ProjectileMotionLabScreen()
     ], simOptions );
     sim.start();

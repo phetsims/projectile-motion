@@ -15,10 +15,10 @@ define( function( require ) {
   var ProjectilePanel = require( 'PROJECTILE_MOTION/drag/view/ProjectilePanel' );
 
   /**
-   * @param {ProjectileMotionDragModel} model
+   * @param {DragModel} model
    * @constructor
    */
-  function ProjectileMotionDragScreenView( model, options ) {
+  function DragScreenView( model, options ) {
 
     var self = this;
 
@@ -34,8 +34,8 @@ define( function( require ) {
 
   }
 
-  projectileMotion.register( 'ProjectileMotionDragScreenView', ProjectileMotionDragScreenView );
+  projectileMotion.register( 'DragScreenView', DragScreenView );
 
-  return inherit( ProjectileMotionScreenView, ProjectileMotionDragScreenView );
+  return inherit( ProjectileMotionScreenView, DragScreenView );
 } );
 
