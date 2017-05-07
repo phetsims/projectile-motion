@@ -45,14 +45,14 @@ define( function( require ) {
    * @param {String|color} color
    * @constructor
    */
-  function TracerNode( tracerModel, modelViewTransform, options ) {
+  function TracerNode( tracer, modelViewTransform, options ) {
     options = options || {};
     var self = this;
 
     this.isUserControlledProperty = new Property( false );
 
     this.spacing = SPACING;
-    this.tracerModel = tracerModel;
+    this.tracer = tracer;
     this.probeOrigin = new Vector2( 0, 0 );
 
     // draggable node
@@ -74,7 +74,7 @@ define( function( require ) {
     this.rectangle = rectangle;
 
     // Should be added as a listener by our parent when the time is right
-    this.movableDragHandler = new MovableDragHandler( tracerModel.positionProperty, {
+    this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: modelViewTransform,
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
@@ -119,7 +119,7 @@ define( function( require ) {
     } );
 
     // Listen for when time, range, and height change, and update the readouts.
-    tracerModel.pointProperty.link( function( point ) {
+    tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( point.time.toFixed( 2 ) );
         rangeReadoutProperty.set( point.x.toFixed( 2 ) );
@@ -132,7 +132,7 @@ define( function( require ) {
     } );
 
     // Listen for location changes, align locations, and update model.
-    tracerModel.positionProperty.link( function( position ) {
+    tracer.positionProperty.link( function( position ) {
       self.probeOrigin = modelViewTransform.modelToViewPosition( position );
 
       crosshair.center = self.probeOrigin;
@@ -144,7 +144,7 @@ define( function( require ) {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      self.tracerModel.updateData(); // TODO: investigate, this may be create a cycle
+      self.tracer.updateData(); // TODO: investigate, this may be create a cycle
     } );
 
     // Rendering order
@@ -159,7 +159,7 @@ define( function( require ) {
     Node.call( self, options );
 
     // visibility
-    tracerModel.isActiveProperty.link( function( active ) {
+    tracer.isActiveProperty.link( function( active ) {
       self.visible = active;
     });
   }

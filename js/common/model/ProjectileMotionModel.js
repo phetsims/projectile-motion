@@ -128,7 +128,7 @@ define( function( require ) {
     this.measuringTape = new ProjectileMotionMeasuringTape();
 
     // @public {Tracer} model for the tracer probe
-    this.tracerModel = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
+    this.tracer = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
 
     // update air density as needed, and change status of projectiles
     this.airDensityProperty.link( function() {
@@ -181,7 +181,7 @@ define( function( require ) {
 
       this.score.reset();
       this.measuringTape.reset();
-      this.tracerModel.reset();
+      this.tracer.reset();
     },
 
     // @public determines animation based on play/pause and speed

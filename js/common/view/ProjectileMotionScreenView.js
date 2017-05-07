@@ -149,7 +149,7 @@ define( function( require ) {
 
     // add view for tracer
     var tracerNode = new TracerNode(
-      model.tracerModel,
+      model.tracer,
       modelViewTransform
     );
 
@@ -192,7 +192,7 @@ define( function( require ) {
     var vectorsPanel = options.vectorsPanel;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracerModel, measuringTapeNode, tracerNode, modelViewTransform );
+    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, modelViewTransform );
 
     // step button
     var stepButton = new StepForwardButton( {
