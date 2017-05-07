@@ -30,10 +30,10 @@ define( function( require ) {
   var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
 
   /**
-   * @param {ProjectileMotionIntroModel} projectileMotionIntroModel
+   * @param {IntroModel} introModel
    * @constructor
    */
-  function IntroVectorsPanel( projectileMotionIntroModel, options ) {
+  function IntroVectorsPanel( introModel, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -44,15 +44,15 @@ define( function( require ) {
     var velocityVectorsTitle = new Text( velocityVectorsString, TITLE_OPTIONS );
 
     var totalVelocityLabel = new Text( totalString, BIGGER_LABEL_OPTIONS );
-    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, projectileMotionIntroModel.totalVelocityVectorOnProperty );
+    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, introModel.totalVelocityVectorOnProperty );
     
     var componentsVelocityLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
-    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, projectileMotionIntroModel.componentsVelocityVectorsOnProperty );
+    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, introModel.componentsVelocityVectorsOnProperty );
     
     var accelerationVectorsTitle = new Text( accelerationVectorsString, TITLE_OPTIONS );
 
     var componentsAccelerationLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
-    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, projectileMotionIntroModel.componentsAccelerationVectorsOnProperty );
+    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, introModel.componentsAccelerationVectorsOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

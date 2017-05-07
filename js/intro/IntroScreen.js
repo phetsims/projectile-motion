@@ -12,8 +12,8 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileMotionIntroModel = require( 'PROJECTILE_MOTION/intro/model/ProjectileMotionIntroModel' );
-  var ProjectileMotionIntroScreenView = require( 'PROJECTILE_MOTION/intro/view/ProjectileMotionIntroScreenView' );
+  var IntroModel = require( 'PROJECTILE_MOTION/intro/model/IntroModel' );
+  var IntroScreenView = require( 'PROJECTILE_MOTION/intro/view/IntroScreenView' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
 
@@ -23,7 +23,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionIntroScreen() {
+  function IntroScreen() {
 
     var options = {
       name: introTitleString,
@@ -32,14 +32,14 @@ define( function( require ) {
     };
 
     Screen.call( this,
-      function() { return new ProjectileMotionIntroModel(); },
-      function( model ) { return new ProjectileMotionIntroScreenView( model ); },
+      function() { return new IntroModel(); },
+      function( model ) { return new IntroScreenView( model ); },
       options
     );
   }
 
-  projectileMotion.register( 'ProjectileMotionIntroScreen', ProjectileMotionIntroScreen );
+  projectileMotion.register( 'IntroScreen', IntroScreen );
 
-  return inherit( Screen, ProjectileMotionIntroScreen );
+  return inherit( Screen, IntroScreen );
 } );
 

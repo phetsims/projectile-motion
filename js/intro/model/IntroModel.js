@@ -17,7 +17,7 @@ define( function( require ) {
   /**
    * @constructor
    */
-  function ProjectileMotionIntroModel() {
+  function IntroModel() {
     var self = this;
     ProjectileMotionModel.call( self );
 
@@ -36,8 +36,8 @@ define( function( require ) {
     } );
   }
 
-  projectileMotion.register( 'ProjectileMotionIntroModel', ProjectileMotionIntroModel );
+  projectileMotion.register( 'IntroModel', IntroModel );
 
-  return inherit( ProjectileMotionModel, ProjectileMotionIntroModel );
+  return inherit( ProjectileMotionModel, IntroModel );
 } );
 

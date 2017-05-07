@@ -15,10 +15,10 @@ define( function( require ) {
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
 
   /**
-   * @param {ProjectileMotionIntroModel} model
+   * @param {IntroModel} model
    * @constructor
    */
-  function ProjectileMotionIntroScreenView( model, options ) {
+  function IntroScreenView( model, options ) {
 
     var self = this;
 
@@ -34,8 +34,8 @@ define( function( require ) {
 
   }
 
-  projectileMotion.register( 'ProjectileMotionIntroScreenView', ProjectileMotionIntroScreenView );
+  projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
-  return inherit( ProjectileMotionScreenView, ProjectileMotionIntroScreenView );
+  return inherit( ProjectileMotionScreenView, IntroScreenView );
 } );
 
