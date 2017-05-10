@@ -74,8 +74,8 @@ define( function( require ) {
     this.textDisplayYMargin = options.textDisplayYMargin;
 
     // @private {array.<{Object}>} parameters contains objects like currentParameter
-    this.parameters;
-    this.currentParameter; // {Object} contains properties about a parameter box
+    this.parameters = null;
+    this.currentParameter = null; // {Object} contains properties about a parameter box
 
     this.numberKeypadStringProperty = new Property( '' );
 
