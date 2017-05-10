@@ -18,6 +18,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
@@ -122,7 +123,7 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
-          angleProperty.value = Math.round( unboundedNewAngle );
+          angleProperty.value = Util.roundSymmetric( unboundedNewAngle );
         }
         // the current, unchanged, angle is closer to max than min
         else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
@@ -152,7 +153,7 @@ define( function( require ) {
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
-          heightProperty.value = Math.round( unboundedNewHeight );
+          heightProperty.value = Util.roundSymmetric( unboundedNewHeight );
         }
         // the current, unchanged, height is closer to max than min
         else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {

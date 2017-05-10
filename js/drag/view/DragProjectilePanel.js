@@ -91,7 +91,7 @@ define( function( require ) {
       } );
 
       var slider = new HSlider( property, range, {
-        constrainValue: function( value ) { return Math.round( value * 100 ) / 100; }, // two decimal place accuracy
+        constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; }, // two decimal place accuracy
         majorTickLength: 5,
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
         thumbSize: new Dimension2( 16, 28 ),

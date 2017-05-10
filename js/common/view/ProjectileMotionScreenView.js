@@ -36,6 +36,7 @@ define( function( require ) {
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
@@ -129,7 +130,7 @@ define( function( require ) {
         valueAlign: 'center',
         titleFont: TEXT_FONT,
         valueFont: TEXT_FONT,
-        constrainValue: function( value ) { return Math.round( value ); },
+        constrainValue: function( value ) { return Util.roundSymmetric( value ); },
         majorTickLength: 5,
         majorTicks: [ { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min }, { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max } ],
         trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined

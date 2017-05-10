@@ -22,6 +22,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
@@ -129,7 +130,7 @@ define( function( require ) {
     );
 
     var velocitySlider = new HSlider( launchVelocityProperty, ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-      constrainValue: function( value ) { return Math.round( value ); },
+      constrainValue: function( value ) { return Util.roundSymmetric( value ); },
       majorTickLength: 5,
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
       thumbSize: new Dimension2( 16, 28 ),
