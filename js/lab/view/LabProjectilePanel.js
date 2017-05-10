@@ -22,6 +22,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -77,7 +78,7 @@ define( function( require ) {
       );
 
       // value text
-      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
 
       // background for text
       var backgroundNode = new Rectangle(

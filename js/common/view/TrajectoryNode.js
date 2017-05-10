@@ -19,7 +19,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var Vector2 = require( 'DOT/Vector2' );
-
+  var Util = require( 'DOT/Util' );
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
@@ -70,7 +70,7 @@ define( function( require ) {
       viewLastPoint = viewAddedPoint.copy();
 
       // draw dot if it is time for data point should be shown
-      if ( ( addedPoint.time * 1000 ).toFixed( 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
+      if ( ( Util.toFixedNumber( addedPoint.time * 1000 ), 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
         var addedPointNode = new Circle( DOT_DIAMETER / 2, {
           x: modelViewTransform.modelToViewX( addedPoint.x ),
           y: modelViewTransform.modelToViewY( addedPoint.y ),

@@ -19,6 +19,7 @@ define( function( require ) {
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
+  var Util = require( 'DOT/Util' );
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
@@ -197,7 +198,7 @@ define( function( require ) {
       this.residualTime += dt * 1000; // in milliseconds
 
       // number of model steps to clock this frame
-      var numberSteps = ( this.residualTime / TIME_PER_DATA_POINT ).toFixed( 0 ) / 1000;
+      var numberSteps = Util.toFixedNumber( this.residualTime / TIME_PER_DATA_POINT , 0 ) / 1000;
 
       this.residualTime = this.residualTime % TIME_PER_DATA_POINT;
 

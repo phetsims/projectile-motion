@@ -28,6 +28,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -219,7 +220,7 @@ define( function( require ) {
     openSelf: function() {
       // set text readouts to the property values
       this.parameters.forEach( function( parameter ) {
-        parameter.valueText.setText( parameter.property.get().toFixed( 2 ) );
+        parameter.valueText.setText( Util.toFixedNumber( parameter.property.get(), 2 ) );
       } );
       this.detachedAirResistanceProperty.set( this.modelAirResistanceProperty.get() );
       this.visible = true;
@@ -301,7 +302,7 @@ define( function( require ) {
       );
 
       // value text
-      var valueText = new Text( property.get().toFixed( 2 ), LABEL_OPTIONS );
+      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
 
       // background for text
       var backgroundNode = new Rectangle(

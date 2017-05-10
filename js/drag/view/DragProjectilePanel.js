@@ -24,6 +24,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -70,7 +71,7 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get().toFixed( 2 ), unitsString ) : property.get().toFixed( 2 ), LABEL_OPTIONS );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
 
       // background for text
       var backgroundNode = new Rectangle(

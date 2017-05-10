@@ -24,6 +24,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -121,9 +122,9 @@ define( function( require ) {
     // Listen for when time, range, and height change, and update the readouts.
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        timeReadoutProperty.set( point.time.toFixed( 2 ) );
-        rangeReadoutProperty.set( point.x.toFixed( 2 ) );
-        heightReadoutProperty.set( point.y.toFixed( 2 ) );
+        timeReadoutProperty.set( Util.toFixedNumber( point.time, 2 ) );
+        rangeReadoutProperty.set( Util.toFixedNumber( point.x, 2 ) );
+        heightReadoutProperty.set( Util.toFixedNumber( point.y, 2 ) );
       } else {
         timeReadoutProperty.set( '-' );
         rangeReadoutProperty.set( '-' );
