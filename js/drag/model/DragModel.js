@@ -13,6 +13,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
   var Property = require( 'AXON/Property' );
+  
   /**
    * @constructor
    */

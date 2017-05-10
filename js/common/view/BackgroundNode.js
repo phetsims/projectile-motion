@@ -18,9 +18,9 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // constants
-  var cementWidth = 20;
-  var grassWidth = 5;
-  var lineWidth = 2;
+  var CEMENT_WIDTH = 20;
+  var GRASS_WIDTH = 5;
+  var LINE_WIDTH = 2;
 
   /**
    * @param {Bounds2} layoutBounds the ScreenView layoutBounds
@@ -46,7 +46,7 @@ define( function( require ) {
     this.road = new Rectangle( 0, 0, 0, 0 );
     this.addChild( this.road );
 
-    this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', lineWidth: lineWidth } );
+    this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', LINE_WIDTH: LINE_WIDTH } );
     this.addChild( this.roadDashedLine );
 
     if ( options ) {
@@ -66,10 +66,10 @@ define( function( require ) {
       this.sky.setRect( -offsetX, -offsetY, width / layoutScale, height / layoutScale );
       this.sky.fill = new LinearGradient( 0, 0, 0, 2 * height / 3 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
-      this.road.setRect( -offsetX, dashedLineY - 0.5 * cementWidth, width / layoutScale, cementWidth );
+      this.road.setRect( -offsetX, dashedLineY - 0.5 * CEMENT_WIDTH, width / layoutScale, CEMENT_WIDTH );
       this.road.fill = new LinearGradient( 0, 0, 0, dashedLineY ).addColorStop( 0, 'rgb( 163, 172, 162 )' ).addColorStop( 1, 'rgb( 77, 77, 75 )' );
 
-      this.topGrass.setRect( -offsetX, this.road.top - grassWidth, width / layoutScale, height / layoutScale );
+      this.topGrass.setRect( -offsetX, this.road.top - GRASS_WIDTH, width / layoutScale, height / layoutScale );
 
       this.bottomGrass.setRect( -offsetX, dashedLineY, width / layoutScale, height / layoutScale );
 
