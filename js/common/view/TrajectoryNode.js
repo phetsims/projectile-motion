@@ -35,7 +35,7 @@ define( function( require ) {
    * @constructor
    */
   function TrajectoryNode(
-    projectileMotionModel,
+    vectorVisibilityProperties,
     trajectory,
     // totalVelocityVectorOnProperty,
     // componentsVelocityVectorsOnProperty,
@@ -86,7 +86,7 @@ define( function( require ) {
 
     function handleProjectileObjectAdded( projectileObject ) {
       var newProjectileNode = new ProjectileNode(
-        projectileMotionModel,
+        vectorVisibilityProperties,
         projectileObject.dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameterProperty.get(),

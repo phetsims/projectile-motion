@@ -14,6 +14,7 @@ define( function( require ) {
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+  var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   /**
    * @param {LabModel} model
@@ -22,6 +23,9 @@ define( function( require ) {
   function LabScreenView( model, options ) {
 
     options = options || {};
+    
+    // contains properties about vector visibility, used in super class
+    var visibilityProperties = new VectorVisibilityProperties();
 
     // customize panel that becomes visible when customize button in second panel is pressed
     this.customizeDialog = new CustomizeDialog( model );
@@ -29,7 +33,8 @@ define( function( require ) {
     // second panel includes customizable options
     options = _.extend( {
       secondPanel: new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty ),
-      vectorsPanel: new LabProjectilePanel( model )
+      vectorsPanel: new LabProjectilePanel( model ),
+      vectorVisibilityProperties: visibilityProperties
     }, options );
 
     ProjectileMotionScreenView.call( this, model, options );

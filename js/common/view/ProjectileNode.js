@@ -3,7 +3,7 @@
 /**
  * View for a projectile including the flying object and the vectors.
  * Constructed based on many individually passed parameters about the projectile.
- * Listens to the model for vector visibility properties.
+ * Listens to the vectorVisibilityProperties for vector visibility properties.
  * Listens to a DataPoint property to figure out when to move.
  *
  * @author Andrea Lin( PhET Interactive Simulations )
@@ -55,7 +55,7 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileNode(
-                          model,
+                          vectorVisibilityProperties,
                           dataPointProperty,
                           objectType,
                           diameter,
@@ -165,18 +165,18 @@ define( function( require ) {
     freeBodyDiagram.addChild( totalDragForceLabel );
 
     // listen to whether components velocity vectors should be on
-    model.componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
+    vectorVisibilityProperties.componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
       xVelocityArrow.visible = componentsVelocityVectorsOn;
       yVelocityArrow.visible = componentsVelocityVectorsOn;
     } );
 
     // listen to whether total velocity vector should be on
-    model.totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
+    vectorVisibilityProperties.totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
       totalVelocityArrow.visible = totalVelocityVectorOn;
     } );
 
     // listen to whether components acceleration vectors should be on
-    model.componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
+    vectorVisibilityProperties.componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
       xAccelerationArrow.visible = componentsAccelerationVectorsOn;
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
     } );
@@ -184,15 +184,15 @@ define( function( require ) {
     var dataPoint = dataPointProperty.get();
 
     // listen to which force vectors should be on
-    Property.multilink( [ model.componentsForceVectorsOnProperty, model.totalForceVectorOnProperty ], function() {
-      forcesBox.visible = ( model.componentsForceVectorsOnProperty.get() || model.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
-      freeBodyDiagram.visible = ( model.componentsForceVectorsOnProperty.get() || model.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
-      xDragForceArrow.visible = model.componentsForceVectorsOnProperty.get();
-      xDragForceLabel.visible = model.componentsForceVectorsOnProperty.get();
-      yDragForceArrow.visible = model.componentsForceVectorsOnProperty.get();
-      yDragForceLabel.visible = model.componentsForceVectorsOnProperty.get();
-      totalDragForceArrow.visible = model.totalForceVectorOnProperty.get();
-      totalDragForceLabel.visible = model.totalForceVectorOnProperty.get();
+    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty ], function() {
+      forcesBox.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
+      freeBodyDiagram.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
+      xDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
+      xDragForceLabel.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
+      yDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
+      yDragForceLabel.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
+      totalDragForceArrow.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
+      totalDragForceLabel.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
     } );
 
     // update if data point changes

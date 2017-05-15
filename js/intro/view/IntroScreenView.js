@@ -13,6 +13,7 @@ define( function( require ) {
   var IntroVectorsPanel = require( 'PROJECTILE_MOTION/intro/view/IntroVectorsPanel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+  var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   /**
    * @param {IntroModel} model
@@ -23,12 +24,16 @@ define( function( require ) {
     var self = this;
 
     options = options || {};
+    
+    // contains properties about vector visibility, used in super class
+    var visibilityProperties = new VectorVisibilityProperties();
 
     // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
     options = _.extend( {
       secondPanel: new IntroProjectilePanel( model ),
-      vectorsPanel: new IntroVectorsPanel( model )
-    }, options );
+      vectorsPanel: new IntroVectorsPanel( visibilityProperties ),
+      vectorVisibilityProperties: visibilityProperties
+   }, options );
 
     ProjectileMotionScreenView.call( self, model, options );
 

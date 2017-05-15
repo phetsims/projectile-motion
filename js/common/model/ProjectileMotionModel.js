@@ -89,23 +89,6 @@ define( function( require ) {
         }
       } );
 
-    // --vectors visibility
-
-    // @public {Property.<boolean>} whether total velocity vector is showing
-    this.totalVelocityVectorOnProperty = new Property( false );
-
-    // @public {Property.<boolean>} whether component velocity vectors are showing
-    this.componentsVelocityVectorsOnProperty = new Property( false );
-
-    // @public {Property.<boolean>} whether total force vector is showing
-    this.totalForceVectorOnProperty = new Property( false );
-
-    // @public {Property.<boolean>} whether component force vectors are showing
-    this.componentsForceVectorsOnProperty = new Property( false );
-
-    // @public {Property.<boolean>} whether component acceleration vectors are showing
-    this.componentsAccelerationVectorsOnProperty = new Property( false );
-
     // --animation playing controls
 
     // @public {Property.<String>} speed of animation, normal/slow
@@ -170,11 +153,6 @@ define( function( require ) {
       this.projectileDragCoefficientProperty.reset();
       this.altitudeProperty.reset();
       this.airResistanceOnProperty.reset();
-      this.totalVelocityVectorOnProperty.reset();
-      this.componentsVelocityVectorsOnProperty.reset();
-      this.totalForceVectorOnProperty.reset();
-      this.componentsForceVectorsOnProperty.reset();
-      this.componentsAccelerationVectorsOnProperty.reset();
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
 

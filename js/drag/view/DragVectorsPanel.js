@@ -31,7 +31,7 @@ define( function( require ) {
    * @param {DragModel} dragModel
    * @constructor
    */
-  function DragVectorsPanel( dragModel, options ) {
+  function DragVectorsPanel( vectorVisibilityProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -43,8 +43,8 @@ define( function( require ) {
     var componentsLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
     
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
-      { node: totalLabel, property: dragModel.totalOrComponentsProperty, value: 'total' },
-      { node: componentsLabel, property: dragModel.totalOrComponentsProperty, value: 'components' }
+      { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
+      { node: componentsLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'components' }
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
@@ -52,10 +52,10 @@ define( function( require ) {
     } );
 
     var velocityLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
-    var velocityCheckBox = new CheckBox( velocityLabel, dragModel.velocityVectorsOnProperty );
+    var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty );
     
     var forceLabel = new Text( forceVectorsString, BIGGER_LABEL_OPTIONS );
-    var forceCheckBox = new CheckBox( forceLabel, dragModel.forceVectorsOnProperty );
+    var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

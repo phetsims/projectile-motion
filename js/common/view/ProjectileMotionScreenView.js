@@ -66,6 +66,8 @@ define( function( require ) {
     var self = this;
     ScreenView.call( this, options );
 
+    var vectorVisibilityProperties = options.vectorVisibilityProperties;
+
     // TODO: Spacing for panels around edges of visible bounds
     //   ScreenView.visibleBoundsProperty, using this.visibleBoundsProperty.link
     //   See cck and expression exchange
@@ -94,7 +96,7 @@ define( function( require ) {
     function handleTrajectoryAdded( addedTrajectory ) {
       // create the view representation for added trajectory 
       var trajectoryNode = new TrajectoryNode(
-        model,
+        vectorVisibilityProperties,
         addedTrajectory,
         // model.totalVelocityVectorOnProperty,
         // model.componentsVelocityVectorsOnProperty,
@@ -263,6 +265,7 @@ define( function( require ) {
     var resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
+        vectorVisibilityProperties.reset();
         // zoomProperty.reset();
       },
       bottom: this.layoutBounds.maxY - Y_MARGIN
