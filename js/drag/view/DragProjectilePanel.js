@@ -48,7 +48,13 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function DragProjectilePanel( labModel, options ) {
+  function DragProjectilePanel(
+                                projectileDragCoefficientProperty,
+                                projectileDiameterProperty,
+                                projectileMassProperty,
+                                altitudeProperty,
+                                options
+  ) {
     // TODO: rename labModel to projectileMotionViewModel
 
     // The first object is a placeholder so none of the others get mutated
@@ -129,12 +135,12 @@ define( function( require ) {
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
-      labModel.projectileDragCoefficientProperty,
+      projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
       dragObjectDisplay
     );
 
-    labModel.projectileDragCoefficientProperty.link( function( dragCoefficient ) {
+    projectileDragCoefficientProperty.link( function( dragCoefficient ) {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );
       }
@@ -146,21 +152,21 @@ define( function( require ) {
     var diameterBox = createParameterControlBox(
       diameterString,
       mString,
-      labModel.projectileDiameterProperty,
+      projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var massBox = createParameterControlBox(
       massString,
       kgString,
-      labModel.projectileMassProperty,
+      projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var altitudeBox = createParameterControlBox(
       altitudeString,
       mString,
-      labModel.altitudeProperty,
+      altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE
     );
 
