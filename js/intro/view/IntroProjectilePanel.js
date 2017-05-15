@@ -47,15 +47,21 @@ define( function( require ) {
    * @param {IntroModel} introModel
    * @constructor
    */
-  function IntroProjectilePanel( introModel, options ) {
+  function IntroProjectilePanel(
+                                objectTypes,
+                                selectedProjectileObjectTypeProperty,
+                                projectileMassProperty,
+                                projectileDiameterProperty,
+                                projectileDragCoefficientProperty,
+                                airResistanceOnProperty,
+                                options
+  ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-
-    var objectTypes = introModel.objectTypes;
 
     var firstItemNode = new VBox( {
       align: 'left',
@@ -86,7 +92,7 @@ define( function( require ) {
 
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
-      introModel.selectedProjectileObjectTypeProperty,
+      selectedProjectileObjectTypeProperty,
       comboBoxParent, {
         itemXMargin: itemXMargin,
         buttonXMargin: buttonXMargin,
@@ -142,26 +148,26 @@ define( function( require ) {
     var massBox = createParameterControlBox(
       massString,
       kgString,
-      introModel.projectileMassProperty,
+      projectileMassProperty,
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
       mString,
-      introModel.projectileDiameterProperty,
+      projectileDiameterProperty,
       ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
-      introModel.projectileDragCoefficientProperty,
+      projectileDragCoefficientProperty,
       ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     );
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, introModel.airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
 
     // The contents of the control panel
     var content = new VBox( {

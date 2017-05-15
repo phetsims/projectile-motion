@@ -30,7 +30,14 @@ define( function( require ) {
 
     // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
     options = _.extend( {
-      secondPanel: new IntroProjectilePanel( model ),
+      secondPanel: new IntroProjectilePanel(
+                                            model.objectTypes,
+                                            model.selectedProjectileObjectTypeProperty,
+                                            model.projectileMassProperty,
+                                            model.projectileDiameterProperty,
+                                            model.projectileDragCoefficientProperty,
+                                            model.airResistanceOnProperty
+      ),
       vectorsPanel: new IntroVectorsPanel( visibilityProperties ),
       vectorVisibilityProperties: visibilityProperties
    }, options );
