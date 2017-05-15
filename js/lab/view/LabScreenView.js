@@ -33,7 +33,14 @@ define( function( require ) {
     // second panel includes customizable options
     options = _.extend( {
       secondPanel: new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty ),
-      vectorsPanel: new LabProjectilePanel( model ),
+      vectorsPanel: new LabProjectilePanel(
+                                            model.customizeDialogVisibleProperty,
+                                            model.projectileMassProperty,
+                                            model.projectileDiameterProperty,
+                                            model.projectileDragCoefficientProperty,
+                                            model.altitudeProperty,
+                                            model.airResistanceOnProperty
+      ),
       vectorVisibilityProperties: visibilityProperties
     }, options );
 
