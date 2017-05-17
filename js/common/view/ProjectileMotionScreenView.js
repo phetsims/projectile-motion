@@ -60,13 +60,18 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function ProjectileMotionScreenView( model, options ) {
+  function ProjectileMotionScreenView(
+                                      model,
+                                      topRightPanel,
+                                      bottomRightPanel,
+                                      vectorVisibilityProperties,
+                                      options
+  ) {
 
     options = options || {};
     var self = this;
-    ScreenView.call( this, options );
 
-    var vectorVisibilityProperties = options.vectorVisibilityProperties;
+    ScreenView.call( this, options );
 
     // TODO: Spacing for panels around edges of visible bounds
     //   ScreenView.visibleBoundsProperty, using this.visibleBoundsProperty.link
@@ -190,10 +195,6 @@ define( function( require ) {
     // zoomControl.top = 0;
     // zoomControl.left = 0;
 
-    // second panel is specified in different screens
-    var secondPanel = options.secondPanel;
-    var vectorsPanel = options.vectorsPanel;
-
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, modelViewTransform );
 
@@ -272,8 +273,8 @@ define( function( require ) {
     } );
 
     // properties
-    this.secondPanel = secondPanel;
-    this.vectorsPanel = vectorsPanel;
+    this.topRightPanel = topRightPanel;
+    this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
     this.fireButton = fireButton;
@@ -287,8 +288,8 @@ define( function( require ) {
       trajectoriesLayer,
       initialSpeedPanel,
       cannonNode,
-      secondPanel,
-      vectorsPanel,
+      topRightPanel,
+      bottomRightPanel,
       toolboxPanel,
       measuringTapeNode,
       tracerNode,
@@ -327,13 +328,13 @@ define( function( require ) {
 
       this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
 
-      this.secondPanel.right = width / scale - offsetX - X_MARGIN;
-      this.secondPanel.top = Y_MARGIN - offsetY;
-      this.vectorsPanel.setRightTop( this.secondPanel.rightBottom.plusXY( 0, Y_MARGIN) );
-      this.toolboxPanel.setRightTop( this.secondPanel.leftTop.minusXY( X_MARGIN, 0 ) );
-      this.eraserButton.left = this.secondPanel.centerX + X_MARGIN;
-      this.fireButton.right = this.secondPanel.centerX - X_MARGIN;
-      this.resetAllButton.right = this.secondPanel.right;
+      this.topRightPanel.right = width / scale - offsetX - X_MARGIN;
+      this.topRightPanel.top = Y_MARGIN - offsetY;
+      this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN) );
+      this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
+      this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
+      this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
+      this.resetAllButton.right = this.topRightPanel.right;
     }
 
   } );

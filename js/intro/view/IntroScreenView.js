@@ -21,29 +21,26 @@ define( function( require ) {
    */
   function IntroScreenView( model, options ) {
 
-    var self = this;
-
     options = options || {};
     
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
-    // second panel shows dropdown of projectiles, air resistance checkbox, and disabled parameters
-    options = _.extend( {
-      secondPanel: new IntroProjectilePanel(
-                                            model.objectTypes,
-                                            model.selectedProjectileObjectTypeProperty,
-                                            model.projectileMassProperty,
-                                            model.projectileDiameterProperty,
-                                            model.projectileDragCoefficientProperty,
-                                            model.airResistanceOnProperty
-      ),
-      vectorsPanel: new IntroVectorsPanel( visibilityProperties ),
-      vectorVisibilityProperties: visibilityProperties
-   }, options );
-
-    ProjectileMotionScreenView.call( self, model, options );
-
+    ProjectileMotionScreenView.call(
+                                    this,
+                                    model,
+                                    new IntroProjectilePanel(
+                                                              model.objectTypes,
+                                                              model.selectedProjectileObjectTypeProperty,
+                                                              model.projectileMassProperty,
+                                                              model.projectileDiameterProperty,
+                                                              model.projectileDragCoefficientProperty,
+                                                              model.airResistanceOnProperty
+                                    ),
+                                    new IntroVectorsPanel( visibilityProperties ),
+                                    visibilityProperties,
+                                    options
+    );
   }
 
   projectileMotion.register( 'IntroScreenView', IntroScreenView );

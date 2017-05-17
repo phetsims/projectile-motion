@@ -30,21 +30,25 @@ define( function( require ) {
     // customize panel that becomes visible when customize button in second panel is pressed
     this.customizeDialog = new CustomizeDialog( model );
 
-    // second panel includes customizable options
-    options = _.extend( {
-      secondPanel: new InitialValuesPanel( model.cannonHeightProperty, model.cannonAngleProperty, model.launchVelocityProperty ),
-      vectorsPanel: new LabProjectilePanel(
-                                            model.customizeDialogVisibleProperty,
-                                            model.projectileMassProperty,
-                                            model.projectileDiameterProperty,
-                                            model.projectileDragCoefficientProperty,
-                                            model.altitudeProperty,
-                                            model.airResistanceOnProperty
-      ),
-      vectorVisibilityProperties: visibilityProperties
-    }, options );
-
-    ProjectileMotionScreenView.call( this, model, options );
+    ProjectileMotionScreenView.call(
+                                    this,
+                                    model,
+                                    new InitialValuesPanel(
+                                                            model.cannonHeightProperty,
+                                                            model.cannonAngleProperty,
+                                                            model.launchVelocityProperty
+                                    ),
+                                    new LabProjectilePanel(
+                                                            model.customizeDialogVisibleProperty,
+                                                            model.projectileMassProperty,
+                                                            model.projectileDiameterProperty,
+                                                            model.projectileDragCoefficientProperty,
+                                                            model.altitudeProperty,
+                                                            model.airResistanceOnProperty
+                                    ),
+                                    visibilityProperties,
+                                    options
+    );
 
     this.customizeDialog.center = this.visibleBoundsProperty.get().center.minusXY( 50, 0 );
     this.addChild( this.customizeDialog );
