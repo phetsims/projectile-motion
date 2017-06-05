@@ -25,8 +25,8 @@ define( function( require ) {
   var NUM_SEGMENTS_PER_SHAPE = 5;
 
   /**
-   * @constructor
    * {number} [seed] - optional seed for the random number generator
+   * @constructor
    */
   function RandomIconFactory( seed ) {
     this.random = new Random( { seed: seed } );

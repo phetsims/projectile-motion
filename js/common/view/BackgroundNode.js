@@ -23,8 +23,7 @@ define( function( require ) {
   var LINE_WIDTH = 2;
 
   /**
-   * @param {Bounds2} layoutBounds the ScreenView layoutBounds
-   * @param {Object} [options]
+   * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
    * @constructor
    */
   function BackgroundNode( layoutBounds, options ) {

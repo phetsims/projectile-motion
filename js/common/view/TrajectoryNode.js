@@ -30,16 +30,15 @@ define( function( require ) {
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
 
   /**
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
+   * only needed to pass down to ProjectileNode
    * @param {Trajectory} trajectory - model for the trajectory
-   * @param {Property.<boolean>} componentsVelocityVectorsOnProperty - passed through to ProjectileNode
+   * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */
   function TrajectoryNode(
     vectorVisibilityProperties,
     trajectory,
-    // totalVelocityVectorOnProperty,
-    // componentsVelocityVectorsOnProperty,
-    // componentsAccelerationVectorsOnProperty,
     modelViewTransform
   ) {
     var self = this;

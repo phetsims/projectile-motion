@@ -20,10 +20,8 @@ define( function( require ) {
   /**
    * @constructor
    *
-   * @param {MeasuringTape} measuringTape
+   * @param {ProjectileMotionMeasuringTape} measuringTape
    * @param {ModelViewTransform2} modelViewTransform
-   * @param {Property.<Bounds2>} availableModelBoundsProperty - dragBounds for the charged particle
-   * @param {Tandem} tandem
    */
   function MeasuringTapeNode( measuringTape, modelViewTransform ) {
 

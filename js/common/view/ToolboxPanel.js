@@ -20,10 +20,10 @@ define( function( require ) {
 
   /**
    * Toolbox constructor
-   * @param {ProjectileMotionMeasuringTape} measuringTape
-   * @param {Tracer} tracer
-   * @param {MeasuringTapeNode} measuringTapeNode
-   * @param {TracerNode} tracerNode
+   * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
+   * @param {Tracer} tracer - model for the tracer tool
+   * @param {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
+   * @param {TracerNode} tracerNode - view for the tracer tool
    * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */

@@ -46,11 +46,11 @@ define( function( require ) {
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
 
   /**
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
-   * @param {string} objectType - pumpkin? human? canonball?
-   * @param {number} diameter - how big the object is
+   * @param {string} objectType - e.g. pumpkin? human? cannonball?
+   * @param {number} diameter - how big the object is, in meters
    * @param {number} dragCoefficient - shape of the object
-   * @param {Property.<boolean>} - componentsVelocityVectorsOnProperty
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @constructor
    */

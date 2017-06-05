@@ -45,7 +45,10 @@ define( function( require ) {
   var DRAG_OBJECT_DISPLAY_RADIUS = 12;
 
   /**
-   * @param {ProjectileMotionModel} model
+   * @param {Property.<number>} projectileDragCoefficientProperty
+   * @param {Property.<number>} projectileDiameterProperty
+   * @param {Property.<number>} projectileMassProperty
+   * @param {Property.<number>} altitudeProperty
    * @constructor
    */
   function DragProjectilePanel(

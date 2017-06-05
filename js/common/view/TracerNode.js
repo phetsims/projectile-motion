@@ -42,8 +42,8 @@ define( function( require ) {
   var SPACING = 4;
 
   /**
-   * @param {Score} score - model of the tracer and scoring algorithms
-   * @param {String|color} color
+   * @param {Score} tracer - model of the tracer tool
+   * @param {ModelViewTransform2} modelViewTransform
    * @constructor
    */
   function TracerNode( tracer, modelViewTransform, options ) {

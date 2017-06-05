@@ -43,7 +43,7 @@ define( function( require ) {
    * Control panel constructor
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
-   * @param {Property.<number>} launchVelocityProperty - velocity of next projectile
+   * @param {Property.<number>} launchVelocityProperty - velocity of next projectile to be fired
    * @constructor
    */
   function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, launchVelocityProperty, options ) {

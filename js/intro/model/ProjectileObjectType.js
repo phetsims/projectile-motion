@@ -20,11 +20,11 @@ define( function( require ) {
   var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin');
 
   /**
-   * @param {string} name
+   * @param {string} name - name of the object, such as 'Tank Shell'
    * @param {number} mass - in kg
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
-   * @param {Object} [options]
+   * @param {string || null} type - identifier of the object type, such as 'tankShell'
    * @constructor
    */
   function ProjectileObjectType( name, mass, diameter, dragCoefficient, type ) {

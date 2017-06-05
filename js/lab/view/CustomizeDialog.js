@@ -59,7 +59,7 @@ define( function( require ) {
   var Y_MARGIN = 40;
 
   /**
-   * @param {ProjectileMotionModel} model
+   * @param {LabModel} labModel - since customize dialog affects so many properties, the entire model is passed
    * @constructor
    */
   function CustomizeDialog( labModel, options ) {

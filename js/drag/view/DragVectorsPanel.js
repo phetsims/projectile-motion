@@ -28,7 +28,7 @@ define( function( require ) {
   var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
 
   /**
-   * @param {DragModel} dragModel
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
    * @constructor
    */
   function DragVectorsPanel( vectorVisibilityProperties, options ) {

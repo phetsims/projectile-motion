@@ -47,7 +47,10 @@ define( function( require ) {
   var DRAG_OBJECT_DISPLAY_RADIUS = 12;
 
   /**
-   * @param {ProjectileMotionModel} model
+   * @param {Property.<number>} projectileDiameterProperty
+   * @param {Property.<number>} projectileMassProperty
+   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
+   * @param {Property.<number>} projectileDragCoefficientProperty
    * @constructor
    */
   function VectorsProjectilePanel(
@@ -57,7 +60,6 @@ define( function( require ) {
                                 projectileDragCoefficientProperty,
                                 options
   ) {
-    // TODO: rename labModel to projectileMotionViewModel
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files

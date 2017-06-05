@@ -44,7 +44,12 @@ define( function( require ) {
   };
 
   /**
-   * @param {IntroModel} introModel
+   * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
+   * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
+   * @param {Property.<number>} projectileMassProperty
+   * @param {Property.<number>} projectileDiameterProperty
+   * @param {Property.<number>} projectileDragCoefficientProperty
+   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @constructor
    */
   function IntroProjectilePanel(

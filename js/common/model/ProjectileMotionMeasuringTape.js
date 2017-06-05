@@ -17,8 +17,6 @@ define( function( require ) {
 
   /**
    * @constructor
-   *
-   * @param {Tandem} tandem
    */
   function ProjectileMotionMeasuringTape() {
 

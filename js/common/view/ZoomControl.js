@@ -23,7 +23,7 @@ define( function( require ) {
 
   /**
    * @param {Property.<number>} zoomProperty - property that indicates how far zoomed in the simulation is, between
-   * @param {number} minZoom - the furthest out the sim can be zoomed (1)
+   * @param {number} minZoom - the furthest out the sim can be zoomed
    * @param {number} maxZoom - the furthest in the sim can be zoomed
    * @constructor
    */

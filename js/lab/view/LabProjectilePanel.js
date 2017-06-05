@@ -44,8 +44,12 @@ define( function( require ) {
   };
 
   /**
-   * @param {ProjectileMotionModel} model
-   * @param {CustomizeDialog} customizeDialog - panel linked to customize button
+   * @param {Property.<boolean>} customizeDialogVisibleProperty - whether customize dialog is visible
+   * @param {Property.<number>} projectileMassProperty
+   * @param {Property.<number>} projectileDiameterProperty
+   * @param {Property.<number>} projectileDragCoefficientProperty
+   * @param {Property.<number>} altitudeProperty
+   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @constructor
    */
   function LabProjectilePanel(

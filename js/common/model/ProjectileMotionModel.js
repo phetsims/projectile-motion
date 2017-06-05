@@ -61,7 +61,7 @@ define( function( require ) {
     // @public {Property.<number>} diameter of the projectile, in meters
     this.projectileDiameterProperty = new Property( ProjectileMotionConstants.CANNONBALL_DIAMETER );
 
-    // @public {Property.<number>} drag coefficient of the projectile
+    // @public {Property.<number>} drag coefficient of the projectile, unitless as it is a coefficient
     this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
 
     // --properties that change the environment and affect all projectiles
@@ -72,11 +72,11 @@ define( function( require ) {
     // @public {Property.<boolean>} whether air resistance is on
     this.airResistanceOnProperty = new Property( false );
 
-    // @public {Property.<number>} air density, in kg/cu m which depends on altitude and whether air resistance is on
+    // @public {Property.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ],
       
       function( altitude, airResistanceOn ) {
-        
+
       // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
       // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
 

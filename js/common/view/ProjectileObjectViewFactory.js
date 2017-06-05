@@ -89,7 +89,7 @@ define( function( require ) {
      }
     },
 
-    // only used by intro screen
+    // @public create object based on the type, only used by intro screen
     createObjectView: function( projectileObjectModel, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
       switch ( projectileObjectModel.type ) {
