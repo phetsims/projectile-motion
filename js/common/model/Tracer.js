@@ -21,6 +21,8 @@ define( function( require ) {
 
   /**
    * @param {ObservableArray.<Projectile>} projectiles
+   * @param {number} tracerX - x position of the tracer
+   * @param {number} tracerY - y position of the tracer
    * @constructor
    */
   function Tracer( projectiles, tracerX, tracerY ) {
