@@ -27,9 +27,6 @@ define( function( require ) {
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
-    // customize panel that becomes visible when customize button in second panel is pressed
-    this.customizeDialog = new CustomizeDialog( model );
-
     ProjectileMotionScreenView.call(
                                     this,
                                     model,
@@ -50,6 +47,8 @@ define( function( require ) {
                                     options
     );
 
+    // customize panel that becomes visible when customize button in second panel is pressed
+    this.customizeDialog = new CustomizeDialog( model );
     this.customizeDialog.center = this.visibleBoundsProperty.get().center.minusXY( 50, 0 );
     this.addChild( this.customizeDialog );
 
