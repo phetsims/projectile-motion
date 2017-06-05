@@ -30,6 +30,18 @@ define( function( require ) {
   function ProjectileMotionModel() {
     var self = this;
 
+    // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
+    this.trajectories = new ObservableArray();
+
+    // @public {Score} model for handling scoring ( if/when projectile hits target )
+    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
+
+    // @public {ProjectileMotionMeasuringTape} model for measuring tape
+    this.measuringTape = new ProjectileMotionMeasuringTape();
+
+    // @public {Tracer} model for the tracer probe
+    this.tracer = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
+
     // --initial values
 
     // @public {Property.<number>} height of the cannon, in meters
@@ -89,32 +101,6 @@ define( function( require ) {
         }
       } );
 
-    // --animation playing controls
-
-    // @public {Property.<String>} speed of animation, normal/slow
-    this.speedProperty = new Property( 'normal' );
-
-    // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
-    this.isPlayingProperty = new Property( true );
-
-    // @private, how many steps mod three, used to slow animation down to a third of normal speed
-    this.stepCount = 0;
-
-    // @private, tracks remaining time mod 16 ms
-    this.residualTime = 0;
-
-    // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
-    this.trajectories = new ObservableArray();
-
-    // @public {Score} model for handling scoring ( if/when projectile hits target )
-    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
-
-    // @public {ProjectileMotionMeasuringTape} model for measuring tape
-    this.measuringTape = new ProjectileMotionMeasuringTape();
-
-    // @public {Tracer} model for the tracer probe
-    this.tracer = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
-
     // update air density as needed, and change status of projectiles
     this.airDensityProperty.link( function() {
       self.trajectories.forEach( function( trajectory ) {
@@ -136,6 +122,21 @@ define( function( require ) {
       self.limitTrajectories();
 
     } );
+    
+    // --animation playing controls
+
+    // @public {Property.<String>} speed of animation, normal/slow
+    this.speedProperty = new Property( 'normal' );
+
+    // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
+    this.isPlayingProperty = new Property( true );
+
+    // @private, how many steps mod three, used to slow animation down to a third of normal speed
+    this.stepCount = 0;
+
+    // @private, tracks remaining time mod 16 ms
+    this.residualTime = 0;
+
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
