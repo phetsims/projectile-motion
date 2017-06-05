@@ -64,6 +64,7 @@ define( function( require ) {
     // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       // find the parent screen if not already found by moving up the scene graph
+      // TODO: is there an easier way to do the following? Also, this shows up multiple times with this file
       if ( !parentScreenView ) {
         var testNode = self;
         while ( testNode !== null ) {
