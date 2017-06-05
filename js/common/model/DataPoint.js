@@ -14,20 +14,32 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
  
   /**
-   * @param {number} time - total time since fire at this point on the trajectory
-   * @param {number} x - x position of the data point, also called range
-   * @param {number} y - y position of the data point, also called height
-   * @param {number} airDensity
-   * @param {number} xVelocity
-   * @param {number} yVelocity
-   * @param {number} xAcceleration
-   * @param {number} yAcceleration
-   * @param {number} xDragForce
-   * @param {number} yDragForce
-   * @param {number} forceGravity
+   * @param {number} time - total time since fire at this point on the trajectory, in s
+   * @param {number} x - x position of the data point, also called range, in m
+   * @param {number} y - y position of the data point, also called height, in m
+   * @param {number} airDensity - air density of the atmosphere at this point, in kg/cu m
+   * @param {number} xVelocity - x component of velocity at this point, in m/s
+   * @param {number} yVelocity - y component of velocity at this point, in m/s
+   * @param {number} xAcceleration - x component of acceleration at this point, in m/s^2
+   * @param {number} yAcceleration - y component of acceleration at this point, in m/s^2
+   * @param {number} xDragForce - x component of drag force at this point, in N
+   * @param {number} yDragForce - y component of drag force at this point, in N
+   * @param {number} forceGravity - force of gravity, in N
    * @constructor
    */
-  function DataPoint( time, x, y, airDensity, xVelocity, yVelocity, xAcceleration, yAcceleration, xDragForce, yDragForce, forceGravity ) {
+  function DataPoint(
+                      time,
+                      x,
+                      y,
+                      airDensity,
+                      xVelocity,
+                      yVelocity,
+                      xAcceleration,
+                      yAcceleration,
+                      xDragForce,
+                      yDragForce,
+                      forceGravity
+  ) {
     Vector2.call( this, x, y );
 
     // @public

@@ -72,9 +72,14 @@ define( function( require ) {
     // @public {Property.<boolean>} whether air resistance is on
     this.airResistanceOnProperty = new Property( false );
 
-    // @public {Property.<number>} air density, which depends on altitude and whether air resistance is on
+    // @public {Property.<number>} air density, in kg/cu m which depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ],
+      
       function( altitude, airResistanceOn ) {
+        
+      // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
+      // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
+
         if ( airResistanceOn ) {
           var temperature;
           var pressure;
