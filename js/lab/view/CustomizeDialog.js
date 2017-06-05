@@ -310,9 +310,7 @@ define( function( require ) {
         0, // y
         TEXT_WIDTH, // width
         valueText.height + 2 * this.textDisplayYMargin, // height
-        4, // cornerXRadius
-        4, // cornerYRadius
-        TEXT_BACKGROUND_OPTIONS
+        _.defaults( { cornerRadius: 4 }, TEXT_BACKGROUND_OPTIONS )
       );
       valueText.centerY = backgroundNode.centerY;
       valueText.left = backgroundNode.left + TEXT_X_MARGIN;

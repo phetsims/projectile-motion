@@ -61,9 +61,8 @@ define( function( require ) {
       0,
       0,
       150,
-      95,
-      8,
-      8, {
+      95, {
+        cornerRadius: 8,
         fill: OPAQUE_BLUE,
         stroke: 'gray',
         lineWidth: 4,
@@ -186,9 +185,8 @@ define( function( require ) {
         0,
         0,
         backgroundWidth,
-        numberNode.height + 2 * SPACING,
-        4,
-        4, {
+        numberNode.height + 2 * SPACING, {
+          cornerRadius: 4,
           fill: 'white',
           stroke: 'black',
           lineWidth: 0.5
@@ -215,9 +213,8 @@ define( function( require ) {
         0,
         0,
         150,
-        95,
-        8,
-        8, {
+        95, {
+          cornerRadius: 8,
           fill: OPAQUE_BLUE,
           stroke: 'gray',
           lineWidth: 4,

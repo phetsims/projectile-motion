@@ -94,9 +94,7 @@ define( function( require ) {
         0, // y
         options.textDisplayWidth, // width
         valueText.height + 2 * options.textDisplayYMargin, // height
-        4, // cornerXRadius
-        4, // cornerYRadius
-        TEXT_BACKGROUND_OPTIONS
+        _.defaults( { cornerRadius: 4}, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes

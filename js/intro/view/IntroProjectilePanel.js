@@ -127,9 +127,7 @@ define( function( require ) {
         0, // y
         options.textDisplayWidth, // width
         valueText.height + 2 * options.textDisplayYMargin, // height
-        4, // cornerXRadius
-        4, // cornerYRadius
-        _.defaults( { fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
+        _.defaults( { cornerRadius: 4, fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
