@@ -20,6 +20,7 @@ define( function( require ) {
 
   // strings
   var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
+  var accelerationVectorsString = require( 'string!PROJECTILE_MOTION/accelerationVectors' );
   var forceVectorsString = require( 'string!PROJECTILE_MOTION/forceVectors' );
   var totalString = require( 'string!PROJECTILE_MOTION/total' );
   var componentsString = require( 'string!PROJECTILE_MOTION/components' );
@@ -53,6 +54,9 @@ define( function( require ) {
 
     var velocityLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
     var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty );
+
+    var accelerationLabel = new Text( accelerationVectorsString, BIGGER_LABEL_OPTIONS );
+    var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty );
     
     var forceLabel = new Text( forceVectorsString, BIGGER_LABEL_OPTIONS );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty );
@@ -64,6 +68,7 @@ define( function( require ) {
       children: [
         totalOrComponentsGroup,
         velocityCheckBox,
+        accelerationCheckBox,
         forceCheckBox
       ]
     } );

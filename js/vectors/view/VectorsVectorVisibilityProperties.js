@@ -25,13 +25,16 @@ define( function( require ) {
   
     // vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new Property( false );
+    this.accelerationVectorsOnProperty = new Property( false );
     this.forceVectorsOnProperty = new Property( false );
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
 
     // update which vectors to show based on controls
-    Property.multilink( [ this.velocityVectorsOnProperty, this.forceVectorsOnProperty, this.totalOrComponentsProperty ], function() {
+    Property.multilink( [ this.velocityVectorsOnProperty, this.accelerationVectorsOnProperty, this.forceVectorsOnProperty, this.totalOrComponentsProperty ], function() {
       self.totalVelocityVectorOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
       self.componentsVelocityVectorsOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
+      self.totalAccelerationVectorOnProperty.set( self.accelerationVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
+      self.componentsAccelerationVectorsOnProperty.set( self.accelerationVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
       self.totalForceVectorOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
       self.componentsForceVectorsOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
     } );
@@ -46,6 +49,7 @@ define( function( require ) {
     reset: function() {
       VectorVisibilityProperties.prototype.reset.call( this );
       this.velocityVectorsOnProperty.reset();
+      this.accelerationVectorsOnProperty.reset();
       this.forceVectorsOnProperty.reset();
       this.totalOrComponentsProperty.reset();
     }

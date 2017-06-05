@@ -40,7 +40,7 @@ define( function( require ) {
       headWidth: 6
   };
   var FREE_BODY_RADIUS = 5;
-  var FORCE_SCALAR = 0.005;
+  var FORCE_SCALAR = 0.05;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
   var FORCES_BOX_DILATION = 7;
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
@@ -127,6 +127,15 @@ define( function( require ) {
     } );
     this.addChild( yAccelerationArrow );
 
+    // add vector view for total acceleration
+    var totalAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: ACCELERATION_ARROW_FILL,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    this.addChild( totalAccelerationArrow );
+
     // forces view
     var forcesBox = new Rectangle( 0, 0, 10, 50, {
       fill: TRANSPARENT_WHITE,
@@ -179,6 +188,11 @@ define( function( require ) {
     vectorVisibilityProperties.componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
       xAccelerationArrow.visible = componentsAccelerationVectorsOn;
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
+    } );
+
+    // listen to whether total acceleration vector should be on
+    vectorVisibilityProperties.totalAccelerationVectorOnProperty.link( function( totalAccelerationVectorOn ) {
+      totalAccelerationArrow.visible = totalAccelerationVectorOn;
     } );
 
     // listen to which force vectors should be on
@@ -234,6 +248,11 @@ define( function( require ) {
         x,
         y - self.transformedAccelerationScalar * dataPoint.yAcceleration
       );
+      totalAccelerationArrow.setTailAndTip( x,
+        y,
+        x + self.transformedAccelerationScalar * dataPoint.xAcceleration,
+        y - self.transformedAccelerationScalar * dataPoint.yAcceleration
+      );
 
       // When the projectile lands, remove the force diagram forever
       if ( dataPoint.reachedGround ) {
@@ -247,12 +266,9 @@ define( function( require ) {
       freeBody.x = x + FREE_BODY_OFFSET.x;
       freeBody.y = y + FREE_BODY_OFFSET.y;
 
-      // TODO: is multiplying by 100 for the drag force arrows okay? Cause you can't see it otherwise
-      // If so, should we multiply the acceleration x component by 100 as well?
-
       xDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
-        freeBody.x - 100 * self.transformedForceScalar * dataPoint.xDragForce,
+        freeBody.x - self.transformedForceScalar * dataPoint.xDragForce,
         freeBody.y
       );
       xDragForceLabel.right = xDragForceArrow.tipX - 5;
@@ -261,7 +277,7 @@ define( function( require ) {
       yDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x,
-        freeBody.y + 100 * self.transformedForceScalar * dataPoint.yDragForce
+        freeBody.y + self.transformedForceScalar * dataPoint.yDragForce
       );
       yDragForceLabel.left = yDragForceArrow.tipX + 5;
       yDragForceLabel.y = yDragForceArrow.tipY;
@@ -279,8 +295,8 @@ define( function( require ) {
       var yTotalForce = dataPoint.y === 0 ? 0 : dataPoint.yDragForce;
       totalDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
-        freeBody.x - 100 * self.transformedForceScalar * xTotalForce,
-        freeBody.y + 100 * self.transformedForceScalar * yTotalForce
+        freeBody.x - self.transformedForceScalar * xTotalForce,
+        freeBody.y + self.transformedForceScalar * yTotalForce
       );
       totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
       totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;

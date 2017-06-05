@@ -30,6 +30,9 @@ define( function( require ) {
     // @public {Property.<boolean>} whether component force vectors are showing
     this.componentsForceVectorsOnProperty = new Property( false );
 
+    // @public {Property.<boolean>} whether total acceleration vector is shown
+    this.totalAccelerationVectorOnProperty = new Property ( false );
+
     // @public {Property.<boolean>} whether component acceleration vectors are showing
     this.componentsAccelerationVectorsOnProperty = new Property( false );
 
@@ -45,6 +48,7 @@ define( function( require ) {
       this.componentsVelocityVectorsOnProperty.reset();
       this.totalForceVectorOnProperty.reset();
       this.componentsForceVectorsOnProperty.reset();
+      this.totalAccelerationVectorOnProperty.reset();
       this.componentsAccelerationVectorsOnProperty.reset();
     }
   } );
