@@ -181,12 +181,8 @@ define( function( require ) {
       yAccelerationArrow.visible = componentsAccelerationVectorsOn;
     } );
 
-    var dataPoint = dataPointProperty.get();
-
     // listen to which force vectors should be on
     Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty ], function() {
-      forcesBox.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
-      freeBodyDiagram.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPoint.reachedGround;
       xDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
       xDragForceLabel.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
       yDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
@@ -194,6 +190,14 @@ define( function( require ) {
       totalDragForceArrow.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
       totalDragForceLabel.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
     } );
+
+    // listen to whether the forces diagram should be visible
+    var setForcesDiagramVisibility = function( componentForceVectorsOnProperty, totalForceVectorOnProperty ) {
+      forcesBox.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get();
+      freeBodyDiagram.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get();
+    }
+
+    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty ], setForcesDiagramVisibility );
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
@@ -231,10 +235,12 @@ define( function( require ) {
         y - self.transformedAccelerationScalar * dataPoint.yAcceleration
       );
 
-      // When the projectile lands, remove the force diagram
+      // When the projectile lands, remove the force diagram forever
       if ( dataPoint.reachedGround ) {
         forcesBox.visible = false;
         freeBodyDiagram.visible = false;
+        vectorVisibilityProperties.componentsForceVectorsOnProperty.unlink( setForcesDiagramVisibility );
+        vectorVisibilityProperties.totalForceVectorOnProperty.unlink( setForcesDiagramVisibility );
         return;
       }
 
