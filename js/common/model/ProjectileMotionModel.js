@@ -146,6 +146,13 @@ define( function( require ) {
     // @public resets all model elements
     reset: function() {
 
+      // remove all projectiles
+      this.trajectories.reset();
+
+      this.score.reset();
+      this.measuringTape.reset();
+      this.tracer.reset();
+
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
       this.launchVelocityProperty.reset();
@@ -156,13 +163,6 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
-
-      // remove all projectiles
-      this.trajectories.reset();
-
-      this.score.reset();
-      this.measuringTape.reset();
-      this.tracer.reset();
     },
 
     // @public determines animation based on play/pause and speed
