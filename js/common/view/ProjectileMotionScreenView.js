@@ -272,7 +272,7 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
 
-    // make objects properties of the screen view to layout in the inherit calls
+    // properties
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
