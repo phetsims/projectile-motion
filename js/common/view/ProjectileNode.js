@@ -195,7 +195,7 @@ define( function( require ) {
     var setForcesDiagramVisibility = function( componentForceVectorsOnProperty, totalForceVectorOnProperty ) {
       forcesBox.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get();
       freeBodyDiagram.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get();
-    }
+    };
 
     Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty ], setForcesDiagramVisibility );
 
