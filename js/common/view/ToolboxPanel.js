@@ -39,7 +39,7 @@ define( function( require ) {
       yMargin: 10,
       fill: 'white'
     }, options );
-  
+
     var tracerIconNode = tracerNode.createIcon();
     tracerIconNode.cursor = 'pointer';
     tracerIconNode.scale( 0.4 );
@@ -100,10 +100,9 @@ define( function( require ) {
           }
           assert && assert( parentScreenView, 'unable to find parent screen view' );
         }
-        // Ignore non-left-mouse-button
-        if ( event.pointer.isMouse && event.domEvent.button !== 0 ) {
-          return;
-        }
+
+        // Don't try to start drags with a right mouse button or an attached pointer.
+        if ( !event.canStartPress() ) { return; }
 
         tracer.isActiveProperty.set( true );
 
@@ -162,10 +161,9 @@ define( function( require ) {
           }
           assert && assert( parentScreenView, 'unable to find parent screen view' );
         }
-        // Ignore non-left-mouse-button
-        if ( event.pointer.isMouse && event.domEvent.button !== 0 ) {
-          return;
-        }
+
+        // Don't try to start drags with a right mouse button or an attached pointer.
+        if ( !event.canStartPress() ) { return; }
 
         measuringTape.isActiveProperty.set( true );
         // debugger;
