@@ -31,13 +31,6 @@ define( function( require ) {
     // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
     this.isActiveProperty = new Property( false );
 
-    // TODO: doc is this public or private
-    this.resetProjectileMotionMeasuringTape = function() {
-      this.basePositionProperty.reset();
-      this.tipPositionProperty.reset();
-      this.isActiveProperty.reset();
-    };
-
   }
 
   projectileMotion.register( 'ProjectileMotionMeasuringTape', ProjectileMotionMeasuringTape );
@@ -46,7 +39,9 @@ define( function( require ) {
 
     // @public
     reset: function() {
-      this.resetProjectileMotionMeasuringTape();
+      this.basePositionProperty.reset();
+      this.tipPositionProperty.reset();
+      this.isActiveProperty.reset();
     }
 
   } );
