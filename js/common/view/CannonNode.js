@@ -41,18 +41,18 @@ define( function( require ) {
     // @private auxiliary functions, closures for setting the second coordinates of the line
     // TODO: remove when you use rotate
     function getX2() {
-      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.value * Math.PI / 180 ) );
+      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.get() * Math.PI / 180 ) );
     }
 
     function getY2() {
-      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.value * Math.PI / 180 ) + heightProperty.value );
+      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
     }
 
     // TODO: use image and rotation, fix pickable area. See FaucetNode
     // draw cannon
     self.cannon = new Line(
       modelViewTransform.modelToViewX( 0 ),
-      modelViewTransform.modelToViewY( heightProperty.value ),
+      modelViewTransform.modelToViewY( heightProperty.get() ),
       getX2(),
       getY2(), {
         stroke: 'white',
@@ -107,7 +107,7 @@ define( function( require ) {
     self.rotatableArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = self.rotatableArea.globalToParentPoint( event.pointer.point );
-        startAngle = angleProperty.value; // degrees
+        startAngle = angleProperty.get(); // degrees
       },
 
       drag: function( event ) {
@@ -123,7 +123,7 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
-          angleProperty.value = Util.roundSymmetric( unboundedNewAngle );
+          angleProperty.set( Util.roundSymmetric( unboundedNewAngle ) );
         }
         // the current, unchanged, angle is closer to max than min
         else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
@@ -153,7 +153,7 @@ define( function( require ) {
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
-          heightProperty.value = Util.roundSymmetric( unboundedNewHeight );
+          heightProperty.set( Util.roundSymmetric( unboundedNewHeight ) );
         }
         // the current, unchanged, height is closer to max than min
         else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {

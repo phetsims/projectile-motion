@@ -69,16 +69,16 @@ define( function( require ) {
     };
 
     var plusButton = createZoomControlButton( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
-      zoomProperty.set( Util.clamp( zoomProperty.value + 0.1, minZoom, maxZoom ) );
+      zoomProperty.set( Util.clamp( zoomProperty.get() + 0.1, minZoom, maxZoom ) );
     } );
 
     var minusButton = createZoomControlButton( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
-      zoomProperty.set( Util.clamp( zoomProperty.value - 0.1, minZoom, maxZoom ) );
+      zoomProperty.set( Util.clamp( zoomProperty.get() - 0.1, minZoom, maxZoom ) );
     } );
 
     // Temporarily set the zoom to a value that puts the knob roughly half way up so that the initial layout of the
     // VBox will work.
-    var originalZoomValue = zoomProperty.value;
+    var originalZoomValue = zoomProperty.get();
     zoomProperty.set( 4 );
 
     // vertical panel

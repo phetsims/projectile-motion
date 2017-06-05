@@ -62,7 +62,7 @@ define( function( require ) {
 
     this.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
-    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.value, 0 ) );
+    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
 
     this.addChild( this.target );
 
@@ -84,13 +84,13 @@ define( function( require ) {
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        self.targetXProperty.value = modelViewTransform.viewToModelX( startX + xChange );
+        self.targetXProperty.set( modelViewTransform.viewToModelX( startX + xChange ) );
       }
 
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    self.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.value, 2 ), metersString ), LABEL_OPTIONS );
+    self.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.get(), 2 ), metersString ), LABEL_OPTIONS );
     self.addChild( self.distanceLabel );
 
     // score indicator, currently text
@@ -102,7 +102,7 @@ define( function( require ) {
     // listen to horizontal position changes
     score.targetXProperty.link( function( targetX ) {
       self.target.centerX = modelViewTransform.modelToViewX( targetX );
-      self.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.value, 2 ), metersString );
+      self.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.get(), 2 ), metersString );
       self.distanceLabel.centerX = self.target.centerX;
       self.distanceLabel.top = self.target.bottom + 2;
     } );
