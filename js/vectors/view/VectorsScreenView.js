@@ -32,7 +32,9 @@ define( function( require ) {
                                     model,
                                     new VectorsProjectilePanel(
                                                             model.projectileDiameterProperty,
-                                                            model.projectileMassProperty
+                                                            model.projectileMassProperty,
+                                                            model.airResistanceOnProperty,
+                                                            model.projectileDragCoefficientProperty
                                     ),
                                     new VectorsVectorsPanel( visibilityProperties ),
                                     visibilityProperties,

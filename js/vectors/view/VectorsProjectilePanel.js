@@ -10,6 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var CheckBox = require( 'SUN/CheckBox' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
@@ -32,14 +33,17 @@ define( function( require ) {
   var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
+  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
-    stroke: 'lightGray',
-    strokeWidth: 1
+    stroke: 'lightGray'
   };
+
   var DRAG_OBJECT_DISPLAY_RADIUS = 12;
 
   /**
@@ -49,6 +53,8 @@ define( function( require ) {
   function VectorsProjectilePanel(
                                 projectileDiameterProperty,
                                 projectileMassProperty,
+                                airResistanceOnProperty,
+                                projectileDragCoefficientProperty,
                                 options
   ) {
     // TODO: rename labModel to projectileMotionViewModel
@@ -128,6 +134,33 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
+    var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
+
+    var dragCoefficientBox = ( function( labelString, property ) {
+      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
+      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
+
+      // background for text
+      var backgroundNode = new Rectangle(
+        0, // x
+        0, // y
+        options.textDisplayWidth, // width
+        valueText.height + 2 * options.textDisplayYMargin, // height
+        _.defaults( { cornerRadius: 4, stroke: 'black', fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
+      );
+
+      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
+      valueText.center = backgroundNode.center;
+
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+
+      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+    }) (
+      dragCoefficientString,
+      projectileDragCoefficientProperty
+    );
+
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
@@ -135,7 +168,9 @@ define( function( require ) {
       children: [
         objectDisplay,
         diameterBox,
-        massBox
+        massBox,
+        airResistanceCheckBox,
+        dragCoefficientBox
       ]
     } );
 
