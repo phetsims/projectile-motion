@@ -69,10 +69,10 @@ define( function( require ) {
 
     /** 
      * Auxiliary function that creates vbox for a parameter label and readouts
-     * @param {string} label
+     * @param {string} labelString - label for the parameter
+     * @param {string} unitsString - units
      * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Object} range, range has keys min and max
-     * @param {Node} a view display to be shown with the value
+     * @param {Range} range - range for the property value
      * @returns {VBox}
      * @private
      */

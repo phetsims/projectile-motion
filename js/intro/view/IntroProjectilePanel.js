@@ -111,13 +111,13 @@ define( function( require ) {
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
-     * @param {string} label
+     * @param {string} labelString - label for the parameter
+     * @param {string} unitsString - units
      * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Object} range, range has keys min and max
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range ) {
+    function createParameterControlBox( labelString, unitsString, property ) {
       // label
       var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
         LABEL_OPTIONS

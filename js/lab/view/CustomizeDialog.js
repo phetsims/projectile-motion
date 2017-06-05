@@ -283,11 +283,12 @@ define( function( require ) {
     /**
      * Auxiliary function that creates hbox for a parameter label, text readout, and edit button
      * Also adds value text and associated property to the running list of parameters, {array.{Object}} parameters
-     * @param {string} label
-     * @param {Property.<number>} property - the property that is used and set
-     * @param {Range} range, range has keys min and max
+     * @param {string} labelString - label for the parameter
+     * @param {string} unitsString - units
+     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Range} range - range for the property value
      * @returns {Object}: {HBox} node, {Text} valueText, {Rectangle} focusRectangle, {Property} property,
-     *  {Range} range, {function} keypadListener
+     * {Range} range, {function} keypadListener
      * @private
      */
     createParameterControlBox: function( labelString, unitsString, property, range ) {
