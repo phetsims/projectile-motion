@@ -130,12 +130,14 @@ define( function( require ) {
 
       // All datapoints have been collected because we have reached the ground
       if ( this.reachedGround ) {
+        
         this.xVelocityProperty.set( 0 );
         this.yVelocityProperty.set( 0 );
         this.xAcceleration = 0;
         this.yAcceleration = 0; // there is still acceleration due to gravity, but normal force makes net acceleration zero
         this.xDragForce = 0;
         this.yDragForce = 0;
+
         var finalDataPoint = new DataPoint(
           this.totalTimeProperty.get(),
           this.xProperty.get(),
@@ -149,6 +151,7 @@ define( function( require ) {
           this.yDragForce,
           this.forceGravity
         );
+
         finalDataPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
         this.dataPoints.push( finalDataPoint );
 

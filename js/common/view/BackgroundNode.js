@@ -35,14 +35,12 @@ define( function( require ) {
     this.sky = new Rectangle( 0, 0, 0, 0 );
     this.addChild( this.sky );
 
-    // Wait for bounds to fill in the grass
     this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 118, 66 )' } );
     this.addChild( this.topGrass );
 
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.addChild( this.bottomGrass );
 
-    // Wait for bounds to fill in the grass
     this.road = new Rectangle( 0, 0, 0, 0 );
     this.addChild( this.road );
 
@@ -58,8 +56,6 @@ define( function( require ) {
 
   return inherit( Node, BackgroundNode, {
 
-    // Exactly fit the geometry to the screen so no matter what aspect ratio it will always show something.
-    // Perhaps it will improve performance too?
     layout: function( offsetX, offsetY, width, height, layoutScale ) {
       var dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
