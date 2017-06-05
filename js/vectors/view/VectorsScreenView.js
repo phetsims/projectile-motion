@@ -31,10 +31,8 @@ define( function( require ) {
                                     this,
                                     model,
                                     new VectorsProjectilePanel(
-                                                            model.projectileDragCoefficientProperty,
                                                             model.projectileDiameterProperty,
-                                                            model.projectileMassProperty,
-                                                            model.altitudeProperty
+                                                            model.projectileMassProperty
                                     ),
                                     new VectorsVectorsPanel( visibilityProperties ),
                                     visibilityProperties,

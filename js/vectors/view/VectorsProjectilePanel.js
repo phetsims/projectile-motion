@@ -13,7 +13,6 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
@@ -28,12 +27,11 @@ define( function( require ) {
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
   var kgString = require( 'string!PROJECTILE_MOTION/kg' );
   var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -49,10 +47,8 @@ define( function( require ) {
    * @constructor
    */
   function VectorsProjectilePanel(
-                                projectileDragCoefficientProperty,
                                 projectileDiameterProperty,
                                 projectileMassProperty,
-                                altitudeProperty,
                                 options
   ) {
     // TODO: rename labModel to projectileMotionViewModel
@@ -72,7 +68,7 @@ define( function( require ) {
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range, viewNode ) {
+    function createParameterControlBox( labelString, unitsString, property, range ) {
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
@@ -107,45 +103,16 @@ define( function( require ) {
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
-      if ( viewNode ) {
-        var viewAndValueNodes = new HBox( { spacing: options.xMargin, children: [ viewNode, valueNode ] } );
-        var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in viewNode
-        var valueAndDisplay = new VBox( { align: 'right', children: [ strut, viewAndValueNodes ] } );
-        var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueAndDisplay.width;
-        return new VBox( { spacing: options.yMargin, children: [
-            new HBox( { spacing: xSpacing, children: [ parameterLabel, valueAndDisplay ] } ),
-            slider
-        ] } );
-      }
-
-      else {
-        xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-        return new VBox( { spacing: options.yMargin, children: [
-            new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
-            slider
-        ] } );
-      }
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      return new VBox( { spacing: options.yMargin, children: [
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
+          slider
+      ] } );
+      
     }
 
-    var dragObjectDisplay = new Node();
-    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_RADIUS * 2 ) );
-
-    var dragCoefficientBox = createParameterControlBox(
-      dragCoefficientString,
-      null,
-      projectileDragCoefficientProperty,
-      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
-      dragObjectDisplay
-    );
-
-    projectileDragCoefficientProperty.link( function( dragCoefficient ) {
-      if ( dragObjectDisplay.children.length > 1 ) {
-        dragObjectDisplay.removeChildAt( 1 );
-      }
-      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, dragCoefficient );
-      objectView.center = dragObjectDisplay.center;
-      dragObjectDisplay.addChild( objectView );
-    });
+    var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+    var objectDisplay = new HBox( { spacing: options.xMargin, children: [ new Text( cannonballString, LABEL_OPTIONS ), objectView ]});
 
     var diameterBox = createParameterControlBox(
       diameterString,
@@ -161,22 +128,14 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
-    var altitudeBox = createParameterControlBox(
-      altitudeString,
-      mString,
-      altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE
-    );
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        dragCoefficientBox,
+        objectDisplay,
         diameterBox,
-        massBox,
-        altitudeBox
+        massBox
       ]
     } );
 
