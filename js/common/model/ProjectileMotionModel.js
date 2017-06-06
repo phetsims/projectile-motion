@@ -211,7 +211,7 @@ define( function( require ) {
 
       // search for equal trajectory and add a new projectile object to it, if found
       this.trajectories.forEach( function( trajectory ) {
-        if ( trajectory.equalsCurrent() ) {
+        if ( trajectory.currentModelEqualsSelf() ) {
           trajectory.addProjectileObject();
 
           equalsExistingTrajectory = true;

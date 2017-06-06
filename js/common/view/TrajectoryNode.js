@@ -88,12 +88,9 @@ define( function( require ) {
         vectorVisibilityProperties,
         projectileObject.dataPointProperty,
         trajectory.projectileObjectType,
-        trajectory.diameterProperty.get(),
-        trajectory.dragCoefficientProperty.get(),
+        trajectory.diameter,
+        trajectory.dragCoefficient,
         modelViewTransform
-        // totalVelocityVectorOnProperty,
-        // componentsVelocityVectorsOnProperty,
-        // componentsAccelerationVectorsOnProperty
       );
       projectileNodesLayer.addChild( newProjectileNode );
     }
