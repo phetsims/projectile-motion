@@ -34,9 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function CannonNode( heightProperty, angleProperty, modelViewTransform ) {
-    var self = this;
-
-    Node.call( self );
+    Node.call( this );
 
     // auxiliary functions, closures for getting the second coordinates of the line
     // TODO: remove when you use rotate
@@ -48,10 +46,9 @@ define( function( require ) {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
     }
 
-    //TODO make cannon a var
     // TODO: use image and rotation, fix pickable area. See FaucetNode
     // draw cannon
-    self.cannon = new Line(
+    var cannon = new Line(
       modelViewTransform.modelToViewX( 0 ),
       modelViewTransform.modelToViewY( heightProperty.get() ),
       getX2(),
@@ -60,43 +57,42 @@ define( function( require ) {
         lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
       }
     );
-    self.addChild( self.cannon );
+    this.addChild( cannon );
 
-    //TODO make adjustableHeightArea a var
     // add invisible node for dragging height
-    self.adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
-      x: self.cannon.x1,
-      y: self.cannon.y1,
+    var adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
+      x: cannon.x1,
+      y: cannon.y1,
       pickable: true,
       cursor: 'pointer'
     } );
-    self.addChild( self.adjustableHeightArea );
+    this.addChild( adjustableHeightArea );
 
     // add invisible node for dragging angle
-    self.rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
+    var rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: getX2(),
       y: getY2(),
       pickable: true,
       cursor: 'pointer'
     } );
-    self.addChild( self.rotatableArea );
+    this.addChild( rotatableArea );
 
     // watch for if angle changes
     angleProperty.link( function() {
-      self.cannon.x2 = getX2();
-      self.cannon.y2 = getY2();
-      self.adjustableHeightArea.x = self.cannon.x1;
-      self.adjustableHeightArea.y = self.cannon.y1;
-      self.rotatableArea.x = self.cannon.x2;
-      self.rotatableArea.y = self.cannon.y2;
+      cannon.x2 = getX2();
+      cannon.y2 = getY2();
+      adjustableHeightArea.x = cannon.x1;
+      adjustableHeightArea.y = cannon.y1;
+      rotatableArea.x = cannon.x2;
+      rotatableArea.y = cannon.y2;
     } );
 
     // watch for if height changes
     heightProperty.link( function( height ) {
-      self.cannon.y1 = modelViewTransform.modelToViewY( height );
-      self.cannon.y2 = getY2();
-      self.adjustableHeightArea.y = self.cannon.y1;
-      self.rotatableArea.y = self.cannon.y2;
+      cannon.y1 = modelViewTransform.modelToViewY( height );
+      cannon.y2 = getY2();
+      adjustableHeightArea.y = cannon.y1;
+      rotatableArea.y = cannon.y2;
     } );
 
     // @private variables used for drag handlers
@@ -106,18 +102,18 @@ define( function( require ) {
     var startHeight;
 
     // drag the tip of the cannon to change angle
-    self.rotatableArea.addInputListener( new SimpleDragHandler( {
+    rotatableArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = self.rotatableArea.globalToParentPoint( event.pointer.point );
+        startPoint = rotatableArea.globalToParentPoint( event.pointer.point );
         startAngle = angleProperty.get(); // degrees
       },
 
       drag: function( event ) {
-        mousePoint = self.rotatableArea.globalToParentPoint( event.pointer.point );
+        mousePoint = rotatableArea.globalToParentPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = new Vector2( startPoint.x - self.cannon.x1, startPoint.y - self.cannon.y1 ).angle();
-        var mousePointAngle = new Vector2( mousePoint.x - self.cannon.x1, mousePoint.y - self.cannon.y1 ).angle();
+        var startPointAngle = new Vector2( startPoint.x - cannon.x1, startPoint.y - cannon.y1 ).angle();
+        var mousePointAngle = new Vector2( mousePoint.x - cannon.x1, mousePoint.y - cannon.y1 ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
@@ -141,14 +137,14 @@ define( function( require ) {
     } ) );
 
     // drag the base of the cannon to change height
-    self.adjustableHeightArea.addInputListener( new SimpleDragHandler( {
+    adjustableHeightArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = self.adjustableHeightArea.globalToParentPoint( event.pointer.point );
-        startHeight = self.cannon.y1; // view units
+        startPoint = adjustableHeightArea.globalToParentPoint( event.pointer.point );
+        startHeight = cannon.y1; // view units
       },
 
       drag: function( event ) {
-        mousePoint = self.adjustableHeightArea.globalToParentPoint( event.pointer.point );
+        mousePoint = adjustableHeightArea.globalToParentPoint( event.pointer.point );
         var heightChange = mousePoint.y - startPoint.y;
 
         var unboundedNewHeight = modelViewTransform.viewToModelY( startHeight + heightChange );
