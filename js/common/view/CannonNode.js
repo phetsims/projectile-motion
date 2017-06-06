@@ -38,7 +38,7 @@ define( function( require ) {
 
     Node.call( self );
 
-    // @private auxiliary functions, closures for setting the second coordinates of the line
+    // auxiliary functions, closures for getting the second coordinates of the line
     // TODO: remove when you use rotate
     function getX2() {
       return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.get() * Math.PI / 180 ) );
