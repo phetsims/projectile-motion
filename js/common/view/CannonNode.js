@@ -48,6 +48,7 @@ define( function( require ) {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
     }
 
+    //TODO make cannon a var
     // TODO: use image and rotation, fix pickable area. See FaucetNode
     // draw cannon
     self.cannon = new Line(
@@ -61,6 +62,7 @@ define( function( require ) {
     );
     self.addChild( self.cannon );
 
+    //TODO make adjustableHeightArea a var
     // add invisible node for dragging height
     self.adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: self.cannon.x1,
