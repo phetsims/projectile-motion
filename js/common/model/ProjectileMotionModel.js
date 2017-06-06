@@ -72,7 +72,7 @@ define( function( require ) {
     // @public {Property.<boolean>} whether air resistance is on
     this.airResistanceOnProperty = new Property( false );
 
-    // @public {Property.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
+    // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ],
       
       function( altitude, airResistanceOn ) {

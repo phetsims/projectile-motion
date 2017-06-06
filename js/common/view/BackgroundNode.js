@@ -27,28 +27,21 @@ define( function( require ) {
    * @constructor
    */
   function BackgroundNode( layoutBounds, options ) {
-    Node.call( this, {
+    options = _.extend( { 
       pickable: false
-    } );
+    }, options );
 
+    // @private
     this.sky = new Rectangle( 0, 0, 0, 0 );
-    this.addChild( this.sky );
-
     this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 118, 66 )' } );
-    this.addChild( this.topGrass );
-
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
-    this.addChild( this.bottomGrass );
-
     this.road = new Rectangle( 0, 0, 0, 0 );
-    this.addChild( this.road );
-
     this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', LINE_WIDTH: LINE_WIDTH } );
-    this.addChild( this.roadDashedLine );
 
-    if ( options ) {
-      this.mutate( options );
-    }
+    assert && assert( !options.children );
+    options.children = [ this.sky, this.topGrass, this.bottomGrass, this.road, this.roadDashedLine ];
+
+    Node.call( this, options );
   }
 
   projectileMotion.register( 'BackgroundNode', BackgroundNode );

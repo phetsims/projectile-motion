@@ -52,7 +52,6 @@ define( function( require ) {
     },
 
     // @public checks for if there is a point the tracer is close to. if so, updates pointProperty
-    // @returns nothing
     updateData: function() {
       var i;
       for ( i = this.projectiles.length - 1; i >= 0; i-- ) {

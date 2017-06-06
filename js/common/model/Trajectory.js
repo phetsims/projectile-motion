@@ -69,6 +69,7 @@ define( function( require ) {
 
     // TODO: velocity and acceleration vectors? Or keep as component variables
 
+    // TODO: some of the following should be vars, others private
     // @public
     this.xVelocityProperty.set( model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ) );
     this.yVelocityProperty.set( model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ) );
@@ -82,6 +83,7 @@ define( function( require ) {
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
+    // TODO: some of the following can just be constants instead of vars above
     // add dataPoint for initial conditions
     this.dataPoints.push( new DataPoint(
       this.totalTimeProperty.get(),

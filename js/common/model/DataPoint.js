@@ -42,7 +42,7 @@ define( function( require ) {
   ) {
     Vector2.call( this, x, y );
 
-    // @public
+    // @public (read-only)
     this.time = time;
     this.airDensity = airDensity;
     this.xVelocity = xVelocity;
