@@ -16,7 +16,7 @@ define( function( require ) {
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MeasuringTapeNode = require( 'PROJECTILE_MOTION/common/view/MeasuringTapeNode' );
+  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
@@ -37,8 +37,10 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Property = require( 'AXON/Property' );
 
   // strings
+  var metersString = require( 'string!PROJECTILE_MOTION/meters');
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
   var normalString = require( 'string!PROJECTILE_MOTION/normal' );
   var slowString = require( 'string!PROJECTILE_MOTION/slow' );
@@ -156,7 +158,15 @@ define( function( require ) {
     );
 
     // Create a measuring tape (set to invisible initially)
-    var measuringTapeNode = new MeasuringTapeNode( model.measuringTape, modelViewTransform );
+    var measuringTapeNode = new MeasuringTape(
+      new Property( { name: metersString, multiplier: 1 } ),
+      model.measuringTape.isActiveProperty, {
+        modelViewTransform: modelViewTransform,
+        basePositionProperty: model.measuringTape.basePositionProperty,
+        tipPositionProperty: model.measuringTape.tipPositionProperty,
+        isTipDragBounded: true,
+        textColor: 'black'
+    } );
 
     // add view for tracer
     var tracerNode = new TracerNode(
