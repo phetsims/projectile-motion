@@ -22,10 +22,14 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Shape = require( 'KITE/Shape' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
 
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
@@ -33,6 +37,7 @@ define( function( require ) {
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
   var HEIGHT_LEADER_LINE_POSITION = -2;
+  var CROSSHAIR_LENGTH = 60;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
   /**
@@ -104,6 +109,40 @@ define( function( require ) {
     heightLabel.centerX = heightLeaderLine.tipX;
     this.addChild( heightLabel );
 
+    // angle indicator
+    var angleIndicator = new Node();
+    angleIndicator.x = cannon.x1;
+    this.addChild( angleIndicator );
+
+    // crosshair view
+    var crosshairShape = new Shape()
+      .moveTo( -CROSSHAIR_LENGTH / 2, 0 )
+      .lineTo( CROSSHAIR_LENGTH, 0 )
+      .moveTo( 0, -CROSSHAIR_LENGTH )
+      .lineTo( 0, CROSSHAIR_LENGTH );
+
+    var crosshair = new Path( crosshairShape, { stroke: 'gray' } );
+    angleIndicator.addChild( crosshair );
+
+    var darkerCrosshairShape = new Shape()
+      .moveTo( -CROSSHAIR_LENGTH / 9, 0 )
+      .lineTo( CROSSHAIR_LENGTH / 9, 0 )
+      .moveTo( 0, -CROSSHAIR_LENGTH / 9 )
+      .lineTo( 0, CROSSHAIR_LENGTH / 9 );
+
+    var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', strokeWidth: 3 } );
+    angleIndicator.addChild( darkerCrosshair );
+
+    // view for the angle arc
+    var angleArc = new Path( null, { stroke: 'gray' } );
+    angleIndicator.addChild( angleArc );
+
+    // angle readout
+    var angleLabel = new Text( StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString ), LABEL_OPTIONS );
+    angleLabel.bottom = -5;
+    angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
+    angleIndicator.addChild( angleLabel );
+
     // add invisible node for dragging height
     var adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: cannon.x1,
@@ -123,9 +162,14 @@ define( function( require ) {
     this.addChild( rotatableArea );
 
     // watch for if angle changes
-    angleProperty.link( function() {
+    angleProperty.link( function( angle ) {
       cannon.x2 = getX2();
       cannon.y2 = getY2();
+      var arcShape = angle > 0
+        ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
+        : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
+      angleArc.setShape( arcShape );
+      angleLabel.text = StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString );
       adjustableHeightArea.x = cannon.x1;
       adjustableHeightArea.y = cannon.y1;
       rotatableArea.x = cannon.x2;
@@ -141,6 +185,7 @@ define( function( require ) {
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
       heightLabel.y = heightLeaderLine.tipY - 5;
+      angleIndicator.y = modelViewTransform.modelToViewY( height );
       adjustableHeightArea.y = cannon.y1;
       rotatableArea.y = cannon.y2;
     } );
