@@ -55,7 +55,7 @@ define( function( require ) {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     // find max label width
-    var exampleParameterSpinner = new NumberSpinner( new Property( 0 ), new Range( 0, 1 ), _.extend( {
+    var exampleParameterSpinner = new NumberSpinner( new Property( 0 ), new Property( new Range( 0, 1 ) ), _.extend( {
       arrowsPosition: 'leftRight',
       xMargin: 8,
       yMargin: options.textDisplayYMargin,
@@ -82,7 +82,7 @@ define( function( require ) {
         LABEL_OPTIONS
       );
 
-      var setParameterSpinner = new NumberSpinner( property, range, _.extend( {
+      var setParameterSpinner = new NumberSpinner( property, new Property( range ), _.extend( {
         arrowsPosition: 'leftRight',
         xMargin: 8,
         yMargin: options.textDisplayYMargin,
