@@ -16,16 +16,25 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Shape = require( 'KITE/Shape' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
+
+  // strings
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
 
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
   var CANNON_WIDTH = ProjectileMotionConstants.CANNON_WIDTH;
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-
+  var HEIGHT_LEADER_LINE_POSITION = -2;
+  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -59,6 +68,52 @@ define( function( require ) {
     );
     this.addChild( cannon );
 
+    // add line for indicating the height
+    var heightLeaderLine = new Line(
+      modelViewTransform.modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      modelViewTransform.modelToViewY( 0 ),
+      modelViewTransform.modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      modelViewTransform.modelToViewY( heightProperty.get() ), {
+        stroke: 'black',
+        lineDash: [ 5, 5 ],
+        lineWidth: 1
+      }
+    );
+    this.addChild( heightLeaderLine );
+
+    // draw the line caps for the height leader line
+    
+    var topCapShape = new Shape();
+    topCapShape.moveTo( 0, 0 );
+    topCapShape.lineTo( 0, 5 );
+    topCapShape.moveTo( -6, 0 );
+    topCapShape.lineTo( 6, 0 );
+
+    var heightLeaderLineTopCap = new Path( topCapShape, {
+        stroke: 'black',
+        lineWidth: 2
+    } );
+    this.addChild( heightLeaderLineTopCap );
+
+    var bottomCapShape = new Shape();
+    bottomCapShape.moveTo( 0, 0 );
+    bottomCapShape.lineTo( 0, -5 );
+    bottomCapShape.moveTo( -6, 0 );
+    bottomCapShape.lineTo( 6, 0 );
+    
+    var heightLeaderLineBottomCap = new Path( bottomCapShape, {
+        stroke: 'black',
+        lineWidth: 2
+    } );
+    heightLeaderLineBottomCap.x = heightLeaderLine.x1;
+    heightLeaderLineBottomCap.y = heightLeaderLine.y1;
+    this.addChild( heightLeaderLineBottomCap );
+
+    // height readout
+    var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), LABEL_OPTIONS );
+    heightLabel.centerX = heightLeaderLine.x1;
+    this.addChild( heightLabel );
+
     // add invisible node for dragging height
     var adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
       x: cannon.x1,
@@ -91,6 +146,11 @@ define( function( require ) {
     heightProperty.link( function( height ) {
       cannon.y1 = modelViewTransform.modelToViewY( height );
       cannon.y2 = getY2();
+      heightLeaderLine.y2 = cannon.y1;
+      heightLeaderLineTopCap.x = heightLeaderLine.x2;
+      heightLeaderLineTopCap.y = heightLeaderLine.y2;
+      heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
+      heightLabel.y = heightLeaderLine.y2 - 5;
       adjustableHeightArea.y = cannon.y1;
       rotatableArea.y = cannon.y2;
     } );
