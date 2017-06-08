@@ -17,8 +17,7 @@ define( function( require ) {
    * @constructor
    */
   function DragModel() {
-    var self = this;
-    ProjectileMotionModel.call( self );
+    ProjectileMotionModel.call( this );
 
     this.airResistanceOnProperty.set( true ); // since this screen explores drag, always leave air resistance on
   }
