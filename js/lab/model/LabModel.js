@@ -18,8 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function LabModel() {
-    var self = this;
-    ProjectileMotionModel.call( self );
+    ProjectileMotionModel.call( this );
 
     // @public {Property.<boolean>} whether the CustomizeDialog is visible
     this.customizeDialogVisibleProperty = new Property( false );

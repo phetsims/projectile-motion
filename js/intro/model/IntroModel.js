@@ -19,8 +19,7 @@ define( function( require ) {
    * @constructor
    */
   function IntroModel() {
-    var self = this;
-    ProjectileMotionModel.call( self );
+    ProjectileMotionModel.call( this );
 
     this.objectTypes = [
       ProjectileObjectType.CANNONBALL,
