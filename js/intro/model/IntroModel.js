@@ -19,6 +19,7 @@ define( function( require ) {
    * @constructor
    */
   function IntroModel() {
+    var self = this;
     ProjectileMotionModel.call( this );
 
     this.objectTypes = [
