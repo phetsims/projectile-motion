@@ -64,23 +64,22 @@ define( function( require ) {
                           options
   ) {
 
-    var self = this;
     options = options || {};
-    Node.call( self, options );
+    Node.call( this, options );
 
-    this.transformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
-    this.transformedVelocityScalar = this.transformedUnit * VELOCITY_SCALAR;
-    this.transformedAccelerationScalar = this.transformedUnit * ACCELERATION_SCALAR;
-    this.transformedForceScalar = this.transformedUnit * FORCE_SCALAR;
+    var transformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
+    var transformedVelocityScalar = transformedUnit * VELOCITY_SCALAR;
+    var transformedAccelerationScalar = transformedUnit * ACCELERATION_SCALAR;
+    var transformedForceScalar = transformedUnit * FORCE_SCALAR;
 
     // add view for projectile
     if ( objectType ) {
-      this.projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
+      var projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
     } else {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      this.projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
+      var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
     }
-    this.addChild( this.projectileObjectView );
+    this.addChild( projectileObjectView );
 
     // add vector view for velocity x component
     var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -209,43 +208,43 @@ define( function( require ) {
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
-      self.projectileObjectView.x = modelViewTransform.modelToViewX( dataPoint.x );
-      self.projectileObjectView.y = modelViewTransform.modelToViewY( dataPoint.y );
+      projectileObjectView.x = modelViewTransform.modelToViewX( dataPoint.x );
+      projectileObjectView.y = modelViewTransform.modelToViewY( dataPoint.y );
 
       var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity ) || 0;
-      self.projectileObjectView.setRotation( -angle );
+      projectileObjectView.setRotation( -angle );
 
       var x = modelViewTransform.modelToViewX( dataPoint.x );
       var y = modelViewTransform.modelToViewY( dataPoint.y );
       xVelocityArrow.setTailAndTip( x,
         y,
-        x + self.transformedVelocityScalar * dataPoint.xVelocity,
+        x + transformedVelocityScalar * dataPoint.xVelocity,
         y
       );
       yVelocityArrow.setTailAndTip( x,
         y,
         x,
-        y - self.transformedVelocityScalar * dataPoint.yVelocity
+        y - transformedVelocityScalar * dataPoint.yVelocity
       );
       totalVelocityArrow.setTailAndTip( x,
         y,
-        x + self.transformedVelocityScalar * dataPoint.xVelocity,
-        y - self.transformedVelocityScalar * dataPoint.yVelocity
+        x + transformedVelocityScalar * dataPoint.xVelocity,
+        y - transformedVelocityScalar * dataPoint.yVelocity
       );
       xAccelerationArrow.setTailAndTip( x,
         y,
-        x + self.transformedAccelerationScalar * dataPoint.xAcceleration,
+        x + transformedAccelerationScalar * dataPoint.xAcceleration,
         y
       );
       yAccelerationArrow.setTailAndTip( x,
         y,
         x,
-        y - self.transformedAccelerationScalar * dataPoint.yAcceleration
+        y - transformedAccelerationScalar * dataPoint.yAcceleration
       );
       totalAccelerationArrow.setTailAndTip( x,
         y,
-        x + self.transformedAccelerationScalar * dataPoint.xAcceleration,
-        y - self.transformedAccelerationScalar * dataPoint.yAcceleration
+        x + transformedAccelerationScalar * dataPoint.xAcceleration,
+        y - transformedAccelerationScalar * dataPoint.yAcceleration
       );
 
       // When the projectile lands, remove the force diagram
@@ -260,7 +259,7 @@ define( function( require ) {
 
       xDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
-        freeBody.x - self.transformedForceScalar * dataPoint.xDragForce,
+        freeBody.x - transformedForceScalar * dataPoint.xDragForce,
         freeBody.y
       );
       xDragForceLabel.right = xDragForceArrow.tipX - 5;
@@ -269,7 +268,7 @@ define( function( require ) {
       yDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x,
-        freeBody.y + self.transformedForceScalar * dataPoint.yDragForce
+        freeBody.y + transformedForceScalar * dataPoint.yDragForce
       );
       yDragForceLabel.left = yDragForceArrow.tipX + 5;
       yDragForceLabel.y = yDragForceArrow.tipY;
@@ -277,7 +276,7 @@ define( function( require ) {
       forceGravityArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x,
-        freeBody.y - self.transformedForceScalar * dataPoint.forceGravity
+        freeBody.y - transformedForceScalar * dataPoint.forceGravity
       );
       forceGravityLabel.left = forceGravityArrow.tipX + 5;
       forceGravityLabel.y = forceGravityArrow.tipY;
@@ -287,8 +286,8 @@ define( function( require ) {
       var yTotalForce = dataPoint.y === 0 ? 0 : dataPoint.yDragForce;
       totalDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
-        freeBody.x - self.transformedForceScalar * xTotalForce,
-        freeBody.y + self.transformedForceScalar * yTotalForce
+        freeBody.x - transformedForceScalar * xTotalForce,
+        freeBody.y + transformedForceScalar * yTotalForce
       );
       totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
       totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
