@@ -90,9 +90,7 @@ define( function( require ) {
       ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
       25 // scale for meters to view units, empirically determined based off original sim
     );
-    this.transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO );
-
-    this.backgroundNode = new BackgroundNode( this.layoutBounds );
+    // var transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO ); // for zoom
 
     // zoomable node layer
     // var zoomableNode = new Node();
@@ -190,8 +188,8 @@ define( function( require ) {
     // zoomProperty.link( function( zoomFactor ) {
 
     //   var scaleMatrix;
-    //   var scaleAroundX = thisScreenView.transformedOrigin.x;
-    //   var scaleAroundY = thisScreenView.transformedOrigin.y;
+    //   var scaleAroundX = transformedOrigin.x;
+    //   var scaleAroundY = transformedOrigin.y;
 
     //   scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
 
@@ -285,7 +283,8 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
 
-    // properties to be layout
+    // @private properties to be layout
+    this.backgroundNode = new BackgroundNode( this.layoutBounds );
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
