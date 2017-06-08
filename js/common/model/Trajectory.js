@@ -54,7 +54,6 @@ define( function( require ) {
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
-    // TODO: some of the following can just be constants instead of vars above
     // add dataPoint for initial conditions
     this.dataPoints.push( new DataPoint(
       0, // total time elapsed
@@ -162,9 +161,9 @@ define( function( require ) {
     },
 
     /**
-     * Finds the {DataPoint|null} data point with the least euclidian distance to the point with
-     * {number} x and {number} y coordinates, or null if there aren't haven't been any data points collected.
      * @public
+     * @returns {DataPoint|null} the data point with the least euclidian distance to the point with
+     * {number} x and {number} y coordinates, or null if there aren't haven't been any data points collected.
      */
     getNearestPoint: function( x, y ) {
       if ( this.dataPoints.length === 0 ) {
@@ -196,7 +195,8 @@ define( function( require ) {
       this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
     },
 
-    // @public returns a new {Trajectory} that is a copy of this one, but with one projectile object
+    // @returns {Trajectory} a new trajectory that is a copy of this one, but with one projectile object
+    // @public
     newTrajectory: function( projectileObject ) {
 
       // create a brand new trajectory
