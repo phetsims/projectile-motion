@@ -18,7 +18,7 @@ define( function( require ) {
 
   var ProjectileObjectViewFactory = {
 
-    // @public creates a {Circle} custom object view based on {number} and {number} drag coefficient
+    // @public @returns {Circle} a custom object view based on {number} and {number} drag coefficient
     createCustom: function( radius, dragCoefficient ) {
       // drag coefficients estimated from three sources:
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
@@ -89,7 +89,7 @@ define( function( require ) {
      }
     },
 
-    // @public create object based on the type, only used by intro screen
+    // @public @returns {Circle} object based on the type
     createObjectView: function( projectileObjectModel, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
       switch ( projectileObjectModel.type ) {

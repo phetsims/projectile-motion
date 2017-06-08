@@ -38,10 +38,9 @@ define( function( require ) {
    * @constructor
    */
   function TargetNode( score, modelViewTransform ) {
-    var self = this;
-    Node.call( self );
+    Node.call( this );
 
-    self.targetXProperty = score.targetXProperty;
+    var targetXProperty = score.targetXProperty;
 
     var viewRadius = modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
 
@@ -50,7 +49,7 @@ define( function( require ) {
     var innerCircle = new Circle( viewRadius / 3, { fill: 'red', stroke: 'black', lineWidth: 0.5 } );
 
     // draw target view
-    this.target = new Node( {
+    var target = new Node( {
       pickable: true,
       cursor: 'pointer',
       children: [
@@ -60,11 +59,11 @@ define( function( require ) {
       ]
     } );
 
-    this.target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
+    target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
-    this.target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
+    target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
 
-    this.addChild( this.target );
+    this.addChild( target );
 
     // @private variables used in drag handler
     var startPoint;
@@ -72,44 +71,44 @@ define( function( require ) {
     var mousePoint;
 
     // drag target to change horizontal position
-    this.target.addInputListener( new SimpleDragHandler( {
+    target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = self.target.globalToParentPoint( event.pointer.point );
-        startX = self.target.centerX; // view units
+        startPoint = target.globalToParentPoint( event.pointer.point );
+        startX = target.centerX; // view units
       },
 
       drag: function( event ) {
-        mousePoint = self.target.globalToParentPoint( event.pointer.point );
+        mousePoint = target.globalToParentPoint( event.pointer.point );
 
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        self.targetXProperty.set( modelViewTransform.viewToModelX( startX + xChange ) );
+        targetXProperty.set( modelViewTransform.viewToModelX( startX + xChange ) );
       }
 
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    self.distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.get(), 2 ), metersString ), LABEL_OPTIONS );
-    self.addChild( self.distanceLabel );
+    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString ), LABEL_OPTIONS );
+    this.addChild( distanceLabel );
 
     // score indicator, currently text
-    self.scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
-    self.scoreIndicator.centerX = 450;
-    self.scoreIndicator.centerY = 100;
-    self.addChild( self.scoreIndicator );
+    var scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
+    scoreIndicator.centerX = 450;
+    scoreIndicator.centerY = 100;
+    this.addChild( scoreIndicator );
 
     // listen to horizontal position changes
     score.targetXProperty.link( function( targetX ) {
-      self.target.centerX = modelViewTransform.modelToViewX( targetX );
-      self.distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( self.targetXProperty.get(), 2 ), metersString );
-      self.distanceLabel.centerX = self.target.centerX;
-      self.distanceLabel.top = self.target.bottom + 2;
+      target.centerX = modelViewTransform.modelToViewX( targetX );
+      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString );
+      distanceLabel.centerX = target.centerX;
+      distanceLabel.top = target.bottom + 2;
     } );
 
     // listen to model for whether score indicator should be shown
     score.scoreVisibleProperty.link( function( visible ) {
-      self.scoreIndicator.visible = visible;
+      scoreIndicator.visible = visible;
     } );
 
   }
