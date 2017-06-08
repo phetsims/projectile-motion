@@ -154,7 +154,7 @@ define( function( require ) {
 
     var initialSpeedPanel = new Panel(
       initialSpeedControl,
-      _.extend( { leftTop: cannonNode.leftBottom }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
+      _.extend( { left: cannonNode.left, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
     // Create a measuring tape (set to invisible initially)
@@ -285,7 +285,7 @@ define( function( require ) {
       bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
 
-    // properties
+    // properties to be layout
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
