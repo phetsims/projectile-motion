@@ -73,11 +73,10 @@ define( function( require ) {
     var transformedForceScalar = transformedUnit * FORCE_SCALAR;
 
     // add view for projectile
+    var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
     if ( objectType ) {
-      var projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
-    } else {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
+      projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
     }
     this.addChild( projectileObjectView );
 
