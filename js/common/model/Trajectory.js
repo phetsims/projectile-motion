@@ -85,45 +85,11 @@ define( function( require ) {
       var self = this;
       var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
-      // All datapoints have been collected because we have reached the ground
-      if ( this.reachedGround ) {
-        
-        var finalDataPoint = new DataPoint(
-          previousPoint.time,
-          previousPoint.x,
-          previousPoint.y,
-          previousPoint.airDensity,
-          0, // x velocity
-          0, // y velocity
-          0, // x acceleration
-          0, // y acceleration
-          0, // x drag force
-          0, // y drag force
-          previousPoint.forceGravity
-        );
-
-        finalDataPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
-        this.dataPoints.push( finalDataPoint );
-
-      }
-
       // Haven't reached ground, so continue collecting datapoints
-      else {
+      if ( !this.reachedGround ) {
 
         var newX = previousPoint.x + previousPoint.xVelocity * dt + 0.5 * previousPoint.xAcceleration * dt * dt;
         var newY = previousPoint.y + previousPoint.yVelocity * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
-
-        if ( newY <= 0 ) {
-          this.reachedGround = true; // store the information that it has reached the ground
-          
-          // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( -Math.sqrt( previousPoint.yVelocity * previousPoint.yVelocity - 2 * previousPoint.yAcceleration * previousPoint.y ) - previousPoint.yVelocity ) / previousPoint.yAcceleration;
-          newX = previousPoint.x + previousPoint.xVelocity * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
-          newY = 0;
-
-          // Check if projectile landed on target, and score will handle the rest.
-          this.projectileMotionModel.score.checkforScored( newX );
-        }
 
         var newXVelocity = previousPoint.xVelocity + previousPoint.xAcceleration * dt;
         var newYVelocity = previousPoint.yVelocity + previousPoint.yAcceleration * dt;
@@ -136,19 +102,49 @@ define( function( require ) {
         var newXDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity * newXVelocity;
         var newYDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity * newYVelocity;
 
-        this.dataPoints.push( new DataPoint(
-          previousPoint.time + dt,
-          newX,
-          newY,
-          airDensity,
-          newXVelocity,
-          newYVelocity,
-          -newXDragForce / this.mass, // x acceleration
-          -ACCELERATION_DUE_TO_GRAVITY - newYDragForce / this.mass, // y acceleration
-          newXDragForce,
-          newYDragForce,
-          previousPoint.forceGravity
-        ) );
+        // Has reached ground or below
+        if ( newY <= 0 ) {
+          this.reachedGround = true; // store the information that it has reached the ground
+          
+          // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
+          var timeToGround = ( -Math.sqrt( previousPoint.yVelocity * previousPoint.yVelocity - 2 * previousPoint.yAcceleration * previousPoint.y ) - previousPoint.yVelocity ) / previousPoint.yAcceleration;
+          newX = previousPoint.x + previousPoint.xVelocity * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
+          newY = 0;
+
+          var finalDataPoint = new DataPoint(
+            previousPoint.time,
+            newX,
+            newY,
+            previousPoint.airDensity,
+            0, // x velocity
+            0, // y velocity
+            0, // x acceleration
+            0, // y acceleration
+            0, // x drag force
+            0, // y drag force
+            previousPoint.forceGravity
+          );
+
+          finalDataPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
+          this.dataPoints.push( finalDataPoint );
+        }
+
+        // Still in the air
+        else {
+          this.dataPoints.push( new DataPoint(
+            previousPoint.time + dt,
+            newX,
+            newY,
+            airDensity,
+            newXVelocity,
+            newYVelocity,
+            -newXDragForce / this.mass, // x acceleration
+            -ACCELERATION_DUE_TO_GRAVITY - newYDragForce / this.mass, // y acceleration
+            newXDragForce,
+            newYDragForce,
+            previousPoint.forceGravity
+          ) );
+        }
       }
 
       // increment position of projectile objects, unless it has reached the end
@@ -156,6 +152,11 @@ define( function( require ) {
         if ( object.index < self.dataPoints.length - 1 ) {
           object.index ++;
           object.dataPointProperty.set( self.dataPoints.get( object.index ) );
+        }
+        // if it has just reached the end, check if landed on target
+        else if ( object.index === self.dataPoints.length - 1 ) {
+          object.index++;
+          self.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
         }
       } );
     },

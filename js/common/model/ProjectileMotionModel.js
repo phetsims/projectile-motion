@@ -201,7 +201,7 @@ define( function( require ) {
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
       this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
-      this.score.step( dt );
+      // this.score.step( dt );
     },
 
     // @protected, adds a projectile to the model
@@ -259,7 +259,7 @@ define( function( require ) {
     cannonFired: function() {
       this.isPlayingProperty.set( true );
       this.addProjectile();
-      this.score.turnOffScore();
+//      this.score.turnOffScore();
     }
 
   } );

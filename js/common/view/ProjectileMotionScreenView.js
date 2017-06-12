@@ -278,6 +278,7 @@ define( function( require ) {
       listener: function() {
         model.reset();
         vectorVisibilityProperties.reset();
+        targetNode.reset();
         // zoomProperty.reset();
       },
       bottom: this.layoutBounds.maxY - Y_MARGIN

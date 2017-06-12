@@ -13,10 +13,10 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  var StarNode = require( 'SCENERY_PHET/StarNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
@@ -30,7 +30,7 @@ define( function( require ) {
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_LENGTH;
   var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-
+  var SCREEN_CHANGE_TIME = 1000; // milliseconds
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
@@ -38,6 +38,7 @@ define( function( require ) {
    * @constructor
    */
   function TargetNode( score, modelViewTransform ) {
+    var self = this;
     Node.call( this );
 
     var targetXProperty = score.targetXProperty;
@@ -92,11 +93,33 @@ define( function( require ) {
     var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString ), LABEL_OPTIONS );
     this.addChild( distanceLabel );
 
-    // score indicator, currently text
-    var scoreIndicator = new Text( 'Score!', { font: new PhetFont( { size: 40, weight: 'bold' } ), fill: 'white' } );
-    scoreIndicator.centerX = 450;
-    scoreIndicator.centerY = 100;
-    this.addChild( scoreIndicator );
+    // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
+    this.rewardNodes = [];
+
+    // listen to model for whether score indicator should be shown
+    score.scoredEmitter.addListener( function() {
+
+      var rewardNode = new Node( { children: [
+        new StarNode( { x: -20, y: -20 } ),
+        new StarNode( { x: 0, y: -30 } ),
+        new StarNode( { x: 20, y: -20 } )
+      ] } );
+      rewardNode.centerX = target.centerX;
+      rewardNode.centerY = target.centerY - 30;
+      self.addChild( rewardNode );
+      self.rewardNodes.push( rewardNode );
+
+      // animate the stars to go up, out, and fade
+      new TWEEN.Tween( rewardNode ).to( {
+        centerY: target.centerY - 50,
+        scale: ( 10, 10 ),
+        opacity: 0
+      }, SCREEN_CHANGE_TIME ).start( phet.joist.elapsedTime ).onComplete( function() {
+        self.rewardNodes.pop( rewardNode );
+        self.removeChild( rewardNode );
+      } );
+
+    } );
 
     // listen to horizontal position changes
     score.targetXProperty.link( function( targetX ) {
@@ -104,17 +127,26 @@ define( function( require ) {
       distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString );
       distanceLabel.centerX = target.centerX;
       distanceLabel.top = target.bottom + 2;
-    } );
-
-    // listen to model for whether score indicator should be shown
-    score.scoreVisibleProperty.link( function( visible ) {
-      scoreIndicator.visible = visible;
+      self.rewardNodes.forEach( function( rewardNode ) {
+        rewardNode.centerX = target.centerX;
+      } );
     } );
 
   }
 
   projectileMotion.register( 'TargetNode', TargetNode );
 
-  return inherit( Node, TargetNode );
+  return inherit( Node, TargetNode, {
+
+    // @public
+    reset: function() {
+      var self = this;
+      this.rewardNodes.forEach( function ( rewardNode ) {
+         self.removeChild( rewardNode );
+      } );
+      this.rewardNodes = [];
+    }
+
+  } );
 } );
 
