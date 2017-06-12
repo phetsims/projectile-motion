@@ -82,7 +82,6 @@ define( function( require ) {
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
         tracer.isActiveProperty.set( false );
       }
-      // TODO: both measuring tape and tracer tool leave the cursor still as pointer even when released
     } );
 
     // When pressed, creates a model element and triggers startDrag() on the corresponding view

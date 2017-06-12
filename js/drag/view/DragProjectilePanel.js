@@ -58,7 +58,6 @@ define( function( require ) {
                                 altitudeProperty,
                                 options
   ) {
-    // TODO: rename labModel to projectileMotionViewModel
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files

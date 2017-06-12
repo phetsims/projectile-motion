@@ -24,16 +24,13 @@ define( function( require ) {
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
-      // TODO: the remaining cases
-      // TODO: rotate the projectile based on change in angle
       var shape;
       var angle;
       var newRadius;
       var newCenterX;
       if ( dragCoefficient <= 0.47 ) { // teardrop (inclusive) to sphere (inclusive)
-        // [ 0.04 , 0.47 ]
-        // vary m from 0 to 7
-        // TODO: source url
+        // Algorithm from http://mathworld.wolfram.com/TeardropCurve.html
+        // drag coefficient ranges from [ 0.04 , 0.47 ], and m ranges from 0 to 7
         var m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
         shape = new Shape();
         shape.moveTo( -radius, 0 );
