@@ -19,7 +19,6 @@ define( function( require ) {
    * @constructor
    */
   function IntroModel() {
-    var self = this;
     ProjectileMotionModel.call( this );
 
     this.objectTypes = [
@@ -30,15 +29,19 @@ define( function( require ) {
 
     this.selectedProjectileObjectTypeProperty = new Property( this.objectTypes[ 0 ] );
 
-    this.selectedProjectileObjectTypeProperty.link( function( selectedProjectileObjectType ) {
-      self.projectileMassProperty.set( selectedProjectileObjectType.mass );
-      self.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
-      self.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
-    } );
+    this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
   }
 
   projectileMotion.register( 'IntroModel', IntroModel );
 
-  return inherit( ProjectileMotionModel, IntroModel );
+  return inherit( ProjectileMotionModel, IntroModel, {
+
+    // @private set mass, diameter, and drag coefficient based on the currently selected projectile object type
+    setProjectileParameters: function( selectedProjectileObjectType ) {
+      this.projectileMassProperty.set( selectedProjectileObjectType.mass );
+      this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
+      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+    }
+  } );
 } );
 
