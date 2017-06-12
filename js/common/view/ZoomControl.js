@@ -36,17 +36,6 @@ define( function( require ) {
     var zoomSlider = new HSlider( zoomProperty, { min: minZoom, max: maxZoom }, zoomSliderOptions );
     zoomSlider.rotation = -Math.PI / 2;
 
-    function createZoomControlButton( contentNode, marginOptions, listener ) {
-      return new RectangularPushButton( {
-        content: contentNode,
-        cornerRadius: 2,
-        xMargin: marginOptions.xMargin,
-        yMargin: marginOptions.yMargin,
-        baseColor: 'white',
-        listener: listener
-      } );
-    }
-
     var sideLength = 24; // length of one side of the button, empirically determined
     var symbolLength = 0.5 * sideLength;
     var symbolLineWidth = 0.12 * sideLength;
@@ -68,11 +57,11 @@ define( function( require ) {
       centerY: sideLength / 2
     };
 
-    var plusButton = createZoomControlButton( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
+    var plusButton = this.createZoomControlButton.bind( this )( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
       zoomProperty.set( Util.clamp( zoomProperty.get() + 0.1, minZoom, maxZoom ) );
     } );
 
-    var minusButton = createZoomControlButton( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
+    var minusButton = this.createZoomControlButton.bind( this )( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
       zoomProperty.set( Util.clamp( zoomProperty.get() - 0.1, minZoom, maxZoom ) );
     } );
 
@@ -95,6 +84,19 @@ define( function( require ) {
 
   projectileMotion.register( 'ZoomControl', ZoomControl );
 
-  return inherit( VBox, ZoomControl );
+  return inherit( VBox, ZoomControl, {
+    // @private @returns {RectangularPushButton} from content and listener
+    createZoomControlButton: function( contentNode, marginOptions, listener ) {
+      return new RectangularPushButton( {
+        content: contentNode,
+        cornerRadius: 2,
+        xMargin: marginOptions.xMargin,
+        yMargin: marginOptions.yMargin,
+        baseColor: 'white',
+        listener: listener
+      } );
+    }
+
+  } );
 } );
 
