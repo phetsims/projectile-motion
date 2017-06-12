@@ -28,8 +28,6 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionModel() {
-    var self = this;
-
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
     this.trajectories = new ObservableArray();
 
@@ -73,60 +71,10 @@ define( function( require ) {
     this.airResistanceOnProperty = new Property( false );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
-    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ],
-      
-      function( altitude, airResistanceOn ) {
+    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], this.getAirDensity.bind( this ) );
 
-      // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
-      // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
-
-        if ( airResistanceOn ) {
-          var temperature;
-          var pressure;
-
-          if ( altitude < 11000 ) {
-            // troposphere
-            temperature = 15.04 - 0.00649 * altitude;
-            pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-          } else if ( altitude < 25000 ) {
-            // lower stratosphere
-            temperature = -56.46;
-            pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-          } else {
-            // upper stratosphere (altitude >= 25000 meters)
-            temperature = -131.21 + 0.00299 * altitude;
-            pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
-          }
-
-          return pressure / ( 0.2869 * ( temperature + 273.1 ) );
-
-        }
-        else {
-          return 0;
-        }
-      } );
-
-    // update air density as needed, and change status of projectiles
-    this.airDensityProperty.link( function() {
-      self.trajectories.forEach( function( trajectory ) {
-        trajectory.changedInMidAir = true;
-
-        var i;
-        for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
-          var projectileObject = trajectory.projectileObjects.get( i );
-          if ( projectileObject.dataPointProperty.get().y > 0 ) {
-            // object is still in the air so a new trajectory needs to be created
-            var newTrajectory = trajectory.newTrajectory( projectileObject );
-            newTrajectory.changedInMidAir = true;
-            self.trajectories.push( newTrajectory );
-          }
-        }
-      } );
-
-      // delete over-the-max trajectories
-      self.limitTrajectories();
-
-    } );
+    // change status of projectiles
+    this.airDensityProperty.link( this.updateStatusOfProjectiles.bind( this ) );
     
     // --animation playing controls
 
@@ -259,8 +207,61 @@ define( function( require ) {
     cannonFired: function() {
       this.isPlayingProperty.set( true );
       this.addProjectile();
-//      this.score.turnOffScore();
-    }
+    },
+
+    // @private @returns {number} air density based on altitude and whether air resistance is turned on
+    getAirDensity: function( altitude, airResistanceOn ) {
+
+      // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
+      // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
+
+        if ( airResistanceOn ) {
+          var temperature;
+          var pressure;
+
+          if ( altitude < 11000 ) {
+            // troposphere
+            temperature = 15.04 - 0.00649 * altitude;
+            pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
+          } else if ( altitude < 25000 ) {
+            // lower stratosphere
+            temperature = -56.46;
+            pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
+          } else {
+            // upper stratosphere (altitude >= 25000 meters)
+            temperature = -131.21 + 0.00299 * altitude;
+            pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
+          }
+
+          return pressure / ( 0.2869 * ( temperature + 273.1 ) );
+
+        }
+        else {
+          return 0;
+        }
+      },
+
+      // @private updates the status of the trajectories, as in whether they are changed in mid air
+      updateStatusOfProjectiles: function() {
+        var self = this;
+        this.trajectories.forEach( function( trajectory ) {
+          trajectory.changedInMidAir = true;
+
+          var i;
+          for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
+            var projectileObject = trajectory.projectileObjects.get( i );
+            if ( projectileObject.dataPointProperty.get().y > 0 ) {
+              // object is still in the air so a new trajectory needs to be created
+              var newTrajectory = trajectory.newTrajectory( projectileObject );
+              newTrajectory.changedInMidAir = true;
+              self.trajectories.push( newTrajectory );
+            }
+          }
+        } );
+
+        // delete over-the-max trajectories
+        self.limitTrajectories();
+      }
 
   } );
 } );
