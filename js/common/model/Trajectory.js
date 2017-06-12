@@ -154,9 +154,9 @@ define( function( require ) {
           object.dataPointProperty.set( self.dataPoints.get( object.index ) );
         }
         // if it has just reached the end, check if landed on target
-        else if ( object.index === self.dataPoints.length - 1 ) {
-          object.index++;
+        else if ( !object.checkedScore ) {
           self.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
+          object.checkedScore = true;
         }
       } );
     },
