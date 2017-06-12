@@ -192,7 +192,7 @@ define( function( require ) {
     limitTrajectories: function() {
       var trajectories = this.trajectories;
       trajectories.forEach( function( trajectory ) {
-        if ( trajectory.rankProperty.get() > ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+        if ( trajectory.rankProperty.get() >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
           trajectories.remove( trajectory );
         }
       } );

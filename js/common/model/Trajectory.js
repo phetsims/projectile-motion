@@ -111,7 +111,7 @@ define( function( require ) {
           newX = previousPoint.x + previousPoint.xVelocity * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
           newY = 0;
 
-          var finalDataPoint = new DataPoint(
+          var newPoint = new DataPoint(
             previousPoint.time,
             newX,
             newY,
@@ -125,13 +125,12 @@ define( function( require ) {
             previousPoint.forceGravity
           );
 
-          finalDataPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
-          this.dataPoints.push( finalDataPoint );
+          newPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
         }
 
         // Still in the air
         else {
-          this.dataPoints.push( new DataPoint(
+          newPoint = new DataPoint(
             previousPoint.time + dt,
             newX,
             newY,
@@ -143,8 +142,11 @@ define( function( require ) {
             newXDragForce,
             newYDragForce,
             previousPoint.forceGravity
-          ) );
+          );
         }
+
+        this.dataPoints.push( newPoint );
+        this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
       }
 
       // increment position of projectile objects, unless it has reached the end
