@@ -18,9 +18,6 @@ define( function( require ) {
    * @constructor
    */
   function VectorsVectorVisibilityProperties() {
-
-    var self = this;
-
     VectorVisibilityProperties.call( this );
   
     // vectors visibility for velocity and force, total or component
@@ -30,14 +27,12 @@ define( function( require ) {
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
 
     // update which vectors to show based on controls
-    Property.multilink( [ this.velocityVectorsOnProperty, this.accelerationVectorsOnProperty, this.forceVectorsOnProperty, this.totalOrComponentsProperty ], function() {
-      self.totalVelocityVectorOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
-      self.componentsVelocityVectorsOnProperty.set( self.velocityVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
-      self.totalAccelerationVectorOnProperty.set( self.accelerationVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
-      self.componentsAccelerationVectorsOnProperty.set( self.accelerationVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
-      self.totalForceVectorOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'total' );
-      self.componentsForceVectorsOnProperty.set( self.forceVectorsOnProperty.get() && self.totalOrComponentsProperty.get() === 'components' );
-    } );
+    Property.multilink( [
+      this.velocityVectorsOnProperty,
+      this.accelerationVectorsOnProperty,
+      this.forceVectorsOnProperty,
+      this.totalOrComponentsProperty
+    ], this.updateVectorVisibilities.bind( this ) );
 
   }
 
@@ -52,6 +47,16 @@ define( function( require ) {
       this.accelerationVectorsOnProperty.reset();
       this.forceVectorsOnProperty.reset();
       this.totalOrComponentsProperty.reset();
+    },
+
+    // @private update vector visibilities based on {boolean} velocityVectorsOn, accelerationVectorsOn, forceVectorsOn and {string} totalOrComponents
+    updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, totalOrComponents) {
+      this.totalVelocityVectorOnProperty.set( velocityVectorsOn && totalOrComponents === 'total' );
+      this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && totalOrComponents === 'components' );
+      this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && totalOrComponents === 'total' );
+      this.componentsAccelerationVectorsOnProperty.set( accelerationVectorsOn && totalOrComponents === 'components' );
+      this.totalForceVectorOnProperty.set( forceVectorsOn && totalOrComponents === 'total' );
+      this.componentsForceVectorsOnProperty.set( forceVectorsOn && totalOrComponents === 'components' );
     }
   } );
 } );
