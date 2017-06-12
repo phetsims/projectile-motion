@@ -101,13 +101,14 @@ define( function( require ) {
       var slider = new HSlider( property, range, {
         constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; }, // two decimal place accuracy
         majorTickLength: 5,
-        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 20, 0.5 ),
+        tickLabelSpacing: 10,
+        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 16, 28 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
       } );
-      slider.addMajorTick( range.min );
-      slider.addMajorTick( range.max );
+      slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
+      slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
