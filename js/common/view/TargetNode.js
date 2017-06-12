@@ -31,6 +31,8 @@ define( function( require ) {
   var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   var SCREEN_CHANGE_TIME = 1000; // milliseconds
+  var TOTAL_Y_CHANGE = 70;
+  var TOTAL_SCALE = 1.5;
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
@@ -100,24 +102,27 @@ define( function( require ) {
     score.scoredEmitter.addListener( function() {
 
       var rewardNode = new Node( { children: [
-        new StarNode( { x: -20, y: -20 } ),
+        new StarNode( { x: -30, y: -20 } ),
         new StarNode( { x: 0, y: -30 } ),
-        new StarNode( { x: 20, y: -20 } )
+        new StarNode( { x: 30, y: -20 } )
       ] } );
-      rewardNode.centerX = target.centerX;
-      rewardNode.centerY = target.centerY - 30;
+      rewardNode.x = target.centerX;
+      rewardNode.y = target.centerY;
       self.addChild( rewardNode );
       self.rewardNodes.push( rewardNode );
 
       // animate the stars to go up, out, and fade
       new TWEEN.Tween( rewardNode ).to( {
-        centerY: target.centerY - 50,
-        scale: ( 10, 10 ),
+        y: target.centerY - TOTAL_Y_CHANGE,
         opacity: 0
-      }, SCREEN_CHANGE_TIME ).start( phet.joist.elapsedTime ).onComplete( function() {
-        self.rewardNodes.pop( rewardNode );
-        self.removeChild( rewardNode );
-      } );
+      }, SCREEN_CHANGE_TIME ).onUpdate( function() {
+        rewardNode.setScaleMagnitude( ( target.centerY - rewardNode.y ) / TOTAL_Y_CHANGE * (TOTAL_SCALE - 1) + 1 );
+      }).onComplete( function() {
+        if ( self.hasChild( rewardNode ) ) {
+          self.rewardNodes.pop( rewardNode );
+          self.removeChild( rewardNode );
+        }
+      } ).start( phet.joist.elapsedTime );
 
     } );
 
@@ -128,7 +133,7 @@ define( function( require ) {
       distanceLabel.centerX = target.centerX;
       distanceLabel.top = target.bottom + 2;
       self.rewardNodes.forEach( function( rewardNode ) {
-        rewardNode.centerX = target.centerX;
+        rewardNode.x = target.centerX;
       } );
     } );
 
@@ -142,7 +147,9 @@ define( function( require ) {
     reset: function() {
       var self = this;
       this.rewardNodes.forEach( function ( rewardNode ) {
-         self.removeChild( rewardNode );
+          if ( self.hasChild( rewardNode ) ) {
+            self.removeChild( rewardNode );
+          }
       } );
       this.rewardNodes = [];
     }
