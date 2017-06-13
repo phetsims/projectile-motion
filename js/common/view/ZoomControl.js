@@ -57,12 +57,18 @@ define( function( require ) {
       centerY: sideLength / 2
     };
 
-    var plusButton = createZoomControlButton( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
-      zoomProperty.set( Util.clamp( zoomProperty.get() + 0.1, minZoom, maxZoom ) );
+    var plusButton = createZoomControlButton( {
+      content: new Path( plusSymbolShape, symbolOptions ),
+      listener: function() {
+        zoomProperty.set( Util.clamp( zoomProperty.get() + 0.1, minZoom, maxZoom ) );
+      }
     } );
 
-    var minusButton = createZoomControlButton( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
-      zoomProperty.set( Util.clamp( zoomProperty.get() - 0.1, minZoom, maxZoom ) );
+    var minusButton = createZoomControlButton( {
+      content: new Path( minusSymbolShape, symbolOptions ),
+      listener: function() {
+        zoomProperty.set( Util.clamp( zoomProperty.get() - 0.1, minZoom, maxZoom ) );
+      }
     } );
 
     // Temporarily set the zoom to a value that puts the knob roughly half way up so that the initial layout of the
@@ -84,16 +90,18 @@ define( function( require ) {
 
   projectileMotion.register( 'ZoomControl', ZoomControl );
 
-  // @private @returns {RectangularPushButton} from content and listener
-  function createZoomControlButton( contentNode, marginOptions, listener ) {
-    return new RectangularPushButton( {
-      content: contentNode,
-      cornerRadius: 2,
-      xMargin: marginOptions.xMargin,
-      yMargin: marginOptions.yMargin,
+  /**
+   * Creates a zoom control button
+   * @param {Object} [options] - options to RectangularPushButton
+   * @returns {RectangularPushButton}
+   */
+  function createZoomControlButton( options ) {
+    return new RectangularPushButton( _.extend( {
       baseColor: 'white',
-      listener: listener
-    } );
+      cornerRadius: 2,
+      xMargin: 6,
+      yMargin: 6
+    }, options ) );
   }
 
   return inherit( VBox, ZoomControl );
