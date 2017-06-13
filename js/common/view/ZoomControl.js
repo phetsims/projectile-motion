@@ -57,11 +57,11 @@ define( function( require ) {
       centerY: sideLength / 2
     };
 
-    var plusButton = this.createZoomControlButton.bind( this )( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
+    var plusButton = createZoomControlButton( new Path( plusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 6 }, function() {
       zoomProperty.set( Util.clamp( zoomProperty.get() + 0.1, minZoom, maxZoom ) );
     } );
 
-    var minusButton = this.createZoomControlButton.bind( this )( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
+    var minusButton = createZoomControlButton( new Path( minusSymbolShape, symbolOptions ), { xMargin: 6, yMargin: 10 }, function() {
       zoomProperty.set( Util.clamp( zoomProperty.get() - 0.1, minZoom, maxZoom ) );
     } );
 
@@ -84,19 +84,18 @@ define( function( require ) {
 
   projectileMotion.register( 'ZoomControl', ZoomControl );
 
-  return inherit( VBox, ZoomControl, {
-    // @private @returns {RectangularPushButton} from content and listener
-    createZoomControlButton: function( contentNode, marginOptions, listener ) {
-      return new RectangularPushButton( {
-        content: contentNode,
-        cornerRadius: 2,
-        xMargin: marginOptions.xMargin,
-        yMargin: marginOptions.yMargin,
-        baseColor: 'white',
-        listener: listener
-      } );
-    }
+  // @private @returns {RectangularPushButton} from content and listener
+  function createZoomControlButton( contentNode, marginOptions, listener ) {
+    return new RectangularPushButton( {
+      content: contentNode,
+      cornerRadius: 2,
+      xMargin: marginOptions.xMargin,
+      yMargin: marginOptions.yMargin,
+      baseColor: 'white',
+      listener: listener
+    } );
+  }
 
-  } );
+  return inherit( VBox, ZoomControl );
 } );
 
