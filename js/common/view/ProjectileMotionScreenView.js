@@ -63,6 +63,7 @@ define( function( require ) {
    * @param {Panel} topRightPanel - the projectile control panel at the top right
    * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {Object} [options]
    * @constructor
    */
   function ProjectileMotionScreenView(

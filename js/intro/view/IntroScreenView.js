@@ -17,6 +17,7 @@ define( function( require ) {
 
   /**
    * @param {IntroModel} model
+   * @param {Object} [options]
    * @constructor
    */
   function IntroScreenView( model, options ) {

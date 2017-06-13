@@ -30,6 +30,7 @@ define( function( require ) {
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {Object} [options]
    * @constructor
    */
   function VectorsVectorsPanel( vectorVisibilityProperties, options ) {

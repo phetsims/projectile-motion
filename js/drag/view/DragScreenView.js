@@ -18,6 +18,7 @@ define( function( require ) {
 
   /**
    * @param {DragModel} model
+   * @param {Object} [options]
    * @constructor
    */
   function DragScreenView( model, options ) {

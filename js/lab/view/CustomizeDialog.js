@@ -60,6 +60,7 @@ define( function( require ) {
 
   /**
    * @param {LabModel} labModel - since customize dialog affects so many properties, the entire model is passed
+   * @param {Object} [options]
    * @constructor
    */
   function CustomizeDialog( labModel, options ) {

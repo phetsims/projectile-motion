@@ -52,6 +52,7 @@ define( function( require ) {
    * @param {number} diameter - how big the object is, in meters
    * @param {number} dragCoefficient - shape of the object
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
+   * @param {Object} [options]
    * @constructor
    */
   function ProjectileNode(

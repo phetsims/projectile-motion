@@ -25,6 +25,7 @@ define( function( require ) {
    * @param {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
    * @param {TracerNode} tracerNode - view for the tracer tool
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
    * @constructor
    */
   function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, modelViewTransform, options ) {

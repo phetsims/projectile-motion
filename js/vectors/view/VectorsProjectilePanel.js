@@ -51,6 +51,7 @@ define( function( require ) {
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @param {Property.<number>} projectileDragCoefficientProperty
+   * @param {Object} [options]
    * @constructor
    */
   function VectorsProjectilePanel(

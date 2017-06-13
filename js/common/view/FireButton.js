@@ -15,6 +15,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   /**
+   * @param {Object} [options]
    * @constructor
    */
   function FireButton( options ) {

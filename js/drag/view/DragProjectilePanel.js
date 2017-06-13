@@ -49,6 +49,7 @@ define( function( require ) {
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} altitudeProperty
+   * @param {Object} [options]
    * @constructor
    */
   function DragProjectilePanel(

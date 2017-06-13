@@ -18,6 +18,7 @@ define( function( require ) {
 
   /**
    * @param {VectorsModel} model
+   * @param {Object} [options]
    * @constructor
    */
   function VectorsScreenView( model, options ) {

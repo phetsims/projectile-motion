@@ -18,6 +18,7 @@ define( function( require ) {
 
   /**
    * @param {LabModel} model
+   * @param {Object} [options]
    * @constructor
    */
   function LabScreenView( model, options ) {

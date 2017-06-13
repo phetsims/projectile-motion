@@ -50,6 +50,7 @@ define( function( require ) {
    * @param {Property.<number>} projectileDragCoefficientProperty
    * @param {Property.<number>} altitudeProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
+   * @param {Object} [options]
    * @constructor
    */
   function LabProjectilePanel(

@@ -44,6 +44,7 @@ define( function( require ) {
   /**
    * @param {Score} tracer - model of the tracer tool
    * @param {ModelViewTransform2} modelViewTransform
+   * @param {Object} [options]
    * @constructor
    */
   function TracerNode( tracer, modelViewTransform, options ) {
