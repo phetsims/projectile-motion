@@ -76,7 +76,7 @@ define( function( require ) {
     // create a layer for the projectile object node that would contain the flying object, and then the landed object
     var projectileViewLayer = new Node();
     this.addChild( projectileViewLayer );
-    
+
     // draw projectile object view
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
@@ -259,7 +259,9 @@ define( function( require ) {
         if ( landedObjectView ) {
           landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
           landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
-          projectileViewLayer.removeChild( projectileObjectView );
+          if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
+            projectileViewLayer.removeChild( projectileObjectView );
+          }
           projectileViewLayer.addChild( landedObjectView );
         }
         return;
