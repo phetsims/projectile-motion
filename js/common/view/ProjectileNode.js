@@ -73,13 +73,18 @@ define( function( require ) {
     var transformedAccelerationScalar = transformedUnit * ACCELERATION_SCALAR;
     var transformedForceScalar = transformedUnit * FORCE_SCALAR;
 
-    // add view for projectile
+    // create a layer for the projectile object node that would contain the flying object, and then the landed object
+    var projectileViewLayer = new Node();
+    this.addChild( projectileViewLayer );
+    
+    // draw projectile object view
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
     if ( objectType ) {
       projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType, modelViewTransform );
+      var landedObjectView = ProjectileObjectViewFactory.createLandedObjectView( objectType, modelViewTransform );
     }
-    this.addChild( projectileObjectView );
+    projectileViewLayer.addChild( projectileObjectView );
 
     // add vector view for velocity x component
     var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -208,8 +213,8 @@ define( function( require ) {
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
-      projectileObjectView.x = modelViewTransform.modelToViewX( dataPoint.x );
-      projectileObjectView.y = modelViewTransform.modelToViewY( dataPoint.y );
+      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
+      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
 
       var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity ) || 0;
       projectileObjectView.setRotation( -angle );
@@ -251,6 +256,12 @@ define( function( require ) {
       if ( dataPoint.reachedGround ) {
         forcesBox.visible = false;
         freeBodyDiagram.visible = false;
+        if ( landedObjectView ) {
+          landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
+          landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
+          projectileViewLayer.removeChild( projectileObjectView );
+          projectileViewLayer.addChild( landedObjectView );
+        }
         return;
       }
 

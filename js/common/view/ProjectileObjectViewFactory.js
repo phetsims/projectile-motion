@@ -10,11 +10,16 @@ define( function( require ) {
   
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var Matrix3 = require( 'DOT/Matrix3' );
   var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
+
+  // image
+  var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
+  var landedPumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
 
   var ProjectileObjectViewFactory = {
 
@@ -95,7 +100,22 @@ define( function( require ) {
         case 'tankShell':
           return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
-          return new Circle( transformedBallSize / 2, { fill: 'orange', stroke: 'black' } );
+          return new Image( pumpkinImage );
+        default:
+          throw new Error( 'type is not right' );
+      }
+    },
+
+    // @public @returns {Circle} object based on the type
+    createLandedObjectView: function( projectileObjectModel, modelViewTransform ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
+      switch ( projectileObjectModel.type ) {
+        case 'cannonball':
+          return new Circle( transformedBallSize / 2, { fill: 'black' } );
+        case 'tankShell':
+          return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
+        case 'pumpkin':
+          return new Image( landedPumpkinImage );
         default:
           throw new Error( 'type is not right' );
       }

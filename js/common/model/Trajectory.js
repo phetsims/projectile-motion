@@ -225,6 +225,7 @@ define( function( require ) {
       var initialPoint = this.dataPoints.get( 0 );
       var model = this.projectileMotionModel;
       return !this.changedInMidAir
+        && !this.projectileObjectType || !model.selectedProjectileObjectTypeProperty.get() || this.projectileObjectType === model.selectedProjectileObjectTypeProperty.get()
         && initialPoint.y === model.cannonHeightProperty.get()
         && this.mass === model.projectileMassProperty.get()
         && this.diameter === model.projectileDiameterProperty.get()
