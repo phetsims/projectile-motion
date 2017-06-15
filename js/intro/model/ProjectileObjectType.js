@@ -15,10 +15,10 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
-  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball');
-  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell');
-  var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin');
-
+  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
+  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
+  var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
+  var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
   /**
    * @param {string} name - name of the object, such as 'Tank Shell'
    * @param {number} mass - in kg
@@ -56,6 +56,8 @@ define( function( require ) {
   ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 150, 0.15, 0.05, 'tankShell' );
 
   ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
+
+  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 1, 1, 1, 'baseball' );
 
   return ProjectileObjectType;
 } );

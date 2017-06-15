@@ -95,6 +95,9 @@
   "pumpkin": {
     "value": "Pumpkin"
   },
+  "baseball": {
+    "value": "Baseball"
+  },
   "initialValues": {
     "value": "Initial Values"
   },

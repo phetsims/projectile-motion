@@ -20,7 +20,7 @@ define( function( require ) {
   // image
   var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
   var landedPumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
-
+  var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
   var ProjectileObjectViewFactory = {
 
     // @public @returns {Circle} a custom object view based on {number} and {number} drag coefficient
@@ -101,6 +101,8 @@ define( function( require ) {
           return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
           return new Image( pumpkinImage );
+        case 'baseball':
+          return new Image( baseballImage );
         default:
           throw new Error( 'type is not right' );
       }
@@ -116,6 +118,8 @@ define( function( require ) {
           return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
           return new Image( landedPumpkinImage );
+        case 'baseball':
+          return new Image( baseballImage );
         default:
           throw new Error( 'type is not right' );
       }
