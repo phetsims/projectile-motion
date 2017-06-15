@@ -24,6 +24,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
 
   // strings
@@ -172,6 +173,8 @@ define( function( require ) {
 
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
+    
+    var strut = new VStrut( 100 ); // temporary, for laying out combobox
 
     // The contents of the control panel
     var content = new VBox( {
@@ -181,7 +184,8 @@ define( function( require ) {
         massBox,
         diameterBox,
         airResistanceCheckBox,
-        dragCoefficientBox
+        dragCoefficientBox,
+        strut
       ]
     } );
 
