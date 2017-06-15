@@ -90,6 +90,7 @@ define( function( require ) {
     var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
+      lineDash: [ 5, 5 ],
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
@@ -99,6 +100,7 @@ define( function( require ) {
     var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
+      lineDash: [ 5, 5 ],
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
@@ -117,6 +119,7 @@ define( function( require ) {
     var xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ACCELERATION_ARROW_FILL,
+      lineDash: [ 5, 5 ],
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
@@ -126,6 +129,7 @@ define( function( require ) {
     var yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ACCELERATION_ARROW_FILL,
+      lineDash: [ 5, 5 ],
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
