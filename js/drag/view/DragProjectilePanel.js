@@ -87,14 +87,14 @@ define( function( require ) {
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        options.textDisplayWidth * 1.5, // width, widened
+        options.textDisplayWidth * 1.6, // width, widened
         valueText.height + 2 * options.textDisplayYMargin, // height
         _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( value );
+        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 
