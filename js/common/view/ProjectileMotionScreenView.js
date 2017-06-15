@@ -286,16 +286,21 @@ define( function( require ) {
     } );
 
     // @private properties to be layout
-    this.backgroundNode = new BackgroundNode( this.layoutBounds );
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
     this.fireButton = fireButton;
     this.eraserButton = eraserButton;
+    this.backgroundNode = new BackgroundNode( this.layoutBounds );
+
+    // flatirons
+    model.altitudeProperty.link( function( altitude ) {
+      self.backgroundNode.showOrHideFlatirons( altitude === 5280 );
+    } );
 
     // rendering order
-    self.setChildren( [
+    this.setChildren( [
       this.backgroundNode,
       // zoomableNode,
       targetNode,

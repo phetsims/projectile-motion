@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
@@ -16,6 +17,9 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+
+  // image
+  var flatironsImage = require( 'image!PROJECTILE_MOTION/flatirons.png');
 
   // constants
   var CEMENT_WIDTH = 20;
@@ -34,13 +38,16 @@ define( function( require ) {
 
     // @private
     this.sky = new Rectangle( 0, 0, 0, 0 );
-    this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 118, 66 )' } );
+    this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 12, 80, 40 )' } );
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.road = new Rectangle( 0, 0, 0, 0 );
     this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', LINE_WIDTH: LINE_WIDTH } );
+    this.flatirons = new Image( flatironsImage );
+    this.flatirons.scale( 0.5 );
+    this.flatirons.visible = false;
 
     assert && assert( !options.children );
-    options.children = [ this.sky, this.topGrass, this.bottomGrass, this.road, this.roadDashedLine ];
+    options.children = [ this.sky, this.flatirons, this.topGrass, this.bottomGrass, this.road, this.roadDashedLine ];
 
     Node.call( this, options );
   }
@@ -49,6 +56,7 @@ define( function( require ) {
 
   return inherit( Node, BackgroundNode, {
 
+    // @public
     layout: function( offsetX, offsetY, width, height, layoutScale ) {
       var dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
@@ -63,7 +71,16 @@ define( function( require ) {
       this.bottomGrass.setRect( -offsetX, dashedLineY, width / layoutScale, height / layoutScale );
 
       this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
+
+      this.flatirons.bottom = ProjectileMotionConstants.VIEW_ORIGIN.y;
+      this.flatirons.left = ProjectileMotionConstants.VIEW_ORIGIN.x;
+    },
+
+    // @public makes flatirons image visible or disappear
+    showOrHideFlatirons: function( visibility ) {
+      this.flatirons.visible = visibility ;
     }
+
   } );
 } );
 
