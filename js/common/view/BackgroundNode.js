@@ -25,6 +25,7 @@ define( function( require ) {
   var CEMENT_WIDTH = 20;
   var GRASS_WIDTH = 5;
   var LINE_WIDTH = 2;
+  var FLATIRONS_WIDTH = 800;
 
   /**
    * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
@@ -42,8 +43,7 @@ define( function( require ) {
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.road = new Rectangle( 0, 0, 0, 0 );
     this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', LINE_WIDTH: LINE_WIDTH } );
-    this.flatirons = new Image( flatironsImage );
-    this.flatirons.scale( 0.5 );
+    this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
     this.flatirons.visible = false;
 
     assert && assert( !options.children );
