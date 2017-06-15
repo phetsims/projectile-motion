@@ -49,8 +49,6 @@ define( function( require ) {
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
 
-    // TODO: velocity and acceleration vectors? Or keep as component variables
-
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 

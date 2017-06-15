@@ -145,7 +145,7 @@ define( function( require ) {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      self.tracer.updateData(); // TODO: investigate, this may be create a cycle
+      self.tracer.updateData();
     } );
 
     // Rendering order
