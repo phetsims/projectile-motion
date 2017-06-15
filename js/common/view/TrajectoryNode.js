@@ -69,7 +69,8 @@ define( function( require ) {
       viewLastPoint = viewAddedPoint.copy();
 
       // draw dot if it is time for data point should be shown
-      if ( ( Util.toFixedNumber( addedPoint.time * 1000 ), 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
+      if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
+        console.log( Util.toFixedNumber( addedPoint.time * 1000 ), 0 );
         var addedPointNode = new Circle( DOT_DIAMETER / 2, {
           x: modelViewTransform.modelToViewX( addedPoint.x ),
           y: modelViewTransform.modelToViewY( addedPoint.y ),
