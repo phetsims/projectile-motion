@@ -23,6 +23,11 @@ define( function( require ) {
   var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
   var buickImage = require( 'image!PROJECTILE_MOTION/buick_1.png' );
   var landedBuickImage = require( 'image!PROJECTILE_MOTION/buick_2.png' );
+  var footballImage = require( 'image!PROJECTILE_MOTION/football.png' );
+  var humanImage = require( 'image!PROJECTILE_MOTION/human_1.png' );
+  var landedHumanImage = require( 'image!PROJECTILE_MOTION/human_2.png' );
+  var pianoImage = require( 'image!PROJECTILE_MOTION/piano_1.png' );
+  var landedPianoImage = require( 'image!PROJECTILE_MOTION/piano_2.png' );
 
   var ProjectileObjectViewFactory = {
 
@@ -109,6 +114,14 @@ define( function( require ) {
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
           return new Image( buickImage, { maxHeight: transformedBallSize } );
+        case 'football':
+          return new Image( footballImage, { maxHeight: transformedBallSize } );
+        case 'human':
+          return new Image( humanImage, { maxHeight: transformedBallSize } );
+        case 'piano':
+          return new Image( pianoImage, { maxWidth: transformedBallSize } );
+        case 'golfBall':
+          return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         default:
           throw new Error( 'type is not right' );
       }
@@ -128,6 +141,14 @@ define( function( require ) {
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
           return new Image( landedBuickImage, { maxWidth: transformedBallSize * 2 } ); // * 2 is empirically determined based on image
+        case 'football':
+          return new Image( footballImage, { maxHeight: transformedBallSize } );
+        case 'human':
+          return new Image( landedHumanImage, { maxWidth: transformedBallSize } );
+        case 'piano':
+          return new Image( landedPianoImage, { maxWidth: transformedBallSize } );
+        case 'golfBall':
+          return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         default:
           throw new Error( 'type is not right' );
       }

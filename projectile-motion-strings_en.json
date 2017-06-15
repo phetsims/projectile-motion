@@ -101,6 +101,18 @@
   "buick": {
     "value": "Buick"
   },
+  "football": {
+    "value": "Football"
+  },
+  "human": {
+    "value": "Human"
+  },
+  "piano": {
+    "value": "Piano"
+  },
+  "golfBall": {
+    "value": "Golf ball"
+  },
   "initialValues": {
     "value": "Initial Values"
   },

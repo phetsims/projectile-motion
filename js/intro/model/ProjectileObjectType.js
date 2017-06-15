@@ -20,6 +20,10 @@ define( function( require ) {
   var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
   var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
   var buickString = require( 'string!PROJECTILE_MOTION/buick' );
+  var footballString = require( 'string!PROJECTILE_MOTION/football' );
+  var humanString = require( 'string!PROJECTILE_MOTION/human' );
+  var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
+  var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
 
   /**
    * @param {string} name - name of the object, such as 'Tank Shell'
@@ -65,6 +69,14 @@ define( function( require ) {
   ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.4, 'baseball', false );
 
   ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 1500, 2.5, 1.28, 'buick', true ); // Use 1.28 instead of 1.3 to remain within range
+
+  ProjectileObjectType.FOOTBALL = new ProjectileObjectType( footballString, 0.41, 0.17, 0.15, 'football', true );
+
+  ProjectileObjectType.HUMAN = new ProjectileObjectType( humanString, 70, 0.5, 1.28, 'human', false ); // Use 1.28 instead of 1.3 to remain within range
+
+  ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 400, 2, 1.2, 'piano', false );
+
+  ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.24, 'golfBall', false );
 
   return ProjectileObjectType;
 } );
