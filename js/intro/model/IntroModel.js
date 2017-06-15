@@ -46,6 +46,12 @@ define( function( require ) {
       this.projectileMassProperty.set( selectedProjectileObjectType.mass );
       this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
       this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+    },
+
+    // @public
+    reset: function() {
+      ProjectileMotionModel.prototype.reset.call( this );
+      this.selectedProjectileObjectTypeProperty.set( this.objectTypes[ 0 ] );
     }
   } );
 } );
