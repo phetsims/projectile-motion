@@ -25,7 +25,8 @@ define( function( require ) {
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
       ProjectileObjectType.PUMPKIN,
-      ProjectileObjectType.BASEBALL
+      ProjectileObjectType.BASEBALL,
+      ProjectileObjectType.BUICK
     ];
 
     this.selectedProjectileObjectTypeProperty = new Property( this.objectTypes[ 0 ] );

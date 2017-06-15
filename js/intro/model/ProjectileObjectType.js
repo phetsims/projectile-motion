@@ -19,6 +19,8 @@ define( function( require ) {
   var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
   var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
   var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
+  var buickString = require( 'string!PROJECTILE_MOTION/buick' );
+
   /**
    * @param {string} name - name of the object, such as 'Tank Shell'
    * @param {number} mass - in kg
@@ -57,7 +59,9 @@ define( function( require ) {
 
   ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
 
-  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 1, 1, 1, 'baseball' );
+  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.4, 'baseball' );
+
+  ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 1500, 2.5, 1.28, 'buick' ); // Use 1.28 instead of 1.3 to remain within range
 
   return ProjectileObjectType;
 } );

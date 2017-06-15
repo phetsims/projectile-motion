@@ -21,6 +21,9 @@ define( function( require ) {
   var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
   var landedPumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
+  var buickImage = require( 'image!PROJECTILE_MOTION/buick_1.png' );
+  var landedBuickImage = require( 'image!PROJECTILE_MOTION/buick_2.png' );
+
   var ProjectileObjectViewFactory = {
 
     // @public @returns {Circle} a custom object view based on {number} and {number} drag coefficient
@@ -29,6 +32,7 @@ define( function( require ) {
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
+      assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1.28, 'drag coefficient out of bounds' );
       var shape;
       var angle;
       var newRadius;
@@ -100,9 +104,11 @@ define( function( require ) {
         case 'tankShell':
           return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
-          return new Image( pumpkinImage );
+          return new Image( pumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
-          return new Image( baseballImage );
+          return new Image( baseballImage, { maxWidth: transformedBallSize } );
+        case 'buick':
+          return new Image( buickImage, { maxHeight: transformedBallSize } );
         default:
           throw new Error( 'type is not right' );
       }
@@ -117,9 +123,11 @@ define( function( require ) {
         case 'tankShell':
           return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
-          return new Image( landedPumpkinImage );
+          return new Image( landedPumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
-          return new Image( baseballImage );
+          return new Image( baseballImage, { maxWidth: transformedBallSize } );
+        case 'buick':
+          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 2 } ); // * 2 is empirically determined based on image
         default:
           throw new Error( 'type is not right' );
       }
