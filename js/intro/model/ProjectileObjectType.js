@@ -27,15 +27,17 @@ define( function( require ) {
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
    * @param {string || null} type - identifier of the object type, such as 'tankShell'
+   * @param {boolean} rotates - whether the object rotates or just translates in air
    * @constructor
    */
-  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type ) {
+  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type, rotates ) {
 
     this.name = name;
     this.mass = mass;
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
     this.type = type || null;
+    this.rotates = rotates || false;
 
   }
 
@@ -52,16 +54,17 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_MASS,
     ProjectileMotionConstants.CANNONBALL_DIAMETER,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
-    'cannonball'
+    'cannonball',
+    false
   );
 
-  ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 150, 0.15, 0.05, 'tankShell' );
+  ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 150, 0.15, 0.05, 'tankShell', true );
 
-  ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin' );
+  ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin', false );
 
-  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.4, 'baseball' );
+  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.4, 'baseball', false );
 
-  ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 1500, 2.5, 1.28, 'buick' ); // Use 1.28 instead of 1.3 to remain within range
+  ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 1500, 2.5, 1.28, 'buick', true ); // Use 1.28 instead of 1.3 to remain within range
 
   return ProjectileObjectType;
 } );
