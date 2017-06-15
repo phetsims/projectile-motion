@@ -23,7 +23,6 @@ define( function( require ) {
 
     this.objectTypes = [
       ProjectileObjectType.CANNONBALL,
-      ProjectileObjectType.TANK_SHELL,
       ProjectileObjectType.PUMPKIN,
       ProjectileObjectType.BASEBALL,
       ProjectileObjectType.BUICK,

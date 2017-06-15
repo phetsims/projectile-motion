@@ -16,7 +16,6 @@ define( function( require ) {
 
   // strings
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
-  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
   var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
   var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
   var buickString = require( 'string!PROJECTILE_MOTION/buick' );
@@ -26,7 +25,7 @@ define( function( require ) {
   var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
 
   /**
-   * @param {string} name - name of the object, such as 'Tank Shell'
+   * @param {string} name - name of the object, such as 'Golf ball'
    * @param {number} mass - in kg
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
@@ -61,8 +60,6 @@ define( function( require ) {
     'cannonball',
     false
   );
-
-  ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 150, 0.15, 0.05, 'tankShell', true );
 
   ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin', false );
 

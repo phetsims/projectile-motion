@@ -106,8 +106,6 @@ define( function( require ) {
       switch ( projectileObjectModel.type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
-        case 'tankShell':
-          return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
           return new Image( pumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
@@ -133,8 +131,6 @@ define( function( require ) {
       switch ( projectileObjectModel.type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
-        case 'tankShell':
-          return new Circle( transformedBallSize / 2, { fill: 'gray', stroke: 'black' } );
         case 'pumpkin':
           return new Image( landedPumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
