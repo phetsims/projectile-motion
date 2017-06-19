@@ -85,11 +85,7 @@ define( function( require ) {
       }
     } );
 
-    transformProperty.link( function( transform ) {
-      self.movableDragHandler.setModelViewTransform( transform );
-    } );
-
-    // When dragging, move the electric potential sensor
+    // When dragging, move the tracer tool
     rectangle.addInputListener( this.movableDragHandler );
 
     // crosshair view
@@ -136,8 +132,7 @@ define( function( require ) {
       }
     } );
 
-    // Listen for location changes, align locations, and update model.
-    tracer.positionProperty.link( function( position ) {
+    var updatePosition = function( position ) {
       self.probeOrigin = transformProperty.get().modelToViewPosition( position );
 
       crosshair.center = self.probeOrigin;
@@ -148,7 +143,16 @@ define( function( require ) {
       rectangle.centerY = self.probeOrigin.y;
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
+    };
 
+    transformProperty.link( function( transform ) {
+      self.movableDragHandler.setModelViewTransform( transform );
+      updatePosition( tracer.positionProperty.get() );
+    } );
+
+    // Listen for location changes, align locations, and update model.
+    tracer.positionProperty.link( function( position ) {
+      updatePosition( position );
       self.tracer.updateData();
     } );
 
