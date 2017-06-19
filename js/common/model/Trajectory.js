@@ -151,7 +151,9 @@ define( function( require ) {
       }
 
       // increment position of projectile objects, unless it has reached the end
-      this.projectileObjects.forEach( function( object ) {
+      var i;
+      for( i = 0; i < this.projectileObjects.length; i ++ ) {
+        var object = this.projectileObjects.get( i );
         if ( object.index < self.dataPoints.length - 1 ) {
           object.index ++;
           object.dataPointProperty.set( self.dataPoints.get( object.index ) );
@@ -161,7 +163,7 @@ define( function( require ) {
           self.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
           object.checkedScore = true;
         }
-      } );
+      }
     },
 
     /**

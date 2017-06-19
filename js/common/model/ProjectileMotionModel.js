@@ -180,7 +180,10 @@ define( function( require ) {
 
     // @public animate model elements given a time step
     stepModelElements: function( dt ) {
-      this.trajectories.forEach( function( trajectory ) { trajectory.step( dt ); } );
+      var i;
+      for ( i = 0; i < this.trajectories.length; i++ ) {
+        this.trajectories.get( i ).step( dt );
+      }
       // this.score.step( dt );
     },
 
