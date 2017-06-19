@@ -42,7 +42,7 @@ define( function( require ) {
     // @public Scores if projectile has scored based on {number} x position of the landed projectile
     scoreIfWithinTarget: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetXProperty.get() );
-      if ( distance <= ProjectileMotionConstants.TARGET_LENGTH / 2 ) {
+      if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) {
         this.score();
       }
     },

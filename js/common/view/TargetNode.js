@@ -27,8 +27,8 @@ define( function( require ) {
   var metersString = require( 'string!PROJECTILE_MOTION/meters' );
 
   // constants
-  var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_LENGTH;
-  var TARGET_WIDTH = ProjectileMotionConstants.TARGET_WIDTH;
+  var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
+  var TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   var SCREEN_CHANGE_TIME = 1000; // milliseconds
   var TOTAL_Y_CHANGE = 70;
@@ -45,11 +45,9 @@ define( function( require ) {
 
     var targetXProperty = score.targetXProperty;
 
-    var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
-
-    var outerCircle = new Circle( viewRadius, { fill: 'red', stroke: 'black', lineWidth: 1 } );
-    var middleCircle = new Circle( viewRadius * 2 / 3, { fill: 'white', stroke: 'black', lineWidth: 0.5 } );
-    var innerCircle = new Circle( viewRadius / 3, { fill: 'red', stroke: 'black', lineWidth: 0.5 } );
+    var outerCircle = new Circle( 1, { fill: 'red', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 1 ) } );
+    var middleCircle = new Circle( 2 / 3, { fill: 'white', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 ) } );
+    var innerCircle = new Circle( 1 / 3, { fill: 'red', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 ) } );
 
     // draw target view
     var target = new Node( {
@@ -62,7 +60,9 @@ define( function( require ) {
       ]
     } );
 
-    target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
+    var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+    var targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
+    target.setScaleMagnitude( viewRadius, targetHeightInView );
 
     target.center = transformProperty.get().modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
 
@@ -87,7 +87,7 @@ define( function( require ) {
         var xChange = mousePoint.x - startPoint.x;
 
         targetXProperty.set( transformProperty.get().viewToModelX( startX + xChange ) );
-      }
+       }
 
     } ) );
 
@@ -141,6 +141,8 @@ define( function( require ) {
     score.targetXProperty.link( updateHorizontalPosition );
 
     transformProperty.link( function() {
+      var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+      target.setScaleMagnitude( viewRadius, targetHeightInView );
       updateHorizontalPosition( targetXProperty.get() );
     } );
 

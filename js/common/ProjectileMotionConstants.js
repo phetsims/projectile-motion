@@ -56,8 +56,8 @@ define( function( require ) {
 
     // target
     TARGET_X_DEFAULT: 15, // meters
-    TARGET_LENGTH: 3, // meters
-    TARGET_WIDTH: 0.6, // meters
+    TARGET_WIDTH: 3, // meters
+    TARGET_HEIGHT: 0.6, // meters
 
     // tracer
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
