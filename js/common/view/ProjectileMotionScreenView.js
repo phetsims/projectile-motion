@@ -59,6 +59,7 @@ define( function( require ) {
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
+  var FLATIRONS_RANGE = { min: 1500, max: 1700 };
 
   /**
    * @param {ProjectileMotionModel} model
@@ -295,7 +296,7 @@ define( function( require ) {
 
     // flatirons
     model.altitudeProperty.link( function( altitude ) {
-      self.backgroundNode.showOrHideFlatirons( altitude === 5280 );
+      self.backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
     } );
 
     // rendering order
