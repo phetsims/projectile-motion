@@ -37,9 +37,10 @@ define( function( require ) {
   /**
    * @param {Score} score - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
+   * @param {Property.<Bounds2>} dragBoundsProperty - target horizontal position is constrained with visible bounds of the screen
    * @constructor
    */
-  function TargetNode( score, transformProperty ) {
+  function TargetNode( score, transformProperty, dragBoundsProperty ) {
     var self = this;
     Node.call( this );
 
@@ -86,9 +87,8 @@ define( function( require ) {
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( transformProperty.get().viewToModelX( startX + xChange ) );
-       }
-
+        targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, dragBoundsProperty.get().minX, dragBoundsProperty.get().maxX ) ) );
+      }
     } ) );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
@@ -145,7 +145,6 @@ define( function( require ) {
       target.setScaleMagnitude( viewRadius, targetHeightInView );
       updateHorizontalPosition( targetXProperty.get() );
     } );
-
 
   }
 

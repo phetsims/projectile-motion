@@ -98,7 +98,7 @@ define( function( require ) {
     var transformProperty = new Property( modelViewTransform );
 
     // target
-    var targetNode = new TargetNode( model.score, transformProperty );
+    var targetNode = new TargetNode( model.score, transformProperty, this.visibleBoundsProperty );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();
@@ -293,6 +293,7 @@ define( function( require ) {
     this.fireButton = fireButton;
     this.eraserButton = eraserButton;
     this.backgroundNode = new BackgroundNode( this.layoutBounds );
+    this.zoomControl = zoomControl;
 
     // flatirons
     model.altitudeProperty.link( function( altitude ) {
