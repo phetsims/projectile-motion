@@ -38,6 +38,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
+  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
 
   // strings
   var metersString = require( 'string!PROJECTILE_MOTION/meters');
@@ -49,9 +50,10 @@ define( function( require ) {
 
 
   // constants
-  // var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
-  // var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
-  // var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+  var DEFAULT_SCALE = 25;
+  var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+  var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+  var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
@@ -89,15 +91,10 @@ define( function( require ) {
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
-      25 // scale for meters to view units, empirically determined based off original sim
+      DEFAULT_SCALE // scale for meters to view units, empirically determined based off original sim
     );
 
     var transformProperty = new Property( modelViewTransform );
-
-    // var transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO ); // for zoom
-
-    // zoomable node layer
-    // var zoomableNode = new Node();
 
     // target
     var targetNode = new TargetNode( model.score, modelViewTransform );
@@ -190,30 +187,24 @@ define( function( require ) {
     // } );
 
     // // zoom property
-    // var zoomProperty = new Property( DEFAULT_ZOOM );
+    var zoomProperty = new Property( DEFAULT_ZOOM );
 
     // // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
     // // scale matrix algorithm taken from neuron repo
-    // zoomProperty.link( function( zoomFactor ) {
+    zoomProperty.link( function( zoomFactor ) {
 
-    //   var scaleMatrix;
-    //   var scaleAroundX = transformedOrigin.x;
-    //   var scaleAroundY = transformedOrigin.y;
+        transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+          Vector2.ZERO,
+          ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
+          DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
+        ) );
 
-    //   scaleMatrix = Matrix3.translation( scaleAroundX, scaleAroundY ).timesMatrix( Matrix3.scaling( zoomFactor, zoomFactor ) ).timesMatrix( Matrix3.translation( -scaleAroundX, -scaleAroundY ) );
+    } );
 
-    //   zoomableNode.matrix = scaleMatrix;
-    //   // measuringTape.modelViewTransform = new ModelViewTransform2( scaleMatrix );
-    //   // targetNode.target.matrix = scaleMatrix;
-    //   // trajectoriesLayer.matrix = scaleMatrix;
-    //   // cannonNode.matrix = scaleMatrix;
-    //   // measuringTape.mutate( { modelViewTransform: modelViewTransform.})
-    // } );
-
-    // // zoom control view and position it
-    // var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
-    // zoomControl.top = 0;
-    // zoomControl.left = 0;
+    // zoom control view and position it
+    var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
+    zoomControl.top = 0;
+    zoomControl.left = 0;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, modelViewTransform );
@@ -288,7 +279,7 @@ define( function( require ) {
         model.reset();
         vectorVisibilityProperties.reset();
         targetNode.reset();
-        // zoomProperty.reset();
+        zoomProperty.reset();
       },
       bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
@@ -325,7 +316,7 @@ define( function( require ) {
       speedControl,
       stepButton,
       playPauseButton,
-      // zoomControl,
+      zoomControl,
       resetAllButton
     ] );
   }
