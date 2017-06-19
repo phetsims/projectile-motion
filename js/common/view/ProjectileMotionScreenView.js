@@ -110,7 +110,7 @@ define( function( require ) {
         // model.totalVelocityVectorOnProperty,
         // model.componentsVelocityVectorsOnProperty,
         // model.componentsAccelerationVectorsOnProperty,
-        modelViewTransform
+        transformProperty
       );
 
       trajectoriesLayer.addChild( trajectoryNode );

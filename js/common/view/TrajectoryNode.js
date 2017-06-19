@@ -33,13 +33,13 @@ define( function( require ) {
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
    * only needed to pass down to ProjectileNode
    * @param {Trajectory} trajectory - model for the trajectory
-   * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
+   * @param {Property.<ModelViewTransform2>} transformProperty
    * @constructor
    */
   function TrajectoryNode(
     vectorVisibilityProperties,
     trajectory,
-    modelViewTransform
+    transformProperty
   ) {
     var self = this;
     Node.call( this, { pickable: false } );
@@ -53,10 +53,10 @@ define( function( require ) {
     this.addChild( dotsLayer );
     this.addChild( projectileNodesLayer );
 
-    var viewLastPoint;
+    var viewLastPoint = null;
 
     function handleDataPointAdded( addedPoint ) {
-      var viewAddedPoint = modelViewTransform.modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
+      var viewAddedPoint = transformProperty.get().modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
 
       if ( viewLastPoint ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
@@ -71,8 +71,8 @@ define( function( require ) {
       // draw dot if it is time for data point should be shown
       if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
         var addedPointNode = new Circle( DOT_DIAMETER / 2, {
-          x: modelViewTransform.modelToViewX( addedPoint.x ),
-          y: modelViewTransform.modelToViewY( addedPoint.y ),
+          x: transformProperty.get().modelToViewX( addedPoint.x ),
+          y: transformProperty.get().modelToViewY( addedPoint.y ),
           fill: 'black'
         } );
         dotsLayer.addChild( addedPointNode );
@@ -90,7 +90,7 @@ define( function( require ) {
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,
-        modelViewTransform
+        transformProperty.get()
       );
       projectileNodesLayer.addChild( newProjectileNode );
     }
@@ -98,6 +98,16 @@ define( function( require ) {
     // view adds projectile object if another one is created in the model
     trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     trajectory.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
+
+    // upddate if model view transform changes
+    transformProperty.link( function( transform ) {
+      pathsLayer.removeAllChildren();
+      dotsLayer.removeAllChildren();
+      viewLastPoint = null;
+      trajectory.dataPoints.forEach( handleDataPointAdded );
+      projectileNodesLayer.removeAllChildren();
+      trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
+    } );
 
     // change decrease in opacity with each successive projectiled fired
     trajectory.rankProperty.link( function( rank ) {
