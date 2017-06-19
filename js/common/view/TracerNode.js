@@ -43,11 +43,11 @@ define( function( require ) {
 
   /**
    * @param {Score} tracer - model of the tracer tool
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {Object} [options]
    * @constructor
    */
-  function TracerNode( tracer, modelViewTransform, options ) {
+  function TracerNode( tracer, transformProperty, options ) {
     options = options || {};
     var self = this;
 
@@ -76,13 +76,17 @@ define( function( require ) {
 
     // Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
-      modelViewTransform: modelViewTransform,
+      modelViewTransform: transformProperty.get(),
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
       },
       endDrag: function( event ) {
         self.isUserControlledProperty.set( false );
       }
+    } );
+
+    transformProperty.link( function( transform ) {
+      self.movableDragHandler.setModelViewTransform( transform );
     } );
 
     // When dragging, move the electric potential sensor
@@ -134,7 +138,7 @@ define( function( require ) {
 
     // Listen for location changes, align locations, and update model.
     tracer.positionProperty.link( function( position ) {
-      self.probeOrigin = modelViewTransform.modelToViewPosition( position );
+      self.probeOrigin = transformProperty.get().modelToViewPosition( position );
 
       crosshair.center = self.probeOrigin;
       circle.center = self.probeOrigin;

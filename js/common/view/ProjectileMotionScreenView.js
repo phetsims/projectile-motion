@@ -91,6 +91,9 @@ define( function( require ) {
       ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
       25 // scale for meters to view units, empirically determined based off original sim
     );
+
+    var transformProperty = new Property( modelViewTransform );
+
     // var transformedOrigin = modelViewTransform.modelToViewPosition( Vector2.ZERO ); // for zoom
 
     // zoomable node layer
@@ -170,7 +173,7 @@ define( function( require ) {
     // add view for tracer
     var tracerNode = new TracerNode(
       model.tracer,
-      modelViewTransform
+      transformProperty
     );
 
     // zoomableNode.mutate( {
