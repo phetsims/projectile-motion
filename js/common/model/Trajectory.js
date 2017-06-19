@@ -52,8 +52,7 @@ define( function( require ) {
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
-    // add dataPoint for initial conditions
-    this.dataPoints.push( new DataPoint(
+    var initialPoint = new DataPoint(
       0, // total time elapsed
       0, // x position
       model.cannonHeightProperty.get(), // y position
@@ -65,7 +64,11 @@ define( function( require ) {
       0, // x drag force
       0, // y drag force
       -ACCELERATION_DUE_TO_GRAVITY * this.mass // force gravity
-    ) );
+    );
+
+    // add dataPoint for initial conditions
+    this.dataPoints.push( initialPoint );
+    model.tracer.updateDataIfWithinRange( initialPoint );
 
     // @public {ObservableArray.<Object: { {number} index, {Property.<DataPoint>} dataPointProperty>}
     this.projectileObjects = new ObservableArray();
