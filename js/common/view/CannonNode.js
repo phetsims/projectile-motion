@@ -40,33 +40,34 @@ define( function( require ) {
 
   // constants
   var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
-  var CANNON_WIDTH = ProjectileMotionConstants.CANNON_WIDTH;
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
   var HEIGHT_LEADER_LINE_POSITION = -2;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
+  var ADJUSTABLE_HEIGHT_AREA_RADIUS = 50;
+  var ROTATABLE_AREA_RADIUS = 30;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
    * @param {Property.<number>} angleProperty - angle of the cannon, in degrees
-   * @param {ModelViewTransform2} modelViewTransform - meters to units, inverted y
+   * @param {Property.<ModelViewTransform2>} transformProperty
    * @constructor
    */
-  function CannonNode( heightProperty, angleProperty, modelViewTransform ) {
+  function CannonNode( heightProperty, angleProperty, transformProperty ) {
     Node.call( this );
 
     // auxiliary functions, closures for getting the second coordinates of the line
     // TODO: remove when you use rotate
     function getX2() {
-      return modelViewTransform.modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.get() * Math.PI / 180 ) );
+      return transformProperty.get().modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.get() * Math.PI / 180 ) );
     }
 
     function getY2() {
-      return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
+      return transformProperty.get().modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
     }
 
-    var cannon = new Node( { x: modelViewTransform.modelToViewX( 0 ) } );
+    var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
     this.addChild( cannon );
 
     var cannonBarrel = new Node( { origin: cannon.orign } );
@@ -82,14 +83,14 @@ define( function( require ) {
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannon.addChild( cannonBaseTop );
 
-    cannon.setScaleMagnitude( modelViewTransform.modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
+    cannon.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
     // add line for indicating the height
     var heightLeaderLine = new ArrowNode(
-      modelViewTransform.modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
-      modelViewTransform.modelToViewY( 0 ),
-      modelViewTransform.modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
-      modelViewTransform.modelToViewY( heightProperty.get() ), {
+      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      transformProperty.get().modelToViewY( 0 ),
+      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      transformProperty.get().modelToViewY( heightProperty.get() ), {
         stroke: 'black',
         headHeight: 5,
         headWidth: 5,
@@ -156,7 +157,7 @@ define( function( require ) {
     angleIndicator.addChild( angleLabel );
 
     // add invisible node for dragging height
-    var adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
+    var adjustableHeightArea = new Circle( ADJUSTABLE_HEIGHT_AREA_RADIUS, {
       x: cannon.x,
       y: cannon.y,
       pickable: true,
@@ -165,7 +166,7 @@ define( function( require ) {
     this.addChild( adjustableHeightArea );
 
     // add invisible node for dragging angle
-    var rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ), {
+    var rotatableArea = new Circle( ROTATABLE_AREA_RADIUS, {
       x: getX2(),
       y: getY2(),
       pickable: true,
@@ -187,17 +188,27 @@ define( function( require ) {
       rotatableArea.y = getY2();
     } );
 
-    // watch for if height changes
-    heightProperty.link( function( height ) {
-      cannon.y = modelViewTransform.modelToViewY( height );
+    var updateHeight = function( height ) {
+      cannon.y = transformProperty.get().modelToViewY( height );
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, cannon.y );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
       heightLabel.y = heightLeaderLine.tipY - 5;
-      angleIndicator.y = modelViewTransform.modelToViewY( height );
+      angleIndicator.y = transformProperty.get().modelToViewY( height );
       adjustableHeightArea.y = cannon.y;
       rotatableArea.y = getY2();
+    };
+
+    // watch for if height changes
+    heightProperty.link( updateHeight );
+
+    // update if transform changes
+    transformProperty.link( function( transform ) {
+      cannon.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
+      rotatableArea.x = getX2();
+      rotatableArea.y = getY2();
+      updateHeight( heightProperty.get() );
     } );
 
     // @private variables used for drag handlers
@@ -252,7 +263,7 @@ define( function( require ) {
         mousePoint = adjustableHeightArea.globalToParentPoint( event.pointer.point );
         var heightChange = mousePoint.y - startPoint.y;
 
-        var unboundedNewHeight = modelViewTransform.viewToModelY( startHeight + heightChange );
+        var unboundedNewHeight = transformProperty.get().viewToModelY( startHeight + heightChange );
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {

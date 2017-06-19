@@ -130,7 +130,7 @@ define( function( require ) {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // cannon
-    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, modelViewTransform );
+    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, transformProperty );
 
     // initial speed readout, slider, and tweakers
     // TODO: pass in range because it is different for each screen

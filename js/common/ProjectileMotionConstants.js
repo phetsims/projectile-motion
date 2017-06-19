@@ -52,7 +52,6 @@ define( function( require ) {
 
     // cannon
     CANNON_LENGTH: 4, // meters
-    CANNON_WIDTH: 1.2, // meters
 
     // target
     TARGET_X_DEFAULT: 15, // meters
