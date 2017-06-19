@@ -107,7 +107,9 @@ define( function( require ) {
         tracer.isActiveProperty.set( true );
 
         var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
-        var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition );
+
+        // (-90, 20) is empirically determined to shift tracer to be centered at mouse point
+        var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -90, 20 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
 
         // TODO: where to have tracer jump to
