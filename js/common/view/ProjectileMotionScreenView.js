@@ -204,7 +204,6 @@ define( function( require ) {
 
     // zoom control view and position it
     var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
-    zoomControl.top = 0;
     zoomControl.left = 0;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
@@ -356,7 +355,7 @@ define( function( require ) {
       this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
       this.resetAllButton.right = this.topRightPanel.right;
       this.zoomControl.top = Y_MARGIN - offsetY;
-      this.zoomControl.left = X_MARGIN;
+      this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
     }
 
   } );
