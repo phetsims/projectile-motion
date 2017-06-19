@@ -163,11 +163,16 @@ define( function( require ) {
     var measuringTapeNode = new MeasuringTape(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
-        modelViewTransform: modelViewTransform,
+        modelViewTransform: transformProperty.get(),
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
         isTipDragBounded: true,
         textColor: 'black'
+    } );
+
+    // listen to transform property
+    transformProperty.link( function( transform ) {
+      measuringTapeNode.setModelViewTransform( transform );
     } );
 
     // add view for tracer
