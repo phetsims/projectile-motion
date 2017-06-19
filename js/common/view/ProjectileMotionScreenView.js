@@ -355,6 +355,8 @@ define( function( require ) {
       this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
       this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
       this.resetAllButton.right = this.topRightPanel.right;
+      this.zoomControl.top = Y_MARGIN - offsetY;
+      this.zoomControl.left = X_MARGIN;
     }
 
   } );
