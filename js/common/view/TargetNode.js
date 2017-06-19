@@ -77,7 +77,7 @@ define( function( require ) {
     // drag target to change horizontal position
     target.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = target.globalToParentPoint( event.pointer.point );
+        startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = target.centerX; // view units
       },
 
