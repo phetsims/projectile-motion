@@ -36,16 +36,16 @@ define( function( require ) {
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<ModelViewTransform2>} transformProperty
    * @constructor
    */
-  function TargetNode( score, modelViewTransform ) {
+  function TargetNode( score, transformProperty ) {
     var self = this;
     Node.call( this );
 
     var targetXProperty = score.targetXProperty;
 
-    var viewRadius = modelViewTransform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+    var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
 
     var outerCircle = new Circle( viewRadius, { fill: 'red', stroke: 'black', lineWidth: 1 } );
     var middleCircle = new Circle( viewRadius * 2 / 3, { fill: 'white', stroke: 'black', lineWidth: 0.5 } );
@@ -64,7 +64,7 @@ define( function( require ) {
 
     target.scale( 1, TARGET_WIDTH / TARGET_DIAMETER );
 
-    target.center = modelViewTransform.modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
+    target.center = transformProperty.get().modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
 
     this.addChild( target );
 
@@ -86,7 +86,7 @@ define( function( require ) {
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( modelViewTransform.viewToModelX( startX + xChange ) );
+        targetXProperty.set( transformProperty.get().viewToModelX( startX + xChange ) );
       }
 
     } ) );
@@ -126,16 +126,24 @@ define( function( require ) {
 
     } );
 
-    // listen to horizontal position changes
-    score.targetXProperty.link( function( targetX ) {
-      target.centerX = modelViewTransform.modelToViewX( targetX );
+
+    var updateHorizontalPosition = function( targetX ) {
+      target.centerX = transformProperty.get().modelToViewX( targetX );
       distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString );
       distanceLabel.centerX = target.centerX;
       distanceLabel.top = target.bottom + 2;
       self.rewardNodes.forEach( function( rewardNode ) {
         rewardNode.x = target.centerX;
       } );
+    };
+
+    // listen to horizontal position changes
+    score.targetXProperty.link( updateHorizontalPosition );
+
+    transformProperty.link( function() {
+      updateHorizontalPosition( targetXProperty.get() );
     } );
+
 
   }
 
@@ -143,7 +151,7 @@ define( function( require ) {
 
   return inherit( Node, TargetNode, {
 
-    // @public
+    // @public remove all reward animations
     reset: function() {
       var self = this;
       this.rewardNodes.forEach( function ( rewardNode ) {

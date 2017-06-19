@@ -97,7 +97,7 @@ define( function( require ) {
     var transformProperty = new Property( modelViewTransform );
 
     // target
-    var targetNode = new TargetNode( model.score, modelViewTransform );
+    var targetNode = new TargetNode( model.score, transformProperty );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();
