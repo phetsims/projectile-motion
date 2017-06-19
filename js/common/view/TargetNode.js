@@ -37,10 +37,10 @@ define( function( require ) {
   /**
    * @param {Score} score - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {Property.<Bounds2>} dragBoundsProperty - target horizontal position is constrained with visible bounds of the screen
+   * @param {ScreenView} screenView
    * @constructor
    */
-  function TargetNode( score, transformProperty, dragBoundsProperty ) {
+  function TargetNode( score, transformProperty, screenView ) {
     var self = this;
     Node.call( this );
 
@@ -82,12 +82,13 @@ define( function( require ) {
       },
 
       drag: function( event ) {
-        mousePoint = target.globalToParentPoint( event.pointer.point );
+        mousePoint = screenView.globalToLocalPoint( event.pointer.point );
+        // mousePoint = target.globalToParentPoint( event.pointer.point );
 
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, dragBoundsProperty.get().minX, dragBoundsProperty.get().maxX ) ) );
+        targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) );
       }
     } ) );
 

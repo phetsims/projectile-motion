@@ -98,7 +98,7 @@ define( function( require ) {
     var transformProperty = new Property( modelViewTransform );
 
     // target
-    var targetNode = new TargetNode( model.score, transformProperty, this.visibleBoundsProperty );
+    var targetNode = new TargetNode( model.score, transformProperty, this );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     var trajectoriesLayer = new Node();
@@ -173,10 +173,12 @@ define( function( require ) {
       measuringTapeNode.setModelViewTransform( transform );
     } );
 
+
     // add view for tracer
     var tracerNode = new TracerNode(
       model.tracer,
-      transformProperty
+      transformProperty,
+      this.visibleBoundsProperty
     );
 
     // zoomableNode.mutate( {
