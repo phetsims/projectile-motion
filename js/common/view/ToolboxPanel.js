@@ -24,11 +24,11 @@ define( function( require ) {
    * @param {Tracer} tracer - model for the tracer tool
    * @param {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
    * @param {TracerNode} tracerNode - view for the tracer tool
-   * @param {ModelViewTransform2} modelViewTransform
+   * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {Object} [options]
    * @constructor
    */
-  function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, modelViewTransform, options ) {
+  function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, transformProperty, options ) {
     var self = this;
 
     // The first object is an empty placeholder so none of the others get mutated
@@ -108,7 +108,7 @@ define( function( require ) {
 
         var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition );
-        tracer.positionProperty.set( modelViewTransform.viewToModelPosition( initialViewPosition ) );
+        tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
 
         // TODO: where to have tracer jump to
         tracerNode.movableDragHandler.startDrag( event );
@@ -172,7 +172,7 @@ define( function( require ) {
 
         var tapeBasePosition = parentScreenView.globalToLocalPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
         var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tapeBasePosition );
-        measuringTape.basePositionProperty.set( modelViewTransform.viewToModelPosition( initialViewPosition ) );
+        measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
         measuringTapeNode.startBaseDrag( event );

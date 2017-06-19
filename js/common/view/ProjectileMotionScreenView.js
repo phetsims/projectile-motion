@@ -207,7 +207,7 @@ define( function( require ) {
     zoomControl.left = 0;
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, modelViewTransform );
+    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
 
     // step button
     var stepButton = new StepForwardButton( {
