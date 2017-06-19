@@ -12,6 +12,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -25,6 +26,12 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
 
+  // image
+  var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
+  var cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
+  var cannonBarrelBottomImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_bottom.png' );
+  var cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
+
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
@@ -37,7 +44,7 @@ define( function( require ) {
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
   var HEIGHT_LEADER_LINE_POSITION = -2;
-  var CROSSHAIR_LENGTH = 60;
+  var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
   /**
@@ -59,18 +66,23 @@ define( function( require ) {
       return modelViewTransform.modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
     }
 
-    // TODO: use image and rotation, fix pickable area. See FaucetNode
-    // draw cannon
-    var cannon = new Line(
-      modelViewTransform.modelToViewX( 0 ),
-      modelViewTransform.modelToViewY( heightProperty.get() ),
-      getX2(),
-      getY2(), {
-        stroke: 'white',
-        lineWidth: modelViewTransform.modelToViewDeltaX( CANNON_WIDTH )
-      }
-    );
+    var cannon = new Node( { x: modelViewTransform.modelToViewX( 0 ) } );
     this.addChild( cannon );
+
+    var cannonBarrel = new Node( { origin: cannon.orign } );
+    cannon.addChild( cannonBarrel );
+
+    var cannonBarrelBottom = new Image( cannonBarrelBottomImage, { right: 0, centerY: 0 } );
+    cannonBarrel.addChild( cannonBarrelBottom );
+    var cannonBarrelTop = new Image( cannonBarrelTopImage, { left: 0, centerY: 0 } );
+    cannonBarrel.addChild( cannonBarrelTop );
+
+    var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    cannon.addChild( cannonBaseBottom );
+    var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
+    cannon.addChild( cannonBaseTop );
+
+    cannon.setScaleMagnitude( modelViewTransform.modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
     // add line for indicating the height
     var heightLeaderLine = new ArrowNode(
@@ -111,12 +123,12 @@ define( function( require ) {
 
     // angle indicator
     var angleIndicator = new Node();
-    angleIndicator.x = cannon.x1;
+    angleIndicator.x = cannon.x;
     this.addChild( angleIndicator );
 
     // crosshair view
     var crosshairShape = new Shape()
-      .moveTo( -CROSSHAIR_LENGTH / 2, 0 )
+      .moveTo( -CROSSHAIR_LENGTH / 4, 0 )
       .lineTo( CROSSHAIR_LENGTH, 0 )
       .moveTo( 0, -CROSSHAIR_LENGTH )
       .lineTo( 0, CROSSHAIR_LENGTH );
@@ -145,15 +157,15 @@ define( function( require ) {
 
     // add invisible node for dragging height
     var adjustableHeightArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
-      x: cannon.x1,
-      y: cannon.y1,
+      x: cannon.x,
+      y: cannon.y,
       pickable: true,
       cursor: 'pointer'
     } );
     this.addChild( adjustableHeightArea );
 
     // add invisible node for dragging angle
-    var rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ) * 1.5, {
+    var rotatableArea = new Circle( modelViewTransform.modelToViewDeltaX( CANNON_WIDTH ), {
       x: getX2(),
       y: getY2(),
       pickable: true,
@@ -163,31 +175,29 @@ define( function( require ) {
 
     // watch for if angle changes
     angleProperty.link( function( angle ) {
-      cannon.x2 = getX2();
-      cannon.y2 = getY2();
+      cannonBarrel.setRotation( -angle * Math.PI / 180 );
       var arcShape = angle > 0
         ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString );
-      adjustableHeightArea.x = cannon.x1;
-      adjustableHeightArea.y = cannon.y1;
-      rotatableArea.x = cannon.x2;
-      rotatableArea.y = cannon.y2;
+      adjustableHeightArea.x = cannon.x;
+      adjustableHeightArea.y = cannon.y;
+      rotatableArea.x = getX2();
+      rotatableArea.y = getY2();
     } );
 
     // watch for if height changes
     heightProperty.link( function( height ) {
-      cannon.y1 = modelViewTransform.modelToViewY( height );
-      cannon.y2 = getY2();
-      heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, cannon.y1 );
+      cannon.y = modelViewTransform.modelToViewY( height );
+      heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, cannon.y );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
       heightLabel.y = heightLeaderLine.tipY - 5;
       angleIndicator.y = modelViewTransform.modelToViewY( height );
-      adjustableHeightArea.y = cannon.y1;
-      rotatableArea.y = cannon.y2;
+      adjustableHeightArea.y = cannon.y;
+      rotatableArea.y = getY2();
     } );
 
     // @private variables used for drag handlers
@@ -207,8 +217,8 @@ define( function( require ) {
         mousePoint = rotatableArea.globalToParentPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = new Vector2( startPoint.x - cannon.x1, startPoint.y - cannon.y1 ).angle();
-        var mousePointAngle = new Vector2( mousePoint.x - cannon.x1, mousePoint.y - cannon.y1 ).angle();
+        var startPointAngle = new Vector2( startPoint.x - cannon.x, startPoint.y - cannon.y ).angle();
+        var mousePointAngle = new Vector2( mousePoint.x - cannon.x, mousePoint.y - cannon.y ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
@@ -235,7 +245,7 @@ define( function( require ) {
     adjustableHeightArea.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = adjustableHeightArea.globalToParentPoint( event.pointer.point );
-        startHeight = cannon.y1; // view units
+        startHeight = cannon.y; // view units
       },
 
       drag: function( event ) {

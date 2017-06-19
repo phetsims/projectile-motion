@@ -51,8 +51,8 @@ define( function( require ) {
     ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
 
     // cannon
-    CANNON_LENGTH: 3, // meters
-    CANNON_WIDTH: 0.7, // meters
+    CANNON_LENGTH: 4, // meters
+    CANNON_WIDTH: 1.2, // meters
 
     // target
     TARGET_X_DEFAULT: 15, // meters
