@@ -166,7 +166,7 @@ define( function( require ) {
     // listen to transform property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
-      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( self.layoutBounds ) );
+      measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.layoutBounds ) );
     } );
 
 
@@ -191,12 +191,11 @@ define( function( require ) {
     // // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
     // // scale matrix algorithm taken from neuron repo
     zoomProperty.link( function( zoomFactor ) {
-
-        transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-          Vector2.ZERO,
-          ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
-          DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
-        ) );
+      transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+        Vector2.ZERO,
+        ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
+        DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
+      ) );
 
     } );
 

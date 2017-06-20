@@ -137,15 +137,16 @@ define( function( require ) {
         rewardNode.x = target.centerX;
       } );
     };
-
+    
     // listen to horizontal position changes
-    score.targetXProperty.link( updateHorizontalPosition );
+    targetXProperty.link( updateHorizontalPosition );
 
-    transformProperty.link( function() {
-      var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+    transformProperty.link( function( transform ) {
+      var viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       target.setScaleMagnitude( viewRadius, targetHeightInView );
       updateHorizontalPosition( targetXProperty.get() );
     } );
+
 
   }
 
