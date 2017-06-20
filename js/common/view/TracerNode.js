@@ -45,10 +45,10 @@ define( function( require ) {
    * @param {Score} tracer - model of the tracer tool
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {Object} [options]
-   * @param {Property.<Bounds2>} dragBoundsProperty - target horizontal position is constrained with visible bounds of the screen
+   * @param {ScreenView} screenView
    * @constructor
    */
-  function TracerNode( tracer, transformProperty, dragBoundsProperty, options ) {
+  function TracerNode( tracer, transformProperty, screenView, options ) {
     options = options || {};
     var self = this;
 
@@ -78,17 +78,13 @@ define( function( require ) {
     // @public Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: transformProperty.get(),
-      dragBounds: dragBoundsProperty.get(),
+      dragBounds: transformProperty.get().viewToModelBounds( screenView.layoutBounds ),
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
       },
       endDrag: function( event ) {
         self.isUserControlledProperty.set( false );
       }
-    } );
-
-    dragBoundsProperty.link( function( dragBounds ) {
-      self.movableDragHandler.setDragBounds( dragBounds );
     } );
 
     // When dragging, move the tracer tool

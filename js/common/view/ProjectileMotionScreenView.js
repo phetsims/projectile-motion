@@ -82,12 +82,6 @@ define( function( require ) {
 
     ScreenView.call( this, options );
 
-    // TODO: Spacing for panels around edges of visible bounds
-    //   ScreenView.visibleBoundsProperty, using this.visibleBoundsProperty.link
-    //   See cck and expression exchange
-
-    // TODO: Constrain dragging to visible bounds
-
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
@@ -178,7 +172,7 @@ define( function( require ) {
     var tracerNode = new TracerNode(
       model.tracer,
       transformProperty,
-      this.visibleBoundsProperty
+      this
     );
 
     // zoomableNode.mutate( {
