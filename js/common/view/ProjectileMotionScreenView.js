@@ -155,6 +155,7 @@ define( function( require ) {
     var measuringTapeNode = new MeasuringTape(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
+        dragBounds: transformProperty.get().viewToModelBounds( this.layoutBounds ),
         modelViewTransform: transformProperty.get(),
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
@@ -165,6 +166,7 @@ define( function( require ) {
     // listen to transform property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
+      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( self.layoutBounds ) );
     } );
 
 

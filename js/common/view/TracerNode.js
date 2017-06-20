@@ -78,7 +78,7 @@ define( function( require ) {
     // @public Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: transformProperty.get(),
-      dragBounds: transformProperty.get().viewToModelBounds( screenView.layoutBounds ),
+      dragBounds: screenView.layoutBounds,
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
       },
@@ -149,6 +149,7 @@ define( function( require ) {
 
     transformProperty.link( function( transform ) {
       self.movableDragHandler.setModelViewTransform( transform );
+      self.movableDragHandler.setDragBounds( transform.viewToModelBounds( screenView.layoutBounds ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
