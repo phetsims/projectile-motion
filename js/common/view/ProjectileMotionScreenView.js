@@ -304,8 +304,8 @@ define( function( require ) {
       trajectoriesLayer,
       cannonNode,
       initialSpeedPanel,
-      topRightPanel,
       bottomRightPanel,
+      topRightPanel,
       toolboxPanel,
       measuringTapeNode,
       tracerNode,
@@ -346,7 +346,7 @@ define( function( require ) {
 
       this.topRightPanel.right = width / scale - offsetX - X_MARGIN;
       this.topRightPanel.top = Y_MARGIN - offsetY;
-      this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN) );
+      this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
       this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
       this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
       this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;

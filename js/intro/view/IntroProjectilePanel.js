@@ -47,6 +47,7 @@ define( function( require ) {
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
    * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
+   * @param {Node} comboBoxListParent - node for containing the combobox
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
@@ -57,6 +58,7 @@ define( function( require ) {
   function IntroProjectilePanel(
                                 objectTypes,
                                 selectedProjectileObjectTypeProperty,
+                                comboBoxListParent,
                                 projectileMassProperty,
                                 projectileDiameterProperty,
                                 projectileDragCoefficientProperty,
@@ -95,12 +97,10 @@ define( function( require ) {
       comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
     }
 
-    var comboBoxParent = new Node();
-
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
-      comboBoxParent, {
+      comboBoxListParent, {
         itemXMargin: itemXMargin,
         buttonXMargin: buttonXMargin,
         buttonLineWidth: comboBoxLineWidth,
@@ -109,7 +109,7 @@ define( function( require ) {
       }
     );
 
-    comboBoxParent.addChild( projectileChoiceComboBox );
+    comboBoxListParent.addChild( projectileChoiceComboBox );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -174,37 +174,37 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
     
-    var strut = new VStrut( 100 ); // temporary, for laying out combobox
+    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
+        vStrutForComboBox,
         massBox,
         diameterBox,
         airResistanceCheckBox,
-        dragCoefficientBox,
-        strut
+        dragCoefficientBox
       ]
     } );
 
-    var introSecondBox = new Node( {
-      children: [
-        content,
-        comboBoxParent
-      ]
-    } );
+    // @private for layout
+    this.projectileChoiceComboBox = projectileChoiceComboBox;
+    this.controlsVerticalSpace = options.controlsVerticalSpace;
 
-    comboBoxParent.center = content.center;
-    // content.top = projectileChoiceComboBox.bottom;
-    content.top = comboBoxParent.top + projectileChoiceComboBox.height + options.controlsVerticalSpace;
+    Panel.call( this, content, options );
 
-    Panel.call( this, introSecondBox, options );
   }
 
   projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
 
-  return inherit( Panel, IntroProjectilePanel );
+  return inherit( Panel, IntroProjectilePanel, {
+    // @public layout the combobox
+    layoutComboBox: function() {
+      this.projectileChoiceComboBox.centerX = this.centerX;
+      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace;
+    }
+  } );
 } );
 

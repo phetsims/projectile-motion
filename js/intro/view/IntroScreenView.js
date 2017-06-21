@@ -11,6 +11,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var IntroProjectilePanel = require( 'PROJECTILE_MOTION/intro/view/IntroProjectilePanel' );
   var IntroVectorsPanel = require( 'PROJECTILE_MOTION/intro/view/IntroVectorsPanel' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
@@ -27,12 +28,16 @@ define( function( require ) {
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
+    // acts as listParent for the projectile dropdown box
+    var comboBoxListParent = new Node();
+
     ProjectileMotionScreenView.call(
                                     this,
                                     model,
                                     new IntroProjectilePanel(
                                                               model.objectTypes,
                                                               model.selectedProjectileObjectTypeProperty,
+                                                              comboBoxListParent,
                                                               model.projectileMassProperty,
                                                               model.projectileDiameterProperty,
                                                               model.projectileDragCoefficientProperty,
@@ -42,10 +47,19 @@ define( function( require ) {
                                     visibilityProperties,
                                     options
     );
+
+    this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
   }
 
   projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
-  return inherit( ProjectileMotionScreenView, IntroScreenView );
+  return inherit( ProjectileMotionScreenView, IntroScreenView, {
+    // @public
+    layout: function( width, height ) {
+      ProjectileMotionScreenView.prototype.layout.call( this, width, height );
+      this.topRightPanel.layoutComboBox();
+    }
+
+  } );
 } );
 
