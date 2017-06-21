@@ -12,9 +12,11 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Color = require( 'SCENERY/util/Color' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -39,7 +41,9 @@ define( function( require ) {
   var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
 
   // constants
-  var CANNON_LENGTH = ProjectileMotionConstants.CANNON_LENGTH;
+  var CANNON_LENGTH = 3;
+  var ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
+  var ELLIPSE_HEIGHT = 72; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
   var HEIGHT_LEADER_LINE_POSITION = -2;
@@ -47,6 +51,8 @@ define( function( require ) {
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var ADJUSTABLE_HEIGHT_AREA_RADIUS = 50;
   var ROTATABLE_AREA_RADIUS = 30;
+  var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
+  var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -68,7 +74,15 @@ define( function( require ) {
     }
 
     var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
-    this.addChild( cannon );
+
+    var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
+
+    var groundCircle = new Path( ellipseShape, { x: cannon.x, y: transformProperty.get().modelToViewY( 0 ) } );
+
+    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_BLUE_COLOR ).addColorStop( 0.3, BRIGHT_BLUE_COLOR ).addColorStop( 1, DARK_BLUE_COLOR );
+    var cylinderSide = new Path( null, { x: cannon.x, fill: sideFill, stroke: BRIGHT_BLUE_COLOR } );
+    
+    var cylinderTop = new Path( ellipseShape, { x: cannon.x, fill: DARK_BLUE_COLOR, stroke: BRIGHT_BLUE_COLOR } );
 
     var cannonBarrel = new Node( { origin: cannon.orign } );
     cannon.addChild( cannonBarrel );
@@ -99,7 +113,6 @@ define( function( require ) {
         doubleHead: true
       }
     );
-    this.addChild( heightLeaderLine );
 
     // draw the line caps for the height leader line
 
@@ -107,7 +120,6 @@ define( function( require ) {
         stroke: 'black',
         lineWidth: 2
     } );
-    this.addChild( heightLeaderLineTopCap );
     
     var heightLeaderLineBottomCap = new Line( -6, 0, 6, 0, {
         stroke: 'black',
@@ -115,17 +127,14 @@ define( function( require ) {
     } );
     heightLeaderLineBottomCap.x = heightLeaderLine.tipX;
     heightLeaderLineBottomCap.y = heightLeaderLine.tipY;
-    this.addChild( heightLeaderLineBottomCap );
 
     // height readout
     var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), LABEL_OPTIONS );
     heightLabel.centerX = heightLeaderLine.tipX;
-    this.addChild( heightLabel );
 
     // angle indicator
     var angleIndicator = new Node();
     angleIndicator.x = cannon.x;
-    this.addChild( angleIndicator );
 
     // crosshair view
     var crosshairShape = new Shape()
@@ -163,7 +172,6 @@ define( function( require ) {
       pickable: true,
       cursor: 'pointer'
     } );
-    this.addChild( adjustableHeightArea );
 
     // add invisible node for dragging angle
     var rotatableArea = new Circle( ROTATABLE_AREA_RADIUS, {
@@ -172,7 +180,21 @@ define( function( require ) {
       pickable: true,
       cursor: 'pointer'
     } );
-    this.addChild( rotatableArea );
+
+    // rendering order
+    this.setChildren( [
+      groundCircle,
+      cylinderSide,
+      cylinderTop,
+      cannon,
+      heightLeaderLine,
+      heightLeaderLineTopCap,
+      heightLeaderLineBottomCap,
+      heightLabel,
+      angleIndicator,
+      adjustableHeightArea,
+      rotatableArea
+    ] );
 
     // watch for if angle changes
     angleProperty.link( function( angle ) {
@@ -188,8 +210,24 @@ define( function( require ) {
       rotatableArea.y = getY2();
     } );
 
+    var scaleMagnitude = 1;
+
     var updateHeight = function( height ) {
       cannon.y = transformProperty.get().modelToViewY( height );
+
+      cylinderTop.y = cannon.bottom;
+
+      var viewZeroY = transformProperty.get().modelToViewY( 0 );
+
+      var sideShape = new Shape();
+      sideShape.moveTo( -scaleMagnitude * ELLIPSE_WIDTH / 2, viewZeroY )
+      .lineTo( -scaleMagnitude * ELLIPSE_WIDTH / 2, cylinderTop.y )
+      .ellipticalArc( 0, cylinderTop.y, scaleMagnitude * ELLIPSE_WIDTH / 2, scaleMagnitude * ELLIPSE_HEIGHT / 2, 0, Math.PI, 0, true )
+      .lineTo( scaleMagnitude * ELLIPSE_WIDTH / 2, viewZeroY )
+      .ellipticalArc( 0, viewZeroY, scaleMagnitude * ELLIPSE_WIDTH / 2, scaleMagnitude * ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
+      .close();
+      cylinderSide.setShape( sideShape );
+
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, cannon.y );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
@@ -205,7 +243,10 @@ define( function( require ) {
 
     // update if transform changes
     transformProperty.link( function( transform ) {
-      cannon.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
+      scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
+      cannon.setScaleMagnitude( scaleMagnitude );
+      groundCircle.setScaleMagnitude( scaleMagnitude );
+      cylinderTop.setScaleMagnitude( scaleMagnitude );
       rotatableArea.x = getX2();
       rotatableArea.y = getY2();
       updateHeight( heightProperty.get() );
@@ -279,6 +320,7 @@ define( function( require ) {
         }
       }
     } ) );
+
   }
 
   projectileMotion.register( 'CannonNode', CannonNode );

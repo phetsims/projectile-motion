@@ -351,8 +351,6 @@ define( function( require ) {
       this.speedControl.left = this.topRightPanel.left;
       this.stepButton.right = this.topRightPanel.right - X_MARGIN;
       this.playPauseButton.right = this.stepButton.left - 2 * INSET;
-      // this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
-      // this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
       this.resetAllButton.right = this.topRightPanel.right;
       this.zoomControl.top = Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;

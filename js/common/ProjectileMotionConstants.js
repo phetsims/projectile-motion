@@ -50,9 +50,6 @@ define( function( require ) {
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.28 ),
     ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
 
-    // cannon
-    CANNON_LENGTH: 4, // meters
-
     // target
     TARGET_X_DEFAULT: 15, // meters
     TARGET_WIDTH: 3, // meters
