@@ -151,6 +151,7 @@ define( function( require ) {
       _.extend( { left: cannonNode.left, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
+
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTape(
       new Property( { name: metersString, multiplier: 1 } ),
@@ -206,6 +207,12 @@ define( function( require ) {
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
 
+    // play/pause button
+    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+      radius: 18,
+      bottom: ProjectileMotionConstants.VIEW_ORIGIN.y - 30,
+    } );
+
     // step button
     var stepButton = new StepForwardButton( {
       playingProperty: model.isPlayingProperty,
@@ -213,17 +220,8 @@ define( function( require ) {
       radius: 12,
       stroke: 'black',
       fill: '#005566',
-      centerX: self.layoutBounds.centerX + 100
+      centerY: playPauseButton.centerY
     } );
-
-    // play/pause button
-    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
-      radius: 18,
-      bottom: this.layoutBounds.bottom - Y_MARGIN,
-      right: stepButton.left - 2 * INSET
-    } );
-
-    stepButton.centerY = playPauseButton.centerY;
 
     // make the play/pause button bigger when it is paused
     var pauseSizeIncreaseFactor = 1.25;
@@ -247,7 +245,6 @@ define( function( require ) {
     var speedControl = new VBox( {
       align: 'left',
       spacing: 4,
-      right: playPauseButton.left - 2 * INSET,
       bottom: playPauseButton.bottom,
       children: [ normalMotionRadioBox, slowMotionRadioBox ]
     } );
@@ -258,7 +255,8 @@ define( function( require ) {
       iconWidth: 30,
       minHeight: 40,
       listener: function() { model.cannonFired(); },
-      bottom: ProjectileMotionConstants.VIEW_ORIGIN.y - 30
+      centerY: initialSpeedPanel.centerY,
+      left: initialSpeedPanel.right + 30
     } );
 
     // eraser button
@@ -267,7 +265,8 @@ define( function( require ) {
       iconWidth: 30,
       minHeight: 40,
       listener: function() { model.eraseProjectiles(); },
-      bottom: fireButton.bottom
+      bottom: fireButton.bottom,
+      left: fireButton.right + 2 * X_MARGIN
     } );
 
     // reset all button, also a closure for zoomProperty and measuringTape
@@ -286,8 +285,9 @@ define( function( require ) {
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
-    this.fireButton = fireButton;
-    this.eraserButton = eraserButton;
+    this.playPauseButton = playPauseButton;
+    this.stepButton = stepButton;
+    this.speedControl = speedControl;
     this.backgroundNode = new BackgroundNode( this.layoutBounds );
     this.zoomControl = zoomControl;
 
@@ -348,8 +348,11 @@ define( function( require ) {
       this.topRightPanel.top = Y_MARGIN - offsetY;
       this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
       this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
-      this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
-      this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
+      this.speedControl.left = this.topRightPanel.left;
+      this.stepButton.right = this.topRightPanel.right - X_MARGIN;
+      this.playPauseButton.right = this.stepButton.left - 2 * INSET;
+      // this.eraserButton.left = this.topRightPanel.centerX + X_MARGIN;
+      // this.fireButton.right = this.topRightPanel.centerX - X_MARGIN;
       this.resetAllButton.right = this.topRightPanel.right;
       this.zoomControl.top = Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
