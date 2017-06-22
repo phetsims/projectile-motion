@@ -69,7 +69,7 @@ define( function( require ) {
       fill: 'rgb( 255, 238, 218 )',
       lineWidth: 1,
       stroke: 'black',
-      textDisplayWidth: 50,
+      textDisplayWidth: 60,
       textDisplayYMargin: 4
     },
 

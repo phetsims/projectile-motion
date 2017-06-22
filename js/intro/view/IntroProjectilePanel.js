@@ -28,7 +28,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // strings
-  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
   var kgString = require( 'string!PROJECTILE_MOTION/kg' );
   var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
@@ -120,12 +120,10 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, property ) {
       // label
-      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
-        LABEL_OPTIONS
-      );
+      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -138,7 +136,7 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( value );
+        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
         valueText.center = backgroundNode.center;
       } );
 
