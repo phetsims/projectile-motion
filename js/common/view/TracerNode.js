@@ -27,7 +27,7 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // strings
-  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var timeString = require( 'string!PROJECTILE_MOTION/time' );
   var sString = require( 'string!PROJECTILE_MOTION/s');
   var rangeString = require( 'string!PROJECTILE_MOTION/range' );
@@ -107,9 +107,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( timeString, sString, timeReadoutProperty );
-    var rangeBox = this.createInformationBox( rangeString, mString, rangeReadoutProperty );
-    var heightBox = this.createInformationBox( heightString, mString, heightReadoutProperty );
+    var timeBox = this.createInformationBox( timeString, timeReadoutProperty );
+    var rangeBox = this.createInformationBox( rangeString, rangeReadoutProperty );
+    var heightBox = this.createInformationBox( heightString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -124,9 +124,9 @@ define( function( require ) {
     // Listen for when time, range, and height change, and update the readouts.
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        timeReadoutProperty.set( Util.toFixedNumber( point.time, 2 ) );
-        rangeReadoutProperty.set( Util.toFixedNumber( point.x, 2 ) );
-        heightReadoutProperty.set( Util.toFixedNumber( point.y, 2 ) );
+        timeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.time, 2 ), sString ) );
+        rangeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.x, 2 ), mString ) );
+        heightReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.y, 2 ), mString ) );
       } else {
         timeReadoutProperty.set( '-' );
         rangeReadoutProperty.set( '-' );
@@ -182,17 +182,15 @@ define( function( require ) {
     // @private auxiliary function to create label and number readout for information
     // @param {string} label
     // @param {Property} readoutProperty
-    createInformationBox: function( labelString, unitsString, readoutProperty ) {
-      var labelText = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
-        LABEL_OPTIONS
-      );
+    createInformationBox: function( labelString, readoutProperty ) {
+      var labelText = new Text( labelString, LABEL_OPTIONS );
       // TODO: make sure scales are the same for all labels
       labelText.scale( Math.min( 1, 70 / labelText.width ) );
 
       // number
       var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 
-      var backgroundWidth = 50;
+      var backgroundWidth = 60;
       var backgroundNode = new Rectangle(
         0,
         0,
@@ -206,8 +204,8 @@ define( function( require ) {
       );
 
       // update text readout if information changes
-      readoutProperty.link( function( value ) {
-        numberNode.setText( value );
+      readoutProperty.link( function( readout ) {
+        numberNode.setText( readout );
         numberNode.center = backgroundNode.center;
       } );
 
@@ -248,9 +246,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
-      var timeBox = this.createInformationBox( timeString, sString, new Property( '-' ) );
-      var rangeBox = this.createInformationBox( rangeString, mString, new Property( '-' ) );
-      var heightBox = this.createInformationBox( heightString, mString, new Property( '-' ) );
+      var timeBox = this.createInformationBox( timeString, new Property( '-' ) );
+      var rangeBox = this.createInformationBox( rangeString, new Property( '-' ) );
+      var heightBox = this.createInformationBox( heightString, new Property( '-' ) );
 
       var textBox = new VBox( {
         align: 'left',
