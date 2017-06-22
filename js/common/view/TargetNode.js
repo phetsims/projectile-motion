@@ -21,18 +21,24 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
 
   // constants
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
   var TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
-  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+  var LABEL_OPTIONS = _.defaults( { fill: 'black' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   var SCREEN_CHANGE_TIME = 1000; // milliseconds
   var TOTAL_Y_CHANGE = 70;
   var TOTAL_SCALE = 1.5;
+  var TEXT_BACKGROUND_OPTIONS = {
+    fill: 'white',
+    stroke: 'lightGray'
+  };
+  var TEXT_DISPLAY_MARGIN = 2;
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
@@ -91,9 +97,19 @@ define( function( require ) {
         targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) );
       }
     } ) );
-
+    
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString ), LABEL_OPTIONS );
+    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), mString ), LABEL_OPTIONS );
+
+    var backgroundNode = new Rectangle(
+        0, // x
+        0, // y
+        distanceLabel.width * 2, // width, widened
+        distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
+        _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
+      );
+
+    this.addChild( backgroundNode );
     this.addChild( distanceLabel );
 
     // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
@@ -130,9 +146,10 @@ define( function( require ) {
 
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
-      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), metersString );
-      distanceLabel.centerX = target.centerX;
-      distanceLabel.top = target.bottom + 2;
+      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), mString );
+      backgroundNode.centerX = target.centerX;
+      backgroundNode.top = target.bottom + 2;
+      distanceLabel.center = backgroundNode.center;
       self.rewardNodes.forEach( function( rewardNode ) {
         rewardNode.x = target.centerX;
       } );
