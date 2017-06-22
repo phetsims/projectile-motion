@@ -71,7 +71,7 @@ define( function( require ) {
 
   ProjectileObjectType.HUMAN = new ProjectileObjectType( humanString, 70, 0.5, 0.6, 'human', true );
 
-  ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 480, 2.2, 1.2, 'piano', false );
+  ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 480, 2.2, 0.9, 'piano', false );
 
   ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.25, 'golfBall', false );
 
