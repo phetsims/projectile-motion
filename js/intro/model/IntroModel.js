@@ -29,7 +29,8 @@ define( function( require ) {
       ProjectileObjectType.FOOTBALL,
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
-      ProjectileObjectType.GOLF_BALL,      
+      ProjectileObjectType.GOLF_BALL,  
+      ProjectileObjectType.TANK_SHELL    
     ];
 
     this.selectedProjectileObjectTypeProperty = new Property( this.objectTypes[ 0 ] );

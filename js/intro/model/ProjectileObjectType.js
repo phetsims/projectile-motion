@@ -23,7 +23,7 @@ define( function( require ) {
   var humanString = require( 'string!PROJECTILE_MOTION/human' );
   var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
   var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
-
+  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
   /**
    * @param {string} name - name of the object, such as 'Golf ball'
    * @param {number} mass - in kg
@@ -74,6 +74,8 @@ define( function( require ) {
   ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 480, 2.2, 1.2, 'piano', false );
 
   ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.25, 'golfBall', false );
+
+  ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 41.9, 0.15, 0.06, 'tankShell', true );
 
   return ProjectileObjectType;
 } );

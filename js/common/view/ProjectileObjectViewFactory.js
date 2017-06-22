@@ -120,6 +120,15 @@ define( function( require ) {
           return new Image( pianoImage, { maxWidth: transformedBallSize * 1.2 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
+        case 'tankShell':
+          var tankShellShape = new Shape();
+          tankShellShape.moveTo( 0, -0.4 * transformedBallSize )
+            .lineTo( -1.5 * transformedBallSize, -0.4 * transformedBallSize )
+            .lineTo( -1.5 * transformedBallSize, 0.4* transformedBallSize )
+            .lineTo( 0, 0.4 * transformedBallSize )
+            .lineTo( 0.7 * transformedBallSize, 0 )
+            .close();
+          return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
         default:
           throw new Error( 'type is not right' );
       }
@@ -145,6 +154,15 @@ define( function( require ) {
           return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.5 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
+        case 'tankShell':
+          var tankShellShape = new Shape();
+          tankShellShape.moveTo( 0, -0.4 * transformedBallSize )
+            .lineTo( -1.5 * transformedBallSize, -0.4 * transformedBallSize )
+            .lineTo( -1.5 * transformedBallSize, 0.4* transformedBallSize )
+            .lineTo( 0, 0.4 * transformedBallSize )
+            .lineTo( 0.7 * transformedBallSize, 0 )
+            .close();
+          return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
         default:
           throw new Error( 'type is not right' );
       }
