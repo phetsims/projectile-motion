@@ -217,14 +217,15 @@ define( function( require ) {
 
     // update if data point changes
     dataPointProperty.link( function( dataPoint ) {
-      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
-      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
 
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
       if( objectType ?  objectType.rotates : true  ) {
         var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity ) || 0;
         projectileObjectView.setRotation( -angle );
       }
+      
+      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
+      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
 
       var x = modelViewTransform.modelToViewX( dataPoint.x );
       var y = modelViewTransform.modelToViewY( dataPoint.y );
