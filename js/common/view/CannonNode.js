@@ -11,7 +11,6 @@ define( function( require ) {
 
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var Color = require( 'SCENERY/util/Color' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -49,8 +48,6 @@ define( function( require ) {
   var HEIGHT_LEADER_LINE_POSITION = -2;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
-  var ADJUSTABLE_HEIGHT_AREA_RADIUS = 50;
-  var ROTATABLE_AREA_RADIUS = 30;
   var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
   var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
 
@@ -63,16 +60,6 @@ define( function( require ) {
    */
   function CannonNode( heightProperty, angleProperty, transformProperty, screenView ) {
     Node.call( this );
-
-    // auxiliary functions, closures for getting the second coordinates of the line
-    // TODO: remove when you use rotate
-    function getX2() {
-      return transformProperty.get().modelToViewX( CANNON_LENGTH * Math.cos( angleProperty.get() * Math.PI / 180 ) );
-    }
-
-    function getY2() {
-      return transformProperty.get().modelToViewY( CANNON_LENGTH * Math.sin( angleProperty.get() * Math.PI / 180 ) + heightProperty.get() );
-    }
 
     var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
 
@@ -166,22 +153,6 @@ define( function( require ) {
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
     angleIndicator.addChild( angleLabel );
 
-    // // add invisible node for dragging height
-    // var adjustableHeightArea = new Circle( ADJUSTABLE_HEIGHT_AREA_RADIUS, {
-    //   x: cannon.x,
-    //   y: cannon.y,
-    //   pickable: true,
-    //   cursor: 'pointer'
-    // } );
-
-    // // add invisible node for dragging angle
-    // var rotatableArea = new Circle( ROTATABLE_AREA_RADIUS, {
-    //   x: getX2(),
-    //   y: getY2(),
-    //   pickable: true,
-    //   cursor: 'pointer'
-    // } );
-
     // rendering order
     this.setChildren( [
       groundCircle,
@@ -193,8 +164,6 @@ define( function( require ) {
       heightLeaderLineBottomCap,
       heightLabel,
       angleIndicator//,
-      // adjustableHeightArea,
-      // rotatableArea
     ] );
 
     // watch for if angle changes
@@ -205,10 +174,6 @@ define( function( require ) {
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString );
-      // adjustableHeightArea.x = cannon.x;
-      // adjustableHeightArea.y = cannon.y;
-      // rotatableArea.x = getX2();
-      // rotatableArea.y = getY2();
     } );
 
     var scaleMagnitude = 1;
@@ -235,8 +200,6 @@ define( function( require ) {
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
       heightLabel.y = heightLeaderLine.tipY - 5;
       angleIndicator.y = transformProperty.get().modelToViewY( height );
-      // adjustableHeightArea.y = cannon.y;
-      // rotatableArea.y = getY2();
     };
 
     // watch for if height changes
@@ -248,8 +211,6 @@ define( function( require ) {
       cannon.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
       cylinderTop.setScaleMagnitude( scaleMagnitude );
-      // rotatableArea.x = getX2();
-      // rotatableArea.y = getY2();
       updateHeight( heightProperty.get() );
     } );
 
@@ -319,6 +280,9 @@ define( function( require ) {
         else {
           heightProperty.set( HEIGHT_RANGE.min );
         }
+
+        // constrain within visible bounds, but this allows for decimal heights and overrides the roundsymmetric above
+        // heightProperty.set( transformProperty.get().viewToModelY( Util.clamp( transformProperty.get().modelToViewY( heightProperty.get() ), screenView.layoutBounds.minY, screenView.layoutBounds.maxY ) ) );
       }
     } ) );
 
