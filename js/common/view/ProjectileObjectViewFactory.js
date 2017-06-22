@@ -37,7 +37,7 @@ define( function( require ) {
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
-      assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1.28, 'drag coefficient out of bounds' );
+      assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient out of bounds' );
       var shape;
       var angle;
       var newRadius;
@@ -63,8 +63,8 @@ define( function( require ) {
 
         return new Path( shape, { fill: 'black' } );
       }
-      else if ( dragCoefficient < 1.17 ) { // sphere (exclusive) to hemisphere (exclusive)
-        // ( 0.47 , 1.17 )
+      else { // sphere (exclusive) to kind of hemisphere (inclusive )
+        // ( 0.47 , 1 )
         shape = new Shape();
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
         shape.moveTo( 0, -radius );
@@ -75,29 +75,6 @@ define( function( require ) {
         shape.arc( newCenterX, 0, newRadius, -angle, angle, false );
         return new Path( shape, { fill: 'black' } );
       }
-      else if ( dragCoefficient === 1.17 ) { // hemisphere
-        shape = new Shape();
-        shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
-
-        shape.moveTo( 0, -radius );
-        shape.lineTo( 0, radius );
-        return new Path( shape, { fill: 'black' } );
-      }
-      else { // hemisphere (exclusive) to flat disc (inclusive)
-        // ( 1.17 , 1.28 ]
-        // width of disc is 0.3, height is 2
-        shape = new Shape();
-        shape.moveTo( -0.3 * radius, -radius );
-        shape.lineTo( 0, -radius );
-        shape.lineTo( 0, radius );
-        shape.lineTo( -0.3 * radius, radius );
-
-        angle = Util.linear( 1.17, 1.281, Math.atan( 1 / 0.3 ), 0, dragCoefficient );
-        newRadius = radius / Math.sin( angle );
-        newCenterX = radius / Math.tan( angle ) - 0.3 * radius;
-        shape.arc( newCenterX, 0, newRadius, -Math.PI + angle, Math.PI - angle, true );
-        return new Path( shape, { fill: 'black' } );
-     }
     },
 
     // @public @returns {Circle} object based on the type

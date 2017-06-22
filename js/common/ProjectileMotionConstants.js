@@ -46,9 +46,9 @@ define( function( require ) {
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 16, // milliseconds
 
-    // http://www.aquaphoenix.com/lecture/matlab5/page2.html, teardrop to pancake shape
-    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.28 ),
-    ALTITUDE_RANGE: new Range( 0, 30000 ), // meters, max is arbitrary but in upper stratosphere
+    // teardrop to almost pancake shape
+    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),
+    ALTITUDE_RANGE: new Range( 0, 2000 ), // meters, max is arbitrary but in upper stratosphere
 
     // target
     TARGET_X_DEFAULT: 15, // meters

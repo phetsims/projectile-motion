@@ -25,7 +25,7 @@ define( function( require ) {
       leadDesign: 'Amanda McGarry, Amy Rouinfar',
       softwareDevelopment: 'Andrea Lin, Mike Dubson',
       team: 'Ariel Paul, Kathy Perkins',
-      qualityAssurance: '',
+      qualityAssurance: 'Steele Dalton',
       graphicArts: '',
       thanks: ''
     }
