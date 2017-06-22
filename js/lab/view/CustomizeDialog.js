@@ -49,7 +49,6 @@ define( function( require ) {
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var BOLD_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BOLD_LABEL_OPTIONS;
-  var BIGGER_BOLD_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_BOLD_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
     stroke: 'black'
@@ -140,7 +139,7 @@ define( function( require ) {
       altitudeBox
     ];
 
-    var airResistanceLabel = new Text( airResistanceString, BIGGER_BOLD_LABEL_OPTIONS );
+    var airResistanceLabel = new Text( airResistanceString, BOLD_LABEL_OPTIONS );
     this.modelAirResistanceProperty = labModel.airResistanceOnProperty;
     this.detachedAirResistanceProperty = new Property( this.modelAirResistanceProperty.get() );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, this.detachedAirResistanceProperty );

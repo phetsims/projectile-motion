@@ -38,7 +38,6 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
     stroke: 'lightGray'
@@ -138,7 +137,7 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
-    var airResistanceLabel = new Text( airResistanceString, BIGGER_LABEL_OPTIONS );
+    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
 
     var dragCoefficientBox = ( function( labelString, property ) {

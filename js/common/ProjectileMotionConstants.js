@@ -86,9 +86,7 @@ define( function( require ) {
 
     PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
-    PANEL_BIGGER_LABEL_OPTIONS: { font: new PhetFont( 16 ) },
     PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
-    PANEL_BIGGER_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 16, weight: 'bold' } ) },
 
     YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 14 ),

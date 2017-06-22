@@ -25,7 +25,7 @@ define( function( require ) {
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
-  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
+  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
@@ -42,15 +42,15 @@ define( function( require ) {
     
     var velocityVectorsTitle = new Text( velocityVectorsString, TITLE_OPTIONS );
 
-    var totalVelocityLabel = new Text( totalString, BIGGER_LABEL_OPTIONS );
+    var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
     var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty );
     
-    var componentsVelocityLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
+    var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
     var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
     
     var accelerationVectorsTitle = new Text( accelerationVectorsString, TITLE_OPTIONS );
 
-    var componentsAccelerationLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
+    var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
     var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
 
     // The contents of the control panel

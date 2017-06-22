@@ -26,7 +26,7 @@ define( function( require ) {
   var componentsString = require( 'string!PROJECTILE_MOTION/components' );
 
   // constants
-  var BIGGER_LABEL_OPTIONS = ProjectileMotionConstants.PANEL_BIGGER_LABEL_OPTIONS;
+  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
@@ -41,8 +41,8 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
     
-    var totalLabel = new Text( totalString, BIGGER_LABEL_OPTIONS );
-    var componentsLabel = new Text( componentsString, BIGGER_LABEL_OPTIONS );
+    var totalLabel = new Text( totalString, LABEL_OPTIONS );
+    var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
     
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
@@ -53,13 +53,13 @@ define( function( require ) {
       touchAreaXDilation: 5
     } );
 
-    var velocityLabel = new Text( velocityVectorsString, BIGGER_LABEL_OPTIONS );
+    var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
     var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty );
 
-    var accelerationLabel = new Text( accelerationVectorsString, BIGGER_LABEL_OPTIONS );
+    var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty );
     
-    var forceLabel = new Text( forceVectorsString, BIGGER_LABEL_OPTIONS );
+    var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty );
 
     // The contents of the control panel
