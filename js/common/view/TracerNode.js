@@ -184,7 +184,7 @@ define( function( require ) {
     // @param {Property} readoutProperty
     createInformationBox: function( labelString, readoutProperty ) {
       var labelText = new Text( labelString, LABEL_OPTIONS );
-      // TODO: make sure scales are the same for all labels
+      // TODO: make sure scales are the same for all labels. 70 is the empirically determined width for label
       labelText.scale( Math.min( 1, 70 / labelText.width ) );
 
       // number
