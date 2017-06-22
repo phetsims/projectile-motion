@@ -25,7 +25,8 @@ define( function( require ) {
   var CEMENT_WIDTH = 20;
   var GRASS_WIDTH = 5;
   var LINE_WIDTH = 2;
-  var FLATIRONS_WIDTH = 800;
+  var FLATIRONS_WIDTH = 500;
+  var FLATIRONS_OFFSET = 150;
 
   /**
    * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
@@ -73,7 +74,7 @@ define( function( require ) {
       this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
 
       this.flatirons.bottom = ProjectileMotionConstants.VIEW_ORIGIN.y;
-      this.flatirons.left = ProjectileMotionConstants.VIEW_ORIGIN.x;
+      this.flatirons.left = ProjectileMotionConstants.VIEW_ORIGIN.x + FLATIRONS_OFFSET;
     },
 
     // @public makes flatirons image visible or disappear
