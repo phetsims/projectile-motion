@@ -63,17 +63,17 @@ define( function( require ) {
 
   ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin', false );
 
-  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.4, 'baseball', false );
+  ProjectileObjectType.BASEBALL = new ProjectileObjectType( baseballString, 0.145, 0.074, 0.35, 'baseball', false );
 
-  ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 1500, 2.5, 1.28, 'buick', true ); // Use 1.28 instead of 1.3 to remain within range
+  ProjectileObjectType.BUICK = new ProjectileObjectType( buickString, 2000, 2, 0.55, 'buick', true );
 
-  ProjectileObjectType.FOOTBALL = new ProjectileObjectType( footballString, 0.41, 0.17, 0.15, 'football', true );
+  ProjectileObjectType.FOOTBALL = new ProjectileObjectType( footballString, 0.41, 0.17, 0.05, 'football', true );
 
-  ProjectileObjectType.HUMAN = new ProjectileObjectType( humanString, 70, 0.5, 1.28, 'human', true ); // Use 1.28 instead of 1.3 to remain within range
+  ProjectileObjectType.HUMAN = new ProjectileObjectType( humanString, 70, 0.5, 0.6, 'human', true );
 
-  ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 400, 2, 1.2, 'piano', false );
+  ProjectileObjectType.PIANO = new ProjectileObjectType( pianoString, 480, 2.2, 1.2, 'piano', false );
 
-  ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.24, 'golfBall', false );
+  ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.25, 'golfBall', false );
 
   return ProjectileObjectType;
 } );

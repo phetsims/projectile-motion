@@ -117,7 +117,7 @@ define( function( require ) {
         case 'human':
           return new Image( humanImage, { maxHeight: transformedBallSize } );
         case 'piano':
-          return new Image( pianoImage, { maxWidth: transformedBallSize } );
+          return new Image( pianoImage, { maxWidth: transformedBallSize * 1.2 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         default:
@@ -142,7 +142,7 @@ define( function( require ) {
         case 'human':
           return new Image( landedHumanImage, { maxWidth: transformedBallSize } );
         case 'piano':
-          return new Image( landedPianoImage, { maxWidth: transformedBallSize } );
+          return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.5 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         default:
