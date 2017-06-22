@@ -111,13 +111,13 @@ define( function( require ) {
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
-          return new Image( buickImage, { maxHeight: transformedBallSize } );
+          return new Image( buickImage, { maxHeight: transformedBallSize * 0.8 } );
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
-          return new Image( humanImage, { maxHeight: transformedBallSize } );
+          return new Image( humanImage, { maxHeight: transformedBallSize * 1.2 } );
         case 'piano':
-          return new Image( pianoImage, { maxWidth: transformedBallSize * 1.2 } );
+          return new Image( pianoImage, { maxWidth: transformedBallSize * 1.1 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
@@ -145,13 +145,13 @@ define( function( require ) {
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
-          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 2 } ); // * 2 is empirically determined based on image
+          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.6 } ); // * 2 is empirically determined based on image
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
-          return new Image( landedHumanImage, { maxWidth: transformedBallSize } );
+          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.2 } );
         case 'piano':
-          return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.5 } );
+          return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
