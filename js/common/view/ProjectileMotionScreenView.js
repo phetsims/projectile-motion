@@ -207,10 +207,21 @@ define( function( require ) {
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
 
+    // reset all button, also a closure for zoomProperty and measuringTape
+    var resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+        vectorVisibilityProperties.reset();
+        targetNode.reset();
+        zoomProperty.reset();
+      },
+      centerY: initialSpeedPanel.centerY,
+    } );
+
     // play/pause button
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
-      bottom: ProjectileMotionConstants.VIEW_ORIGIN.y - 30,
+      bottom: resetAllButton.bottom,
     } );
 
     // step button
@@ -267,17 +278,6 @@ define( function( require ) {
       listener: function() { model.eraseProjectiles(); },
       bottom: fireButton.bottom,
       left: fireButton.right + 2 * X_MARGIN
-    } );
-
-    // reset all button, also a closure for zoomProperty and measuringTape
-    var resetAllButton = new ResetAllButton( {
-      listener: function() {
-        model.reset();
-        vectorVisibilityProperties.reset();
-        targetNode.reset();
-        zoomProperty.reset();
-      },
-      bottom: this.layoutBounds.maxY - Y_MARGIN
     } );
 
     // @private properties to be layout
@@ -348,10 +348,10 @@ define( function( require ) {
       this.topRightPanel.top = Y_MARGIN - offsetY;
       this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
       this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
-      this.speedControl.left = this.topRightPanel.left;
-      this.stepButton.right = this.topRightPanel.right - X_MARGIN;
-      this.playPauseButton.right = this.stepButton.left - 2 * INSET;
       this.resetAllButton.right = this.topRightPanel.right;
+      this.stepButton.right = this.resetAllButton.left - 2 * INSET;
+      this.playPauseButton.right = this.stepButton.left - 2 * INSET;
+      this.speedControl.left = this.topRightPanel.left;
       this.zoomControl.top = Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
     }

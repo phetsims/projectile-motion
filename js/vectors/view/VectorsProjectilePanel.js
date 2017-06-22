@@ -113,7 +113,7 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-      return new VBox( { spacing: options.yMargin, children: [
+      return new VBox( { spacing: options.sliderLabelSpacing, children: [
           new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
           slider
       ] } );

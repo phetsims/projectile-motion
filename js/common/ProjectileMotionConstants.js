@@ -70,7 +70,8 @@ define( function( require ) {
       lineWidth: 1,
       stroke: 'black',
       textDisplayWidth: 60,
-      textDisplayYMargin: 4
+      textDisplayYMargin: 4,
+      sliderLabelSpacing: 6
     },
 
     INITIAL_SPEED_PANEL_OPTIONS: {

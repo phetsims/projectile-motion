@@ -117,7 +117,7 @@ define( function( require ) {
         var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in viewNode
         var valueAndDisplay = new VBox( { align: 'right', children: [ strut, viewAndValueNodes ] } );
         var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueAndDisplay.width;
-        return new VBox( { spacing: options.yMargin, children: [
+        return new VBox( { spacing: options.sliderLabelSpacing, children: [
             new HBox( { spacing: xSpacing, children: [ parameterLabel, valueAndDisplay ] } ),
             slider
         ] } );
@@ -125,7 +125,7 @@ define( function( require ) {
 
       else {
         xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-        return new VBox( { spacing: options.yMargin, children: [
+        return new VBox( { spacing: options.sliderLabelSpacing, children: [
             new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
             slider
         ] } );
