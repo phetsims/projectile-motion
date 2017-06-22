@@ -223,7 +223,7 @@ define( function( require ) {
         var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity ) || 0;
         projectileObjectView.setRotation( -angle );
       }
-      
+
       projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
       projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
 
@@ -267,6 +267,9 @@ define( function( require ) {
         if ( landedObjectView ) {
           landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
           landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
+          if ( objectType ? objectType.type === 'human' || objectType.type === 'buick' : false ) {
+            landedObjectView.bottom = landedObjectView.centerY;
+          }
           if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
             projectileViewLayer.removeChild( projectileObjectView );
           }
