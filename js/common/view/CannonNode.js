@@ -142,12 +142,12 @@ define( function( require ) {
     angleIndicator.addChild( crosshair );
 
     var darkerCrosshairShape = new Shape()
-      .moveTo( -CROSSHAIR_LENGTH / 9, 0 )
-      .lineTo( CROSSHAIR_LENGTH / 9, 0 )
-      .moveTo( 0, -CROSSHAIR_LENGTH / 9 )
-      .lineTo( 0, CROSSHAIR_LENGTH / 9 );
+      .moveTo( -CROSSHAIR_LENGTH / 15, 0 )
+      .lineTo( CROSSHAIR_LENGTH / 15, 0 )
+      .moveTo( 0, -CROSSHAIR_LENGTH / 15 )
+      .lineTo( 0, CROSSHAIR_LENGTH / 15 );
 
-    var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', strokeWidth: 3 } );
+    var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
     angleIndicator.addChild( darkerCrosshair );
 
     // view for the angle arc
