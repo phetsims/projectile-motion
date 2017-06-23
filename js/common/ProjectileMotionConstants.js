@@ -22,7 +22,7 @@ define( function( require ) {
     RANDOM_ICON_FACTORY: new RandomIconFactory( -33 ),
 
     // truths about the world
-    ACCELERATION_DUE_TO_GRAVITY: 9.8,
+    ACCELERATION_DUE_TO_GRAVITY: 9.81,
     SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // screen view layout
