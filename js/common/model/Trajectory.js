@@ -206,10 +206,6 @@ define( function( require ) {
       // create a brand new trajectory
       var newTrajectory = new Trajectory( this.projectileMotionModel );
 
-      // clear all the projectile objects and add just one
-      newTrajectory.projectileObjects.clear();
-      newTrajectory.projectileObjects.push( projectileObject );
-
       // clear all the data points and then add up to where the current flying projectile is
       newTrajectory.dataPoints.clear();
       var i;
@@ -217,6 +213,10 @@ define( function( require ) {
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
+      
+      // clear all the projectile objects and add just one
+      newTrajectory.projectileObjects.clear();
+      newTrajectory.projectileObjects.push( projectileObject );
 
       return newTrajectory;
     },

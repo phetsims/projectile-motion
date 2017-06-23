@@ -77,8 +77,8 @@ define( function( require ) {
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], getAirDensity );
 
     // change status of projectiles
-    this.airDensityProperty.link( this.updateStatusOfProjectiles.bind( this ) );
-    this.gravityProperty.link( this.updateStatusOfProjectiles.bind( this ) );
+    this.airDensityProperty.link( this.updateStatusofTrajectories.bind( this ) );
+    this.gravityProperty.link( this.updateStatusofTrajectories.bind( this ) );
     
     // --animation playing controls
 
@@ -250,15 +250,19 @@ define( function( require ) {
     },
 
       // @private updates the status of the trajectories, as in whether they are changed in mid air
-      updateStatusOfProjectiles: function() {
+      updateStatusofTrajectories: function() {
         var self = this;
         this.trajectories.forEach( function( trajectory ) {
-          trajectory.changedInMidAir = true;
+          if( !trajectory.reachedGround ) {
+            trajectory.changedInMidAir = true;
+          }
 
           var i;
           for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
             var projectileObject = trajectory.projectileObjects.get( i );
             if ( projectileObject.dataPointProperty.get().y > 0 ) {
+              trajectory.projectileObjects.remove( projectileObject );
+              
               // object is still in the air so a new trajectory needs to be created
               var newTrajectory = trajectory.newTrajectory( projectileObject );
               newTrajectory.changedInMidAir = true;
