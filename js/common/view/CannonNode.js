@@ -42,7 +42,7 @@ define( function( require ) {
   // constants
   var CANNON_LENGTH = 4;
   var ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
-  var ELLIPSE_HEIGHT = 72; // empirically determinedin view coordinates
+  var ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
   var HEIGHT_LEADER_LINE_POSITION = -2;
@@ -84,10 +84,13 @@ define( function( require ) {
     var cannonBarrelTop = new Image( cannonBarrelTopImage, { left: 0, centerY: 0, pickable: true, cursor: 'pointer' } );
     cannonBarrel.addChild( cannonBarrelTop );
 
-    var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0, pickable: true, cursor: 'pointer' } );
-    clippableNode.addChild( cannonBaseBottom );
+    var cannonBase = new Node( { pickable: true, cursor: 'pointer' } );
+    clippableNode.addChild( cannonBase );
+
+    var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    cannonBase.addChild( cannonBaseBottom );
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
-    clippableNode.addChild( cannonBaseTop );
+    cannonBase.addChild( cannonBaseTop );
 
     clippableNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
@@ -186,9 +189,8 @@ define( function( require ) {
     var updateHeight = function( height ) {
       var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( new Vector2( 0, transformProperty.get().modelToViewY( height ) ) ) ).y;
       cannonBarrel.y = heightInClipCoordinates;
-      cannonBaseBottom.top = heightInClipCoordinates;
-      cannonBaseTop.bottom = heightInClipCoordinates;
-      cylinderTop.y = cannonBaseBottom.bottom;
+      cannonBase.y = heightInClipCoordinates;
+      cylinderTop.y = cannonBase.bottom - ELLIPSE_HEIGHT / 4;
 
       var sideShape = new Shape();
       sideShape.moveTo( -ELLIPSE_WIDTH / 2, 0 )
@@ -272,7 +274,7 @@ define( function( require ) {
     } ) );
 
     // drag the base of the cannon to change height
-    cannonBaseBottom.addInputListener( new SimpleDragHandler( {
+    cannonBase.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
