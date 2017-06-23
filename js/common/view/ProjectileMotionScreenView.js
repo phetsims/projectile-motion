@@ -148,7 +148,7 @@ define( function( require ) {
 
     var initialSpeedPanel = new Panel(
       initialSpeedControl,
-      _.extend( { left: cannonNode.left, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
+      _.extend( { left: this.layoutBounds.left + X_MARGIN, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
 
