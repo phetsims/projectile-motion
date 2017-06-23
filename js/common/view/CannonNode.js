@@ -183,7 +183,7 @@ define( function( require ) {
     var scaleMagnitude = 1;
 
     var updateHeight = function( height ) {
-      var heightInClipCoordinates = clippableNode.globalToLocalPoint( new Vector2( 0, transformProperty.get().modelToViewY( height ) ) ).y;
+      var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( new Vector2( 0, transformProperty.get().modelToViewY( height ) ) ) ).y;
       cannonBarrel.y = heightInClipCoordinates;
       cannonBaseBottom.y = heightInClipCoordinates;
       cannonBaseTop.y = heightInClipCoordinates;
