@@ -258,7 +258,7 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
-          angleProperty.set( Util.roundSymmetric( unboundedNewAngle ) );
+          angleProperty.set( Util.roundSymmetric( unboundedNewAngle / 5 ) * 5 );
         }
         // the current, unchanged, angle is closer to max than min
         else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
