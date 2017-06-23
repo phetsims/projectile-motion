@@ -40,7 +40,7 @@ define( function( require ) {
   var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
 
   // constants
-  var CANNON_LENGTH = 3;
+  var CANNON_LENGTH = 4;
   var ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
   var ELLIPSE_HEIGHT = 72; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
@@ -66,7 +66,8 @@ define( function( require ) {
     // var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
 
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
-    var groundCircle = new Path( ellipseShape, { x: clippableNode.x, y: transformProperty.get().modelToViewY( 0 ) } );
+    var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, 'gray' ).addColorStop( 0.3, 'white' ).addColorStop( 1, 'gray' );
+    var groundCircle = new Path( ellipseShape, { x: clippableNode.x, y: transformProperty.get().modelToViewY( 0 ), fill: groundFill, stroke: BRIGHT_BLUE_COLOR } );
 
     var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_BLUE_COLOR ).addColorStop( 0.3, BRIGHT_BLUE_COLOR ).addColorStop( 1, DARK_BLUE_COLOR );
     var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_BLUE_COLOR } );
@@ -185,8 +186,8 @@ define( function( require ) {
     var updateHeight = function( height ) {
       var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( new Vector2( 0, transformProperty.get().modelToViewY( height ) ) ) ).y;
       cannonBarrel.y = heightInClipCoordinates;
-      cannonBaseBottom.y = heightInClipCoordinates;
-      cannonBaseTop.y = heightInClipCoordinates;
+      cannonBaseBottom.top = heightInClipCoordinates;
+      cannonBaseTop.bottom = heightInClipCoordinates;
       cylinderTop.y = cannonBaseBottom.bottom;
 
       var sideShape = new Shape();
@@ -197,6 +198,16 @@ define( function( require ) {
       .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
       .close();
       cylinderSide.setShape( sideShape );
+
+      var clipArea = new Shape();
+      clipArea.moveTo( -ELLIPSE_WIDTH / 2, 0 )
+      .lineTo( -ELLIPSE_WIDTH / 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
+      .lineTo( ELLIPSE_WIDTH * 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
+      .lineTo( ELLIPSE_WIDTH * 2, 0 )
+      .lineTo( ELLIPSE_WIDTH / 2, 0 )
+      .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
+      .close();
+      clippableNode.setClipArea( clipArea );
 
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, transformProperty.get().modelToViewY( height ) );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
@@ -214,7 +225,7 @@ define( function( require ) {
       scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
       clippableNode.setScaleMagnitude( scaleMagnitude );
       // cannon.setScaleMagnitude( scaleMagnitude );
-      // groundCircle.setScaleMagnitude( scaleMagnitude );
+      groundCircle.setScaleMagnitude( scaleMagnitude );
       // cylinderTop.setScaleMagnitude( scaleMagnitude );
       updateHeight( heightProperty.get() );
     } );
