@@ -63,6 +63,9 @@ define( function( require ) {
     this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
 
     // --properties that change the environment and affect all projectiles
+    
+    // @public {Property.<number>} acceleration due to gravity, in meters per second squared
+    this.gravityProperty = new Property( ProjectileMotionConstants.GRAVITY_ON_EARTH );
 
     // @public {Property.<number>} altitude of the environment, in meters
     this.altitudeProperty = new Property( 0 );
@@ -75,6 +78,7 @@ define( function( require ) {
 
     // change status of projectiles
     this.airDensityProperty.link( this.updateStatusOfProjectiles.bind( this ) );
+    this.gravityProperty.link( this.updateStatusOfProjectiles.bind( this ) );
     
     // --animation playing controls
 
@@ -144,6 +148,7 @@ define( function( require ) {
       this.projectileMassProperty.reset();
       this.projectileDiameterProperty.reset();
       this.projectileDragCoefficientProperty.reset();
+      this.gravityProperty.reset();
       this.altitudeProperty.reset();
       this.airResistanceOnProperty.reset();
       this.speedProperty.reset();

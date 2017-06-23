@@ -16,12 +16,9 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-
-  // constants
-  var ACCELERATION_DUE_TO_GRAVITY = ProjectileMotionConstants.ACCELERATION_DUE_TO_GRAVITY;
 
   /**
    * @param {ProjectileMotionModel} model
@@ -60,10 +57,10 @@ define( function( require ) {
       model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 ), // x velocity
       model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 ), // y velocity
       0, // x acceleration
-      -ACCELERATION_DUE_TO_GRAVITY, // y acceleration
+      -model.gravityProperty.get(), // y acceleration
       0, // x drag force
       0, // y drag force
-      -ACCELERATION_DUE_TO_GRAVITY * this.mass // force gravity
+      -model.gravityProperty.get() * this.mass // force gravity
     );
 
     // add dataPoint for initial conditions
@@ -99,6 +96,7 @@ define( function( require ) {
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
         var airDensity = this.projectileMotionModel.airDensityProperty.get();
+        var gravity = this.projectileMotionModel.gravityProperty.get();
 
         var newXDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity * newXVelocity;
         var newYDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity * newYVelocity;
@@ -113,17 +111,17 @@ define( function( require ) {
           newY = 0;
 
           var newPoint = new DataPoint(
-            previousPoint.time,
+            previousPoint.time + timeToGround,
             newX,
             newY,
-            previousPoint.airDensity,
+            airDensity,
             0, // x velocity
             0, // y velocity
             0, // x acceleration
             0, // y acceleration
             0, // x drag force
             0, // y drag force
-            previousPoint.forceGravity
+            -gravity * this.mass
           );
 
           newPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
@@ -139,10 +137,10 @@ define( function( require ) {
             newXVelocity,
             newYVelocity,
             -newXDragForce / this.mass, // x acceleration
-            -ACCELERATION_DUE_TO_GRAVITY - newYDragForce / this.mass, // y acceleration
+            -gravity - newYDragForce / this.mass, // y acceleration
             newXDragForce,
             newYDragForce,
-            previousPoint.forceGravity
+            -gravity * this.mass
           );
         }
 
@@ -235,7 +233,8 @@ define( function( require ) {
         && this.dragCoefficient === model.projectileDragCoefficientProperty.get()
         && initialPoint.xVelocity === model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 )
         && initialPoint.yVelocity === model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
-        && initialPoint.airDensity === model.airDensityProperty.get();
+        && initialPoint.airDensity === model.airDensityProperty.get()
+        && -initialPoint.yAcceleration === model.gravityProperty.get();
     }
 
   } );
