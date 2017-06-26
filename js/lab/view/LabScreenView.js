@@ -15,6 +15,11 @@ define( function( require ) {
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
+
+  // constants
+  // var X_MARGIN = 10;
+  // var Y_MARGIN = 5;
 
   /**
    * @param {LabModel} model
@@ -30,6 +35,7 @@ define( function( require ) {
 
     // acts as listParent for the projectile dropdown box
     var comboBoxListParent = new Node();
+    var keypadLayer = new KeypadLayer( { decimalPointKey: true } );
 
     ProjectileMotionScreenView.call(
                                     this,
@@ -43,6 +49,7 @@ define( function( require ) {
                                                             model.objectTypes,
                                                             model.selectedProjectileObjectTypeProperty,
                                                             comboBoxListParent,
+                                                            keypadLayer,
                                                             model.projectileMassProperty,
                                                             model.projectileDiameterProperty,
                                                             model.projectileDragCoefficientProperty,
@@ -54,6 +61,11 @@ define( function( require ) {
     );
 
     this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
+    this.addChild( keypadLayer );
+
+    // @private, for layout
+    this.keypadLayer = keypadLayer;
+
 
   }
 

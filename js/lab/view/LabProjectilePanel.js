@@ -63,6 +63,7 @@ define( function( require ) {
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
    * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
    * @param {Node} comboBoxListParent - node for containing the combobox
+   * @param {KeypadLayer} keypadLayer - for entering values
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
@@ -75,6 +76,7 @@ define( function( require ) {
                               objectTypes,
                               selectedProjectileObjectTypeProperty,
                               comboBoxListParent,
+                              keypadLayer,
                               projectileMassProperty,
                               projectileDiameterProperty,
                               projectileDragCoefficientProperty,
@@ -169,8 +171,15 @@ define( function( require ) {
         centerY: backgroundNode.centerY,
         left: backgroundNode.right + options.xMargin,
         content: pencilIcon,
-        baseColor: PhetColorScheme.PHET_LOGO_YELLOW//,
-        // listener: self.editButtonListener.bind( self, parameterBox )
+        baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
+        listener: function() { 
+          keypadLayer.beginEdit( property, {
+          onBeginEdit: function() { backgroundNode.fill = 'yellow'; },
+          onEndEdit: function() { backgroundNode.fill = 'white'; },
+            maxDigits: 5,
+            maxDecimals: 3,
+          } );
+        }
       } );
 
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
@@ -274,7 +283,6 @@ define( function( require ) {
     // @private for layout
     this.projectileChoiceComboBox = projectileChoiceComboBox;
     this.controlsVerticalSpace = options.controlsVerticalSpace;
-
 
     Panel.call( this, content, options );
   }

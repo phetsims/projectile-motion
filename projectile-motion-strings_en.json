@@ -26,6 +26,9 @@
   "custom": {
     "value": "Custom"
   },
+  "enter": {
+    "value": "Enter"
+  },
   "angle": {
     "value": "Angle"
   },
