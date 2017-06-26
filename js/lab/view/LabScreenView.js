@@ -14,6 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
+  var Node = require( 'SCENERY/nodes/Node' );
 
   /**
    * @param {LabModel} model
@@ -27,6 +28,9 @@ define( function( require ) {
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
+    // acts as listParent for the projectile dropdown box
+    var comboBoxListParent = new Node();
+
     ProjectileMotionScreenView.call(
                                     this,
                                     model,
@@ -36,6 +40,9 @@ define( function( require ) {
                                                             model.launchVelocityProperty
                                     ),
                                     new LabProjectilePanel(
+                                                            model.objectTypes,
+                                                            model.selectedProjectileObjectTypeProperty,
+                                                            comboBoxListParent,
                                                             model.projectileMassProperty,
                                                             model.projectileDiameterProperty,
                                                             model.projectileDragCoefficientProperty,
@@ -46,10 +53,20 @@ define( function( require ) {
                                     options
     );
 
+    this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
+
   }
 
   projectileMotion.register( 'LabScreenView', LabScreenView );
 
-  return inherit( ProjectileMotionScreenView, LabScreenView );
+  return inherit( ProjectileMotionScreenView, LabScreenView, {
+    // @public
+    layout: function( width, height ) {
+      ProjectileMotionScreenView.prototype.layout.call( this, width, height );
+      this.bottomRightPanel.layoutComboBox();
+    }
+
+  } );
 } );
+
 

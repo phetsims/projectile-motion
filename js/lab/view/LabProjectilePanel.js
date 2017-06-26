@@ -10,6 +10,7 @@ define( function( require ) {
 
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
+  var ComboBox = require( 'SUN/ComboBox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -20,7 +21,9 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -40,6 +43,9 @@ define( function( require ) {
   };
 
   /**
+   * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
+   * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
+   * @param {Node} comboBoxListParent - node for containing the combobox
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
@@ -49,6 +55,9 @@ define( function( require ) {
    * @constructor
    */
   function LabProjectilePanel(
+                              objectTypes,
+                              selectedProjectileObjectTypeProperty,
+                              comboBoxListParent,
                               projectileMassProperty,
                               projectileDiameterProperty,
                               projectileDragCoefficientProperty,
@@ -62,6 +71,45 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+
+    var firstItemNode = new VBox( {
+      align: 'left',
+      children: [
+        new Text( objectTypes[ 0 ].name, LABEL_OPTIONS )
+      ]
+    } );
+
+    var comboBoxWidth = options.minWidth - 2 * options.xMargin;
+    var itemXMargin = 6;
+    var buttonXMargin = 10;
+    var comboBoxLineWidth = 1;
+
+    // first item contains horizontal strut that sets width of combobox
+    var firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
+    firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
+
+    var comboBoxItems = [];
+    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, objectTypes[ 0 ] );
+
+    var i;
+    for ( i = 1; i < objectTypes.length; i++ ) {
+      var projectileObject = objectTypes[ i ];
+      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
+    }
+
+    var projectileChoiceComboBox = new ComboBox(
+      comboBoxItems,
+      selectedProjectileObjectTypeProperty,
+      comboBoxListParent, {
+        itemXMargin: itemXMargin,
+        buttonXMargin: buttonXMargin,
+        buttonLineWidth: comboBoxLineWidth,
+        listLineWidth: comboBoxLineWidth,
+        itemHighlightLineWidth: comboBoxLineWidth
+      }
+    );
+
+    comboBoxListParent.addChild( projectileChoiceComboBox );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -134,11 +182,14 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
 
+    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
+
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
+        vStrutForComboBox,
         massBox,
         diameterBox,
         airResistanceCheckBox,
@@ -146,12 +197,24 @@ define( function( require ) {
         altitudeBox
       ]
     } );
+    
+    // @private for layout
+    this.projectileChoiceComboBox = projectileChoiceComboBox;
+    this.controlsVerticalSpace = options.controlsVerticalSpace;
+
 
     Panel.call( this, content, options );
   }
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
-  return inherit( Panel, LabProjectilePanel );
+  return inherit( Panel, LabProjectilePanel, {
+    // @public layout the combobox
+    layoutComboBox: function() {
+      this.projectileChoiceComboBox.centerX = this.centerX;
+      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace;
+    }
+  } );
 } );
+
 
