@@ -75,12 +75,12 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     'cannonball',
     false, {
-      // massRange: 
-      // massRound:
+      massRange: new Range( 1, 50 ),
+      massRound: 0.1,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01
-      // dragCoefficientRange:
-      // dragCoefficientRound:
+      diameterRound: 0.01,
+      dragCoefficientRange: new Range( 0.2, 0.7 ),
+      dragCoefficientRound: 0.01
     }
   );
 
@@ -107,12 +107,12 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
     false, {
-      // massRange: 
-      // massRound:
+      massRange: new Range( 0.04, 2000 ),
+      massRound: 0.001,
       diameterRange: new Range( 0.01, 2.5 ),
-      diameterRound: 0.001
-      // dragCoefficientRange:
-      // dragCoefficientRound:
+      diameterRound: 0.001,
+      dragCoefficientRange: new Range( 0.04, 1 ),
+      dragCoefficientRound: 0.01
     }
   );
 

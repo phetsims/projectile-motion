@@ -49,7 +49,7 @@ define( function( require ) {
 
     // teardrop to almost pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),
-    ALTITUDE_RANGE: new Range( 0, 2000 ), // meters, max is arbitrary but in upper stratosphere
+    ALTITUDE_RANGE: new Range( 0, 5000 ), // meters, max is arbitrary but in upper stratosphere
 
     // target
     TARGET_X_DEFAULT: 15, // meters

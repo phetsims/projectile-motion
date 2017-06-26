@@ -189,13 +189,6 @@ define( function( require ) {
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
 
-    var massBox = createParameterControlBox(
-      massString,
-      kgString,
-      projectileMassProperty,
-      ProjectileMotionConstants.PROJECTILE_MASS_RANGE
-    );
-
     var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       return new VBox( {
         spacing: options.sliderLabelSpacing,
@@ -219,47 +212,85 @@ define( function( require ) {
     }, NUMBER_CONTROL_OPTIONS );
 
 
-    // diameter readout, slider, and tweakers
-    // TODO: make numbercontrol options, and then extend
+    // readout, slider, and tweakers
+    var massBox = new Node();
     var diameterBox = new Node();
+    var dragCoefficientBox = new Node();
+    var altitudeBox = new Node();
 
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
+      massBox.removeAllChildren();
       diameterBox.removeAllChildren();
+      dragCoefficientBox.removeAllChildren();
+      altitudeBox.removeAllChildren();
       if ( objectType.type ) {
+        massBox.addChild( new NumberControl(
+          massString, projectileMassProperty,
+          objectType.massRange, _.extend( {
+            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', kgString ),
+            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
+            majorTicks: [ { value: objectType.massRange.min }, { value: objectType.massRange.max } ],
+            decimalPlaces: Math.ceil( -Math.log10( objectType.massRound ) ),
+            delta: objectType.massRound
+          }, numberControlOptions )
+        ) );
         diameterBox.addChild( new NumberControl(
           diameterString, projectileDiameterProperty,
-          selectedProjectileObjectTypeProperty.get().diameterRange, _.extend( {
+          objectType.diameterRange, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
-            constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
-            majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
-            decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
-            delta: selectedProjectileObjectTypeProperty.get().diameterRound
+            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
+            majorTicks: [ { value: objectType.diameterRange.min }, { value: objectType.diameterRange.max } ],
+            decimalPlaces: Math.ceil( -Math.log10( objectType.diameterRound ) ),
+            delta: objectType.diameterRound
+          }, numberControlOptions )
+        ) );
+        dragCoefficientBox.addChild( new NumberControl(
+          dragCoefficientString, projectileDragCoefficientProperty,
+          objectType.dragCoefficientRange, _.extend( {
+            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.dragCoefficientRound ) * objectType.dragCoefficientRound; },
+            majorTicks: [ { value: objectType.dragCoefficientRange.min }, { value: objectType.dragCoefficientRange.max } ],
+            decimalPlaces: Math.ceil( -Math.log10( objectType.dragCoefficientRound ) ),
+            delta: objectType.dragCoefficientRound
+          }, numberControlOptions )
+        ) );
+        altitudeBox.addChild( new NumberControl(
+          altitudeString, altitudeProperty,
+          ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
+            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+            constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
+            majorTicks: [ { value: objectType.dragCoefficientRange.min }, { value: objectType.dragCoefficientRange.max } ],
+            decimalPlaces: 0,
+            delta: 100
           }, numberControlOptions )
         ) );
       }
       else {
+        massBox.addChild( createParameterControlBox(
+          massString,
+          kgString,
+          projectileMassProperty,
+          objectType.massRange
+        ) );
         diameterBox.addChild( createParameterControlBox(
           diameterString,
           mString,
           projectileDiameterProperty,
           objectType.diameterRange
         ) );
+        dragCoefficientBox.addChild( createParameterControlBox(
+          dragCoefficientString,
+          null,
+          projectileDragCoefficientProperty,
+          objectType.dragCoefficientRange
+        ) );
+        altitudeBox.addChild( createParameterControlBox(
+          altitudeString,
+          mString,
+          altitudeProperty,
+          ProjectileMotionConstants.ALTITUDE_RANGE
+        ) );
       }
     } );
-
-    var dragCoefficientBox = createParameterControlBox(
-      dragCoefficientString,
-      null,
-      projectileDragCoefficientProperty,
-      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
-    );
-
-    var altitudeBox = createParameterControlBox(
-      altitudeString,
-      mString,
-      altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE
-    );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
