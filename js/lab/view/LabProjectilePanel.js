@@ -51,7 +51,6 @@ define( function( require ) {
     titleFont: TEXT_FONT,
     valueFont: TEXT_FONT,
     majorTickLength: 5,
-    trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
     thumbSize: new Dimension2( 16, 28 ),
     thumbTouchAreaXDilation: 6,
     thumbTouchAreaYDilation: 4
@@ -173,6 +172,28 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
+    var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      return new VBox( {
+        spacing: options.sliderLabelSpacing,
+        children: [
+          new HBox( {
+            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
+            children: [ titleNode, numberDisplay ]
+          } ),
+          new HBox( {
+            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
+            resize: false, // prevent slider from causing a resize when thumb is at min or max
+            children: [ leftArrowButton, slider, rightArrowButton ]
+          } )
+        ]
+      } );
+    };
+
+    var numberControlOptions = _.extend( { 
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 90, 0.5 ),
+      layoutFunction: layoutFunction
+    }, NUMBER_CONTROL_OPTIONS );
+
     // diameter readout, slider, and tweakers
     // TODO: make numbercontrol options, and then extend
     var diameterBox = new NumberControl(
@@ -182,8 +203,9 @@ define( function( require ) {
         constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
         majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
         decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
-        delta: selectedProjectileObjectTypeProperty.get().diameterRound
-      }, NUMBER_CONTROL_OPTIONS )
+        delta: selectedProjectileObjectTypeProperty.get().diameterRound,
+        layoutFunction
+      }, numberControlOptions )
     );
 
     var dragCoefficientBox = createParameterControlBox(
