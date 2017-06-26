@@ -26,6 +26,9 @@ define( function( require ) {
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Dimension2 = require( 'DOT/Dimension2' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -158,7 +161,19 @@ define( function( require ) {
         valueText.center = backgroundNode.center;
       } );
 
-      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
+      // edit button
+      var pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
+      var editButton = new RectangularPushButton( {
+        minWidth: 25,
+        minHeight: 20,
+        centerY: backgroundNode.centerY,
+        left: backgroundNode.right + options.xMargin,
+        content: pencilIcon,
+        baseColor: PhetColorScheme.PHET_LOGO_YELLOW//,
+        // listener: self.editButtonListener.bind( self, parameterBox )
+      } );
+
+      var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
 
@@ -194,18 +209,34 @@ define( function( require ) {
       layoutFunction: layoutFunction
     }, NUMBER_CONTROL_OPTIONS );
 
+
     // diameter readout, slider, and tweakers
     // TODO: make numbercontrol options, and then extend
-    var diameterBox = new NumberControl(
-      diameterString, projectileDiameterProperty,
-      selectedProjectileObjectTypeProperty.get().diameterRange, _.extend( {
-        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
-        constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
-        majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
-        decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
-        delta: selectedProjectileObjectTypeProperty.get().diameterRound
-      }, numberControlOptions )
-    );
+    var diameterBox = new Node();
+
+    selectedProjectileObjectTypeProperty.link( function( objectType ) {
+      diameterBox.removeAllChildren();
+      if ( objectType.type ) {
+        diameterBox.addChild( new NumberControl(
+          diameterString, projectileDiameterProperty,
+          selectedProjectileObjectTypeProperty.get().diameterRange, _.extend( {
+            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+            constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
+            majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
+            decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
+            delta: selectedProjectileObjectTypeProperty.get().diameterRound
+          }, numberControlOptions )
+        ) );
+      }
+      else {
+        diameterBox.addChild( createParameterControlBox(
+          diameterString,
+          mString,
+          projectileDiameterProperty,
+          objectType.diameterRange
+        ) );
+      }
+    } );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,

@@ -30,7 +30,8 @@ define( function( require ) {
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
       ProjectileObjectType.GOLF_BALL,  
-      ProjectileObjectType.TANK_SHELL    
+      ProjectileObjectType.TANK_SHELL,
+      ProjectileObjectType.CUSTOM    
     ];
 
     this.selectedProjectileObjectTypeProperty = new Property( this.objectTypes[ 0 ] );

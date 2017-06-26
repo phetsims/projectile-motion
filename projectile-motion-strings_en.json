@@ -23,6 +23,9 @@
   "pattern0Value1UnitsWithSpace": {
     "value": "{0} {1}"
   },
+  "custom": {
+    "value": "Custom"
+  },
   "angle": {
     "value": "Angle"
   },

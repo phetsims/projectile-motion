@@ -25,6 +25,8 @@ define( function( require ) {
   var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
   var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
   var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
+  var customString = require( 'string!PROJECTILE_MOTION/custom' );
+
   /**
    * @param {string} name - name of the object, such as 'Golf ball'
    * @param {number} mass - in kg
@@ -97,6 +99,22 @@ define( function( require ) {
   ProjectileObjectType.GOLF_BALL = new ProjectileObjectType( golfBallString, 0.046, 0.043, 0.25, 'golfBall', false );
 
   ProjectileObjectType.TANK_SHELL = new ProjectileObjectType( tankShellString, 41.9, 0.15, 0.06, 'tankShell', true );
+
+  ProjectileObjectType.CUSTOM = new ProjectileObjectType(
+    customString,
+    ProjectileMotionConstants.CANNONBALL_MASS,
+    ProjectileMotionConstants.CANNONBALL_DIAMETER,
+    ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
+    null,
+    false, {
+      // massRange: 
+      // massRound:
+      diameterRange: new Range( 0.01, 2.5 ),
+      diameterRound: 0.001
+      // dragCoefficientRange:
+      // dragCoefficientRound:
+    }
+  );
 
   return ProjectileObjectType;
 } );

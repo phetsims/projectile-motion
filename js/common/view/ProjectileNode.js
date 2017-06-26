@@ -80,7 +80,7 @@ define( function( require ) {
     // draw projectile object view
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     var projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize / 2, dragCoefficient );
-    if ( objectType ) {
+    if ( objectType && objectType.type != 'custom' ) {
       projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType.type, diameter, modelViewTransform );
       var landedObjectView = ProjectileObjectViewFactory.createLandedObjectView( objectType.type, diameter, modelViewTransform );
     }
