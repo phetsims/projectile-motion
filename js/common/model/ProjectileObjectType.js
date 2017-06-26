@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Range = require( 'DOT/Range' );
 
   // strings
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
@@ -30,11 +31,13 @@ define( function( require ) {
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
    * @param {string || null} type - identifier of the object type, such as 'tankShell'
-   * @param {boolean} rotates - whether the object rotates or just translates in air
+   * @param {boolean || null} rotates - whether the object rotates or just translates in air
+   * @param {Object} [options]
    * @constructor
    */
-  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type, rotates ) {
+  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type, rotates, options ) {
 
+    // @public (read-only)
     this.name = name;
     this.mass = mass;
     this.diameter = diameter;
@@ -42,6 +45,17 @@ define( function( require ) {
     this.type = type || null;
     this.rotates = rotates || false;
 
+    // optionscontains data about range and rounding for mass, diameter, drag coefficient
+    // defaults are null, which means no specific range or rounding is needed
+    options = options || {};
+
+    // @public
+    this.massRange = options.massRange || null;
+    this.massRound = options.massRound || null;
+    this.diameterRange = options.diameterRange || null;
+    this.diameterRound = options.diameterRound || null;
+    this.dragCoefficientRange = options.dragCoefficientRange || null;
+    this.dragCoefficientRound = options.dragCoefficientRound || null;
   }
 
   projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
@@ -58,7 +72,14 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DIAMETER,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     'cannonball',
-    false
+    false, {
+      // massRange: 
+      // massRound:
+      diameterRange: new Range( 0.1, 1 ),
+      diameterRound: 0.01
+      // dragCoefficientRange:
+      // dragCoefficientRound:
+    }
   );
 
   ProjectileObjectType.PUMPKIN = new ProjectileObjectType( pumpkinString, 5, 0.37, 0.6, 'pumpkin', false );

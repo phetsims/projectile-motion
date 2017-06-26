@@ -24,6 +24,8 @@ define( function( require ) {
   var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var Dimension2 = require( 'DOT/Dimension2' );
 
   // strings
   var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
@@ -34,12 +36,25 @@ define( function( require ) {
   var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
     stroke: 'black'
+  };
+  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  var NUMBER_CONTROL_OPTIONS = {
+    valueBackgroundStroke: 'gray',
+    valueAlign: 'center',
+    titleFont: TEXT_FONT,
+    valueFont: TEXT_FONT,
+    majorTickLength: 5,
+    trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
+    thumbSize: new Dimension2( 16, 28 ),
+    thumbTouchAreaXDilation: 6,
+    thumbTouchAreaYDilation: 4
   };
 
   /**
@@ -158,11 +173,17 @@ define( function( require ) {
       ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     );
 
-    var diameterBox = createParameterControlBox(
-      diameterString,
-      mString,
-      projectileDiameterProperty,
-      ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
+    // diameter readout, slider, and tweakers
+    // TODO: make numbercontrol options, and then extend
+    var diameterBox = new NumberControl(
+      diameterString, projectileDiameterProperty,
+      selectedProjectileObjectTypeProperty.get().diameterRange, _.extend( {
+        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+        constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
+        majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
+        decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
+        delta: selectedProjectileObjectTypeProperty.get().diameterRound
+      }, NUMBER_CONTROL_OPTIONS )
     );
 
     var dragCoefficientBox = createParameterControlBox(
@@ -197,7 +218,7 @@ define( function( require ) {
         altitudeBox
       ]
     } );
-    
+
     // @private for layout
     this.projectileChoiceComboBox = projectileChoiceComboBox;
     this.controlsVerticalSpace = options.controlsVerticalSpace;

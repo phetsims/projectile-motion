@@ -78,9 +78,9 @@ define( function( require ) {
     },
 
     // @public @returns {Circle} object based on the type
-    createObjectView: function( projectileObjectModel, modelViewTransform ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
-      switch ( projectileObjectModel.type ) {
+    createObjectView: function( type, diameter, modelViewTransform ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      switch ( type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
@@ -112,9 +112,9 @@ define( function( require ) {
     },
 
     // @public @returns {Circle} object based on the type
-    createLandedObjectView: function( projectileObjectModel, modelViewTransform ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( projectileObjectModel.diameter );
-      switch ( projectileObjectModel.type ) {
+    createLandedObjectView: function( type, diameter, modelViewTransform ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      switch ( type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
