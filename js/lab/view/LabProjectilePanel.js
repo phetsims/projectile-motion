@@ -203,8 +203,7 @@ define( function( require ) {
         constrainValue: function( value ) { return Util.roundSymmetric( value / selectedProjectileObjectTypeProperty.get().diameterRound ) * selectedProjectileObjectTypeProperty.get().diameterRound; },
         majorTicks: [ { value: selectedProjectileObjectTypeProperty.get().diameterRange.min }, { value: selectedProjectileObjectTypeProperty.get().diameterRange.max } ],
         decimalPlaces: Math.ceil( -Math.log10( selectedProjectileObjectTypeProperty.get().diameterRound ) ),
-        delta: selectedProjectileObjectTypeProperty.get().diameterRound,
-        layoutFunction
+        delta: selectedProjectileObjectTypeProperty.get().diameterRound
       }, numberControlOptions )
     );
 
