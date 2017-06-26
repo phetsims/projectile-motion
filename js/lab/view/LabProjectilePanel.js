@@ -173,9 +173,9 @@ define( function( require ) {
         content: pencilIcon,
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
         listener: function() { 
-          keypadLayer.beginEdit( property, {
-          onBeginEdit: function() { backgroundNode.fill = 'yellow'; },
-          onEndEdit: function() { backgroundNode.fill = 'white'; },
+          keypadLayer.beginEdit( property, range, {
+            onBeginEdit: function() { backgroundNode.fill = 'yellow'; },
+            onEndEdit: function() { backgroundNode.fill = 'white'; },
             maxDigits: 5,
             maxDecimals: 3,
           } );
