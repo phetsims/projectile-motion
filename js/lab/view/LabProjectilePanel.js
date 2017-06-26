@@ -2,7 +2,6 @@
 
 /**
  * Control panel allows the user to change a projectile's parameters
- * Includes a customize button that pulls up a form to change all fields
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -20,7 +19,6 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var TextPushButton = require( 'SUN/buttons/TextPushButton' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Util = require( 'DOT/Util' );
 
@@ -33,7 +31,6 @@ define( function( require ) {
   var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
-  var customizeString = require( 'string!PROJECTILE_MOTION/customize' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
@@ -43,7 +40,6 @@ define( function( require ) {
   };
 
   /**
-   * @param {Property.<boolean>} customizeDialogVisibleProperty - whether customize dialog is visible
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
@@ -53,7 +49,6 @@ define( function( require ) {
    * @constructor
    */
   function LabProjectilePanel(
-                              customizeDialogVisibleProperty,
                               projectileMassProperty,
                               projectileDiameterProperty,
                               projectileDragCoefficientProperty,
@@ -67,13 +62,6 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-
-    var customizeButtonOptions = _.extend( {}, ProjectileMotionConstants.YELLOW_BUTTON_OPTIONS );
-    var customizeButton = new TextPushButton( customizeString, customizeButtonOptions );
-
-    customizeButton.addListener( function() {
-      customizeDialogVisibleProperty.set( true );
-    } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -159,16 +147,7 @@ define( function( require ) {
       ]
     } );
 
-    var LabSecondVBox = new VBox( {
-      align: 'center',
-      spacing: options.controlsVerticalSpace,
-      children: [
-        customizeButton,
-        content
-      ]
-    } );
-
-    Panel.call( this, LabSecondVBox, options );
+    Panel.call( this, content, options );
   }
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );

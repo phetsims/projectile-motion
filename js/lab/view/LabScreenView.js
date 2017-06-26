@@ -8,7 +8,6 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CustomizeDialog = require( 'PROJECTILE_MOTION/lab/view/CustomizeDialog' );
   var inherit = require( 'PHET_CORE/inherit' );
   var LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
@@ -37,7 +36,6 @@ define( function( require ) {
                                                             model.launchVelocityProperty
                                     ),
                                     new LabProjectilePanel(
-                                                            model.customizeDialogVisibleProperty,
                                                             model.projectileMassProperty,
                                                             model.projectileDiameterProperty,
                                                             model.projectileDragCoefficientProperty,
@@ -47,11 +45,6 @@ define( function( require ) {
                                     visibilityProperties,
                                     options
     );
-
-    // customize panel that becomes visible when customize button in second panel is pressed
-    this.customizeDialog = new CustomizeDialog( model );
-    this.customizeDialog.center = this.visibleBoundsProperty.get().center.minusXY( 50, 0 );
-    this.addChild( this.customizeDialog );
 
   }
 
