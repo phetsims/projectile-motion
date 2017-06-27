@@ -11,8 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+
+  // images
+  var fireImage = require( 'image!PROJECTILE_MOTION/fire_button.png' );
 
   /**
    * @param {Object} [options]
@@ -29,9 +32,7 @@ define( function( require ) {
     }, options );
 
     // fire button icon
-    // TODO: replace with real image
-    // options.content = new Image( fireImage );
-    options.content = ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon();
+    options.content = new Image( fireImage );
     options.content.scale( options.iconWidth / options.content.width );
 
     RectangularPushButton.call( this, options );

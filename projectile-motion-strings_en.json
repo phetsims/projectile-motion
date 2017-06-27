@@ -53,17 +53,11 @@
   "diameter": {
     "value": "Diameter"
   },
-  "initialHeight": {
-    "value": "Initial Height"
-  },
   "initialSpeed": {
     "value": "Initial Speed"
   },
   "altitude": {
     "value": "Altitude"
-  },
-  "degrees": {
-    "value": "degrees"
   },
   "speed": {
      "value": "Speed"
@@ -88,12 +82,6 @@
   },
   "range": {
     "value": "Range"
-  },
-  "customize": {
-    "value": "Customize"
-  },
-  "submit": {
-    "value": "Submit"
   },
   "cannonball": {
     "value": "Cannonball"
