@@ -102,9 +102,6 @@ define( function( require ) {
       var trajectoryNode = new TrajectoryNode(
         vectorVisibilityProperties,
         addedTrajectory,
-        // model.totalVelocityVectorOnProperty,
-        // model.componentsVelocityVectorsOnProperty,
-        // model.componentsAccelerationVectorsOnProperty,
         transformProperty
       );
 
@@ -151,7 +148,6 @@ define( function( require ) {
       _.extend( { left: this.layoutBounds.left + X_MARGIN, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
-
     // Create a measuring tape (set to invisible initially)
     var measuringTapeNode = new MeasuringTape(
       new Property( { name: metersString, multiplier: 1 } ),
@@ -178,19 +174,10 @@ define( function( require ) {
       this
     );
 
-    // zoomableNode.mutate( {
-    //   children: [
-    //     targetNode,
-    //     trajectoriesLayer,
-    //     cannonNode
-    //   ]
-    // } );
-
     // // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
 
-    // // Watch the zoom property and zoom in and out correspondingly, using 3 dimemsional matrix.
-    // // scale matrix algorithm taken from neuron repo
+    // // Watch the zoom property and update transform property accordingly
     zoomProperty.link( function( zoomFactor ) {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,
@@ -299,10 +286,9 @@ define( function( require ) {
     // rendering order
     this.setChildren( [
       this.backgroundNode,
-      // zoomableNode,
       targetNode,
-      trajectoriesLayer,
       cannonNode,
+      trajectoriesLayer,
       initialSpeedPanel,
       bottomRightPanel,
       topRightPanel,
