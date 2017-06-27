@@ -90,6 +90,7 @@ define( function( require ) {
         var newY = previousPoint.y + previousPoint.yVelocity * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
 
         var newXVelocity = previousPoint.xVelocity + previousPoint.xAcceleration * dt;
+        newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
         var newYVelocity = previousPoint.yVelocity + previousPoint.yAcceleration * dt;
         var newVelocity = Math.sqrt( newXVelocity * newXVelocity + newYVelocity * newYVelocity );
 
