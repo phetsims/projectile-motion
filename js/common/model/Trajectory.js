@@ -62,7 +62,6 @@ define( function( require ) {
       0, // y drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
-    console.log( initialPoint );
 
     // add dataPoint for initial conditions
     this.dataPoints.push( initialPoint );
