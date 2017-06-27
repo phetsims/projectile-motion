@@ -28,7 +28,8 @@ define( function( require ) {
     var options = {
       name: introTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new IntroIconNode()
+      homeScreenIcon: new IntroIconNode( 'screen' ),
+      navigationBarIcon: new IntroIconNode( 'nav' )
     };
 
     Screen.call( this,
