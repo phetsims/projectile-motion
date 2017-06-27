@@ -26,6 +26,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // image
   var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
@@ -45,11 +46,12 @@ define( function( require ) {
   var ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  var HEIGHT_LEADER_LINE_POSITION = -2;
+  var HEIGHT_LEADER_LINE_POSITION = -3;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
   var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
+  var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -124,6 +126,7 @@ define( function( require ) {
     heightLeaderLineBottomCap.y = heightLeaderLine.tipY;
 
     // height readout
+    var heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), LABEL_OPTIONS );
     heightLabel.centerX = heightLeaderLine.tipX;
 
@@ -155,6 +158,8 @@ define( function( require ) {
     angleIndicator.addChild( angleArc );
 
     // angle readout
+    var angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
+    angleIndicator.addChild( angleLabelBackground );
     var angleLabel = new Text( StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
@@ -170,6 +175,7 @@ define( function( require ) {
       heightLeaderLine,
       heightLeaderLineTopCap,
       heightLeaderLineBottomCap,
+      heightLabelBackground,
       heightLabel,
       angleIndicator//,
     ] );
@@ -182,6 +188,9 @@ define( function( require ) {
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString );
+      angleLabelBackground.setRectWidth( angleLabel.width + 2 );
+      angleLabelBackground.setRectHeight( angleLabel.height );
+      angleLabelBackground.center = angleLabel.center;
     } );
 
     var scaleMagnitude = 1;
@@ -216,6 +225,10 @@ define( function( require ) {
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
       heightLabel.y = heightLeaderLine.tipY - 5;
+      heightLabelBackground.setRectWidth( heightLabel.width + 2 );
+      heightLabelBackground.setRectHeight( heightLabel.height );
+      heightLabelBackground.center = heightLabel.center;
+
       angleIndicator.y = transformProperty.get().modelToViewY( height );
     };
 
