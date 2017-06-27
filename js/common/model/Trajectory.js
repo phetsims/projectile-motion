@@ -62,6 +62,7 @@ define( function( require ) {
       0, // y drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
+    console.log( initialPoint );
 
     // add dataPoint for initial conditions
     this.dataPoints.push( initialPoint );
@@ -90,7 +91,6 @@ define( function( require ) {
         var newY = previousPoint.y + previousPoint.yVelocity * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
 
         var newXVelocity = previousPoint.xVelocity + previousPoint.xAcceleration * dt;
-        newXVelocity = newXVelocity >= 0 ? newXVelocity : 0;
         var newYVelocity = previousPoint.yVelocity + previousPoint.yAcceleration * dt;
         var newVelocity = Math.sqrt( newXVelocity * newXVelocity + newYVelocity * newYVelocity );
 
@@ -143,8 +143,9 @@ define( function( require ) {
             newYDragForce,
             -gravity * this.mass
           );
-        }
 
+        }
+        
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
       }
