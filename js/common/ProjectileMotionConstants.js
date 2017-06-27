@@ -11,15 +11,11 @@ define( function( require ) {
   // modules
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var RandomIconFactory = require( 'PROJECTILE_MOTION/common/RandomIconFactory' );
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   var ProjectileMotionConstants = {
-
-    // TODO: take this away eventually
-    RANDOM_ICON_FACTORY: new RandomIconFactory( -33 ),
 
     // truths about the world
     GRAVITY_RANGE: new Range( 5, 20 ), // in m/s/s
