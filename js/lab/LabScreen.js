@@ -28,7 +28,8 @@ define( function( require ) {
     var options = {
       name: labTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new LabIconNode()
+      homeScreenIcon: new LabIconNode( 'screen' ),
+      navigationBarIcon: new LabIconNode( 'nav' )
     };
 
     Screen.call( this,
