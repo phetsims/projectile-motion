@@ -28,7 +28,8 @@ define( function( require ) {
     var options = {
       name: vectorsTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new VectorsIconNode()
+      homeScreenIcon: new VectorsIconNode( 'screen' ),
+      navigationBarIcon: new VectorsIconNode( 'nav' )
     };
 
     Screen.call( this,
