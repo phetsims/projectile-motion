@@ -37,7 +37,7 @@ define( function( require ) {
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
-      assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient out of bounds' );
+      assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient ' + dragCoefficient + ' out of bounds' );
       var shape;
       var angle;
       var newRadius;
@@ -49,7 +49,7 @@ define( function( require ) {
         shape = new Shape();
         shape.moveTo( -radius, 0 );
         var t;
-        for ( t = Math.PI / 12; t < 2 * Math.PI; t += Math.PI / 12 ) {
+        for ( t = Math.PI / 24; t < 2 * Math.PI; t += Math.PI / 24 ) {
           var x = -Math.cos( t ) * radius;
           var y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), m ) * radius;
           shape.lineTo( x, y );
