@@ -38,8 +38,6 @@ define( function( require ) {
    */
   function LabIconNode( type ) {
 
-    Rectangle.call( this, 0, 0, 0, 0 );
-
     assert && assert( type === 'nav' || type === 'screen', 'argument type should be nav or screen' );
 
     if ( type === 'nav' ) {
@@ -63,19 +61,10 @@ define( function( require ) {
       scaledEllipseHeight = cannonLength * 0.15;
     }
 
-    var cylinderSide = new Path( null );
-    this.addChild( cylinderSide );
-
-    var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
-    
-    var cylinderTop = new Path( ellipseShape, { x: cannonX, fill: DARK_BLUE_COLOR, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
-    this.addChild( cylinderTop );
-
     // layer for scalable cannon parts
-    var scalableNode = new Node();
-    this.addChild( scalableNode );
+    var scalableNode = new Node( { x: cannonX, y: cannonY } );
 
-    var cannonBarrel = new Node();
+    var cannonBarrel = new Node( { rotation: -CANNON_ANGLE * Math.PI / 180 } );
     scalableNode.addChild( cannonBarrel );
 
     var cannonBarrelBottom = new Image( cannonBarrelBottomImage, { right: 0, centerY: 0 } );
@@ -91,35 +80,10 @@ define( function( require ) {
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
-    // layer for angle indicators
-    var angleIndicator = new Node();
-    this.addChild( angleIndicator );
-
-    // view for the angle arc
-    var angleArc = new Path( null, { stroke: 'gray' } );
-    angleIndicator.addChild( angleArc );
-
-    // crosshair view
-    var crosshairShape = new Shape()
-      .moveTo( -width * 0.1, 0 )
-      .lineTo( width * 0.4, 0 )
-      .moveTo( 0, -height * 0.3 )
-      .lineTo( 0, height * 0.3 );
-
-    var darkerCrosshairShape = new Shape()
-      .moveTo( -height / 25, 0 )
-      .lineTo( height / 25, 0 )
-      .moveTo( 0, -height / 25 )
-      .lineTo( 0, height / 25 );
-
-    var arcShape = Shape.arc( 0, 0, cannonLength + 5, 0, -CANNON_ANGLE * Math.PI / 180, true );
-    angleArc.setShape( arcShape );
-
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
-    scalableNode.x = cannonX;
-    scalableNode.y = cannonY;
 
-    cylinderTop.y = scalableNode.bottom - scaledEllipseHeight / 4;
+    var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
+    var cylinderTop = new Path( ellipseShape, { x: cannonX, y: scalableNode.bottom - scaledEllipseHeight / 4, fill: DARK_BLUE_COLOR, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
 
     var sideShape = new Shape();
     sideShape.moveTo( cannonX - scaledEllipseWidth / 2, height - 1 )
@@ -127,26 +91,46 @@ define( function( require ) {
       .ellipticalArc( cannonX, cylinderTop.y, scaledEllipseWidth / 2, scaledEllipseHeight / 2, 0, Math.PI, 0, true )
       .lineTo( cannonX + scaledEllipseWidth / 2, height - 1 )
       .close();
-    cylinderSide.setShape( sideShape );
     var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 ).addColorStop( 0.0, DARK_BLUE_COLOR ).addColorStop( 0.3, BRIGHT_BLUE_COLOR ).addColorStop( 1, DARK_BLUE_COLOR );
-    cylinderSide.mutate( { fill: sideFill, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
+    var cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
 
+    // layer for angle indicators
+    var angleIndicator = new Node( { x: cannonX, y: cannonY } );
+
+    // crosshair view
+    var crosshairShape = new Shape()
+      .moveTo( -width * 0.2, 0 )
+      .lineTo( width * 0.5, 0 )
+      .moveTo( 0, -height * 0.3 )
+      .lineTo( 0, height * 0.3 );
     var crosshair = new Path( crosshairShape, { stroke: 'gray' } );
     angleIndicator.addChild( crosshair );
 
+    var darkerCrosshairShape = new Shape()
+      .moveTo( -height / 25, 0 )
+      .lineTo( height / 25, 0 )
+      .moveTo( 0, -height / 25 )
+      .lineTo( 0, height / 25 );
     var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
     angleIndicator.addChild( darkerCrosshair );
 
-    cannonBarrel.setRotation( -CANNON_ANGLE * Math.PI / 180 );
-
-    angleIndicator.x = cannonX;
-    angleIndicator.y = cannonY;
+    // view for the angle arc
+    var arcShape = Shape.arc( 0, 0, cannonLength + 5, 0, -CANNON_ANGLE * Math.PI / 180, true );
+    var angleArc = new Path( arcShape, { stroke: 'gray' } );
+    angleIndicator.addChild( angleArc );
 
     // create the background
     var backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.mutate( { fill: backgroundFill } );
-    this.setRectWidth( width );
-    this.setRectHeight( height );
+    Rectangle.call( this, 0, 0, width, height, {
+      fill: backgroundFill,
+      children: [ 
+        cylinderSide,
+        cylinderTop,
+        scalableNode,
+        angleIndicator
+      ]
+    } );
+
   }
 
   projectileMotion.register( 'LabIconNode', LabIconNode );
