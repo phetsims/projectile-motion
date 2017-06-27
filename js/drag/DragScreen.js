@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
   var DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
   var Screen = require( 'JOIST/Screen' );
   var Property = require( 'AXON/Property' );
+  var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
 
   // strings
   var dragTitleString = require( 'string!PROJECTILE_MOTION/drag.title' );
@@ -28,7 +28,7 @@ define( function( require ) {
     var options = {
       name: dragTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
+      homeScreenIcon: new DragIconNode()
     };
 
     Screen.call( this,

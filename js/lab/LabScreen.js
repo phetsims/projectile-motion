@@ -11,7 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var LabIconNode = require( 'PROJECTILE_MOTION/lab/view/LabIconNode' );
   var LabModel = require( 'PROJECTILE_MOTION/lab/model/LabModel' );
   var LabScreenView = require( 'PROJECTILE_MOTION/lab/view/LabScreenView' );
   var Screen = require( 'JOIST/Screen' );
@@ -28,7 +28,7 @@ define( function( require ) {
     var options = {
       name: labTitleString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: ProjectileMotionConstants.RANDOM_ICON_FACTORY.createIcon()
+      homeScreenIcon: new LabIconNode()
     };
 
     Screen.call( this,
