@@ -36,6 +36,7 @@ define( function( require ) {
   var FORCE_ARROW_OPTIONS = {
       pickable: false,
       fill: 'black',
+      stroke: null,
       tailWidth: 2,
       headWidth: 6
   };
@@ -65,7 +66,9 @@ define( function( require ) {
                           options
   ) {
 
-    options = options || {};
+    options = _.extend( {
+      preventFit: true
+    }, options );
     Node.call( this, options );
 
     var transformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
