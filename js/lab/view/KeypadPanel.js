@@ -19,12 +19,14 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   // strings
   var enterString = require( 'string!PROJECTILE_MOTION/enter' );
 
   // constants
   var DECIMAL_POINT = NumberKeypad.DECIMAL_POINT;
+  var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font
 
   /**
    * @param {Object} [options]
@@ -37,7 +39,7 @@ define( function( require ) {
       // KeypadPanel options
       valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
       valueYMargin: 3, // {number} vertical margin inside the value box
-      // valueFont: new URFont( 16 ),
+      valueFont: TEXT_FONT,
       valueString: '', // {string} initial value shown in the keypad
       decimalPointKey: true, // {boolean} does the keypad have a decimal point key?
       maxDigits: 4, // {number} maximum number of digits that can be entered on the keypad
@@ -84,7 +86,7 @@ define( function( require ) {
       listener: options.enterButtonListener,
       baseColor: 'yellow',
       content: new Text( enterString, {
-        // font: new URFont( 16 ),
+        font: TEXT_FONT,
         fill: 'black',
         maxWidth: keypadNode.width // i18n
       } )
