@@ -138,10 +138,11 @@ define( function( require ) {
      * @param {string} unitsString - units
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Range} range - range for the property value
+     * @param {number} round - delta for how exact the property is, such as 0.1 or 0.001
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range ) {
+    function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
       var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
         LABEL_OPTIONS
@@ -175,7 +176,7 @@ define( function( require ) {
         content: pencilIcon,
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
         listener: function() { 
-          keypadLayer.beginEdit( property, range, {
+          keypadLayer.beginEdit( property, range, round, {
             onBeginEdit: function() { backgroundNode.fill = 'yellow'; },
             onEndEdit: function() { backgroundNode.fill = 'white'; },
             setKeypadLocation: setKeypadLocation,
@@ -272,25 +273,29 @@ define( function( require ) {
           massString,
           kgString,
           projectileMassProperty,
-          objectType.massRange
+          objectType.massRange,
+          objectType.massRound
         ) );
         diameterBox.addChild( createParameterControlBox(
           diameterString,
           mString,
           projectileDiameterProperty,
-          objectType.diameterRange
+          objectType.diameterRange,
+          objectType.diameterRound
         ) );
         dragCoefficientBox.addChild( createParameterControlBox(
           dragCoefficientString,
           null,
           projectileDragCoefficientProperty,
-          objectType.dragCoefficientRange
+          objectType.dragCoefficientRange,
+          objectType.dragCoefficientRound
         ) );
         altitudeBox.addChild( createParameterControlBox(
           altitudeString,
           mString,
           altitudeProperty,
-          ProjectileMotionConstants.ALTITUDE_RANGE
+          ProjectileMotionConstants.ALTITUDE_RANGE,
+          1
         ) );
       }
     } );

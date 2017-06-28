@@ -14,6 +14,7 @@ define( function( require ) {
   var KeypadPanel = require( 'PROJECTILE_MOTION/lab/view/KeypadPanel' );
   var Plane = require( 'SCENERY/nodes/Plane' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {Object} [options]
@@ -61,10 +62,11 @@ define( function( require ) {
     /**
      * Begins an edit, by opening a modal keypad.
      * @param {Property.<number>} valueProperty - the Property to be set by the keypad
+     * @param {number} valueRound - rounding the value when done
      * @param {Object} [options]
      * @public
      */
-    beginEdit: function( valueProperty, valueRange, options ) {
+    beginEdit: function( valueProperty, valueRange, valueRound, options ) {
 
       // Ignore attempts to open another keypad. This can happen in unlikely multi-touch scenarios.
       // See https://github.com/phetsims/unit-rates/issues/181
@@ -90,7 +92,7 @@ define( function( require ) {
       this.keypad = new KeypadPanel( {
         maxDigits: options.maxDigits,
         maxDecimals: options.maxDecimals,
-        enterButtonListener: this.commitEdit.bind( this, valueRange )
+        enterButtonListener: this.commitEdit.bind( this, valueRange, valueRound )
       } );
 
       // display the keypad
@@ -123,14 +125,20 @@ define( function( require ) {
     },
 
     // @private commits an edit
-    commitEdit: function( valueRange ) {
+    commitEdit: function( valueRange, valueRound ) {
 
       // get the value from the keypad
       var value = parseFloat( this.keypad.valueStringProperty.value );
 
+      // not entering a value in the keypad is a cancel
+      if ( isNaN( value ) ) {
+        this.cancelEdit();
+        return;
+      }
+
       // if the keypad contains a valid value ...
       if ( valueRange.contains( value ) ) {
-        this.valueProperty.set( value );
+        this.valueProperty.set( Util.roundSymmetric( value / valueRound ) * valueRound );
         this.endEdit();
       }
       // value is closer to max than min
