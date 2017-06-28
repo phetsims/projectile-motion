@@ -31,7 +31,6 @@ define( function( require ) {
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
-  var pattern0Label1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Label1Units' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
   var kgString = require( 'string!PROJECTILE_MOTION/kg' );

@@ -14,9 +14,6 @@
   "vectors.title": {
     "value": "Vectors"
   },
-  "pattern0Label1Units": {
-    "value": "{0} ({1})"
-  },
   "pattern0Value1Units": {
      "value": "{0}{1}"
   },
