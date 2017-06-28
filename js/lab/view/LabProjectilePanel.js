@@ -144,9 +144,7 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
-      var parameterLabel = new Text( unitsString ? StringUtils.format( pattern0Label1UnitsString, labelString, unitsString ) : labelString,
-        LABEL_OPTIONS
-      );
+      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
       var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get(), unitsString ) : property.get(), LABEL_OPTIONS );
