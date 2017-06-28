@@ -205,48 +205,6 @@ define( function( require ) {
       centerY: initialSpeedPanel.centerY,
     } );
 
-    // play/pause button
-    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
-      radius: 18,
-      bottom: resetAllButton.bottom,
-    } );
-
-    // step button
-    var stepButton = new StepForwardButton( {
-      playingProperty: model.isPlayingProperty,
-      listener: function() { model.stepModelElements( 0.016 ); },
-      radius: 12,
-      stroke: 'black',
-      fill: '#005566',
-      centerY: playPauseButton.centerY
-    } );
-
-    // make the play/pause button bigger when it is paused
-    var pauseSizeIncreaseFactor = 1.25;
-    model.isPlayingProperty.lazyLink( function( isPlaying ) {
-      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
-    } );
-
-    // sim speed controls
-    var normalText = new Text( normalString, {
-      font: new PhetFont( 14 ),
-      maxWidth: TEXT_MAX_WIDTH
-    } );
-    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 10 } );
-
-    var slowText = new Text( slowString, {
-      font: new PhetFont( 14 ),
-      maxWidth: TEXT_MAX_WIDTH
-    } );
-    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
-
-    var speedControl = new VBox( {
-      align: 'left',
-      spacing: 4,
-      bottom: playPauseButton.bottom,
-      children: [ normalMotionRadioBox, slowMotionRadioBox ]
-    } );
-
     // fire button
     var fireButton = new FireButton( {
       minWidth: 50,
@@ -267,14 +225,56 @@ define( function( require ) {
       left: fireButton.right + 2 * X_MARGIN
     } );
 
+    // sim speed controls
+    var normalText = new Text( normalString, {
+      font: new PhetFont( 14 ),
+      maxWidth: TEXT_MAX_WIDTH
+    } );
+    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 10 } );
+
+    var slowText = new Text( slowString, {
+      font: new PhetFont( 14 ),
+      maxWidth: TEXT_MAX_WIDTH
+    } );
+    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
+
+    var speedControl = new VBox( {
+      align: 'left',
+      spacing: 4,
+      bottom: resetAllButton.bottom,
+      left: eraserButton.right + 120, // empirically determined
+      children: [ normalMotionRadioBox, slowMotionRadioBox ]
+    } );
+
+    // play/pause button
+    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+      radius: 18,
+      bottom: speedControl.bottom,
+      left: speedControl.right + 2 * INSET
+    } );
+
+    // step button
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.isPlayingProperty,
+      listener: function() { model.stepModelElements( 0.016 ); },
+      radius: 12,
+      stroke: 'black',
+      fill: '#005566',
+      centerY: playPauseButton.centerY,
+      left: playPauseButton.right + INSET
+    } );
+
+    // make the play/pause button bigger when it is paused
+    var pauseSizeIncreaseFactor = 1.25;
+    model.isPlayingProperty.lazyLink( function( isPlaying ) {
+      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
+    } );
+
     // @private properties to be layout
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
-    this.playPauseButton = playPauseButton;
-    this.stepButton = stepButton;
-    this.speedControl = speedControl;
     this.backgroundNode = new BackgroundNode( this.layoutBounds );
     this.zoomControl = zoomControl;
 
@@ -335,9 +335,6 @@ define( function( require ) {
       this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
       this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
       this.resetAllButton.right = this.topRightPanel.right;
-      this.stepButton.right = this.resetAllButton.left - 2 * INSET;
-      this.playPauseButton.right = this.stepButton.left - 2 * INSET;
-      this.speedControl.left = this.topRightPanel.left;
       this.zoomControl.top = Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
     }
