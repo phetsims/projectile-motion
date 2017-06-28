@@ -157,7 +157,7 @@ define( function( require ) {
     true, {
       massRange: new Range( 20, 100 ),
       massRound: 1,
-      diameterRange: new Range( 0.2, 1.5 ),
+      diameterRange: new Range( 0.2, 1.2 ),
       diameterRound: 0.1,
       dragCoefficientRange: new Range( 0.5, 0.8 ),
       dragCoefficientRound: 0.1

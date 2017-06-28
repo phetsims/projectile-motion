@@ -88,11 +88,11 @@ define( function( require ) {
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
-          return new Image( buickImage, { maxHeight: transformedBallSize * 0.8 } );
+          return new Image( buickImage, { maxHeight: transformedBallSize * 0.9 } );
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
-          return new Image( humanImage, { maxHeight: transformedBallSize * 1.3} );
+          return new Image( humanImage, { maxHeight: transformedBallSize * 1.9 } );
         case 'piano':
           return new Image( pianoImage, { maxWidth: transformedBallSize * 1.1 } );
         case 'golfBall':
@@ -122,11 +122,11 @@ define( function( require ) {
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
-          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.6 } ); // * 2 is empirically determined based on image
+          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.75 } ); // * 2 is empirically determined based on image
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
-          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.3 } );
+          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.9 } );
         case 'piano':
           return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
         case 'golfBall':
