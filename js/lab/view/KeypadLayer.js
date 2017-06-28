@@ -49,6 +49,14 @@ define( function( require ) {
   projectileMotion.register( 'KeypadLayer', KeypadLayer );
 
   return inherit( Plane, KeypadLayer, {
+    
+    /**
+     * Positions keypad
+     * @param {function} setKeypadLocation - function that lays out keypad
+     */
+    positionKeypad: function( setKeypadLocation ) {
+      this.keypad && setKeypadLocation( this.keypad );
+    },
 
     /**
      * Begins an edit, by opening a modal keypad.

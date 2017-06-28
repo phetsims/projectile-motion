@@ -18,8 +18,8 @@ define( function( require ) {
   var KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
 
   // constants
-  // var X_MARGIN = 10;
-  // var Y_MARGIN = 5;
+  var X_MARGIN = 10;
+  var Y_MARGIN = 5;
 
   /**
    * @param {LabModel} model
@@ -50,6 +50,7 @@ define( function( require ) {
                                                             model.selectedProjectileObjectTypeProperty,
                                                             comboBoxListParent,
                                                             keypadLayer,
+                                                            this.setKeypadLayer.bind( this ),
                                                             model.projectileMassProperty,
                                                             model.projectileDiameterProperty,
                                                             model.projectileDragCoefficientProperty,
@@ -76,6 +77,13 @@ define( function( require ) {
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
       this.bottomRightPanel.layoutComboBox();
+      this.keypadLayer.positionKeypad( this.setKeypadLayer.bind( this ) );
+    },
+
+    //@private lays out keypad
+    setKeypadLayer: function (keypad ) {
+      keypad.right = this.topRightPanel.left - X_MARGIN;
+      keypad.top = this.toolboxPanel.bottom + Y_MARGIN;
     }
 
   } );
