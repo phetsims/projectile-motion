@@ -220,9 +220,9 @@ define( function( require ) {
     null,
     false, {
       massRange: new Range( 4, 2000 ),
-      massRound: 0.001,
+      massRound: 0.01,
       diameterRange: new Range( 0.01, 2.5 ),
-      diameterRound: 0.001,
+      diameterRound: 0.01,
       dragCoefficientRange: new Range( 0.04, 1 ),
       dragCoefficientRound: 0.01
     }

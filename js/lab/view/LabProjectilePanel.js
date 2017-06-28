@@ -152,7 +152,7 @@ define( function( require ) {
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        options.textDisplayWidth, // width
+        options.textDisplayWidth * 1.3, // increased width
         valueText.height + 2 * options.textDisplayYMargin, // height
         _.defaults( { cornerRadius: 4}, TEXT_BACKGROUND_OPTIONS )
       );
@@ -177,8 +177,8 @@ define( function( require ) {
             onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
             onEndEdit: function() { backgroundNode.fill = 'white'; },
             setKeypadLocation: setKeypadLocation,
-            maxDigits: 5,
-            maxDecimals: 3,
+            maxDigits: 8,
+            maxDecimals: 2,
           } );
         }
       } );
@@ -291,7 +291,7 @@ define( function( require ) {
           mString,
           altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE,
-          1
+          0.01
         ) );
       }
     } );
