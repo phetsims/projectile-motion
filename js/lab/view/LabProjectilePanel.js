@@ -177,7 +177,7 @@ define( function( require ) {
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
         listener: function() { 
           keypadLayer.beginEdit( property, range, round, {
-            onBeginEdit: function() { backgroundNode.fill = 'yellow'; },
+            onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
             onEndEdit: function() { backgroundNode.fill = 'white'; },
             setKeypadLocation: setKeypadLocation,
             maxDigits: 5,
@@ -214,7 +214,6 @@ define( function( require ) {
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 90, 0.5 ),
       layoutFunction: layoutFunction
     }, NUMBER_CONTROL_OPTIONS );
-
 
     // readout, slider, and tweakers
     var massBox = new Node();

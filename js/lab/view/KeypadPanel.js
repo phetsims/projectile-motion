@@ -20,13 +20,14 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
 
   // strings
   var enterString = require( 'string!PROJECTILE_MOTION/enter' );
 
   // constants
   var DECIMAL_POINT = NumberKeypad.DECIMAL_POINT;
-  var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font
+  var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
 
   /**
    * @param {Object} [options]
@@ -84,7 +85,7 @@ define( function( require ) {
 
     var enterButton = new RectangularPushButton( {
       listener: options.enterButtonListener,
-      baseColor: 'yellow',
+      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
       content: new Text( enterString, {
         font: TEXT_FONT,
         fill: 'black',
