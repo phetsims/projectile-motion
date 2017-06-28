@@ -68,6 +68,7 @@ define( function( require ) {
   // Specific projectile objects below ...
   //-------------------------------------------------------------------------------------------
 
+  // TODO: remove dragcoefficient range and round for benchmarks, if by code review they are still not used
   ProjectileObjectType.CANNONBALL = new ProjectileObjectType(
     cannonballString,
     ProjectileMotionConstants.CANNONBALL_MASS,

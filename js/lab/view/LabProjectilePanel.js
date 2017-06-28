@@ -29,6 +29,7 @@ define( function( require ) {
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   // strings
   var mString = require( 'string!PROJECTILE_MOTION/m' );
@@ -186,7 +187,7 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-
+      
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
 
@@ -244,15 +245,6 @@ define( function( require ) {
             delta: objectType.diameterRound
           }, numberControlOptions )
         ) );
-        dragCoefficientBox.addChild( new NumberControl(
-          dragCoefficientString, projectileDragCoefficientProperty,
-          objectType.dragCoefficientRange, _.extend( {
-            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.dragCoefficientRound ) * objectType.dragCoefficientRound; },
-            majorTicks: [ { value: objectType.dragCoefficientRange.min }, { value: objectType.dragCoefficientRange.max } ],
-            decimalPlaces: Math.ceil( -Math.log10( objectType.dragCoefficientRound ) ),
-            delta: objectType.dragCoefficientRound
-          }, numberControlOptions )
-        ) );
         altitudeBox.addChild( new NumberControl(
           altitudeString, altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
@@ -260,9 +252,10 @@ define( function( require ) {
             constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
             majorTicks: [ { value: objectType.dragCoefficientRange.min }, { value: objectType.dragCoefficientRange.max } ],
             decimalPlaces: 0,
-            delta: 100
+            delta: 100,
           }, numberControlOptions )
         ) );
+        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + projectileDragCoefficientProperty.get(), LABEL_OPTIONS ) );
       }
       else {
         massBox.addChild( createParameterControlBox(
@@ -279,13 +272,6 @@ define( function( require ) {
           objectType.diameterRange,
           objectType.diameterRound
         ) );
-        dragCoefficientBox.addChild( createParameterControlBox(
-          dragCoefficientString,
-          null,
-          projectileDragCoefficientProperty,
-          objectType.dragCoefficientRange,
-          objectType.dragCoefficientRound
-        ) );
         altitudeBox.addChild( createParameterControlBox(
           altitudeString,
           mString,
@@ -293,7 +279,23 @@ define( function( require ) {
           ProjectileMotionConstants.ALTITUDE_RANGE,
           0.01
         ) );
+        dragCoefficientBox.addChild( createParameterControlBox(
+          dragCoefficientString,
+          null,
+          projectileDragCoefficientProperty,
+          objectType.dragCoefficientRange,
+          objectType.dragCoefficientRound
+        ) );
       }
+    } );
+
+    // disabling and enabling drag and altitude controls depending on whether air resistance is on
+    airResistanceOnProperty.link( function( airResistanceOn ) {
+      var opacity = airResistanceOn ? 1 : 0.5;
+      altitudeBox.setOpacity( opacity );
+      dragCoefficientBox.setOpacity( opacity );
+      altitudeBox.setPickable( airResistanceOn );
+      dragCoefficientBox.setPickable( airResistanceOn );
     } );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
@@ -309,9 +311,10 @@ define( function( require ) {
         vStrutForComboBox,
         massBox,
         diameterBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckBox,
-        dragCoefficientBox,
-        altitudeBox
+        altitudeBox,
+        dragCoefficientBox
       ]
     } );
 
