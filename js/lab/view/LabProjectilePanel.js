@@ -149,7 +149,7 @@ define( function( require ) {
       );
 
       // value text
-      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get(), unitsString ) : property.get(), LABEL_OPTIONS );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -162,7 +162,7 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( value );
+        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : value );
         valueText.center = backgroundNode.center;
       } );
 
