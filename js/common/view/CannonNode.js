@@ -27,6 +27,7 @@ define( function( require ) {
   var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Range = require( 'DOT/Range' );
 
   // image
   var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
@@ -269,17 +270,21 @@ define( function( require ) {
 
         var unboundedNewAngle = startAngle + angleChangeInDegrees;
 
+        // angle range minimums, corresponding to height through their index
+        var rangeMins = [ 25, -5, -20, -40 ];
+        var angleRange = heightProperty.get() < 4 ? new Range( rangeMins[ heightProperty.get() ], 90 ) : ANGLE_RANGE;
+
         // mouse dragged angle is within angle range
-        if ( ANGLE_RANGE.contains( unboundedNewAngle ) ) {
+        if ( angleRange.contains( unboundedNewAngle ) ) {
           angleProperty.set( Util.roundSymmetric( unboundedNewAngle / 5 ) * 5 );
         }
         // the current, unchanged, angle is closer to max than min
-        else if ( ANGLE_RANGE.max + ANGLE_RANGE.min < 2 * angleProperty.get() ) {
-          angleProperty.set( ANGLE_RANGE.max );
+        else if ( angleRange.max + angleRange.min < 2 * angleProperty.get() ) {
+          angleProperty.set( angleRange.max );
         }
         // the current, unchanged, angle is closer or same distance to min than max
         else {
-          angleProperty.set( ANGLE_RANGE.min );
+          angleProperty.set( angleRange.min );
         }
 
       }
