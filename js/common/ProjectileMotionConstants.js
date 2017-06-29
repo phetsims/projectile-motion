@@ -26,8 +26,8 @@ define( function( require ) {
     VIEW_ORIGIN: new Vector2( 100, 520 ),
 
     // cannonball defaults
-    CANNONBALL_MASS: 5.44, // changed from 100 to 5 kilograms
-    CANNONBALL_DIAMETER: 0.11,
+    CANNONBALL_MASS: 10.88,
+    CANNONBALL_DIAMETER: 0.22,
     CANNONBALL_DRAG_COEFFICIENT: 0.47,
 
     // productive constraints
@@ -95,8 +95,8 @@ define( function( require ) {
     },
 
     // zooming
-    MIN_ZOOM: 0.1,
-    MAX_ZOOM: 5,
+    MIN_ZOOM: 0.5,
+    MAX_ZOOM: 2,
     DEFAULT_ZOOM: 1.0,
 
     // normal/slow/play/pause/step

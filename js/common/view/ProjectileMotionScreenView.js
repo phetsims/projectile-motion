@@ -50,7 +50,7 @@ define( function( require ) {
 
 
   // constants
-  var DEFAULT_SCALE = 25;
+  var DEFAULT_SCALE = 30;
   var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
   var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
   var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
