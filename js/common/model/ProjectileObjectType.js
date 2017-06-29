@@ -219,7 +219,7 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DIAMETER,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
-    false, {
+    true, {
       massRange: new Range( 4, 2000 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 2.5 ),
