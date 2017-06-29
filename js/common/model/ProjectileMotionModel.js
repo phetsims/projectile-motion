@@ -164,14 +164,19 @@ define( function( require ) {
       this.davidShortsOnProperty.reset();
     },
 
-    // @public determines animation based on play/pause and speed
+    /**
+     * Steps the model forward in time.
+     * @public
+     *
+     * @param {number} dt
+     */
     step: function( dt ) {
       // stepCount tracks how many frames mod 3, so slow motion is slowed down to once every three frames
       this.stepCount += 1;
       this.stepCount = this.stepCount % 3;
 
       // prevent sudden dt bursts when the user comes back to the tab after a while
-      dt = Math.min( TIME_PER_DATA_POINT * 3 / 1000, dt );
+      dt = Math.min( TIME_PER_DATA_POINT * 32 / 1000, dt );
 
       this.residualTime += dt * 1000; // in milliseconds
 
@@ -258,38 +263,38 @@ define( function( require ) {
       this.addProjectile();
     },
 
-      // @private updates the status of the trajectories, as in whether they are changed in mid air
-      updateStatusofTrajectories: function() {
-        var self = this;
-        this.trajectories.forEach( function( trajectory ) {
-          if( !trajectory.reachedGround ) {
-            trajectory.changedInMidAir = true;
-          }
-
-          var i;
-          for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
-            var projectileObject = trajectory.projectileObjects.get( i );
-            if ( projectileObject.dataPointProperty.get().y > 0 ) {
-              trajectory.projectileObjects.remove( projectileObject );
-              
-              // object is still in the air so a new trajectory needs to be created
-              var newTrajectory = trajectory.newTrajectory( projectileObject );
-              newTrajectory.changedInMidAir = true;
-              self.trajectories.push( newTrajectory );
-            }
-          }
-        } );
-
-        // delete over-the-max trajectories
-        self.limitTrajectories();
-      },
-
-      // @public, checks if data point when through David
-      updateDavidIfWithinRange: function( point ) {
-        if ( point && point.distance( this.davidPosition ) <= DAVID_RADIUS ) {
-          this.davidShortsOnProperty.set( false );
+    // @private updates the status of the trajectories, as in whether they are changed in mid air
+    updateStatusofTrajectories: function() {
+      var self = this;
+      this.trajectories.forEach( function( trajectory ) {
+        if( !trajectory.reachedGround ) {
+          trajectory.changedInMidAir = true;
         }
+
+        var i;
+        for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
+          var projectileObject = trajectory.projectileObjects.get( i );
+          if ( projectileObject.dataPointProperty.get().y > 0 ) {
+            trajectory.projectileObjects.remove( projectileObject );
+            
+            // object is still in the air so a new trajectory needs to be created
+            var newTrajectory = trajectory.newTrajectory( projectileObject );
+            newTrajectory.changedInMidAir = true;
+            self.trajectories.push( newTrajectory );
+          }
+        }
+      } );
+
+      // delete over-the-max trajectories
+      self.limitTrajectories();
+    },
+
+    // @public, checks if data point when through David
+    updateDavidIfWithinRange: function( point ) {
+      if ( point && point.distance( this.davidPosition ) <= DAVID_RADIUS ) {
+        this.davidShortsOnProperty.set( false );
       }
+    }
 
   } );
 } );
