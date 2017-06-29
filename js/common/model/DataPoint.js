@@ -41,8 +41,7 @@ define( function( require ) {
                       forceGravity
   ) {
     
-    // this.position = Vector2.dirtyFromPool( x, y );
-    this.position = new Vector2( x, y );
+    this.position = Vector2.dirtyFromPool().setXY( x, y );
 
     // @public (read-only)
     this.time = time;
