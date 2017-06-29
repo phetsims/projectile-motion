@@ -53,6 +53,7 @@ define( function( require ) {
   var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
   var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
+  var ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -234,7 +235,12 @@ define( function( require ) {
     };
 
     // watch for if height changes
-    heightProperty.link( updateHeight );
+    heightProperty.link( function( height ) {
+      updateHeight( height );
+      if ( height < 4 && angleProperty.get() < ANGLE_RANGE_MINS[ height ] ) {
+        angleProperty.set( ANGLE_RANGE_MINS[ height ] );
+      }
+    } );
 
     // update if transform changes
     transformProperty.link( function( transform ) {
@@ -270,9 +276,7 @@ define( function( require ) {
 
         var unboundedNewAngle = startAngle + angleChangeInDegrees;
 
-        // angle range minimums, corresponding to height through their index
-        var rangeMins = [ 25, -5, -20, -40 ];
-        var angleRange = heightProperty.get() < 4 ? new Range( rangeMins[ heightProperty.get() ], 90 ) : ANGLE_RANGE;
+        var angleRange = heightProperty.get() < 4 ? new Range( ANGLE_RANGE_MINS[ heightProperty.get() ], 90 ) : ANGLE_RANGE;
 
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
