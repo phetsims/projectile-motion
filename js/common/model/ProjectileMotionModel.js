@@ -297,7 +297,7 @@ define( function( require ) {
       } );
 
       // delete over-the-max trajectories
-      self.limitTrajectories();
+      this.limitTrajectories();
     },
 
     // @public, checks if data point when through David

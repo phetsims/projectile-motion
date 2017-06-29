@@ -80,7 +80,6 @@ define( function( require ) {
 
     // @public animate projectile given {number} time step in seconds
     step: function( dt ) {
-      var self = this;
       var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
       // Haven't reached ground, so continue collecting datapoints
@@ -154,14 +153,14 @@ define( function( require ) {
       var i;
       for( i = 0; i < this.projectileObjects.length; i ++ ) {
         var object = this.projectileObjects.get( i );
-        if ( object.index < self.dataPoints.length - 1 ) {
+        if ( object.index < this.dataPoints.length - 1 ) {
           object.index ++;
-          object.dataPointProperty.set( self.dataPoints.get( object.index ) );
+          object.dataPointProperty.set( this.dataPoints.get( object.index ) );
         }
         // if it has just reached the end, check if landed on target
         else if ( !object.checkedScore ) {
-          self.projectileMotionModel.numberOfMovingProjectilesProperty.value --;
-          self.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
+          this.projectileMotionModel.numberOfMovingProjectilesProperty.value --;
+          this.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
           object.checkedScore = true;
         }
       }

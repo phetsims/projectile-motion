@@ -168,7 +168,7 @@ define( function( require ) {
       textBox
     ];
 
-    Node.call( self, options );
+    Node.call( this, options );
 
     // visibility
     tracer.isActiveProperty.link( function( active ) {
