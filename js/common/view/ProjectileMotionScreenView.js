@@ -38,7 +38,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
-  var ZoomControl = require( 'PROJECTILE_MOTION/common/view/ZoomControl' );
+  var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // strings
   var metersString = require( 'string!PROJECTILE_MOTION/meters');
@@ -166,7 +166,6 @@ define( function( require ) {
       measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.layoutBounds ) );
     } );
 
-
     // add view for tracer
     var tracerNode = new TracerNode(
       model.tracer,
@@ -177,6 +176,33 @@ define( function( require ) {
     // // zoom property
     var zoomProperty = new Property( DEFAULT_ZOOM );
 
+    // zoom control view
+    var zoomControl = new Node();
+
+    var zoomOutButton = new ZoomButton( {
+      baseColor: '#E7E8E9',
+      radius: 8,
+      xMargin: 3,
+      yMargin: 3,
+      disabledBaseColor: '#EDEDED',
+      in: false,
+      left: 0,
+      top: 0
+    } );
+    zoomControl.addChild( zoomOutButton );
+
+    var zoomInButton = new ZoomButton( {
+      baseColor: '#E7E8E9',
+      radius: 8,
+      xMargin: 3,
+      yMargin: 3,
+      disabledBaseColor: '#EDEDED',
+      in: true,
+      left: zoomOutButton.right + X_MARGIN,
+      top: zoomOutButton.top
+    } );
+    zoomControl.addChild( zoomInButton );
+
     // // Watch the zoom property and update transform property accordingly
     zoomProperty.link( function( zoomFactor ) {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
@@ -185,11 +211,20 @@ define( function( require ) {
         DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
       ) );
 
+      zoomOutButton.setEnabled( zoomFactor > MIN_ZOOM );
+      zoomInButton.setEnabled( zoomFactor < MAX_ZOOM );
     } );
 
-    // zoom control view and position it
-    var zoomControl = new ZoomControl( zoomProperty, MIN_ZOOM, MAX_ZOOM );
-    zoomControl.left = 0;
+    // Zooming out means bars and zoom level gets smaller.
+    zoomOutButton.addListener( function() {
+      zoomProperty.value *= 0.5;
+    } );
+
+    // Zooming in means bars and zoom level gets larger.
+    zoomInButton.addListener( function() {
+      zoomProperty.value *= 2;
+    } );
+
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );

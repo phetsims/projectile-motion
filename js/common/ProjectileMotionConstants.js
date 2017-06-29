@@ -95,7 +95,7 @@ define( function( require ) {
     },
 
     // zooming
-    MIN_ZOOM: 0.5,
+    MIN_ZOOM: 0.25,
     MAX_ZOOM: 2,
     DEFAULT_ZOOM: 1.0,
 
