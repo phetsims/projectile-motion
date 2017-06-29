@@ -18,8 +18,7 @@ define( function( require ) {
    * @param {number} x - x position of the data point, also called range, in m
    * @param {number} y - y position of the data point, also called height, in m
    * @param {number} airDensity - air density of the atmosphere at this point, in kg/cu m
-   * @param {number} xVelocity - x component of velocity at this point, in m/s
-   * @param {number} yVelocity - y component of velocity at this point, in m/s
+   * @param {Vector2} velocity - x component of velocity at this point, in m/s
    * @param {number} xAcceleration - x component of acceleration at this point, in m/s^2
    * @param {number} yAcceleration - y component of acceleration at this point, in m/s^2
    * @param {number} xDragForce - x component of drag force at this point, in N
@@ -32,8 +31,7 @@ define( function( require ) {
                       x,
                       y,
                       airDensity,
-                      xVelocity,
-                      yVelocity,
+                      velocity,
                       xAcceleration,
                       yAcceleration,
                       xDragForce,
@@ -46,8 +44,7 @@ define( function( require ) {
     // @public (read-only)
     this.time = time;
     this.airDensity = airDensity;
-    this.xVelocity = xVelocity;
-    this.yVelocity = yVelocity;
+    this.velocity = velocity;
     this.xAcceleration = xAcceleration;
     this.yAcceleration = yAcceleration;
     this.xDragForce = xDragForce;

@@ -223,7 +223,7 @@ define( function( require ) {
 
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
       if( objectType ?  objectType.rotates : true  ) {
-        var angle = Math.atan( dataPoint.yVelocity / dataPoint.xVelocity ) || 0;
+        var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x ) || 0;
         projectileObjectView.setRotation( -angle );
       }
 
@@ -234,18 +234,18 @@ define( function( require ) {
       var y = modelViewTransform.modelToViewY( dataPoint.position.y );
       xVelocityArrow.setTailAndTip( x,
         y,
-        x + transformedVelocityScalar * dataPoint.xVelocity,
+        x + transformedVelocityScalar * dataPoint.velocity.x,
         y
       );
       yVelocityArrow.setTailAndTip( x,
         y,
         x,
-        y - transformedVelocityScalar * dataPoint.yVelocity
+        y - transformedVelocityScalar * dataPoint.velocity.y
       );
       totalVelocityArrow.setTailAndTip( x,
         y,
-        x + transformedVelocityScalar * dataPoint.xVelocity,
-        y - transformedVelocityScalar * dataPoint.yVelocity
+        x + transformedVelocityScalar * dataPoint.velocity.x,
+        y - transformedVelocityScalar * dataPoint.velocity.y
       );
       xAccelerationArrow.setTailAndTip( x,
         y,
