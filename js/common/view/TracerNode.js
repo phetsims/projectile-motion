@@ -125,8 +125,8 @@ define( function( require ) {
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.time, 2 ), sString ) );
-        rangeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.x, 2 ), mString ) );
-        heightReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.y, 2 ), mString ) );
+        rangeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.x, 2 ), mString ) );
+        heightReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.y, 2 ), mString ) );
       } else {
         timeReadoutProperty.set( '-' );
         rangeReadoutProperty.set( '-' );

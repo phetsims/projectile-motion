@@ -85,8 +85,8 @@ define( function( require ) {
       // Haven't reached ground, so continue collecting datapoints
       if ( !this.reachedGround ) {
 
-        var newX = previousPoint.x + previousPoint.xVelocity * dt + 0.5 * previousPoint.xAcceleration * dt * dt;
-        var newY = previousPoint.y + previousPoint.yVelocity * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
+        var newX = previousPoint.position.x + previousPoint.xVelocity * dt + 0.5 * previousPoint.xAcceleration * dt * dt;
+        var newY = previousPoint.position.y + previousPoint.yVelocity * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
 
         var newXVelocity = previousPoint.xVelocity + previousPoint.xAcceleration * dt;
         var newYVelocity = previousPoint.yVelocity + previousPoint.yAcceleration * dt;
@@ -105,8 +105,8 @@ define( function( require ) {
           this.reachedGround = true; // store the information that it has reached the ground
           
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( -Math.sqrt( previousPoint.yVelocity * previousPoint.yVelocity - 2 * previousPoint.yAcceleration * previousPoint.y ) - previousPoint.yVelocity ) / previousPoint.yAcceleration;
-          newX = previousPoint.x + previousPoint.xVelocity * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
+          var timeToGround = ( -Math.sqrt( previousPoint.yVelocity * previousPoint.yVelocity - 2 * previousPoint.yAcceleration * previousPoint.position.y ) - previousPoint.yVelocity ) / previousPoint.yAcceleration;
+          newX = previousPoint.position.x + previousPoint.xVelocity * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
           newY = 0;
 
           var newPoint = new DataPoint(
@@ -146,7 +146,7 @@ define( function( require ) {
         
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
-        this.projectileMotionModel.updateDavidIfWithinRange( newPoint );
+        this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
       }
 
       // increment position of projectile objects, unless it has reached the end
@@ -178,14 +178,14 @@ define( function( require ) {
 
       // First, set nearest point and corresponding distance to the first datapoint.
       var nearestPoint = this.dataPoints.get( 0 );
-      var minDistance = nearestPoint.distanceXY( x, y );
+      var minDistance = nearestPoint.position.distanceXY( x, y );
 
       // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
       // later in total time since fired is chosen.
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {
         var currentPoint = this.dataPoints.get( i );
-        var currentDistance = currentPoint.distanceXY( x, y );
+        var currentDistance = currentPoint.position.distanceXY( x, y );
 
         if ( currentDistance <= minDistance ) {
           nearestPoint = currentPoint;
@@ -229,7 +229,7 @@ define( function( require ) {
       var model = this.projectileMotionModel;
       return !this.changedInMidAir
         && ( !this.projectileObjectType || !model.selectedProjectileObjectTypeProperty || this.projectileObjectType === model.selectedProjectileObjectTypeProperty.get() )
-        && initialPoint.y === model.cannonHeightProperty.get()
+        && initialPoint.position.y === model.cannonHeightProperty.get()
         && this.mass === model.projectileMassProperty.get()
         && this.diameter === model.projectileDiameterProperty.get()
         && this.dragCoefficient === model.projectileDragCoefficientProperty.get()

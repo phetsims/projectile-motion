@@ -227,11 +227,11 @@ define( function( require ) {
         projectileObjectView.setRotation( -angle );
       }
 
-      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
-      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
+      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.position.x );
+      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.position.y );
 
-      var x = modelViewTransform.modelToViewX( dataPoint.x );
-      var y = modelViewTransform.modelToViewY( dataPoint.y );
+      var x = modelViewTransform.modelToViewX( dataPoint.position.x );
+      var y = modelViewTransform.modelToViewY( dataPoint.position.y );
       xVelocityArrow.setTailAndTip( x,
         y,
         x + transformedVelocityScalar * dataPoint.xVelocity,
@@ -268,8 +268,8 @@ define( function( require ) {
         forcesBox.visible = false;
         freeBodyDiagram.visible = false;
         if ( landedObjectView ) {
-          landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.x );
-          landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.y );
+          landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.position.x );
+          landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.position.y );
           if ( objectType ? objectType.type === 'human' || objectType.type === 'buick' : false ) {
             landedObjectView.bottom = landedObjectView.centerY;
           }
@@ -309,8 +309,8 @@ define( function( require ) {
       forceGravityLabel.y = forceGravityArrow.tipY;
 
       // net force is zero if projectile is on ground
-      var xTotalForce = dataPoint.y === 0 ? 0 : dataPoint.xDragForce;
-      var yTotalForce = dataPoint.y === 0 ? 0 : dataPoint.yDragForce;
+      var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.xDragForce;
+      var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.yDragForce;
       totalDragForceArrow.setTailAndTip( freeBody.x,
         freeBody.y,
         freeBody.x - transformedForceScalar * xTotalForce,

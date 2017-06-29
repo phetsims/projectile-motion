@@ -58,7 +58,7 @@ define( function( require ) {
       for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.trajectories.get( i );
         var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
-        if ( point && point.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+        if ( point && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
           return;
         }
@@ -68,7 +68,7 @@ define( function( require ) {
 
     // @public checks if the given point is close enough to the tracer and updates information if so
     updateDataIfWithinRange: function( point ) {
-      if ( point && point.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+      if ( point && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
       }
     }

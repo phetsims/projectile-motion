@@ -40,7 +40,9 @@ define( function( require ) {
                       yDragForce,
                       forceGravity
   ) {
-    Vector2.call( this, x, y );
+    
+    // this.position = Vector2.dirtyFromPool( x, y );
+    this.position = new Vector2( x, y );
 
     // @public (read-only)
     this.time = time;
@@ -56,6 +58,6 @@ define( function( require ) {
 
   projectileMotion.register( 'DataPoint', DataPoint );
 
-  return inherit( Vector2, DataPoint );
+  return inherit( Object, DataPoint );
 } );
 

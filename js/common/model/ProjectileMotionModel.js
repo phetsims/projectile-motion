@@ -300,9 +300,9 @@ define( function( require ) {
       this.limitTrajectories();
     },
 
-    // @public, checks if data point when through David
-    updateDavidIfWithinRange: function( point ) {
-      if ( point && point.distance( this.davidPosition ) <= DAVID_RADIUS ) {
+    // @public, checks if position is through David
+    updateDavidIfWithinRange: function( position ) {
+      if ( position && position.distance( this.davidPosition ) <= DAVID_RADIUS ) {
         this.davidShortsOnProperty.set( false );
       }
     }

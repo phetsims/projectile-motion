@@ -53,26 +53,26 @@ define( function( require ) {
     this.addChild( dotsLayer );
     this.addChild( projectileNodesLayer );
 
-    var viewLastPoint = null;
+    var viewLastPosition = null;
 
     function handleDataPointAdded( addedPoint ) {
-      var viewAddedPoint = transformProperty.get().modelToViewPosition( new Vector2( addedPoint.x, addedPoint.y ) );
+      var viewAddedPosition = transformProperty.get().modelToViewPosition( new Vector2( addedPoint.position.x, addedPoint.position.y ) );
 
-      if ( viewLastPoint ) {
+      if ( viewLastPosition ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
-        var lineSegment = new Line( viewLastPoint.x, viewLastPoint.y, viewAddedPoint.x, viewAddedPoint.y, {
+        var lineSegment = new Line( viewLastPosition.x, viewLastPosition.y, viewAddedPosition.x, viewAddedPosition.y, {
           lineWidth: PATH_WIDTH,
           stroke: pathStroke
         } );
         pathsLayer.addChild( lineSegment );
       }
-      viewLastPoint = viewAddedPoint.copy();
+      viewLastPosition = viewAddedPosition.copy();
 
       // draw dot if it is time for data point should be shown
       if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
         var addedPointNode = new Circle( DOT_DIAMETER / 2, {
-          x: transformProperty.get().modelToViewX( addedPoint.x ),
-          y: transformProperty.get().modelToViewY( addedPoint.y ),
+          x: transformProperty.get().modelToViewX( addedPoint.position.x ),
+          y: transformProperty.get().modelToViewY( addedPoint.position.y ),
           fill: 'black'
         } );
         dotsLayer.addChild( addedPointNode );
@@ -103,7 +103,7 @@ define( function( require ) {
     transformProperty.link( function( transform ) {
       pathsLayer.removeAllChildren();
       dotsLayer.removeAllChildren();
-      viewLastPoint = null;
+      viewLastPosition = null;
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
       trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
