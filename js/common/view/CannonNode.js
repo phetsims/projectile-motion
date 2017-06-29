@@ -47,7 +47,7 @@ define( function( require ) {
   var ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  var HEIGHT_LEADER_LINE_POSITION = -3;
+  var HEIGHT_LEADER_LINE_POSITION = -2.7;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
