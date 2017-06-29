@@ -20,9 +20,11 @@ define( function( require ) {
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
+  var DAVID_RADIUS = 0.5; // meters, will change to view units. How close the tracer needs to get to a datapoint
 
   /**
    * @constructor
@@ -94,6 +96,11 @@ define( function( require ) {
     // @private, tracks remaining time mod 16 ms
     this.residualTime = 0;
 
+    // @private
+    this.davidShortsOnProperty = new Property( true );
+
+    // @public (read-only)
+    this.davidPosition = new Vector2( ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT, ProjectileMotionConstants.DAVID_HEIGHT / 2 );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -153,6 +160,8 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
+
+      this.davidShortsOnProperty.reset();
     },
 
     // @public determines animation based on play/pause and speed
@@ -273,6 +282,14 @@ define( function( require ) {
 
         // delete over-the-max trajectories
         self.limitTrajectories();
+      },
+
+      // @public, checks if data point when through David
+      updateDavidIfWithinRange: function( point ) {
+        console.log( point, this.davidPosition );
+        if ( point && point.distance( this.davidPosition ) <= DAVID_RADIUS ) {
+          this.davidShortsOnProperty.set( false );
+        }
       }
 
   } );

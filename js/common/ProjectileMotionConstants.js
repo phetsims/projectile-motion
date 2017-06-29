@@ -101,7 +101,11 @@ define( function( require ) {
 
     // normal/slow/play/pause/step
     PLAY_CONTROLS_HORIZONTAL_INSET: 10,
-    PLAY_CONTROLS_TEXT_MAX_WIDTH: 80
+    PLAY_CONTROLS_TEXT_MAX_WIDTH: 80,
+
+    // David
+    DAVID_HEIGHT: 2, // meters
+    DAVID_HORIZONTAL_PLACEMENT: 9 // meters
   };
 
   projectileMotion.register( 'ProjectileMotionConstants', ProjectileMotionConstants );

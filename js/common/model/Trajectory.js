@@ -147,6 +147,7 @@ define( function( require ) {
         
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
+        this.projectileMotionModel.updateDavidIfWithinRange( newPoint );
       }
 
       // increment position of projectile objects, unless it has reached the end

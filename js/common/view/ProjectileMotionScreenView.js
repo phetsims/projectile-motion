@@ -66,8 +66,8 @@ define( function( require ) {
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
   var FLATIRONS_RANGE = { min: 1500, max: 1700 };
-  var DAVID_HEIGHT = 2; // in meters
-  var DAVID_HORIZONTAL_PLACEMENT = 9; // in meters
+  var DAVID_HEIGHT = ProjectileMotionConstants.DAVID_HEIGHT; // in meters
+  var DAVID_HORIZONTAL_PLACEMENT = ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT; // in meters
 
   /**
    * @param {ProjectileMotionModel} model
@@ -177,6 +177,11 @@ define( function( require ) {
     davidNode.addChild( davidTop );
     var davidShorts = new Image( davidShortsImage, { left: davidBottom.right + X_MARGIN, centerY: 0 } );
     davidNode.addChild( davidShorts );
+
+    model.davidShortsOnProperty.link( function( shortsOn ) {
+      davidMiddle.visible = shortsOn;
+      davidShorts.visible = !shortsOn;
+    } );
 
     // listen to transform property
     transformProperty.link( function( transform ) {
