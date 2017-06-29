@@ -275,6 +275,10 @@ define( function( require ) {
       left: initialSpeedPanel.right + 30
     } );
 
+    model.fireEnabledProperty.link( function( enable ) {
+      fireButton.setEnabled( enable );
+    } );
+
     // eraser button
     var eraserButton = new EraserButton( {
       minWidth: 50,

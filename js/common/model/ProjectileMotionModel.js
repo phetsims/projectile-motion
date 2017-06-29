@@ -101,6 +101,15 @@ define( function( require ) {
 
     // @public (read-only)
     this.davidPosition = new Vector2( ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT, ProjectileMotionConstants.DAVID_HEIGHT / 2 );
+  
+    // @public number of projectiles that are still moving
+    this.numberOfMovingProjectilesProperty = new Property( 0 );
+
+    // @public {Property.<boolean>}
+    this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty ], function( number ) {
+      return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
+    } );
+
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -237,6 +246,8 @@ define( function( require ) {
           trajectory.rankProperty.set( trajectory.rankProperty.get() - 1 );
         }
       } );
+
+      this.numberOfMovingProjectilesProperty.value ++;
 
       this.limitTrajectories();
 

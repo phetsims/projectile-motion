@@ -32,6 +32,7 @@ define( function( require ) {
 
     // productive constraints
     MAX_NUMBER_OF_PROJECTILES: 5,
+    MAX_NUMBER_OF_FLYING_PROJECTILES: 3,
 
     CANNON_HEIGHT_RANGE: new Range( 0, 15 ),
     CANNON_ANGLE_RANGE: new Range( -90, 90 ),

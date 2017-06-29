@@ -160,6 +160,7 @@ define( function( require ) {
         }
         // if it has just reached the end, check if landed on target
         else if ( !object.checkedScore ) {
+          self.projectileMotionModel.numberOfMovingProjectilesProperty.value --;
           self.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().x );
           object.checkedScore = true;
         }
