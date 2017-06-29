@@ -258,6 +258,7 @@ define( function( require ) {
       var trajectories = this.trajectories;
       trajectories.forEach( function( trajectory ) {
         if ( trajectory.rankProperty.get() >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
+          trajectory.freeVector2sToPool();
           trajectories.remove( trajectory );
         }
       } );

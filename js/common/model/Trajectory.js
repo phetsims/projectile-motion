@@ -237,6 +237,14 @@ define( function( require ) {
         && initialPoint.yVelocity === model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
         && initialPoint.airDensity === model.airDensityProperty.get()
         && -initialPoint.yAcceleration === model.gravityProperty.get();
+    },
+
+    // @public memory management
+    freeVector2sToPool: function() {
+      var i;
+      for ( i = 0; i < this.dataPoints.length; i++ ) {
+        this.dataPoints.get( i ).position.freeToPool();
+      }
     }
 
   } );
