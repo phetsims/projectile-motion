@@ -15,6 +15,7 @@ define( function( require ) {
   var Dimension2 = require( 'DOT/Dimension2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
@@ -40,6 +41,12 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
+  // image
+  var davidBottomImage = require( 'image!PROJECTILE_MOTION/david_bottom.png' );
+  var davidMiddleImage = require( 'image!PROJECTILE_MOTION/david_middle.png' );
+  var davidTopImage = require( 'image!PROJECTILE_MOTION/david_top.png' );
+  var davidShortsImage = require( 'image!PROJECTILE_MOTION/david_shorts.png' );
+  
   // strings
   var metersString = require( 'string!PROJECTILE_MOTION/meters');
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
@@ -47,7 +54,6 @@ define( function( require ) {
   var slowString = require( 'string!PROJECTILE_MOTION/slow' );
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
-
 
   // constants
   var DEFAULT_SCALE = 30;
@@ -60,6 +66,8 @@ define( function( require ) {
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
   var FLATIRONS_RANGE = { min: 1500, max: 1700 };
+  var DAVID_HEIGHT = 2; // in meters
+  var DAVID_HORIZONTAL_PLACEMENT = 9; // in meters
 
   /**
    * @param {ProjectileMotionModel} model
@@ -160,10 +168,22 @@ define( function( require ) {
         textColor: 'black'
     } );
 
+    var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
+    var davidBottom = new Image( davidBottomImage, { centerX: 0, bottom: 0 } );
+    davidNode.addChild( davidBottom );
+    var davidMiddle = new Image( davidMiddleImage, { centerX: davidBottom.centerX, centerY: davidBottom.centerY } );
+    davidNode.addChild( davidMiddle );
+    var davidTop = new Image( davidTopImage, { centerX: 0, centerY: davidBottom.centerY } );
+    davidNode.addChild( davidTop );
+    var davidShorts = new Image( davidShortsImage, { left: davidBottom.right + X_MARGIN, centerY: 0 } );
+    davidNode.addChild( davidShorts );
+
     // listen to transform property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
       measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.layoutBounds ) );
+      davidNode.setScaleMagnitude( Math.abs( transform.modelToViewDeltaY( DAVID_HEIGHT ) / davidBottom.height ) );
+      davidNode.x = transform.modelToViewX( DAVID_HORIZONTAL_PLACEMENT );
     } );
 
     // add view for tracer
@@ -322,6 +342,7 @@ define( function( require ) {
     this.setChildren( [
       this.backgroundNode,
       targetNode,
+      davidNode,
       cannonNode,
       trajectoriesLayer,
       initialSpeedPanel,
