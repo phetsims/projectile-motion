@@ -52,7 +52,7 @@ define( function( require ) {
     // @public
     reset: function() {
       ProjectileMotionModel.prototype.reset.call( this );
-      this.selectedProjectileObjectTypeProperty.set( this.objectTypes[ 0 ] );
+      this.selectedProjectileObjectTypeProperty.reset();
     }
   } );
 } );

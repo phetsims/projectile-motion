@@ -32,6 +32,7 @@ define( function( require ) {
                                     this,
                                     model,
                                     new DragProjectilePanel(
+                                                            model.selectedProjectileObjectTypeProperty,
                                                             model.projectileDragCoefficientProperty,
                                                             model.projectileDiameterProperty,
                                                             model.projectileMassProperty,

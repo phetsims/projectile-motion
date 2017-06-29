@@ -45,6 +45,7 @@ define( function( require ) {
   var DRAG_OBJECT_DISPLAY_RADIUS = 12;
 
   /**
+   * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileMassProperty
@@ -53,6 +54,7 @@ define( function( require ) {
    * @constructor
    */
   function DragProjectilePanel(
+                                selectedObjectTypeProperty,
                                 projectileDragCoefficientProperty,
                                 projectileDiameterProperty,
                                 projectileMassProperty,
@@ -73,10 +75,11 @@ define( function( require ) {
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Range} range - range for the property value
      * @param {Node} viewNode - a view display to be shown with the value
+     * @param {Number} round - optional, for minor ticks
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range, viewNode ) {
+    function createParameterControlBox( labelString, unitsString, property, range, viewNode, round ) {
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
@@ -100,8 +103,9 @@ define( function( require ) {
 
       var slider = new HSlider( property, range, {
         constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; }, // two decimal place accuracy
-        majorTickLength: 5,
-        tickLabelSpacing: 10,
+        majorTickLength: 12,
+        minorTickLength: 5,
+        tickLabelSpacing: 2,
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 16, 28 ),
         thumbTouchAreaXDilation: 6,
@@ -109,6 +113,13 @@ define( function( require ) {
       } );
       slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
+      
+      if ( round ) {
+        var i;
+        for ( i = range.min + round; i < range.max; i += round ) {
+          slider.addMinorTick( i );
+        }
+      }
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
@@ -156,21 +167,27 @@ define( function( require ) {
       diameterString,
       mString,
       projectileDiameterProperty,
-      ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
+      selectedObjectTypeProperty.get().diameterRange,
+      null,
+      selectedObjectTypeProperty.get().diameterRound
     );
 
     var massBox = createParameterControlBox(
       massString,
       kgString,
       projectileMassProperty,
-      ProjectileMotionConstants.PROJECTILE_MASS_RANGE
+      selectedObjectTypeProperty.get().massRange,
+      null,
+      selectedObjectTypeProperty.get().massRound
     );
 
     var altitudeBox = createParameterControlBox(
       altitudeString,
       mString,
       altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE
+      ProjectileMotionConstants.ALTITUDE_RANGE,
+      null,
+      500
     );
 
     // The contents of the control panel
