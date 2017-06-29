@@ -286,7 +286,6 @@ define( function( require ) {
 
       // @public, checks if data point when through David
       updateDavidIfWithinRange: function( point ) {
-        console.log( point, this.davidPosition );
         if ( point && point.distance( this.davidPosition ) <= DAVID_RADIUS ) {
           this.davidShortsOnProperty.set( false );
         }
