@@ -54,6 +54,23 @@ define( function( require ) {
 
   projectileMotion.register( 'DataPoint', DataPoint );
 
-  return inherit( Object, DataPoint );
+  return inherit( Object, DataPoint, {
+    /**
+     * Whether this dataPoint is equal to given dataPoint
+     * @returns {boolean}
+     * @public
+     */
+    equals: function( dataPoint ) {
+      return this.position.equals( dataPoint.position )
+        && this.time === dataPoint.time
+        && this.airDensity === dataPoint.airDensity
+        && this.velocity.equals( dataPoint.velocity )
+        && this.xAcceleration === dataPoint.xAcceleration
+        && this.yAcceleration === dataPoint.yAcceleration
+        && this.xDragForce === dataPoint.xDragForce
+        && this.yDragForce === dataPoint.yDragForce
+        && this.forceGravity === this.forceGravity;
+    }
+  } );
 } );
 

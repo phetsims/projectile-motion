@@ -195,10 +195,12 @@ define( function( require ) {
     addProjectile: function() {
       var equalsExistingTrajectory = false; // whether the added p
       var removedRank = this.trajectories.length;
+      var newTrajectory = new Trajectory( this );
 
       // search for equal trajectory and add a new projectile object to it, if found
       this.trajectories.forEach( function( trajectory ) {
-        if ( trajectory.currentModelEqualsSelf() ) {
+        if ( trajectory.equals( newTrajectory ) ) {
+          newTrajectory.freeVector2sToPool();
           trajectory.addProjectileObject();
 
           equalsExistingTrajectory = true;
@@ -213,7 +215,7 @@ define( function( require ) {
 
       // if there has been an equal trajectory found, create a new trajectory
       if (!equalsExistingTrajectory ) {
-        this.trajectories.push( new Trajectory( this ) );
+        this.trajectories.push( newTrajectory );
       }
 
       // decrement ranks after the shifted trajectory

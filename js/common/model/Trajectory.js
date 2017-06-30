@@ -220,19 +220,12 @@ define( function( require ) {
     },
 
     // @public whether {boolean} this trajectory is equal to the one set up in the model
-    currentModelEqualsSelf: function() {
-      var initialPoint = this.dataPoints.get( 0 );
-      var model = this.projectileMotionModel;
+    equals: function( trajectory ) {
+      var thisInitialPoint = this.dataPoints.get( 0 );
+      var trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
-        && ( !this.projectileObjectType || !model.selectedProjectileObjectTypeProperty || this.projectileObjectType === model.selectedProjectileObjectTypeProperty.get() )
-        && initialPoint.position.y === model.cannonHeightProperty.get()
-        && this.mass === model.projectileMassProperty.get()
-        && this.diameter === model.projectileDiameterProperty.get()
-        && this.dragCoefficient === model.projectileDragCoefficientProperty.get()
-        && initialPoint.velocity.x === model.launchVelocityProperty.get() * Math.cos( model.cannonAngleProperty.get() * Math.PI / 180 )
-        && initialPoint.velocity.y === model.launchVelocityProperty.get() * Math.sin( model.cannonAngleProperty.get() * Math.PI / 180 )
-        && initialPoint.airDensity === model.airDensityProperty.get()
-        && -initialPoint.yAcceleration === model.gravityProperty.get();
+        && ( !this.projectileObjectType || !trajectory.selectedProjectileObjectTypeProperty || this.projectileObjectType === trajectory.selectedProjectileObjectTypeProperty.get() )
+        && thisInitialPoint.equals( trajectoryInitialPoint );
     },
 
     // @public memory management
