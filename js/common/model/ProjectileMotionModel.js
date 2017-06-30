@@ -166,6 +166,8 @@ define( function( require ) {
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
 
+      this.numberOfMovingProjectilesProperty.reset();
+
       this.davidShortsOnProperty.reset();
     },
 
