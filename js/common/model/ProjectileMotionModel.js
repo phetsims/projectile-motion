@@ -178,7 +178,9 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      this.eventTimer.step( ( this.speedProperty.value === 'normal' ? 1 : 0.33 ) * dt );
+      if ( this.isPlayingProperty.value ) {
+        this.eventTimer.step( ( this.speedProperty.value === 'normal' ? 1 : 0.33 ) * dt );
+      }
     },
 
     // @public animate model elements given a time step
