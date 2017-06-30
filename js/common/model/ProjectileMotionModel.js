@@ -90,12 +90,6 @@ define( function( require ) {
     // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
     this.isPlayingProperty = new Property( true );
 
-    // @private, how many steps mod three, used to slow animation down to a third of normal speed
-    this.stepCount = 0;
-
-    // @private, tracks remaining time mod 16 ms
-    this.residualTime = 0;
-
     // @private
     this.davidShortsOnProperty = new Property( true );
 
@@ -191,7 +185,6 @@ define( function( require ) {
       for ( i = 0; i < this.trajectories.length; i++ ) {
         this.trajectories.get( i ).step( dt );
       }
-      // this.score.step( dt );
     },
 
     // @protected, adds a projectile to the model
