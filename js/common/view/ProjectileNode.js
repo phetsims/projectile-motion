@@ -47,6 +47,12 @@ define( function( require ) {
   var FORCES_BOX_DILATION = 7;
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
 
+  //TODO: release references to these when not needed
+  var xDragForceText = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
+  var yDragForceText = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
+  var forceGravityText = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
+  var totalDragForceText = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
+
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
@@ -165,24 +171,24 @@ define( function( require ) {
     var xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyComponents.addChild( xDragForceArrow );
 
-    var xDragForceLabel = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
+    var xDragForceLabel = new Node( { children: [ xDragForceText ] } );
     freeBodyComponents.addChild( xDragForceLabel );
 
     var yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyComponents.addChild( yDragForceArrow );
 
-    var yDragForceLabel = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
+    var yDragForceLabel = new Node( { children: [ yDragForceText ] } );
     freeBodyComponents.addChild( yDragForceLabel );
 
     var forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-    var forceGravityLabel = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
+    var forceGravityLabel = new Node( { children: [ forceGravityText ] } );
 
     var freeBodyTotals = new Node();
 
     var totalDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
     freeBodyTotals.addChild( totalDragForceArrow );
 
-    var totalDragForceLabel = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
+    var totalDragForceLabel = new Node( { children: [ totalDragForceText ] } );
     freeBodyTotals.addChild( totalDragForceLabel );
 
     // TODO: Don't leak listeners to the visibility properties.
