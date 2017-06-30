@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var EventTimer = require( 'PHET_CORE/EventTimer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -19,7 +20,6 @@ define( function( require ) {
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
-  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -65,7 +65,7 @@ define( function( require ) {
     this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
 
     // --properties that change the environment and affect all projectiles
-    
+
     // @public {Property.<number>} acceleration due to gravity, in meters per second squared
     this.gravityProperty = new Property( ProjectileMotionConstants.GRAVITY_ON_EARTH );
 
@@ -81,7 +81,7 @@ define( function( require ) {
     // change status of projectiles
     this.airDensityProperty.link( this.updateStatusofTrajectories.bind( this ) );
     this.gravityProperty.link( this.updateStatusofTrajectories.bind( this ) );
-    
+
     // --animation playing controls
 
     // @public {Property.<String>} speed of animation, normal/slow
@@ -101,7 +101,7 @@ define( function( require ) {
 
     // @public (read-only)
     this.davidPosition = new Vector2( ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT, ProjectileMotionConstants.DAVID_HEIGHT / 2 );
-  
+
     // @public number of projectiles that are still moving
     this.numberOfMovingProjectilesProperty = new Property( 0 );
 
@@ -110,6 +110,8 @@ define( function( require ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     } );
 
+    // @private {EventTimer}
+    this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1 / 0.016 ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -180,30 +182,7 @@ define( function( require ) {
      * @param {number} dt
      */
     step: function( dt ) {
-      // stepCount tracks how many frames mod 3, so slow motion is slowed down to once every three frames
-      this.stepCount += 1;
-      this.stepCount = this.stepCount % 3;
-
-      // prevent sudden dt bursts when the user comes back to the tab after a while
-      dt = Math.min( TIME_PER_DATA_POINT * 32 / 1000, dt );
-
-      this.residualTime += dt * 1000; // in milliseconds
-
-      // number of model steps to clock this frame
-      var numberSteps = Util.toFixedNumber( this.residualTime / TIME_PER_DATA_POINT , 0 ) / 1000;
-
-      this.residualTime = this.residualTime % TIME_PER_DATA_POINT;
-
-      if ( this.isPlayingProperty.get() ) {
-        // for every 3 * 16 ms, stepModelElements is called for 16 ms
-        // TODO: revert back to one second = one third of a second
-        if ( this.speedProperty.get() === 'normal' || this.stepCount === 0 ) {
-          var i;
-          for ( i = 0; i < numberSteps; i++ ) {
-            this.stepModelElements( TIME_PER_DATA_POINT / 1000 );
-          }
-        }
-      }
+      this.eventTimer.step( ( this.speedProperty.value === 'normal' ? 1 : 0.33 ) * dt );
     },
 
     // @public animate model elements given a time step
@@ -288,7 +267,7 @@ define( function( require ) {
           var projectileObject = trajectory.projectileObjects.get( i );
           if ( projectileObject.dataPointProperty.get().y > 0 ) {
             trajectory.projectileObjects.remove( projectileObject );
-            
+
             // object is still in the air so a new trajectory needs to be created
             var newTrajectory = trajectory.newTrajectory( projectileObject );
             newTrajectory.changedInMidAir = true;
