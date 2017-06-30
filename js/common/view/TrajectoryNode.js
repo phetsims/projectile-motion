@@ -111,8 +111,8 @@ define( function( require ) {
     trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     trajectory.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
 
-    // upddate if model view transform changes
-    transformProperty.link( function( transform ) {
+    // update if model view transform changes
+    transformProperty.lazyLink( function( transform ) {
       self.pathsLayer.removeAllChildren();
 
       currentPathShape = null;
