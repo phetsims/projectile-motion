@@ -245,6 +245,7 @@ define( function( require ) {
     // @public, removes all projectiles
     eraseProjectiles: function() {
       this.trajectories.clear();
+      this.numberOfMovingProjectilesProperty.reset();
     },
 
     // @public fires cannon, called on by fire button
