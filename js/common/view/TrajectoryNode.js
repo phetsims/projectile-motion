@@ -11,23 +11,26 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
+  var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
-  var DOT_DIAMETER = 4; // view units
+  var DOT_RADIUS = 2; // view units
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'red';
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
+
+  var scratchVector = new Vector2();
+  var scratchVector2 = new Vector2();
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
@@ -42,40 +45,49 @@ define( function( require ) {
     transformProperty
   ) {
     var self = this;
-    Node.call( this, { pickable: false } );
+    Node.call( this, { pickable: false, preventFit: true } );
 
-    var pathsLayer = new Node();
-    var dotsLayer = new Node();
+    var currentPathShape = null;
+    var currentPathStroke = null;
+
+    this.pathsLayer = new Node();
     var projectileNodesLayer = new Node();
-    this.pathsLayer = pathsLayer;
-    this.dotsLayer = dotsLayer;
-    this.addChild( pathsLayer );
-    this.addChild( dotsLayer );
+
+    var dotsShape = new Shape();
+    var dotsPath = new Path( dotsShape, {
+      fill: 'black'
+    } );
+
+    this.addChild( this.pathsLayer );
+    this.addChild( dotsPath );
     this.addChild( projectileNodesLayer );
+
 
     var viewLastPosition = null;
 
     function handleDataPointAdded( addedPoint ) {
-      var viewAddedPosition = transformProperty.get().modelToViewPosition( new Vector2( addedPoint.position.x, addedPoint.position.y ) );
+      var viewAddedPosition = scratchVector.set( addedPoint.position );
+      transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
 
       if ( viewLastPosition ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
-        var lineSegment = new Line( viewLastPosition.x, viewLastPosition.y, viewAddedPosition.x, viewAddedPosition.y, {
-          lineWidth: PATH_WIDTH,
-          stroke: pathStroke
-        } );
-        pathsLayer.addChild( lineSegment );
+        if ( !currentPathShape || currentPathStroke !== pathStroke ) {
+          currentPathShape = new Shape().moveTo( viewLastPosition.x, viewLastPosition.y );
+          currentPathStroke = pathStroke;
+          self.pathsLayer.addChild( new Path( currentPathShape, {
+            lineWidth: PATH_WIDTH,
+            stroke: pathStroke
+          } ) );
+        }
+        currentPathShape.lineTo( viewAddedPosition.x, viewAddedPosition.y );
       }
-      viewLastPosition = viewAddedPosition.copy();
+      viewLastPosition = scratchVector2.set( viewAddedPosition );
 
       // draw dot if it is time for data point should be shown
       if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
-        var addedPointNode = new Circle( DOT_DIAMETER / 2, {
-          x: transformProperty.get().modelToViewX( addedPoint.position.x ),
-          y: transformProperty.get().modelToViewY( addedPoint.position.y ),
-          fill: 'black'
-        } );
-        dotsLayer.addChild( addedPointNode );
+
+        dotsShape.moveTo( viewAddedPosition.x + DOT_RADIUS, viewAddedPosition.y )
+                 .circle( viewAddedPosition.x, viewAddedPosition.y, DOT_RADIUS );
       }
     }
 
@@ -101,8 +113,14 @@ define( function( require ) {
 
     // upddate if model view transform changes
     transformProperty.link( function( transform ) {
-      pathsLayer.removeAllChildren();
-      dotsLayer.removeAllChildren();
+      self.pathsLayer.removeAllChildren();
+
+      currentPathShape = null;
+      currentPathStroke = null;
+
+      dotsShape = new Shape();
+      dotsPath.shape = dotsShape;
+
       viewLastPosition = null;
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
