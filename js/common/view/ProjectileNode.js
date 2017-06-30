@@ -14,6 +14,7 @@ define( function( require ) {
   // modules
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -49,7 +50,7 @@ define( function( require ) {
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
-   * @param {string} objectType - e.g. pumpkin? human? cannonball?
+   * @param {string} objectType - e.g. pumpkin? human? cannonball? REVIEW: Doc looks wrong, ProjectileObjectType? or... undefined?
    * @param {number} diameter - how big the object is, in meters
    * @param {number} dragCoefficient - shape of the object
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
@@ -158,68 +159,46 @@ define( function( require ) {
     this.addChild( freeBodyDiagram );
 
     var freeBody = new Circle( FREE_BODY_RADIUS, { x: 0, y: 0, fill: 'black' } );
-    freeBodyDiagram.addChild( freeBody );
+
+    var freeBodyComponents = new Node();
 
     var xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-    freeBodyDiagram.addChild( xDragForceArrow );
+    freeBodyComponents.addChild( xDragForceArrow );
 
     var xDragForceLabel = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
-    freeBodyDiagram.addChild( xDragForceLabel );
+    freeBodyComponents.addChild( xDragForceLabel );
 
     var yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-    freeBodyDiagram.addChild( yDragForceArrow );
+    freeBodyComponents.addChild( yDragForceArrow );
 
     var yDragForceLabel = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
-    freeBodyDiagram.addChild( yDragForceLabel );
+    freeBodyComponents.addChild( yDragForceLabel );
 
     var forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-    freeBodyDiagram.addChild( forceGravityArrow );
-
     var forceGravityLabel = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
-    freeBodyDiagram.addChild( forceGravityLabel );
+
+    var freeBodyTotals = new Node();
 
     var totalDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-    freeBodyDiagram.addChild( totalDragForceArrow );
+    freeBodyTotals.addChild( totalDragForceArrow );
 
     var totalDragForceLabel = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
-    freeBodyDiagram.addChild( totalDragForceLabel );
+    freeBodyTotals.addChild( totalDragForceLabel );
 
-    // listen to whether components velocity vectors should be on
-    vectorVisibilityProperties.componentsVelocityVectorsOnProperty.link( function( componentsVelocityVectorsOn ) {
-      xVelocityArrow.visible = componentsVelocityVectorsOn;
-      yVelocityArrow.visible = componentsVelocityVectorsOn;
+    // TODO: Don't leak listeners to the visibility properties.
+
+    // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
+    var viewPointProperty = new DerivedProperty( [ dataPointProperty ], function( dataPoint ) {
+      //TODO: Getting a view-coordinate copy of the DataPoint would be ideal, so this extra thing wouldn't be needed.
+      return {
+        viewPosition: modelViewTransform.modelToViewPosition( dataPoint.position ),
+        dataPoint: dataPoint
+      };
     } );
 
-    // listen to whether total velocity vector should be on
-    vectorVisibilityProperties.totalVelocityVectorOnProperty.link( function( totalVelocityVectorOn ) {
-      totalVelocityArrow.visible = totalVelocityVectorOn;
-    } );
-
-    // listen to whether components acceleration vectors should be on
-    vectorVisibilityProperties.componentsAccelerationVectorsOnProperty.link( function( componentsAccelerationVectorsOn ) {
-      xAccelerationArrow.visible = componentsAccelerationVectorsOn;
-      yAccelerationArrow.visible = componentsAccelerationVectorsOn;
-    } );
-
-    // listen to whether total acceleration vector should be on
-    vectorVisibilityProperties.totalAccelerationVectorOnProperty.link( function( totalAccelerationVectorOn ) {
-      totalAccelerationArrow.visible = totalAccelerationVectorOn;
-    } );
-
-    // listen to which force vectors should be on
-    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty ], function() {
-      forcesBox.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPointProperty.get().reachedGround;
-      freeBodyDiagram.visible = ( vectorVisibilityProperties.componentsForceVectorsOnProperty.get() || vectorVisibilityProperties.totalForceVectorOnProperty.get() ) && !dataPointProperty.get().reachedGround;
-      xDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
-      xDragForceLabel.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
-      yDragForceArrow.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
-      yDragForceLabel.visible = vectorVisibilityProperties.componentsForceVectorsOnProperty.get();
-      totalDragForceArrow.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
-      totalDragForceLabel.visible = vectorVisibilityProperties.totalForceVectorOnProperty.get();
-    } );
-
-    // update if data point changes
-    dataPointProperty.link( function( dataPoint ) {
+    // Update the projectile's object view.
+    viewPointProperty.link( function( viewPoint ) {
+      var dataPoint = viewPoint.dataPoint;
 
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
       if( objectType ?  objectType.rotates : true  ) {
@@ -227,101 +206,146 @@ define( function( require ) {
         projectileObjectView.setRotation( -angle );
       }
 
-      projectileObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.position.x );
-      projectileObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.position.y );
+      projectileObjectView.center = viewPoint.viewPosition;
+    } );
 
-      var x = modelViewTransform.modelToViewX( dataPoint.position.x );
-      var y = modelViewTransform.modelToViewY( dataPoint.position.y );
-      xVelocityArrow.setTailAndTip( x,
-        y,
-        x + transformedVelocityScalar * dataPoint.velocity.x,
-        y
-      );
-      yVelocityArrow.setTailAndTip( x,
-        y,
-        x,
-        y - transformedVelocityScalar * dataPoint.velocity.y
-      );
-      totalVelocityArrow.setTailAndTip( x,
-        y,
-        x + transformedVelocityScalar * dataPoint.velocity.x,
-        y - transformedVelocityScalar * dataPoint.velocity.y
-      );
-      xAccelerationArrow.setTailAndTip( x,
-        y,
-        x + transformedAccelerationScalar * dataPoint.xAcceleration,
-        y
-      );
-      yAccelerationArrow.setTailAndTip( x,
-        y,
-        x,
-        y - transformedAccelerationScalar * dataPoint.yAcceleration
-      );
-      totalAccelerationArrow.setTailAndTip( x,
-        y,
-        x + transformedAccelerationScalar * dataPoint.xAcceleration,
-        y - transformedAccelerationScalar * dataPoint.yAcceleration
-      );
+    // Update component-wise velocity vectors.
+    Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+      xVelocityArrow.visible = visible;
+      yVelocityArrow.visible = visible;
+
+      if ( visible ) {
+        var viewPosition = viewPoint.viewPosition;
+        var dataPoint = viewPoint.dataPoint;
+        xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedVelocityScalar * dataPoint.velocity.x, viewPosition.y );
+        yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedVelocityScalar * dataPoint.velocity.y );
+      }
+    } );
+
+    // Update total velocity vector.
+    Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+      totalVelocityArrow.visible = visible;
+
+      if ( visible ) {
+        var viewPosition = viewPoint.viewPosition;
+        var dataPoint = viewPoint.dataPoint;
+        totalVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y,
+                                          viewPosition.x + transformedVelocityScalar * dataPoint.velocity.x,
+                                          viewPosition.y - transformedVelocityScalar * dataPoint.velocity.y
+        );
+      }
+    } );
+
+    // Update component-wise acceleration vectors.
+    Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+      xAccelerationArrow.visible = visible;
+      yAccelerationArrow.visible = visible;
+
+      if ( visible ) {
+        var viewPosition = viewPoint.viewPosition;
+        var dataPoint = viewPoint.dataPoint;
+
+        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedAccelerationScalar * dataPoint.xAcceleration, viewPosition.y );
+        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedAccelerationScalar * dataPoint.yAcceleration );
+      }
+    } );
+
+    // Update total acceleration vector.
+    Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+      totalAccelerationArrow.visible = visible;
+
+      if ( visible ) {
+        var viewPosition = viewPoint.viewPosition;
+        var dataPoint = viewPoint.dataPoint;
+
+        totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
+                                              viewPosition.x + transformedAccelerationScalar * dataPoint.xAcceleration,
+                                              viewPosition.y - transformedAccelerationScalar * dataPoint.yAcceleration
+        );
+      }
+    } );
+
+    // Update the free body diagram
+    var removed = false;
+    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], function( componentsVisible, totalVisible, viewPoint ) {
+      var viewPosition = viewPoint.viewPosition;
+      var dataPoint = viewPoint.dataPoint;
 
       // When the projectile lands, remove the force diagram
       if ( dataPoint.reachedGround ) {
-        forcesBox.visible = false;
-        freeBodyDiagram.visible = false;
-        if ( landedObjectView ) {
-          landedObjectView.centerX = modelViewTransform.modelToViewX( dataPoint.position.x );
-          landedObjectView.centerY = modelViewTransform.modelToViewY( dataPoint.position.y );
-          if ( objectType ? objectType.type === 'human' || objectType.type === 'buick' : false ) {
-            landedObjectView.bottom = landedObjectView.centerY;
+        // TODO: more robust system for only removing once (remove these listeners!)
+        if ( !removed ) {
+          removed = true;
+          forcesBox.visible = false;
+          freeBodyDiagram.visible = false;
+
+          if ( landedObjectView ) {
+            landedObjectView.center = viewPosition;
+            if ( objectType ? objectType.type === 'human' || objectType.type === 'buick' : false ) {
+              landedObjectView.bottom = landedObjectView.centerY;
+            }
+            if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
+              projectileViewLayer.removeChild( projectileObjectView );
+            }
+            projectileViewLayer.addChild( landedObjectView );
           }
-          if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
-            projectileViewLayer.removeChild( projectileObjectView );
-          }
-          projectileViewLayer.addChild( landedObjectView );
         }
         return;
       }
 
-      freeBody.x = x + FREE_BODY_OFFSET.x;
-      freeBody.y = y + FREE_BODY_OFFSET.y;
+      forcesBox.visible = componentsVisible || totalVisible;
+      freeBodyDiagram.visible = componentsVisible || totalVisible;
 
-      xDragForceArrow.setTailAndTip( freeBody.x,
-        freeBody.y,
-        freeBody.x - transformedForceScalar * dataPoint.xDragForce,
-        freeBody.y
-      );
-      xDragForceLabel.right = xDragForceArrow.tipX - 5;
-      xDragForceLabel.y = xDragForceArrow.tipY;
+      if ( componentsVisible || totalVisible ) {
+        freeBodyDiagram.children = [ freeBody ].concat( componentsVisible ? [ freeBodyComponents ] : [] )
+                                               .concat( [ forceGravityArrow, forceGravityLabel ] )
+                                               .concat( totalVisible ? [ freeBodyTotals ] : [] );
 
-      yDragForceArrow.setTailAndTip( freeBody.x,
-        freeBody.y,
-        freeBody.x,
-        freeBody.y + transformedForceScalar * dataPoint.yDragForce
-      );
-      yDragForceLabel.left = yDragForceArrow.tipX + 5;
-      yDragForceLabel.y = yDragForceArrow.tipY;
+        freeBody.x = viewPosition.x + FREE_BODY_OFFSET.x;
+        freeBody.y = viewPosition.y + FREE_BODY_OFFSET.y;
 
-      forceGravityArrow.setTailAndTip( freeBody.x,
-        freeBody.y,
-        freeBody.x,
-        freeBody.y - transformedForceScalar * dataPoint.forceGravity
-      );
-      forceGravityLabel.left = forceGravityArrow.tipX + 5;
-      forceGravityLabel.y = forceGravityArrow.tipY;
+        if ( componentsVisible ) {
+          xDragForceArrow.setTailAndTip( freeBody.x,
+            freeBody.y,
+            freeBody.x - transformedForceScalar * dataPoint.xDragForce,
+            freeBody.y
+          );
+          xDragForceLabel.right = xDragForceArrow.tipX - 5;
+          xDragForceLabel.y = xDragForceArrow.tipY;
 
-      // net force is zero if projectile is on ground
-      var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.xDragForce;
-      var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.yDragForce;
-      totalDragForceArrow.setTailAndTip( freeBody.x,
-        freeBody.y,
-        freeBody.x - transformedForceScalar * xTotalForce,
-        freeBody.y + transformedForceScalar * yTotalForce
-      );
-      totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
-      totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
+          yDragForceArrow.setTailAndTip( freeBody.x,
+            freeBody.y,
+            freeBody.x,
+            freeBody.y + transformedForceScalar * dataPoint.yDragForce
+          );
+          yDragForceLabel.left = yDragForceArrow.tipX + 5;
+          yDragForceLabel.y = yDragForceArrow.tipY;
+        }
 
-      forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
+        forceGravityArrow.setTailAndTip( freeBody.x,
+          freeBody.y,
+          freeBody.x,
+          freeBody.y - transformedForceScalar * dataPoint.forceGravity
+        );
+        forceGravityLabel.left = forceGravityArrow.tipX + 5;
+        forceGravityLabel.y = forceGravityArrow.tipY;
+
+        if ( totalVisible ) {
+          // net force is zero if projectile is on ground
+          var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.xDragForce;
+          var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.yDragForce;
+          totalDragForceArrow.setTailAndTip( freeBody.x,
+            freeBody.y,
+            freeBody.x - transformedForceScalar * xTotalForce,
+            freeBody.y + transformedForceScalar * yTotalForce
+          );
+          totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
+          totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
+        }
+
+        forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
+      }
     } );
-
   }
 
   projectileMotion.register( 'ProjectileNode', ProjectileNode );
