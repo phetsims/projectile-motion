@@ -1,11 +1,11 @@
 {
-  "comment": "# projectile-motion 1.0.0-dev.2 Fri Jun 23 2017 17:00:41 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# projectile-motion 1.0.0-dev.3 Fri Jun 30 2017 18:17:01 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
   },
   "axon": {
-    "sha": "12510072f4c4746ee195d1b275668d175f6c725b",
+    "sha": "acd850c6f799e0f253d385047b8a5a6b8f3495b8",
     "branch": "master"
   },
   "brand": {
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "57453afd020aaea9738cb7eca2a085f7e896d92e",
+    "sha": "ec7f040f9eab2daf775324666bf2b7b779d498f3",
     "branch": "master"
   },
   "dot": {
@@ -25,7 +25,7 @@
     "branch": "master"
   },
   "kite": {
-    "sha": "c9b529a2d0df2faa24e97bcfb70653b867969b49",
+    "sha": "41ac3b7a27f0313bcafb9eb0fde1c1860a5c2cc6",
     "branch": "master"
   },
   "phet-core": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "dcab3aca3a11620c3b9a5b42145a395b6049bf07",
+    "sha": "a885105aa1a9cc4acf20349fdff243f2e7d96310",
     "branch": "master"
   },
   "query-string-machine": {
@@ -45,11 +45,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "494ce43dcce4aa3ff84dffdd334fd42d6202d224",
+    "sha": "3991d1a2ffdb8a74ac62258f3b13a254a3227683",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "727d5bd7ac8d93a1c6e8b78b27c9fb6a8a4e783d",
+    "sha": "1610b400b28d089d924cb41d72aafac2c60f0007",
     "branch": "master"
   },
   "sherpa": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "37de5da5f86651b3b942338abd6f22c2daed65cd",
+    "sha": "1ea05e92d1a8ce6a275ac75541265e1b508c9be9",
     "branch": "master"
   },
   "tandem": {
