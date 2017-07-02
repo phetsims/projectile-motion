@@ -133,11 +133,6 @@ define( function( require ) {
       self.children.forEach( function( child ) {
         child.opacity = opacity;
       } );
-      // TODO: move to front if it has been shifted to the most recent rank
-      // Following implementation slows down sim
-      // if ( rank == 0 ) {
-      //   self.moveToFront();
-      // }
     } );
   }
 
