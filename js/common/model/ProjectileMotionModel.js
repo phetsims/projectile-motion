@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
+  var Emitter = require( 'AXON/Emitter' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -104,6 +105,9 @@ define( function( require ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     } );
 
+    // @public {Emitter}
+    this.updateRanksEmitter = new Emitter();
+
     // @private {EventTimer}
     this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1 / 0.016 ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
   }
@@ -189,61 +193,19 @@ define( function( require ) {
       }
     },
 
-    // @protected, adds a projectile to the model
-    addProjectile: function() {
-      var equalsExistingTrajectory = false; // whether the added p
-      var removedRank = this.trajectories.length;
-      var newTrajectory = new Trajectory( this );
-
-      // search for equal trajectory and add a new projectile object to it, if found
-      this.trajectories.forEach( function( trajectory ) {
-        if ( trajectory.equals( newTrajectory ) ) {
-          newTrajectory.freeVector2sToPool();
-          trajectory.addProjectileObject();
-
-          equalsExistingTrajectory = true;
-          // shift trajectory to the the most recent slot
-          removedRank = trajectory.rankProperty.get();
-          trajectory.rankProperty.set( 0 );
-        }
-        else {
-          trajectory.rankProperty.set( trajectory.rankProperty.get() + 1 );
-        }
-      } );
-
-      // if there has been an equal trajectory found, create a new trajectory
-      if (!equalsExistingTrajectory ) {
-        this.trajectories.push( newTrajectory );
-      }
-
-      // decrement ranks after the shifted trajectory
-      this.trajectories.forEach( function( trajectory) {
-        if ( trajectory.rankProperty.get() > removedRank ) {
-          trajectory.rankProperty.set( trajectory.rankProperty.get() - 1 );
-        }
-      } );
-
-      this.numberOfMovingProjectilesProperty.value ++;
-
-      this.limitTrajectories();
-
-    },
-
     // @private remove old trajectories that are over the limit from the observable array
     limitTrajectories: function() {
-      var trajectories = this.trajectories;
-      trajectories.forEach( function( trajectory ) {
-        if ( trajectory.rankProperty.get() >= ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES ) {
-          trajectory.freeVector2sToPool();
-          trajectories.remove( trajectory );
-        }
-      } );
+      var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
+      var i;
+      for ( i = 0; i < numberToRemove; i ++ ) {
+        this.trajectories.shift().dispose();
+      }
     },
 
     // @public, removes all trajectories and resets corresponding properties
     eraseTrajectories: function() {
       while( this.trajectories.length ) {
-        this.trajectories.pop().freeVector2sToPool();
+        this.trajectories.pop().dispose();
       }
       this.numberOfMovingProjectilesProperty.reset();
     },
@@ -251,32 +213,65 @@ define( function( require ) {
     // @public fires cannon, called on by fire button
     cannonFired: function() {
       this.isPlayingProperty.set( true );
-      this.addProjectile();
+      var lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
+      var newTrajectory = new Trajectory( this );
+      if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
+        lastTrajectory.addProjectileObject();
+        newTrajectory.dispose();
+      }
+      else {
+        this.updateRanksEmitter.emit(); // increment rank of all trajectories
+        newTrajectory.rankProperty.reset(); // make this one go back to zero
+        this.trajectories.push( newTrajectory );
+      }
+      this.numberOfMovingProjectilesProperty.value ++;
+      this.limitTrajectories();
     },
 
     // @private updates the status of the trajectories, as in whether they are changed in mid air
     updateStatusofTrajectories: function() {
-      var self = this;
-      this.trajectories.forEach( function( trajectory ) {
+      var newTrajectories = [];
+      var trajectory;
+      var j;
+      for ( j = 0; j < this.trajectories.length; j++ ) {
+        trajectory = this.trajectories.get( j );
+
+        var removedProjectileObjects = [];
+
+        // Furthest projectile on trajectory has not reached ground
         if( !trajectory.reachedGround ) {
-          trajectory.changedInMidAir = true;
-        }
+          trajectory.changedInMidAir = true; // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
 
-        var i;
-        for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
-          var projectileObject = trajectory.projectileObjects.get( i );
-          if ( projectileObject.dataPointProperty.get().y > 0 ) {
-            trajectory.projectileObjects.remove( projectileObject );
-
-            // object is still in the air so a new trajectory needs to be created
+          // For each projectile except for the one furthest along the path, create a new trajectory
+          var i;
+          for (i = 1; i < trajectory.projectileObjects.length; i++ ) {
+            var projectileObject = trajectory.projectileObjects.get( i );
+            removedProjectileObjects.push( projectileObject );
+            this.updateRanksEmitter.emit();
             var newTrajectory = trajectory.newTrajectory( projectileObject );
-            newTrajectory.changedInMidAir = true;
-            self.trajectories.push( newTrajectory );
+            newTrajectories.push( newTrajectory );
           }
         }
-      } );
+        
+        // Furthest object on trajectory has reached ground
+        else {
+          
+          // For each projectile still in the air, create a new trajectory
+          for (i = 0; i < trajectory.projectileObjects.length; i++ ) {
+            projectileObject = trajectory.projectileObjects.get( i );
+            if ( !projectileObject.dataPointProperty.get().reachedGround ) {
+              projectileObject = trajectory.projectileObjects.get( i );
+              removedProjectileObjects.push( projectileObject );
+              this.updateRanksEmitter.emit();
+              newTrajectory = trajectory.newTrajectory( projectileObject );
+              newTrajectories.push( newTrajectory );
+            }
+          }
+        }
 
-      // delete over-the-max trajectories
+        trajectory.projectileObjects.removeAll( removedProjectileObjects );
+      }
+      this.trajectories.addAll( newTrajectories );
       this.limitTrajectories();
     },
 

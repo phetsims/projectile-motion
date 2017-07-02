@@ -26,6 +26,7 @@ define( function( require ) {
    * @constructor
    */
   function Trajectory( model ) {
+    var self = this;
     this.projectileMotionModel = model;
 
     if ( model.selectedProjectileObjectTypeProperty ) {
@@ -41,8 +42,12 @@ define( function( require ) {
     // @private {number} drag coefficient of the projectiles
     this.dragCoefficient = model.projectileDragCoefficientProperty.get();
 
-    // @public {Property.<number>} counts how old this projectile is
+    // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
     this.rankProperty = new Property( 0 );
+
+    model.updateRanksEmitter.addListener( function() {
+      self.rankProperty.value ++;
+    } );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -229,7 +234,7 @@ define( function( require ) {
     },
 
     // @public memory management
-    freeVector2sToPool: function() {
+    dispose: function() {
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {
         this.dataPoints.get( i ).position.freeToPool();
