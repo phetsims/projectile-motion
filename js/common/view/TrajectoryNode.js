@@ -29,8 +29,6 @@ define( function( require ) {
   var AIR_RESISTANCE_ON_COLOR = 'red';
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
 
-  var scratchVector = new Vector2();
-  var scratchVector2 = new Vector2();
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
@@ -46,6 +44,9 @@ define( function( require ) {
   ) {
     var self = this;
     Node.call( this, { pickable: false, preventFit: true } );
+
+    var scratchVector = new Vector2();
+    var scratchVector2 = new Vector2();
 
     var currentPathShape = null;
     var currentPathStroke = null;
