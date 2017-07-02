@@ -284,7 +284,7 @@ define( function( require ) {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.eraseProjectiles(); },
+      listener: function() { model.eraseTrajectories(); },
       bottom: fireButton.bottom,
       left: fireButton.right + 2 * X_MARGIN
     } );

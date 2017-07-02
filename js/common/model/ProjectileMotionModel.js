@@ -147,8 +147,8 @@ define( function( require ) {
     // @public resets all model elements
     reset: function() {
 
-      // remove all projectiles
-      this.trajectories.reset();
+      // disposes all trajectories and resets number of moving projectiles property
+      this.eraseTrajectories();
 
       this.score.reset();
       this.measuringTape.reset();
@@ -165,8 +165,6 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
-
-      this.numberOfMovingProjectilesProperty.reset();
 
       this.davidShortsOnProperty.reset();
     },
@@ -242,9 +240,11 @@ define( function( require ) {
       } );
     },
 
-    // @public, removes all projectiles
-    eraseProjectiles: function() {
-      this.trajectories.clear();
+    // @public, removes all trajectories and resets corresponding properties
+    eraseTrajectories: function() {
+      while( this.trajectories.length ) {
+        this.trajectories.pop().freeVector2sToPool();
+      }
       this.numberOfMovingProjectilesProperty.reset();
     },
 
