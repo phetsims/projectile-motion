@@ -65,7 +65,7 @@ define( function( require ) {
   function CannonNode( heightProperty, angleProperty, transformProperty, screenView ) {
     Node.call( this );
 
-    var clippableNode = new Node( { x: transformProperty.get().modelToViewX( 0 ), y: transformProperty.get().modelToViewY( 0 ) } );
+    var clippableNode = new Node( { x: transformProperty.get().modelToViewX( 0 ), y: transformProperty.get().modelToViewY( 0 ), cursor: 'pointer' } );
 
     // var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
 
@@ -85,10 +85,10 @@ define( function( require ) {
 
     var cannonBarrelBottom = new Image( cannonBarrelBottomImage, { right: 0, centerY: 0 } );
     cannonBarrel.addChild( cannonBarrelBottom );
-    var cannonBarrelTop = new Image( cannonBarrelTopImage, { left: 0, centerY: 0, pickable: true, cursor: 'pointer' } );
+    var cannonBarrelTop = new Image( cannonBarrelTopImage, { left: 0, centerY: 0 } );
     cannonBarrel.addChild( cannonBarrelTop );
 
-    var cannonBase = new Node( { pickable: true, cursor: 'pointer' } );
+    var cannonBase = new Node();
     clippableNode.addChild( cannonBase );
 
     var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
@@ -295,8 +295,7 @@ define( function( require ) {
 
     } ) );
 
-    // drag the base of the cannon to change height
-    cannonBase.addInputListener( new SimpleDragHandler( {
+    var heightDragHandler = new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
@@ -324,7 +323,13 @@ define( function( require ) {
         // constrain within visible bounds, but this allows for decimal heights and overrides the roundsymmetric above
         // heightProperty.set( transformProperty.get().viewToModelY( Util.clamp( transformProperty.get().modelToViewY( heightProperty.get() ), screenView.layoutBounds.minY, screenView.layoutBounds.maxY ) ) );
       }
-    } ) );
+    } );
+
+    // drag the base of the cannon to change height
+    cannonBase.addInputListener( heightDragHandler );
+    cylinderSide.addInputListener( heightDragHandler );
+    cylinderTop.addInputListener( heightDragHandler );
+    cannonBarrelBottom.addInputListener( heightDragHandler );
 
   }
 
