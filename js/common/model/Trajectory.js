@@ -240,7 +240,7 @@ define( function( require ) {
     dispose: function() {
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {
-        var point = this.dataPoints.get( i )
+        var point = this.dataPoints.get( i );
         point.position.freeToPool();
         point.velocity.freeToPool();
         point.acceleration.freeToPool();
