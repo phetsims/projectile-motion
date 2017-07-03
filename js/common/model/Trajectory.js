@@ -104,8 +104,7 @@ define( function( require ) {
         var airDensity = this.projectileMotionModel.airDensityProperty.get();
         var gravity = this.projectileMotionModel.gravityProperty.get();
 
-        var newXDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() * newVelocity.x;
-        var newYDragForce = 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() * newVelocity.y;
+        var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() );
 
         // Has reached ground or below
         if ( newY <= 0 ) {
@@ -138,8 +137,8 @@ define( function( require ) {
             newY,
             airDensity,
             newVelocity,
-            Vector2.createFromPool( -newXDragForce / this.mass, -gravity - newYDragForce / this.mass ), // acceleration
-            Vector2.createFromPool( newXDragForce, newYDragForce ),
+            Vector2.createFromPool( -newDragForce.x / this.mass, -gravity - newDragForce.y / this.mass ), // acceleration
+            newDragForce,
             -gravity * this.mass
           );
 
