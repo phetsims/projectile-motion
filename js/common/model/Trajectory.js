@@ -45,9 +45,11 @@ define( function( require ) {
     // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
     this.rankProperty = new Property( 0 );
 
-    model.updateRanksEmitter.addListener( function() {
-      self.rankProperty.value ++;
-    } );
+    function incrementRank() {
+      self.rankProperty.value++;
+    }
+
+    model.updateRanksEmitter.addListener( incrementRank );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -77,6 +79,10 @@ define( function( require ) {
 
     // add first projectile object
     this.addProjectileObject();
+
+    this.disposeTrajectory = function() {
+      model.updateRanksEmitter.removeListener( incrementRank );
+    };
   }
 
   projectileMotion.register( 'Trajectory', Trajectory );
@@ -239,6 +245,7 @@ define( function( require ) {
       for ( i = 0; i < this.dataPoints.length; i++ ) {
         this.dataPoints.get( i ).position.freeToPool();
       }
+      this.disposeTrajectory();
     }
 
   } );
