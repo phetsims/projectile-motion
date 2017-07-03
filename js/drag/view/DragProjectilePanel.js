@@ -87,12 +87,11 @@ define( function( require ) {
      * @param {string} unitsString - units
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Range} range - range for the property value
-     * @param {Node} viewNode - a view display to be shown with the value
      * @param {Number} round - optional, for minor ticks
      * @returns {VBox}
      * @private
      */
-    function createParameterControlBox( labelString, unitsString, property, range, viewNode, round ) {
+    function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
@@ -136,24 +135,11 @@ define( function( require ) {
 
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
-      if ( viewNode ) {
-        var viewAndValueNodes = new HBox( { spacing: options.xMargin, children: [ viewNode, valueNode ] } );
-        var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in viewNode
-        var valueAndDisplay = new VBox( { align: 'right', children: [ strut, viewAndValueNodes ] } );
-        var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueAndDisplay.width;
-        return new VBox( { spacing: options.sliderLabelSpacing, children: [
-            new HBox( { spacing: xSpacing, children: [ parameterLabel, valueAndDisplay ] } ),
-            slider
-        ] } );
-      }
-
-      else {
-        xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-        return new VBox( { spacing: options.sliderLabelSpacing, children: [
-            new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
-            slider
-        ] } );
-      }
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      return new VBox( { spacing: options.sliderLabelSpacing, children: [
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
+          slider
+      ] } );
     }
 
     var diameterBox = createParameterControlBox(
@@ -161,7 +147,6 @@ define( function( require ) {
       mString,
       projectileDiameterProperty,
       selectedObjectTypeProperty.get().diameterRange,
-      null,
       selectedObjectTypeProperty.get().diameterRound
     );
 
@@ -170,7 +155,6 @@ define( function( require ) {
       kgString,
       projectileMassProperty,
       selectedObjectTypeProperty.get().massRange,
-      null,
       selectedObjectTypeProperty.get().massRound
     );
 
