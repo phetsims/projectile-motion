@@ -106,13 +106,6 @@ define( function( require ) {
         transformProperty.get()
       );
       projectileNodesLayer.addChild( newProjectileNode );
-
-      trajectory.projectileObjects.addItemRemovedListener( function removalListener( removedProjectileObject ) {
-        if ( removedProjectileObject === projectileObject ) {
-          projectileNodesLayer.removeChild( newProjectileNode );
-          trajectory.projectileObjects.removeItemRemovedListener( removalListener );
-        }
-      } );
     }
 
     // view adds projectile object if another one is created in the model

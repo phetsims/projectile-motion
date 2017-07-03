@@ -82,9 +82,6 @@ define( function( require ) {
 
     this.disposeTrajectory = function() {
       model.updateRanksEmitter.removeListener( incrementRank );
-      while( this.projectileObjects.length ) {
-        this.projectileObjects.pop();
-      }
     };
   }
 
