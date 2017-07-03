@@ -59,8 +59,7 @@ define( function( require ) {
 
     var initialPoint = new DataPoint(
       0, // total time elapsed
-      0, // x position
-      model.cannonHeightProperty.get(), // y position
+      Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
       Vector2.dirtyFromPool().setPolar( model.launchVelocityProperty.value, model.cannonAngleProperty.value * Math.PI / 180 ), // velocity
       Vector2.createFromPool( 0, -model.gravityProperty.get() ), // acceleration
@@ -117,8 +116,7 @@ define( function( require ) {
 
           var newPoint = new DataPoint(
             previousPoint.time + timeToGround,
-            newX,
-            newY,
+            Vector2.createFromPool( newX, newY ),
             airDensity,
             Vector2.createFromPool( 0, 0 ), // velocity
             Vector2.createFromPool( 0, 0 ), // acceleration
@@ -133,8 +131,7 @@ define( function( require ) {
         else {
           newPoint = new DataPoint(
             previousPoint.time + dt,
-            newX,
-            newY,
+            Vector2.createFromPool( newX, newY ),
             airDensity,
             newVelocity,
             Vector2.createFromPool( -newDragForce.x / this.mass, -gravity - newDragForce.y / this.mass ), // acceleration

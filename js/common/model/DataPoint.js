@@ -11,12 +11,10 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Vector2 = require( 'DOT/Vector2' );
  
   /**
    * @param {number} time - total time since fire at this point on the trajectory, in s
-   * @param {number} x - x position of the data point, also called range, in m
-   * @param {number} y - y position of the data point, also called height, in m
+   * @param {Vector2} position - position of the data point, with x and y, also called range and height, in m
    * @param {number} airDensity - air density of the atmosphere at this point, in kg/cu m
    * @param {Vector2} velocity - velocity at this point, magnitude in m/s
    * @param {Vector2} acceleration - acceleration at this point, magnitude in m/s^2
@@ -26,8 +24,7 @@ define( function( require ) {
    */
   function DataPoint(
                       time,
-                      x,
-                      y,
+                      position,
                       airDensity,
                       velocity,
                       acceleration,
@@ -37,7 +34,7 @@ define( function( require ) {
     
     // @public (read-only)
     this.time = time;
-    this.position = Vector2.dirtyFromPool().setXY( x, y );
+    this.position = position;
     this.airDensity = airDensity;
     this.velocity = velocity;
     this.acceleration = acceleration;
