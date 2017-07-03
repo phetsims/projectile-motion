@@ -198,7 +198,9 @@ define( function( require ) {
     var scaleMagnitude = 1;
 
     var updateHeight = function( height ) {
-      var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( new Vector2( 0, transformProperty.get().modelToViewY( height ) ) ) ).y;
+      var viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
+      var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
+      viewHeightPoint.freeToPool();
       cannonBarrel.y = heightInClipCoordinates;
       cannonBase.y = heightInClipCoordinates;
       cylinderTop.y = cannonBase.bottom - ELLIPSE_HEIGHT / 4;
@@ -269,8 +271,8 @@ define( function( require ) {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = new Vector2( startPoint.x - clippableNode.x, startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
-        var mousePointAngle = new Vector2( mousePoint.x - clippableNode.x, mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
+        var startPointAngle = Vector2.createFromPool( startPoint.x - clippableNode.x, startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
+        var mousePointAngle = Vector2.createFromPool( mousePoint.x - clippableNode.x, mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
