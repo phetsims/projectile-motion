@@ -25,6 +25,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Util = require( 'DOT/Util' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -43,6 +44,18 @@ define( function( require ) {
     strokeWidth: 1
   };
   var DRAG_OBJECT_DISPLAY_RADIUS = 12;
+  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  var NUMBER_CONTROL_OPTIONS = {
+    valueBackgroundStroke: 'gray',
+    valueAlign: 'center',
+    titleFont: TEXT_FONT,
+    valueFont: TEXT_FONT,
+    majorTickLength: 5,
+    thumbSize: new Dimension2( 12, 21 ),
+    thumbTouchAreaXDilation: 6,
+    thumbTouchAreaYDilation: 4,
+    arrowButtonScale: 0.65
+  };
 
   /**
    * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
@@ -180,14 +193,37 @@ define( function( require ) {
       null,
       selectedObjectTypeProperty.get().massRound
     );
+    
+    var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      return new VBox( {
+        spacing: options.sliderLabelSpacing,
+        children: [
+          new HBox( {
+            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
+            children: [ titleNode, numberDisplay ]
+          } ),
+          new HBox( {
+            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
+            resize: false, // prevent slider from causing a resize when thumb is at min or max
+            children: [ leftArrowButton, slider, rightArrowButton ]
+          } )
+        ]
+      } );
+    };
 
-    var altitudeBox = createParameterControlBox(
-      altitudeString,
-      mString,
-      altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE,
-      null,
-      500
+    var numberControlOptions = _.extend( { 
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
+      layoutFunction: layoutFunction
+    }, NUMBER_CONTROL_OPTIONS );
+
+    var altitudeBox = new NumberControl(
+      altitudeString, altitudeProperty,
+      ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
+        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+        constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
+        decimalPlaces: 0,
+        delta: 100,
+      }, numberControlOptions )
     );
 
     // The contents of the control panel
