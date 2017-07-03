@@ -68,7 +68,6 @@ define( function( require ) {
   // Specific projectile objects below ...
   //-------------------------------------------------------------------------------------------
 
-  // TODO: remove dragcoefficient range and round for benchmarks, if by code review they are still not used
   ProjectileObjectType.CANNONBALL = new ProjectileObjectType(
     cannonballString,
     ProjectileMotionConstants.CANNONBALL_MASS,
@@ -76,12 +75,10 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     'cannonball',
     false, {
-      massRange: new Range( 1, 50 ),
-      massRound: 0.1,
+      massRange: new Range( 0.50, 25.00 ),
+      massRound: 0.01,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.2, 0.7 ),
-      dragCoefficientRound: 0.01
     }
   );
 
@@ -92,28 +89,24 @@ define( function( require ) {
     0.6,
     'pumpkin',
     false, {
-      massRange: new Range( 1, 10 ),
-      massRound: 0.1,
-      diameterRange: new Range( 0.1, 1 ),
+      massRange: new Range( 1, 1000 ),
+      massRound: 1,
+      diameterRange: new Range( 0.1, 3 ),
       diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.4, 0.8 ),
-      dragCoefficientRound: 0.1
     }
   );
 
   ProjectileObjectType.BASEBALL = new ProjectileObjectType(
     baseballString,
-    0.145,
-    0.074,
+    0.15,
+    0.07,
     0.35,
     'baseball',
     false, {
-      massRange: new Range( 0.1, 0.2 ),
-      massRound: 0.001,
-      diameterRange: new Range( 0.02, 0.1 ),
-      diameterRound: 0.001,
-      dragCoefficientRange: new Range( 0.1, 0.5 ),
-      dragCoefficientRound: 0.01
+      massRange: new Range( 0.01, 5 ),
+      massRound: 0.01,
+      diameterRange: new Range( 0.01, 1 ),
+      diameterRound: 0.01,
     }
   );
 
@@ -124,12 +117,10 @@ define( function( require ) {
     0.55,
     'buick',
     true, {
-      massRange: new Range( 1800, 2000 ),
+      massRange: new Range( 100, 5000 ),
       massRound: 1,
-      diameterRange: new Range( 1.5, 2 ),
+      diameterRange: new Range( 0.5, 3 ),
       diameterRound: 0.1,
-      dragCoefficientRange: new Range( 0.4, 0.7 ),
-      dragCoefficientRound: 0.01
     }
   );
 
@@ -140,12 +131,10 @@ define( function( require ) {
     0.05,
     'football',
     true, {
-      massRange: new Range( 0.2, 0.5 ),
+      massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
-      diameterRange: new Range( 0.1, 0.2 ),
+      diameterRange: new Range( 0.01, 1 ),
       diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.04, 0.1 ),
-      dragCoefficientRound: 0.01
     }
   );
 
@@ -156,60 +145,52 @@ define( function( require ) {
     0.6,
     'human',
     true, {
-      massRange: new Range( 20, 100 ),
+      massRange: new Range( 10, 200 ),
       massRound: 1,
-      diameterRange: new Range( 0.2, 1.2 ),
+      diameterRange: new Range( 0.1, 3 ),
       diameterRound: 0.1,
-      dragCoefficientRange: new Range( 0.5, 0.8 ),
-      dragCoefficientRound: 0.1
     }
   );
 
   ProjectileObjectType.PIANO = new ProjectileObjectType(
     pianoString,
-    480,
+    400,
     2.2,
     0.9,
     'piano',
     false, {
-      massRange: new Range( 400, 600 ),
+      massRange: new Range( 50, 1000 ),
       massRound: 1,
-      diameterRange: new Range( 2, 2.5 ),
+      diameterRange: new Range( 0.5, 3 ),
       diameterRound: 0.1,
-      dragCoefficientRange: new Range( 0.7, 1 ),
-      dragCoefficientRound: 0.1
     }
   );
 
   ProjectileObjectType.GOLF_BALL = new ProjectileObjectType(
     golfBallString,
-    0.046,
-    0.043,
+    0.05,
+    0.04,
     0.25,
     'golfBall',
     false, {
-      massRange: new Range( 0.04, 0.06 ),
-      massRound: 0.001,
-      diameterRange: new Range( 0.01, 0.08 ),
-      diameterRound: 0.001,
-      dragCoefficientRange: new Range( 0.2, 0.4 ),
-      dragCoefficientRound: 0.01
+      massRange: new Range( 0.01, 5 ),
+      massRound: 0.01,
+      diameterRange: new Range( 0.04, 1 ),
+      diameterRound: 0.01,
     }
   );
 
   ProjectileObjectType.TANK_SHELL = new ProjectileObjectType(
     tankShellString,
-    41.9,
+    42,
     0.15,
     0.06,
     'tankShell',
     true, {
-      massRange: new Range( 30, 50 ),
-      massRound: 0.1,
-      diameterRange: new Range( 0.05, 0.5 ),
+      massRange: new Range( 5, 200 ),
+      massRound: 1,
+      diameterRange: new Range( 0.1, 3 ),
       diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.04, 0.1 ),
-      dragCoefficientRound: 0.01
     }
   );
 
