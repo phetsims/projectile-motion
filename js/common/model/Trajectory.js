@@ -235,7 +235,10 @@ define( function( require ) {
       var thisInitialPoint = this.dataPoints.get( 0 );
       var trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
-        && ( !this.projectileObjectType || !trajectory.selectedProjectileObjectTypeProperty || this.projectileObjectType === trajectory.selectedProjectileObjectTypeProperty.get() )
+        && this.projectileObjectType === trajectory.projectileObjectType
+        && this.diameter === trajectory.diameter
+        && this.mass === trajectory.mass
+        && this.dragCoefficient === trajectory.dragCoefficient
         && thisInitialPoint.equals( trajectoryInitialPoint );
     },
 
