@@ -58,7 +58,8 @@ define( function( require ) {
     majorTickLength: 5,
     thumbSize: new Dimension2( 16, 28 ),
     thumbTouchAreaXDilation: 6,
-    thumbTouchAreaYDilation: 4
+    thumbTouchAreaYDilation: 4,
+    arrowButtonScale: 0.65
   };
 
   /**
@@ -213,7 +214,7 @@ define( function( require ) {
     };
 
     var numberControlOptions = _.extend( { 
-      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 90, 0.5 ),
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
       layoutFunction: layoutFunction
     }, NUMBER_CONTROL_OPTIONS );
 
