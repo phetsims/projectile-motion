@@ -50,8 +50,8 @@ define( function( require ) {
   var HEIGHT_LEADER_LINE_POSITION = -2.7;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
-  var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
-  var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
+  var BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
+  var DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
   var ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
 
@@ -71,13 +71,13 @@ define( function( require ) {
 
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
     var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, 'gray' ).addColorStop( 0.3, 'white' ).addColorStop( 1, 'gray' );
-    var groundCircle = new Path( ellipseShape, { x: clippableNode.x, y: transformProperty.get().modelToViewY( 0 ), fill: groundFill, stroke: BRIGHT_BLUE_COLOR } );
+    var groundCircle = new Path( ellipseShape, { x: clippableNode.x, y: transformProperty.get().modelToViewY( 0 ), fill: groundFill, stroke: BRIGHT_GRAY_COLOR } );
 
-    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_BLUE_COLOR ).addColorStop( 0.3, BRIGHT_BLUE_COLOR ).addColorStop( 1, DARK_BLUE_COLOR );
-    var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_BLUE_COLOR } );
+    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
+    var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
     clippableNode.addChild( cylinderSide );
 
-    var cylinderTop = new Path( ellipseShape, { fill: DARK_BLUE_COLOR, stroke: BRIGHT_BLUE_COLOR } );
+    var cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
     clippableNode.addChild( cylinderTop );
 
     var cannonBarrel = new Node();

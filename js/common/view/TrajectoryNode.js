@@ -26,7 +26,7 @@ define( function( require ) {
   var DOT_RADIUS = 2; // view units
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
-  var AIR_RESISTANCE_ON_COLOR = 'red';
+  var AIR_RESISTANCE_ON_COLOR = 'rgb( 252, 40, 252 )';
   var TIME_PER_SHOWN_DOT = 48; // milliseconds
 
 
