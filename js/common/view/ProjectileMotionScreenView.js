@@ -146,7 +146,7 @@ define( function( require ) {
         majorTickLength: 5,
         majorTicks: [ { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min }, { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max } ],
         trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
-        thumbSize: new Dimension2( 16, 28 ),
+        thumbSize: new Dimension2( 12, 21 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4
       }

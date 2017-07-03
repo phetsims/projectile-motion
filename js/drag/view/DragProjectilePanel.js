@@ -120,7 +120,7 @@ define( function( require ) {
         minorTickLength: 5,
         tickLabelSpacing: 2,
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
-        thumbSize: new Dimension2( 16, 28 ),
+        thumbSize: new Dimension2( 12, 21 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
       } );
@@ -156,26 +156,6 @@ define( function( require ) {
       }
     }
 
-    var dragObjectDisplay = new Node();
-    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_RADIUS * 2 ) );
-
-    var dragCoefficientBox = createParameterControlBox(
-      dragCoefficientString,
-      null,
-      projectileDragCoefficientProperty,
-      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
-      dragObjectDisplay
-    );
-
-    projectileDragCoefficientProperty.link( function( dragCoefficient ) {
-      if ( dragObjectDisplay.children.length > 1 ) {
-        dragObjectDisplay.removeChildAt( 1 );
-      }
-      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, dragCoefficient );
-      objectView.center = dragObjectDisplay.center;
-      dragObjectDisplay.addChild( objectView );
-    });
-
     var diameterBox = createParameterControlBox(
       diameterString,
       mString,
@@ -193,7 +173,7 @@ define( function( require ) {
       null,
       selectedObjectTypeProperty.get().massRound
     );
-    
+
     var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       return new VBox( {
         spacing: options.sliderLabelSpacing,
@@ -225,6 +205,51 @@ define( function( require ) {
         delta: 100,
       }, numberControlOptions )
     );
+
+    var dragObjectDisplay = new Node();
+    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_RADIUS * 2 ) );
+    
+    var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      var displayAndValueNodes = new HBox( { spacing: options.xMargin, children: [ dragObjectDisplay, numberDisplay ] } );
+      var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
+      var displayAndValueBox = new VBox( { align: 'right', children: [ strut, displayAndValueNodes ] } );
+      return new VBox( {
+        spacing: options.sliderLabelSpacing,
+        children: [
+          new HBox( {
+            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - displayAndValueBox.width,
+            children: [ titleNode, displayAndValueBox ]
+          } ),
+          new HBox( {
+            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
+            resize: false, // prevent slider from causing a resize when thumb is at min or max
+            children: [ leftArrowButton, slider, rightArrowButton ]
+          } )
+        ]
+      } );
+    };
+
+    _.extend( numberControlOptions, {
+      layoutFunction: dragLayoutFunction
+    } );
+
+    var dragCoefficientBox = new NumberControl(
+      dragCoefficientString, projectileDragCoefficientProperty,
+      selectedObjectTypeProperty.get().dragCoefficientRange, _.extend( {
+        constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
+        decimalPlaces: 2,
+        delta: 0.01,
+      }, numberControlOptions )
+    );
+
+    projectileDragCoefficientProperty.link( function( dragCoefficient ) {
+      if ( dragObjectDisplay.children.length > 1 ) {
+        dragObjectDisplay.removeChildAt( 1 );
+      }
+      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, dragCoefficient );
+      objectView.center = dragObjectDisplay.center;
+      dragObjectDisplay.addChild( objectView );
+    });
 
     // The contents of the control panel
     var content = new VBox( {

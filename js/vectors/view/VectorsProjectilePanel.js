@@ -107,7 +107,7 @@ define( function( require ) {
         minorTickLength: 5,
         tickLabelSpacing: 10,
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
-        thumbSize: new Dimension2( 16, 28 ),
+        thumbSize: new Dimension2( 12, 21 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
       } );
