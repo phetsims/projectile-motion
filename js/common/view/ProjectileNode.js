@@ -42,7 +42,7 @@ define( function( require ) {
       headWidth: 6
   };
   var FREE_BODY_RADIUS = 5;
-  var FORCE_SCALAR = 0.05;
+  var FORCE_SCALAR = 0.1;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
   var FORCES_BOX_DILATION = 7;
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
