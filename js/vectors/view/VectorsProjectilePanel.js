@@ -103,9 +103,9 @@ define( function( require ) {
 
       var slider = new HSlider( property, range, {
         constrainValue: function( value ) { return Util.roundSymmetric( value / round ) * round; }, // two decimal place accuracy
-        majorTickLength: 10,
+        majorTickLength: 12,
         minorTickLength: 5,
-        tickLabelSpacing: 10,
+        tickLabelSpacing: 2,
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 12, 21 ),
         thumbTouchAreaXDilation: 6,
