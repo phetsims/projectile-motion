@@ -33,12 +33,14 @@ define( function( require ) {
 
   // strings
   var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
   var kgString = require( 'string!PROJECTILE_MOTION/kg' );
   var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
   var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var gravityString = require( 'string!PROJECTILE_MOTION/gravity' );
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
@@ -70,6 +72,7 @@ define( function( require ) {
    * @param {Property.<number>} projectileDragCoefficientProperty
    * @param {Property.<number>} altitudeProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
+   * @param {Property.<number>} gravityProperty
    * @param {Object} [options]
    * @constructor
    */
@@ -84,6 +87,7 @@ define( function( require ) {
                               projectileDragCoefficientProperty,
                               altitudeProperty,
                               airResistanceOnProperty,
+                              gravityProperty,
                               options
   ) {
 
@@ -218,12 +222,14 @@ define( function( require ) {
     var diameterBox = new Node();
     var dragCoefficientBox = new Node();
     var altitudeBox = new Node();
+    var gravityBox = new Node();
 
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
       massBox.removeAllChildren();
       diameterBox.removeAllChildren();
       dragCoefficientBox.removeAllChildren();
       altitudeBox.removeAllChildren();
+      gravityBox.removeAllChildren();
       if ( objectType.type ) {
         massBox.addChild( new NumberControl(
           massString, projectileMassProperty,
@@ -243,6 +249,15 @@ define( function( require ) {
             majorTicks: [ { value: objectType.diameterRange.min }, { value: objectType.diameterRange.max } ],
             decimalPlaces: Math.ceil( -Math.log10( objectType.diameterRound ) ),
             delta: objectType.diameterRound
+          }, numberControlOptions )
+        ) );
+        gravityBox.addChild( new NumberControl(
+          gravityString, gravityProperty,
+          ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
+            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondSquaredString ),
+            constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
+            decimalPlaces: 2,
+            delta: 0.01,
           }, numberControlOptions )
         ) );
         altitudeBox.addChild( new NumberControl(
@@ -271,6 +286,13 @@ define( function( require ) {
           projectileDiameterProperty,
           objectType.diameterRange,
           objectType.diameterRound
+        ) );
+        gravityBox.addChild( createParameterControlBox(
+          gravityString,
+          metersPerSecondSquaredString,
+          gravityProperty,
+          ProjectileMotionConstants.GRAVITY_RANGE,
+          0.01
         ) );
         altitudeBox.addChild( createParameterControlBox(
           altitudeString,
@@ -311,6 +333,8 @@ define( function( require ) {
         vStrutForComboBox,
         massBox,
         diameterBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
+        gravityBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckBox,
         altitudeBox,

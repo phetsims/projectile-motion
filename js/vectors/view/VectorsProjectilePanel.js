@@ -35,7 +35,7 @@ define( function( require ) {
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
   var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
-  var gravityString = require( 'string!PROJECTILE_MOTION/gravity' );
+
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
@@ -51,7 +51,6 @@ define( function( require ) {
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @param {Property.<number>} projectileDragCoefficientProperty
-   * @param {Property.<number>} gravityProperty
    * @param {Object} [options]
    * @constructor
    */
@@ -61,7 +60,6 @@ define( function( require ) {
                                 projectileMassProperty,
                                 airResistanceOnProperty,
                                 projectileDragCoefficientProperty,
-                                gravityProperty,
                                 options
   ) {
 
@@ -179,13 +177,6 @@ define( function( require ) {
       projectileDragCoefficientProperty
     );
 
-    var gravityBox = createParameterControlBox(
-      gravityString,
-      null,
-      gravityProperty,
-      ProjectileMotionConstants.GRAVITY_RANGE
-    );
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
@@ -195,8 +186,7 @@ define( function( require ) {
         diameterBox,
         massBox,
         airResistanceCheckBox,
-        dragCoefficientBox,
-        gravityBox
+        dragCoefficientBox
       ]
     } );
 

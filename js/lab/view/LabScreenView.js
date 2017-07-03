@@ -55,7 +55,8 @@ define( function( require ) {
                                                             model.projectileDiameterProperty,
                                                             model.projectileDragCoefficientProperty,
                                                             model.altitudeProperty,
-                                                            model.airResistanceOnProperty
+                                                            model.airResistanceOnProperty,
+                                                            model.gravityProperty
                                     ),
                                     visibilityProperties,
                                     options

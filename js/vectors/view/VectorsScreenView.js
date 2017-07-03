@@ -36,8 +36,7 @@ define( function( require ) {
                                                             model.projectileDiameterProperty,
                                                             model.projectileMassProperty,
                                                             model.airResistanceOnProperty,
-                                                            model.projectileDragCoefficientProperty,
-                                                            model.gravityProperty
+                                                            model.projectileDragCoefficientProperty
                                     ),
                                     new VectorsVectorsPanel( visibilityProperties ),
                                     visibilityProperties,

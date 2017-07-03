@@ -65,6 +65,9 @@
   "degreesSymbol": {
      "value": "˚"
   },
+  "metersPerSecondSquared": {
+    "value": "m/s²"
+  },
   "dragCoefficient": {
     "value": "Drag Coefficient"
   },
