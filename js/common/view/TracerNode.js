@@ -56,7 +56,7 @@ define( function( require ) {
 
     this.spacing = SPACING;
     this.tracer = tracer;
-    this.probeOrigin = new Vector2( 0, 0 );
+    this.probeOrigin = Vector2.createFromPool( 0, 0 );
 
     // draggable node
     var rectangle = new Rectangle(
@@ -135,7 +135,7 @@ define( function( require ) {
     } );
 
     var updatePosition = function( position ) {
-      self.probeOrigin = transformProperty.get().modelToViewPosition( position );
+      self.probeOrigin.set( transformProperty.get().modelToViewPosition( position ) );
 
       crosshair.center = self.probeOrigin;
       circle.center = self.probeOrigin;
@@ -260,7 +260,7 @@ define( function( require ) {
         ]
       } );
 
-      var probeOrigin = new Vector2( 0, 0 );
+      var probeOrigin = Vector2.createFromPool( 0, 0 );
 
       crosshair.center = probeOrigin;
       circle.center = probeOrigin;
@@ -271,6 +271,8 @@ define( function( require ) {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
+      probeOrigin.freeToPool();
+
       var tracerIcon = new Node( {
         children: [
           crosshairMount,
@@ -280,6 +282,7 @@ define( function( require ) {
           textBox
         ]
       } );
+
       return tracerIcon;
     }
   } );

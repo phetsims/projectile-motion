@@ -71,7 +71,7 @@ define( function( require ) {
     var targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     target.setScaleMagnitude( viewRadius, targetHeightInView );
 
-    target.center = transformProperty.get().modelToViewPosition( new Vector2( score.targetXProperty.get(), 0 ) );
+    target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( score.targetXProperty.get(), 0 ) );
 
     this.addChild( target );
 
