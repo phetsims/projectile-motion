@@ -62,11 +62,9 @@ define( function( require ) {
       0, // x position
       model.cannonHeightProperty.get(), // y position
       model.airDensityProperty.get(), // air density
-      Vector2.dirtyFromPool().setPolar( model.launchVelocityProperty.value, model.cannonAngleProperty.value * Math.PI / 180 ),
-      0, // x acceleration
-      -model.gravityProperty.get(), // y acceleration
-      0, // x drag force
-      0, // y drag force
+      Vector2.dirtyFromPool().setPolar( model.launchVelocityProperty.value, model.cannonAngleProperty.value * Math.PI / 180 ), // velocity
+      Vector2.createFromPool( 0, -model.gravityProperty.get() ), // acceleration
+      Vector2.createFromPool( 0, 0 ), // drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
 
@@ -96,10 +94,10 @@ define( function( require ) {
       // Haven't reached ground, so continue collecting datapoints
       if ( !this.reachedGround ) {
 
-        var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.xAcceleration * dt * dt;
-        var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.yAcceleration * dt * dt;
+        var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
+        var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
         
-        var newVelocity = Vector2.dirtyFromPool().setXY( previousPoint.velocity.x + previousPoint.xAcceleration * dt, previousPoint.velocity.y + previousPoint.yAcceleration * dt );
+        var newVelocity = Vector2.dirtyFromPool().setXY( previousPoint.velocity.x + previousPoint.acceleration.x * dt, previousPoint.velocity.y + previousPoint.acceleration.y * dt );
 
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
@@ -114,8 +112,8 @@ define( function( require ) {
           this.reachedGround = true; // store the information that it has reached the ground
           
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.yAcceleration * previousPoint.position.y ) - previousPoint.velocity.y ) / previousPoint.yAcceleration;
-          newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.xAcceleration * timeToGround * timeToGround;
+          var timeToGround = ( -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y ) / previousPoint.acceleration.y;
+          newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
 
           var newPoint = new DataPoint(
@@ -123,11 +121,9 @@ define( function( require ) {
             newX,
             newY,
             airDensity,
-            Vector2.ZERO, // velocity
-            0, // x acceleration
-            0, // y acceleration
-            0, // x drag force
-            0, // y drag force
+            Vector2.createFromPool( 0, 0 ), // velocity
+            Vector2.createFromPool( 0, 0 ), // acceleration
+            Vector2.createFromPool( 0, 0 ), // drag force
             -gravity * this.mass
           );
 
@@ -142,10 +138,8 @@ define( function( require ) {
             newY,
             airDensity,
             newVelocity,
-            -newXDragForce / this.mass, // x acceleration
-            -gravity - newYDragForce / this.mass, // y acceleration
-            newXDragForce,
-            newYDragForce,
+            Vector2.createFromPool( -newXDragForce / this.mass, -gravity - newYDragForce / this.mass ), // acceleration
+            Vector2.createFromPool( newXDragForce, newYDragForce ),
             -gravity * this.mass
           );
 

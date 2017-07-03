@@ -251,8 +251,8 @@ define( function( require ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
 
-        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedAccelerationScalar * dataPoint.xAcceleration, viewPosition.y );
-        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedAccelerationScalar * dataPoint.yAcceleration );
+        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedAccelerationScalar * dataPoint.acceleration.x, viewPosition.y );
+        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedAccelerationScalar * dataPoint.acceleration.y );
       }
     } );
 
@@ -265,8 +265,8 @@ define( function( require ) {
         var dataPoint = viewPoint.dataPoint;
 
         totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-                                              viewPosition.x + transformedAccelerationScalar * dataPoint.xAcceleration,
-                                              viewPosition.y - transformedAccelerationScalar * dataPoint.yAcceleration
+                                              viewPosition.x + transformedAccelerationScalar * dataPoint.acceleration.x,
+                                              viewPosition.y - transformedAccelerationScalar * dataPoint.acceleration.y
         );
       }
     } );
@@ -313,7 +313,7 @@ define( function( require ) {
         if ( componentsVisible ) {
           xDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
-            freeBody.x - transformedForceScalar * dataPoint.xDragForce,
+            freeBody.x - transformedForceScalar * dataPoint.dragForce.x,
             freeBody.y
           );
           xDragForceLabel.right = xDragForceArrow.tipX - 5;
@@ -322,7 +322,7 @@ define( function( require ) {
           yDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
             freeBody.x,
-            freeBody.y + transformedForceScalar * dataPoint.yDragForce
+            freeBody.y + transformedForceScalar * dataPoint.dragForce.y
           );
           yDragForceLabel.left = yDragForceArrow.tipX + 5;
           yDragForceLabel.y = yDragForceArrow.tipY;
@@ -338,8 +338,8 @@ define( function( require ) {
 
         if ( totalVisible ) {
           // net force is zero if projectile is on ground
-          var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.xDragForce;
-          var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.yDragForce;
+          var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.dragForce.x;
+          var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.dragForce.y;
           totalDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
             freeBody.x - transformedForceScalar * xTotalForce,

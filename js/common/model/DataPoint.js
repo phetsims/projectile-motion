@@ -18,11 +18,9 @@ define( function( require ) {
    * @param {number} x - x position of the data point, also called range, in m
    * @param {number} y - y position of the data point, also called height, in m
    * @param {number} airDensity - air density of the atmosphere at this point, in kg/cu m
-   * @param {Vector2} velocity - x component of velocity at this point, in m/s
-   * @param {number} xAcceleration - x component of acceleration at this point, in m/s^2
-   * @param {number} yAcceleration - y component of acceleration at this point, in m/s^2
-   * @param {number} xDragForce - x component of drag force at this point, in N
-   * @param {number} yDragForce - y component of drag force at this point, in N
+   * @param {Vector2} velocity - velocity at this point, magnitude in m/s
+   * @param {Vector2} acceleration - acceleration at this point, magnitude in m/s^2
+   * @param {Vector2} dragForce - drag force at this point, magnitude in N
    * @param {number} forceGravity - force of gravity, in N
    * @constructor
    */
@@ -32,23 +30,18 @@ define( function( require ) {
                       y,
                       airDensity,
                       velocity,
-                      xAcceleration,
-                      yAcceleration,
-                      xDragForce,
-                      yDragForce,
+                      acceleration,
+                      dragForce,
                       forceGravity
   ) {
     
-    this.position = Vector2.dirtyFromPool().setXY( x, y );
-
     // @public (read-only)
     this.time = time;
+    this.position = Vector2.dirtyFromPool().setXY( x, y );
     this.airDensity = airDensity;
     this.velocity = velocity;
-    this.xAcceleration = xAcceleration;
-    this.yAcceleration = yAcceleration;
-    this.xDragForce = xDragForce;
-    this.yDragForce = yDragForce;
+    this.acceleration = acceleration;
+    this.dragForce = dragForce;
     this.forceGravity = forceGravity;
   }
 
@@ -65,10 +58,8 @@ define( function( require ) {
         && this.time === dataPoint.time
         && this.airDensity === dataPoint.airDensity
         && this.velocity.equals( dataPoint.velocity )
-        && this.xAcceleration === dataPoint.xAcceleration
-        && this.yAcceleration === dataPoint.yAcceleration
-        && this.xDragForce === dataPoint.xDragForce
-        && this.yDragForce === dataPoint.yDragForce
+        && this.acceleration.equals( dataPoint.acceleration )
+        && this.dragForce.equals( dataPoint.dragForce )
         && this.forceGravity === this.forceGravity;
     }
   } );
