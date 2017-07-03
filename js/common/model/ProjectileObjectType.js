@@ -212,12 +212,12 @@ define( function( require ) {
 
   ProjectileObjectType.DRAG_SCREEN = new ProjectileObjectType(
     null,
-    ProjectileMotionConstants.CANNONBALL_MASS,
-    ProjectileMotionConstants.CANNONBALL_DIAMETER,
+    5,
+    0.8,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
     true, {
-      massRange: new Range( 1, 20 ),
+      massRange: new Range( 1, 10 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.1,
@@ -228,12 +228,12 @@ define( function( require ) {
 
   ProjectileObjectType.VECTORS_SCREEN = new ProjectileObjectType(
     null,
-    ProjectileMotionConstants.CANNONBALL_MASS,
-    ProjectileMotionConstants.CANNONBALL_DIAMETER,
+    5,
+    0.8,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
     true, {
-      massRange: new Range( 1, 20 ),
+      massRange: new Range( 1, 10 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.1,

@@ -266,7 +266,6 @@ define( function( require ) {
           ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
-            majorTicks: [ { value: ProjectileMotionConstants.ALTITUDE_RANGE.min }, { value: ProjectileMotionConstants.ALTITUDE_RANGE.max } ],
             decimalPlaces: 0,
             delta: 100,
           }, numberControlOptions )
