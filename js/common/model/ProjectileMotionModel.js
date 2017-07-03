@@ -28,9 +28,12 @@ define( function( require ) {
   var DAVID_RADIUS = 0.5; // meters, will change to view units. How close the tracer needs to get to a datapoint
 
   /**
+   * @param {ProjectileObjectType} defaultProjectileObjectType default object type for the each model
    * @constructor
    */
-  function ProjectileMotionModel() {
+  function ProjectileMotionModel( defaultProjectileObjectType ) {
+
+
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
     this.trajectories = new ObservableArray();
 
@@ -57,14 +60,18 @@ define( function( require ) {
     // --parameters for next projectile fired, defaults to a cannonball
 
     // @public {Property.<number>} mass of the projectile, in kilograms
-    this.projectileMassProperty = new Property( ProjectileMotionConstants.CANNONBALL_MASS );
+    this.projectileMassProperty = new Property( defaultProjectileObjectType.mass );
 
     // @public {Property.<number>} diameter of the projectile, in meters
-    this.projectileDiameterProperty = new Property( ProjectileMotionConstants.CANNONBALL_DIAMETER );
+    this.projectileDiameterProperty = new Property( defaultProjectileObjectType.diameter );
 
     // @public {Property.<number>} drag coefficient of the projectile, unitless as it is a coefficient
-    this.projectileDragCoefficientProperty = new Property( ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+    this.projectileDragCoefficientProperty = new Property( defaultProjectileObjectType.dragCoefficient );
 
+    this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
+
+    this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
+    
     // --properties that change the environment and affect all projectiles
 
     // @public {Property.<number>} acceleration due to gravity, in meters per second squared
@@ -161,6 +168,7 @@ define( function( require ) {
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
       this.launchVelocityProperty.reset();
+      this.selectedProjectileObjectTypeProperty.reset();
       this.projectileMassProperty.reset();
       this.projectileDiameterProperty.reset();
       this.projectileDragCoefficientProperty.reset();
@@ -280,7 +288,14 @@ define( function( require ) {
       if ( position && position.distance( this.davidPosition ) <= DAVID_RADIUS ) {
         this.davidShortsOnProperty.set( false );
       }
-    }
+    },
+
+    // @private set mass, diameter, and drag coefficient based on the currently selected projectile object type
+    setProjectileParameters: function( selectedProjectileObjectType ) {
+      this.projectileMassProperty.set( selectedProjectileObjectType.mass );
+      this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
+      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+    },
 
   } );
 } );
