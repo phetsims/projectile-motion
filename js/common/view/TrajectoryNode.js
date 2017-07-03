@@ -106,14 +106,20 @@ define( function( require ) {
         transformProperty.get()
       );
       projectileNodesLayer.addChild( newProjectileNode );
+
+      trajectory.projectileObjects.addItemRemovedListener( function removalListener( removedProjectileObject ) {
+        if ( removedProjectileObject === projectileObject ) {
+          projectileNodesLayer.removeChild( newProjectileNode );
+          trajectory.projectileObjects.removeItemRemovedListener( removalListener );
+        }
+      } );
     }
 
     // view adds projectile object if another one is created in the model
     trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     trajectory.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
 
-    // update if model view transform changes
-    transformProperty.lazyLink( function( transform ) {
+    function updateTransform( transform ) {
       self.pathsLayer.removeAllChildren();
 
       currentPathShape = null;
@@ -126,19 +132,36 @@ define( function( require ) {
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
       trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
-    } );
+    }
 
-    // change decrease in opacity with each successive projectiled fired
-    trajectory.rankProperty.link( function( rank ) {
+    // update if model view transform changes
+    transformProperty.lazyLink( updateTransform );
+
+    function updateOpacity( rank ) {
       var opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
       self.children.forEach( function( child ) {
         child.opacity = opacity;
       } );
-    } );
+    }
+
+    // change decrease in opacity with each successive projectiled fired
+    trajectory.rankProperty.link( updateOpacity );
+
+    this.disposeTrajectoryNode = function() {
+      transformProperty.unlink( updateTransform );
+      trajectory.rankProperty.unlink( updateOpacity );
+    };
   }
 
   projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
 
-  return inherit( Node, TrajectoryNode );
+  return inherit( Node, TrajectoryNode, {
+
+    // @public
+    dispose: function() {
+      this.disposeTrajectoryNode();
+      Node.prototype.dispose.call( this );
+    }
+  } );
 } );
 
