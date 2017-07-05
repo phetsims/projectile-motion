@@ -172,7 +172,8 @@ define( function( require ) {
   return inherit( Node, TargetNode, {
 
     /**
-     * @public remove animations
+     * Remove animations
+     * @public
      */
     reset: function() {
       var self = this;
