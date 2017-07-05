@@ -14,7 +14,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {number} initialTargetX - initial x position of the target
@@ -23,7 +23,7 @@ define( function( require ) {
   function Score( initialTargetX ) {
 
     // @public {Property.<number>} x position of target
-    this.targetXProperty = new Property( initialTargetX );
+    this.targetXProperty = new NumberProperty( initialTargetX );
 
     // @public {Emitter} if projectile has scored
     this.scoredEmitter = new Emitter();

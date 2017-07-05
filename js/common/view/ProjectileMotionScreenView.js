@@ -39,6 +39,7 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // image
@@ -201,7 +202,7 @@ define( function( require ) {
     );
 
     // // zoom property
-    var zoomProperty = new Property( DEFAULT_ZOOM );
+    var zoomProperty = new NumberProperty( DEFAULT_ZOOM );
 
     // zoom control view
     var zoomControl = new Node();

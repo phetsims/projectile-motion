@@ -17,6 +17,8 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
@@ -50,24 +52,24 @@ define( function( require ) {
     // --initial values
 
     // @public {Property.<number>} height of the cannon, in meters
-    this.cannonHeightProperty = new Property( 0 );
+    this.cannonHeightProperty = new NumberProperty( 0 );
 
     // @public {Property.<number>} angle of the cannon, in degrees
-    this.cannonAngleProperty = new Property( 80 );
+    this.cannonAngleProperty = new NumberProperty( 80 );
 
     // @public {Property.<number>} launch speed, in meters per second
-    this.launchVelocityProperty = new Property( 18 );
+    this.launchVelocityProperty = new NumberProperty( 18 );
 
     // --parameters for next projectile fired, defaults to a cannonball
 
     // @public {Property.<number>} mass of the projectile, in kilograms
-    this.projectileMassProperty = new Property( defaultProjectileObjectType.mass );
+    this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass );
 
     // @public {Property.<number>} diameter of the projectile, in meters
-    this.projectileDiameterProperty = new Property( defaultProjectileObjectType.diameter );
+    this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter );
 
     // @public {Property.<number>} drag coefficient of the projectile, unitless as it is a coefficient
-    this.projectileDragCoefficientProperty = new Property( defaultProjectileObjectType.dragCoefficient );
+    this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient );
 
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
 
@@ -76,13 +78,13 @@ define( function( require ) {
     // --properties that change the environment and affect all projectiles
 
     // @public {Property.<number>} acceleration due to gravity, in meters per second squared
-    this.gravityProperty = new Property( ProjectileMotionConstants.GRAVITY_ON_EARTH );
+    this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH );
 
     // @public {Property.<number>} altitude of the environment, in meters
-    this.altitudeProperty = new Property( 0 );
+    this.altitudeProperty = new NumberProperty( 0 );
 
     // @public {Property.<boolean>} whether air resistance is on
-    this.airResistanceOnProperty = new Property( defaultAirResistance );
+    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], getAirDensity );
@@ -97,18 +99,18 @@ define( function( require ) {
     this.speedProperty = new Property( 'normal' );
 
     // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
-    this.isPlayingProperty = new Property( true );
+    this.isPlayingProperty = new BooleanProperty( true );
 
     // @private
-    this.davidShortsOnProperty = new Property( true );
+    this.davidShortsOnProperty = new BooleanProperty( true );
 
     // @public (read-only)
     this.davidPosition = new Vector2( ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT, ProjectileMotionConstants.DAVID_HEIGHT / 2 );
 
     // @public number of projectiles that are still moving
-    this.numberOfMovingProjectilesProperty = new Property( 0 );
+    this.numberOfMovingProjectilesProperty = new NumberProperty( 0 );
 
-    // @public {Property.<boolean>}
+    // @public {DerivedProperty.<boolean>}
     this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty ], function( number ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     } );

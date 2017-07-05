@@ -11,30 +11,30 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   /**
    * @constructor
    */
   function VectorVisibilityProperties() {
 
-    // @public {Property.<boolean>} whether total velocity vector is showing
-    this.totalVelocityVectorOnProperty = new Property( false );
+    // @public {BooleanProperty.<boolean>} whether total velocity vector is showing
+    this.totalVelocityVectorOnProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} whether component velocity vectors are showing
-    this.componentsVelocityVectorsOnProperty = new Property( false );
+    // @public {BooleanProperty.<boolean>} whether component velocity vectors are showing
+    this.componentsVelocityVectorsOnProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} whether total force vector is showing
-    this.totalForceVectorOnProperty = new Property( false );
+    // @public {BooleanProperty.<boolean>} whether total force vector is showing
+    this.totalForceVectorOnProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} whether component force vectors are showing
-    this.componentsForceVectorsOnProperty = new Property( false );
+    // @public {BooleanProperty.<boolean>} whether component force vectors are showing
+    this.componentsForceVectorsOnProperty = new BooleanProperty( false );
 
-    // @public {Property.<boolean>} whether total acceleration vector is shown
-    this.totalAccelerationVectorOnProperty = new Property ( false );
+    // @public {BooleanProperty.<boolean>} whether total acceleration vector is shown
+    this.totalAccelerationVectorOnProperty = new BooleanProperty ( false );
 
-    // @public {Property.<boolean>} whether component acceleration vectors are showing
-    this.componentsAccelerationVectorsOnProperty = new Property( false );
+    // @public {BooleanProperty.<boolean>} whether component acceleration vectors are showing
+    this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false );
 
   }
 

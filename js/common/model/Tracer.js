@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Vector2 = require( 'DOT/Vector2' );
   
   // constants
@@ -34,7 +35,7 @@ define( function( require ) {
     this.pointProperty = new Property( null );
 
     // @public {Property.<boolean>} whether the tracer is out in the play area (false when in toolbox)
-    this.isActiveProperty = new Property( false );
+    this.isActiveProperty = new BooleanProperty( false );
 
     // @public {ObservableArray.<Trajectory>} array of trajectories in the model
     this.trajectories = trajectories;

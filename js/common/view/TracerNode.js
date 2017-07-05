@@ -18,6 +18,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
@@ -52,7 +53,7 @@ define( function( require ) {
     options = options || {};
     var self = this;
 
-    this.isUserControlledProperty = new Property( false );
+    this.isUserControlledProperty = new BooleanProperty( false );
 
     this.spacing = SPACING;
     this.tracer = tracer;

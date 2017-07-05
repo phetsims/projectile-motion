@@ -13,6 +13,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Vector2 = require( 'DOT/Vector2' );
 
   /**
@@ -27,7 +28,7 @@ define( function( require ) {
     this.tipPositionProperty = new Property( new Vector2( 1, 0 ) );
 
     // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
-    this.isActiveProperty = new Property( false );
+    this.isActiveProperty = new BooleanProperty( false );
 
   }
 

@@ -18,6 +18,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   // var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -43,7 +44,7 @@ define( function( require ) {
     this.dragCoefficient = model.projectileDragCoefficientProperty.get();
 
     // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
-    this.rankProperty = new Property( 0 );
+    this.rankProperty = new NumberProperty( 0 );
 
     function incrementRank() {
       self.rankProperty.value++;

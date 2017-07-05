@@ -12,6 +12,7 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   /**
@@ -21,9 +22,9 @@ define( function( require ) {
     VectorVisibilityProperties.call( this );
   
     // vectors visibility for velocity and force, total or component
-    this.velocityVectorsOnProperty = new Property( false );
-    this.accelerationVectorsOnProperty = new Property( false );
-    this.forceVectorsOnProperty = new Property( false );
+    this.velocityVectorsOnProperty = new BooleanProperty( false );
+    this.accelerationVectorsOnProperty = new BooleanProperty( false );
+    this.forceVectorsOnProperty = new BooleanProperty( false );
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
 
     // update which vectors to show based on controls
