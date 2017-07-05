@@ -56,7 +56,7 @@ define( function( require ) {
     titleFont: TEXT_FONT,
     valueFont: TEXT_FONT,
     majorTickLength: 5,
-    thumbSize: new Dimension2( 12, 21 ),
+    thumbSize: new Dimension2( 13, 22 ),
     thumbTouchAreaXDilation: 6,
     thumbTouchAreaYDilation: 4,
     arrowButtonScale: 0.65
