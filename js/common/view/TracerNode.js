@@ -179,9 +179,14 @@ define( function( require ) {
   projectileMotion.register( 'TracerNode', TracerNode );
 
   return inherit( Node, TracerNode, {
-    // @private auxiliary function to create label and number readout for information
-    // @param {string} label
-    // @param {Property} readoutProperty
+
+    /**
+     * Auxiliary function to create label and number readout for information
+     * @private
+     * 
+     * @param {string} label
+     * @param {Property} readoutProperty
+     */
     createInformationBox: function( labelString, readoutProperty ) {
       var labelText = new Text( labelString, LABEL_OPTIONS );
       // TODO: make sure scales are the same for all labels. 70 is the empirically determined width for label
@@ -216,7 +221,13 @@ define( function( require ) {
       return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
     },
 
-    // @public
+    /**
+     * Create icon of Tracer node
+     * @public
+     * 
+     * @param {Object} [options]
+     * @return {Node}\
+     */
     createIcon: function( options ) {
       options = options || {};
       var rectangle = new Rectangle(

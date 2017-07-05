@@ -42,7 +42,6 @@ define( function( require ) {
 
   return inherit( Object, VectorVisibilityProperties, {
 
-    // @public
     reset: function() {
       this.totalVelocityVectorOnProperty.reset();
       this.componentsVelocityVectorsOnProperty.reset();

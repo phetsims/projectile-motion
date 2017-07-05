@@ -74,14 +74,27 @@ define( function( require ) {
   projectileMotion.register( 'LabScreenView', LabScreenView );
 
   return inherit( ProjectileMotionScreenView, LabScreenView, {
-    // @public
+    
+    /**
+     * Layout according to screenview and layout the combo box
+     * @public
+     * @override
+     * 
+     * @param  {number} width
+     * @param  {number} height
+     */
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
       this.bottomRightPanel.layoutComboBox();
       this.keypadLayer.positionKeypad( this.setKeypadLayer.bind( this ) );
     },
 
-    //@private lays out keypad
+    /**
+     * Lays out keypad
+     * @private
+     * 
+     * @param {KeypadPanel} keypad
+     */
     setKeypadLayer: function (keypad ) {
       keypad.right = this.topRightPanel.left - X_MARGIN;
       keypad.top = this.toolboxPanel.bottom + Y_MARGIN;

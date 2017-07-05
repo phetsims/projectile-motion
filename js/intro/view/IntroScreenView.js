@@ -54,7 +54,15 @@ define( function( require ) {
   projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
   return inherit( ProjectileMotionScreenView, IntroScreenView, {
-    // @public
+    
+    /**
+     * Layout according to screenview and layout the combo box
+     * @public
+     * @override
+     * 
+     * @param  {number} width
+     * @param  {number} height
+     */
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
       this.topRightPanel.layoutComboBox();

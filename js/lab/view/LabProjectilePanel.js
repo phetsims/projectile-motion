@@ -352,7 +352,11 @@ define( function( require ) {
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
   return inherit( Panel, LabProjectilePanel, {
-    // @public layout the combobox
+    
+    /**
+     * Layout the combobox
+     * @public
+     */
     layoutComboBox: function() {
       this.projectileChoiceComboBox.centerX = this.centerX;
       this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace;

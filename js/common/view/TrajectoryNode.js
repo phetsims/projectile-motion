@@ -150,7 +150,12 @@ define( function( require ) {
 
   return inherit( Node, TrajectoryNode, {
 
-    // @public
+    /**
+     * Dispose this trajectory for memory management
+     * 
+     * @public
+     * @override
+     */
     dispose: function() {
       this.disposeTrajectoryNode();
       Node.prototype.dispose.call( this );

@@ -107,7 +107,10 @@ define( function( require ) {
       options.onBeginEdit && options.onBeginEdit();
     },
 
-    // @private ends an edit
+    /**
+     * Ends an edit
+     * @private
+     */
     endEdit: function() {
 
       // hide the keypad
@@ -124,7 +127,10 @@ define( function( require ) {
       this.valueProperty = null;
     },
 
-    // @private commits an edit
+    /**
+     * Commits an edit
+     * @private
+     */
     commitEdit: function( valueRange, valueRound ) {
 
       // get the value from the keypad
@@ -152,7 +158,10 @@ define( function( require ) {
       }
     },
 
-    // @private cancels an edit
+    /**
+     * Cancels an edit
+     * @private
+     */
     cancelEdit: function() {
       this.endEdit();
     }
