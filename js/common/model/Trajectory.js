@@ -86,7 +86,12 @@ define( function( require ) {
 
   return inherit( Object, Trajectory, {
 
-    // @public animate projectile given {number} time step in seconds
+    /**
+     * Does calculations and steps the trajectory elements forward given a time step
+     * @public
+     *
+     * @param {number} dt
+     */
     step: function( dt ) {
       var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
@@ -165,8 +170,10 @@ define( function( require ) {
 
     /**
      * @public
-     * @returns {DataPoint|null} the data point with the least euclidian distance to the point with
-     * {number} x and {number} y coordinates, or null if there aren't haven't been any data points collected.
+     * 
+     * @returns {DataPoint|null} the data point with the least euclidian distance to the point given, or null if there
+     * @param {number} x - coordinate in model
+     * @param {number} y - coordinate in model
      */
     getNearestPoint: function( x, y ) {
       if ( this.dataPoints.length === 0 ) {
@@ -193,13 +200,21 @@ define( function( require ) {
       return nearestPoint;
     },
 
-    // @public add a projectile object that starts at the first data point
+    /**
+     * Add a projectile object that starts at the first data point
+     * @public
+     */
     addProjectileObject: function() {
       this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
     },
 
-    // @returns {Trajectory} a new trajectory that is a copy of this one, but with one projectile object
-    // @public
+    /**
+     * Creates a new trajectory that is a copy of this one, but with one projectile object
+     * @public
+     * 
+     * @param {Object} projectileObject - provides the index and data points.
+     * @returns {Trajectory}
+     */
     newTrajectory: function( projectileObject ) {
 
       // create a brand new trajectory
@@ -220,7 +235,13 @@ define( function( require ) {
       return newTrajectory;
     },
 
-    // @public whether {boolean} this trajectory is equal to the one set up in the model
+    /**
+     * Whether this trajectory is equal to the one given
+     * @public
+     * 
+     * @param {Trajectory} trajectory
+     * @returns {boolean}
+     */
     equals: function( trajectory ) {
       var thisInitialPoint = this.dataPoints.get( 0 );
       var trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
@@ -232,7 +253,10 @@ define( function( require ) {
         && thisInitialPoint.equals( trajectoryInitialPoint );
     },
 
-    // @public memory management
+    /**
+     * Dispose this Trajectory, for memory management
+     * @public
+     */
     dispose: function() {
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {

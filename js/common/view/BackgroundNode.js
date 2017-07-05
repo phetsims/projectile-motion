@@ -57,7 +57,16 @@ define( function( require ) {
 
   return inherit( Node, BackgroundNode, {
 
-    // @public
+    /**
+     * Layout nodes part of the background
+     * @public
+     * 
+     * @param  {number} offsetX
+     * @param  {number} offsetY
+     * @param  {number} width
+     * @param  {number} height
+     * @param  {number} layoutScale
+     */
     layout: function( offsetX, offsetY, width, height, layoutScale ) {
       var dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
@@ -77,7 +86,12 @@ define( function( require ) {
       this.flatirons.left = ProjectileMotionConstants.VIEW_ORIGIN.x + FLATIRONS_OFFSET;
     },
 
-    // @public makes flatirons image visible or disappear
+    /**
+     * Makes flatirons image visible or invisible
+     * @public
+     * 
+     * @param  {boolean} visibility
+     */
     showOrHideFlatirons: function( visibility ) {
       this.flatirons.visible = visibility ;
     }

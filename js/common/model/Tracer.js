@@ -45,14 +45,16 @@ define( function( require ) {
 
   return inherit( Object, Tracer, {
 
-    // @public resets properties of this tracer model
     reset: function() {
       this.positionProperty.reset();
       this.pointProperty.reset();
       this.isActiveProperty.reset();
     },
 
-    // @public checks for if there is a point the tracer is close to. if so, updates pointProperty
+    /**
+     * Checks for if there is a point the tracer is close to. If so, updates pointProperty
+     * @public
+     */
     updateData: function() {
       var i;
       for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
@@ -66,7 +68,13 @@ define( function( require ) {
       this.pointProperty.set( null );
     },
 
-    // @public checks if the given point is close enough to the tracer and updates information if so
+    /**
+     * Checks if the given point is close enough to the tracer and updates information if so
+     * @public
+     * 
+     * @param  {Vector2} point - point in model coordinates
+     * @return {[type]}       [description]
+     */
     updateDataIfWithinRange: function( point ) {
       if ( point && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );

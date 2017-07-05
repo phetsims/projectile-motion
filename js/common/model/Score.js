@@ -34,12 +34,15 @@ define( function( require ) {
 
   return inherit( Object, Score, {
 
-    // @public
     reset: function() {
       this.targetXProperty.reset();
     },
 
-    // @public Scores if projectile has scored based on {number} x position of the landed projectile
+    /**
+     * Scores if projectile has scored based on {number} x position of the landed projectile
+     * @public
+     * @param  {number} projectileX - x coordinate in model coordinates
+     */
     scoreIfWithinTarget: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetXProperty.get() );
       if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) {
@@ -47,7 +50,10 @@ define( function( require ) {
       }
     },
 
-    // @public restarts time before visible and turns on animation
+    /**
+     * Triggers scoreEmitter to trigger view animation
+     * @public
+     */
     score: function() {
       this.scoredEmitter.emit();
     },

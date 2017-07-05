@@ -31,7 +31,14 @@ define( function( require ) {
 
   var ProjectileObjectViewFactory = {
 
-    // @public @returns {Circle} a custom object view based on {number} and {number} drag coefficient
+    /**
+     * A custom object view
+     * @public
+     *
+     * @param {number} radius - in meters in model coordinates
+     * @param {number} dragCoefficient
+     * @returns {Circle}
+     */
     createCustom: function( radius, dragCoefficient ) {
       // drag coefficients estimated from three sources:
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
@@ -77,7 +84,16 @@ define( function( require ) {
       }
     },
 
-    // @public @returns {Circle} object based on the type
+    /**
+     * A preset object view for benchmarks
+     * @public
+     *
+     * @param {string} type
+     * @param {number} diameter - in meters in model coordinates
+     * @param {number} dragCoefficient
+     * @param {ModelViewTransform2} modelViewTransform
+     * @returns {Circle|Image|Path}
+     */
     createObjectView: function( type, diameter, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch ( type ) {
@@ -111,7 +127,16 @@ define( function( require ) {
       }
     },
 
-    // @public @returns {Circle} object based on the type
+    /**
+     * A preset landed object view for benchmarks
+     * @public
+     *
+     * @param {string} type
+     * @param {number} diameter - in meters in model coordinates
+     * @param {number} dragCoefficient
+     * @param {ModelViewTransform2} modelViewTransform
+     * @returns {Circle|Image|Path}
+     */
     createLandedObjectView: function( type, diameter, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch ( type ) {

@@ -121,7 +121,11 @@ define( function( require ) {
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 
-  // @returns {number} air density based on altitude and whether air resistance is turned on
+  /**
+   * @param  {number} altitude - in meters
+   * @param  {boolean} airResistanceOn - if off, zero air density
+   * @returns {number} - air density
+   */
   function getAirDensity( altitude, airResistanceOn ) {
 
     // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
@@ -155,7 +159,6 @@ define( function( require ) {
 
   return inherit( Object, ProjectileMotionModel, {
 
-    // @public resets all model elements
     reset: function() {
 
       // disposes all trajectories and resets number of moving projectiles property
@@ -182,7 +185,7 @@ define( function( require ) {
     },
 
     /**
-     * Steps the model forward in time.
+     * Steps the model forward in time using the created eventTimer
      * @public
      *
      * @param {number} dt
@@ -193,7 +196,12 @@ define( function( require ) {
       }
     },
 
-    // @public animate model elements given a time step
+    /** 
+     * Steps model elements given a time step, used by the step button
+     * @public
+     * 
+     * @param {number} dt
+     */
     stepModelElements: function( dt ) {
       var i;
       for ( i = 0; i < this.trajectories.length; i++ ) {
@@ -201,7 +209,10 @@ define( function( require ) {
       }
     },
 
-    // @private remove old trajectories that are over the limit from the observable array
+    /** 
+     * Remove and dispose old trajectories that are over the limit from the observable array
+     * @private 
+     */
     limitTrajectories: function() {
       var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
       var i;
@@ -210,7 +221,10 @@ define( function( require ) {
       }
     },
 
-    // @public, removes all trajectories and resets corresponding properties
+    /**
+     * Removes all trajectories and resets corresponding properties
+     * @public
+     */
     eraseTrajectories: function() {
       while( this.trajectories.length ) {
         this.trajectories.pop().dispose();
@@ -218,7 +232,12 @@ define( function( require ) {
       this.numberOfMovingProjectilesProperty.reset();
     },
 
-    // @public fires cannon, called on by fire button
+    /**
+     * Fires cannon, called on by fire button
+     * Adds a new trajectory, unless the same exact trajectory as the last one is being fired, in which case it just
+     * adds a projectile to the last trajectory.
+     * @public
+     */
     cannonFired: function() {
       this.isPlayingProperty.set( true );
       var lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
@@ -236,7 +255,10 @@ define( function( require ) {
       this.limitTrajectories();
     },
 
-    // @private updates the status of the trajectories, as in whether they are changed in mid air
+    /**
+     * Updates the status of the trajectories, as in whether they are changed in mid air
+     * @private 
+     */
     updateStatusofTrajectories: function() {
       var newTrajectories = [];
       var trajectory;
@@ -283,14 +305,24 @@ define( function( require ) {
       this.limitTrajectories();
     },
 
-    // @public, checks if position is through David
+    /**
+     * Checks if position is close to David and updates the property accordingly
+     * @public
+     * 
+     * @param  {Vector2} position - a point in the model coordinate
+     */
     updateDavidIfWithinRange: function( position ) {
       if ( position && position.distance( this.davidPosition ) <= DAVID_RADIUS ) {
         this.davidShortsOnProperty.set( false );
       }
     },
 
-    // @private set mass, diameter, and drag coefficient based on the currently selected projectile object type
+    /**
+     * Set mass, diameter, and drag coefficient based on the currently selected projectile object type
+     * @private 
+     * 
+     * @param {ProjectileObjectType} selectedProjectileObjectType - contains information such as mass, diameter, etc.
+     */
     setProjectileParameters: function( selectedProjectileObjectType ) {
       this.projectileMassProperty.set( selectedProjectileObjectType.mass );
       this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );

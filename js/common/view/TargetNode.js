@@ -171,7 +171,9 @@ define( function( require ) {
 
   return inherit( Node, TargetNode, {
 
-    // @public remove all reward animations
+    /**
+     * @public remove animations
+     */
     reset: function() {
       var self = this;
       this.rewardNodes.forEach( function ( rewardNode ) {

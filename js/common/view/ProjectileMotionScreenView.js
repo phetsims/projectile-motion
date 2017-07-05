@@ -375,6 +375,13 @@ define( function( require ) {
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 
   return inherit( ScreenView, ProjectileMotionScreenView, {
+
+    /**
+     * Layout nodes part of the screen view
+     * 
+     * @param  {number} width
+     * @param  {number} height
+     */
     layout: function( width, height ) {
       this.resetTransform();
 
