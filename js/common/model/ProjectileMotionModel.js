@@ -205,7 +205,7 @@ define( function( require ) {
     limitTrajectories: function() {
       var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
       var i;
-      for ( i = 0; i < numberToRemove; i ++ ) {
+      for ( i = 0; i < numberToRemove; i++ ) {
         this.trajectories.shift().dispose();
       }
     },
@@ -232,7 +232,7 @@ define( function( require ) {
         newTrajectory.rankProperty.reset(); // make this one go back to zero
         this.trajectories.push( newTrajectory );
       }
-      this.numberOfMovingProjectilesProperty.value ++;
+      this.numberOfMovingProjectilesProperty.value++;
       this.limitTrajectories();
     },
 

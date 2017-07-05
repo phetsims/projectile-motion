@@ -148,15 +148,15 @@ define( function( require ) {
 
       // increment position of projectile objects, unless it has reached the end
       var i;
-      for( i = 0; i < this.projectileObjects.length; i ++ ) {
+      for( i = 0; i < this.projectileObjects.length; i++ ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
-          object.index ++;
+          object.index++;
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
         }
         // if it has just reached the end, check if landed on target
         else if ( !object.checkedScore ) {
-          this.projectileMotionModel.numberOfMovingProjectilesProperty.value --;
+          this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
           this.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().position.x );
           object.checkedScore = true;
         }
