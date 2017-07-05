@@ -28,10 +28,11 @@ define( function( require ) {
   var DAVID_RADIUS = 0.5; // meters, will change to view units. How close the tracer needs to get to a datapoint
 
   /**
-   * @param {ProjectileObjectType} defaultProjectileObjectType default object type for the each model
+   * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
+   * @param {boolean} defaultAirResistance -  default air resistance on value
    * @constructor
    */
-  function ProjectileMotionModel( defaultProjectileObjectType ) {
+  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance ) {
 
 
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
@@ -81,7 +82,7 @@ define( function( require ) {
     this.altitudeProperty = new Property( 0 );
 
     // @public {Property.<boolean>} whether air resistance is on
-    this.airResistanceOnProperty = new Property( false );
+    this.airResistanceOnProperty = new Property( defaultAirResistance );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], getAirDensity );

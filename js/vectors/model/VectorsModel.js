@@ -18,23 +18,11 @@ define( function( require ) {
    * @constructor
    */
   function VectorsModel() {
-    ProjectileMotionModel.call( this, ProjectileObjectType.VECTORS_SCREEN );
-    
-    // TODO: put these three as parameters into ProjectileMotionModel
-    
-    this.airResistanceOnProperty.set( true ); // since this screen explores vectors, always leave air resistance on
+    ProjectileMotionModel.call( this, ProjectileObjectType.VECTORS_SCREEN, true );
   }
 
   projectileMotion.register( 'VectorsModel', VectorsModel );
 
-  return inherit( ProjectileMotionModel, VectorsModel, {
-
-    // @public resets all vector model elements, first calling the super class' reset
-    reset: function() {
-      ProjectileMotionModel.prototype.reset.call( this );
-      this.airResistanceOnProperty.set( true );// since this screen explores vectors, always leave air resistance on
-      this.selectedProjectileObjectTypeProperty.reset();
-    }
-  } );
+  return inherit( ProjectileMotionModel, VectorsModel );
 } );
 

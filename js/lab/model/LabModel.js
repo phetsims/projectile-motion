@@ -32,19 +32,12 @@ define( function( require ) {
       ProjectileObjectType.CUSTOM    
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 0 ] );
+    ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );
   }
 
   projectileMotion.register( 'LabModel', LabModel );
 
-  return inherit( ProjectileMotionModel, LabModel, {
-
-    // @public
-    reset: function() {
-      ProjectileMotionModel.prototype.reset.call( this );
-      this.selectedProjectileObjectTypeProperty.reset();
-    }
-  } );
+  return inherit( ProjectileMotionModel, LabModel );
 } );
 
 

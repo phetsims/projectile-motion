@@ -19,24 +19,12 @@ define( function( require ) {
    */
   function DragModel() {
 
-    ProjectileMotionModel.call( this, ProjectileObjectType.DRAG_SCREEN );
-    
-    // TODO: put these three as parameters into ProjectileMotionModel
-    
-    this.airResistanceOnProperty.set( true ); // since this screen explores drag, always leave air resistance on
+    ProjectileMotionModel.call( this, ProjectileObjectType.DRAG_SCREEN, true );
     
   }
 
   projectileMotion.register( 'DragModel', DragModel );
 
-  return inherit( ProjectileMotionModel, DragModel, {
-
-    // @public resets all drag model elements, first calling the super class' reset
-    reset: function() {
-      ProjectileMotionModel.prototype.reset.call( this );
-      this.airResistanceOnProperty.set( true );// since this screen explores drag, always leave air resistance on
-      this.selectedProjectileObjectTypeProperty.reset();
-    }
-  } );
+  return inherit( ProjectileMotionModel, DragModel );
 } );
 

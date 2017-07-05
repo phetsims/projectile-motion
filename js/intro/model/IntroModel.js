@@ -31,7 +31,7 @@ define( function( require ) {
       ProjectileObjectType.TANK_SHELL    
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 0 ] );
+    ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );
   }
 
   projectileMotion.register( 'IntroModel', IntroModel );
