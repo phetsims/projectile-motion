@@ -29,8 +29,8 @@ define( function( require ) {
   var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
   var NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
   var CANNON_ANGLE = 35;
-  var BRIGHT_BLUE_COLOR = new Color( 26, 87, 230, 1 );
-  var DARK_BLUE_COLOR = new Color( 10, 43, 116, 1 );
+  var BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
+  var DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
 
   /**
    * @constructor
@@ -83,7 +83,7 @@ define( function( require ) {
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
 
     var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
-    var cylinderTop = new Path( ellipseShape, { x: cannonX, y: scalableNode.bottom - scaledEllipseHeight / 4, fill: DARK_BLUE_COLOR, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
+    var cylinderTop = new Path( ellipseShape, { x: cannonX, y: scalableNode.bottom - scaledEllipseHeight / 4, fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
 
     var sideShape = new Shape();
     sideShape.moveTo( cannonX - scaledEllipseWidth / 2, height - 1 )
@@ -91,8 +91,8 @@ define( function( require ) {
       .ellipticalArc( cannonX, cylinderTop.y, scaledEllipseWidth / 2, scaledEllipseHeight / 2, 0, Math.PI, 0, true )
       .lineTo( cannonX + scaledEllipseWidth / 2, height - 1 )
       .close();
-    var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 ).addColorStop( 0.0, DARK_BLUE_COLOR ).addColorStop( 0.3, BRIGHT_BLUE_COLOR ).addColorStop( 1, DARK_BLUE_COLOR );
-    var cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_BLUE_COLOR, lineWidth: 2 } );
+    var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
+    var cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
 
     // layer for angle indicators
     var angleIndicator = new Node( { x: cannonX, y: cannonY } );
