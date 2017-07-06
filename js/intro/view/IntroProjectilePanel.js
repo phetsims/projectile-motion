@@ -117,7 +117,7 @@ define( function( require ) {
       var parameterLabel = new Text( '', LABEL_OPTIONS );
 
       property.link( function( value ) {
-        var valueReadout = unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : Util.toFixedNumber( value, 2 );
+        var valueReadout = unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : Util.toFixed( value, 2 );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
