@@ -28,7 +28,8 @@ define( function( require ) {
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
       ProjectileObjectType.GOLF_BALL,  
-      ProjectileObjectType.TANK_SHELL    
+      ProjectileObjectType.TANK_SHELL,
+      ProjectileObjectType.ARROW    
     ];
 
     ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );

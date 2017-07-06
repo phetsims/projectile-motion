@@ -83,6 +83,9 @@
   "range": {
     "value": "Range"
   },
+  "arrow": {
+    "value": "Arrow"
+  },
   "cannonball": {
     "value": "Cannonball"
   },

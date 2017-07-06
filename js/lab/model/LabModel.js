@@ -29,6 +29,7 @@ define( function( require ) {
       ProjectileObjectType.PIANO,
       ProjectileObjectType.GOLF_BALL,  
       ProjectileObjectType.TANK_SHELL,
+      ProjectileObjectType.ARROW,
       ProjectileObjectType.CUSTOM    
     ];
 

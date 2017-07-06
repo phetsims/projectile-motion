@@ -28,6 +28,7 @@ define( function( require ) {
   var landedHumanImage = require( 'image!PROJECTILE_MOTION/human_2.png' );
   var pianoImage = require( 'image!PROJECTILE_MOTION/piano_1.png' );
   var landedPianoImage = require( 'image!PROJECTILE_MOTION/piano_2.png' );
+  var arrowImage = require( 'image!PROJECTILE_MOTION/arrow.png' );
 
   var ProjectileObjectViewFactory = {
 
@@ -123,6 +124,8 @@ define( function( require ) {
             .lineTo( 0.7 * transformedBallSize, 0 )
             .close();
           return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
+        case 'arrow':
+          return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
           throw new Error( 'type is not right' );
       }
@@ -166,6 +169,8 @@ define( function( require ) {
             .lineTo( 0.7 * transformedBallSize, 0 )
             .close();
           return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
+        case 'arrow':
+          return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
           throw new Error( 'type is not right' );
       }
