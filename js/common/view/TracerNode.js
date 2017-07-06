@@ -63,7 +63,7 @@ define( function( require ) {
     var rectangle = new Rectangle(
       0,
       0,
-      150,
+      180,
       95, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
@@ -108,9 +108,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( timeString, timeReadoutProperty );
-    var rangeBox = this.createInformationBox( rangeString, rangeReadoutProperty );
-    var heightBox = this.createInformationBox( heightString, heightReadoutProperty );
+    var timeBox = this.createInformationBox( rectangle.width, timeString, timeReadoutProperty );
+    var rangeBox = this.createInformationBox( rectangle.width, rangeString, rangeReadoutProperty );
+    var heightBox = this.createInformationBox( rectangle.width, heightString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -188,7 +188,7 @@ define( function( require ) {
      * @param {string} label
      * @param {Property} readoutProperty
      */
-    createInformationBox: function( labelString, readoutProperty ) {
+    createInformationBox: function( rectangleWidth, labelString, readoutProperty ) {
       var labelText = new Text( labelString, LABEL_OPTIONS );
       // TODO: make sure scales are the same for all labels. 70 is the empirically determined width for label
       labelText.scale( Math.min( 1, 70 / labelText.width ) );
@@ -217,7 +217,7 @@ define( function( require ) {
 
       var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
-      var spacing = this.rectangle.width - labelText.width - readoutParent.width - 4 * this.spacing;
+      var spacing = rectangleWidth - labelText.width - readoutParent.width - 4 * this.spacing;
 
       return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
     },
@@ -258,9 +258,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
-      var timeBox = this.createInformationBox( timeString, new Property( '-' ) );
-      var rangeBox = this.createInformationBox( rangeString, new Property( '-' ) );
-      var heightBox = this.createInformationBox( heightString, new Property( '-' ) );
+      var timeBox = this.createInformationBox( rectangle.width, timeString, new Property( '-' ) );
+      var rangeBox = this.createInformationBox( rectangle.width, rangeString, new Property( '-' ) );
+      var heightBox = this.createInformationBox( rectangle.width, heightString, new Property( '-' ) );
 
       var textBox = new VBox( {
         align: 'left',
