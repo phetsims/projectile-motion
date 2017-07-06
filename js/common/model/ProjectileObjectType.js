@@ -211,14 +211,14 @@ define( function( require ) {
 
   ProjectileObjectType.CUSTOM = new ProjectileObjectType(
     customString,
-    ProjectileMotionConstants.CANNONBALL_MASS,
-    ProjectileMotionConstants.CANNONBALL_DIAMETER,
+    100,
+    1,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
     true, {
-      massRange: new Range( 4, 2000 ),
+      massRange: new Range( 0.01, 5000 ),
       massRound: 0.01,
-      diameterRange: new Range( 0.01, 2.5 ),
+      diameterRange: new Range( 0.01, 3 ),
       diameterRound: 0.01,
       dragCoefficientRange: new Range( 0.04, 1 ),
       dragCoefficientRound: 0.01
