@@ -23,6 +23,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -154,6 +155,7 @@ define( function( require ) {
         vStrutForComboBox,
         massBox,
         diameterBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckBox,
         dragCoefficientBox
       ]

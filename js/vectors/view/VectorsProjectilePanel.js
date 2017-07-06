@@ -25,6 +25,7 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Util = require( 'DOT/Util' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -154,7 +155,7 @@ define( function( require ) {
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
 
     var dragCoefficientBox = new Text( '', LABEL_OPTIONS );
-    
+
     projectileDragCoefficientProperty.link( function( value ) {
       dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
     } );
@@ -167,6 +168,7 @@ define( function( require ) {
         objectDisplay,
         diameterBox,
         massBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckBox,
         dragCoefficientBox
       ]
