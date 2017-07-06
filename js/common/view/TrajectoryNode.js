@@ -27,7 +27,7 @@ define( function( require ) {
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'rgb( 252, 40, 252 )';
-  var TIME_PER_SHOWN_DOT = 50; // milliseconds
+  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,

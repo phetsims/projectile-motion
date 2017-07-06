@@ -15,10 +15,12 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Vector2 = require( 'DOT/Vector2' );
-  
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Util = require( 'DOT/Util' );
+
   // constants
   var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
-
+  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
 
   /**
    * @param {ObservableArray.<Trajectory>} trajectories
@@ -61,7 +63,7 @@ define( function( require ) {
       for ( i = this.trajectories.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.trajectories.get( i );
         var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
-        if ( point && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+        if ( point && Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
           return;
         }
@@ -77,7 +79,7 @@ define( function( require ) {
      * @return {[type]}       [description]
      */
     updateDataIfWithinRange: function( point ) {
-      if ( point && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+      if ( point && Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.pointProperty.set( point );
       }
     }
