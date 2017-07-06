@@ -42,7 +42,7 @@ define( function( require ) {
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 1 ), // in original, smallest is 0.043
 
     // data point collection along the trajectory
-    TIME_PER_DATA_POINT: 16, // milliseconds
+    TIME_PER_DATA_POINT: 25, // milliseconds
 
     // teardrop to almost pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),

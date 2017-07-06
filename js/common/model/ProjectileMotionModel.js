@@ -119,7 +119,7 @@ define( function( require ) {
     this.updateRanksEmitter = new Emitter();
 
     // @private {EventTimer}
-    this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1 / 0.016 ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
+    this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -282,6 +282,7 @@ define( function( require ) {
             removedProjectileObjects.push( projectileObject );
             this.updateRanksEmitter.emit();
             var newTrajectory = trajectory.newTrajectory( projectileObject );
+            newTrajectory.changedInMidAir = true;
             newTrajectories.push( newTrajectory );
           }
         }
