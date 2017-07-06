@@ -105,23 +105,6 @@ define( function( require ) {
     }
     projectileViewLayer.addChild( projectileObjectView );
 
-    // add vector view for velocity x component
-    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
-    this.addChild( xVelocityArrow );
-
-    // add vector view for velocity y component
-    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
-    this.addChild( yVelocityArrow );
-
-    // add vector view for total velocity
-    var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
-      pickable: false,
-      fill: VELOCITY_ARROW_FILL,
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
-    } );
-    this.addChild( totalVelocityArrow );
-
     // add vector view for acceleration x component
     var xAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( xAccelerationArrow );
@@ -138,6 +121,23 @@ define( function( require ) {
       headWidth: ARROW_HEAD_WIDTH
     } );
     this.addChild( totalAccelerationArrow );
+
+    // add vector view for velocity x component
+    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
+    this.addChild( xVelocityArrow );
+
+    // add vector view for velocity y component
+    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
+    this.addChild( yVelocityArrow );
+
+    // add vector view for total velocity
+    var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
+      pickable: false,
+      fill: VELOCITY_ARROW_FILL,
+      tailWidth: ARROW_TAIL_WIDTH,
+      headWidth: ARROW_HEAD_WIDTH
+    } );
+    this.addChild( totalVelocityArrow );
 
     // forces view
     var forcesBox = new Rectangle( 0, 0, 10, 50, {
