@@ -197,8 +197,7 @@ define( function( require ) {
       };
     } );
 
-    // Update the projectile's object view.
-    viewPointProperty.link( function( viewPoint ) {
+    var updateProjectileObjectView = function( viewPoint ) {
       var dataPoint = viewPoint.dataPoint;
 
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
@@ -208,10 +207,13 @@ define( function( require ) {
       }
 
       projectileObjectView.center = viewPoint.viewPosition;
-    } );
+    };
+
+    // Update the projectile's object view.
+    viewPointProperty.link( updateProjectileObjectView );
 
     // Update component-wise velocity vectors.
-    Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+    var updateComponentVelocityVectors = function( visible, viewPoint ) {
       xVelocityArrow.visible = visible;
       yVelocityArrow.visible = visible;
 
@@ -221,10 +223,12 @@ define( function( require ) {
         xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x, viewPosition.y );
         yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y );
       }
-    } );
+    };
+
+    Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], updateComponentVelocityVectors );
 
     // Update total velocity vector.
-    Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+    var updateTotalVelocityVector = function( visible, viewPoint ) {
       totalVelocityArrow.visible = visible;
 
       if ( visible ) {
@@ -235,10 +239,12 @@ define( function( require ) {
                                           viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
         );
       }
-    } );
+    };
+
+    Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], updateTotalVelocityVector );
 
     // Update component-wise acceleration vectors.
-    Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+    var updateComponentAccelerationVectors = function( visible, viewPoint ) {
       xAccelerationArrow.visible = visible;
       yAccelerationArrow.visible = visible;
 
@@ -249,10 +255,12 @@ define( function( require ) {
         xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x, viewPosition.y );
         yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y );
       }
-    } );
+    };
+
+    Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], updateComponentAccelerationVectors );
 
     // Update total acceleration vector.
-    Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], function( visible, viewPoint ) {
+    var updateTotalAccelerationVector = function( visible, viewPoint ) {
       totalAccelerationArrow.visible = visible;
 
       if ( visible ) {
@@ -264,11 +272,13 @@ define( function( require ) {
                                               viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
         );
       }
-    } );
+    };
+
+    Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], updateTotalAccelerationVector );
 
     // Update the free body diagram
     var removed = false;
-    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], function( componentsVisible, totalVisible, viewPoint ) {
+    var updateFreeBodyDiagram = function( componentsVisible, totalVisible, viewPoint ) {
       var viewPosition = viewPoint.viewPosition;
       var dataPoint = viewPoint.dataPoint;
 
@@ -346,7 +356,9 @@ define( function( require ) {
 
         forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
       }
-    } );
+    };
+    
+    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
   }
 
   projectileMotion.register( 'ProjectileNode', ProjectileNode );
