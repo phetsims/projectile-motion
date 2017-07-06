@@ -271,7 +271,7 @@ define( function( require ) {
             delta: 100,
           }, numberControlOptions )
         ) );
-        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + projectileDragCoefficientProperty.get(), LABEL_OPTIONS ) );
+        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), LABEL_OPTIONS ) );
       }
       else {
         massBox.addChild( createParameterControlBox(
