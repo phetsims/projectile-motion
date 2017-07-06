@@ -49,6 +49,14 @@ define( function( require ) {
       tailWidth: 2,
       headWidth: 6
   };
+  var ACCELERATION_ARROW_OPTIONS = {
+      pickable: false,
+      fill: ACCELERATION_ARROW_FILL,
+      stroke: 'black',
+      lineWidth: 0.2,
+      tailWidth: 2,
+      headWidth: 6
+  };
 
   var FREE_BODY_RADIUS = 5;
   var FORCE_SCALAR = 3;
@@ -143,6 +151,7 @@ define( function( require ) {
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
+    var xAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, ACCELERATION_ARROW_OPTIONS );
     this.addChild( xAccelerationArrow );
 
     // add vector view for acceleration y component
@@ -153,6 +162,7 @@ define( function( require ) {
       tailWidth: ARROW_TAIL_WIDTH,
       headWidth: ARROW_HEAD_WIDTH
     } );
+    var yAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, ACCELERATION_ARROW_OPTIONS );
     this.addChild( yAccelerationArrow );
 
     // add vector view for total acceleration
