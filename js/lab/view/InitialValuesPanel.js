@@ -114,7 +114,7 @@ define( function( require ) {
     // contents of the panel
     var content = new VBox( {
       align: 'left',
-      spacing: options.controlsVerticalSpace,
+      spacing: options.controlsVerticalSpace / 3,
       children: [
         heightBox,
         angleBox,
@@ -127,7 +127,7 @@ define( function( require ) {
 
     var initialValuesVBox = new VBox( {
       align: 'center',
-      spacing: options.controlsVerticalSpace,
+      spacing: 0,
       children: [
         initialValuesTitle,
         content,

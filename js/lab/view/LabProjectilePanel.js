@@ -131,7 +131,8 @@ define( function( require ) {
         buttonXMargin: buttonXMargin,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        itemHighlightLineWidth: comboBoxLineWidth
+        itemHighlightLineWidth: comboBoxLineWidth,
+        buttonYMargin: 0
       }
     );
 
