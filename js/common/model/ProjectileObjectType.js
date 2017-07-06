@@ -157,7 +157,7 @@ define( function( require ) {
     pianoString,
     400,
     2.2,
-    0.9,
+    1.2,
     'piano',
     false, {
       massRange: new Range( 50, 1000 ),
@@ -176,7 +176,7 @@ define( function( require ) {
     false, {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
-      diameterRange: new Range( 0.04, 1 ),
+      diameterRange: new Range( 0.01, 1 ),
       diameterRound: 0.01,
     }
   );
