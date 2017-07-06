@@ -31,8 +31,8 @@ define( function( require ) {
   var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_HEAD_WIDTH = 12;
-  var VELOCITY_SCALAR = 1; // scales the velocity arrow representations
-  var ACCELERATION_SCALAR = 0.5; // scales the acceleration arrow represenations
+  var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
+  var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
 
   var FORCE_ARROW_OPTIONS = {
       pickable: false,
@@ -42,7 +42,7 @@ define( function( require ) {
       headWidth: 6
   };
   var FREE_BODY_RADIUS = 5;
-  var FORCE_SCALAR = 0.1;
+  var FORCE_SCALAR = 3;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
   var FORCES_BOX_DILATION = 7;
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
@@ -77,11 +77,6 @@ define( function( require ) {
       preventFit: true
     }, options );
     Node.call( this, options );
-
-    var transformedUnit = modelViewTransform.modelToViewDeltaX( 1 );
-    var transformedVelocityScalar = transformedUnit * VELOCITY_SCALAR;
-    var transformedAccelerationScalar = transformedUnit * ACCELERATION_SCALAR;
-    var transformedForceScalar = transformedUnit * FORCE_SCALAR;
 
     // create a layer for the projectile object node that would contain the flying object, and then the landed object
     var projectileViewLayer = new Node();
@@ -223,8 +218,8 @@ define( function( require ) {
       if ( visible ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
-        xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedVelocityScalar * dataPoint.velocity.x, viewPosition.y );
-        yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedVelocityScalar * dataPoint.velocity.y );
+        xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x, viewPosition.y );
+        yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y );
       }
     } );
 
@@ -236,8 +231,8 @@ define( function( require ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
         totalVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-                                          viewPosition.x + transformedVelocityScalar * dataPoint.velocity.x,
-                                          viewPosition.y - transformedVelocityScalar * dataPoint.velocity.y
+                                          viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x,
+                                          viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
         );
       }
     } );
@@ -251,8 +246,8 @@ define( function( require ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
 
-        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + transformedAccelerationScalar * dataPoint.acceleration.x, viewPosition.y );
-        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - transformedAccelerationScalar * dataPoint.acceleration.y );
+        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x, viewPosition.y );
+        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y );
       }
     } );
 
@@ -265,8 +260,8 @@ define( function( require ) {
         var dataPoint = viewPoint.dataPoint;
 
         totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-                                              viewPosition.x + transformedAccelerationScalar * dataPoint.acceleration.x,
-                                              viewPosition.y - transformedAccelerationScalar * dataPoint.acceleration.y
+                                              viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
+                                              viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
         );
       }
     } );
@@ -313,7 +308,7 @@ define( function( require ) {
         if ( componentsVisible ) {
           xDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
-            freeBody.x - transformedForceScalar * dataPoint.dragForce.x,
+            freeBody.x - FORCE_SCALAR * dataPoint.dragForce.x,
             freeBody.y
           );
           xDragForceLabel.right = xDragForceArrow.tipX - 5;
@@ -322,7 +317,7 @@ define( function( require ) {
           yDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
             freeBody.x,
-            freeBody.y + transformedForceScalar * dataPoint.dragForce.y
+            freeBody.y + FORCE_SCALAR * dataPoint.dragForce.y
           );
           yDragForceLabel.left = yDragForceArrow.tipX + 5;
           yDragForceLabel.y = yDragForceArrow.tipY;
@@ -331,7 +326,7 @@ define( function( require ) {
         forceGravityArrow.setTailAndTip( freeBody.x,
           freeBody.y,
           freeBody.x,
-          freeBody.y - transformedForceScalar * dataPoint.forceGravity
+          freeBody.y - FORCE_SCALAR * dataPoint.forceGravity
         );
         forceGravityLabel.left = forceGravityArrow.tipX + 5;
         forceGravityLabel.y = forceGravityArrow.tipY;
@@ -342,8 +337,8 @@ define( function( require ) {
           var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.dragForce.y;
           totalDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
-            freeBody.x - transformedForceScalar * xTotalForce,
-            freeBody.y + transformedForceScalar * yTotalForce
+            freeBody.x - FORCE_SCALAR * xTotalForce,
+            freeBody.y + FORCE_SCALAR * yTotalForce
           );
           totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
           totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
