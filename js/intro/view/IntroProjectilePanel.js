@@ -13,14 +13,11 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var ComboBox = require( 'SUN/ComboBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
@@ -38,10 +35,6 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var TEXT_BACKGROUND_OPTIONS = {
-    fill: 'white',
-    stroke: 'black'
-  };
 
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
@@ -120,53 +113,32 @@ define( function( require ) {
      * @private
      */
     function createParameterControlBox( labelString, unitsString, property ) {
-      // label
-      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
+      var parameterLabel = new Text( '', LABEL_OPTIONS );
 
-      // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
-
-      // background for text
-      var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        options.textDisplayWidth, // width
-        valueText.height + 2 * options.textDisplayYMargin, // height
-        _.defaults( { cornerRadius: 4, fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
-      );
-
-      // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
-        valueText.center = backgroundNode.center;
+        var valueReadout = unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : Util.toFixedNumber( value, 2 );
+        parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
-      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
-
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+      return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( options.minWidth - 2 * options.xMargin ) ] } );
     }
 
     var massBox = createParameterControlBox(
       massString,
       kgString,
-      projectileMassProperty,
-      ProjectileMotionConstants.PROJECTILE_MASS_RANGE
+      projectileMassProperty
     );
 
     var diameterBox = createParameterControlBox(
       diameterString,
       mString,
-      projectileDiameterProperty,
-      ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
+      projectileDiameterProperty
     );
 
     var dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
-      projectileDragCoefficientProperty,
-      ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
+      projectileDragCoefficientProperty
     );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
