@@ -41,6 +41,15 @@ define( function( require ) {
       tailWidth: 2,
       headWidth: 6
   };
+  var VELOCITY_ARROW_OPTIONS = {
+      pickable: false,
+      fill: 'rgb( 50, 255, 50 )',
+      stroke: 'black',
+      lineWidth: 0.2,
+      tailWidth: 2,
+      headWidth: 6
+  };
+
   var FREE_BODY_RADIUS = 5;
   var FORCE_SCALAR = 3;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
@@ -97,20 +106,24 @@ define( function( require ) {
     var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
-      lineDash: [ 5, 5 ],
+      // lineDash: [ 2, 3 ],
       tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
+      headWidth: ARROW_HEAD_WIDTH,
+      opacity: 0.5
     } );
+    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, VELOCITY_ARROW_OPTIONS );
     this.addChild( xVelocityArrow );
 
     // add vector view for velocity y component
     var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
-      lineDash: [ 5, 5 ],
+      // lineDash: [ 2, 3 ],
       tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
+      headWidth: ARROW_HEAD_WIDTH,
+      stroke: 'gray'
     } );
+    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, VELOCITY_ARROW_OPTIONS );
     this.addChild( yVelocityArrow );
 
     // add vector view for total velocity
