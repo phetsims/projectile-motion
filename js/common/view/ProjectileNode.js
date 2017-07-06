@@ -33,31 +33,26 @@ define( function( require ) {
   var ARROW_HEAD_WIDTH = 12;
   var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
   var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
-
   var FORCE_ARROW_OPTIONS = {
-      pickable: false,
       fill: 'black',
       stroke: null,
       tailWidth: 2,
       headWidth: 6
   };
-  var VELOCITY_ARROW_OPTIONS = {
-      pickable: false,
+  var COMPONENT_VELOCITY_ARROW_OPTIONS = {
       fill: 'rgb( 50, 255, 50 )',
       stroke: 'black',
       lineWidth: 0.2,
       tailWidth: 2,
       headWidth: 6
   };
-  var ACCELERATION_ARROW_OPTIONS = {
-      pickable: false,
+  var COMPONENT_ACCELERATION_ARROW_OPTIONS = {
       fill: ACCELERATION_ARROW_FILL,
       stroke: 'black',
       lineWidth: 0.2,
       tailWidth: 2,
       headWidth: 6
   };
-
   var FREE_BODY_RADIUS = 3;
   var FORCE_SCALAR = 3;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
@@ -111,27 +106,11 @@ define( function( require ) {
     projectileViewLayer.addChild( projectileObjectView );
 
     // add vector view for velocity x component
-    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
-      pickable: false,
-      fill: VELOCITY_ARROW_FILL,
-      // lineDash: [ 2, 3 ],
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH,
-      opacity: 0.5
-    } );
-    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, VELOCITY_ARROW_OPTIONS );
+    var xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
     this.addChild( xVelocityArrow );
 
     // add vector view for velocity y component
-    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
-      pickable: false,
-      fill: VELOCITY_ARROW_FILL,
-      // lineDash: [ 2, 3 ],
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH,
-      stroke: 'gray'
-    } );
-    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, VELOCITY_ARROW_OPTIONS );
+    var yVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
     this.addChild( yVelocityArrow );
 
     // add vector view for total velocity
@@ -144,25 +123,11 @@ define( function( require ) {
     this.addChild( totalVelocityArrow );
 
     // add vector view for acceleration x component
-    var xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
-      pickable: false,
-      fill: ACCELERATION_ARROW_FILL,
-      lineDash: [ 5, 5 ],
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
-    } );
-    var xAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, ACCELERATION_ARROW_OPTIONS );
+    var xAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( xAccelerationArrow );
 
     // add vector view for acceleration y component
-    var yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
-      pickable: false,
-      fill: ACCELERATION_ARROW_FILL,
-      lineDash: [ 5, 5 ],
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
-    } );
-    var yAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, ACCELERATION_ARROW_OPTIONS );
+    var yAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( yAccelerationArrow );
 
     // add vector view for total acceleration
