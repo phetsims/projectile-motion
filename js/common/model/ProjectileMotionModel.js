@@ -90,8 +90,8 @@ define( function( require ) {
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], getAirDensity );
 
     // change status of projectiles
-    this.airDensityProperty.link( this.updateStatusofTrajectories.bind( this ) );
-    this.gravityProperty.link( this.updateStatusofTrajectories.bind( this ) );
+    this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
+    this.gravityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
 
     // --animation playing controls
 
@@ -262,7 +262,7 @@ define( function( require ) {
      * Updates the status of the trajectories, as in whether they are changed in mid air
      * @private 
      */
-    updateStatusofTrajectories: function() {
+    updateTrajectoriesWithMovingProjectiles: function() {
       var newTrajectories = [];
       var trajectory;
       var j;
