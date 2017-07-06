@@ -153,29 +153,11 @@ define( function( require ) {
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
 
-    var dragCoefficientBox = ( function( labelString, property ) {
-      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
-      var valueText = new Text( Util.toFixedNumber( property.get(), 2 ), _.defaults( { fill: 'blue' }, LABEL_OPTIONS ) );
-
-      // background for text
-      var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        options.textDisplayWidth, // width
-        valueText.height + 2 * options.textDisplayYMargin, // height
-        _.defaults( { cornerRadius: 4, stroke: 'black', fill: ProjectileMotionConstants.LIGHT_GRAY }, TEXT_BACKGROUND_OPTIONS )
-      );
-
-      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
-      valueText.center = backgroundNode.center;
-
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
-    }) (
-      dragCoefficientString,
-      projectileDragCoefficientProperty
-    );
+    var dragCoefficientBox = new Text( '', LABEL_OPTIONS );
+    
+    projectileDragCoefficientProperty.link( function( value ) {
+      dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
+    } );
 
     // The contents of the control panel
     var content = new VBox( {
