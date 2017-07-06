@@ -131,10 +131,7 @@ define( function( require ) {
     transformProperty.lazyLink( updateTransform );
 
     function updateOpacity( rank ) {
-      var opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
-      self.children.forEach( function( child ) {
-        child.opacity = opacity;
-      } );
+      self.opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
     }
 
     // change decrease in opacity with each successive projectiled fired
