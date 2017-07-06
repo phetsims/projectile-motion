@@ -28,18 +28,18 @@ define( function( require ) {
     var backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     Rectangle.call( this, 0, 0, WIDTH, HEIGHT, { fill: backgroundFill } );
 
-    var diameter = HEIGHT / 8;
+    var diameter = HEIGHT / 4;
 
     var teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
     teardrop.x = WIDTH / 4;
     teardrop.y = HEIGHT / 2;
     this.addChild( teardrop );
     var circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
-    circle.left = teardrop.right + diameter;
+    circle.left = teardrop.right + diameter / 2;
     circle.y = teardrop.y;
     this.addChild( circle );
     var almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
-    almostSemiCircle.left = circle.right + diameter;
+    almostSemiCircle.left = circle.right + diameter / 2;
     almostSemiCircle.y = teardrop.y;
     this.addChild( almostSemiCircle );
 

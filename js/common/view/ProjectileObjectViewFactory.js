@@ -35,16 +35,17 @@ define( function( require ) {
      * A custom object view
      * @public
      *
-     * @param {number} radius - in meters in model coordinates
+     * @param {number} diameter - in meters in model coordinates
      * @param {number} dragCoefficient
      * @returns {Circle}
      */
-    createCustom: function( radius, dragCoefficient ) {
+    createCustom: function( diameter, dragCoefficient ) {
       // drag coefficients estimated from three sources:
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
       assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient ' + dragCoefficient + ' out of bounds' );
+      var radius = diameter / 2;
       var shape;
       var angle;
       var newRadius;

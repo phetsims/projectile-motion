@@ -43,7 +43,7 @@ define( function( require ) {
     stroke: 'lightGray'
   };
 
-  var DRAG_OBJECT_DISPLAY_RADIUS = 12;
+  var DRAG_OBJECT_DISPlAY_DIAMETER = 24;
 
   /**
    * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
@@ -131,7 +131,7 @@ define( function( require ) {
       
     }
 
-    var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+    var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
     var objectDisplay = new HBox( { spacing: options.xMargin, children: [ new Text( cannonballString, LABEL_OPTIONS ), objectView ]});
 
     var diameterBox = createParameterControlBox(

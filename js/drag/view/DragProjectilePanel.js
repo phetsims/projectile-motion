@@ -43,7 +43,7 @@ define( function( require ) {
     stroke: 'lightGray',
     strokeWidth: 1
   };
-  var DRAG_OBJECT_DISPLAY_RADIUS = 12;
+  var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {
     valueBackgroundStroke: 'gray',
@@ -191,7 +191,7 @@ define( function( require ) {
     );
 
     var dragObjectDisplay = new Node();
-    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_RADIUS * 2 ) );
+    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
     
     var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       var displayAndValueNodes = new HBox( { spacing: options.xMargin, children: [ dragObjectDisplay, numberDisplay ] } );
@@ -230,7 +230,8 @@ define( function( require ) {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );
       }
-      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_RADIUS, dragCoefficient );
+      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER
+        , dragCoefficient );
       objectView.center = dragObjectDisplay.center;
       dragObjectDisplay.addChild( objectView );
     });
