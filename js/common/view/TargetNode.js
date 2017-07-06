@@ -79,9 +79,7 @@ define( function( require ) {
     var startPoint;
     var startX;
     var mousePoint;
-
-    // drag target to change horizontal position
-    target.addInputListener( new SimpleDragHandler( {
+    var horizontalDragHandler = new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = target.centerX; // view units
@@ -96,7 +94,10 @@ define( function( require ) {
 
         targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) );
       }
-    } ) );
+    } );
+
+    // drag target to change horizontal position
+    target.addInputListener( horizontalDragHandler );
     
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
     var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), mString ), LABEL_OPTIONS );
@@ -106,11 +107,14 @@ define( function( require ) {
         0, // y
         distanceLabel.width * 2, // width, widened
         distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
-        _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
+        _.defaults( { cornerRadius: 1, pickable: true, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
       );
 
     this.addChild( backgroundNode );
     this.addChild( distanceLabel );
+
+    // drag text to change horizontal position
+    backgroundNode.addInputListener( horizontalDragHandler );
 
     // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
     this.rewardNodes = [];
