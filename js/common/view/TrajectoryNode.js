@@ -136,9 +136,14 @@ define( function( require ) {
     // change decrease in opacity with each successive projectiled fired
     trajectory.rankProperty.link( updateOpacity );
 
+    var disposeProjectileNode = function( projectileNode ) {
+      projectileNode.dispose();
+    };
+
     this.disposeTrajectoryNode = function() {
       transformProperty.unlink( updateTransform );
       trajectory.rankProperty.unlink( updateOpacity );
+      projectileNodesLayer.children.forEach( disposeProjectileNode );
     };
   }
 

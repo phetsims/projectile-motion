@@ -357,12 +357,39 @@ define( function( require ) {
         forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
       }
     };
-    
+
     Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
+  
+    this.disposeProjectileNode = function() {
+      viewPointProperty.unlink( updateProjectileObjectView );
+      vectorVisibilityProperties.componentsVelocityVectorsOnProperty.unlink( updateComponentVelocityVectors );
+      viewPointProperty.unlink( updateComponentVelocityVectors );
+      vectorVisibilityProperties.totalVelocityVectorOnProperty.unlink( updateTotalVelocityVector );
+      viewPointProperty.unlink( updateTotalVelocityVector );
+      vectorVisibilityProperties.componentsAccelerationVectorsOnProperty.unlink( updateComponentAccelerationVectors );
+      viewPointProperty.unlink( updateComponentAccelerationVectors );
+      vectorVisibilityProperties.totalAccelerationVectorOnProperty.unlink( updateTotalAccelerationVector );
+      viewPointProperty.unlink( updateTotalAccelerationVector );
+      vectorVisibilityProperties.componentsForceVectorsOnProperty.unlink( updateFreeBodyDiagram );
+      vectorVisibilityProperties.totalForceVectorOnProperty.unlink( updateFreeBodyDiagram );
+      viewPointProperty.unlink( updateFreeBodyDiagram );
+    };
   }
 
   projectileMotion.register( 'ProjectileNode', ProjectileNode );
 
-  return inherit( Node, ProjectileNode );
+  return inherit( Node, ProjectileNode, {
+
+    /**
+     * Dispose this trajectory for memory management
+     * 
+     * @public
+     * @override
+     */
+    dispose: function() {
+      this.disposeProjectileNode();
+      Node.prototype.dispose.call( this );
+    }
+  } );
 } );
 
