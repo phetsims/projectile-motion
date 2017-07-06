@@ -29,6 +29,7 @@ define( function( require ) {
   var pianoImage = require( 'image!PROJECTILE_MOTION/piano_1.png' );
   var landedPianoImage = require( 'image!PROJECTILE_MOTION/piano_2.png' );
   var arrowImage = require( 'image!PROJECTILE_MOTION/arrow.png' );
+  var tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
 
   var ProjectileObjectViewFactory = {
 
@@ -116,14 +117,7 @@ define( function( require ) {
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
-          var tankShellShape = new Shape();
-          tankShellShape.moveTo( 0, -0.4 * transformedBallSize )
-            .lineTo( -1.5 * transformedBallSize, -0.4 * transformedBallSize )
-            .lineTo( -1.5 * transformedBallSize, 0.4* transformedBallSize )
-            .lineTo( 0, 0.4 * transformedBallSize )
-            .lineTo( 0.7 * transformedBallSize, 0 )
-            .close();
-          return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
+          return new Image( tankShellImage, { maxHeight: transformedBallSize * 2 } );
         case 'arrow':
           return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
@@ -161,14 +155,7 @@ define( function( require ) {
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
-          var tankShellShape = new Shape();
-          tankShellShape.moveTo( 0, -0.4 * transformedBallSize )
-            .lineTo( -1.5 * transformedBallSize, -0.4 * transformedBallSize )
-            .lineTo( -1.5 * transformedBallSize, 0.4* transformedBallSize )
-            .lineTo( 0, 0.4 * transformedBallSize )
-            .lineTo( 0.7 * transformedBallSize, 0 )
-            .close();
-          return new Path( tankShellShape, { fill: 'darkgreen', stroke: 'black' } );
+          return new Image( tankShellImage, { maxHeight: transformedBallSize * 2 } );
         case 'arrow':
           return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
