@@ -20,20 +20,20 @@ define( function( require ) {
   function LabModel() {
 
     this.objectTypes = [
+      ProjectileObjectType.ARROW,    
       ProjectileObjectType.CANNONBALL,
-      ProjectileObjectType.PUMPKIN,
+      ProjectileObjectType.TANK_SHELL,
+      ProjectileObjectType.GOLF_BALL,  
       ProjectileObjectType.BASEBALL,
-      ProjectileObjectType.BUICK,
       ProjectileObjectType.FOOTBALL,
+      ProjectileObjectType.PUMPKIN,
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
-      ProjectileObjectType.GOLF_BALL,  
-      ProjectileObjectType.TANK_SHELL,
-      ProjectileObjectType.ARROW,
+      ProjectileObjectType.BUICK,
       ProjectileObjectType.CUSTOM    
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );
+    ProjectileMotionModel.call( this, this.objectTypes[ 1 ], false );
   }
 
   projectileMotion.register( 'LabModel', LabModel );
