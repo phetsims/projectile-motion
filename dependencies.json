@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.0-dev.3 Thu Jul 06 2017 16:49:14 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.0-dev.5 Thu Jul 06 2017 17:06:49 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "3d3d3949ee4b022ace1c60e3192b3abeb8cafe61",
+    "sha": "c7df9dbf7505fc06689675b5a811299267f6b120",
     "branch": "master"
   },
   "query-string-machine": {
