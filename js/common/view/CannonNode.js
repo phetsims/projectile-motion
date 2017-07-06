@@ -47,7 +47,7 @@ define( function( require ) {
   var ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
   var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  var HEIGHT_LEADER_LINE_POSITION = -2.7;
+  var HEIGHT_LEADER_LINE_POSITION = -2.6;
   var CROSSHAIR_LENGTH = 120;
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
@@ -129,7 +129,13 @@ define( function( require ) {
 
     // height readout
     var heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
-    var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), LABEL_OPTIONS );
+    var heightLabelOptions = _.extend( {
+      pickable: true,
+      cursor: 'pointer'
+    }, LABEL_OPTIONS );
+    var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), heightLabelOptions );
+    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 5, 2 ) );
+    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 6, 4 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
 
     // angle indicator
@@ -228,6 +234,7 @@ define( function( require ) {
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
+      heightLabel.centerX = heightLeaderLine.tipX;
       heightLabel.y = heightLeaderLine.tipY - 5;
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );
       heightLabelBackground.setRectHeight( heightLabel.height );
@@ -332,6 +339,7 @@ define( function( require ) {
     cylinderSide.addInputListener( heightDragHandler );
     cylinderTop.addInputListener( heightDragHandler );
     cannonBarrelBottom.addInputListener( heightDragHandler );
+    heightLabel.addInputListener( heightDragHandler );
 
   }
 
