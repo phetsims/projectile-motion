@@ -24,7 +24,7 @@ define( function( require ) {
   // constants
   var CEMENT_WIDTH = 20;
   var GRASS_WIDTH = 5;
-  var LINE_WIDTH = 2;
+  var YELLOW_LINE_WIDTH = 1.5;
   var FLATIRONS_WIDTH = 500;
   var FLATIRONS_OFFSET = 150;
 
@@ -42,8 +42,12 @@ define( function( require ) {
     this.sky = new Rectangle( 0, 0, 0, 0 );
     this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 3, 95, 49 )' } );
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
-    this.road = new Rectangle( 0, 0, 0, 0 );
-    this.roadDashedLine = new Line( 0, 0, 0, 0, { stroke: 'rgb( 235, 234, 48 )', LINE_WIDTH: LINE_WIDTH } );
+    this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
+    this.roadDashedLine = new Line( 0, 0, 0, 0, {
+      stroke: 'rgb( 235, 234, 48 )',
+      lineDash: [ 10, 10 ],
+      lineWidth: YELLOW_LINE_WIDTH
+    } );
     this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
     this.flatirons.visible = false;
 
@@ -74,7 +78,6 @@ define( function( require ) {
       this.sky.fill = new LinearGradient( 0, 0, 0, 2 * height / 3 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
 
       this.road.setRect( -offsetX, dashedLineY - 0.5 * CEMENT_WIDTH, width / layoutScale, CEMENT_WIDTH );
-      this.road.fill = new LinearGradient( 0, 0, 0, dashedLineY ).addColorStop( 0, 'rgb( 163, 172, 162 )' ).addColorStop( 1, 'rgb( 77, 77, 75 )' );
 
       this.topGrass.setRect( -offsetX, this.road.top - GRASS_WIDTH, width / layoutScale, height / layoutScale );
 
