@@ -64,11 +64,14 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+    
+    // maxWidth empirically determined
+    var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
     var firstItemNode = new VBox( {
       align: 'left',
       children: [
-        new Text( objectTypes[ 0 ].name, LABEL_OPTIONS )
+        new Text( objectTypes[ 0 ].name, itemNodeOptions )
       ]
     } );
 
@@ -87,7 +90,7 @@ define( function( require ) {
     var i;
     for ( i = 1; i < objectTypes.length; i++ ) {
       var projectileObject = objectTypes[ i ];
-      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
+      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
     var projectileChoiceComboBox = new ComboBox(
@@ -105,6 +108,8 @@ define( function( require ) {
 
     comboBoxListParent.addChild( projectileChoiceComboBox );
 
+    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
@@ -114,14 +119,14 @@ define( function( require ) {
      * @private
      */
     function createParameterControlBox( labelString, unitsString, property ) {
-      var parameterLabel = new Text( '', LABEL_OPTIONS );
+      var parameterLabel = new Text( '', parameterLabelOptions );
 
       property.link( function( value ) {
         var valueReadout = unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : Util.toFixed( value, 2 );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
-      return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( options.minWidth - 2 * options.xMargin ) ] } );
+      return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ] } );
     }
 
     var massBox = createParameterControlBox(
@@ -143,7 +148,7 @@ define( function( require ) {
     );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: parameterLabelOptions.maxWidth } );
     
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
