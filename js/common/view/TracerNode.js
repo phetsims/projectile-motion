@@ -26,6 +26,7 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
 
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -41,6 +42,9 @@ define( function( require ) {
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   var SPACING = 4;
+  var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
+  var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
+  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -122,16 +126,28 @@ define( function( require ) {
       ]
     } );
 
+    var haloNode = new Circle( DOT_RADIUS * 2, {
+      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 ).
+        addColorStop( 0, 'black' ).
+        addColorStop( 0.25, 'black' ).
+        addColorStop( 0.25, HALO_COLOR ).
+        addColorStop( 1, HALO_EDGE_COLOR ),
+    } );
+
     // Listen for when time, range, and height change, and update the readouts.
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.time, 2 ), sString ) );
         rangeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.x, 2 ), mString ) );
         heightReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.y, 2 ), mString ) );
+        haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
+        haloNode.centerY = transformProperty.get().modelToViewY( point.position.y );
+        haloNode.visible = true;
       } else {
         timeReadoutProperty.set( '-' );
         rangeReadoutProperty.set( '-' );
         heightReadoutProperty.set( '-' );
+        haloNode.visible = false;
       }
     } );
 
@@ -146,6 +162,11 @@ define( function( require ) {
       rectangle.centerY = self.probeOrigin.y;
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
+
+      if ( tracer.pointProperty.get() ) {
+        haloNode.centerX = transformProperty.get().modelToViewX( tracer.pointProperty.get().position.x );
+        haloNode.centerY = transformProperty.get().modelToViewY( tracer.pointProperty.get().position.y );
+      }
     };
 
     transformProperty.link( function( transform ) {
@@ -162,6 +183,7 @@ define( function( require ) {
 
     // Rendering order
     options.children = [
+      haloNode,
       crosshairMount,
       rectangle,
       circle,

@@ -44,6 +44,7 @@ define( function( require ) {
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds
     TIME_PER_SHOWN_DOT: 50, // milliseconds
+    DOT_RADIUS: 1.75, // in global view coordinates
 
     // teardrop to almost pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),
