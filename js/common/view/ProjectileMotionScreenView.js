@@ -215,7 +215,9 @@ define( function( require ) {
       disabledBaseColor: '#EDEDED',
       in: false,
       left: 0,
-      top: 0
+      top: 0,
+      touchAreaXDilation: 3,
+      touchAreaYDilation: 6
     } );
     zoomControl.addChild( zoomOutButton );
 
@@ -227,7 +229,9 @@ define( function( require ) {
       disabledBaseColor: '#EDEDED',
       in: true,
       left: zoomOutButton.right + X_MARGIN,
-      top: zoomOutButton.top
+      top: zoomOutButton.top,
+      touchAreaXDilation: 3,
+      touchAreaYDilation: 6
     } );
     zoomControl.addChild( zoomInButton );
 
@@ -410,7 +414,7 @@ define( function( require ) {
       this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
       this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
       this.resetAllButton.right = this.topRightPanel.right;
-      this.zoomControl.top = Y_MARGIN - offsetY;
+      this.zoomControl.top = 2 * Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
     }
 
