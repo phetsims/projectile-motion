@@ -58,9 +58,9 @@ define( function( require ) {
       fill: 'black'
     } );
 
+    this.addChild( projectileNodesLayer );
     this.addChild( this.pathsLayer );
     this.addChild( dotsPath );
-    this.addChild( projectileNodesLayer );
 
 
     var viewLastPosition = null;
