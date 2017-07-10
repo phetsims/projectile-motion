@@ -23,11 +23,15 @@ define( function( require ) {
 
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
-  var DOT_RADIUS = 2; // view units
+  var DOT_RADIUS = 1.5; // view units
   var PATH_WIDTH = 2;
   var CURRENT_PATH_COLOR = 'blue';
   var AIR_RESISTANCE_ON_COLOR = 'rgb( 252, 40, 252 )';
   var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
+  var PATH_MIN_OPACITY = 0;
+  var PATH_MAX_OPACITY = 1;
+  var DOTS_MIN_OPACITY = 0;
+  var DOTS_MAX_OPACITY = 0.5;
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
@@ -130,8 +134,10 @@ define( function( require ) {
     transformProperty.lazyLink( updateTransform );
 
     function updateOpacity( rank ) {
-      self.opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
-      dotsPath.opacity = self.opacity * 0.6;
+      var strength = ( MAX_COUNT - rank ) / MAX_COUNT;
+      self.pathsLayer.opacity = PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
+      projectileNodesLayer.opacity = self.pathsLayer.opacity;
+      dotsPath.opacity = DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );
     }
 
     // change decrease in opacity with each successive projectiled fired
