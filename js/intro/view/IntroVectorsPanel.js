@@ -40,18 +40,19 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
     
-    var velocityVectorsTitle = new Text( velocityVectorsString, TITLE_OPTIONS );
+    var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
+    var velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
 
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty );
+    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
     
     var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
+    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
     
-    var accelerationVectorsTitle = new Text( accelerationVectorsString, TITLE_OPTIONS );
+    var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
 
     var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
+    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
     // The contents of the control panel
     var content = new VBox( {
