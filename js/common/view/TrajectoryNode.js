@@ -131,6 +131,7 @@ define( function( require ) {
 
     function updateOpacity( rank ) {
       self.opacity = ( MAX_COUNT - rank ) / MAX_COUNT;
+      dotsPath.opacity = self.opacity * 0.6;
     }
 
     // change decrease in opacity with each successive projectiled fired
