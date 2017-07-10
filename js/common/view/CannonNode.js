@@ -131,7 +131,8 @@ define( function( require ) {
     var heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     var heightLabelOptions = _.extend( {
       pickable: true,
-      cursor: 'pointer'
+      cursor: 'pointer',
+      maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), heightLabelOptions );
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 5, 2 ) );

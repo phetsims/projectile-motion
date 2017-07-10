@@ -105,7 +105,7 @@ define( function( require ) {
     var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        distanceLabel.width * 2, // width, widened
+        distanceLabel.width * 1.5, // width, widened
         distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
         _.defaults( { cornerRadius: 1, pickable: true, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
       );
