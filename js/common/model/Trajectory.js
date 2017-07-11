@@ -117,10 +117,8 @@ define( function( require ) {
           
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
           var timeToGround = ( -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y ) / previousPoint.acceleration.y;
-          timeToGround = timeToGround || 0;
-
           assert && assert ( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
-          
+
           newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
 
@@ -266,15 +264,15 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
-      var i;
-      for ( i = 0; i < this.dataPoints.length; i++ ) {
-        var point = this.dataPoints.get( i );
+      // var i;
+      // for ( i = 0; i < this.dataPoints.length; i++ ) {
+      //   var point = this.dataPoints.get( i );
         
-        // free Vector2s to pool, but not position because that is still needed for other trajectories
-        point.velocity.freeToPool();
-        point.acceleration.freeToPool();
-        point.dragForce.freeToPool();
-      }
+      //   // free Vector2s to pool, but not position because that is still needed for other trajectories
+      //   point.velocity.freeToPool();
+      //   point.acceleration.freeToPool();
+      //   point.dragForce.freeToPool();
+      // }
       this.disposeTrajectory();
     }
 
