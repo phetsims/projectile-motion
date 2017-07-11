@@ -211,14 +211,13 @@ define( function( require ) {
      * @param {Property} readoutProperty
      */
     createInformationBox: function( rectangleWidth, labelString, readoutProperty ) {
-      var labelText = new Text( labelString, LABEL_OPTIONS );
-      // TODO: make sure scales are the same for all labels. 70 is the empirically determined width for label
-      labelText.scale( Math.min( 1, 70 / labelText.width ) );
+      var labelText = new Text( labelString, _.defaults( { maxWidth: 80 }, LABEL_OPTIONS ) );
 
       // number
-      var numberNode = new Text( readoutProperty.get(), ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-
       var backgroundWidth = 60;
+      var numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+      var numberNode = new Text( readoutProperty.get(), numberOptions );
+
       var backgroundNode = new Rectangle(
         0,
         0,
