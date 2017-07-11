@@ -51,7 +51,6 @@ define( function( require ) {
   };
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {
-    valueBackgroundStroke: 'gray',
     valueAlign: 'center',
     titleFont: TEXT_FONT,
     valueFont: TEXT_FONT,
@@ -160,7 +159,7 @@ define( function( require ) {
         0, // x
         0, // y
         options.textDisplayWidth * 1.3, // increased width
-        valueText.height + 2 * options.textDisplayYMargin, // height
+        options.textDisplayHeight,
         _.defaults( { cornerRadius: 4}, TEXT_BACKGROUND_OPTIONS )
       );
 

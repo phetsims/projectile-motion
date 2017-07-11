@@ -54,20 +54,6 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    // // find max label width for internationalization
-    // var exampleParameterSpinner = new NumberSpinner( new Property( 0 ), new Property( new Range( 0, 1 ) ), _.extend( {
-    //   arrowsPosition: 'leftRight',
-    //   xMargin: 8,
-    //   yMargin: options.textDisplayYMargin,
-    //   backgroundMinWidth: options.textDisplayWidth
-    // }, LABEL_OPTIONS ) );
-    // var maxLabelWidth = options.minWidth - 2 * options.xMargin - exampleParameterSpinner.width - options.xSpacing;
-
-    // var labelScale = Math.min( 1, maxLabelWidth / Math.max( new Text( StringUtils.format( pattern0Label1UnitsString, heightString, mString ), LABEL_OPTIONS ).width,
-    //   new Text( angleString, LABEL_OPTIONS ).width,
-    //   new Text( StringUtils.format( pattern0Label1UnitsString, speedString, metersPerSecondString ), LABEL_OPTIONS ).width
-    // ) );
-
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
      * @param {string} labelString - label for the parameter

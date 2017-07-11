@@ -46,7 +46,6 @@ define( function( require ) {
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {
-    valueBackgroundStroke: 'gray',
     valueAlign: 'center',
     titleFont: TEXT_FONT,
     valueFont: TEXT_FONT,
@@ -54,7 +53,8 @@ define( function( require ) {
     thumbSize: new Dimension2( 13, 22 ),
     thumbTouchAreaXDilation: 6,
     thumbTouchAreaYDilation: 4,
-    arrowButtonScale: 0.65
+    arrowButtonScale: 0.65,
+    valueYMargin: 4
   };
 
   /**
@@ -81,6 +81,10 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
+    var textDisplayWidth = options.textDisplayWidth * 1.2;
+    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
+    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    
     /** 
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
@@ -93,18 +97,18 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
-      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
+      var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        options.textDisplayWidth * 1.2, // width, widened
-        valueText.height + 2 * options.textDisplayYMargin, // height
-        _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
+        textDisplayWidth, // width, widened
+        options.textDisplayHeight,
+        TEXT_BACKGROUND_OPTIONS
       );
 
       // text node updates if property value changes
@@ -158,7 +162,8 @@ define( function( require ) {
       selectedObjectTypeProperty.get().massRound
     );
 
-    var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+    var altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - numberDisplay.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
         children: [
@@ -177,7 +182,8 @@ define( function( require ) {
 
     var numberControlOptions = _.extend( { 
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
-      layoutFunction: layoutFunction
+      layoutFunction: altitudeLayoutFunction,
+      valueMaxWidth: textDisplayWidth
     }, NUMBER_CONTROL_OPTIONS );
 
     var altitudeBox = new NumberControl(
@@ -195,8 +201,9 @@ define( function( require ) {
     
     var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       var displayAndValueNodes = new HBox( { spacing: options.xMargin, children: [ dragObjectDisplay, numberDisplay ] } );
-      var strut = new HStrut( 200 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
+      var strut = new HStrut( 110 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
       var displayAndValueBox = new VBox( { align: 'right', children: [ strut, displayAndValueNodes ] } );
+      titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - displayAndValueBox.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
         children: [

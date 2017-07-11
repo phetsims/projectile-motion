@@ -139,7 +139,6 @@ define( function( require ) {
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondString ),
-        valueBackgroundStroke: 'gray',
         valueAlign: 'center',
         titleFont: TEXT_FONT,
         valueFont: TEXT_FONT,

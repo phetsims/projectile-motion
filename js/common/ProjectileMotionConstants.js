@@ -70,7 +70,7 @@ define( function( require ) {
       lineWidth: 1,
       stroke: 'black',
       textDisplayWidth: 60,
-      textDisplayYMargin: 4,
+      textDisplayHeight: 24,
       sliderLabelSpacing: 6
     },
 

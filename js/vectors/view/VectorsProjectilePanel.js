@@ -92,7 +92,7 @@ define( function( require ) {
         0, // x
         0, // y
         options.textDisplayWidth * 1.2, // width, widened
-        valueText.height + 2 * options.textDisplayYMargin, // height
+        options.textDisplayHeight,
         _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
       );
 
