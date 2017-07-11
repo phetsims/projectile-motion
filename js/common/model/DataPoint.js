@@ -31,6 +31,8 @@ define( function( require ) {
                       dragForce,
                       forceGravity
   ) {
+
+    assert && assert ( !isNaN( time ), "DataPoint time is " + time );
     
     // @public (read-only)
     this.time = time;
