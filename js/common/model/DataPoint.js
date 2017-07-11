@@ -11,7 +11,8 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
- 
+  var Vector2 = require( 'DOT/Vector2' );
+
   /**
    * @param {number} time - total time since fire at this point on the trajectory, in s
    * @param {Vector2} position - position of the data point, with x and y, also called range and height, in m
@@ -61,6 +62,23 @@ define( function( require ) {
         && this.acceleration.equals( dataPoint.acceleration )
         && this.dragForce.equals( dataPoint.dragForce )
         && this.forceGravity === this.forceGravity;
+    },
+
+    /**
+     * Returns a new copy of this data point, with new Vector2s as well
+     * @return {DataPoint}
+     * @public
+     */
+    copy: function() {
+      return new DataPoint(
+        this.time,
+        Vector2.dirtyFromPool().set( this.position ),
+        this.airDensity,
+        Vector2.dirtyFromPool().set( this.velocity ),
+        Vector2.dirtyFromPool().set( this.acceleration ),
+        Vector2.dirtyFromPool().set( this.dragForce ),
+        this.forceGravity
+      );
     }
   } );
 } );
