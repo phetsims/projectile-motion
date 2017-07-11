@@ -225,6 +225,9 @@ define( function( require ) {
       newTrajectory.dataPoints.clear();
       var i;
       for ( i = 0; i <= projectileObject.index; i++ ) {
+
+        assert && assert( this.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x );
+        
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
@@ -262,7 +265,8 @@ define( function( require ) {
       var i;
       for ( i = 0; i < this.dataPoints.length; i++ ) {
         var point = this.dataPoints.get( i );
-        point.position.freeToPool();
+        
+        // free Vector2s to pool, but not position because that is still needed for other trajectories
         point.velocity.freeToPool();
         point.acceleration.freeToPool();
         point.dragForce.freeToPool();

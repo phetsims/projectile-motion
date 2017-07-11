@@ -125,6 +125,9 @@ define( function( require ) {
       dotsPath.shape = dotsShape;
 
       viewLastPosition = null;
+
+      assert && assert( trajectory.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + trajectory.dataPoints.get( 0 ).position.x );
+
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
       trajectory.projectileObjects.forEach( handleProjectileObjectAdded );

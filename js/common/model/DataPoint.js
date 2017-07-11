@@ -32,7 +32,8 @@ define( function( require ) {
                       forceGravity
   ) {
 
-    assert && assert ( !isNaN( time ), "DataPoint time is " + time );
+    assert && assert( !isNaN( time ), 'DataPoint time is ' + time );
+    assert && assert( time !== 0 || position.x === 0, 'Time is ' + time + 'but x is ' + position.x );
     
     // @public (read-only)
     this.time = time;
