@@ -231,7 +231,7 @@ define( function( require ) {
         assert && assert( this.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x );
         
         // set to prevent this dataPoint from being disposed along this trajectory if the new trajectory is still using it
-        this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf = 1;
+        this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf++;
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
