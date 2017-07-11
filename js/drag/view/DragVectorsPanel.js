@@ -40,8 +40,11 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
     
-    var totalLabel = new Text( totalString, LABEL_OPTIONS );
-    var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
+    var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
+
+    var totalLabel = new Text( totalString, titleOptions );
+    var componentsLabel = new Text( componentsString, titleOptions );
     
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
@@ -49,14 +52,15 @@ define( function( require ) {
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
-      touchAreaXDilation: 5
+      touchAreaXDilation: 5,
+      maxWidth: titleOptions.maxWidth
     } );
 
-    var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
-    var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty );
+    var velocityLabel = new Text( velocityVectorsString, titleOptions );
+    var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkBoxOptions );
     
-    var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
-    var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty );
+    var forceLabel = new Text( forceVectorsString, titleOptions );
+    var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
 
     // The contents of the control panel
     var content = new VBox( {

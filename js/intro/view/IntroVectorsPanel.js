@@ -42,17 +42,18 @@ define( function( require ) {
     
     var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
     var velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
-
+   
+    var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty, checkBoxOptions );
     
     var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty, checkBoxOptions );
     
     var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
 
     var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, checkBoxOptions );
 
     // The contents of the control panel
     var content = new VBox( {
