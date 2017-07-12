@@ -53,6 +53,9 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+    
+    var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
+    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
@@ -65,7 +68,7 @@ define( function( require ) {
      * @private
      */
     function createParameterControlBox( labelString, unitsString, property, range, degreeString ) {
-      var parameterLabel = new Text( '', LABEL_OPTIONS );
+      var parameterLabel = new Text( '', parameterLabelOptions );
 
       property.link( function( value ) {
         var valueReadout = degreeString ? StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( value, 2 ), degreeString ) : StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString );
@@ -108,8 +111,7 @@ define( function( require ) {
       ]
     } );
 
-    var initialValuesTitle = new Text( initialValuesString, TITLE_OPTIONS );
-    initialValuesTitle.maxWidth = options.minWidth - 2 * options.xMargin;
+    var initialValuesTitle = new Text( initialValuesString, titleOptions );
 
     var initialValuesVBox = new VBox( {
       align: 'center',
