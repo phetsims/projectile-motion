@@ -92,7 +92,7 @@ define( function( require ) {
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) );
+        targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) * 10 ) / 10 );
       }
     } );
 
@@ -100,7 +100,7 @@ define( function( require ) {
     target.addInputListener( horizontalDragHandler );
     
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), mString ), LABEL_OPTIONS );
+    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixed( targetXProperty.get(), 1 ), mString ), LABEL_OPTIONS );
 
     var backgroundNode = new Rectangle(
         0, // x
@@ -150,7 +150,7 @@ define( function( require ) {
 
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
-      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( targetXProperty.get(), 2 ), mString );
+      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixed( targetXProperty.get(), 1 ), mString );
       backgroundNode.centerX = target.centerX;
       backgroundNode.top = target.bottom + 2;
       distanceLabel.center = backgroundNode.center;
