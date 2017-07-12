@@ -18,7 +18,7 @@ define( function( require ) {
   var Image = require( 'SCENERY/nodes/Image' );
 
   // images
-  var humanImage = require( 'image!PROJECTILE_MOTION/human_1.png' );
+  var humanImage = require( 'image!PROJECTILE_MOTION/uncentered_human_1.png' );
 
   // constants
   var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
