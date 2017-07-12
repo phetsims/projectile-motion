@@ -97,10 +97,13 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
+    // maxWidth empirically determined
+    var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
+
     var firstItemNode = new VBox( {
       align: 'left',
       children: [
-        new Text( objectTypes[ 0 ].name, LABEL_OPTIONS )
+        new Text( objectTypes[ 0 ].name, itemNodeOptions )
       ]
     } );
 
@@ -119,7 +122,7 @@ define( function( require ) {
     var i;
     for ( i = 1; i < objectTypes.length; i++ ) {
       var projectileObject = objectTypes[ i ];
-      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, LABEL_OPTIONS ), projectileObject );
+      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
     var projectileChoiceComboBox = new ComboBox(
@@ -137,6 +140,9 @@ define( function( require ) {
 
     comboBoxListParent.addChild( projectileChoiceComboBox );
 
+    var textDisplayWidth = options.textDisplayWidth * 1.3;
+    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
@@ -152,13 +158,13 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get(), unitsString ) : property.get(), LABEL_OPTIONS );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get(), unitsString ) : property.get(), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        options.textDisplayWidth * 1.3, // increased width
+        textDisplayWidth,
         options.textDisplayHeight,
         _.defaults( { cornerRadius: 4}, TEXT_BACKGROUND_OPTIONS )
       );
@@ -191,12 +197,15 @@ define( function( require ) {
 
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
+      
+      var xSpacing = options.minWidth - 3 * options.xMargin - parameterLabel.width - valueNode.width;
       
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
 
     var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
         children: [
@@ -215,7 +224,8 @@ define( function( require ) {
 
     var numberControlOptions = _.extend( { 
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
-      layoutFunction: layoutFunction
+      layoutFunction: layoutFunction,
+      valueMaxWidth: textDisplayWidth
     }, NUMBER_CONTROL_OPTIONS );
 
     // readout, slider, and tweakers
@@ -270,7 +280,7 @@ define( function( require ) {
             delta: 100,
           }, numberControlOptions )
         ) );
-        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), LABEL_OPTIONS ) );
+        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) ) );
       }
       else {
         massBox.addChild( createParameterControlBox(
@@ -321,7 +331,7 @@ define( function( require ) {
     } );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
