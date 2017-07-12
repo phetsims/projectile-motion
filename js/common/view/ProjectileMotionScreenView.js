@@ -167,7 +167,8 @@ define( function( require ) {
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
         isTipDragBounded: true,
-        textColor: 'black'
+        textColor: 'black',
+        significantFigures: 2
     } );
 
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
