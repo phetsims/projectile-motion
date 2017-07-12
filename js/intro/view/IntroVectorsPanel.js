@@ -52,6 +52,9 @@ define( function( require ) {
     
     var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
 
+    var totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
+    var totalAccelerationCheckBox = new CheckBox( totalAccelerationLabel, vectorVisibilityProperties.totalAccelerationVectorOnProperty, checkBoxOptions );
+
     var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
     var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, checkBoxOptions );
 
@@ -64,6 +67,7 @@ define( function( require ) {
         totalVelocityCheckBox,
         componentsVelocityCheckBox,
         accelerationVectorsTitle,
+        totalAccelerationCheckBox,
         componentsAccelerationCheckBox
       ]
     } );
