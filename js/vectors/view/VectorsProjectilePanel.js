@@ -160,10 +160,16 @@ define( function( require ) {
       selectedObjectTypeProperty.get().massRound
     );
 
+    var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
-    var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+    // disabling and enabling drag and altitude controls depending on whether air resistance is on
+    airResistanceOnProperty.link( function( airResistanceOn ) {
+      var opacity = airResistanceOn ? 1 : 0.5;
+      dragCoefficientBox.setOpacity( opacity );
+    } );
 
     projectileDragCoefficientProperty.link( function( value ) {
       dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );

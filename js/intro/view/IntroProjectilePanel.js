@@ -149,7 +149,13 @@ define( function( require ) {
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: parameterLabelOptions.maxWidth } );
-    
+
+    // disabling and enabling drag and altitude controls depending on whether air resistance is on
+    airResistanceOnProperty.link( function( airResistanceOn ) {
+      var opacity = airResistanceOn ? 1 : 0.5;
+      dragCoefficientBox.setOpacity( opacity );
+    } );
+
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
     // The contents of the control panel
