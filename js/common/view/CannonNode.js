@@ -60,10 +60,14 @@ define( function( require ) {
    * @param {Property.<number>} angleProperty - angle of the cannon, in degrees
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
+   * @param {Object} [options]
    * @constructor
    */
-  function CannonNode( heightProperty, angleProperty, transformProperty, screenView ) {
-    Node.call( this );
+  function CannonNode( heightProperty, angleProperty, transformProperty, screenView, options ) {
+    
+    options = options || {};
+
+    Node.call( this, options );
 
     var clippableNode = new Node( { x: transformProperty.get().modelToViewX( 0 ), y: transformProperty.get().modelToViewY( 0 ), cursor: 'pointer' } );
 
@@ -290,7 +294,8 @@ define( function( require ) {
 
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
-          angleProperty.set( Util.roundSymmetric( unboundedNewAngle / 5 ) * 5 );
+          var delta = options.preciseCannonDelta ? 1 : 5;
+          angleProperty.set( Util.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
         // the current, unchanged, angle is closer to max than min
         else if ( angleRange.max + angleRange.min < 2 * angleProperty.get() ) {
