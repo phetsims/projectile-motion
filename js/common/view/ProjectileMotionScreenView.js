@@ -186,12 +186,15 @@ define( function( require ) {
       davidShorts.visible = !shortsOn;
     } );
 
+    var backgroundNode = new BackgroundNode( this.layoutBounds );
+
     // listen to transform property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
       measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.layoutBounds ) );
       davidNode.setScaleMagnitude( Math.abs( transform.modelToViewDeltaY( DAVID_HEIGHT ) / davidBottom.height ) );
       davidNode.x = transform.modelToViewX( DAVID_HORIZONTAL_PLACEMENT );
+      backgroundNode.updateFlatironsPosition( transform );
     } );
 
     // add view for tracer
@@ -346,17 +349,17 @@ define( function( require ) {
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
-    this.backgroundNode = new BackgroundNode( this.layoutBounds );
+    this.backgroundNode = backgroundNode;
     this.zoomControl = zoomControl;
 
     // flatirons
     model.altitudeProperty.link( function( altitude ) {
-      self.backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
+      backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
     } );
 
     // rendering order
     this.setChildren( [
-      this.backgroundNode,
+      backgroundNode,
       targetNode,
       davidNode,
       cannonNode,

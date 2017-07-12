@@ -25,8 +25,8 @@ define( function( require ) {
   var CEMENT_WIDTH = 20;
   var GRASS_WIDTH = 5;
   var YELLOW_LINE_WIDTH = 1.5;
-  var FLATIRONS_WIDTH = 500;
-  var FLATIRONS_OFFSET = 150;
+  var FLATIRONS_WIDTH = 450;
+  var FLATIRONS_LEFT = 8; // in meters
 
   /**
    * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
@@ -86,7 +86,6 @@ define( function( require ) {
       this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
 
       this.flatirons.bottom = ProjectileMotionConstants.VIEW_ORIGIN.y;
-      this.flatirons.left = ProjectileMotionConstants.VIEW_ORIGIN.x + FLATIRONS_OFFSET;
     },
 
     /**
@@ -97,6 +96,16 @@ define( function( require ) {
      */
     showOrHideFlatirons: function( visibility ) {
       this.flatirons.visible = visibility ;
+    },
+
+    /**
+     * Update position of the mountains if transform changes
+     * @param  {ModelViewTransform2} transform
+     *
+     * @public
+     */
+    updateFlatironsPosition: function( transform ) {
+      this.flatirons.left = transform.modelToViewX( FLATIRONS_LEFT );
     }
 
   } );

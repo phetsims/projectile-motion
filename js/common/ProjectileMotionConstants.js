@@ -108,7 +108,7 @@ define( function( require ) {
 
     // David
     DAVID_HEIGHT: 2, // meters
-    DAVID_HORIZONTAL_PLACEMENT: 9 // meters
+    DAVID_HORIZONTAL_PLACEMENT: 7 // meters
   };
 
   projectileMotion.register( 'ProjectileMotionConstants', ProjectileMotionConstants );
