@@ -41,11 +41,10 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
-    var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
-    var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
+    var checkBoxOptions = { maxWidth: options.minWidth - 2 * options.xMargin };
 
-    var totalLabel = new Text( totalString, titleOptions );
-    var componentsLabel = new Text( componentsString, titleOptions );
+    var totalLabel = new Text( totalString, LABEL_OPTIONS );
+    var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
     
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
@@ -53,16 +52,17 @@ define( function( require ) {
     ], {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
-      touchAreaXDilation: 5
+      touchAreaXDilation: 5,
+      maxWidth: checkBoxOptions.maxWidth
     } );
 
-    var velocityLabel = new Text( velocityVectorsString, titleOptions );
+    var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
     var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkBoxOptions );
 
-    var accelerationLabel = new Text( accelerationVectorsString, titleOptions );
+    var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty, checkBoxOptions );
     
-    var forceLabel = new Text( forceVectorsString, titleOptions );
+    var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
 
     // The contents of the control panel

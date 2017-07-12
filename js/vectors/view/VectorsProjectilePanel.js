@@ -70,6 +70,10 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
+    var textDisplayWidth = options.textDisplayWidth * 1.2;
+    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
+    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+
     /** 
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
@@ -82,16 +86,16 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
-      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
+      var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), LABEL_OPTIONS );
+      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
         0, // x
         0, // y
-        options.textDisplayWidth * 1.2, // width, widened
+        textDisplayWidth, // width, widened
         options.textDisplayHeight,
         _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
       );
@@ -133,7 +137,12 @@ define( function( require ) {
     }
 
     var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
-    var objectDisplay = new HBox( { spacing: options.xMargin, children: [ new Text( cannonballString, LABEL_OPTIONS ), objectView ]});
+    var objectDisplay = new HBox( {
+      spacing: options.xMargin,
+      children: [
+        new Text( cannonballString, _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - objectView.width }, LABEL_OPTIONS ) ),
+        objectView
+    ] } );
 
     var diameterBox = createParameterControlBox(
       diameterString,
@@ -152,9 +161,9 @@ define( function( require ) {
     );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
-    var dragCoefficientBox = new Text( '', LABEL_OPTIONS );
+    var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
 
     projectileDragCoefficientProperty.link( function( value ) {
       dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
