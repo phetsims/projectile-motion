@@ -93,7 +93,9 @@ define( function( require ) {
         var xChange = mousePoint.x - startPoint.x;
 
         targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) * 10 ) / 10 );
-      }
+      },
+
+      allowTouchSnag: true
     } );
 
     // drag target to change horizontal position

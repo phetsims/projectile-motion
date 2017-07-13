@@ -89,7 +89,8 @@ define( function( require ) {
       },
       endDrag: function( event ) {
         self.isUserControlledProperty.set( false );
-      }
+      },
+      allowTouchSnag: true
     } );
 
     // When dragging, move the tracer tool

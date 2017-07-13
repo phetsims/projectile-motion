@@ -88,6 +88,13 @@ define( function( require ) {
     // When pressed, creates a model element and triggers startDrag() on the corresponding view
     tracerIconNode.addInputListener( {
       down: function( event ) {
+
+        // ignore this if already dragging
+        if ( event.pointer.dragging ) { return; }
+
+        // don't try to start drags with a right mouse button or an attached pointer
+        if ( !event.canStartPress() ) { return; }
+
         // find the parent screen if not already found by moving up the scene graph
         if ( !parentScreenView ) {
           var testNode = self;
@@ -114,6 +121,16 @@ define( function( require ) {
 
         // TODO: where to have tracer jump to
         tracerNode.movableDragHandler.startDrag( event );
+      },
+
+      // touch enters this node
+      touchenter: function( event ) {
+        this.down( event );
+      },
+
+      // touch moves over this node
+      touchmove: function( event ) {
+        this.down( event );
       }
     } );
 
@@ -151,6 +168,13 @@ define( function( require ) {
     // Add the listener that will allow the user to click on this and create a model element, then position it in the model.
     measuringTapeIconNode.addInputListener( {
       down: function( event ) {
+        
+        // ignore this if already dragging
+        if ( event.pointer.dragging ) { return; }
+
+        // don't try to start drags with a right mouse button or an attached pointer
+        if ( !event.canStartPress() ) { return; }
+
         // find the parent screen if not already found by moving up the scene graph
         if ( !parentScreenView ) {
           var testNode = self;
@@ -178,6 +202,16 @@ define( function( require ) {
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
         measuringTapeNode.startBaseDrag( event );
+      },
+
+      // touch enters this node
+      touchenter: function( event ) {
+        this.down( event );
+      },
+
+      // touch moves over this node
+      touchmove: function( event ) {
+        this.down( event );
       }
     } );
 

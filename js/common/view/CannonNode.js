@@ -354,7 +354,9 @@ define( function( require ) {
 
       end: function( event ) {
         heightCueingArrow.visible = false;
-      }
+      },
+
+      allowTouchSnag: true
 
     } );
 
