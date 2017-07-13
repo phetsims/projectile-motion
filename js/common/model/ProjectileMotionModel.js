@@ -242,7 +242,7 @@ define( function( require ) {
      * @public
      */
     cannonFired: function() {
-      this.isPlayingProperty.set( true );
+      // this.isPlayingProperty.set( true );
       var lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
       var newTrajectory = new Trajectory( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
