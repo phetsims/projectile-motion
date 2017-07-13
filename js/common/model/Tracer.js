@@ -41,6 +41,8 @@ define( function( require ) {
 
     // @public {ObservableArray.<Trajectory>} array of trajectories in the model
     this.trajectories = trajectories;
+
+    // TODO: removal listener
     this.trajectories.addItemRemovedListener( this.updateData.bind( this ) );
   }
 

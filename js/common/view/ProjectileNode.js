@@ -215,7 +215,7 @@ define( function( require ) {
       }
     };
 
-    Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], updateComponentVelocityVectors );
+    var componentVelocityVectorsMultilink = Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], updateComponentVelocityVectors );
 
     // Update total velocity vector.
     var updateTotalVelocityVector = function( visible, viewPoint ) {
@@ -231,7 +231,7 @@ define( function( require ) {
       }
     };
 
-    Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], updateTotalVelocityVector );
+    var totalVelocityVectorMultilink = Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], updateTotalVelocityVector );
 
     // Update component-wise acceleration vectors.
     var updateComponentAccelerationVectors = function( visible, viewPoint ) {
@@ -247,7 +247,7 @@ define( function( require ) {
       }
     };
 
-    Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], updateComponentAccelerationVectors );
+    var componentAccelerationVectorsMultilink = Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], updateComponentAccelerationVectors );
 
     // Update total acceleration vector.
     var updateTotalAccelerationVector = function( visible, viewPoint ) {
@@ -264,7 +264,7 @@ define( function( require ) {
       }
     };
 
-    Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], updateTotalAccelerationVector );
+    var totalAccelerationVectorMultilink = Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], updateTotalAccelerationVector );
 
     // Update the free body diagram
     var removed = false;
@@ -349,21 +349,25 @@ define( function( require ) {
       }
     };
 
-    Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
+    var freeBodyDiagramMultilink = Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
   
     this.disposeProjectileNode = function() {
-      viewPointProperty.unlink( updateProjectileObjectView );
-      vectorVisibilityProperties.componentsVelocityVectorsOnProperty.unlink( updateComponentVelocityVectors );
-      viewPointProperty.unlink( updateComponentVelocityVectors );
-      vectorVisibilityProperties.totalVelocityVectorOnProperty.unlink( updateTotalVelocityVector );
-      viewPointProperty.unlink( updateTotalVelocityVector );
-      vectorVisibilityProperties.componentsAccelerationVectorsOnProperty.unlink( updateComponentAccelerationVectors );
-      viewPointProperty.unlink( updateComponentAccelerationVectors );
-      vectorVisibilityProperties.totalAccelerationVectorOnProperty.unlink( updateTotalAccelerationVector );
-      viewPointProperty.unlink( updateTotalAccelerationVector );
-      vectorVisibilityProperties.componentsForceVectorsOnProperty.unlink( updateFreeBodyDiagram );
-      vectorVisibilityProperties.totalForceVectorOnProperty.unlink( updateFreeBodyDiagram );
-      viewPointProperty.unlink( updateFreeBodyDiagram );
+      componentVelocityVectorsMultilink.dispose();
+      totalVelocityVectorMultilink.dispose();
+      componentAccelerationVectorsMultilink.dispose();
+      totalAccelerationVectorMultilink.dispose();
+      freeBodyDiagramMultilink.dispose();
+      viewPointProperty.dispose();
+      xVelocityArrow.dispose();
+      yVelocityArrow.dispose();
+      xAccelerationArrow.dispose();
+      yAccelerationArrow.dispose();
+      xDragForceArrow.dispose();
+      yDragForceArrow.dispose();
+      totalVelocityArrow.dispose();
+      totalAccelerationArrow.dispose();
+      totalDragForceArrow.dispose();
+      forceGravityArrow.dispose();
     };
   }
 

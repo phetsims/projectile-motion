@@ -119,7 +119,7 @@ define( function( require ) {
       // Add the removal listener for if and when this trajectory is removed from the model.
       model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
-          trajectoriesLayer.removeChild( trajectoryNode );
+          trajectoriesLayer.removeChild( trajectoryNode ); // TODO: may not need this line cause following line covers it
           trajectoryNode.dispose();
           model.trajectories.removeItemRemovedListener( removalListener );
         }
