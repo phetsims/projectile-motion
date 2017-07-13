@@ -319,7 +319,9 @@ define( function( require ) {
           angleProperty.set( angleRange.min );
         }
 
-      }
+      },
+
+      allowTouchSnag: true
 
     } ) );
 
