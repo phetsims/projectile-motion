@@ -234,15 +234,34 @@ define( function( require ) {
     var dragCoefficientBox = new Node();
     var altitudeBox = new Node();
     var gravityBox = new Node();
+    var massSpecificProjectileTypeBox = null;
+    var diameterSpecificProjectileTypeBox = null;
+    var dragCoefficientSpecificProjectileTypeBox = null;
+    var altitudeSpecificProjectileTypeBox = null;
+    var gravitySpecificProjectileTypeBox = null;
+    var massCustomBox = null;
+    var diameterCustomBox = null;
+    var dragCoefficientCustomBox = null;
+    var altitudeCustomBox = null;
+    var gravityCustomBox = null;
 
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
-      massBox.removeAllChildren();
-      diameterBox.removeAllChildren();
-      dragCoefficientBox.removeAllChildren();
-      altitudeBox.removeAllChildren();
-      gravityBox.removeAllChildren();
       if ( objectType.type ) {
-        massBox.addChild( new NumberControl(
+        if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
+          massBox.removeChild( massCustomBox );
+          diameterBox.removeChild( diameterCustomBox );
+          dragCoefficientBox.removeChild( dragCoefficientCustomBox );
+          altitudeBox.removeChild( altitudeCustomBox );
+          gravityBox.removeChild( gravityCustomBox );
+        }
+        if ( massSpecificProjectileTypeBox ) {
+          massSpecificProjectileTypeBox.dispose();
+          diameterSpecificProjectileTypeBox.dispose();
+          dragCoefficientSpecificProjectileTypeBox.dispose();
+          altitudeSpecificProjectileTypeBox.dispose();
+          gravitySpecificProjectileTypeBox.dispose();
+        }
+        massSpecificProjectileTypeBox = new NumberControl(
           massString, projectileMassProperty,
           objectType.massRange, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', kgString ),
@@ -251,8 +270,8 @@ define( function( require ) {
             decimalPlaces: Math.ceil( -Math.log10( objectType.massRound ) ),
             delta: objectType.massRound
           }, numberControlOptions )
-        ) );
-        diameterBox.addChild( new NumberControl(
+        );
+        diameterSpecificProjectileTypeBox = new NumberControl(
           diameterString, projectileDiameterProperty,
           objectType.diameterRange, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
@@ -261,8 +280,8 @@ define( function( require ) {
             decimalPlaces: Math.ceil( -Math.log10( objectType.diameterRound ) ),
             delta: objectType.diameterRound
           }, numberControlOptions )
-        ) );
-        gravityBox.addChild( new NumberControl(
+        );
+        gravitySpecificProjectileTypeBox = new NumberControl(
           gravityString, gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondSquaredString ),
@@ -270,8 +289,8 @@ define( function( require ) {
             decimalPlaces: 2,
             delta: 0.01,
           }, numberControlOptions )
-        ) );
-        altitudeBox.addChild( new NumberControl(
+        );
+        altitudeSpecificProjectileTypeBox = new NumberControl(
           altitudeString, altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
@@ -279,45 +298,64 @@ define( function( require ) {
             decimalPlaces: 0,
             delta: 100,
           }, numberControlOptions )
-        ) );
-        dragCoefficientBox.addChild( new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) ) );
+        );
+        dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+        massBox.addChild( massSpecificProjectileTypeBox );
+        diameterBox.addChild( diameterSpecificProjectileTypeBox );
+        dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeBox );
+        altitudeBox.addChild( altitudeSpecificProjectileTypeBox );
+        gravityBox.addChild( gravitySpecificProjectileTypeBox );
       }
       else {
-        massBox.addChild( createParameterControlBox(
-          massString,
-          kgString,
-          projectileMassProperty,
-          objectType.massRange,
-          objectType.massRound
-        ) );
-        diameterBox.addChild( createParameterControlBox(
-          diameterString,
-          mString,
-          projectileDiameterProperty,
-          objectType.diameterRange,
-          objectType.diameterRound
-        ) );
-        gravityBox.addChild( createParameterControlBox(
-          gravityString,
-          metersPerSecondSquaredString,
-          gravityProperty,
-          ProjectileMotionConstants.GRAVITY_RANGE,
-          0.01
-        ) );
-        altitudeBox.addChild( createParameterControlBox(
-          altitudeString,
-          mString,
-          altitudeProperty,
-          ProjectileMotionConstants.ALTITUDE_RANGE,
-          0.01
-        ) );
-        dragCoefficientBox.addChild( createParameterControlBox(
-          dragCoefficientString,
-          null,
-          projectileDragCoefficientProperty,
-          objectType.dragCoefficientRange,
-          objectType.dragCoefficientRound
-        ) );
+        if ( massSpecificProjectileTypeBox && massBox.hasChild( massSpecificProjectileTypeBox ) ) {
+          massBox.removeChild( massSpecificProjectileTypeBox );
+          diameterBox.removeChild( diameterSpecificProjectileTypeBox );
+          dragCoefficientBox.removeChild( dragCoefficientSpecificProjectileTypeBox );
+          altitudeBox.removeChild( altitudeSpecificProjectileTypeBox );
+          gravityBox.removeChild( gravitySpecificProjectileTypeBox );
+        }
+        if ( !massCustomBox ) {
+          massCustomBox = createParameterControlBox(
+            massString,
+            kgString,
+            projectileMassProperty,
+            objectType.massRange,
+            objectType.massRound
+          );
+          diameterCustomBox = createParameterControlBox(
+            diameterString,
+            mString,
+            projectileDiameterProperty,
+            objectType.diameterRange,
+            objectType.diameterRound
+          );
+          gravityCustomBox =  createParameterControlBox(
+            gravityString,
+            metersPerSecondSquaredString,
+            gravityProperty,
+            ProjectileMotionConstants.GRAVITY_RANGE,
+            0.01
+          );
+          altitudeCustomBox = createParameterControlBox(
+            altitudeString,
+            mString,
+            altitudeProperty,
+            ProjectileMotionConstants.ALTITUDE_RANGE,
+            0.01
+          );
+          dragCoefficientCustomBox = createParameterControlBox(
+            dragCoefficientString,
+            null,
+            projectileDragCoefficientProperty,
+            objectType.dragCoefficientRange,
+            objectType.dragCoefficientRound
+          );
+        }
+        massBox.addChild( massCustomBox );
+        diameterBox.addChild( diameterCustomBox );
+        dragCoefficientBox.addChild( dragCoefficientCustomBox );
+        altitudeBox.addChild( altitudeCustomBox );
+        gravityBox.addChild( gravityCustomBox );
       }
     } );
 
