@@ -45,7 +45,6 @@ define( function( require ) {
     trajectory,
     transformProperty
   ) {
-    var self = this;
     Node.call( this, { pickable: false, preventFit: true } );
 
     var scratchVector = new Vector2();
@@ -54,7 +53,7 @@ define( function( require ) {
     var currentPathShape = null;
     var currentPathStroke = null;
 
-    this.pathsLayer = new Node();
+    var pathsLayer = new Node();
     var projectileNodesLayer = new Node();
 
     var dotsShape = new Shape();
@@ -63,9 +62,8 @@ define( function( require ) {
     } );
 
     this.addChild( projectileNodesLayer );
-    this.addChild( this.pathsLayer );
+    this.addChild( pathsLayer );
     this.addChild( dotsPath );
-
 
     var viewLastPosition = null;
 
@@ -78,7 +76,7 @@ define( function( require ) {
         if ( !currentPathShape || currentPathStroke !== pathStroke ) {
           currentPathShape = new Shape().moveTo( viewLastPosition.x, viewLastPosition.y );
           currentPathStroke = pathStroke;
-          self.pathsLayer.addChild( new Path( currentPathShape, {
+          pathsLayer.addChild( new Path( currentPathShape, {
             lineWidth: PATH_WIDTH,
             stroke: pathStroke
           } ) );
@@ -125,7 +123,7 @@ define( function( require ) {
     trajectory.projectileObjects.addItemAddedListener( handleProjectileObjectAdded );
 
     function updateTransform( transform ) {
-      self.pathsLayer.removeAllChildren();
+      pathsLayer.removeAllChildren();
 
       currentPathShape = null;
       currentPathStroke = null;
@@ -147,8 +145,8 @@ define( function( require ) {
 
     function updateOpacity( rank ) {
       var strength = ( MAX_COUNT - rank ) / MAX_COUNT;
-      self.pathsLayer.opacity = PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
-      projectileNodesLayer.opacity = self.pathsLayer.opacity;
+      pathsLayer.opacity = PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
+      projectileNodesLayer.opacity = pathsLayer.opacity;
       dotsPath.opacity = DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );
     }
 
@@ -156,6 +154,10 @@ define( function( require ) {
     trajectory.rankProperty.link( updateOpacity );
 
     this.disposeTrajectoryNode = function() {
+      while ( pathsLayer.children.length ) {
+        pathsLayer.children.pop().dispose();
+      }
+      dotsPath.dispose();
       transformProperty.unlink( updateTransform );
       trajectory.rankProperty.unlink( updateOpacity );
     };
