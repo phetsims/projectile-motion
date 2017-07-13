@@ -147,8 +147,8 @@ define( function( require ) {
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), heightLabelOptions );
-    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 5, 10 ) );
-    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 6, 10 ) );
+    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
+    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
 
     var heightCueingArrow = new ArrowNode( 0, 0, 0, -15, CUEING_ARROW_OPTIONS );
