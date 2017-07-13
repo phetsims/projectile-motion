@@ -99,16 +99,25 @@ define( function( require ) {
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
-    function handleProjectileObjectAdded( projectileObject ) {
+    function handleProjectileObjectAdded( addedProjectileObject ) {
       var newProjectileNode = new ProjectileNode(
         vectorVisibilityProperties,
-        projectileObject.dataPointProperty,
+        addedProjectileObject.dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,
         transformProperty.get()
       );
       projectileNodesLayer.addChild( newProjectileNode );
+
+      // Add the removal listener for if and when this trajectory is removed from the model.
+      trajectory.projectileObjects.addItemRemovedListener( function removalListener( removedProjectileObject ) {
+        if ( removedProjectileObject === addedProjectileObject ) {
+          newProjectileNode.dispose(); // this also removes it as a child from projectileNodesLayer
+          trajectory.projectileObjects.removeItemRemovedListener( removalListener );
+        }
+      } );
+
     }
 
     // view adds projectile object if another one is created in the model
@@ -146,14 +155,9 @@ define( function( require ) {
     // change decrease in opacity with each successive projectiled fired
     trajectory.rankProperty.link( updateOpacity );
 
-    var disposeProjectileNode = function( projectileNode ) {
-      projectileNode.dispose();
-    };
-
     this.disposeTrajectoryNode = function() {
       transformProperty.unlink( updateTransform );
       trajectory.rankProperty.unlink( updateOpacity );
-      projectileNodesLayer.children.forEach( disposeProjectileNode );
     };
   }
 

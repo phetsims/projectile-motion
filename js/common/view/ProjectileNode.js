@@ -286,6 +286,7 @@ define( function( require ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
             if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
+              // TODO: careful, this may be an extra remove if a single landed object is used
               projectileViewLayer.removeChild( projectileObjectView );
             }
             projectileViewLayer.addChild( landedObjectView );

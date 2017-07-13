@@ -79,6 +79,8 @@ define( function( require ) {
     this.addProjectileObject();
 
     this.disposeTrajectory = function() {
+      this.projectileObjects.clear();
+      // this.dataPoints.clear();
       model.updateRanksEmitter.removeListener( incrementRank );
     };
   }
@@ -236,7 +238,8 @@ define( function( require ) {
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
       
-      // clear all the projectile objects and add just one
+      // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one
+      this.projectileObjects.remove( projectileObject );
       newTrajectory.projectileObjects.clear();
       newTrajectory.projectileObjects.push( projectileObject );
 
