@@ -54,6 +54,14 @@ define( function( require ) {
   var DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
   var ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
+  var CUEING_ARROW_OPTIONS = {
+      fill: 'rgb( 100, 200, 255 )',
+      stroke: 'black',
+      lineWidth: 1,
+      tailWidth: 8,
+      headWidth: 14,
+      headHeight: 6
+  };
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -139,9 +147,12 @@ define( function( require ) {
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), heightLabelOptions );
-    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 5, 2 ) );
-    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 6, 4 ) );
+    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 5, 10 ) );
+    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 6, 10 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
+
+    var heightCueingArrow = new ArrowNode( 0, 0, 0, -15, CUEING_ARROW_OPTIONS );
+    heightCueingArrow.centerX = heightLeaderLine.tipX;
 
     // angle indicator
     var angleIndicator = new Node();
@@ -190,6 +201,7 @@ define( function( require ) {
       heightLeaderLineBottomCap,
       heightLabelBackground,
       heightLabel,
+      heightCueingArrow,
       angleIndicator//,
     ] );
 
@@ -244,6 +256,7 @@ define( function( require ) {
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );
       heightLabelBackground.setRectHeight( heightLabel.height );
       heightLabelBackground.center = heightLabel.center;
+      heightCueingArrow.bottom = heightLabel.top - 3;
 
       angleIndicator.y = transformProperty.get().modelToViewY( height );
     };
@@ -337,7 +350,12 @@ define( function( require ) {
 
         // constrain within visible bounds, but this allows for decimal heights and overrides the roundsymmetric above
         // heightProperty.set( transformProperty.get().viewToModelY( Util.clamp( transformProperty.get().modelToViewY( heightProperty.get() ), screenView.layoutBounds.minY, screenView.layoutBounds.maxY ) ) );
+      },
+
+      end: function( event ) {
+        heightCueingArrow.visible = false;
       }
+
     } );
 
     // drag the base of the cannon to change height
