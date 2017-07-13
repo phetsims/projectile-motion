@@ -40,8 +40,8 @@ define( function( require ) {
 
     // @private
     this.sky = new Rectangle( 0, 0, 0, 0 );
-    this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 3, 95, 49 )' } );
     this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
+    this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
     this.roadDashedLine = new Line( 0, 0, 0, 0, {
       stroke: 'rgb( 235, 234, 48 )',
