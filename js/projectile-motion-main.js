@@ -34,8 +34,8 @@ define( function( require ) {
   SimLauncher.launch( function() {
     var sim = new Sim( projectileMotionTitleString, [
       new IntroScreen(),
-      new DragScreen(),
       new VectorsScreen(),
+      new DragScreen(),
       new LabScreen()
     ], simOptions );
     sim.start();
