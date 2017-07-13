@@ -289,7 +289,6 @@ define( function( require ) {
         
         // Furthest object on trajectory has reached ground
         else {
-          
           // For each projectile still in the air, create a new trajectory
           for (i = 0; i < trajectory.projectileObjects.length; i++ ) {
             projectileObject = trajectory.projectileObjects.get( i );

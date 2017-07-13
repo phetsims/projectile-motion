@@ -239,7 +239,6 @@ define( function( require ) {
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
       
       // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one
-      this.projectileObjects.remove( projectileObject );
       newTrajectory.projectileObjects.clear();
       newTrajectory.projectileObjects.push( projectileObject );
 
