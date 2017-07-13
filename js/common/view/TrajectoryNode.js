@@ -140,6 +140,7 @@ define( function( require ) {
 
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
+      projectileObjectViewsLayer.removeAllChildren();
       trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     }
 
