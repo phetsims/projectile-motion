@@ -55,15 +55,17 @@ define( function( require ) {
 
     var pathsLayer = new Node();
     var projectileNodesLayer = new Node();
+    var projectileObjectViewsLayer = new Node();
 
     var dotsShape = new Shape();
     var dotsPath = new Path( dotsShape, {
       fill: 'black'
     } );
 
-    this.addChild( projectileNodesLayer );
+    this.addChild( projectileObjectViewsLayer );
     this.addChild( pathsLayer );
     this.addChild( dotsPath );
+    this.addChild( projectileNodesLayer );
 
     var viewLastPosition = null;
 
@@ -107,6 +109,7 @@ define( function( require ) {
         transformProperty.get()
       );
       projectileNodesLayer.addChild( newProjectileNode );
+      projectileObjectViewsLayer.addChild( newProjectileNode.projectileViewLayer );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       trajectory.projectileObjects.addItemRemovedListener( function removalListener( removedProjectileObject ) {

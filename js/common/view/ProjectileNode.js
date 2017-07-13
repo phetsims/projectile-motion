@@ -92,7 +92,9 @@ define( function( require ) {
 
     // create a layer for the projectile object node that would contain the flying object, and then the landed object
     var projectileViewLayer = new Node();
-    this.addChild( projectileViewLayer );
+
+    // @public for TrajectoryNode to access
+    this.projectileViewLayer = projectileViewLayer;
 
     // draw projectile object view
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
@@ -368,6 +370,7 @@ define( function( require ) {
       totalAccelerationArrow.dispose();
       totalDragForceArrow.dispose();
       forceGravityArrow.dispose();
+      projectileViewLayer.dispose();
     };
   }
 
