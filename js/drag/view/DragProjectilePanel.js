@@ -40,8 +40,7 @@ define( function( require ) {
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = {
     fill: 'white',
-    stroke: 'lightGray',
-    strokeWidth: 1
+    stroke: 'lightGray'
   };
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
