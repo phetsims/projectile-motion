@@ -59,7 +59,6 @@ define( function( require ) {
   var FORCES_BOX_DILATION = 7;
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
 
-  //TODO: release references to these when not needed
   var xDragForceText = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
   var yDragForceText = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
   var forceGravityText = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
@@ -371,6 +370,10 @@ define( function( require ) {
       totalDragForceArrow.dispose();
       forceGravityArrow.dispose();
       projectileViewLayer.dispose();
+      xDragForceLabel.dispose();
+      yDragForceLabel.dispose();
+      forceGravityLabel.dispose();
+      totalDragForceLabel.dispose();
     };
   }
 
