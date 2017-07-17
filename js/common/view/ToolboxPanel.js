@@ -123,8 +123,8 @@ define( function( require ) {
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
-      var tapeBaseBounds = tracerNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
-      var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
+      var tapeBaseBounds = measuringTapeNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
+      var toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
       }
