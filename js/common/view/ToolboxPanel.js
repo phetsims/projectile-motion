@@ -89,8 +89,8 @@ define( function( require ) {
 
         var tracerOriginPosition = tracerNode.globalToParentPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
 
-        // (-90, 20) is empirically determined to shift tracer to be centered at mouse point
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -80, 20 );
+        // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -170, 20 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
 
         tracerNode.movableDragHandler.startDrag( event );

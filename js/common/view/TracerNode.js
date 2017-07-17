@@ -68,7 +68,7 @@ define( function( require ) {
     var rectangle = new Rectangle(
       0,
       0,
-      180,
+      165,
       95, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
@@ -80,6 +80,9 @@ define( function( require ) {
       }
     );
     this.rectangle = rectangle;
+
+    rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
+    rectangle.setTouchArea( rectangle.bounds.dilatedXY( 15, 6 ) );
 
     var dragBoundsShift = -90; // empirically determined
 
@@ -115,9 +118,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( rectangle.width, timeString, timeReadoutProperty );
-    var rangeBox = this.createInformationBox( rectangle.width, rangeString, rangeReadoutProperty );
-    var heightBox = this.createInformationBox( rectangle.width, heightString, heightReadoutProperty );
+    var timeBox = this.createInformationBox( rectangle.width - 15, timeString, timeReadoutProperty );
+    var rangeBox = this.createInformationBox( rectangle.width - 15, rangeString, rangeReadoutProperty );
+    var heightBox = this.createInformationBox( rectangle.width - 15, heightString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -233,7 +236,7 @@ define( function( require ) {
      * @param {string} label
      * @param {Property} readoutProperty
      */
-    createInformationBox: function( rectangleWidth, labelString, readoutProperty ) {
+    createInformationBox: function( maxWidth, labelString, readoutProperty ) {
       var labelText = new Text( labelString, _.defaults( { maxWidth: 80 }, LABEL_OPTIONS ) );
 
       // number
@@ -261,7 +264,7 @@ define( function( require ) {
 
       var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
-      var spacing = rectangleWidth - labelText.width - readoutParent.width - 4 * this.spacing;
+      var spacing = maxWidth - labelText.width - readoutParent.width - 4 * this.spacing;
 
       return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
     },
