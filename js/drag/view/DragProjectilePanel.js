@@ -199,9 +199,9 @@ define( function( require ) {
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
     
     var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      var displayAndValueNodes = new HBox( { spacing: options.xMargin, children: [ dragObjectDisplay, numberDisplay ] } );
-      var strut = new HStrut( 110 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
-      var displayAndValueBox = new VBox( { align: 'right', children: [ strut, displayAndValueNodes ] } );
+      var strut = new HStrut( 70 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
+      var displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
+      var displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - displayAndValueBox.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,

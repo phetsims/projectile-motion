@@ -16,6 +16,8 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Line = require( 'SCENERY/nodes/Line' );
 
   // image
   var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
@@ -69,9 +71,15 @@ define( function( require ) {
         // to maintain the same cross sectional area
         var currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
         var scaleFactor = radius / currentCrossSectionalRadius;
+
         shape = shape.transformed ( Matrix3.scaling( scaleFactor, scaleFactor ) );
 
-        return new Path( shape, { fill: 'black' } );
+        var objectNode = new Path( shape, { fill: 'black' } );
+
+        // used to shift center onto COM
+        var strut = new Line( objectNode.left, 0, 1.5 * objectNode.width - 2 * radius, 0, { visible: false } );
+
+        return new Node( { children: [ strut, objectNode ] } );
       }
       else { // sphere (exclusive) to kind of hemisphere (inclusive )
         // ( 0.47 , 1 )
