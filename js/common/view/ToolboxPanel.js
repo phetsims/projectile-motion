@@ -167,6 +167,8 @@ define( function( require ) {
       measuringTapeIconNode.visible = !active;
     } );
 
+    // Links for the toolboxPanel and its tools last for the lifetime of the sim, so they don't need to be disposed
+
   }
 
   projectileMotion.register( 'ToolboxPanel', ToolboxPanel );

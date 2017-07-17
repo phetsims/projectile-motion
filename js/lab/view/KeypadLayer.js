@@ -98,7 +98,9 @@ define( function( require ) {
       // display the keypad
       this.addChild( this.keypad );
       this.visible = true;
-      this.addInputListener( this.clickOutsideListener );
+
+      // keypadLayer lasts for the lifetime of the sim, so listeners don't need to be disposed
+      this.addInputListener( this.clickOutxsideListener );
 
       // position the keypad
       options.setKeypadLocation && options.setKeypadLocation( this.keypad );

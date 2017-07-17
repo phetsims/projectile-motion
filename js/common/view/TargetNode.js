@@ -170,6 +170,7 @@ define( function( require ) {
       updateHorizontalPosition( targetXProperty.get() );
     } );
 
+    // The node lasts for the lifetime of the sim, so its links/references don't need to be disposed
 
   }
 

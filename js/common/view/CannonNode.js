@@ -279,6 +279,8 @@ define( function( require ) {
       updateHeight( heightProperty.get() );
     } );
 
+    // Links in CannonNode last for the lifetime of the sim, so they don't need to be disposed
+
     // @private variables used for drag handlers
     var startPoint;
     var startAngle;

@@ -208,6 +208,8 @@ define( function( require ) {
     tracer.isActiveProperty.link( function( active ) {
       self.visible = active;
     } );
+
+    // TracerNode lasts for the lifetime of the sim, so links don't need to be disposed.
   }
 
   projectileMotion.register( 'TracerNode', TracerNode );

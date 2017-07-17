@@ -101,10 +101,12 @@ define( function( require ) {
 
     Panel.call( this, contentNode, options );
 
+    // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
     this.valueStringProperty.link( function( valueString ) { // no unlink required
       valueNode.text = valueString;
       valueNode.center = valueBackgroundNode.center;
     } );
+
   }
 
   projectileMotion.register( 'KeypadPanel', KeypadPanel );

@@ -120,6 +120,8 @@ define( function( require ) {
 
     // @private {EventTimer}
     this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
+  
+    // Links in this constructor last for the life time of the sim, so no need to dispose
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );

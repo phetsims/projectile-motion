@@ -383,6 +383,9 @@ define( function( require ) {
       zoomControl,
       resetAllButton
     ] );
+
+    // Links in this constructor last for the life time of the sim, so they don't need to be disposed
+    // Panels last for the life time of the sim, so their links don't need to be disposed
   }
 
   projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
