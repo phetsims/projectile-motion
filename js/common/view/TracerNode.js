@@ -80,10 +80,12 @@ define( function( require ) {
     );
     this.rectangle = rectangle;
 
+    var dragBoundsShift = -90; // empirically determined
+
     // @public Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: transformProperty.get(),
-      dragBounds: screenView.visibleBoundsProperty.get(),
+      dragBounds: screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ),
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
       },
@@ -171,12 +173,12 @@ define( function( require ) {
 
     transformProperty.link( function( transform ) {
       self.movableDragHandler.setModelViewTransform( transform );
-      self.movableDragHandler.setDragBounds( transform.viewToModelBounds( screenView.visibleBoundsProperty.get() ) );
+      self.movableDragHandler.setDragBounds( transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
     screenView.visibleBoundsProperty.link( function( bounds ) {
-      self.movableDragHandler.setDragBounds( transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get() ) );
+      self.movableDragHandler.setDragBounds( transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
