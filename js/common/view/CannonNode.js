@@ -32,7 +32,7 @@ define( function( require ) {
   // image
   var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
   var cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
-  var cannonBarrelBottomImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_bottom.png' );
+  var cannonBarrelImage = require( 'image!PROJECTILE_MOTION/cannon_barrel.png' );
   var cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
 
   // strings
@@ -95,9 +95,11 @@ define( function( require ) {
     var cannonBarrel = new Node();
     clippableNode.addChild( cannonBarrel );
 
-    var cannonBarrelBottom = new Image( cannonBarrelBottomImage, { right: 0, centerY: 0 } );
-    cannonBarrel.addChild( cannonBarrelBottom );
-    var cannonBarrelTop = new Image( cannonBarrelTopImage, { left: 0, centerY: 0 } );
+    // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
+    var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
+    var cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
+
+    cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
 
     var cannonBase = new Node();
@@ -368,7 +370,7 @@ define( function( require ) {
     cannonBase.addInputListener( heightDragHandler );
     cylinderSide.addInputListener( heightDragHandler );
     cylinderTop.addInputListener( heightDragHandler );
-    cannonBarrelBottom.addInputListener( heightDragHandler );
+    cannonBarrelBase.addInputListener( heightDragHandler );
     heightLabel.addInputListener( heightDragHandler );
 
   }
