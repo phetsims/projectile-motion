@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var AquaRadioButton = require( 'SUN/AquaRadioButton' );
   var BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
+  var Bounds2 = require( 'DOT/Bounds2' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
@@ -162,7 +163,7 @@ define( function( require ) {
     var measuringTapeNode = new MeasuringTape(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
-        dragBounds: transformProperty.get().viewToModelBounds( this.layoutBounds ),
+        dragBounds: transformProperty.get().viewToModelBounds( this.visibleBoundsProperty.get() ),
         modelViewTransform: transformProperty.get(),
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
@@ -191,10 +192,14 @@ define( function( require ) {
     // listen to transform property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
-      measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.layoutBounds ) );
+      measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.visibleBoundsProperty.get() ) );
       davidNode.setScaleMagnitude( Math.abs( transform.modelToViewDeltaY( DAVID_HEIGHT ) / davidBottom.height ) );
       davidNode.x = transform.modelToViewX( DAVID_HORIZONTAL_PLACEMENT );
       backgroundNode.updateFlatironsPosition( transform );
+    } );
+
+    this.visibleBoundsProperty.link( function( bounds ) {
+      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds ) );
     } );
 
     // add view for tracer
@@ -389,6 +394,7 @@ define( function( require ) {
      * 
      * @param  {number} width
      * @param  {number} height
+     * @override
      */
     layout: function( width, height ) {
       this.resetTransform();
@@ -419,6 +425,9 @@ define( function( require ) {
       this.resetAllButton.right = this.topRightPanel.right;
       this.zoomControl.top = 2 * Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
+
+      this.visibleBoundsProperty.set( new Bounds2( -offsetX, -offsetY, width / scale - offsetX, height / scale - offsetY ) );
+
     }
 
   } );
