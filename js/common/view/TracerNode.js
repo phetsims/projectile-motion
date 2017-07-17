@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -203,12 +204,27 @@ define( function( require ) {
     // visibility
     tracer.isActiveProperty.link( function( active ) {
       self.visible = active;
-    });
+    } );
   }
 
   projectileMotion.register( 'TracerNode', TracerNode );
 
   return inherit( Node, TracerNode, {
+
+    /**
+     * Get the bounds of just the tracer, excluding the halo node
+     * @public
+     */
+    getJustTracerBounds: function() {
+      var tracerBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
+
+      // include every child except for the halo in the calculations of tracer bounds
+      var i;
+      for ( i = 1; i < this.children.length; i++ ) {
+        tracerBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
+      }
+      return tracerBounds;
+    },
 
     /**
      * Auxiliary function to create label and number readout for information

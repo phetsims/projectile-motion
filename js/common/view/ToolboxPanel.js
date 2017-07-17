@@ -73,7 +73,7 @@ define( function( require ) {
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
 
       // since this is a panel, the parent is the screen view, and the screen view is the parent of tracerNode
-      var tracerNodeBounds = tracerNode.globalToParentBounds( tracerNode.getGlobalBounds() );
+      var tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
       var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
         tracer.isActiveProperty.set( false );
