@@ -18,7 +18,7 @@ define( function( require ) {
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
   var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
+  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
@@ -160,7 +160,7 @@ define( function( require ) {
     );
 
     // Create a measuring tape (set to invisible initially)
-    var measuringTapeNode = new MeasuringTape(
+    var measuringTapeNode = new MeasuringTapeNode(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
         dragBounds: transformProperty.get().viewToModelBounds( this.visibleBoundsProperty.get() ),

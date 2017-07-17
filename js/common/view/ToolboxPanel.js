@@ -12,7 +12,7 @@ define( function( require ) {
   // modules
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var MeasuringTape = require( 'SCENERY_PHET/MeasuringTape' );
+  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -55,7 +55,7 @@ define( function( require ) {
     tracerIconNode.scale( 0.4 );
 
     // Create the icon image for the measuring Tape
-    var measuringTapeIconNode = MeasuringTape.createIcon();
+    var measuringTapeIconNode = MeasuringTapeNode.createIcon();
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );
 
