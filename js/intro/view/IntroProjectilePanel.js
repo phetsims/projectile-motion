@@ -21,6 +21,7 @@ define( function( require ) {
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
   var Line = require( 'SCENERY/nodes/Line' );
@@ -36,6 +37,7 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
@@ -148,7 +150,13 @@ define( function( require ) {
     );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: parameterLabelOptions.maxWidth } );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
+      maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin
+    } );
+    var airResistanceCheckBoxAndIcon = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
+    } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
@@ -167,7 +175,7 @@ define( function( require ) {
         massBox,
         diameterBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckBox,
+        airResistanceCheckBoxAndIcon,
         dragCoefficientBox
       ]
     } );

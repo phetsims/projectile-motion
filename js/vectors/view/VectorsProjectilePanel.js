@@ -45,6 +45,7 @@ define( function( require ) {
   };
 
   var DRAG_OBJECT_DISPlAY_DIAMETER = 24;
+  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
@@ -163,7 +164,13 @@ define( function( require ) {
     var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
+      maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin
+    } );
+    var airResistanceCheckBoxAndIcon = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
+    } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
@@ -184,7 +191,7 @@ define( function( require ) {
         diameterBox,
         massBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckBox,
+        airResistanceCheckBoxAndIcon,
         dragCoefficientBox
       ]
     } );

@@ -15,6 +15,15 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Shape = require( 'KITE/Shape' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Node = require( 'SCENERY/nodes/Node' );
+
+  var AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
+    lineWidth: 3,
+    stroke: 'rgb( 252, 40, 252 )'
+  } );
 
   var ProjectileMotionConstants = {
 
@@ -49,6 +58,11 @@ define( function( require ) {
     ACCELERATION_ARROW_FILL: 'rgb( 255, 255, 50 )',
     PATH_WIDTH: 2,
 
+    // data point collection along the trajectory
+    TIME_PER_DATA_POINT: 25, // milliseconds
+    TIME_PER_SHOWN_DOT: 50, // milliseconds
+    DOT_RADIUS: 1.75, // in global view coordinates
+
     // icons
     VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, { 
       fill: 'rgb( 50, 255, 50 )',
@@ -71,12 +85,24 @@ define( function( require ) {
       headWidth: 10,
       headHeight: 8
     } ),
-    AIR_RESISTANCE_ICON: null, 
-
-    // data point collection along the trajectory
-    TIME_PER_DATA_POINT: 25, // milliseconds
-    TIME_PER_SHOWN_DOT: 50, // milliseconds
-    DOT_RADIUS: 1.75, // in global view coordinates
+    AIR_RESISTANCE_ICON: new Node( { children: [
+      AIR_RESISTANCE_ICON_PATH,
+      new Circle( 2.2, {
+        x: AIR_RESISTANCE_ICON_PATH.right - 0.8,
+        y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
+        fill: 'black' 
+      } ),
+      new Circle( 2.2, {
+        x: AIR_RESISTANCE_ICON_PATH.left + 0.8,
+        y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
+        fill: 'black' 
+      } ),
+      new Circle( 2.2, {
+        x: AIR_RESISTANCE_ICON_PATH.centerX,
+        y: AIR_RESISTANCE_ICON_PATH.top + 1.5,
+        fill: 'black' 
+      } )
+    ] } ), 
 
     // teardrop to almost pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),

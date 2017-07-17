@@ -60,6 +60,7 @@ define( function( require ) {
     thumbTouchAreaYDilation: 4,
     arrowButtonScale: 0.65
   };
+  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
@@ -369,7 +370,13 @@ define( function( require ) {
     } );
 
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
+      maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin
+    } );
+    var airResistanceCheckBoxAndIcon = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
+    } );
 
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
@@ -384,7 +391,7 @@ define( function( require ) {
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         gravityBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckBox,
+        airResistanceCheckBoxAndIcon,
         altitudeBox,
         dragCoefficientBox
       ]
