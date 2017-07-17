@@ -133,6 +133,8 @@ define( function( require ) {
      */
     commitEdit: function( valueRange, valueRound ) {
 
+      //TODO: may not need round anymore
+
       // get the value from the keypad
       var value = parseFloat( this.keypad.valueStringProperty.value );
 
@@ -144,17 +146,17 @@ define( function( require ) {
 
       // if the keypad contains a valid value ...
       if ( valueRange.contains( value ) ) {
-        this.valueProperty.set( Util.roundSymmetric( value / valueRound ) * valueRound );
+        this.valueProperty.set( Util.toFixedNumber( value, 2 ) );
         this.endEdit();
       }
       // value is closer to max than min
       else if ( valueRange.max + valueRange.min < 2 * value ) {
         this.valueProperty.set( valueRange.max );
-        this.endEdit(); // not entering a value in the keypad is effectively a cancel
+        this.endEdit();
       }
       else {
         this.valueProperty.set( valueRange.min );
-        this.endEdit(); // not entering a value in the keypad is effectively a cancel
+        this.endEdit();
       }
     },
 
