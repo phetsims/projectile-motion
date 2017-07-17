@@ -14,6 +14,7 @@ define( function( require ) {
   var Range = require( 'DOT/Range' );
   var Vector2 = require( 'DOT/Vector2' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   var ProjectileMotionConstants = {
 
@@ -40,6 +41,37 @@ define( function( require ) {
 
     PROJECTILE_MASS_RANGE: new Range( 1, 10 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 1 ), // in original, smallest is 0.043
+
+    // projectile and trajectory
+    AIR_RESISTANCE_ON_PATH_COLOR: 'rgb( 252, 40, 252 )',
+    AIR_RESISTANCE_OFF_PATH_COLOR: 'blue',
+    VELOCITY_ARROW_FILL: 'rgb( 50, 255, 50 )',
+    ACCELERATION_ARROW_FILL: 'rgb( 255, 255, 50 )',
+    PATH_WIDTH: 2,
+
+    // icons
+    VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, { 
+      fill: 'rgb( 50, 255, 50 )',
+      lineWidth: 0.5,
+      tailWidth: 4,
+      headWidth: 10,
+      headHeight: 8
+    } ),
+    ACCELERATION_VECTOR_ICON:new ArrowNode( 0, 0, 20, 0, { 
+      fill: 'rgb( 255, 255, 50 )',
+      lineWidth: 0.5,
+      tailWidth: 4,
+      headWidth: 10,
+      headHeight: 8
+    } ),
+    FORCE_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, { 
+      fill: 'black',
+      stroke: null,
+      tailWidth: 4,
+      headWidth: 10,
+      headHeight: 8
+    } ),
+    AIR_RESISTANCE_ICON: null, 
 
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds

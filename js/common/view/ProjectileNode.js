@@ -27,8 +27,8 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
-  var VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
-  var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
+  var VELOCITY_ARROW_FILL = ProjectileMotionConstants.VELOCITY_ARROW_FILL;
+  var ACCELERATION_ARROW_FILL = ProjectileMotionConstants.ACCELERATION_ARROW_FILL;
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_HEAD_WIDTH = 12;
   var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
@@ -40,7 +40,7 @@ define( function( require ) {
       headWidth: 6
   };
   var COMPONENT_VELOCITY_ARROW_OPTIONS = {
-      fill: 'rgb( 50, 255, 50 )',
+      fill: VELOCITY_ARROW_FILL,
       stroke: 'black',
       lineWidth: 0.2,
       tailWidth: 2,

@@ -24,9 +24,9 @@ define( function( require ) {
   // constants
   var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
   var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS; // view units
-  var PATH_WIDTH = 2;
-  var CURRENT_PATH_COLOR = 'blue';
-  var AIR_RESISTANCE_ON_COLOR = 'rgb( 252, 40, 252 )';
+  var PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
+  var CURRENT_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
+  var AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
   var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
   var PATH_MIN_OPACITY = 0;
   var PATH_MAX_OPACITY = 1;

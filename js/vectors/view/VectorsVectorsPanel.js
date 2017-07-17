@@ -17,6 +17,7 @@ define( function( require ) {
   var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
 
   // strings
   var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
@@ -27,6 +28,9 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  var VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
+  var ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
+  var FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
@@ -41,7 +45,7 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
-    var checkBoxOptions = { maxWidth: options.minWidth - 2 * options.xMargin };
+    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width };
 
     var totalLabel = new Text( totalString, LABEL_OPTIONS );
     var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
@@ -58,12 +62,30 @@ define( function( require ) {
 
     var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
     var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkBoxOptions );
+    var velocityCheckBoxAndIcon = new HBox( {
+      spacing: options.minWidth - velocityCheckBox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
+      children: [
+        velocityCheckBox,
+        VELOCITY_VECTOR_ICON
+    ] } );
 
     var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty, checkBoxOptions );
-    
+    var accelerationCheckBoxAndIcon = new HBox( {
+      spacing: options.minWidth - accelerationCheckBox.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
+      children: [
+        accelerationCheckBox,
+        ACCELERATION_VECTOR_ICON
+    ] } );
+
     var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
+    var forceCheckBoxAndIcon = new HBox( {
+      spacing: options.minWidth - forceCheckBox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
+      children: [
+        forceCheckBox,
+        FORCE_VECTOR_ICON
+    ] } );
 
     // The contents of the control panel
     var content = new VBox( {
@@ -71,9 +93,9 @@ define( function( require ) {
       spacing: options.controlsVerticalSpace,
       children: [
         totalOrComponentsGroup,
-        velocityCheckBox,
-        accelerationCheckBox,
-        forceCheckBox
+        velocityCheckBoxAndIcon,
+        accelerationCheckBoxAndIcon,
+        forceCheckBoxAndIcon
       ]
     } );
 
