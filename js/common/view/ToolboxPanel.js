@@ -16,6 +16,7 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
    * Toolbox constructor
@@ -29,16 +30,6 @@ define( function( require ) {
    */
   function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, transformProperty, options ) {
     var self = this;
-
-    assert && assert ( this.parent === measuringTapeNode.parent,
-      'The parent of ToolboxPanel is ' + this.parent + 'which is different from the parent of measuringTapeNode, ' +
-      measuringTapeNode.parent
-    );
-
-    assert && assert ( this.parent === tracerNode.parent,
-      'The parent of ToolboxPanel is ' + this.parent + 'which is different from the parent of measuringTapeNode, ' +
-      measuringTapeNode.parent
-    );
 
     // The first object is an empty placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -71,8 +62,9 @@ define( function( require ) {
     // listens to the isUserControlled property of the tracer tool
     // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
+      assert && assert( tracerNode.parent instanceof ScreenView );
+      assert && assert( tracerNode.parent=== self.parent );
 
-      // since this is a panel, the parent is the screen view, and the screen view is the parent of tracerNode
       var tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
       var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
@@ -123,6 +115,9 @@ define( function( require ) {
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
+      assert && assert( measuringTapeNode.parent instanceof ScreenView );
+      assert && assert( measuringTapeNode.parent=== self.parent );
+
       var tapeBaseBounds = measuringTapeNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
       var toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
