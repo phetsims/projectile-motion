@@ -16,7 +16,6 @@ define( function( require ) {
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ScreenView = require( 'JOIST/ScreenView' );
 
   /**
    * Toolbox constructor
@@ -30,6 +29,16 @@ define( function( require ) {
    */
   function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, transformProperty, options ) {
     var self = this;
+
+    assert && assert ( this.parent === measuringTapeNode.parent,
+      'The parent of ToolboxPanel is ' + this.parent + 'which is different from the parent of measuringTapeNode, ' +
+      measuringTapeNode.parent
+    );
+
+    assert && assert ( this.parent === tracerNode.parent,
+      'The parent of ToolboxPanel is ' + this.parent + 'which is different from the parent of measuringTapeNode, ' +
+      measuringTapeNode.parent
+    );
 
     // The first object is an empty placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -59,27 +68,13 @@ define( function( require ) {
     // add the panelContent
     Panel.call( this, panelContent, options );
 
-    var parentScreenView = null; // needed for coordinate transforms
-
     // listens to the isUserControlled property of the tracer tool
     // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
-      // find the parent screen if not already found by moving up the scene graph
-      // TODO: is there an easier way to do the following? Also, this shows up multiple times with this file
-      if ( !parentScreenView ) {
-        var testNode = self;
-        while ( testNode !== null ) {
-          if ( testNode instanceof ScreenView ) {
-            parentScreenView = testNode;
-            break;
-          }
-          testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
-        }
-        assert && assert( parentScreenView, 'unable to find parent screen view' );
-      }
-      // debugger;
-      var tracerNodeBounds = parentScreenView.globalToLocalBounds( tracerNode.getGlobalBounds() );
-      var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
+
+      // since this is a panel, the parent is the screen view, and the screen view is the parent of tracerNode
+      var tracerNodeBounds = tracerNode.globalToParentBounds( tracerNode.getGlobalBounds() );
+      var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
         tracer.isActiveProperty.set( false );
       }
@@ -95,31 +90,17 @@ define( function( require ) {
         // don't try to start drags with a right mouse button or an attached pointer
         if ( !event.canStartPress() ) { return; }
 
-        // find the parent screen if not already found by moving up the scene graph
-        if ( !parentScreenView ) {
-          var testNode = self;
-          while ( testNode !== null ) {
-            if ( testNode instanceof ScreenView ) {
-              parentScreenView = testNode;
-              break;
-            }
-            testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
-          }
-          assert && assert( parentScreenView, 'unable to find parent screen view' );
-        }
-
         // Don't try to start drags with a right mouse button or an attached pointer.
         if ( !event.canStartPress() ) { return; }
 
         tracer.isActiveProperty.set( true );
 
-        var tracerOriginPosition = parentScreenView.globalToLocalPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
+        var tracerOriginPosition = tracerNode.globalToParentPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
 
         // (-90, 20) is empirically determined to shift tracer to be centered at mouse point
-        var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -80, 20 );
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -80, 20 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
 
-        // TODO: where to have tracer jump to
         tracerNode.movableDragHandler.startDrag( event );
       },
 
@@ -142,21 +123,8 @@ define( function( require ) {
     // listens to the isUserControlled property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
-      // find the parent screen if not already found by moving up the scene graph
-      if ( !parentScreenView ) {
-        var testNode = self;
-        while ( testNode !== null ) {
-          if ( testNode instanceof ScreenView ) {
-            parentScreenView = testNode;
-            break;
-          }
-          testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
-        }
-        assert && assert( parentScreenView, 'unable to find parent screen view' );
-      }
-      // debugger;
-      var tapeBaseBounds = parentScreenView.globalToLocalBounds( measuringTapeNode.getGlobalBounds() );
-      var toolboxBounds = parentScreenView.globalToLocalBounds( self.getGlobalBounds() );
+      var tapeBaseBounds = tracerNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
+      var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
       }
@@ -175,29 +143,13 @@ define( function( require ) {
         // don't try to start drags with a right mouse button or an attached pointer
         if ( !event.canStartPress() ) { return; }
 
-        // find the parent screen if not already found by moving up the scene graph
-        if ( !parentScreenView ) {
-          var testNode = self;
-          while ( testNode !== null ) {
-            if ( testNode instanceof ScreenView ) {
-              parentScreenView = testNode;
-              break;
-            }
-            testNode = testNode.parents[ 0 ]; // move up the scene graph by one level
-          }
-          assert && assert( parentScreenView, 'unable to find parent screen view' );
-        }
-
         // Don't try to start drags with a right mouse button or an attached pointer.
         if ( !event.canStartPress() ) { return; }
 
         measuringTape.isActiveProperty.set( true );
-        // debugger;
 
-        assert && assert( parentScreenView, 'parent screen view has not been set' );
-
-        var tapeBasePosition = parentScreenView.globalToLocalPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
-        var initialViewPosition = parentScreenView.globalToLocalPoint( event.pointer.point ).minus( tapeBasePosition );
+        var tapeBasePosition = tracerNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
         measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
