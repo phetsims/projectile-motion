@@ -267,7 +267,7 @@ define( function( require ) {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', kgString ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
             majorTicks: [ { value: objectType.massRange.min, label: new Text( objectType.massRange.min, LABEL_OPTIONS ) }, { value: objectType.massRange.max, label: new Text( objectType.massRange.max, LABEL_OPTIONS ) } ],
-            decimalPlaces: Math.ceil( -Math.log10( objectType.massRound ) ),
+            decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) ),
             delta: objectType.massRound
           }, numberControlOptions )
         );
@@ -277,7 +277,7 @@ define( function( require ) {
             valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
             majorTicks: [ { value: objectType.diameterRange.min, label: new Text( objectType.diameterRange.min, LABEL_OPTIONS ) }, { value: objectType.diameterRange.max, label: new Text( objectType.diameterRange.max, LABEL_OPTIONS ) } ],
-            decimalPlaces: Math.ceil( -Math.log10( objectType.diameterRound ) ),
+            decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) ),
             delta: objectType.diameterRound
           }, numberControlOptions )
         );
