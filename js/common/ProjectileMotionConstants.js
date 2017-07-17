@@ -36,8 +36,8 @@ define( function( require ) {
     VIEW_ORIGIN: new Vector2( 100, 520 ),
 
     // cannonball defaults
-    CANNONBALL_MASS: 5.44,
-    CANNONBALL_DIAMETER: 0.11,
+    CANNONBALL_MASS: 17.6,
+    CANNONBALL_DIAMETER: 0.18,
     CANNONBALL_DRAG_COEFFICIENT: 0.47,
 
     // productive constraints

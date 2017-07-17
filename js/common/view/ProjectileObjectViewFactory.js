@@ -109,7 +109,7 @@ define( function( require ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch ( type ) {
         case 'cannonball':
-          return new Circle( transformedBallSize * 0.8, { fill: 'black' } );
+          return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
           return new Image( pumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
@@ -147,7 +147,7 @@ define( function( require ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch ( type ) {
         case 'cannonball':
-          return new Circle( transformedBallSize * 0.8, { fill: 'black' } );
+          return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
           return new Image( landedPumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':

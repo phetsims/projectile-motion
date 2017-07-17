@@ -76,7 +76,7 @@ define( function( require ) {
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     'cannonball',
     false, {
-      massRange: new Range( 0.50, 25.00 ),
+      massRange: new Range( 1, 31.00 ),
       massRound: 0.01,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.01,
@@ -148,7 +148,7 @@ define( function( require ) {
     true, {
       massRange: new Range( 10, 200 ),
       massRound: 1,
-      diameterRange: new Range( 0.1, 3 ),
+      diameterRange: new Range( 0.1, 1.5 ),
       diameterRound: 0.1,
     }
   );
@@ -190,7 +190,7 @@ define( function( require ) {
     true, {
       massRange: new Range( 5, 200 ),
       massRound: 1,
-      diameterRange: new Range( 0.1, 3 ),
+      diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.01,
     }
   );
