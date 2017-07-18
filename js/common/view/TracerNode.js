@@ -240,7 +240,9 @@ define( function( require ) {
      * @param {Property} readoutProperty
      */
     createInformationBox: function( maxWidth, labelString, readoutProperty ) {
-      var labelText = new Text( labelString, _.defaults( { maxWidth: 80 }, LABEL_OPTIONS ) );
+
+      // max width empirically determined
+      var labelText = new Text( labelString, _.defaults( { maxWidth: 70 }, LABEL_OPTIONS ) );
 
       // number
       var backgroundWidth = 60;
