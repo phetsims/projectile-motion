@@ -90,7 +90,7 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( property.get(), 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -103,7 +103,7 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ) );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 

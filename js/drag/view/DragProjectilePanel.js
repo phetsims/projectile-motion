@@ -99,7 +99,7 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( property.get(), 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( property.get(), 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -112,7 +112,7 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString ) : Util.toFixedNumber( property.get(), 2 ) );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 
@@ -185,10 +185,16 @@ define( function( require ) {
       valueMaxWidth: textDisplayWidth
     }, NUMBER_CONTROL_OPTIONS );
 
+    // results in '{0} m'
+    var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      value: '{0}', // map to numbered placeholder for NumberControl
+      units: mString
+    } );
+
     var altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
-        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+        valuePattern: valuePattern,
         constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
         decimalPlaces: 0,
         delta: 100,

@@ -71,7 +71,9 @@ define( function( require ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
 
       property.link( function( value ) {
-        var valueReadout = degreeString ? StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( value, 2 ), degreeString ) : StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( value, 2 ), unitsString );
+        var valueReadout = degreeString ?
+          StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( value, 2 ), units: degreeString } ) :
+          StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 

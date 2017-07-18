@@ -143,9 +143,9 @@ define( function( require ) {
     // Listen for when time, range, and height change, and update the readouts.
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        timeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.time, 2 ), sString ) );
-        rangeReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.x, 2 ), mString ) );
-        heightReadoutProperty.set( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( point.position.y, 2 ), mString ) );
+        timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.time, 2 ), units: sString } ) );
+        rangeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.position.x, 2 ), units: mString } ) );
+        heightReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.position.y, 2 ), units: mString } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
         haloNode.centerY = transformProperty.get().modelToViewY( point.position.y );
         haloNode.visible = true;

@@ -148,7 +148,7 @@ define( function( require ) {
       cursor: 'pointer',
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
-    var heightLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( heightProperty.get(), 2 ), mString ), heightLabelOptions );
+    var heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( heightProperty.get(), 2 ), units: mString } ), heightLabelOptions );
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
@@ -186,7 +186,7 @@ define( function( require ) {
     // angle readout
     var angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     angleIndicator.addChild( angleLabelBackground );
-    var angleLabel = new Text( StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString ), LABEL_OPTIONS );
+    var angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( angleProperty.get(), 2 ), units: degreesSymbolString } ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
     angleIndicator.addChild( angleLabel );
@@ -214,7 +214,7 @@ define( function( require ) {
         ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
-      angleLabel.text = StringUtils.format( pattern0Value1UnitsString, Util.toFixedNumber( angleProperty.get(), 2 ), degreesSymbolString );
+      angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( angleProperty.get(), 2 ), units: degreesSymbolString } );
       angleLabelBackground.setRectWidth( angleLabel.width + 2 );
       angleLabelBackground.setRectHeight( angleLabel.height );
       angleLabelBackground.center = angleLabel.center;
@@ -252,7 +252,7 @@ define( function( require ) {
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, transformProperty.get().modelToViewY( height ) );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
-      heightLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixedNumber( height, 2 ), mString );
+      heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( height, 2 ), units: mString } );
       heightLabel.centerX = heightLeaderLine.tipX;
       heightLabel.y = heightLeaderLine.tipY - 5;
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );

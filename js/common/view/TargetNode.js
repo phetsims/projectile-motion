@@ -102,7 +102,7 @@ define( function( require ) {
     target.addInputListener( horizontalDragHandler );
     
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distanceLabel = new Text( StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixed( targetXProperty.get(), 1 ), mString ), LABEL_OPTIONS );
+    var distanceLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixed( targetXProperty.get(), 1 ), units: mString } ), LABEL_OPTIONS );
 
     var backgroundNode = new Rectangle(
         0, // x
@@ -152,7 +152,7 @@ define( function( require ) {
 
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
-      distanceLabel.text = StringUtils.format( pattern0Value1UnitsWithSpaceString, Util.toFixed( targetXProperty.get(), 1 ), mString );
+      distanceLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixed( targetXProperty.get(), 1 ), units: mString } );
       backgroundNode.centerX = target.centerX;
       backgroundNode.top = target.bottom + 2;
       distanceLabel.center = backgroundNode.center;

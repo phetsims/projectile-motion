@@ -133,13 +133,19 @@ define( function( require ) {
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, transformProperty, this, options );
+    
+    // results in '{0} m/s'
+    var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      value: '{0}', // map to numbered placeholder for NumberControl
+      units: metersPerSecondString
+    } );
 
     // initial speed readout, slider, and tweakers
     // TODO: pass in range because it is different for each screen
     var initialSpeedControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-        valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondString ),
+        valuePattern: valuePattern,
         valueAlign: 'center',
         titleFont: TEXT_FONT,
         valueFont: TEXT_FONT,

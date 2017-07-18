@@ -159,7 +159,7 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, property.get(), unitsString ) : property.get(), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: property.get(), units: unitsString } ) : property.get(), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -172,7 +172,7 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.format( pattern0Value1UnitsWithSpaceString, value, unitsString ) : value );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: value, units: unitsString } ) : value );
         valueText.center = backgroundNode.center;
       } );
 
@@ -265,7 +265,7 @@ define( function( require ) {
         massSpecificProjectileTypeBox = new NumberControl(
           massString, projectileMassProperty,
           objectType.massRange, _.extend( {
-            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', kgString ),
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: kgString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
             majorTicks: [ { value: objectType.massRange.min, label: new Text( objectType.massRange.min, LABEL_OPTIONS ) }, { value: objectType.massRange.max, label: new Text( objectType.massRange.max, LABEL_OPTIONS ) } ],
             decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) ),
@@ -275,7 +275,7 @@ define( function( require ) {
         diameterSpecificProjectileTypeBox = new NumberControl(
           diameterString, projectileDiameterProperty,
           objectType.diameterRange, _.extend( {
-            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
             majorTicks: [ { value: objectType.diameterRange.min, label: new Text( objectType.diameterRange.min, LABEL_OPTIONS ) }, { value: objectType.diameterRange.max, label: new Text( objectType.diameterRange.max, LABEL_OPTIONS ) } ],
             decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) ),
@@ -285,7 +285,7 @@ define( function( require ) {
         gravitySpecificProjectileTypeBox = new NumberControl(
           gravityString, gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
-            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', metersPerSecondSquaredString ),
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: metersPerSecondSquaredString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
             decimalPlaces: 2,
             delta: 0.01,
@@ -294,7 +294,7 @@ define( function( require ) {
         altitudeSpecificProjectileTypeBox = new NumberControl(
           altitudeString, altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
-            valuePattern: StringUtils.format( pattern0Value1UnitsWithSpaceString, '{0}', mString ),
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
             decimalPlaces: 0,
             delta: 100,

@@ -15,10 +15,10 @@
     "value": "Vectors"
   },
   "pattern0Value1Units": {
-     "value": "{0}{1}"
+     "value": "{{value}}{{units}}"
   },
   "pattern0Value1UnitsWithSpace": {
-    "value": "{0} {1}"
+    "value": "{{value}} {{units}}"
   },
   "custom": {
     "value": "Custom"
