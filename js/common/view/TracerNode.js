@@ -236,7 +236,7 @@ define( function( require ) {
      * @private
      * 
      * @param {number} maxWidth - max width for the label and value display
-     * @param {string} label
+     * @param {string} labelString
      * @param {Property} readoutProperty
      */
     createInformationBox: function( maxWidth, labelString, readoutProperty ) {
