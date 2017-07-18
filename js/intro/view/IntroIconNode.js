@@ -54,7 +54,7 @@ define( function( require ) {
       trajectoryShape = new Shape();
       trajectoryShape.moveTo( width * 0.08, height - PATH_WIDTH )
         .quadraticCurveTo( width * 0.2, height * 0.6, width / 2, height / 2 );
-      trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 4 , stroke: PATH_COLOR } );
+      trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 4, stroke: PATH_COLOR } );
       this.addChild( trajectoryPath );
       phetGirl = new Image( humanImage, { centerX: width * 0.55, centerY: height * 0.4 } );
       phetGirl.scale( width * 0.6 / phetGirl.width );

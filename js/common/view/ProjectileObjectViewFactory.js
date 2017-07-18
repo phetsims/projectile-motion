@@ -7,7 +7,7 @@
  */
 define( function( require ) {
   'use strict';
-  
+
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Image = require( 'SCENERY/nodes/Image' );
@@ -72,7 +72,7 @@ define( function( require ) {
         var currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
         var scaleFactor = radius / currentCrossSectionalRadius;
 
-        shape = shape.transformed ( Matrix3.scaling( scaleFactor, scaleFactor ) );
+        shape = shape.transformed( Matrix3.scaling( scaleFactor, scaleFactor ) );
 
         var objectNode = new Path( shape, { fill: 'black' } );
 
@@ -107,7 +107,7 @@ define( function( require ) {
      */
     createObjectView: function( type, diameter, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch ( type ) {
+      switch( type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
@@ -144,7 +144,7 @@ define( function( require ) {
      */
     createLandedObjectView: function( type, diameter, modelViewTransform ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch ( type ) {
+      switch( type ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':

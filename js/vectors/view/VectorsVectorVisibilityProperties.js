@@ -20,7 +20,7 @@ define( function( require ) {
    */
   function VectorsVectorVisibilityProperties() {
     VectorVisibilityProperties.call( this );
-  
+
     // vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new BooleanProperty( false );
     this.accelerationVectorsOnProperty = new BooleanProperty( false );
@@ -57,13 +57,13 @@ define( function( require ) {
     /**
      * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether total or components
      * @private
-     * 
+     *
      * @param {boolean} velocityVectorsOn
      * @param {boolean} accelerationVectorsOn
      * @param {boolean} forceVectorsOn
      * @param {string} totalOrComponents
      */
-    updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, totalOrComponents) {
+    updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, totalOrComponents ) {
       this.totalVelocityVectorOnProperty.set( velocityVectorsOn && totalOrComponents === 'total' );
       this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && totalOrComponents === 'components' );
       this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && totalOrComponents === 'total' );

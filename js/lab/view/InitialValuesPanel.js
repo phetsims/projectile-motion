@@ -53,7 +53,7 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-    
+
     var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
@@ -72,12 +72,21 @@ define( function( require ) {
 
       property.link( function( value ) {
         var valueReadout = degreeString ?
-          StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( value, 2 ), units: degreeString } ) :
-          StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } );
+                           StringUtils.fillIn( pattern0Value1UnitsString, {
+                             value: Util.toFixedNumber( value, 2 ),
+                             units: degreeString
+                           } ) :
+                           StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+                             value: Util.toFixedNumber( value, 2 ),
+                             units: unitsString
+                           } );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
-      return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( options.minWidth - 2 * options.xMargin ) ] } );
+      return new VBox( {
+        align: 'left',
+        children: [ parameterLabel, new HStrut( options.minWidth - 2 * options.xMargin ) ]
+      } );
     }
 
     var heightBox = createParameterControlBox(

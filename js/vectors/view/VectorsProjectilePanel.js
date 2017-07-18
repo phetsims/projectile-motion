@@ -56,14 +56,12 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function VectorsProjectilePanel(
-                                selectedObjectTypeProperty,
-                                projectileDiameterProperty,
-                                projectileMassProperty,
-                                airResistanceOnProperty,
-                                projectileDragCoefficientProperty,
-                                options
-  ) {
+  function VectorsProjectilePanel( selectedObjectTypeProperty,
+                                   projectileDiameterProperty,
+                                   projectileMassProperty,
+                                   airResistanceOnProperty,
+                                   projectileDragCoefficientProperty,
+                                   options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -75,7 +73,7 @@ define( function( require ) {
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
     var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
-    /** 
+    /**
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
@@ -90,7 +88,10 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( property.get(), 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        value: Util.toFixedNumber( property.get(), 2 ),
+        units: unitsString
+      } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -103,7 +104,10 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ) );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: Util.toFixedNumber( value, 2 ),
+          units: unitsString
+        } ) : Util.toFixedNumber( property.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 
@@ -119,7 +123,7 @@ define( function( require ) {
       } );
       slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
-      
+
       if ( round ) {
         var i;
         for ( i = range.min + round; i < range.max; i += round ) {
@@ -130,11 +134,13 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-      return new VBox( { spacing: options.sliderLabelSpacing, children: [
+      return new VBox( {
+        spacing: options.sliderLabelSpacing, children: [
           new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
           slider
-      ] } );
-      
+        ]
+      } );
+
     }
 
     var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
@@ -143,7 +149,8 @@ define( function( require ) {
       children: [
         new Text( cannonballString, _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - objectView.width }, LABEL_OPTIONS ) ),
         objectView
-    ] } );
+      ]
+    } );
 
     var diameterBox = createParameterControlBox(
       diameterString,

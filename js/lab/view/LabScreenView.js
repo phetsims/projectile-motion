@@ -30,7 +30,7 @@ define( function( require ) {
 
     options = options || {};
     options = _.extend( { preciseCannonDelta: true }, options );
-    
+
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
@@ -39,28 +39,28 @@ define( function( require ) {
     var keypadLayer = new KeypadLayer( { decimalPointKey: true } );
 
     ProjectileMotionScreenView.call(
-                                    this,
-                                    model,
-                                    new InitialValuesPanel(
-                                                            model.cannonHeightProperty,
-                                                            model.cannonAngleProperty,
-                                                            model.launchVelocityProperty
-                                    ),
-                                    new LabProjectilePanel(
-                                                            model.objectTypes,
-                                                            model.selectedProjectileObjectTypeProperty,
-                                                            comboBoxListParent,
-                                                            keypadLayer,
-                                                            this.setKeypadLayer.bind( this ),
-                                                            model.projectileMassProperty,
-                                                            model.projectileDiameterProperty,
-                                                            model.projectileDragCoefficientProperty,
-                                                            model.altitudeProperty,
-                                                            model.airResistanceOnProperty,
-                                                            model.gravityProperty
-                                    ),
-                                    visibilityProperties,
-                                    options
+      this,
+      model,
+      new InitialValuesPanel(
+        model.cannonHeightProperty,
+        model.cannonAngleProperty,
+        model.launchVelocityProperty
+      ),
+      new LabProjectilePanel(
+        model.objectTypes,
+        model.selectedProjectileObjectTypeProperty,
+        comboBoxListParent,
+        keypadLayer,
+        this.setKeypadLayer.bind( this ),
+        model.projectileMassProperty,
+        model.projectileDiameterProperty,
+        model.projectileDragCoefficientProperty,
+        model.altitudeProperty,
+        model.airResistanceOnProperty,
+        model.gravityProperty
+      ),
+      visibilityProperties,
+      options
     );
 
     this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
@@ -75,12 +75,12 @@ define( function( require ) {
   projectileMotion.register( 'LabScreenView', LabScreenView );
 
   return inherit( ProjectileMotionScreenView, LabScreenView, {
-    
+
     /**
      * Layout according to screenview and layout the combo box
      * @public
      * @override
-     * 
+     *
      * @param {number} width
      * @param {number} height
      */
@@ -93,10 +93,10 @@ define( function( require ) {
     /**
      * Lays out keypad
      * @private
-     * 
+     *
      * @param {KeypadPanel} keypad
      */
-    setKeypadLayer: function (keypad ) {
+    setKeypadLayer: function( keypad ) {
       keypad.right = this.topRightPanel.left - X_MARGIN;
       keypad.top = this.toolboxPanel.bottom + Y_MARGIN;
     }

@@ -24,7 +24,7 @@ define( function( require ) {
   function IntroScreenView( model, options ) {
 
     options = options || {};
-    
+
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
@@ -32,20 +32,20 @@ define( function( require ) {
     var comboBoxListParent = new Node();
 
     ProjectileMotionScreenView.call(
-                                    this,
-                                    model,
-                                    new IntroProjectilePanel(
-                                                              model.objectTypes,
-                                                              model.selectedProjectileObjectTypeProperty,
-                                                              comboBoxListParent,
-                                                              model.projectileMassProperty,
-                                                              model.projectileDiameterProperty,
-                                                              model.projectileDragCoefficientProperty,
-                                                              model.airResistanceOnProperty
-                                    ),
-                                    new IntroVectorsPanel( visibilityProperties ),
-                                    visibilityProperties,
-                                    options
+      this,
+      model,
+      new IntroProjectilePanel(
+        model.objectTypes,
+        model.selectedProjectileObjectTypeProperty,
+        comboBoxListParent,
+        model.projectileMassProperty,
+        model.projectileDiameterProperty,
+        model.projectileDragCoefficientProperty,
+        model.airResistanceOnProperty
+      ),
+      new IntroVectorsPanel( visibilityProperties ),
+      visibilityProperties,
+      options
     );
 
     this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
@@ -54,12 +54,12 @@ define( function( require ) {
   projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
   return inherit( ProjectileMotionScreenView, IntroScreenView, {
-    
+
     /**
      * Layout according to screenview and layout the combo box
      * @public
      * @override
-     * 
+     *
      * @param {number} width
      * @param {number} height
      */

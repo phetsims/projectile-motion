@@ -77,20 +77,18 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function LabProjectilePanel(
-                              objectTypes,
-                              selectedProjectileObjectTypeProperty,
-                              comboBoxListParent,
-                              keypadLayer,
-                              setKeypadLocation,
-                              projectileMassProperty,
-                              projectileDiameterProperty,
-                              projectileDragCoefficientProperty,
-                              altitudeProperty,
-                              airResistanceOnProperty,
-                              gravityProperty,
-                              options
-  ) {
+  function LabProjectilePanel( objectTypes,
+                               selectedProjectileObjectTypeProperty,
+                               comboBoxListParent,
+                               keypadLayer,
+                               setKeypadLocation,
+                               projectileMassProperty,
+                               projectileDiameterProperty,
+                               projectileDragCoefficientProperty,
+                               altitudeProperty,
+                               airResistanceOnProperty,
+                               gravityProperty,
+                               options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -159,7 +157,10 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: property.get(), units: unitsString } ) : property.get(), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        value: property.get(),
+        units: unitsString
+      } ) : property.get(), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -167,12 +168,15 @@ define( function( require ) {
         0, // y
         textDisplayWidth,
         options.textDisplayHeight,
-        _.defaults( { cornerRadius: 4}, TEXT_BACKGROUND_OPTIONS )
+        _.defaults( { cornerRadius: 4 }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: value, units: unitsString } ) : value );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: value,
+          units: unitsString
+        } ) : value );
         valueText.center = backgroundNode.center;
       } );
 
@@ -185,7 +189,7 @@ define( function( require ) {
         left: backgroundNode.right + options.xMargin,
         content: pencilIcon,
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
-        listener: function() { 
+        listener: function() {
           keypadLayer.beginEdit( property, range, round, {
             onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
             onEndEdit: function() { backgroundNode.fill = 'white'; },
@@ -199,9 +203,9 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
       parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
-      
+
       var xSpacing = options.minWidth - 3 * options.xMargin - parameterLabel.width - valueNode.width;
-      
+
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
 
@@ -223,7 +227,7 @@ define( function( require ) {
       } );
     };
 
-    var numberControlOptions = _.extend( { 
+    var numberControlOptions = _.extend( {
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
       layoutFunction: layoutFunction,
       valueMaxWidth: textDisplayWidth
@@ -267,7 +271,10 @@ define( function( require ) {
           objectType.massRange, _.extend( {
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: kgString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
-            majorTicks: [ { value: objectType.massRange.min, label: new Text( objectType.massRange.min, LABEL_OPTIONS ) }, { value: objectType.massRange.max, label: new Text( objectType.massRange.max, LABEL_OPTIONS ) } ],
+            majorTicks: [ {
+              value: objectType.massRange.min,
+              label: new Text( objectType.massRange.min, LABEL_OPTIONS )
+            }, { value: objectType.massRange.max, label: new Text( objectType.massRange.max, LABEL_OPTIONS ) } ],
             decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) ),
             delta: objectType.massRound
           }, numberControlOptions )
@@ -277,7 +284,13 @@ define( function( require ) {
           objectType.diameterRange, _.extend( {
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
-            majorTicks: [ { value: objectType.diameterRange.min, label: new Text( objectType.diameterRange.min, LABEL_OPTIONS ) }, { value: objectType.diameterRange.max, label: new Text( objectType.diameterRange.max, LABEL_OPTIONS ) } ],
+            majorTicks: [ {
+              value: objectType.diameterRange.min,
+              label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
+            }, {
+              value: objectType.diameterRange.max,
+              label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
+            } ],
             decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) ),
             delta: objectType.diameterRound
           }, numberControlOptions )
@@ -285,7 +298,10 @@ define( function( require ) {
         gravitySpecificProjectileTypeBox = new NumberControl(
           gravityString, gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
-            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: metersPerSecondSquaredString } ),
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+              value: '{0}',
+              units: metersPerSecondSquaredString
+            } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
             decimalPlaces: 2,
             delta: 0.01,
@@ -330,7 +346,7 @@ define( function( require ) {
             objectType.diameterRange,
             objectType.diameterRound
           );
-          gravityCustomBox =  createParameterControlBox(
+          gravityCustomBox = createParameterControlBox(
             gravityString,
             metersPerSecondSquaredString,
             gravityProperty,
@@ -407,7 +423,7 @@ define( function( require ) {
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
   return inherit( Panel, LabProjectilePanel, {
-    
+
     /**
      * Layout the combobox
      * @public

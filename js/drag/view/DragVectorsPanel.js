@@ -2,7 +2,7 @@
 
 /**
  * Control panel for choosing which vectors are visible.
- * 
+ *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -42,13 +42,13 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
-    
+
     var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
     var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width };
 
     var totalLabel = new Text( totalString, titleOptions );
     var componentsLabel = new Text( componentsString, titleOptions );
-    
+
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
       { node: componentsLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'components' }
@@ -66,7 +66,8 @@ define( function( require ) {
       children: [
         velocityCheckBox,
         VELOCITY_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     var forceLabel = new Text( forceVectorsString, titleOptions );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
@@ -75,7 +76,8 @@ define( function( require ) {
       children: [
         forceCheckBox,
         FORCE_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     // The contents of the control panel
     var content = new VBox( {

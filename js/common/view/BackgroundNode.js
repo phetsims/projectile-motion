@@ -19,7 +19,7 @@ define( function( require ) {
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
 
   // image
-  var flatironsImage = require( 'image!PROJECTILE_MOTION/flatirons.png');
+  var flatironsImage = require( 'image!PROJECTILE_MOTION/flatirons.png' );
 
   // constants
   var CEMENT_WIDTH = 20;
@@ -34,7 +34,7 @@ define( function( require ) {
    * @constructor
    */
   function BackgroundNode( layoutBounds, options ) {
-    options = _.extend( { 
+    options = _.extend( {
       pickable: false
     }, options );
 
@@ -64,7 +64,7 @@ define( function( require ) {
     /**
      * Layout nodes part of the background
      * @public
-     * 
+     *
      * @param {number} offsetX
      * @param {number} offsetY
      * @param {number} width
@@ -91,11 +91,11 @@ define( function( require ) {
     /**
      * Makes flatirons image visible or invisible
      * @public
-     * 
+     *
      * @param {boolean} visibility
      */
     showOrHideFlatirons: function( visibility ) {
-      this.flatirons.visible = visibility ;
+      this.flatirons.visible = visibility;
     },
 
     /**

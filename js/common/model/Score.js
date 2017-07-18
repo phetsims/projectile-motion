@@ -3,7 +3,7 @@
 /**
  * The model for scoring algorithm.
  * Landed projectiles give their x location to this model.
- * 
+ *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -46,7 +46,7 @@ define( function( require ) {
     /**
      * Scores if projectile has scored based on {number} x position of the landed projectile
      * @public
-     * 
+     *
      * @param {number} projectileX - x coordinate in model coordinates
      */
     scoreIfWithinTarget: function( projectileX ) {

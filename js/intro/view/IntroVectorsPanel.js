@@ -2,7 +2,7 @@
 
 /**
  * Control panel for choosing which vectors are visible.
- * 
+ *
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
@@ -42,7 +42,7 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
-    
+
     var titleOptions = _.defaults(
       { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width },
       TITLE_OPTIONS
@@ -53,22 +53,24 @@ define( function( require ) {
       children: [
         velocityVectorsTitle,
         VELOCITY_VECTOR_ICON
-    ] } );
-   
+      ]
+    } );
+
     var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
     var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty, checkBoxOptions );
-    
+
     var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
     var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty, checkBoxOptions );
-    
+
     var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
     var accelerationTitleBox = new HBox( {
       spacing: options.minWidth - accelerationVectorsTitle.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
         accelerationVectorsTitle,
         ACCELERATION_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     var totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
     var totalAccelerationCheckBox = new CheckBox( totalAccelerationLabel, vectorVisibilityProperties.totalAccelerationVectorOnProperty, checkBoxOptions );

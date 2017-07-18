@@ -32,10 +32,10 @@ define( function( require ) {
   // strings
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var timeString = require( 'string!PROJECTILE_MOTION/time' );
-  var sString = require( 'string!PROJECTILE_MOTION/s');
+  var sString = require( 'string!PROJECTILE_MOTION/s' );
   var rangeString = require( 'string!PROJECTILE_MOTION/range' );
-  var heightString = require( 'string!PROJECTILE_MOTION/height');
-  var mString = require( 'string!PROJECTILE_MOTION/m');
+  var heightString = require( 'string!PROJECTILE_MOTION/height' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
 
   // constants
   var CIRCLE_RADIUS = 15; // view units, will not be transformed
@@ -133,23 +133,29 @@ define( function( require ) {
     } );
 
     var haloNode = new Circle( DOT_RADIUS * 2, {
-      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 ).
-        addColorStop( 0, 'black' ).
-        addColorStop( 0.25, 'black' ).
-        addColorStop( 0.25, HALO_COLOR ).
-        addColorStop( 1, HALO_EDGE_COLOR ),
+      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 ).addColorStop( 0, 'black' ).addColorStop( 0.25, 'black' ).addColorStop( 0.25, HALO_COLOR ).addColorStop( 1, HALO_EDGE_COLOR ),
     } );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracer.pointProperty.link( function( point ) {
       if ( point !== null ) {
-        timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.time, 2 ), units: sString } ) );
-        rangeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.position.x, 2 ), units: mString } ) );
-        heightReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( point.position.y, 2 ), units: mString } ) );
+        timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: Util.toFixedNumber( point.time, 2 ),
+          units: sString
+        } ) );
+        rangeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: Util.toFixedNumber( point.position.x, 2 ),
+          units: mString
+        } ) );
+        heightReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: Util.toFixedNumber( point.position.y, 2 ),
+          units: mString
+        } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
         haloNode.centerY = transformProperty.get().modelToViewY( point.position.y );
         haloNode.visible = true;
-      } else {
+      }
+      else {
         timeReadoutProperty.set( '-' );
         rangeReadoutProperty.set( '-' );
         heightReadoutProperty.set( '-' );
@@ -234,7 +240,7 @@ define( function( require ) {
     /**
      * Auxiliary function to create label and number readout for information
      * @private
-     * 
+     *
      * @param {number} maxWidth - max width for the label and value display
      * @param {string} labelString
      * @param {Property} readoutProperty
@@ -277,7 +283,7 @@ define( function( require ) {
     /**
      * Create icon of Tracer node
      * @public
-     * 
+     *
      * @param {Object} [options]
      * @return {Node}\
      */

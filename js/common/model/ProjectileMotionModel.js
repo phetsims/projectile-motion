@@ -74,7 +74,7 @@ define( function( require ) {
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
 
     this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
-    
+
     // --properties that change the environment and affect all projectiles
 
     // @public {Property.<number>} acceleration due to gravity, in meters per second squared
@@ -120,7 +120,7 @@ define( function( require ) {
 
     // @private {EventTimer}
     this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
-  
+
     // Links in this constructor last for the life time of the sim, so no need to dispose
   }
 
@@ -144,11 +144,13 @@ define( function( require ) {
         // troposphere
         temperature = 15.04 - 0.00649 * altitude;
         pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
-      } else if ( altitude < 25000 ) {
+      }
+      else if ( altitude < 25000 ) {
         // lower stratosphere
         temperature = -56.46;
         pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
-      } else {
+      }
+      else {
         // upper stratosphere (altitude >= 25000 meters)
         temperature = -131.21 + 0.00299 * altitude;
         pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
@@ -206,10 +208,10 @@ define( function( require ) {
       }
     },
 
-    /** 
+    /**
      * Steps model elements given a time step, used by the step button
      * @public
-     * 
+     *
      * @param {number} dt
      */
     stepModelElements: function( dt ) {
@@ -219,9 +221,9 @@ define( function( require ) {
       }
     },
 
-    /** 
+    /**
      * Remove and dispose old trajectories that are over the limit from the observable array
-     * @private 
+     * @private
      */
     limitTrajectories: function() {
       var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
@@ -236,7 +238,7 @@ define( function( require ) {
      * @public
      */
     eraseTrajectories: function() {
-      while( this.trajectories.length ) {
+      while ( this.trajectories.length ) {
         this.trajectories.pop().dispose();
       }
       this.numberOfMovingProjectilesProperty.reset();
@@ -267,7 +269,7 @@ define( function( require ) {
 
     /**
      * Updates the status of the trajectories, as in whether they are changed in mid air
-     * @private 
+     * @private
      */
     updateTrajectoriesWithMovingProjectiles: function() {
       var newTrajectories = [];
@@ -279,12 +281,12 @@ define( function( require ) {
         var removedProjectileObjects = [];
 
         // Furthest projectile on trajectory has not reached ground
-        if( !trajectory.reachedGround ) {
+        if ( !trajectory.reachedGround ) {
           trajectory.changedInMidAir = true; // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
 
           // For each projectile except for the one furthest along the path, create a new trajectory
           var i;
-          for (i = 1; i < trajectory.projectileObjects.length; i++ ) {
+          for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
             var projectileObject = trajectory.projectileObjects.get( i );
             removedProjectileObjects.push( projectileObject );
             this.updateRanksEmitter.emit();
@@ -293,11 +295,11 @@ define( function( require ) {
             newTrajectories.push( newTrajectory );
           }
         }
-        
+
         // Furthest object on trajectory has reached ground
         else {
           // For each projectile still in the air, create a new trajectory
-          for (i = 0; i < trajectory.projectileObjects.length; i++ ) {
+          for ( i = 0; i < trajectory.projectileObjects.length; i++ ) {
             projectileObject = trajectory.projectileObjects.get( i );
             if ( !projectileObject.dataPointProperty.get().reachedGround ) {
               projectileObject = trajectory.projectileObjects.get( i );
@@ -318,7 +320,7 @@ define( function( require ) {
     /**
      * Checks if position is close to David and updates the property accordingly
      * @public
-     * 
+     *
      * @param {Vector2} position - a point in the model coordinate
      */
     updateDavidIfWithinRange: function( position ) {
@@ -329,8 +331,8 @@ define( function( require ) {
 
     /**
      * Set mass, diameter, and drag coefficient based on the currently selected projectile object type
-     * @private 
-     * 
+     * @private
+     *
      * @param {ProjectileObjectType} selectedProjectileObjectType - contains information such as mass, diameter, etc.
      */
     setProjectileParameters: function( selectedProjectileObjectType ) {

@@ -2,7 +2,7 @@
 
 /**
  * Common view for a screen.
- * 
+ *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -48,9 +48,9 @@ define( function( require ) {
   var davidMiddleImage = require( 'image!PROJECTILE_MOTION/david_middle.png' );
   var davidTopImage = require( 'image!PROJECTILE_MOTION/david_top.png' );
   var davidShortsImage = require( 'image!PROJECTILE_MOTION/david_shorts.png' );
-  
+
   // strings
-  var metersString = require( 'string!PROJECTILE_MOTION/meters');
+  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
   var normalString = require( 'string!PROJECTILE_MOTION/normal' );
   var slowString = require( 'string!PROJECTILE_MOTION/slow' );
@@ -79,13 +79,11 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ProjectileMotionScreenView(
-                                      model,
-                                      topRightPanel,
-                                      bottomRightPanel,
-                                      vectorVisibilityProperties,
-                                      options
-  ) {
+  function ProjectileMotionScreenView( model,
+                                       topRightPanel,
+                                       bottomRightPanel,
+                                       vectorVisibilityProperties,
+                                       options ) {
 
     options = options || {};
     var self = this;
@@ -133,7 +131,7 @@ define( function( require ) {
 
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, transformProperty, this, options );
-    
+
     // results in '{0} m/s'
     var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       value: '{0}', // map to numbered placeholder for NumberControl
@@ -162,7 +160,10 @@ define( function( require ) {
 
     var initialSpeedPanel = new Panel(
       initialSpeedControl,
-      _.extend( { left: this.layoutBounds.left + X_MARGIN, bottom: this.layoutBounds.bottom - Y_MARGIN }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
+      _.extend( {
+        left: this.layoutBounds.left + X_MARGIN,
+        bottom: this.layoutBounds.bottom - Y_MARGIN
+      }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
     // Create a measuring tape (set to invisible initially)
@@ -176,7 +177,7 @@ define( function( require ) {
         isTipDragBounded: true,
         textColor: 'black',
         significantFigures: 2
-    } );
+      } );
 
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
     var davidBottom = new Image( davidBottomImage, { centerX: 0, bottom: 0 } );
@@ -291,7 +292,10 @@ define( function( require ) {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.cannonFired(); cannonNode.flashMuzzle(); },
+      listener: function() {
+        model.cannonFired();
+        cannonNode.flashMuzzle();
+      },
       centerY: initialSpeedPanel.centerY,
       left: initialSpeedPanel.right + 30
     } );
@@ -400,7 +404,7 @@ define( function( require ) {
 
     /**
      * Layout nodes part of the screen view
-     * 
+     *
      * @param {number} width
      * @param {number} height
      * @override

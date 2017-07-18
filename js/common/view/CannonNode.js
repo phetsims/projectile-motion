@@ -55,12 +55,12 @@ define( function( require ) {
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
   var ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
   var CUEING_ARROW_OPTIONS = {
-      fill: 'rgb( 100, 200, 255 )',
-      stroke: 'black',
-      lineWidth: 1,
-      tailWidth: 8,
-      headWidth: 14,
-      headHeight: 6
+    fill: 'rgb( 100, 200, 255 )',
+    stroke: 'black',
+    lineWidth: 1,
+    tailWidth: 8,
+    headWidth: 14,
+    headHeight: 6
   };
   var SCREEN_CHANGE_TIME = 500; // milliseconds
   var MUZZLE_FLASH_SCALE = 2;
@@ -74,18 +74,27 @@ define( function( require ) {
    * @constructor
    */
   function CannonNode( heightProperty, angleProperty, transformProperty, screenView, options ) {
-    
+
     options = options || {};
 
     Node.call( this, options );
 
-    var clippableNode = new Node( { x: transformProperty.get().modelToViewX( 0 ), y: transformProperty.get().modelToViewY( 0 ), cursor: 'pointer' } );
+    var clippableNode = new Node( {
+      x: transformProperty.get().modelToViewX( 0 ),
+      y: transformProperty.get().modelToViewY( 0 ),
+      cursor: 'pointer'
+    } );
 
     // var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
 
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
     var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, 'gray' ).addColorStop( 0.3, 'white' ).addColorStop( 1, 'gray' );
-    var groundCircle = new Path( ellipseShape, { x: clippableNode.x, y: transformProperty.get().modelToViewY( 0 ), fill: groundFill, stroke: BRIGHT_GRAY_COLOR } );
+    var groundCircle = new Path( ellipseShape, {
+      x: clippableNode.x,
+      y: transformProperty.get().modelToViewY( 0 ),
+      fill: groundFill,
+      stroke: BRIGHT_GRAY_COLOR
+    } );
 
     var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
     var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
@@ -132,13 +141,13 @@ define( function( require ) {
     // draw the line caps for the height leader line
 
     var heightLeaderLineTopCap = new Line( -6, 0, 6, 0, {
-        stroke: 'black',
-        lineWidth: 2
+      stroke: 'black',
+      lineWidth: 2
     } );
-    
+
     var heightLeaderLineBottomCap = new Line( -6, 0, 6, 0, {
-        stroke: 'black',
-        lineWidth: 2
+      stroke: 'black',
+      lineWidth: 2
     } );
     heightLeaderLineBottomCap.x = heightLeaderLine.tipX;
     heightLeaderLineBottomCap.y = heightLeaderLine.tipY;
@@ -150,7 +159,10 @@ define( function( require ) {
       cursor: 'pointer',
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
-    var heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( heightProperty.get(), 2 ), units: mString } ), heightLabelOptions );
+    var heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      value: Util.toFixedNumber( heightProperty.get(), 2 ),
+      units: mString
+    } ), heightLabelOptions );
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
@@ -188,13 +200,16 @@ define( function( require ) {
     // angle readout
     var angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     angleIndicator.addChild( angleLabelBackground );
-    var angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( angleProperty.get(), 2 ), units: degreesSymbolString } ), LABEL_OPTIONS );
+    var angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
+      value: Util.toFixedNumber( angleProperty.get(), 2 ),
+      units: degreesSymbolString
+    } ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
     angleIndicator.addChild( angleLabel );
 
     // Muzzle flash
-    
+
     var tearDropShapeStrength = 3;
     var flameShape = new Shape();
     var radius = 100; // in view coordinates
@@ -240,7 +255,10 @@ define( function( require ) {
         ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
-      angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, { value: Util.toFixedNumber( angleProperty.get(), 2 ), units: degreesSymbolString } );
+      angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, {
+        value: Util.toFixedNumber( angleProperty.get(), 2 ),
+        units: degreesSymbolString
+      } );
       angleLabelBackground.setRectWidth( angleLabel.width + 2 );
       angleLabelBackground.setRectHeight( angleLabel.height );
       angleLabelBackground.center = angleLabel.center;
@@ -258,27 +276,30 @@ define( function( require ) {
 
       var sideShape = new Shape();
       sideShape.moveTo( -ELLIPSE_WIDTH / 2, 0 )
-      .lineTo( -ELLIPSE_WIDTH / 2, cylinderTop.y )
-      .ellipticalArc( 0, cylinderTop.y, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, Math.PI, 0, true )
-      .lineTo( ELLIPSE_WIDTH / 2, 0 )
-      .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
-      .close();
+        .lineTo( -ELLIPSE_WIDTH / 2, cylinderTop.y )
+        .ellipticalArc( 0, cylinderTop.y, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, Math.PI, 0, true )
+        .lineTo( ELLIPSE_WIDTH / 2, 0 )
+        .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
+        .close();
       cylinderSide.setShape( sideShape );
 
       var clipArea = new Shape();
       clipArea.moveTo( -ELLIPSE_WIDTH / 2, 0 )
-      .lineTo( -ELLIPSE_WIDTH / 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
-      .lineTo( ELLIPSE_WIDTH * 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
-      .lineTo( ELLIPSE_WIDTH * 2, 0 )
-      .lineTo( ELLIPSE_WIDTH / 2, 0 )
-      .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
-      .close();
+        .lineTo( -ELLIPSE_WIDTH / 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
+        .lineTo( ELLIPSE_WIDTH * 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
+        .lineTo( ELLIPSE_WIDTH * 2, 0 )
+        .lineTo( ELLIPSE_WIDTH / 2, 0 )
+        .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
+        .close();
       clippableNode.setClipArea( clipArea );
 
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, transformProperty.get().modelToViewY( height ) );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
-      heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( height, 2 ), units: mString } );
+      heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        value: Util.toFixedNumber( height, 2 ),
+        units: mString
+      } );
       heightLabel.centerX = heightLeaderLine.tipX;
       heightLabel.y = heightLeaderLine.tipY - 5;
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );
@@ -408,14 +429,14 @@ define( function( require ) {
      * Make the muzzle flash
      * @public
      */
-    flashMuzzle: function() {      
+    flashMuzzle: function() {
       var muzzleFlash = this.muzzleFlash;
 
       new TWEEN.Tween( muzzleFlash ).to( {
         opacity: 1
       }, SCREEN_CHANGE_TIME ).onUpdate( function() {
         muzzleFlash.setScaleMagnitude( muzzleFlash.opacity * muzzleFlash.opacity * MUZZLE_FLASH_SCALE );
-      }).onComplete( function() {
+      } ).onComplete( function() {
         muzzleFlash.opacity = 0;
       } ).start( phet.joist.elapsedTime );
     }

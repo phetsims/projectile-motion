@@ -29,18 +29,18 @@ define( function( require ) {
     var visibilityProperties = new DragVectorVisibilityProperties();
 
     ProjectileMotionScreenView.call(
-                                    this,
-                                    model,
-                                    new DragProjectilePanel(
-                                                            model.selectedProjectileObjectTypeProperty,
-                                                            model.projectileDragCoefficientProperty,
-                                                            model.projectileDiameterProperty,
-                                                            model.projectileMassProperty,
-                                                            model.altitudeProperty
-                                    ),
-                                    new DragVectorsPanel( visibilityProperties ),
-                                    visibilityProperties,
-                                    options
+      this,
+      model,
+      new DragProjectilePanel(
+        model.selectedProjectileObjectTypeProperty,
+        model.projectileDragCoefficientProperty,
+        model.projectileDiameterProperty,
+        model.projectileMassProperty,
+        model.altitudeProperty
+      ),
+      new DragVectorsPanel( visibilityProperties ),
+      visibilityProperties,
+      options
     );
 
   }

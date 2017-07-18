@@ -40,11 +40,9 @@ define( function( require ) {
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @constructor
    */
-  function TrajectoryNode(
-    vectorVisibilityProperties,
-    trajectory,
-    transformProperty
-  ) {
+  function TrajectoryNode( vectorVisibilityProperties,
+                           trajectory,
+                           transformProperty ) {
     Node.call( this, { pickable: false, preventFit: true } );
 
     var scratchVector = new Vector2();
@@ -91,7 +89,7 @@ define( function( require ) {
       if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
 
         dotsShape.moveTo( viewAddedPosition.x + DOT_RADIUS, viewAddedPosition.y )
-                 .circle( viewAddedPosition.x, viewAddedPosition.y, DOT_RADIUS );
+          .circle( viewAddedPosition.x, viewAddedPosition.y, DOT_RADIUS );
       }
     }
 

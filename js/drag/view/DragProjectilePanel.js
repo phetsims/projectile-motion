@@ -65,14 +65,12 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function DragProjectilePanel(
-                                selectedObjectTypeProperty,
+  function DragProjectilePanel( selectedObjectTypeProperty,
                                 projectileDragCoefficientProperty,
                                 projectileDiameterProperty,
                                 projectileMassProperty,
                                 altitudeProperty,
-                                options
-  ) {
+                                options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -83,8 +81,8 @@ define( function( require ) {
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
     var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
-    
-    /** 
+
+    /**
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
@@ -99,7 +97,10 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( property.get(), 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
+      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        value: Util.toFixedNumber( property.get(), 2 ),
+        units: unitsString
+      } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -112,7 +113,10 @@ define( function( require ) {
 
       // text node updates if property value changes
       property.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixedNumber( value, 2 ), units: unitsString } ) : Util.toFixedNumber( property.get(), 2 ) );
+        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: Util.toFixedNumber( value, 2 ),
+          units: unitsString
+        } ) : Util.toFixedNumber( property.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 
@@ -128,7 +132,7 @@ define( function( require ) {
       } );
       slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
-      
+
       if ( round ) {
         var i;
         for ( i = range.min + round; i < range.max; i += round ) {
@@ -139,10 +143,12 @@ define( function( require ) {
       var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
 
       var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-      return new VBox( { spacing: options.sliderLabelSpacing, children: [
+      return new VBox( {
+        spacing: options.sliderLabelSpacing, children: [
           new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
           slider
-      ] } );
+        ]
+      } );
     }
 
     var diameterBox = createParameterControlBox(
@@ -179,7 +185,7 @@ define( function( require ) {
       } );
     };
 
-    var numberControlOptions = _.extend( { 
+    var numberControlOptions = _.extend( {
       trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
       layoutFunction: altitudeLayoutFunction,
       valueMaxWidth: textDisplayWidth
@@ -203,7 +209,7 @@ define( function( require ) {
 
     var dragObjectDisplay = new Node();
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
-    
+
     var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       var strut = new HStrut( 70 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
       var displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
@@ -246,7 +252,7 @@ define( function( require ) {
         , dragCoefficient );
       objectView.center = dragObjectDisplay.center;
       dragObjectDisplay.addChild( objectView );
-    });
+    } );
 
     // The contents of the control panel
     var content = new VBox( {

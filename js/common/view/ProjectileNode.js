@@ -34,24 +34,24 @@ define( function( require ) {
   var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
   var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
   var FORCE_ARROW_OPTIONS = {
-      fill: 'black',
-      stroke: null,
-      tailWidth: 2,
-      headWidth: 6
+    fill: 'black',
+    stroke: null,
+    tailWidth: 2,
+    headWidth: 6
   };
   var COMPONENT_VELOCITY_ARROW_OPTIONS = {
-      fill: VELOCITY_ARROW_FILL,
-      stroke: 'black',
-      lineWidth: 0.2,
-      tailWidth: 2,
-      headWidth: 6
+    fill: VELOCITY_ARROW_FILL,
+    stroke: 'black',
+    lineWidth: 0.2,
+    tailWidth: 2,
+    headWidth: 6
   };
   var COMPONENT_ACCELERATION_ARROW_OPTIONS = {
-      fill: ACCELERATION_ARROW_FILL,
-      stroke: 'black',
-      lineWidth: 0.2,
-      tailWidth: 2,
-      headWidth: 6
+    fill: ACCELERATION_ARROW_FILL,
+    stroke: 'black',
+    lineWidth: 0.2,
+    tailWidth: 2,
+    headWidth: 6
   };
   var FREE_BODY_RADIUS = 3;
   var FORCE_SCALAR = 3;
@@ -74,15 +74,13 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function ProjectileNode(
-                          vectorVisibilityProperties,
-                          dataPointProperty,
-                          objectType,
-                          diameter,
-                          dragCoefficient,
-                          modelViewTransform,
-                          options
-  ) {
+  function ProjectileNode( vectorVisibilityProperties,
+                           dataPointProperty,
+                           objectType,
+                           diameter,
+                           dragCoefficient,
+                           modelViewTransform,
+                           options ) {
 
     options = _.extend( {
       preventFit: true
@@ -107,11 +105,11 @@ define( function( require ) {
     projectileViewLayer.addChild( projectileObjectView );
 
     // add vector view for acceleration x component
-    var xAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
+    var xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( xAccelerationArrow );
 
     // add vector view for acceleration y component
-    var yAccelerationArrow  = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
+    var yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( yAccelerationArrow );
 
     // add vector view for total acceleration
@@ -192,7 +190,7 @@ define( function( require ) {
       var dataPoint = viewPoint.dataPoint;
 
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
-      if( objectType ?  objectType.rotates : true  ) {
+      if ( objectType ? objectType.rotates : true ) {
         var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x ) || 0;
         projectileObjectView.setRotation( -angle );
       }
@@ -226,8 +224,8 @@ define( function( require ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
         totalVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-                                          viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x,
-                                          viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
+          viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x,
+          viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
         );
       }
     };
@@ -259,8 +257,8 @@ define( function( require ) {
         var dataPoint = viewPoint.dataPoint;
 
         totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-                                              viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
-                                              viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
+          viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
+          viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
         );
       }
     };
@@ -301,8 +299,8 @@ define( function( require ) {
 
       if ( componentsVisible || totalVisible ) {
         freeBodyDiagram.children = [ freeBody ].concat( componentsVisible ? [ freeBodyComponents ] : [] )
-                                               .concat( [ forceGravityArrow, forceGravityLabel ] )
-                                               .concat( totalVisible ? [ freeBodyTotals ] : [] );
+          .concat( [ forceGravityArrow, forceGravityLabel ] )
+          .concat( totalVisible ? [ freeBodyTotals ] : [] );
 
         freeBody.x = viewPosition.x + FREE_BODY_OFFSET.x;
         freeBody.y = viewPosition.y + FREE_BODY_OFFSET.y;
@@ -351,7 +349,7 @@ define( function( require ) {
     };
 
     var freeBodyDiagramMultilink = Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
-  
+
     this.disposeProjectileNode = function() {
       componentVelocityVectorsMultilink.dispose();
       totalVelocityVectorMultilink.dispose();

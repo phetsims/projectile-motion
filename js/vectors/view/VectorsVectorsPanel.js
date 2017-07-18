@@ -2,7 +2,7 @@
 
 /**
  * Control panel for choosing which vectors are visible.
- * 
+ *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
@@ -49,7 +49,7 @@ define( function( require ) {
 
     var totalLabel = new Text( totalString, LABEL_OPTIONS );
     var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
-    
+
     var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
       { node: componentsLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'components' }
@@ -67,7 +67,8 @@ define( function( require ) {
       children: [
         velocityCheckBox,
         VELOCITY_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty, checkBoxOptions );
@@ -76,7 +77,8 @@ define( function( require ) {
       children: [
         accelerationCheckBox,
         ACCELERATION_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
@@ -85,7 +87,8 @@ define( function( require ) {
       children: [
         forceCheckBox,
         FORCE_VECTOR_ICON
-    ] } );
+      ]
+    } );
 
     // The contents of the control panel
     var content = new VBox( {

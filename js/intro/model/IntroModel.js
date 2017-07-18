@@ -20,10 +20,10 @@ define( function( require ) {
   function IntroModel() {
 
     this.objectTypes = [
-      ProjectileObjectType.ARROW,    
+      ProjectileObjectType.ARROW,
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
-      ProjectileObjectType.GOLF_BALL,  
+      ProjectileObjectType.GOLF_BALL,
       ProjectileObjectType.BASEBALL,
       ProjectileObjectType.FOOTBALL,
       ProjectileObjectType.PUMPKIN,

@@ -50,23 +50,21 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function IntroProjectilePanel(
-                                objectTypes,
-                                selectedProjectileObjectTypeProperty,
-                                comboBoxListParent,
-                                projectileMassProperty,
-                                projectileDiameterProperty,
-                                projectileDragCoefficientProperty,
-                                airResistanceOnProperty,
-                                options
-  ) {
+  function IntroProjectilePanel( objectTypes,
+                                 selectedProjectileObjectTypeProperty,
+                                 comboBoxListParent,
+                                 projectileMassProperty,
+                                 projectileDiameterProperty,
+                                 projectileDragCoefficientProperty,
+                                 airResistanceOnProperty,
+                                 options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-    
+
     // maxWidth empirically determined
     var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
@@ -124,7 +122,10 @@ define( function( require ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
 
       property.link( function( value ) {
-        var valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: value, units: unitsString } ) : Util.toFixed( value, 2 );
+        var valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: value,
+          units: unitsString
+        } ) : Util.toFixed( value, 2 );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
@@ -191,7 +192,7 @@ define( function( require ) {
   projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
 
   return inherit( Panel, IntroProjectilePanel, {
-    
+
     /**
      * Layout the combobox
      * @public

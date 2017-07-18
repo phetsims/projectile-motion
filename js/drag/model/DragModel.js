@@ -20,7 +20,7 @@ define( function( require ) {
   function DragModel() {
 
     ProjectileMotionModel.call( this, ProjectileObjectType.DRAG_SCREEN, true );
-    
+
   }
 
   projectileMotion.register( 'DragModel', DragModel );

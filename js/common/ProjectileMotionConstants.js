@@ -64,45 +64,47 @@ define( function( require ) {
     DOT_RADIUS: 1.75, // in global view coordinates
 
     // icons
-    VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, { 
+    VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, {
       fill: 'rgb( 50, 255, 50 )',
       lineWidth: 0.5,
       tailWidth: 4,
       headWidth: 10,
       headHeight: 8
     } ),
-    ACCELERATION_VECTOR_ICON:new ArrowNode( 0, 0, 20, 0, { 
+    ACCELERATION_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, {
       fill: 'rgb( 255, 255, 50 )',
       lineWidth: 0.5,
       tailWidth: 4,
       headWidth: 10,
       headHeight: 8
     } ),
-    FORCE_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, { 
+    FORCE_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, {
       fill: 'black',
       stroke: null,
       tailWidth: 4,
       headWidth: 10,
       headHeight: 8
     } ),
-    AIR_RESISTANCE_ICON: new Node( { centerY: 0, left: 0, children: [
-      AIR_RESISTANCE_ICON_PATH,
-      new Circle( 2.2, {
-        x: AIR_RESISTANCE_ICON_PATH.right - 0.8,
-        y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
-        fill: 'black' 
-      } ),
-      new Circle( 2.2, {
-        x: AIR_RESISTANCE_ICON_PATH.left + 0.8,
-        y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
-        fill: 'black' 
-      } ),
-      new Circle( 2.2, {
-        x: AIR_RESISTANCE_ICON_PATH.centerX,
-        y: AIR_RESISTANCE_ICON_PATH.top + 1.5,
-        fill: 'black' 
-      } )
-    ] } ), 
+    AIR_RESISTANCE_ICON: new Node( {
+      centerY: 0, left: 0, children: [
+        AIR_RESISTANCE_ICON_PATH,
+        new Circle( 2.2, {
+          x: AIR_RESISTANCE_ICON_PATH.right - 0.8,
+          y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
+          fill: 'black'
+        } ),
+        new Circle( 2.2, {
+          x: AIR_RESISTANCE_ICON_PATH.left + 0.8,
+          y: AIR_RESISTANCE_ICON_PATH.bottom - 0.2,
+          fill: 'black'
+        } ),
+        new Circle( 2.2, {
+          x: AIR_RESISTANCE_ICON_PATH.centerX,
+          y: AIR_RESISTANCE_ICON_PATH.top + 1.5,
+          fill: 'black'
+        } )
+      ]
+    } ),
 
     // teardrop to almost pancake shape
     PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),

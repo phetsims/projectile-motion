@@ -54,9 +54,21 @@ define( function( require ) {
 
     var targetXProperty = score.targetXProperty;
 
-    var outerCircle = new Circle( 1, { fill: 'red', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 1 ) } );
-    var middleCircle = new Circle( 2 / 3, { fill: 'white', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 ) } );
-    var innerCircle = new Circle( 1 / 3, { fill: 'red', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 ) } );
+    var outerCircle = new Circle( 1, {
+      fill: 'red',
+      stroke: 'black',
+      lineWidth: transformProperty.get().viewToModelDeltaX( 1 )
+    } );
+    var middleCircle = new Circle( 2 / 3, {
+      fill: 'white',
+      stroke: 'black',
+      lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
+    } );
+    var innerCircle = new Circle( 1 / 3, {
+      fill: 'red',
+      stroke: 'black',
+      lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
+    } );
 
     // draw target view
     var target = new Node( {
@@ -102,17 +114,20 @@ define( function( require ) {
 
     // drag target to change horizontal position
     target.addInputListener( horizontalDragHandler );
-    
+
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distanceLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixed( targetXProperty.get(), 1 ), units: mString } ), LABEL_OPTIONS );
+    var distanceLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      value: Util.toFixed( targetXProperty.get(), 1 ),
+      units: mString
+    } ), LABEL_OPTIONS );
 
     var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        distanceLabel.width * 1.5, // width, widened
-        distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
-        _.defaults( { cornerRadius: 1, pickable: true, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
-      );
+      0, // x
+      0, // y
+      distanceLabel.width * 1.5, // width, widened
+      distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
+      _.defaults( { cornerRadius: 1, pickable: true, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
+    );
 
     this.addChild( backgroundNode );
     this.addChild( distanceLabel );
@@ -126,11 +141,13 @@ define( function( require ) {
     // listen to model for whether score indicator should be shown
     score.scoredEmitter.addListener( function() {
 
-      var rewardNode = new Node( { children: [
-        new StarNode( { x: -30, y: -20 } ),
-        new StarNode( { x: 0, y: -30 } ),
-        new StarNode( { x: 30, y: -20 } )
-      ] } );
+      var rewardNode = new Node( {
+        children: [
+          new StarNode( { x: -30, y: -20 } ),
+          new StarNode( { x: 0, y: -30 } ),
+          new StarNode( { x: 30, y: -20 } )
+        ]
+      } );
       rewardNode.x = target.centerX;
       rewardNode.y = target.centerY;
       screenView.addChild( rewardNode );
@@ -142,7 +159,7 @@ define( function( require ) {
         opacity: 0
       }, SCREEN_CHANGE_TIME ).onUpdate( function() {
         rewardNode.setScaleMagnitude( ( target.centerY - rewardNode.y ) / TOTAL_Y_CHANGE * (TOTAL_SCALE - 1) + 1 );
-      }).onComplete( function() {
+      } ).onComplete( function() {
         if ( self.hasChild( rewardNode ) ) {
           self.rewardNodes.pop( rewardNode );
           screenView.removeChild( rewardNode );
@@ -154,7 +171,10 @@ define( function( require ) {
 
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
-      distanceLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: Util.toFixed( targetXProperty.get(), 1 ), units: mString } );
+      distanceLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        value: Util.toFixed( targetXProperty.get(), 1 ),
+        units: mString
+      } );
       backgroundNode.centerX = target.centerX;
       backgroundNode.top = target.bottom + 2;
       distanceLabel.center = backgroundNode.center;
@@ -162,7 +182,7 @@ define( function( require ) {
         rewardNode.x = target.centerX;
       } );
     };
-    
+
     // listen to horizontal position changes
     targetXProperty.link( updateHorizontalPosition );
 
@@ -187,10 +207,10 @@ define( function( require ) {
      */
     reset: function() {
       var self = this;
-      this.rewardNodes.forEach( function ( rewardNode ) {
-          if ( self.screenView.hasChild( rewardNode ) ) {
-            self.screenView.removeChild( rewardNode );
-          }
+      this.rewardNodes.forEach( function( rewardNode ) {
+        if ( self.screenView.hasChild( rewardNode ) ) {
+          self.screenView.removeChild( rewardNode );
+        }
       } );
       this.rewardNodes = [];
     }

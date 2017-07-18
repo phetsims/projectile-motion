@@ -63,7 +63,7 @@ define( function( require ) {
     // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       assert && assert( tracerNode.parent instanceof ScreenView );
-      assert && assert( tracerNode.parent=== self.parent );
+      assert && assert( tracerNode.parent === self.parent );
 
       var tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
       var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
@@ -116,7 +116,7 @@ define( function( require ) {
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );
-      assert && assert( measuringTapeNode.parent=== self.parent );
+      assert && assert( measuringTapeNode.parent === self.parent );
 
       var tapeBaseBounds = measuringTapeNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
       var toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
@@ -131,7 +131,7 @@ define( function( require ) {
     // Add the listener that will allow the user to click on this and create a model element, then position it in the model.
     measuringTapeIconNode.addInputListener( {
       down: function( event ) {
-        
+
         // ignore this if already dragging
         if ( event.pointer.dragging ) { return; }
 

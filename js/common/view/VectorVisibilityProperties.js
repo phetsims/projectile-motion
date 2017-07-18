@@ -31,7 +31,7 @@ define( function( require ) {
     this.componentsForceVectorsOnProperty = new BooleanProperty( false );
 
     // @public {BooleanProperty.<boolean>} whether total acceleration vector is shown
-    this.totalAccelerationVectorOnProperty = new BooleanProperty ( false );
+    this.totalAccelerationVectorOnProperty = new BooleanProperty( false );
 
     // @public {BooleanProperty.<boolean>} whether component acceleration vectors are showing
     this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false );

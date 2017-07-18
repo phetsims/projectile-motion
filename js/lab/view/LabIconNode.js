@@ -69,7 +69,7 @@ define( function( require ) {
 
     var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
     var cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
-    
+
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
 
@@ -84,7 +84,13 @@ define( function( require ) {
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
 
     var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
-    var cylinderTop = new Path( ellipseShape, { x: cannonX, y: scalableNode.bottom - scaledEllipseHeight / 4, fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
+    var cylinderTop = new Path( ellipseShape, {
+      x: cannonX,
+      y: scalableNode.bottom - scaledEllipseHeight / 4,
+      fill: DARK_GRAY_COLOR,
+      stroke: BRIGHT_GRAY_COLOR,
+      lineWidth: 2
+    } );
 
     var sideShape = new Shape();
     sideShape.moveTo( cannonX - scaledEllipseWidth / 2, height - 1 )
@@ -124,7 +130,7 @@ define( function( require ) {
     var backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     Rectangle.call( this, 0, 0, width, height, {
       fill: backgroundFill,
-      children: [ 
+      children: [
         cylinderSide,
         cylinderTop,
         scalableNode,

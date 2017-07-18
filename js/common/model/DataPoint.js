@@ -22,22 +22,20 @@ define( function( require ) {
    * @param {number} forceGravity - force of gravity, in N
    * @constructor
    */
-  function DataPoint(
-                      time,
+  function DataPoint( time,
                       position,
                       airDensity,
                       velocity,
                       acceleration,
                       dragForce,
-                      forceGravity
-  ) {
+                      forceGravity ) {
 
     assert && assert( !isNaN( time ), 'DataPoint time is ' + time );
     assert && assert( time !== 0 || position.x === 0, 'Time is ' + time + 'but x is ' + position.x );
-    
+
     // @public
     this.numberOfOtherTrajectoriesUsingSelf = 0;
-    
+
     // @public (read-only)
     this.time = time;
     this.position = position;
@@ -54,17 +52,17 @@ define( function( require ) {
     /**
      * Whether this dataPoint is equal to given dataPoint
      * @public
-     * 
+     *
      * @returns {boolean}
      */
     equals: function( dataPoint ) {
       return this.position.equals( dataPoint.position )
-        && this.time === dataPoint.time
-        && this.airDensity === dataPoint.airDensity
-        && this.velocity.equals( dataPoint.velocity )
-        && this.acceleration.equals( dataPoint.acceleration )
-        && this.dragForce.equals( dataPoint.dragForce )
-        && this.forceGravity === this.forceGravity;
+             && this.time === dataPoint.time
+             && this.airDensity === dataPoint.airDensity
+             && this.velocity.equals( dataPoint.velocity )
+             && this.acceleration.equals( dataPoint.acceleration )
+             && this.dragForce.equals( dataPoint.dragForce )
+             && this.forceGravity === this.forceGravity;
     }
   } );
 } );

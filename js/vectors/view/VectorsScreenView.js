@@ -29,18 +29,18 @@ define( function( require ) {
     var visibilityProperties = new VectorsVectorVisibilityProperties();
 
     ProjectileMotionScreenView.call(
-                                    this,
-                                    model,
-                                    new VectorsProjectilePanel(
-                                                            model.selectedProjectileObjectTypeProperty,
-                                                            model.projectileDiameterProperty,
-                                                            model.projectileMassProperty,
-                                                            model.airResistanceOnProperty,
-                                                            model.projectileDragCoefficientProperty
-                                    ),
-                                    new VectorsVectorsPanel( visibilityProperties ),
-                                    visibilityProperties,
-                                    options
+      this,
+      model,
+      new VectorsProjectilePanel(
+        model.selectedProjectileObjectTypeProperty,
+        model.projectileDiameterProperty,
+        model.projectileMassProperty,
+        model.airResistanceOnProperty,
+        model.projectileDragCoefficientProperty
+      ),
+      new VectorsVectorsPanel( visibilityProperties ),
+      visibilityProperties,
+      options
     );
 
   }

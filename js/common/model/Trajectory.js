@@ -6,7 +6,7 @@
  * Air resistance and altitude can immediately change the path of the projectiles in the air.
  * Velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired.
  * Units are meters, kilograms, and seconds (mks)
- * 
+ *
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
@@ -103,7 +103,7 @@ define( function( require ) {
 
         var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
         var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
-        
+
         var newVelocity = Vector2.dirtyFromPool().setXY( previousPoint.velocity.x + previousPoint.acceleration.x * dt, previousPoint.velocity.y + previousPoint.acceleration.y * dt );
 
         // cross sectional area of the projectile
@@ -116,10 +116,10 @@ define( function( require ) {
         // Has reached ground or below
         if ( newY <= 0 ) {
           this.reachedGround = true; // store the information that it has reached the ground
-          
+
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
           var timeToGround = ( -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y ) / previousPoint.acceleration.y;
-          assert && assert ( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
+          assert && assert( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
 
           newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
@@ -150,7 +150,7 @@ define( function( require ) {
           );
 
         }
-        
+
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
         this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
@@ -158,7 +158,7 @@ define( function( require ) {
 
       // increment position of projectile objects, unless it has reached the end
       var i;
-      for( i = 0; i < this.projectileObjects.length; i++ ) {
+      for ( i = 0; i < this.projectileObjects.length; i++ ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
@@ -177,7 +177,7 @@ define( function( require ) {
      * Finds the dataPoint in this trajectory with the least euclidian distance to coordinates given,
      * or returns null if this trajectory has no datapoints
      * @public
-     * 
+     *
      * @returns {DataPoint|null}
      * @param {number} x - coordinate in model
      * @param {number} y - coordinate in model
@@ -218,7 +218,7 @@ define( function( require ) {
     /**
      * Creates a new trajectory that is a copy of this one, but with one projectile object
      * @public
-     * 
+     *
      * @param {Object} projectileObject - provides the index and data points.
      * @returns {Trajectory}
      */
@@ -233,13 +233,13 @@ define( function( require ) {
       for ( i = 0; i <= projectileObject.index; i++ ) {
 
         assert && assert( this.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x );
-        
+
         // set to prevent this dataPoint from being disposed along this trajectory if the new trajectory is still using it
         this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf++;
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
-      
+
       // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one
       newTrajectory.projectileObjects.clear();
       newTrajectory.projectileObjects.push( projectileObject );
@@ -250,7 +250,7 @@ define( function( require ) {
     /**
      * Whether this trajectory is equal to the one given
      * @public
-     * 
+     *
      * @param {Trajectory} trajectory
      * @returns {boolean}
      */
@@ -258,11 +258,11 @@ define( function( require ) {
       var thisInitialPoint = this.dataPoints.get( 0 );
       var trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
-        && this.projectileObjectType === trajectory.projectileObjectType
-        && this.diameter === trajectory.diameter
-        && this.mass === trajectory.mass
-        && this.dragCoefficient === trajectory.dragCoefficient
-        && thisInitialPoint.equals( trajectoryInitialPoint );
+             && this.projectileObjectType === trajectory.projectileObjectType
+             && this.diameter === trajectory.diameter
+             && this.mass === trajectory.mass
+             && this.dragCoefficient === trajectory.dragCoefficient
+             && thisInitialPoint.equals( trajectoryInitialPoint );
     },
 
     /**
@@ -275,7 +275,7 @@ define( function( require ) {
         var point = this.dataPoints.get( i );
 
         if ( point.numberOfOtherTrajectoriesUsingSelf ) {
-          point.numberOfOtherTrajectoriesUsingSelf --;
+          point.numberOfOtherTrajectoriesUsingSelf--;
         }
         else {
           point.position.freeToPool();
@@ -283,7 +283,7 @@ define( function( require ) {
           point.acceleration.freeToPool();
           point.dragForce.freeToPool();
         }
-        
+
       }
       this.disposeTrajectory();
     }

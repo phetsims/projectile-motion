@@ -2,7 +2,7 @@
 
 /**
  * Model for the 'Lab' screen.
- * 
+ *
  * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
@@ -21,10 +21,10 @@ define( function( require ) {
 
     this.objectTypes = [
       ProjectileObjectType.CUSTOM,
-      ProjectileObjectType.ARROW,    
+      ProjectileObjectType.ARROW,
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
-      ProjectileObjectType.GOLF_BALL,  
+      ProjectileObjectType.GOLF_BALL,
       ProjectileObjectType.BASEBALL,
       ProjectileObjectType.FOOTBALL,
       ProjectileObjectType.PUMPKIN,

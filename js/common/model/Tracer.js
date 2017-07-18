@@ -82,15 +82,15 @@ define( function( require ) {
     /**
      * Checks if the given point is close enough to the tracer and updates information if so
      * @public
-     * 
+     *
      * @param {Vector2} point - point in model coordinates
      */
     updateDataIfWithinRange: function( point ) {
-      
+
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
       var pointIsReadable = point && ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
-          this.pointProperty.set( point );
+        this.pointProperty.set( point );
       }
     }
   } );
