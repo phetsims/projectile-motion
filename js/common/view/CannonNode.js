@@ -62,6 +62,8 @@ define( function( require ) {
       headWidth: 14,
       headHeight: 6
   };
+  var SCREEN_CHANGE_TIME = 500; // milliseconds
+  var MUZZLE_FLASH_SCALE = 2;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -190,6 +192,30 @@ define( function( require ) {
     angleLabel.bottom = -5;
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
     angleIndicator.addChild( angleLabel );
+
+    // Muzzle flash
+    
+    var tearDropShapeStrength = 3;
+    var flameShape = new Shape();
+    var radius = 100; // in view coordinates
+    flameShape.moveTo( -radius, 0 );
+    var t;
+    for ( t = Math.PI / 24; t < 2 * Math.PI; t += Math.PI / 24 ) {
+      var x = Math.cos( t ) * radius;
+      var y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), tearDropShapeStrength ) * radius;
+      flameShape.lineTo( x, y );
+    }
+    flameShape.lineTo( -radius, 0 );
+
+    var outerFlame = new Path( flameShape, { fill: 'rgb( 255, 255, 0 )', stroke: null } );
+    var innerFlame = new Path( flameShape, { fill: 'rgb( 255, 200, 0 )', stroke: null } );
+    innerFlame.setScaleMagnitude( 0.7 );
+    outerFlame.left = 0;
+    innerFlame.left = 0;
+    var muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
+    cannonBarrel.addChild( muzzleFlash );
+
+    this.muzzleFlash = muzzleFlash;
 
     // rendering order
     this.setChildren( [
@@ -377,6 +403,22 @@ define( function( require ) {
 
   projectileMotion.register( 'CannonNode', CannonNode );
 
-  return inherit( Node, CannonNode );
+  return inherit( Node, CannonNode, {
+    /**
+     * Make the muzzle flash
+     * @public
+     */
+    flashMuzzle: function() {      
+      var muzzleFlash = this.muzzleFlash;
+
+      new TWEEN.Tween( muzzleFlash ).to( {
+        opacity: 1
+      }, SCREEN_CHANGE_TIME ).onUpdate( function() {
+        muzzleFlash.setScaleMagnitude( muzzleFlash.opacity * muzzleFlash.opacity * MUZZLE_FLASH_SCALE );
+      }).onComplete( function() {
+        muzzleFlash.opacity = 0;
+      } ).start( phet.joist.elapsedTime );
+    }
+  } );
 } );
 

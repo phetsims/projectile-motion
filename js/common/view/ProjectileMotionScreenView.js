@@ -291,7 +291,7 @@ define( function( require ) {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.cannonFired(); },
+      listener: function() { model.cannonFired(); cannonNode.flashMuzzle(); },
       centerY: initialSpeedPanel.centerY,
       left: initialSpeedPanel.right + 30
     } );
