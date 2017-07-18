@@ -38,7 +38,7 @@ define( function( require ) {
    */
   function LabIconNode( type ) {
 
-    assert && assert( type === 'nav' || type === 'screen', 'argument type should be nav or screen' );
+    assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
 
     if ( type === 'nav' ) {
       var width = NAV_ICON_SIZE.width;
