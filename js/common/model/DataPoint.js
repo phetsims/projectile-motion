@@ -53,8 +53,9 @@ define( function( require ) {
   return inherit( Object, DataPoint, {
     /**
      * Whether this dataPoint is equal to given dataPoint
-     * @returns {boolean}
      * @public
+     * 
+     * @returns {boolean}
      */
     equals: function( dataPoint ) {
       return this.position.equals( dataPoint.position )

@@ -60,8 +60,8 @@ define( function( require ) {
      * @public
      * @override
      * 
-     * @param  {number} width
-     * @param  {number} height
+     * @param {number} width
+     * @param {number} height
      */
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );

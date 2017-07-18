@@ -65,11 +65,11 @@ define( function( require ) {
      * Layout nodes part of the background
      * @public
      * 
-     * @param  {number} offsetX
-     * @param  {number} offsetY
-     * @param  {number} width
-     * @param  {number} height
-     * @param  {number} layoutScale
+     * @param {number} offsetX
+     * @param {number} offsetY
+     * @param {number} width
+     * @param {number} height
+     * @param {number} layoutScale
      */
     layout: function( offsetX, offsetY, width, height, layoutScale ) {
       var dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
@@ -92,7 +92,7 @@ define( function( require ) {
      * Makes flatirons image visible or invisible
      * @public
      * 
-     * @param  {boolean} visibility
+     * @param {boolean} visibility
      */
     showOrHideFlatirons: function( visibility ) {
       this.flatirons.visible = visibility ;
@@ -100,9 +100,9 @@ define( function( require ) {
 
     /**
      * Update position of the mountains if transform changes
-     * @param  {ModelViewTransform2} transform
-     *
      * @public
+     *
+     * @param {ModelViewTransform2} transform
      */
     updateFlatironsPosition: function( transform ) {
       this.flatirons.left = transform.modelToViewX( FLATIRONS_LEFT );

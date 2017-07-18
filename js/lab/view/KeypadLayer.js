@@ -61,10 +61,11 @@ define( function( require ) {
 
     /**
      * Begins an edit, by opening a modal keypad.
+     * @public
+     * 
      * @param {Property.<number>} valueProperty - the Property to be set by the keypad
      * @param {number} valueRound - rounding the value when done
      * @param {Object} [options]
-     * @public
      */
     beginEdit: function( valueProperty, valueRange, valueRound, options ) {
 

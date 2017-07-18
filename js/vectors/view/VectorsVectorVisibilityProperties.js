@@ -58,10 +58,10 @@ define( function( require ) {
      * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether total or components
      * @private
      * 
-     * @param  {boolean} velocityVectorsOn
-     * @param  {boolean} accelerationVectorsOn
-     * @param  {boolean} forceVectorsOn
-     * @param  {string} totalOrComponents
+     * @param {boolean} velocityVectorsOn
+     * @param {boolean} accelerationVectorsOn
+     * @param {boolean} forceVectorsOn
+     * @param {string} totalOrComponents
      */
     updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, totalOrComponents) {
       this.totalVelocityVectorOnProperty.set( velocityVectorsOn && totalOrComponents === 'total' );

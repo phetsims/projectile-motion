@@ -127,8 +127,8 @@ define( function( require ) {
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 
   /**
-   * @param  {number} altitude - in meters
-   * @param  {boolean} airResistanceOn - if off, zero air density
+   * @param {number} altitude - in meters
+   * @param {boolean} airResistanceOn - if off, zero air density
    * @returns {number} - air density
    */
   function getAirDensity( altitude, airResistanceOn ) {
@@ -314,7 +314,7 @@ define( function( require ) {
      * Checks if position is close to David and updates the property accordingly
      * @public
      * 
-     * @param  {Vector2} position - a point in the model coordinate
+     * @param {Vector2} position - a point in the model coordinate
      */
     updateDavidIfWithinRange: function( position ) {
       if ( position && position.distance( this.davidPosition ) <= DAVID_RADIUS ) {

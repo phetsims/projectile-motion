@@ -78,8 +78,7 @@ define( function( require ) {
      * Checks if the given point is close enough to the tracer and updates information if so
      * @public
      * 
-     * @param  {Vector2} point - point in model coordinates
-     * @return {[type]}       [description]
+     * @param {Vector2} point - point in model coordinates
      */
     updateDataIfWithinRange: function( point ) {
       

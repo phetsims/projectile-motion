@@ -395,8 +395,8 @@ define( function( require ) {
     /**
      * Layout nodes part of the screen view
      * 
-     * @param  {number} width
-     * @param  {number} height
+     * @param {number} width
+     * @param {number} height
      * @override
      */
     layout: function( width, height ) {

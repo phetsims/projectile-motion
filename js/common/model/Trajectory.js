@@ -174,9 +174,11 @@ define( function( require ) {
     },
 
     /**
+     * Finds the dataPoint in this trajectory with the least euclidian distance to coordinates given,
+     * or returns null if this trajectory has no datapoints
      * @public
      * 
-     * @returns {DataPoint|null} the data point with the least euclidian distance to the point given, or null if there
+     * @returns {DataPoint|null}
      * @param {number} x - coordinate in model
      * @param {number} y - coordinate in model
      */

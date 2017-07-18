@@ -41,7 +41,8 @@ define( function( require ) {
     /**
      * Scores if projectile has scored based on {number} x position of the landed projectile
      * @public
-     * @param  {number} projectileX - x coordinate in model coordinates
+     * 
+     * @param {number} projectileX - x coordinate in model coordinates
      */
     scoreIfWithinTarget: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetXProperty.get() );

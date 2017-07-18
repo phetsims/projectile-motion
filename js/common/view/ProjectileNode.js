@@ -383,7 +383,6 @@ define( function( require ) {
 
     /**
      * Dispose this trajectory for memory management
-     * 
      * @public
      * @override
      */

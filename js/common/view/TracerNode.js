@@ -235,6 +235,7 @@ define( function( require ) {
      * Auxiliary function to create label and number readout for information
      * @private
      * 
+     * @param {number} maxWidth - max width for the label and value display
      * @param {string} label
      * @param {Property} readoutProperty
      */
