@@ -36,6 +36,11 @@ define( function( require ) {
 
   return inherit( Object, ProjectileMotionMeasuringTape, {
 
+    /**
+     * Reset these properties
+     * @public
+     * @override
+     */
     reset: function() {
       this.basePositionProperty.reset();
       this.tipPositionProperty.reset();

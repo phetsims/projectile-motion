@@ -181,6 +181,7 @@ define( function( require ) {
     /**
      * Remove animations
      * @public
+     * @override
      */
     reset: function() {
       var self = this;

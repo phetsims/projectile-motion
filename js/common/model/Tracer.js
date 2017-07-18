@@ -50,6 +50,11 @@ define( function( require ) {
 
   return inherit( Object, Tracer, {
 
+    /**
+     * Reset these properties
+     * @public
+     * @override
+     */
     reset: function() {
       this.positionProperty.reset();
       this.pointProperty.reset();

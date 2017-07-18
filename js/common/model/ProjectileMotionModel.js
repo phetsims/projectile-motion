@@ -164,6 +164,11 @@ define( function( require ) {
 
   return inherit( Object, ProjectileMotionModel, {
 
+    /**
+     * Reset these properties
+     * @public
+     * @override
+     */
     reset: function() {
 
       // disposes all trajectories and resets number of moving projectiles property

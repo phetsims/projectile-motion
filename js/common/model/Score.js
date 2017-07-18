@@ -34,6 +34,11 @@ define( function( require ) {
 
   return inherit( Object, Score, {
 
+    /**
+     * Reset these properties
+     * @public
+     * @override
+     */
     reset: function() {
       this.targetXProperty.reset();
     },
