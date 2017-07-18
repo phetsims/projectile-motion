@@ -50,6 +50,8 @@ define( function( require ) {
     var self = this;
     Node.call( this );
 
+    this.screenView = screenView;
+
     var targetXProperty = score.targetXProperty;
 
     var outerCircle = new Circle( 1, { fill: 'red', stroke: 'black', lineWidth: transformProperty.get().viewToModelDeltaX( 1 ) } );
@@ -131,7 +133,7 @@ define( function( require ) {
       ] } );
       rewardNode.x = target.centerX;
       rewardNode.y = target.centerY;
-      self.addChild( rewardNode );
+      screenView.addChild( rewardNode );
       self.rewardNodes.push( rewardNode );
 
       // animate the stars to go up, out, and fade
@@ -143,7 +145,7 @@ define( function( require ) {
       }).onComplete( function() {
         if ( self.hasChild( rewardNode ) ) {
           self.rewardNodes.pop( rewardNode );
-          self.removeChild( rewardNode );
+          screenView.removeChild( rewardNode );
         }
       } ).start( phet.joist.elapsedTime );
 
@@ -186,8 +188,8 @@ define( function( require ) {
     reset: function() {
       var self = this;
       this.rewardNodes.forEach( function ( rewardNode ) {
-          if ( self.hasChild( rewardNode ) ) {
-            self.removeChild( rewardNode );
+          if ( self.screenView.hasChild( rewardNode ) ) {
+            self.screenView.removeChild( rewardNode );
           }
       } );
       this.rewardNodes = [];
