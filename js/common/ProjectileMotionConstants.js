@@ -85,7 +85,7 @@ define( function( require ) {
       headWidth: 10,
       headHeight: 8
     } ),
-    AIR_RESISTANCE_ICON: new Node( { children: [
+    AIR_RESISTANCE_ICON: new Node( { centerY: 0, left: 0, children: [
       AIR_RESISTANCE_ICON_PATH,
       new Circle( 2.2, {
         x: AIR_RESISTANCE_ICON_PATH.right - 0.8,
