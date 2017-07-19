@@ -14,6 +14,7 @@ define( function( require ) {
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   // constants
   var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -23,7 +24,6 @@ define( function( require ) {
   var ARROW_TAIL_WIDTH = 6;
   var ARROW_HEAD_WIDTH = 12;
   var ARROW_HEAD_HEIGHT = 12;
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
 
   /**
    * @constructor
