@@ -80,8 +80,7 @@ define( function( require ) {
 
     // @private
     this.disposeTrajectory = function() {
-      var i;
-      for ( i = 0; i < this.dataPoints.length; i++ ) {
+      for ( var i = 0; i < this.dataPoints.length; i++ ) {
         var point = this.dataPoints.get( i );
 
         if ( point.numberOfOtherTrajectoriesUsingSelf ) {
