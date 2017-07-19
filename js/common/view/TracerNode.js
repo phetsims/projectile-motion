@@ -285,7 +285,7 @@ define( function( require ) {
      * @public
      *
      * @param {Object} [options]
-     * @return {Node}\
+     * @returns {Node}
      */
     createIcon: function( options ) {
       options = options || {};

@@ -178,9 +178,9 @@ define( function( require ) {
      * or returns null if this trajectory has no datapoints
      * @public
      *
-     * @returns {DataPoint|null}
      * @param {number} x - coordinate in model
      * @param {number} y - coordinate in model
+     * @returns {DataPoint|null}
      */
     getNearestPoint: function( x, y ) {
       if ( this.dataPoints.length === 0 ) {

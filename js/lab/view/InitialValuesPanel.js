@@ -65,7 +65,6 @@ define( function( require ) {
      * @param {Range} range - range for the property value
      * @param {string} degreeString - optional, just for the angle
      * @returns {VBox}
-     * @private
      */
     function createParameterControlBox( labelString, unitsString, property, range, degreeString ) {
       var parameterLabel = new Text( '', parameterLabelOptions );

@@ -150,7 +150,6 @@ define( function( require ) {
      * @param {Range} range - range for the property value
      * @param {number} round - delta for how exact the property is, such as 0.1 or 0.001
      * @returns {VBox}
-     * @private
      */
     function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label

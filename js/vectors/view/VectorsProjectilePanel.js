@@ -81,7 +81,6 @@ define( function( require ) {
      * @param {Range} range - range for the property value
      * @param {Number} round - optional, for minor ticks
      * @returns {VBox}
-     * @private
      */
     function createParameterControlBox( labelString, unitsString, property, range, round ) {
       // label
