@@ -82,9 +82,6 @@ define( function( require ) {
         // don't try to start drags with a right mouse button or an attached pointer
         if ( !event.canStartPress() ) { return; }
 
-        // Don't try to start drags with a right mouse button or an attached pointer.
-        if ( !event.canStartPress() ) { return; }
-
         tracer.isActiveProperty.set( true );
 
         var tracerOriginPosition = tracerNode.globalToParentPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
@@ -136,9 +133,6 @@ define( function( require ) {
         if ( event.pointer.dragging ) { return; }
 
         // don't try to start drags with a right mouse button or an attached pointer
-        if ( !event.canStartPress() ) { return; }
-
-        // Don't try to start drags with a right mouse button or an attached pointer.
         if ( !event.canStartPress() ) { return; }
 
         measuringTape.isActiveProperty.set( true );
