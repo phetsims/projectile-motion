@@ -78,9 +78,23 @@ define( function( require ) {
     // add first projectile object
     this.addProjectileObject();
 
+    // @private
     this.disposeTrajectory = function() {
+      var i;
+      for ( i = 0; i < this.dataPoints.length; i++ ) {
+        var point = this.dataPoints.get( i );
+
+        if ( point.numberOfOtherTrajectoriesUsingSelf ) {
+          point.numberOfOtherTrajectoriesUsingSelf--;
+        }
+        else {
+          point.position.freeToPool();
+          point.velocity.freeToPool();
+          point.acceleration.freeToPool();
+          point.dragForce.freeToPool();
+        }
+      }
       this.projectileObjects.clear();
-      // this.dataPoints.clear();
       model.updateRanksEmitter.removeListener( incrementRank );
     };
   }
@@ -270,21 +284,6 @@ define( function( require ) {
      * @public
      */
     dispose: function() {
-      var i;
-      for ( i = 0; i < this.dataPoints.length; i++ ) {
-        var point = this.dataPoints.get( i );
-
-        if ( point.numberOfOtherTrajectoriesUsingSelf ) {
-          point.numberOfOtherTrajectoriesUsingSelf--;
-        }
-        else {
-          point.position.freeToPool();
-          point.velocity.freeToPool();
-          point.acceleration.freeToPool();
-          point.dragForce.freeToPool();
-        }
-
-      }
       this.disposeTrajectory();
     }
 
