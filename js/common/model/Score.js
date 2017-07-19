@@ -52,17 +52,9 @@ define( function( require ) {
     scoreIfWithinTarget: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetXProperty.get() );
       if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) {
-        this.score();
+        this.scoredEmitter.emit();
       }
-    },
-
-    /**
-     * Triggers scoreEmitter to trigger view animation
-     * @public
-     */
-    score: function() {
-      this.scoredEmitter.emit();
-    },
+    }
 
   } );
 } );
