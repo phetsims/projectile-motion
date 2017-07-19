@@ -67,7 +67,7 @@ define( function( require ) {
    * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
    * @param {Node} comboBoxListParent - node for containing the combobox
    * @param {KeypadLayer} keypadLayer - for entering values
-   * @param {function} setKeypadLocation - function for laying out the keypad
+   * @param {function:KeypadPanel} setKeypadLocation - function for laying out the keypad, no return
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty

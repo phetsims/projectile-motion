@@ -53,7 +53,7 @@ define( function( require ) {
 
     /**
      * Positions keypad
-     * @param {function} setKeypadLocation - function that lays out keypad
+     * @param {function:KeypadPanel} setKeypadLocation - function that lays out keypad, no return
      */
     positionKeypad: function( setKeypadLocation ) {
       this.keypad && setKeypadLocation( this.keypad );
