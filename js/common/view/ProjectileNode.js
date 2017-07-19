@@ -102,6 +102,11 @@ define( function( require ) {
     else {
       projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize, dragCoefficient );
     }
+    // Center the object view, and wrap it in a containing node, so we don't require bounds checks when animating
+    projectileObjectView.center = Vector2.ZERO;
+    projectileObjectView = new Node( {
+      children: [ projectileObjectView ]
+    } );
     projectileViewLayer.addChild( projectileObjectView );
 
     // add vector view for acceleration x component
@@ -195,7 +200,7 @@ define( function( require ) {
         projectileObjectView.setRotation( -angle );
       }
 
-      projectileObjectView.center = viewPoint.viewPosition;
+      projectileObjectView.translation = viewPoint.viewPosition;
     };
 
     // Update the projectile's object view.
