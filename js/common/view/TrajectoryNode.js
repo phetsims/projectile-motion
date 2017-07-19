@@ -22,16 +22,18 @@ define( function( require ) {
   var Util = require( 'DOT/Util' );
 
   // constants
-  var MAX_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
-  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS; // view units
+  var MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+  
   var PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
-  var CURRENT_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
-  var AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
-  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
   var PATH_MIN_OPACITY = 0;
   var PATH_MAX_OPACITY = 1;
+  var AIR_RESISTANCE_OFF_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
+  var AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
+
+  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS; // view units
   var DOTS_MIN_OPACITY = 0;
   var DOTS_MAX_OPACITY = 0.5;
+  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
@@ -72,7 +74,7 @@ define( function( require ) {
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
 
       if ( viewLastPosition ) {
-        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : CURRENT_PATH_COLOR;
+        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
         if ( !currentPathShape || currentPathStroke !== pathStroke ) {
           currentPathShape = new Shape().moveTo( viewLastPosition.x, viewLastPosition.y );
           currentPathStroke = pathStroke;
@@ -146,7 +148,7 @@ define( function( require ) {
     transformProperty.lazyLink( updateTransform );
 
     function updateOpacity( rank ) {
-      var strength = ( MAX_COUNT - rank ) / MAX_COUNT;
+      var strength = ( MAX_TRAJECTORY_COUNT - rank ) / MAX_TRAJECTORY_COUNT;
       pathsLayer.opacity = PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
       projectileNodesLayer.opacity = pathsLayer.opacity;
       dotsPath.opacity = DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );

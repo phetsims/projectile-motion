@@ -41,7 +41,7 @@ define( function( require ) {
     CANNONBALL_DRAG_COEFFICIENT: 0.47,
 
     // productive constraints
-    MAX_NUMBER_OF_PROJECTILES: 5,
+    MAX_NUMBER_OF_TRAJECTORIES: 5,
     MAX_NUMBER_OF_FLYING_PROJECTILES: 3,
 
     CANNON_HEIGHT_RANGE: new Range( 0, 15 ),

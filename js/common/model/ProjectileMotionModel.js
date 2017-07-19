@@ -226,7 +226,7 @@ define( function( require ) {
      * @private
      */
     limitTrajectories: function() {
-      var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_PROJECTILES;
+      var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
       var i;
       for ( i = 0; i < numberToRemove; i++ ) {
         this.trajectories.shift().dispose();
