@@ -139,7 +139,6 @@ define( function( require ) {
     } );
 
     // initial speed readout, slider, and tweakers
-    // TODO: pass in range because it is different for each screen
     var initialSpeedControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {

@@ -180,8 +180,6 @@ define( function( require ) {
     var totalDragForceLabel = new Node( { children: [ totalDragForceText ] } );
     freeBodyTotals.addChild( totalDragForceLabel );
 
-    // TODO: Don't leak listeners to the visibility properties.
-
     // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     var viewPointProperty = new DerivedProperty( [ dataPointProperty ], function( dataPoint ) {
       //TODO: Getting a view-coordinate copy of the DataPoint would be ideal, so this extra thing wouldn't be needed.
@@ -290,7 +288,6 @@ define( function( require ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
             if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
-              // TODO: careful, this may be an extra remove if a single landed object is used
               projectileViewLayer.removeChild( projectileObjectView );
             }
             projectileViewLayer.addChild( landedObjectView );
