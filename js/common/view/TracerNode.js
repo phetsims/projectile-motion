@@ -38,14 +38,15 @@ define( function( require ) {
   var mString = require( 'string!PROJECTILE_MOTION/m' );
 
   // constants
-  var CIRCLE_RADIUS = 15; // view units, will not be transformed
+  var CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed
   var OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
-  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-  var SPACING = 4;
   var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
   var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
   var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
+  var SPACING = 4;
+  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+ 
   var TRACER_CONTENT_WIDTH = 155;
   var RIGHTSIDE_PADDING = 11;
 
@@ -105,16 +106,16 @@ define( function( require ) {
 
     // crosshair view
     var crosshairShape = new Shape()
-      .moveTo( -CIRCLE_RADIUS, 0 )
-      .lineTo( CIRCLE_RADIUS, 0 )
-      .moveTo( 0, -CIRCLE_RADIUS )
-      .lineTo( 0, CIRCLE_RADIUS );
+      .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+      .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+      .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
+      .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
     var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-    var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
+    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
 
     // Create the base of the crosshair
-    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
+    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
 
     var timeReadoutProperty = new Property( '-' );
     var rangeReadoutProperty = new Property( '-' );
@@ -170,7 +171,7 @@ define( function( require ) {
 
       crosshair.center = self.probeOrigin;
       circle.center = self.probeOrigin;
-      crosshairMount.left = self.probeOrigin.x + CIRCLE_RADIUS;
+      crosshairMount.left = self.probeOrigin.x + CIRCLE_AROUND_CROSSHAIR_RADIUS;
       crosshairMount.centerY = self.probeOrigin.y;
       rectangle.left = crosshairMount.right;
       rectangle.centerY = self.probeOrigin.y;
@@ -309,16 +310,16 @@ define( function( require ) {
 
       // crosshair view
       var crosshairShape = new Shape()
-        .moveTo( -CIRCLE_RADIUS, 0 )
-        .lineTo( CIRCLE_RADIUS, 0 )
-        .moveTo( 0, -CIRCLE_RADIUS )
-        .lineTo( 0, CIRCLE_RADIUS );
+        .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+        .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+        .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
+        .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
       var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-      var circle = new Circle( CIRCLE_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
+      var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
 
       // Create the base of the crosshair
-      var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
+      var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
       var timeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( '-' ) );
       var rangeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( '-' ) );
       var heightBox = this.createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( '-' ) );
@@ -337,7 +338,7 @@ define( function( require ) {
 
       crosshair.center = probeOrigin;
       circle.center = probeOrigin;
-      crosshairMount.left = probeOrigin.x + CIRCLE_RADIUS;
+      crosshairMount.left = probeOrigin.x + CIRCLE_AROUND_CROSSHAIR_RADIUS;
       crosshairMount.centerY = probeOrigin.y;
       rectangle.left = crosshairMount.right;
       rectangle.centerY = probeOrigin.y;
