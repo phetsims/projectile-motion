@@ -79,7 +79,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    var clippableNode = new Node( {
+    var clippedByGroundNode = new Node( {
       x: transformProperty.get().modelToViewX( 0 ),
       y: transformProperty.get().modelToViewY( 0 ),
       cursor: 'pointer'
@@ -90,7 +90,7 @@ define( function( require ) {
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
     var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, 'gray' ).addColorStop( 0.3, 'white' ).addColorStop( 1, 'gray' );
     var groundCircle = new Path( ellipseShape, {
-      x: clippableNode.x,
+      x: clippedByGroundNode.x,
       y: transformProperty.get().modelToViewY( 0 ),
       fill: groundFill,
       stroke: BRIGHT_GRAY_COLOR
@@ -98,13 +98,13 @@ define( function( require ) {
 
     var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
     var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
-    clippableNode.addChild( cylinderSide );
+    clippedByGroundNode.addChild( cylinderSide );
 
     var cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
-    clippableNode.addChild( cylinderTop );
+    clippedByGroundNode.addChild( cylinderTop );
 
     var cannonBarrel = new Node();
-    clippableNode.addChild( cannonBarrel );
+    clippedByGroundNode.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
     var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
@@ -114,14 +114,14 @@ define( function( require ) {
     cannonBarrel.addChild( cannonBarrelTop );
 
     var cannonBase = new Node();
-    clippableNode.addChild( cannonBase );
+    clippedByGroundNode.addChild( cannonBase );
 
     var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
-    clippableNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
+    clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
     // add line for indicating the height
     var heightLeaderLine = new ArrowNode(
@@ -172,7 +172,7 @@ define( function( require ) {
 
     // angle indicator
     var angleIndicator = new Node();
-    angleIndicator.x = clippableNode.x;
+    angleIndicator.x = clippedByGroundNode.x;
 
     // crosshair view
     var crosshairShape = new Shape()
@@ -238,7 +238,7 @@ define( function( require ) {
       // cylinderSide,
       // cylinderTop,
       // cannon,
-      clippableNode,
+      clippedByGroundNode,
       heightLeaderLine,
       heightLeaderLineTopCap,
       heightLeaderLineBottomCap,
@@ -268,7 +268,7 @@ define( function( require ) {
 
     var updateHeight = function( height ) {
       var viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
-      var heightInClipCoordinates = clippableNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
+      var heightInClipCoordinates = clippedByGroundNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
       viewHeightPoint.freeToPool();
       cannonBarrel.y = heightInClipCoordinates;
       cannonBase.y = heightInClipCoordinates;
@@ -291,7 +291,7 @@ define( function( require ) {
         .lineTo( ELLIPSE_WIDTH / 2, 0 )
         .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
         .close();
-      clippableNode.setClipArea( clipArea );
+      clippedByGroundNode.setClipArea( clipArea );
 
       heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, transformProperty.get().modelToViewY( height ) );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
@@ -321,7 +321,7 @@ define( function( require ) {
     // update if transform changes
     transformProperty.link( function( transform ) {
       scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
-      clippableNode.setScaleMagnitude( scaleMagnitude );
+      clippedByGroundNode.setScaleMagnitude( scaleMagnitude );
       // cannon.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
       // cylinderTop.setScaleMagnitude( scaleMagnitude );
@@ -347,8 +347,8 @@ define( function( require ) {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = Vector2.createFromPool( startPoint.x - clippableNode.x, startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
-        var mousePointAngle = Vector2.createFromPool( mousePoint.x - clippableNode.x, mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
+        var startPointAngle = Vector2.createFromPool( startPoint.x - clippedByGroundNode.x, startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
+        var mousePointAngle = Vector2.createFromPool( mousePoint.x - clippedByGroundNode.x, mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
