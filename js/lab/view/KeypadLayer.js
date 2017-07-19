@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /**
  * KeypadLayer handles creation and management of a modal keypad.

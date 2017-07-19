@@ -1,4 +1,4 @@
-// Copyright 2016-2017, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /***
  * A panel that contains a keypad and Enter button.

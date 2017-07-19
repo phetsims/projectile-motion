@@ -1,4 +1,4 @@
-// Copyright 2015-2016, University of Colorado Boulder
+// Copyright 2017, University of Colorado Boulder
 
 /**
  * View properties that are specific to visibility of vectors
