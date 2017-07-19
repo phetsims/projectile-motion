@@ -63,7 +63,7 @@ define( function( require ) {
   var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
   var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-  var INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
+  var PLAY_CONTROLS_INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
@@ -337,7 +337,7 @@ define( function( require ) {
     var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
       bottom: speedControl.bottom,
-      left: speedControl.right + 2 * INSET
+      left: speedControl.right + 2 * PLAY_CONTROLS_INSET
     } );
 
     // step button
@@ -348,7 +348,7 @@ define( function( require ) {
       stroke: 'black',
       fill: '#005566',
       centerY: playPauseButton.centerY,
-      left: playPauseButton.right + INSET
+      left: playPauseButton.right + PLAY_CONTROLS_INSET
     } );
 
     // make the play/pause button bigger when it is paused

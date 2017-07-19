@@ -26,19 +26,10 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   var VELOCITY_ARROW_FILL = ProjectileMotionConstants.VELOCITY_ARROW_FILL;
   var ACCELERATION_ARROW_FILL = ProjectileMotionConstants.ACCELERATION_ARROW_FILL;
-  var ARROW_TAIL_WIDTH = 6;
-  var ARROW_HEAD_WIDTH = 12;
-  var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
-  var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
-  var FORCE_ARROW_OPTIONS = {
-    fill: 'black',
-    stroke: null,
-    tailWidth: 2,
-    headWidth: 6
-  };
+  var TOTAL_ARROW_TAIL_WIDTH = 6;
+  var TOTAL_ARROW_HEAD_WIDTH = 12;
   var COMPONENT_VELOCITY_ARROW_OPTIONS = {
     fill: VELOCITY_ARROW_FILL,
     stroke: 'black',
@@ -53,11 +44,23 @@ define( function( require ) {
     tailWidth: 2,
     headWidth: 6
   };
-  var FREE_BODY_RADIUS = 3;
+  var FORCE_ARROW_OPTIONS = {
+    fill: 'black',
+    stroke: null,
+    tailWidth: 2,
+    headWidth: 6
+  };
+
+  var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
+  var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
   var FORCE_SCALAR = 3;
+
+  var FREE_BODY_RADIUS = 3;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
   var FORCES_BOX_DILATION = 7;
+  
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
+  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
   var xDragForceText = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
   var yDragForceText = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
@@ -121,8 +124,8 @@ define( function( require ) {
     var totalAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: ACCELERATION_ARROW_FILL,
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
+      tailWidth: TOTAL_ARROW_TAIL_WIDTH,
+      headWidth: TOTAL_ARROW_HEAD_WIDTH
     } );
     this.addChild( totalAccelerationArrow );
 
@@ -138,8 +141,8 @@ define( function( require ) {
     var totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
       pickable: false,
       fill: VELOCITY_ARROW_FILL,
-      tailWidth: ARROW_TAIL_WIDTH,
-      headWidth: ARROW_HEAD_WIDTH
+      tailWidth: TOTAL_ARROW_TAIL_WIDTH,
+      headWidth: TOTAL_ARROW_HEAD_WIDTH
     } );
     this.addChild( totalVelocityArrow );
 
