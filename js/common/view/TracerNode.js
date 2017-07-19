@@ -46,7 +46,7 @@ define( function( require ) {
   var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
   var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
   var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
-  var TRACER_CONTENT_WIDTH = 150;
+  var TRACER_CONTENT_WIDTH = 155;
   var RIGHTSIDE_PADDING = 11;
 
   /**
@@ -248,10 +248,10 @@ define( function( require ) {
      * @param {Property} readoutProperty
      */
     createInformationBox: function( maxWidth, labelString, readoutProperty ) {
-
+      
       var backgroundWidth = 60;
       var labelText = new Text( labelString, _.defaults( {
-        maxWidth: maxWidth - backgroundWidth - 3 * this.spacing
+        maxWidth: maxWidth - backgroundWidth - 25
       }, LABEL_OPTIONS ) );
 
       // number
@@ -319,9 +319,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_RADIUS, 0.4 * CIRCLE_RADIUS, { fill: 'gray' } );
-      var timeBox = this.createInformationBox( rectangle.width, timeString, new Property( '-' ) );
-      var rangeBox = this.createInformationBox( rectangle.width, rangeString, new Property( '-' ) );
-      var heightBox = this.createInformationBox( rectangle.width, heightString, new Property( '-' ) );
+      var timeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( '-' ) );
+      var rangeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( '-' ) );
+      var heightBox = this.createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( '-' ) );
 
       var textBox = new VBox( {
         align: 'left',
