@@ -46,6 +46,8 @@ define( function( require ) {
   var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
   var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
   var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
+  var TRACER_CONTENT_WIDTH = 150;
+  var RIGHTSIDE_PADDING = 11;
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -68,7 +70,7 @@ define( function( require ) {
     var rectangle = new Rectangle(
       0,
       0,
-      165,
+      TRACER_CONTENT_WIDTH + RIGHTSIDE_PADDING,
       95, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
@@ -84,7 +86,7 @@ define( function( require ) {
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
     rectangle.setTouchArea( rectangle.bounds.dilatedXY( 15, 6 ) );
 
-    var dragBoundsShift = -90; // empirically determined
+    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING; // empirically determined
 
     // @public Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
@@ -118,9 +120,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( rectangle.width - 15, timeString, timeReadoutProperty );
-    var rangeBox = this.createInformationBox( rectangle.width - 15, rangeString, rangeReadoutProperty );
-    var heightBox = this.createInformationBox( rectangle.width - 15, heightString, heightReadoutProperty );
+    var timeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
+    var rangeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
+    var heightBox = this.createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -247,11 +249,12 @@ define( function( require ) {
      */
     createInformationBox: function( maxWidth, labelString, readoutProperty ) {
 
-      // max width empirically determined
-      var labelText = new Text( labelString, _.defaults( { maxWidth: 70 }, LABEL_OPTIONS ) );
+      var backgroundWidth = 60;
+      var labelText = new Text( labelString, _.defaults( {
+        maxWidth: maxWidth - backgroundWidth - 3 * this.spacing
+      }, LABEL_OPTIONS ) );
 
       // number
-      var backgroundWidth = 60;
       var numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
       var numberNode = new Text( readoutProperty.get(), numberOptions );
 
@@ -292,7 +295,7 @@ define( function( require ) {
       var rectangle = new Rectangle(
         0,
         0,
-        150,
+        TRACER_CONTENT_WIDTH,
         95, {
           cornerRadius: 8,
           fill: OPAQUE_BLUE,
