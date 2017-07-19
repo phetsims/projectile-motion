@@ -34,7 +34,7 @@ define( function( require ) {
     this.positionProperty = new Property( new Vector2( tracerX, tracerY ) );
 
     // @public {Property.<DataPoint/null>} point that the tracer is displaying information about
-    this.pointProperty = new Property( null );
+    this.dataPointProperty = new Property( null );
 
     // @public {Property.<boolean>} whether the tracer is out in the play area (false when in toolbox)
     this.isActiveProperty = new BooleanProperty( false );
@@ -56,12 +56,12 @@ define( function( require ) {
      */
     reset: function() {
       this.positionProperty.reset();
-      this.pointProperty.reset();
+      this.dataPointProperty.reset();
       this.isActiveProperty.reset();
     },
 
     /**
-     * Checks for if there is a point the tracer is close to. If so, updates pointProperty
+     * Checks for if there is a point the tracer is close to. If so, updates dataPointProperty
      * @public
      */
     updateData: function() {
@@ -71,25 +71,25 @@ define( function( require ) {
         var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
         var pointIsReadable = point && ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
-          this.pointProperty.set( point );
+          this.dataPointProperty.set( point );
           return;
         }
       }
-      this.pointProperty.set( null );
+      this.dataPointProperty.set( null );
     },
 
     /**
      * Checks if the given point is close enough to the tracer and updates information if so
      * @public
      *
-     * @param {Vector2} point - point in model coordinates
+     * @param {DataPoint} point
      */
     updateDataIfWithinRange: function( point ) {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
       var pointIsReadable = point && ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
-        this.pointProperty.set( point );
+        this.dataPointProperty.set( point );
       }
     }
   } );

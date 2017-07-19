@@ -62,7 +62,7 @@ define( function( require ) {
     headWidth: 14,
     headHeight: 6
   };
-  var SCREEN_CHANGE_TIME = 500; // milliseconds
+  var MUZZLE_FLASH_TIME = 500; // milliseconds
   var MUZZLE_FLASH_SCALE = 2;
 
   /**
@@ -434,7 +434,7 @@ define( function( require ) {
 
       new TWEEN.Tween( muzzleFlash ).to( {
         opacity: 1
-      }, SCREEN_CHANGE_TIME ).onUpdate( function() {
+      }, MUZZLE_FLASH_TIME ).onUpdate( function() {
         muzzleFlash.setScaleMagnitude( muzzleFlash.opacity * muzzleFlash.opacity * MUZZLE_FLASH_SCALE );
       } ).onComplete( function() {
         muzzleFlash.opacity = 0;

@@ -139,7 +139,7 @@ define( function( require ) {
     } );
 
     // Listen for when time, range, and height change, and update the readouts.
-    tracer.pointProperty.link( function( point ) {
+    tracer.dataPointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: Util.toFixedNumber( point.time, 2 ),
@@ -177,9 +177,9 @@ define( function( require ) {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      if ( tracer.pointProperty.get() ) {
-        haloNode.centerX = transformProperty.get().modelToViewX( tracer.pointProperty.get().position.x );
-        haloNode.centerY = transformProperty.get().modelToViewY( tracer.pointProperty.get().position.y );
+      if ( tracer.dataPointProperty.get() ) {
+        haloNode.centerX = transformProperty.get().modelToViewX( tracer.dataPointProperty.get().position.x );
+        haloNode.centerY = transformProperty.get().modelToViewY( tracer.dataPointProperty.get().position.y );
       }
     };
 
