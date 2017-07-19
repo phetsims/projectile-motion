@@ -50,7 +50,7 @@ define( function( require ) {
       self.rankProperty.value++;
     }
 
-    model.updateRanksEmitter.addListener( incrementRank );
+    model.updateTrajectoryRanksEmitter.addListener( incrementRank );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
@@ -94,7 +94,7 @@ define( function( require ) {
         }
       }
       this.projectileObjects.clear();
-      model.updateRanksEmitter.removeListener( incrementRank );
+      model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
     };
   }
 

@@ -27,7 +27,7 @@ define( function( require ) {
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
-  var DAVID_RADIUS = 0.5; // meters, will change to view units. How close the tracer needs to get to a datapoint
+  var DAVID_PROXIMITY_RADIUS = 0.5; // in meters, how close the projectile needs to fly to knock off his shorts
 
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
@@ -87,7 +87,7 @@ define( function( require ) {
     this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
-    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], getAirDensity );
+    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], calculateAirDensity );
 
     // change status of projectiles
     this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
@@ -116,7 +116,7 @@ define( function( require ) {
     } );
 
     // @public {Emitter}
-    this.updateRanksEmitter = new Emitter();
+    this.updateTrajectoryRanksEmitter = new Emitter();
 
     // @private {EventTimer}
     this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
@@ -131,7 +131,7 @@ define( function( require ) {
    * @param {boolean} airResistanceOn - if off, zero air density
    * @returns {number} - air density
    */
-  function getAirDensity( altitude, airResistanceOn ) {
+  function calculateAirDensity( altitude, airResistanceOn ) {
 
     // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
     // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
@@ -259,7 +259,7 @@ define( function( require ) {
         newTrajectory.dispose();
       }
       else {
-        this.updateRanksEmitter.emit(); // increment rank of all trajectories
+        this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
         newTrajectory.rankProperty.reset(); // make this one go back to zero
         this.trajectories.push( newTrajectory );
       }
@@ -289,7 +289,7 @@ define( function( require ) {
           for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
             var projectileObject = trajectory.projectileObjects.get( i );
             removedProjectileObjects.push( projectileObject );
-            this.updateRanksEmitter.emit();
+            this.updateTrajectoryRanksEmitter.emit();
             var newTrajectory = trajectory.newTrajectory( projectileObject );
             newTrajectory.changedInMidAir = true;
             newTrajectories.push( newTrajectory );
@@ -304,7 +304,7 @@ define( function( require ) {
             if ( !projectileObject.dataPointProperty.get().reachedGround ) {
               projectileObject = trajectory.projectileObjects.get( i );
               removedProjectileObjects.push( projectileObject );
-              this.updateRanksEmitter.emit();
+              this.updateTrajectoryRanksEmitter.emit();
               newTrajectory = trajectory.newTrajectory( projectileObject );
               newTrajectories.push( newTrajectory );
             }
@@ -324,7 +324,7 @@ define( function( require ) {
      * @param {Vector2} position - a point in the model coordinate
      */
     updateDavidIfWithinRange: function( position ) {
-      if ( position && position.distance( this.davidPosition ) <= DAVID_RADIUS ) {
+      if ( position && position.distance( this.davidPosition ) <= DAVID_PROXIMITY_RADIUS ) {
         this.davidShortsOnProperty.set( false );
       }
     },
