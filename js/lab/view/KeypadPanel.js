@@ -4,6 +4,7 @@
  * A panel that contains a keypad and Enter button.
  *
  * @author Chris Malley (PixelZoom, Inc.)
+ * @author Andrea Lin( PhET Interactive Simulations )
  */
 define( function( require ) {
   'use strict';
