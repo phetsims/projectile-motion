@@ -1,16 +1,14 @@
 # Projectile Motion - model description
 
 This is a high-level description of the model used in Projectile Motion. It's intended for audiences that are not 
-necessarily technical.
+necessarily technical. Each screen has the same model, so the only difference is the levels of control over the 
+projectile, environment, and vectors.
 
-Each screen has the same model, so the only difference is the levels of control over the projectile, environment, and 
-vectors.
-
-There is no limit to the number of projectiles the user may fire before needing to reset, but
-1. There can only be three projectiles in the air at a time, so the fire button will be disabled if the user has hit 
+There is no limit to the number of projectiles the user may fire before needing to reset, but:
+* There can only be three projectiles in the air at a time, so the fire button will be disabled if the user has hit 
 that limit. The fire button will be enabled again when the first projectile has hit the ground.
-2. The trajectories on screen will fade out over time. The model only stores 5 trajectories at a time.
-3. If the same projectile is fired in a row, it counts as the same trajectory.
+* The trajectories on screen will fade out over time. The model only stores 5 trajectories at a time.
+* If the same projectile is fired in a row, it counts as the same trajectory.
 
 The type of projectile, mass, diameter, and drag coefficient, height, angle, and initial speeed affect the next 
 projectile fired. Changes in air resistance, altitude, and gravity apply immediately, which means both the next 
