@@ -148,10 +148,9 @@ define( function( require ) {
      * @param {string} unitsString - units
      * @param {Property.<number>} property - the property that is set and linked to
      * @param {Range} range - range for the property value
-     * @param {number} round - delta for how exact the property is, such as 0.1 or 0.001
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, property, range, round ) {
+    function createParameterControlBox( labelString, unitsString, property, range ) {
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
@@ -189,7 +188,7 @@ define( function( require ) {
         content: pencilIcon,
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
         listener: function() {
-          keypadLayer.beginEdit( property, range, round, {
+          keypadLayer.beginEdit( property, range, {
             onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
             onEndEdit: function() { backgroundNode.fill = 'white'; },
             setKeypadLocation: setKeypadLocation,
@@ -335,36 +334,31 @@ define( function( require ) {
             massString,
             kgString,
             projectileMassProperty,
-            objectType.massRange,
-            objectType.massRound
+            objectType.massRange
           );
           diameterCustomBox = createParameterControlBox(
             diameterString,
             mString,
             projectileDiameterProperty,
-            objectType.diameterRange,
-            objectType.diameterRound
+            objectType.diameterRange
           );
           gravityCustomBox = createParameterControlBox(
             gravityString,
             metersPerSecondSquaredString,
             gravityProperty,
-            ProjectileMotionConstants.GRAVITY_RANGE,
-            0.01
+            ProjectileMotionConstants.GRAVITY_RANGE
           );
           altitudeCustomBox = createParameterControlBox(
             altitudeString,
             mString,
             altitudeProperty,
-            ProjectileMotionConstants.ALTITUDE_RANGE,
-            0.01
+            ProjectileMotionConstants.ALTITUDE_RANGE
           );
           dragCoefficientCustomBox = createParameterControlBox(
             dragCoefficientString,
             null,
             projectileDragCoefficientProperty,
-            objectType.dragCoefficientRange,
-            objectType.dragCoefficientRound
+            objectType.dragCoefficientRange
           );
         }
         massBox.addChild( massCustomBox );

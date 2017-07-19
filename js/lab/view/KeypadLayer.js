@@ -64,10 +64,9 @@ define( function( require ) {
      * @public
      *
      * @param {Property.<number>} valueProperty - the Property to be set by the keypad
-     * @param {number} valueRound - rounding the value when done
      * @param {Object} [options]
      */
-    beginEdit: function( valueProperty, valueRange, valueRound, options ) {
+    beginEdit: function( valueProperty, valueRange, options ) {
 
       // Ignore attempts to open another keypad. This can happen in unlikely multi-touch scenarios.
       // See https://github.com/phetsims/unit-rates/issues/181
@@ -93,7 +92,7 @@ define( function( require ) {
       this.keypad = new KeypadPanel( {
         maxDigits: options.maxDigits,
         maxDecimals: options.maxDecimals,
-        enterButtonListener: this.commitEdit.bind( this, valueRange, valueRound )
+        enterButtonListener: this.commitEdit.bind( this, valueRange )
       } );
 
       // display the keypad
@@ -132,11 +131,10 @@ define( function( require ) {
 
     /**
      * Commits an edit
+     * @param {Range} valueRange
      * @private
      */
-    commitEdit: function( valueRange, valueRound ) {
-
-      //TODO: may not need round anymore
+    commitEdit: function( valueRange ) {
 
       // get the value from the keypad
       var value = parseFloat( this.keypad.valueStringProperty.value );
