@@ -51,7 +51,7 @@ define( function( require ) {
         model.selectedProjectileObjectTypeProperty,
         comboBoxListParent,
         keypadLayer,
-        this.setKeypadLayer.bind( this ),
+        this.setKeypadLocation.bind( this ),
         model.projectileMassProperty,
         model.projectileDiameterProperty,
         model.projectileDragCoefficientProperty,
@@ -87,7 +87,7 @@ define( function( require ) {
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
       this.bottomRightPanel.layoutComboBox();
-      this.keypadLayer.positionKeypad( this.setKeypadLayer.bind( this ) );
+      this.keypadLayer.positionKeypad( this.setKeypadLocation.bind( this ) );
     },
 
     /**
@@ -96,7 +96,7 @@ define( function( require ) {
      *
      * @param {KeypadPanel} keypad
      */
-    setKeypadLayer: function( keypad ) {
+    setKeypadLocation: function( keypad ) {
       keypad.right = this.topRightPanel.left - X_MARGIN;
       keypad.top = this.toolboxPanel.bottom + Y_MARGIN;
     }
