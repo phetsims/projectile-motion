@@ -28,9 +28,7 @@ define( function( require ) {
   var ProjectileMotionConstants = {
 
     // truths about the world
-    GRAVITY_RANGE: new Range( 5, 20 ), // in m/s/s
     GRAVITY_ON_EARTH: 9.81,
-    SPHERE_DRAG_COEFFICIENT: 0.47, // https://en.wikipedia.org/wiki/Drag_coefficient
 
     // screen view layout
     VIEW_ORIGIN: new Vector2( 100, 520 ),
@@ -50,6 +48,10 @@ define( function( require ) {
 
     PROJECTILE_MASS_RANGE: new Range( 1, 10 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 1 ), // in original, smallest is 0.043
+    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ), // teardrop to almost hemisphere shape
+
+    ALTITUDE_RANGE: new Range( 0, 5000 ), // meters, max is arbitrary but in upper stratosphere
+    GRAVITY_RANGE: new Range( 5, 20 ), // in m/s/s
 
     // projectile and trajectory
     AIR_RESISTANCE_ON_PATH_COLOR: 'rgb( 252, 40, 252 )',
@@ -106,17 +108,10 @@ define( function( require ) {
       ]
     } ),
 
-    // teardrop to almost pancake shape
-    PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1 ),
-    ALTITUDE_RANGE: new Range( 0, 5000 ), // meters, max is arbitrary but in upper stratosphere
-
     // target
     TARGET_X_DEFAULT: 15, // meters
     TARGET_WIDTH: 3, // meters
     TARGET_HEIGHT: 0.6, // meters
-
-    // tracer
-    LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
     // control panels
     RIGHTSIDE_PANEL_OPTIONS: {
@@ -142,12 +137,14 @@ define( function( require ) {
       yMargin: 5
     },
 
-    //Light gray, used as the 'disabled' color
-    LIGHT_GRAY: 'rgb( 220, 220, 220 )',
-
     PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ), align: 'center' },
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
     PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
+
+    LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
+    
+    //Light gray, used as the 'disabled' color
+    LIGHT_GRAY: 'rgb( 220, 220, 220 )',
 
     YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 14 ),
