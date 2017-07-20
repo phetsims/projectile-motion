@@ -92,6 +92,7 @@ define( function( require ) {
 
     ScreenView.call( this, options );
 
+    // If on mobile device, don't draw things beyond boundary. For performance.
     if ( platform.mobileSafari ) {
       this.visibleBoundsProperty.link( function( bounds ) {
         self.clipArea = Shape.bounds( bounds );
@@ -105,6 +106,7 @@ define( function( require ) {
       DEFAULT_SCALE // scale for meters to view units, empirically determined based off original sim
     );
 
+    // tracks changes to modelViewTransform
     var transformProperty = new Property( modelViewTransform );
 
     // target
@@ -114,6 +116,7 @@ define( function( require ) {
     var trajectoriesLayer = new Node();
 
     function handleTrajectoryAdded( addedTrajectory ) {
+
       // create the view representation for added trajectory
       var trajectoryNode = new TrajectoryNode(
         vectorVisibilityProperties,
@@ -121,6 +124,7 @@ define( function( require ) {
         transformProperty
       );
 
+      // add the view to scene graph
       trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
@@ -162,6 +166,7 @@ define( function( require ) {
       }
     );
 
+    // panel under the cannon, controls initial speed of projectiles
     var initialSpeedPanel = new Panel(
       initialSpeedControl,
       _.extend( {
@@ -183,6 +188,7 @@ define( function( require ) {
         significantFigures: 2
       } );
 
+    // David
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
     var davidBottom = new Image( davidBottomImage, { centerX: 0, bottom: 0 } );
     davidNode.addChild( davidBottom );
@@ -198,6 +204,7 @@ define( function( require ) {
       davidShorts.visible = !shortsOn;
     } );
 
+    // background, including grass, road, sky, flatirons
     var backgroundNode = new BackgroundNode( this.layoutBounds );
 
     // listen to transform property
@@ -209,6 +216,7 @@ define( function( require ) {
       backgroundNode.updateFlatironsPosition( transform );
     } );
 
+    // make tools floating
     this.visibleBoundsProperty.link( function( bounds ) {
       measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds ) );
     } );
@@ -363,7 +371,7 @@ define( function( require ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
-    // @private properties to be layout
+    // @private for layout convenience
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;
@@ -433,8 +441,10 @@ define( function( require ) {
       }
       this.translate( offsetX, offsetY );
 
+      // call on backgroundNode's function to lay it out
       this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
-
+      
+      // layout controls
       this.topRightPanel.right = width / scale - offsetX - X_MARGIN;
       this.topRightPanel.top = Y_MARGIN - offsetY;
       this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
@@ -443,6 +453,7 @@ define( function( require ) {
       this.zoomControl.top = 2 * Y_MARGIN - offsetY;
       this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
 
+      // set visible bounds, which are different from layout bounds
       this.visibleBoundsProperty.set( new Bounds2( -offsetX, -offsetY, width / scale - offsetX, height / scale - offsetY ) );
 
     }

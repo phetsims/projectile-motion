@@ -60,12 +60,14 @@ define( function( require ) {
   function TracerNode( tracer, transformProperty, screenView, options ) {
     options = options || {};
     var self = this;
-
+    
+    // Is this being handled by user
     this.isUserControlledProperty = new BooleanProperty( false );
-
-    this.spacing = SPACING;
-    this.tracer = tracer;
-    this.probeOrigin = Vector2.createFromPool( 0, 0 );
+    
+    // @private
+    this.spacing = SPACING; // {number} x and y spacing and margins
+    this.tracer = tracer; // model
+    this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
 
     // draggable node
     var rectangle = new Rectangle(
@@ -87,6 +89,8 @@ define( function( require ) {
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
     rectangle.setTouchArea( rectangle.bounds.dilatedXY( 15, 6 ) );
 
+    // shift the tracer drag bounds so that it can only be dragged until the center reaches the left or right side
+    // of the screen
     var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING; // empirically determined
 
     // @public Should be added as a listener by our parent when the time is right
@@ -116,7 +120,8 @@ define( function( require ) {
 
     // Create the base of the crosshair
     var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-
+    
+    // label and values readouts
     var timeReadoutProperty = new Property( '-' );
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
@@ -134,7 +139,8 @@ define( function( require ) {
         heightBox
       ]
     } );
-
+    
+    // halo node for highlighting the dataPoint whose information is shown in the tracer tool
     var haloNode = new Circle( DOT_RADIUS * 2, {
       fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 )
         .addColorStop( 0, 'black' )
@@ -170,6 +176,7 @@ define( function( require ) {
       }
     } );
 
+    // function align locations, and update model.
     var updatePosition = function( position ) {
       self.probeOrigin.set( transformProperty.get().modelToViewPosition( position ) );
 
@@ -188,12 +195,14 @@ define( function( require ) {
       }
     };
 
+    // Observe changes in the modelViewTransform and update/adjust positions accordingly
     transformProperty.link( function( transform ) {
       self.movableDragHandler.setModelViewTransform( transform );
       self.movableDragHandler.setDragBounds( transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
+    // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
     screenView.visibleBoundsProperty.link( function( bounds ) {
       self.movableDragHandler.setDragBounds( transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
       updatePosition( tracer.positionProperty.get() );
@@ -217,7 +226,7 @@ define( function( require ) {
 
     Node.call( this, options );
 
-    // visibility
+    // visibility of the tracer
     tracer.isActiveProperty.link( function( active ) {
       self.visible = active;
     } );
@@ -253,7 +262,10 @@ define( function( require ) {
      */
     createInformationBox: function( maxWidth, labelString, readoutProperty ) {
       
+      // width of white rectangular background, also used for calculating max width
       var backgroundWidth = 60;
+
+      // label
       var labelText = new Text( labelString, _.defaults( {
         maxWidth: maxWidth - backgroundWidth - 25
       }, LABEL_OPTIONS ) );

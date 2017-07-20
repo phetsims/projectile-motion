@@ -36,6 +36,8 @@ define( function( require ) {
 
     assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
 
+    // the nav bar icon has a larger PhET girl than that of the home screen icon
+    
     if ( type === 'nav' ) {
       var width = NAV_ICON_SIZE.width;
       var height = NAV_ICON_SIZE.height;
@@ -60,7 +62,6 @@ define( function( require ) {
       phetGirl.scale( width * 0.6 / phetGirl.width );
       phetGirl.setRotation( -Math.PI / 30 );
       this.addChild( phetGirl );
-
     }
 
     // create the background

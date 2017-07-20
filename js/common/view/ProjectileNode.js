@@ -96,7 +96,7 @@ define( function( require ) {
     // @public for TrajectoryNode to access
     this.projectileViewLayer = projectileViewLayer;
 
-    // draw projectile object view
+    // draw projectile object view, which has separate flying and landed views if it has a type.
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( objectType && objectType.type ) {
       var projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType.type, diameter, modelViewTransform );
@@ -192,6 +192,7 @@ define( function( require ) {
       };
     } );
 
+    // Update the projectile's object view.
     var updateProjectileObjectView = function( viewPoint ) {
       var dataPoint = viewPoint.dataPoint;
 
@@ -204,7 +205,6 @@ define( function( require ) {
       projectileObjectView.translation = viewPoint.viewPosition;
     };
 
-    // Update the projectile's object view.
     viewPointProperty.link( updateProjectileObjectView );
 
     // Update component-wise velocity vectors.

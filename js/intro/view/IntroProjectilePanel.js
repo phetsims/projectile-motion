@@ -65,7 +65,7 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    // maxWidth empirically determined
+    // maxWidth of the labels within the dropdown empirically determined
     var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
     var firstItemNode = new VBox( {
@@ -98,6 +98,7 @@ define( function( require ) {
       comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
+    // create view for dropdown
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
@@ -111,8 +112,10 @@ define( function( require ) {
       }
     );
 
+    // and add it to its appropriate parent
     comboBoxListParent.addChild( projectileChoiceComboBox );
 
+    // local var for layout and formatting
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
     /**
@@ -155,7 +158,8 @@ define( function( require ) {
       null,
       projectileDragCoefficientProperty
     );
-
+    
+    // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin
@@ -170,7 +174,8 @@ define( function( require ) {
       var opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
-
+    
+    // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
     // The contents of the control panel
@@ -187,7 +192,7 @@ define( function( require ) {
       ]
     } );
 
-    // @private for layout
+    // @private for layout convenience
     this.projectileChoiceComboBox = projectileChoiceComboBox;
     this.controlsVerticalSpace = options.controlsVerticalSpace;
 

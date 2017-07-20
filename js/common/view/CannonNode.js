@@ -78,16 +78,18 @@ define( function( require ) {
     options = options || {};
 
     Node.call( this, options );
-
+    
+    // the cannon, muzzle flash, and pedestal are not visible under ground
     var clippedByGroundNode = new Node( {
       x: transformProperty.get().modelToViewX( 0 ),
       y: transformProperty.get().modelToViewY( 0 ),
       cursor: 'pointer'
     } );
-
-    // var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
-
+    
+    // shape used for ground circle and top of pedestal
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
+
+    // ground circle, which shows the "inside" of the circular hole that the cannon is sitting in
     var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
       .addColorStop( 0.0, 'gray' )
       .addColorStop( 0.3, 'white' )
@@ -99,6 +101,7 @@ define( function( require ) {
       stroke: BRIGHT_GRAY_COLOR
     } );
 
+    // side of the cylinder
     var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
       .addColorStop( 0.0, DARK_GRAY_COLOR )
       .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
@@ -106,8 +109,11 @@ define( function( require ) {
     var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
     clippedByGroundNode.addChild( cylinderSide );
 
+    // top of the cylinder
     var cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
     clippedByGroundNode.addChild( cylinderTop );
+
+    // cannon
 
     var cannonBarrel = new Node();
     clippedByGroundNode.addChild( cannonBarrel );
@@ -126,7 +132,8 @@ define( function( require ) {
     cannonBase.addChild( cannonBaseBottom );
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
-
+    
+    // scale everything according to the length of the cannon barrel
     clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
     // add line for indicating the height
@@ -172,7 +179,8 @@ define( function( require ) {
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
-
+    
+    // cueing arrow for dragging height
     var heightCueingArrow = new ArrowNode( 0, 0, 0, -15, CUEING_ARROW_OPTIONS );
     heightCueingArrow.centerX = heightLeaderLine.tipX;
 
@@ -214,8 +222,9 @@ define( function( require ) {
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
     angleIndicator.addChild( angleLabel );
 
-    // Muzzle flash
+    // muzzle flash
 
+    // the flames are the shape of tear drops
     var tearDropShapeStrength = 3;
     var flameShape = new Shape();
     var radius = 100; // in view coordinates
@@ -227,7 +236,8 @@ define( function( require ) {
       flameShape.lineTo( x, y );
     }
     flameShape.lineTo( -radius, 0 );
-
+    
+    // create paths based on shape
     var outerFlame = new Path( flameShape, { fill: 'rgb( 255, 255, 0 )', stroke: null } );
     var innerFlame = new Path( flameShape, { fill: 'rgb( 255, 200, 0 )', stroke: null } );
     innerFlame.setScaleMagnitude( 0.7 );
@@ -235,15 +245,13 @@ define( function( require ) {
     innerFlame.left = 0;
     var muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
     cannonBarrel.addChild( muzzleFlash );
-
+    
+    // @private for use in inherit methods
     this.muzzleFlash = muzzleFlash;
 
     // rendering order
     this.setChildren( [
       groundCircle,
-      // cylinderSide,
-      // cylinderTop,
-      // cannon,
       clippedByGroundNode,
       heightLeaderLine,
       heightLeaderLineTopCap,
@@ -254,7 +262,7 @@ define( function( require ) {
       angleIndicator//,
     ] );
 
-    // watch for if angle changes
+    // Observe changes in model angle and update the cannon view
     angleProperty.link( function( angle ) {
       cannonBarrel.setRotation( -angle * Math.PI / 180 );
       var arcShape = angle > 0
@@ -270,8 +278,10 @@ define( function( require ) {
       angleLabelBackground.center = angleLabel.center;
     } );
 
+    // starts at 1, but is updated by modelViewTransform.
     var scaleMagnitude = 1;
 
+    // Function to transform everything to the right height
     var updateHeight = function( height ) {
       var viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
       var heightInClipCoordinates = clippedByGroundNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
@@ -321,7 +331,7 @@ define( function( require ) {
       angleIndicator.y = transformProperty.get().modelToViewY( height );
     };
 
-    // watch for if height changes
+    // Observe changes in model height and update the cannon view
     heightProperty.link( function( height ) {
       updateHeight( height );
       if ( height < 4 && angleProperty.get() < ANGLE_RANGE_MINS[ height ] ) {
@@ -329,7 +339,7 @@ define( function( require ) {
       }
     } );
 
-    // update if transform changes
+    // Observe changes in modelviewtransform and update the view
     transformProperty.link( function( transform ) {
       scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
       clippedByGroundNode.setScaleMagnitude( scaleMagnitude );
@@ -391,6 +401,7 @@ define( function( require ) {
 
     } ) );
 
+    // drag handler for controlling the height
     var heightDragHandler = new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
@@ -425,7 +436,7 @@ define( function( require ) {
 
     } );
 
-    // drag the base of the cannon to change height
+    // multiple parts of the cannon can be dragged to change height
     cannonBase.addInputListener( heightDragHandler );
     cylinderSide.addInputListener( heightDragHandler );
     cylinderTop.addInputListener( heightDragHandler );

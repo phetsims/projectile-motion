@@ -43,12 +43,16 @@ define( function( require ) {
     this.dragCoefficient = model.projectileDragCoefficientProperty.get();
 
     // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
+    // The most recent trajectory fired has rank 0. The second recent has rank 1. The oldest still on screen has rank
+    // max - 1.
     this.rankProperty = new NumberProperty( 0 );
 
+    // Add one to the rank
     function incrementRank() {
       self.rankProperty.value++;
     }
 
+    // Listen to whether this rank should be incremented
     model.updateTrajectoryRanksEmitter.addListener( incrementRank );
 
     // @public did the trajectory path change in mid air due to air density change
@@ -173,6 +177,7 @@ define( function( require ) {
 
         }
 
+        // add point, and update tracer tool and David
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
         this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
@@ -214,7 +219,7 @@ define( function( require ) {
       var minDistance = nearestPoint.position.distanceXY( x, y );
 
       // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
-      // later in total time since fired is chosen.
+      // with more time is chosen.
       for (  var i = 0; i < this.dataPoints.length; i++ ) {
         var currentPoint = this.dataPoints.get( i );
         var currentDistance = currentPoint.position.distanceXY( x, y );
@@ -257,11 +262,12 @@ define( function( require ) {
           'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x
         );
 
-        // set to prevent this dataPoint from being disposed along with this trajectory if the new trajectory is still
-        // using it
+        // add one to the number of trajectories using this datapoint
         this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf++;
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }
+
+      // set the datapoint that indicates the location of the projectile object
       projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
 
       // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one

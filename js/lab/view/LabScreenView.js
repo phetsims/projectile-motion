@@ -55,8 +55,11 @@ define( function( require ) {
       visibilityProperties,
       options
     );
-
+    
+    // insert dropdown right on top of the rightside panels
     this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
+
+    // add the keypad layer on top of everything
     this.addChild( keypadLayer );
 
     // @private, for layout

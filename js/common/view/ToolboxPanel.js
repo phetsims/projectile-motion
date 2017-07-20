@@ -40,12 +40,13 @@ define( function( require ) {
       yMargin: 10,
       fill: 'white'
     }, options );
-
+    
+    // Create the icon Node for the tracer tool
     var tracerIconNode = tracerNode.createIcon();
     tracerIconNode.cursor = 'pointer';
     tracerIconNode.scale( 0.4 );
 
-    // Create the icon image for the measuring Tape
+    // Create the icon image for the measuringTape
     var measuringTapeIconNode = MeasuringTapeNode.createIcon();
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );

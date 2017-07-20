@@ -60,7 +60,7 @@ define( function( require ) {
     // @public {Property.<number>} launch speed, in meters per second
     this.launchVelocityProperty = new NumberProperty( 18 );
 
-    // --parameters for next projectile fired, defaults to a cannonball
+    // --parameters for next projectile fired
 
     // @public {Property.<number>} mass of the projectile, in kilograms
     this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass );
@@ -75,7 +75,7 @@ define( function( require ) {
 
     this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
 
-    // --properties that change the environment and affect all projectiles
+    // --Properties that change the environment and affect all projectiles, called global
 
     // @public {Property.<number>} acceleration due to gravity, in meters per second squared
     this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH );
@@ -92,17 +92,18 @@ define( function( require ) {
       this.airResistanceOnProperty
     ], calculateAirDensity );
 
-    // change status of projectiles
+    // if any of the global Properties change, update the status of moving projectiles
     this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
     this.gravityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
 
-    // --animation playing controls
+    // --animation controls
 
     // @public {Property.<String>} speed of animation, normal/slow
     this.speedProperty = new Property( 'normal' );
 
     // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
     this.isPlayingProperty = new BooleanProperty( true );
+
 
     // @private
     this.davidShortsOnProperty = new BooleanProperty( true );
@@ -116,7 +117,8 @@ define( function( require ) {
     // @public number of projectiles that are still moving
     this.numberOfMovingProjectilesProperty = new NumberProperty( 0 );
 
-    // @public {DerivedProperty.<boolean>}
+    // @public {DerivedProperty.<boolean>} is the fire button enabled? Yes if there are less than the max projectiles
+    // in the air.
     this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty ], function( number ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     } );
@@ -266,7 +268,7 @@ define( function( require ) {
       }
       else {
         this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
-        newTrajectory.rankProperty.reset(); // make this one go back to zero
+        newTrajectory.rankProperty.reset(); // make the new Trajectory's rank go back to zero
         this.trajectories.push( newTrajectory );
       }
       this.numberOfMovingProjectilesProperty.value++;
@@ -274,7 +276,7 @@ define( function( require ) {
     },
 
     /**
-     * Updates the status of the trajectories, as in whether they are changed in mid air
+     * Update trajectories that have moving projectiles
      * @private
      */
     updateTrajectoriesWithMovingProjectiles: function() {

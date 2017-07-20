@@ -39,7 +39,9 @@ define( function( require ) {
   function LabIconNode( type ) {
 
     assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
-
+    
+    // nav bar icon has a bigger cannon than that of the home screen icon
+    
     if ( type === 'nav' ) {
       var width = NAV_ICON_SIZE.width;
       var height = NAV_ICON_SIZE.height;
@@ -64,6 +66,7 @@ define( function( require ) {
     // layer for scalable cannon parts
     var scalableNode = new Node( { x: cannonX, y: cannonY } );
 
+    // cannon
     var cannonBarrel = new Node( { rotation: -CANNON_ANGLE * Math.PI / 180 } );
     scalableNode.addChild( cannonBarrel );
 
@@ -82,7 +85,8 @@ define( function( require ) {
     cannonBase.addChild( cannonBaseTop );
 
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
-
+    
+    //pedestal
     var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
     var cylinderTop = new Path( ellipseShape, {
       x: cannonX,

@@ -34,7 +34,8 @@ define( function( require ) {
     Rectangle.call( this, 0, 0, 0, 0 );
 
     assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
-
+    
+    // the nav bar icon has larger projectile object and vectors than those of the home screen icon
     if ( type === 'nav' ) {
       var width = NAV_ICON_SIZE.width;
       var height = NAV_ICON_SIZE.height;

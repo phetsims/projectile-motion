@@ -76,7 +76,8 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-
+    
+    // local vars used for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
     var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
@@ -163,7 +164,8 @@ define( function( require ) {
       selectedObjectTypeProperty.get().massRange,
       selectedObjectTypeProperty.get().massRound
     );
-
+    
+    // layout function for altitude NumberControl
     var altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - numberDisplay.width );
       return new VBox( {
@@ -194,6 +196,7 @@ define( function( require ) {
       units: mString
     } );
 
+    // create altitude control box
     var altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
@@ -207,8 +210,9 @@ define( function( require ) {
     var dragObjectDisplay = new Node();
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
 
+    // layout function for drag coefficient NumberControl
     var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      var strut = new HStrut( 70 ); // empirically determined. Accounts for horizontal changes in dragObjectDisplay
+      var strut = new HStrut( 70 ); // empirically determined to account for the largest width of dragObjectDisplay
       var displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
       var displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - displayAndValueBox.width );
@@ -227,11 +231,13 @@ define( function( require ) {
         ]
       } );
     };
-
+    
+    // replace the number control options with the new layout function
     _.extend( numberControlOptions, {
       layoutFunction: dragLayoutFunction
     } );
 
+    // create drag coefficient control box
     var dragCoefficientBox = new NumberControl(
       dragCoefficientString, projectileDragCoefficientProperty,
       selectedObjectTypeProperty.get().dragCoefficientRange, _.extend( {
@@ -240,7 +246,8 @@ define( function( require ) {
         delta: 0.01,
       }, numberControlOptions )
     );
-
+    
+    // Listen to changes in model drag coefficient and update the little projectile object display
     projectileDragCoefficientProperty.link( function( dragCoefficient ) {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );

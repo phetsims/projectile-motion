@@ -48,6 +48,7 @@ define( function( require ) {
       options
     );
 
+    // insert dropdown right on top of the rightside panels
     this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
   }
 

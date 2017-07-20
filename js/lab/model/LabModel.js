@@ -41,6 +41,7 @@ define( function( require ) {
       dragCoefficient: this.objectTypes[0].dragCoefficient
     } };
 
+    // populate the savedValues with default values for each benchmark
     for ( var i = 1; i < this.objectTypes.length; i++ ) {
       var objectType = this.objectTypes[i];
       this.savedValues[ objectType.type ] = {
@@ -49,7 +50,8 @@ define( function( require ) {
         dragCoefficient: objectType.dragCoefficient
       };
     }
-    // save last type
+
+    // save the most recent type (e.g. pumpkin, human, etc.) used
     this.lastType = this.objectTypes[ 2 ].type;
 
     ProjectileMotionModel.call( this, this.objectTypes[ 2 ], false );

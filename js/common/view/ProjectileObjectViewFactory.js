@@ -106,6 +106,9 @@ define( function( require ) {
      * @returns {Circle|Image|Path}
      */
     createObjectView: function( type, diameter, modelViewTransform ) {
+
+      // radius in view coordinates.
+      // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch( type ) {
         case 'cannonball':
@@ -143,6 +146,9 @@ define( function( require ) {
      * @returns {Circle|Image|Path}
      */
     createLandedObjectView: function( type, diameter, modelViewTransform ) {
+
+      // radius in view coordinates.
+      // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       switch( type ) {
         case 'cannonball':

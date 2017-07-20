@@ -30,7 +30,8 @@ define( function( require ) {
 
     var diameter = HEIGHT / 4;
     var inset = diameter * 0.7;
-
+    
+    // the three projectile object shapes
     var teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
     teardrop.left = 10; // empirically determined
     teardrop.y = HEIGHT / 2;

@@ -68,7 +68,8 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-
+    
+    // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
     var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
@@ -140,7 +141,8 @@ define( function( require ) {
       } );
 
     }
-
+    
+    // drag coefficient object shape view
     var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
     var objectDisplay = new HBox( {
       spacing: options.xMargin,
@@ -167,7 +169,8 @@ define( function( require ) {
     );
 
     var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
-
+    
+    // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - 3 * options.xMargin - AIR_RESISTANCE_ICON.width
@@ -182,7 +185,8 @@ define( function( require ) {
       var opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
-
+    
+    // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( function( value ) {
       dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
     } );

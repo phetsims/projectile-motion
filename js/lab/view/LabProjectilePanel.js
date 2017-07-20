@@ -77,6 +77,7 @@ define( function( require ) {
                                options ) {
 
     // convenience variables with description comments
+
     var objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
 
     // {Property.<ProjectileObjectType>}
@@ -95,7 +96,7 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    // maxWidth empirically determined
+    // maxWidth empirically determined for labels in the dropdown
     var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
     var firstItemNode = new VBox( {
@@ -121,7 +122,8 @@ define( function( require ) {
       var projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
-
+    
+    // create view for the dropdown
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
@@ -134,9 +136,11 @@ define( function( require ) {
         buttonYMargin: 0
       }
     );
-
+    
+    // then add it to its appropraite parent
     comboBoxListParent.addChild( projectileChoiceComboBox );
-
+    
+    // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.3;
     var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
@@ -149,6 +153,7 @@ define( function( require ) {
      * @returns {VBox}
      */
     function createParameterControlBox( labelString, unitsString, property, range ) {
+
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
@@ -204,7 +209,8 @@ define( function( require ) {
 
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
-
+    
+    // layout function for the number controls
     var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
       return new VBox( {
@@ -230,6 +236,11 @@ define( function( require ) {
     }, NUMBER_CONTROL_OPTIONS );
 
     // readout, slider, and tweakers
+    
+    // local vars for improving readability and tracking control boxes
+    // __Box such as massBox is the parent of the control, and it is a child of Panel
+    // __SpecificProjectileTypeBox is a number control for when a benchmark is selected from the dropdown
+    // __CustomBox is a control box with label, readout, and edit button for when Custom is selected from the dropdown
     var massBox = new Node();
     var diameterBox = new Node();
     var dragCoefficientBox = new Node();
@@ -245,10 +256,14 @@ define( function( require ) {
     var dragCoefficientCustomBox = null;
     var altitudeCustomBox = null;
     var gravityCustomBox = null;
-
+    
+    // update the type of control based on the objectType
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
       if ( objectType.type ) {
         if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
+
+          // if there are already custom boxes, remove them
+          
           massBox.removeChild( massCustomBox );
           diameterBox.removeChild( diameterCustomBox );
           dragCoefficientBox.removeChild( dragCoefficientCustomBox );
@@ -256,6 +271,9 @@ define( function( require ) {
           gravityBox.removeChild( gravityCustomBox );
         }
         if ( massSpecificProjectileTypeBox ) {
+
+          // if there are already benchmark boxes, remove them
+          
           massSpecificProjectileTypeBox.dispose();
           diameterSpecificProjectileTypeBox.dispose();
           dragCoefficientSpecificProjectileTypeBox.dispose();
@@ -321,6 +339,9 @@ define( function( require ) {
       }
       else {
         if ( massSpecificProjectileTypeBox && massBox.hasChild( massSpecificProjectileTypeBox ) ) {
+
+          // if there are already benchmark boxes, remove them
+
           massBox.removeChild( massSpecificProjectileTypeBox );
           diameterBox.removeChild( diameterSpecificProjectileTypeBox );
           dragCoefficientBox.removeChild( dragCoefficientSpecificProjectileTypeBox );
@@ -376,6 +397,7 @@ define( function( require ) {
       dragCoefficientBox.setPickable( airResistanceOn );
     } );
 
+    // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin
@@ -385,6 +407,7 @@ define( function( require ) {
       children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
     } );
 
+    // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
     var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
 
     // The contents of the control panel
@@ -404,7 +427,7 @@ define( function( require ) {
       ]
     } );
 
-    // @private for layout
+    // @private for layout convenience
     this.projectileChoiceComboBox = projectileChoiceComboBox;
     this.controlsVerticalSpace = options.controlsVerticalSpace;
 

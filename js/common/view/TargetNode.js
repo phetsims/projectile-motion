@@ -49,11 +49,14 @@ define( function( require ) {
   function TargetNode( score, transformProperty, screenView ) {
     var self = this;
     Node.call( this );
-
+    
+    // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
 
+    // local var to improve readability
     var targetXProperty = score.targetXProperty;
-
+    
+    // red and white circles of the target
     var outerCircle = new Circle( 1, {
       fill: 'red',
       stroke: 'black',
@@ -70,7 +73,7 @@ define( function( require ) {
       lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
     } );
 
-    // draw target view
+    // target view
     var target = new Node( {
       pickable: true,
       cursor: 'pointer',
@@ -80,13 +83,16 @@ define( function( require ) {
         innerCircle
       ]
     } );
-
+    
+    // scaling the target to the right size
     var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
     var targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     target.setScaleMagnitude( viewRadius, targetHeightInView );
-
+    
+    // center on model's targetXProperty
     target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( score.targetXProperty.get(), 0 ) );
-
+    
+    // add target to scene graph
     this.addChild( target );
 
     // @private variables used in drag handler
@@ -121,7 +127,8 @@ define( function( require ) {
       value: Util.toFixed( targetXProperty.get(), 1 ),
       units: mString
     } ), LABEL_OPTIONS );
-
+    
+    // white rectangle background for the text
     var backgroundNode = new Rectangle(
       0, // x
       0, // y
@@ -170,6 +177,7 @@ define( function( require ) {
     } );
 
 
+    // Observe changes in the model horizontal position and update the view correspondingly
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
       distanceLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -184,9 +192,9 @@ define( function( require ) {
       } );
     };
 
-    // listen to horizontal position changes
     targetXProperty.link( updateHorizontalPosition );
-
+    
+    // Observe changes in the modelViewTransform and update the view
     transformProperty.link( function( transform ) {
       var viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       target.setScaleMagnitude( viewRadius, targetHeightInView );

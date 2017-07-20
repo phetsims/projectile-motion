@@ -68,7 +68,8 @@ define( function( require ) {
     this.addChild( projectileNodesLayer );
 
     var viewLastPosition = null;
-
+    
+    // add view nodes based on new dataPoints added
     function handleDataPointAdded( addedPoint ) {
       var viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
@@ -98,7 +99,8 @@ define( function( require ) {
     // view listens to whether a datapoint has been added in the model
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
-
+    
+    // Update view based on new projectile objects added
     function handleProjectileObjectAdded( addedProjectileObject ) {
       var newProjectileNode = new ProjectileNode(
         vectorVisibilityProperties,
