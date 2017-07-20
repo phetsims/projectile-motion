@@ -74,6 +74,7 @@ define( function( require ) {
    * @param {Property.<number>} altitudeProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @param {Property.<number>} gravityProperty
+   * @param {Object} savedValues - object with { mass, diameter } stored by type
    * @param {Object} [options]
    * @constructor
    */
@@ -88,6 +89,7 @@ define( function( require ) {
                                altitudeProperty,
                                airResistanceOnProperty,
                                gravityProperty,
+                               savedValues,
                                options ) {
 
     // The first object is a placeholder so none of the others get mutated
