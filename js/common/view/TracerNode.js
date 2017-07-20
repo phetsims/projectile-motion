@@ -61,7 +61,7 @@ define( function( require ) {
     options = options || {};
     var self = this;
     
-    // Is this being handled by user
+    // @public is this being handled by user?
     this.isUserControlledProperty = new BooleanProperty( false );
     
     // @private
@@ -84,6 +84,8 @@ define( function( require ) {
         cursor: 'pointer'
       }
     );
+
+    // @private
     this.rectangle = rectangle;
 
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );

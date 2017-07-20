@@ -21,7 +21,7 @@ define( function( require ) {
   function VectorsVectorVisibilityProperties() {
     VectorVisibilityProperties.call( this );
 
-    // vectors visibility for velocity and force, total or component
+    // @public vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new BooleanProperty( false );
     this.accelerationVectorsOnProperty = new BooleanProperty( false );
     this.forceVectorsOnProperty = new BooleanProperty( false );

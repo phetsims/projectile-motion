@@ -19,6 +19,7 @@ define( function( require ) {
    */
   function IntroModel() {
 
+    // @public
     this.objectTypes = [
       ProjectileObjectType.ARROW,
       ProjectileObjectType.CANNONBALL,

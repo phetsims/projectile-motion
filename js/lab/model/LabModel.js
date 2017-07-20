@@ -51,7 +51,7 @@ define( function( require ) {
       };
     }
 
-    // save the most recent type (e.g. pumpkin, human, etc.) used
+    // @public {string} save the most recent type (e.g. pumpkin, human, etc.) used
     this.lastType = this.objectTypes[ 2 ].type;
 
     ProjectileMotionModel.call( this, this.objectTypes[ 2 ], false );
