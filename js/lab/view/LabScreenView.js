@@ -47,18 +47,10 @@ define( function( require ) {
         model.launchVelocityProperty
       ),
       new LabProjectilePanel(
-        model.objectTypes,
-        model.selectedProjectileObjectTypeProperty,
         comboBoxListParent,
         keypadLayer,
         this.setKeypadLocation.bind( this ),
-        model.projectileMassProperty,
-        model.projectileDiameterProperty,
-        model.projectileDragCoefficientProperty,
-        model.altitudeProperty,
-        model.airResistanceOnProperty,
-        model.gravityProperty,
-        model.savedValues
+        model
       ),
       visibilityProperties,
       options

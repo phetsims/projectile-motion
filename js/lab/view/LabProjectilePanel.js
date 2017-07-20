@@ -63,34 +63,28 @@ define( function( require ) {
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
-   * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
-   * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
    * @param {Node} comboBoxListParent - node for containing the combobox
    * @param {KeypadLayer} keypadLayer - for entering values
    * @param {function:KeypadPanel} setKeypadLocation - function for laying out the keypad, no return
-   * @param {Property.<number>} projectileMassProperty
-   * @param {Property.<number>} projectileDiameterProperty
-   * @param {Property.<number>} projectileDragCoefficientProperty
-   * @param {Property.<number>} altitudeProperty
-   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
-   * @param {Property.<number>} gravityProperty
-   * @param {Object} savedValues - object with { mass, diameter } stored by type
+   * @param {LabModel} model
    * @param {Object} [options]
    * @constructor
    */
-  function LabProjectilePanel( objectTypes,
-                               selectedProjectileObjectTypeProperty,
-                               comboBoxListParent,
+  function LabProjectilePanel( comboBoxListParent,
                                keypadLayer,
                                setKeypadLocation,
-                               projectileMassProperty,
-                               projectileDiameterProperty,
-                               projectileDragCoefficientProperty,
-                               altitudeProperty,
-                               airResistanceOnProperty,
-                               gravityProperty,
-                               savedValues,
+                               model,
                                options ) {
+
+    // convenience variables with description comments
+    var objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
+    var selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty; // {Property.<ProjectileObjectType>}
+    var projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
+    var projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
+    var projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}
+    var altitudeProperty = model.altitudeProperty; // {Property.<number>}
+    var airResistanceOnProperty = model.airResistanceOnProperty; // {Property.<boolean>}
+    var gravityProperty = model.gravityProperty; // {Property.<number>}
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
