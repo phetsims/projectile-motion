@@ -425,6 +425,7 @@ define( function( require ) {
   projectileMotion.register( 'CannonNode', CannonNode );
 
   return inherit( Node, CannonNode, {
+
     /**
      * Make the muzzle flash
      * @public

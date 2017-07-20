@@ -49,6 +49,7 @@ define( function( require ) {
   projectileMotion.register( 'DataPoint', DataPoint );
 
   return inherit( Object, DataPoint, {
+
     /**
      * Whether this dataPoint is equal to given dataPoint
      * @public

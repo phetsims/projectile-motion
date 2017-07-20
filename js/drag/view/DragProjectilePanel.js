@@ -57,7 +57,7 @@ define( function( require ) {
   };
 
   /**
-   * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
+   * @param {Property.<ProjectileObjectType>} selectedObjectTypeProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileMassProperty

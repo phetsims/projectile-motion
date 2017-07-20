@@ -5,7 +5,7 @@
  * and view the properties of this projectile.
  * Also includes a checkbox for turning on and off air resistance.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
