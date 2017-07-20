@@ -156,7 +156,7 @@ define( function( require ) {
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
-          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.9 } );
+          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.35 } );
         case 'piano':
           return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
         case 'golfBall':
