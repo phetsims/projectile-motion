@@ -24,11 +24,13 @@ define( function( require ) {
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  var platform = require( 'PHET_CORE/platform' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var Shape = require( 'KITE/Shape' );
   var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
@@ -90,6 +92,12 @@ define( function( require ) {
 
     ScreenView.call( this, options );
 
+    if ( platform.mobileSafari ) {
+      this.visibleBoundsProperty.link( function( bounds ) {
+        self.clipArea = Shape.bounds( bounds );
+      } );
+    }
+
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
@@ -106,7 +114,7 @@ define( function( require ) {
     var trajectoriesLayer = new Node();
 
     function handleTrajectoryAdded( addedTrajectory ) {
-      // create the view representation for added trajectory 
+      // create the view representation for added trajectory
       var trajectoryNode = new TrajectoryNode(
         vectorVisibilityProperties,
         addedTrajectory,
