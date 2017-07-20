@@ -86,8 +86,11 @@ define( function( require ) {
     // @public {Property.<boolean>} whether air resistance is on
     this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance );
 
-    // @public {DerivedProperty.<number>} air density, in kg/cu m, which depends on altitude and whether air resistance is on
-    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], calculateAirDensity );
+    // @public {DerivedProperty.<number>} air density, in kg/cu m, depends on altitude and whether air resistance is on
+    this.airDensityProperty = new DerivedProperty( [
+      this.altitudeProperty,
+      this.airResistanceOnProperty
+    ], calculateAirDensity );
 
     // change status of projectiles
     this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
@@ -105,7 +108,10 @@ define( function( require ) {
     this.davidShortsOnProperty = new BooleanProperty( true );
 
     // @public (read-only)
-    this.davidPosition = new Vector2( ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT, ProjectileMotionConstants.DAVID_HEIGHT / 2 );
+    this.davidPosition = new Vector2(
+      ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT,
+      ProjectileMotionConstants.DAVID_HEIGHT / 2
+    );
 
     // @public number of projectiles that are still moving
     this.numberOfMovingProjectilesProperty = new NumberProperty( 0 );
@@ -119,7 +125,10 @@ define( function( require ) {
     this.updateTrajectoryRanksEmitter = new Emitter();
 
     // @private {EventTimer}
-    this.eventTimer = new EventTimer( new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ), this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 ) );
+    this.eventTimer = new EventTimer(
+      new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ),
+      this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 )
+    );
 
     // Links in this constructor last for the life time of the sim, so no need to dispose
   }
@@ -280,7 +289,9 @@ define( function( require ) {
 
         // Furthest projectile on trajectory has not reached ground
         if ( !trajectory.reachedGround ) {
-          trajectory.changedInMidAir = true; // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
+          
+          // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
+          trajectory.changedInMidAir = true;
 
           // For each projectile except for the one furthest along the path, create a new trajectory
           for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {

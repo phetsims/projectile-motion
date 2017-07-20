@@ -61,7 +61,10 @@ define( function( require ) {
       0, // total time elapsed
       Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
-      Vector2.dirtyFromPool().setPolar( model.launchVelocityProperty.value, model.cannonAngleProperty.value * Math.PI / 180 ), // velocity
+      Vector2.dirtyFromPool().setPolar(
+        model.launchVelocityProperty.value,
+        model.cannonAngleProperty.value * Math.PI / 180
+      ), // velocity
       Vector2.createFromPool( 0, -model.gravityProperty.get() ), // acceleration
       Vector2.createFromPool( 0, 0 ), // drag force
       -model.gravityProperty.get() * this.mass // force gravity
@@ -116,7 +119,10 @@ define( function( require ) {
         var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
         var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
 
-        var newVelocity = Vector2.dirtyFromPool().setXY( previousPoint.velocity.x + previousPoint.acceleration.x * dt, previousPoint.velocity.y + previousPoint.acceleration.y * dt );
+        var newVelocity = Vector2.dirtyFromPool().setXY(
+          previousPoint.velocity.x + previousPoint.acceleration.x * dt,
+          previousPoint.velocity.y + previousPoint.acceleration.y * dt
+        );
 
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
@@ -130,7 +136,10 @@ define( function( require ) {
           this.reachedGround = true; // store the information that it has reached the ground
 
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y ) / previousPoint.acceleration.y;
+          var timeToGround = (
+            -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
+          ) / previousPoint.acceleration.y;
+
           assert && assert( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
 
           newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
@@ -146,7 +155,8 @@ define( function( require ) {
             -gravity * this.mass
           );
 
-          newPoint.reachedGround = true; // add this special property to just the last datapoint collected for a trajectory
+          // add this special property to just the last datapoint collected for a trajectory
+          newPoint.reachedGround = true;
         }
 
         // Still in the air
@@ -241,9 +251,13 @@ define( function( require ) {
       newTrajectory.dataPoints.clear();
       for ( var i = 0; i <= projectileObject.index; i++ ) {
 
-        assert && assert( this.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x );
+        assert && assert(
+          this.dataPoints.get( 0 ).position.x === 0,
+          'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x
+        );
 
-        // set to prevent this dataPoint from being disposed along this trajectory if the new trajectory is still using it
+        // set to prevent this dataPoint from being disposed along with this trajectory if the new trajectory is still
+        // using it
         this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf++;
         newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
       }

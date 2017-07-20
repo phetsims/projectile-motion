@@ -70,7 +70,7 @@ define( function( require ) {
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
-   * @param {string} objectType - e.g. pumpkin? human? cannonball? REVIEW: Doc looks wrong, ProjectileObjectType? or... undefined?
+   * @param {ProjectileObjectType} objectType
    * @param {number} diameter - how big the object is, in meters
    * @param {number} dragCoefficient - shape of the object
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
@@ -247,12 +247,25 @@ define( function( require ) {
         var viewPosition = viewPoint.viewPosition;
         var dataPoint = viewPoint.dataPoint;
 
-        xAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x, viewPosition.y );
-        yAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y );
+        xAccelerationArrow.setTailAndTip(
+          viewPosition.x,
+          viewPosition.y,
+          viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
+          viewPosition.y
+        );
+        yAccelerationArrow.setTailAndTip(
+          viewPosition.x,
+          viewPosition.y,
+          viewPosition.x,
+          viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
+        );
       }
     };
 
-    var componentAccelerationVectorsMultilink = Property.multilink( [ vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, viewPointProperty ], updateComponentAccelerationVectors );
+    var componentAccelerationVectorsMultilink = Property.multilink( [
+      vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
+      viewPointProperty
+    ], updateComponentAccelerationVectors );
 
     // Update total acceleration vector.
     var updateTotalAccelerationVector = function( visible, viewPoint ) {
@@ -269,7 +282,10 @@ define( function( require ) {
       }
     };
 
-    var totalAccelerationVectorMultilink = Property.multilink( [ vectorVisibilityProperties.totalAccelerationVectorOnProperty, viewPointProperty ], updateTotalAccelerationVector );
+    var totalAccelerationVectorMultilink = Property.multilink( [
+      vectorVisibilityProperties.totalAccelerationVectorOnProperty,
+      viewPointProperty
+    ], updateTotalAccelerationVector );
 
     // Update the free body diagram
     var removed = false;
@@ -353,7 +369,11 @@ define( function( require ) {
       }
     };
 
-    var freeBodyDiagramMultilink = Property.multilink( [ vectorVisibilityProperties.componentsForceVectorsOnProperty, vectorVisibilityProperties.totalForceVectorOnProperty, viewPointProperty ], updateFreeBodyDiagram );
+    var freeBodyDiagramMultilink = Property.multilink( [
+      vectorVisibilityProperties.componentsForceVectorsOnProperty,
+      vectorVisibilityProperties.totalForceVectorOnProperty,
+      viewPointProperty
+    ], updateFreeBodyDiagram );
 
     this.disposeProjectileNode = function() {
       componentVelocityVectorsMultilink.dispose();

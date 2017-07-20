@@ -136,7 +136,11 @@ define( function( require ) {
     } );
 
     var haloNode = new Circle( DOT_RADIUS * 2, {
-      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 ).addColorStop( 0, 'black' ).addColorStop( 0.25, 'black' ).addColorStop( 0.25, HALO_COLOR ).addColorStop( 1, HALO_EDGE_COLOR ),
+      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 )
+        .addColorStop( 0, 'black' )
+        .addColorStop( 0.25, 'black' )
+        .addColorStop( 0.25, HALO_COLOR )
+        .addColorStop( 1, HALO_EDGE_COLOR ),
     } );
 
     // Listen for when time, range, and height change, and update the readouts.

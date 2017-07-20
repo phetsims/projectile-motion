@@ -68,7 +68,8 @@ define( function( require ) {
       for ( var i = this.trajectories.length - 1; i >= 0; i-- ) {
         var currentTrajectory = this.trajectories.get( i );
         var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
-        var pointIsReadable = point && ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
+        var pointIsReadable = point &&
+          ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.dataPointProperty.set( point );
           return;
@@ -86,7 +87,8 @@ define( function( require ) {
     updateDataIfWithinRange: function( point ) {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
-      var pointIsReadable = point && ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
+      var pointIsReadable = point &&
+        ( point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
         this.dataPointProperty.set( point );
       }

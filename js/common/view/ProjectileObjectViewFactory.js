@@ -152,7 +152,7 @@ define( function( require ) {
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
         case 'buick':
-          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.75 } ); // * 2 is empirically determined based on image
+          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.75 } );
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':

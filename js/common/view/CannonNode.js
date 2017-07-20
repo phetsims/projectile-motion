@@ -88,7 +88,10 @@ define( function( require ) {
     // var cannon = new Node( { x: transformProperty.get().modelToViewX( 0 ) } );
 
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
-    var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, 'gray' ).addColorStop( 0.3, 'white' ).addColorStop( 1, 'gray' );
+    var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
+      .addColorStop( 0.0, 'gray' )
+      .addColorStop( 0.3, 'white' )
+      .addColorStop( 1, 'gray' );
     var groundCircle = new Path( ellipseShape, {
       x: clippedByGroundNode.x,
       y: transformProperty.get().modelToViewY( 0 ),
@@ -96,7 +99,10 @@ define( function( require ) {
       stroke: BRIGHT_GRAY_COLOR
     } );
 
-    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
+    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
+      .addColorStop( 0.0, DARK_GRAY_COLOR )
+      .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
+      .addColorStop( 1, DARK_GRAY_COLOR );
     var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
     clippedByGroundNode.addChild( cylinderSide );
 
@@ -293,7 +299,12 @@ define( function( require ) {
         .close();
       clippedByGroundNode.setClipArea( clipArea );
 
-      heightLeaderLine.setTailAndTip( heightLeaderLine.tailX, heightLeaderLine.tailY, heightLeaderLine.tipX, transformProperty.get().modelToViewY( height ) );
+      heightLeaderLine.setTailAndTip(
+        heightLeaderLine.tailX,
+        heightLeaderLine.tailY,
+        heightLeaderLine.tipX,
+        transformProperty.get().modelToViewY( height )
+      );
       heightLeaderLineTopCap.x = heightLeaderLine.tipX;
       heightLeaderLineTopCap.y = heightLeaderLine.tipY;
       heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -347,8 +358,14 @@ define( function( require ) {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = Vector2.createFromPool( startPoint.x - clippedByGroundNode.x, startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
-        var mousePointAngle = Vector2.createFromPool( mousePoint.x - clippedByGroundNode.x, mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() ) ).angle();
+        var startPointAngle = Vector2.createFromPool(
+          startPoint.x - clippedByGroundNode.x,
+          startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
+        ).angle();
+        var mousePointAngle = Vector2.createFromPool(
+          mousePoint.x - clippedByGroundNode.x,
+          mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
+        ).angle();
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
@@ -400,9 +417,6 @@ define( function( require ) {
         else {
           heightProperty.set( HEIGHT_RANGE.min );
         }
-
-        // constrain within visible bounds, but this allows for decimal heights and overrides the roundsymmetric above
-        // heightProperty.set( transformProperty.get().viewToModelY( Util.clamp( transformProperty.get().modelToViewY( heightProperty.get() ), screenView.layoutBounds.minY, screenView.layoutBounds.maxY ) ) );
       },
 
       end: function( event ) {

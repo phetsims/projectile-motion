@@ -106,7 +106,9 @@ define( function( require ) {
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX( Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX ) ) * 10 ) / 10 );
+        targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX(
+          Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX )
+        ) * 10 ) / 10 );
       },
 
       allowTouchSnag: true

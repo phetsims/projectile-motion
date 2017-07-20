@@ -154,8 +154,6 @@ define( function( require ) {
         titleFont: TEXT_FONT,
         valueFont: TEXT_FONT,
         constrainValue: function( value ) { return Util.roundSymmetric( value ); },
-        // majorTickLength: 5,
-        // majorTicks: [ { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.min }, { value: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE.max } ],
         trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
