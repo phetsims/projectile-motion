@@ -48,7 +48,7 @@ define( function( require ) {
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
  
   var TRACER_CONTENT_WIDTH = 155;
-  var RIGHTSIDE_PADDING = 11;
+  var RIGHTSIDE_PADDING = 6;
 
   /**
    * @param {Score} tracer - model of the tracer tool
