@@ -61,7 +61,11 @@ define( function( require ) {
     } );
 
     var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
-    var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkBoxOptions );
+    var velocityCheckBox = new CheckBox(
+      velocityLabel,
+      vectorVisibilityProperties.velocityVectorsOnProperty,
+      checkBoxOptions
+    );
     var velocityCheckBoxAndIcon = new HBox( {
       spacing: options.minWidth - velocityCheckBox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
@@ -71,7 +75,11 @@ define( function( require ) {
     } );
 
     var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
-    var accelerationCheckBox = new CheckBox( accelerationLabel, vectorVisibilityProperties.accelerationVectorsOnProperty, checkBoxOptions );
+    var accelerationCheckBox = new CheckBox(
+      accelerationLabel,
+      vectorVisibilityProperties.accelerationVectorsOnProperty,
+      checkBoxOptions
+    );
     var accelerationCheckBoxAndIcon = new HBox( {
       spacing: options.minWidth - accelerationCheckBox.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
       children: [

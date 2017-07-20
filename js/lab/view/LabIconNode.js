@@ -98,7 +98,10 @@ define( function( require ) {
       .ellipticalArc( cannonX, cylinderTop.y, scaledEllipseWidth / 2, scaledEllipseHeight / 2, 0, Math.PI, 0, true )
       .lineTo( cannonX + scaledEllipseWidth / 2, height - 1 )
       .close();
-    var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 ).addColorStop( 0.0, DARK_GRAY_COLOR ).addColorStop( 0.3, BRIGHT_GRAY_COLOR ).addColorStop( 1, DARK_GRAY_COLOR );
+    var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 )
+      .addColorStop( 0.0, DARK_GRAY_COLOR )
+      .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
+      .addColorStop( 1, DARK_GRAY_COLOR );
     var cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
 
     // layer for angle indicators

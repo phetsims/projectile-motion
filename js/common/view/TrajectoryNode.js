@@ -136,7 +136,9 @@ define( function( require ) {
 
       viewLastPosition = null;
 
-      assert && assert( trajectory.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + trajectory.dataPoints.get( 0 ).position.x );
+      assert && assert( trajectory.dataPoints.get( 0 ).position.x === 0,
+        'Initial point x is not zero but ' + trajectory.dataPoints.get( 0 ).position.x
+      );
 
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();

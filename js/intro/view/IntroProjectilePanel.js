@@ -81,7 +81,13 @@ define( function( require ) {
     var comboBoxLineWidth = 1;
 
     // first item contains horizontal strut that sets width of combobox
-    var firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
+    var firstItemNodeWidth = comboBoxWidth -
+      itemXMargin -
+      0.5 * firstItemNode.height -
+      4 * buttonXMargin -
+      2 * itemXMargin -
+      2 * comboBoxLineWidth
+    ;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     var comboBoxItems = [];

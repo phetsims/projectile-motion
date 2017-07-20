@@ -78,7 +78,10 @@ define( function( require ) {
 
     // convenience variables with description comments
     var objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
-    var selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty; // {Property.<ProjectileObjectType>}
+
+    // {Property.<ProjectileObjectType>}
+    var selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
+    
     var projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
     var projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
     var projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}

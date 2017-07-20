@@ -55,7 +55,8 @@ define( function( require ) {
     },
 
     /**
-     * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether total or components
+     * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether
+     * total or components
      * @private
      *
      * @param {boolean} velocityVectorsOn

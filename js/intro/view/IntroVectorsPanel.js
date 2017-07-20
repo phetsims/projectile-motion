@@ -58,10 +58,18 @@ define( function( require ) {
 
     var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalVelocityCheckBox = new CheckBox( totalVelocityLabel, vectorVisibilityProperties.totalVelocityVectorOnProperty, checkBoxOptions );
+    var totalVelocityCheckBox = new CheckBox(
+      totalVelocityLabel,
+      vectorVisibilityProperties.totalVelocityVectorOnProperty,
+      checkBoxOptions
+    );
 
     var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsVelocityCheckBox = new CheckBox( componentsVelocityLabel, vectorVisibilityProperties.componentsVelocityVectorsOnProperty, checkBoxOptions );
+    var componentsVelocityCheckBox = new CheckBox(
+      componentsVelocityLabel,
+      vectorVisibilityProperties.componentsVelocityVectorsOnProperty,
+      checkBoxOptions
+    );
 
     var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
     var accelerationTitleBox = new HBox( {
@@ -73,10 +81,18 @@ define( function( require ) {
     } );
 
     var totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalAccelerationCheckBox = new CheckBox( totalAccelerationLabel, vectorVisibilityProperties.totalAccelerationVectorOnProperty, checkBoxOptions );
+    var totalAccelerationCheckBox = new CheckBox(
+      totalAccelerationLabel,
+      vectorVisibilityProperties.totalAccelerationVectorOnProperty,
+      checkBoxOptions
+    );
 
     var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsAccelerationCheckBox = new CheckBox( componentsAccelerationLabel, vectorVisibilityProperties.componentsAccelerationVectorsOnProperty, checkBoxOptions );
+    var componentsAccelerationCheckBox = new CheckBox(
+      componentsAccelerationLabel,
+      vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
+      checkBoxOptions
+    );
 
     // The contents of the control panel
     var content = new VBox( {
