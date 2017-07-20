@@ -169,8 +169,7 @@ define( function( require ) {
       }
 
       // increment position of projectile objects, unless it has reached the end
-      var i;
-      for ( i = 0; i < this.projectileObjects.length; i++ ) {
+      for ( var i = 0; i < this.projectileObjects.length; i++ ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
@@ -205,8 +204,7 @@ define( function( require ) {
 
       // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
       // later in total time since fired is chosen.
-      var i;
-      for ( i = 0; i < this.dataPoints.length; i++ ) {
+      for (  var i = 0; i < this.dataPoints.length; i++ ) {
         var currentPoint = this.dataPoints.get( i );
         var currentDistance = currentPoint.position.distanceXY( x, y );
 
@@ -241,8 +239,7 @@ define( function( require ) {
 
       // clear all the data points and then add up to where the current flying projectile is
       newTrajectory.dataPoints.clear();
-      var i;
-      for ( i = 0; i <= projectileObject.index; i++ ) {
+      for ( var i = 0; i <= projectileObject.index; i++ ) {
 
         assert && assert( this.dataPoints.get( 0 ).position.x === 0, 'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x );
 

@@ -215,8 +215,7 @@ define( function( require ) {
      * @param {number} dt
      */
     stepModelElements: function( dt ) {
-      var i;
-      for ( i = 0; i < this.trajectories.length; i++ ) {
+      for ( var i = 0; i < this.trajectories.length; i++ ) {
         this.trajectories.get( i ).step( dt );
       }
     },
@@ -227,8 +226,7 @@ define( function( require ) {
      */
     limitTrajectories: function() {
       var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
-      var i;
-      for ( i = 0; i < numberToRemove; i++ ) {
+      for ( var i = 0; i < numberToRemove; i++ ) {
         this.trajectories.shift().dispose();
       }
     },
@@ -272,10 +270,10 @@ define( function( require ) {
      * @private
      */
     updateTrajectoriesWithMovingProjectiles: function() {
+      var i;
       var newTrajectories = [];
       var trajectory;
-      var j;
-      for ( j = 0; j < this.trajectories.length; j++ ) {
+      for ( var j = 0; j < this.trajectories.length; j++ ) {
         trajectory = this.trajectories.get( j );
 
         var removedProjectileObjects = [];
@@ -285,7 +283,6 @@ define( function( require ) {
           trajectory.changedInMidAir = true; // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
 
           // For each projectile except for the one furthest along the path, create a new trajectory
-          var i;
           for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
             var projectileObject = trajectory.projectileObjects.get( i );
             removedProjectileObjects.push( projectileObject );

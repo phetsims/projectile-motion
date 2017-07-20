@@ -233,8 +233,7 @@ define( function( require ) {
       var tracerBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
 
       // include every child except for the halo in the calculations of tracer bounds
-      var i;
-      for ( i = 1; i < this.children.length; i++ ) {
+      for ( var i = 1; i < this.children.length; i++ ) {
         tracerBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
       }
       return tracerBounds;

@@ -133,8 +133,7 @@ define( function( require ) {
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
 
       if ( round ) {
-        var i;
-        for ( i = range.min + round; i < range.max; i += round ) {
+        for ( var i = range.min + round; i < range.max; i += round ) {
           slider.addMinorTick( i );
         }
       }

@@ -118,8 +118,7 @@ define( function( require ) {
     var comboBoxItems = [];
     comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, objectTypes[ 0 ] );
 
-    var i;
-    for ( i = 1; i < objectTypes.length; i++ ) {
+    for ( var i = 1; i < objectTypes.length; i++ ) {
       var projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
