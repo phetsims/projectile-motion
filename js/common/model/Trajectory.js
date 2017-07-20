@@ -185,6 +185,7 @@ define( function( require ) {
           object.index++;
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
         }
+        
         // if it has just reached the end, check if landed on target
         else if ( !object.checkedScore ) {
           this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;

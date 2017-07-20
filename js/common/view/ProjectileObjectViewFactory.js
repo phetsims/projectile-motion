@@ -55,6 +55,7 @@ define( function( require ) {
       var newRadius;
       var newCenterX;
       if ( dragCoefficient <= 0.47 ) { // teardrop (inclusive) to sphere (inclusive)
+
         // Algorithm from http://mathworld.wolfram.com/TeardropCurve.html
         // drag coefficient ranges from [ 0.04 , 0.47 ], and m ranges from 0 to 7
         var m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
@@ -81,8 +82,7 @@ define( function( require ) {
 
         return new Node( { children: [ strut, objectNode ] } );
       }
-      else { // sphere (exclusive) to kind of hemisphere (inclusive )
-        // ( 0.47 , 1 )
+      else { // sphere (exclusive) to kind of hemisphere (inclusive ) = ( 0.47 , 1 )
         shape = new Shape();
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
         shape.moveTo( 0, -radius );

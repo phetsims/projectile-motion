@@ -220,7 +220,7 @@ define( function( require ) {
       this
     );
 
-    // // zoom property
+    // zoom property
     var zoomProperty = new NumberProperty( DEFAULT_ZOOM );
 
     // zoom control view
@@ -254,7 +254,7 @@ define( function( require ) {
     } );
     zoomControl.addChild( zoomInButton );
 
-    // // Watch the zoom property and update transform property accordingly
+    // Watch the zoom property and update transform property accordingly
     zoomProperty.link( function( zoomFactor ) {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,

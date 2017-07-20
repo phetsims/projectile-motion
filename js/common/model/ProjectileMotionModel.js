@@ -149,18 +149,18 @@ define( function( require ) {
       var temperature;
       var pressure;
 
-      if ( altitude < 11000 ) {
-        // troposphere
+      // The sim doesn't go beyond 5000, rendering the elses unnecessary, but keeping if others would like to
+      // increase the altitude range.
+
+      if ( altitude < 11000 ) { // troposphere
         temperature = 15.04 - 0.00649 * altitude;
         pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
       }
-      else if ( altitude < 25000 ) {
-        // lower stratosphere
+      else if ( altitude < 25000 ) { // lower stratosphere
         temperature = -56.46;
         pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
       }
-      else {
-        // upper stratosphere (altitude >= 25000 meters)
+      else { // upper stratosphere (altitude >= 25000 meters)
         temperature = -131.21 + 0.00299 * altitude;
         pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
       }
@@ -258,7 +258,6 @@ define( function( require ) {
      * @public
      */
     cannonFired: function() {
-      // this.isPlayingProperty.set( true );
       var lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
       var newTrajectory = new Trajectory( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
@@ -306,6 +305,7 @@ define( function( require ) {
 
         // Furthest object on trajectory has reached ground
         else {
+          
           // For each projectile still in the air, create a new trajectory
           for ( i = 0; i < trajectory.projectileObjects.length; i++ ) {
             projectileObject = trajectory.projectileObjects.get( i );

@@ -333,9 +333,7 @@ define( function( require ) {
     transformProperty.link( function( transform ) {
       scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
       clippedByGroundNode.setScaleMagnitude( scaleMagnitude );
-      // cannon.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
-      // cylinderTop.setScaleMagnitude( scaleMagnitude );
       updateHeight( heightProperty.get() );
     } );
 

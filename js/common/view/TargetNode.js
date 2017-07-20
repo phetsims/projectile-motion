@@ -101,7 +101,6 @@ define( function( require ) {
 
       drag: function( event ) {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
-        // mousePoint = target.globalToParentPoint( event.pointer.point );
 
         // change in x, view units
         var xChange = mousePoint.x - startPoint.x;
