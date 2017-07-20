@@ -183,6 +183,9 @@ define( function( require ) {
         this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
       }
 
+      // keep track of old objects that need to be removed
+      var projectileObjectsToRemove = [];
+
       // increment position of projectile objects, unless it has reached the end
       for ( var i = 0; i < this.projectileObjects.length; i++ ) {
         var object = this.projectileObjects.get( i );
@@ -191,13 +194,21 @@ define( function( require ) {
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
         }
         
-        // if it has just reached the end, check if landed on target
+        // if it has just reached the end, check if landed on target and remove the last projectile
         else if ( !object.checkedScore ) {
           this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
           this.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().position.x );
           object.checkedScore = true;
+
+          // to help with memory, if this object has just landed, remove the last one (if it exists)
+          if ( i !== 0 ) {
+            projectileObjectsToRemove.push( this.projectileObjects.get( i - 1 ) );
+          }
         }
       }
+
+      // remove the objects that need to be removed
+      this.projectileObjects.removeAll( projectileObjectsToRemove );
     },
 
     /**
