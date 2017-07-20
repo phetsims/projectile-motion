@@ -168,9 +168,8 @@ define( function( require ) {
       }, SCREEN_CHANGE_TIME ).onUpdate( function() {
         rewardNode.setScaleMagnitude( ( target.centerY - rewardNode.y ) / TOTAL_Y_CHANGE * (TOTAL_SCALE - 1) + 1 );
       } ).onComplete( function() {
-        if ( self.hasChild( rewardNode ) ) {
-          self.rewardNodes.pop( rewardNode );
-          screenView.removeChild( rewardNode );
+        if ( screenView.hasChild( rewardNode ) ) {
+          self.rewardNodes.pop( rewardNode ).dispose();
         }
       } ).start( phet.joist.elapsedTime );
 
