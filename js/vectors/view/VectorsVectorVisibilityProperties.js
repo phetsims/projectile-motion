@@ -28,6 +28,7 @@ define( function( require ) {
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
 
     // update which vectors to show based on controls
+    // Doesn't need to be disposed because it lasts for the lifetime of the sim
     Property.multilink( [
       this.velocityVectorsOnProperty,
       this.accelerationVectorsOnProperty,
