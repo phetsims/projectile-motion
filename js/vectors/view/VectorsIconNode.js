@@ -26,8 +26,8 @@ define( function( require ) {
   var ARROW_HEAD_HEIGHT = 12;
 
   /**
-   * @constructor
    * @param {string} type - 'nav' or 'screen'
+   * @constructor
    */
   function VectorsIconNode( type ) {
 
