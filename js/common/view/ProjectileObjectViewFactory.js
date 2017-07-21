@@ -128,7 +128,7 @@ define( function( require ) {
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
-          return new Image( tankShellImage, { maxHeight: transformedBallSize * 2 } );
+          return new Image( tankShellImage, { maxHeight: transformedBallSize } );
         case 'arrow':
           return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
@@ -168,7 +168,7 @@ define( function( require ) {
         case 'golfBall':
           return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
         case 'tankShell':
-          return new Image( tankShellImage, { maxHeight: transformedBallSize * 2 } );
+          return new Image( tankShellImage, { maxHeight: transformedBallSize } );
         case 'arrow':
           return new Image( arrowImage, { maxHeight: transformedBallSize * 10 } );
         default:
