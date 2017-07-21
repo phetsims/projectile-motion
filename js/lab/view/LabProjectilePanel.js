@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
@@ -142,7 +143,7 @@ define( function( require ) {
     
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.3;
-    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    var textOptions = _.defaults( { cursor: 'pointer', maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -169,7 +170,7 @@ define( function( require ) {
         0, // y
         textDisplayWidth,
         options.textDisplayHeight,
-        _.defaults( { cornerRadius: 4 }, TEXT_BACKGROUND_OPTIONS )
+        _.defaults( { cornerRadius: 4, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
       );
 
       // text node updates if property value changes
@@ -181,6 +182,16 @@ define( function( require ) {
         valueText.center = backgroundNode.center;
       } );
 
+      var editValue = function() {
+        keypadLayer.beginEdit( property, range, {
+          onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
+          onEndEdit: function() { backgroundNode.fill = 'white'; },
+          setKeypadLocation: setKeypadLocation,
+          maxDigits: 8,
+          maxDecimals: 2,
+        } );
+      };
+
       // edit button
       var pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
       var editButton = new RectangularPushButton( {
@@ -190,16 +201,17 @@ define( function( require ) {
         left: backgroundNode.right + options.xMargin,
         content: pencilIcon,
         baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
-        listener: function() {
-          keypadLayer.beginEdit( property, range, {
-            onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
-            onEndEdit: function() { backgroundNode.fill = 'white'; },
-            setKeypadLocation: setKeypadLocation,
-            maxDigits: 8,
-            maxDecimals: 2,
-          } );
-        }
+        listener: editValue
       } );
+
+      // include readout to open keypad
+      backgroundNode.addInputListener( new DownUpListener( { // no removeInputListener required
+        down: editValue
+      } ) );
+
+      valueText.addInputListener( new DownUpListener( { // no removeInputListener required
+        down: editValue
+      } ) );      
 
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
