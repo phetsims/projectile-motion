@@ -21,7 +21,6 @@ define( function( require ) {
 
   var simOptions = {
     credits: {
-      //TODO fill in proper credits, all of these fields are optional, see joist.AboutDialog
       leadDesign: 'Amy Rouinfar, Mike Dubson',
       softwareDevelopment: 'Andrea Lin',
       team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams',
