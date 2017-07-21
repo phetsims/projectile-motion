@@ -61,14 +61,21 @@ define( function( require ) {
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
+    var velocity = Vector2.dirtyFromPool().setPolar(
+      model.launchVelocityProperty.value,
+      model.cannonAngleProperty.value * Math.PI / 180
+    );
+
+    // fix large drag errors
+    if ( velocity.x < 0 ) {
+      velocity.setXY( 0, 0 );
+    }
+
     var initialPoint = new DataPoint(
       0, // total time elapsed
       Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
-      Vector2.dirtyFromPool().setPolar(
-        model.launchVelocityProperty.value,
-        model.cannonAngleProperty.value * Math.PI / 180
-      ), // velocity
+      velocity,
       Vector2.createFromPool( 0, -model.gravityProperty.get() ), // acceleration
       Vector2.createFromPool( 0, 0 ), // drag force
       -model.gravityProperty.get() * this.mass // force gravity
@@ -127,6 +134,15 @@ define( function( require ) {
           previousPoint.velocity.x + previousPoint.acceleration.x * dt,
           previousPoint.velocity.y + previousPoint.acceleration.y * dt
         );
+
+        // fix large drag errors by making it free fall
+        if ( newVelocity.x < 0 ) {
+          newVelocity.setXY( 0, 0 );
+        }
+
+        if ( newX < previousPoint.position.x ) {
+          newX = previousPoint.position.x;
+        }
 
         // cross sectional area of the projectile
         var area = Math.PI * this.diameter * this.diameter / 4;
