@@ -71,13 +71,20 @@ define( function( require ) {
       velocity.setXY( 0, 0 );
     }
 
+    // cross sectional area of the projectile
+    var area = Math.PI * this.diameter * this.diameter / 4;
+    var airDensity = this.projectileMotionModel.airDensityProperty.get();
+    var gravity = this.projectileMotionModel.gravityProperty.get();
+
+    var dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude() );
+
     var initialPoint = new DataPoint(
       0, // total time elapsed
       Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
       velocity,
-      Vector2.createFromPool( 0, -model.gravityProperty.get() ), // acceleration
-      Vector2.createFromPool( 0, 0 ), // drag force
+      Vector2.createFromPool( -dragForce.x / this.mass, -gravity - dragForce.y / this.mass ), // acceleration
+      dragForce, // drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
 

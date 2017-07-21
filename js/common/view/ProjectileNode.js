@@ -354,9 +354,8 @@ define( function( require ) {
         forceGravityLabel.y = forceGravityArrow.tipY;
 
         if ( totalVisible ) {
-          // net force is zero if projectile is on ground
-          var xTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.dragForce.x;
-          var yTotalForce = dataPoint.position.y === 0 ? 0 : dataPoint.dragForce.y;
+          var xTotalForce = dataPoint.dragForce.x;
+          var yTotalForce = dataPoint.dragForce.y;
           totalDragForceArrow.setTailAndTip( freeBody.x,
             freeBody.y,
             freeBody.x - FORCE_SCALAR * xTotalForce,
