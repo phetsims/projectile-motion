@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.0-dev.7 Thu Jul 13 2017 17:00:23 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.0-dev.8 Fri Jul 21 2017 14:58:01 GMT-0600 (MDT)",
   "assert": {
     "sha": "5c3f92048a9c2ffd6df8ede54fd64f1f7a7e4ef2",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "0c9ef0232cebf55835db43985ae9cc3be4d63512",
+    "sha": "db4de9f6191f8ced98541563917a23b6cf3afc92",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "90f55b5ba51c7001b18ce51a3a83f4663c1595c0",
+    "sha": "44c23ebc99d2c254b71740b188c6fc37fbc2361e",
     "branch": "master"
   },
   "query-string-machine": {
@@ -45,11 +45,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "fb8d839ad268df6b16ef9a770fac8f61f75763f8",
+    "sha": "d4481c51993d6c344169ac75e4c7ea1046621ab6",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "effed588437936f4ffa088339776df18db4c65e8",
+    "sha": "6b27f596a98f204a127e618d9427824dc997fb41",
     "branch": "master"
   },
   "sherpa": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "38cd9dddb69c5776a8d395a640a5ec2ed3bd41eb",
+    "sha": "719b389c6a26db75ea91ded609eff4f6aa07ab72",
     "branch": "master"
   },
   "tandem": {
