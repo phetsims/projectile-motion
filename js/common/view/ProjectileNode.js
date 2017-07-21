@@ -199,7 +199,7 @@ define( function( require ) {
       // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
       if ( objectType ? objectType.rotates : true ) {
         var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x ) ||
-          ( dataPoint.velocity.y >= 0 ? Math.PI / 2 : 3 * Math.PI / 2 );
+          ( dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2 );
         projectileObjectView.setRotation( -angle );
       }
 
