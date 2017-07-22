@@ -38,10 +38,7 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var TEXT_BACKGROUND_OPTIONS = {
-    fill: 'white',
-    stroke: 'lightGray'
-  };
+  var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {

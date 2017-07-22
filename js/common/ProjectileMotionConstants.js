@@ -141,6 +141,8 @@ define( function( require ) {
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
     PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
 
+    TEXT_BACKGROUND_OPTIONS: { fill: 'white', stroke: 'lightGray' },
+
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
     
     //Light gray, used as the 'disabled' color

@@ -34,10 +34,7 @@ define( function( require ) {
   var SCREEN_CHANGE_TIME = 1000; // milliseconds
   var TOTAL_Y_CHANGE = 70;
   var TOTAL_SCALE = 1.5;
-  var TEXT_BACKGROUND_OPTIONS = {
-    fill: 'white',
-    stroke: 'lightGray'
-  };
+  var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
   var TEXT_DISPLAY_MARGIN = 2;
 
   /**
