@@ -10,7 +10,7 @@ that limit. The fire button will be enabled again when the first projectile has 
 * The trajectories on screen will fade out over time. The model only stores 5 trajectories at a time.
 * If the same projectile is fired in a row, it counts as the same trajectory, and thus doesn't count against the limit of
 5 trajectories. A projectile is the same if it has the same object type, diameter, drag coefficient, mass, initial height, 
-speed, angle, gravity, and air density. Also, theprojectile cannot be the same as a previous one if air density has changed 
+speed, angle, gravity, and air density. Also, the projectile cannot be the same as a previous one if air density has changed 
 when the previous one was in mid air.
 
 Changes in air resistance, altitude, and gravity apply immediately, which means both the next 
