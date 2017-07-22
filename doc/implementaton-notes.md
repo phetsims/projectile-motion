@@ -50,7 +50,7 @@ TrajectoryNode is created. Each time a projectile is added to a Trajectory, Traj
 First, read a general explanation at [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md). It starts with
 "There is no limit to the number of projectiles".
 
-That means, a new Trajectory is created if the fire button is pressed *and* if this new projectile fired is not the same as the previous one.
+This means that a new Trajectory is created if the fire button is pressed *and* if this new projectile fired is not the same as the previous one.
 If the fire button is pressed and the new projectile fired is the same as the previous, a projectile is added to the previous Trajectory.
 
 Also, if air resistance, altitude, or gravity are changed when there are projectiles in air, this generates new paths, so for 
