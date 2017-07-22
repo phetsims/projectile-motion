@@ -36,7 +36,7 @@ define( function( require ) {
     // @public {Property.<DataPoint/null>} point that the tracer is displaying information about
     this.dataPointProperty = new Property( null );
 
-    // @public {Property.<boolean>} whether the tracer is out in the play area (false when in toolbox)
+    // @public whether the tracer is out in the play area (false when in toolbox)
     this.isActiveProperty = new BooleanProperty( false );
 
     // @public {ObservableArray.<Trajectory>} array of trajectories in the model

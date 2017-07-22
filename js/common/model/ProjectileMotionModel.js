@@ -83,7 +83,7 @@ define( function( require ) {
     // @public {Property.<number>} altitude of the environment, in meters
     this.altitudeProperty = new NumberProperty( 0 );
 
-    // @public {Property.<boolean>} whether air resistance is on
+    // @public whether air resistance is on
     this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, depends on altitude and whether air resistance is on
@@ -101,7 +101,7 @@ define( function( require ) {
     // @public {Property.<String>} speed of animation, normal/slow
     this.speedProperty = new Property( 'normal' );
 
-    // @public {Property.<boolean>} whether animation is playing (as opposed to paused)
+    // @public whether animation is playing (as opposed to paused)
     this.isPlayingProperty = new BooleanProperty( true );
 
 

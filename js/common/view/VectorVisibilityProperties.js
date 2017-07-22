@@ -18,22 +18,22 @@ define( function( require ) {
    */
   function VectorVisibilityProperties() {
 
-    // @public {BooleanProperty.<boolean>} whether total velocity vector is showing
+    // @public whether total velocity vector is showing
     this.totalVelocityVectorOnProperty = new BooleanProperty( false );
 
-    // @public {BooleanProperty.<boolean>} whether component velocity vectors are showing
+    // @public whether component velocity vectors are showing
     this.componentsVelocityVectorsOnProperty = new BooleanProperty( false );
 
-    // @public {BooleanProperty.<boolean>} whether total force vector is showing
+    // @public whether total force vector is showing
     this.totalForceVectorOnProperty = new BooleanProperty( false );
 
-    // @public {BooleanProperty.<boolean>} whether component force vectors are showing
+    // @public whether component force vectors are showing
     this.componentsForceVectorsOnProperty = new BooleanProperty( false );
 
-    // @public {BooleanProperty.<boolean>} whether total acceleration vector is shown
+    // @public whether total acceleration vector is shown
     this.totalAccelerationVectorOnProperty = new BooleanProperty( false );
 
-    // @public {BooleanProperty.<boolean>} whether component acceleration vectors are showing
+    // @public whether component acceleration vectors are showing
     this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false );
 
   }
