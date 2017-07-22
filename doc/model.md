@@ -13,9 +13,9 @@ that limit. The fire button will be enabled again when the first projectile has 
 speed, angle, gravity, and air density. Also, theprojectile cannot be the same as a previous one if air density has changed 
 when the previous one was in mid air.
 
-The type of projectile, mass, diameter, and drag coefficient, height, angle, and initial speeed affect the next 
-projectile fired. Changes in air resistance, altitude, and gravity apply immediately, which means both the next 
-projectile fired and the trajectories of projectiles currently in mid air are affected.
+Changes in air resistance, altitude, and gravity apply immediately, which means both the next 
+projectile fired and the trajectories of projectiles currently in mid air are affected. The type of projectile, mass, 
+diameter, and drag coefficient, height, angle, and initial speed only affect the next projectile fired. 
 
 Vectors display the total or component velocity, acceleration, and force acted on the projectile. The length of the 
 vectors are scaled to make them the most visible to a user, but they do not correspond to any units. To demonstrate, 
