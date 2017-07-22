@@ -93,7 +93,7 @@ define( function( require ) {
 
     // shift the tracer drag bounds so that it can only be dragged until the center reaches the left or right side
     // of the screen
-    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING; // empirically determined
+    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING;
 
     // @public Should be added as a listener by our parent when the time is right
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {

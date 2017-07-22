@@ -102,8 +102,8 @@ define( function( require ) {
     // model view transform
     var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
-      ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
-      DEFAULT_SCALE // scale for meters to view units, empirically determined based off original sim
+      ProjectileMotionConstants.VIEW_ORIGIN,
+      DEFAULT_SCALE
     );
 
     // tracks changes to modelViewTransform
@@ -266,7 +266,7 @@ define( function( require ) {
     zoomProperty.link( function( zoomFactor ) {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,
-        ProjectileMotionConstants.VIEW_ORIGIN, // empirically determined based off original sim
+        ProjectileMotionConstants.VIEW_ORIGIN,
         DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
       ) );
 
