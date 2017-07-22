@@ -22,7 +22,6 @@ define( function( require ) {
     // @public
     this.objectTypes = [
       ProjectileObjectType.CUSTOM,
-      ProjectileObjectType.ARROW,
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
       ProjectileObjectType.GOLF_BALL,
@@ -52,9 +51,9 @@ define( function( require ) {
     }
 
     // @public {string} save the most recent type (e.g. pumpkin, human, etc.) used
-    this.lastType = this.objectTypes[ 2 ].type;
+    this.lastType = this.objectTypes[ 1 ].type;
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 2 ], false );
+    ProjectileMotionModel.call( this, this.objectTypes[ 1 ], false );
 
   }
 

@@ -25,7 +25,6 @@ define( function( require ) {
   var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
   var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
   var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
-  var arrowString = require( 'string!PROJECTILE_MOTION/arrow' );
   var customString = require( 'string!PROJECTILE_MOTION/custom' );
 
   /**
@@ -191,20 +190,6 @@ define( function( require ) {
       massRange: new Range( 5, 200 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01,
-    }
-  );
-
-  ProjectileObjectType.ARROW = new ProjectileObjectType(
-    arrowString,
-    0.03,
-    0.01,
-    2.6,
-    'arrow',
-    true, {
-      massRange: new Range( 0.01, 5 ),
-      massRound: 0.01,
-      diameterRange: new Range( 0.01, 0.2 ),
       diameterRound: 0.01,
     }
   );

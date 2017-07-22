@@ -21,7 +21,6 @@ define( function( require ) {
 
     // @public
     this.objectTypes = [
-      ProjectileObjectType.ARROW,
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
       ProjectileObjectType.GOLF_BALL,
@@ -33,7 +32,7 @@ define( function( require ) {
       ProjectileObjectType.BUICK
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 1 ], false );
+    ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );
   }
 
   projectileMotion.register( 'IntroModel', IntroModel );
