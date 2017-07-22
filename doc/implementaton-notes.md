@@ -15,7 +15,7 @@ This section describes how this simulation uses patterns that are common to most
 **Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate frames
 (see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
 This simulation uses a model-view transform to convert from model units (meters) to view units (in the ScreenView coordinates).
-The zoom property can change this model-view transform, which means a meter may map to a larger or smaller number of view units.
+The zoom Property can change this model-view transform, which means a meter may map to a larger or smaller number of view units.
 
 **Memory management**: Many observer/observable relationships exist for the lifetime of the sim. For properties related to the
 tracer tool, measuring tape, cannon, David, target, and controls, there is no need to call the various
