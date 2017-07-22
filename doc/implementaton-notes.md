@@ -37,7 +37,7 @@ the Drag and Vectors screens don't feature benchmarks, they, along with the cust
 projectileObjectTypes( INTRO, VECTORS, and CUSTOM, respectively ). Since each screen has a different default object type, it is 
 passed as an argument to the model constructor.
 
-View the full list of projectile object benchmarks at [ProjectileObjectType.js](https://github.com/phetsims/projectile-motion/blob/master/js/common/modelProjectileObjectType.js).
+View the full list of projectile object benchmarks at [ProjectileObjectType.js](https://github.com/phetsims/projectile-motion/blob/master/js/common/model/ProjectileObjectType.js).
 
 ProjectileObjectType contains the model information for each type of projectile object, and to create the corresponding view (which may
 be an image or node), ProjectileNode calls on methods in ProjectileObjectViewFactory.
