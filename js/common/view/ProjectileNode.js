@@ -185,7 +185,6 @@ define( function( require ) {
 
     // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     var viewPointProperty = new DerivedProperty( [ dataPointProperty ], function( dataPoint ) {
-      //TODO: Getting a view-coordinate copy of the DataPoint would be ideal, so this extra thing wouldn't be needed.
       return {
         viewPosition: modelViewTransform.modelToViewPosition( dataPoint.position ),
         dataPoint: dataPoint
@@ -296,7 +295,6 @@ define( function( require ) {
 
       // When the projectile lands, remove the force diagram
       if ( dataPoint.reachedGround ) {
-        // TODO: more robust system for only removing once (remove these listeners!)
         if ( !removed ) {
           removed = true;
           forcesBox.visible = false;
