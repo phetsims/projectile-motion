@@ -28,9 +28,10 @@ target are disposed at the right time.
 Most of the code, both in model and view, is within the common folder, because the model and  view across screens is the
 generally the same. What differs across each screen is the level of control the user has-for instance, they can fine tune adjust
 the angle on the cannon only the Lab screen, but on other screens they can only change it by a delta of 5 degrees. They can only
-view certainv vectors on certain screens, and they can only change things such as drag coefficient, altitude, gravity, etc. on
+view certain vectors on certain screens, and they can only change things such as drag coefficient, altitude, gravity, etc. on
 select screens. The previous changes are specified as arguments or options from individual screens' model or screen view to the common model
-or screen view constructor. Right-side panels for each screen are different, so these are their own constructor.
+or screen view constructor. Right-side panels for each screen are different, so these are their own constructor, instantiated by
+individual screen views, and are then passed to the common screen view constructor.
 
 ## Projectile object benchmarks
 
