@@ -9,7 +9,6 @@ with JavaScript and PhET simulation development (as described in [PhET Developme
 First, read [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md), which provides
 a high-level description of the simulation model.
 
-
 ## General
 
 This section describes how this simulation uses patterns that are common to most PhET simulations.
@@ -48,13 +47,8 @@ is called on by ProjectileNode to create the view for the projectile object corr
 A Trajectory keeps track of the path and the projectile objects that fly on it. Each time a Trajectory is created, a TrajectoryNode is created. Each time a projectile is added to Trajectory, a ProjectileNode is created
 and added to its corresponding TrajectoryNode.
 
-First, there is no limit to the number of projectiles the user may fire before needing to reset, but:
-* There can only be three projectiles in the air at a time, so the fire button will be disabled if the user has hit 
-that limit. The fire button will be enabled again when the first projectile has hit the ground.
-* The trajectories on screen will fade out over time. The model only stores 5 trajectories at a time.
-* If the same projectile is fired in a row, it counts as the same trajectory. A projectile is the same if it has the 
-same object type, diameter, drag coefficient, mass, initial height, speed, angle, gravity, and air density. Also, the
-projectile cannot be the same as a previous one if air density has changed when the previous one was in air.
+First, read the general explanation at [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md). It starts with
+"There is no limit to the number of projectiles".
 
 That means, a new trajectory is created if the fire button is pressed, and if this new projectile fired is not the same as the previous one.
 If the fire button is pressed and the new projectile fired is the same, a projectile is added to the previous Trajectory.
