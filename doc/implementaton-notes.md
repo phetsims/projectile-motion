@@ -21,13 +21,13 @@ The zoom Property can change this model-view transform, which means a meter may 
 
 ## Structure
 
-Most of the code, both in model and view, is within the common folder, because the model and  view across screens is the
-generally the same. What differs across each screen is the level of control the user has-for instance, they can fine tune adjust
-the angle on the cannon only the Lab screen, but on other screens they can only change it by a delta of 5 degrees. They can only
+Most of the code, both in model and view, is within the common folder, because the model and  view across screens is
+generally the same. What differs across each screen is the level of control the user has. For instance, they can fine-tune 
+the angle on the cannon on the Lab screen, but on other screens they can only change it by a delta of 5 degrees. They can only
 view certain vectors on certain screens, and they can only change things such as drag coefficient, altitude, gravity, etc. on
-select screens. The previous changes are specified as arguments or options from individual screens' model or screen view to the common model
+certain screens. The previous changes are specified as arguments or options from individual screens' model or screen view to the common model
 or screen view constructor. Right-side panels for each screen are different, so these are their own constructor, instantiated by
-individual screen views, and are then passed to the common screen view constructor.
+individual ScreenViews, and are then passed to the common ScreenView constructor.
 
 ## Projectile object benchmarks
 
