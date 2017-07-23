@@ -78,7 +78,7 @@ define( function( require ) {
       massRange: new Range( 1, 31.00 ),
       massRound: 0.01,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
@@ -92,7 +92,7 @@ define( function( require ) {
       massRange: new Range( 1, 1000 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 3 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
@@ -106,7 +106,7 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
@@ -120,7 +120,7 @@ define( function( require ) {
       massRange: new Range( 100, 5000 ),
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
-      diameterRound: 0.1,
+      diameterRound: 0.1
     }
   );
 
@@ -134,7 +134,7 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
@@ -148,7 +148,7 @@ define( function( require ) {
       massRange: new Range( 10, 200 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1.5 ),
-      diameterRound: 0.1,
+      diameterRound: 0.1
     }
   );
 
@@ -162,7 +162,7 @@ define( function( require ) {
       massRange: new Range( 50, 1000 ),
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
-      diameterRound: 0.1,
+      diameterRound: 0.1
     }
   );
 
@@ -176,7 +176,7 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
@@ -190,7 +190,7 @@ define( function( require ) {
       massRange: new Range( 5, 200 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01,
+      diameterRound: 0.01
     }
   );
 
