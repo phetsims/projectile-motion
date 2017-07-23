@@ -36,10 +36,12 @@ define( function( require ) {
     teardrop.left = 10; // empirically determined
     teardrop.y = HEIGHT / 2;
     this.addChild( teardrop );
+
     var circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
     circle.left = teardrop.children[ 0 ].right + inset; // gets the shape, without the strut
     circle.y = teardrop.y;
     this.addChild( circle );
+    
     var almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
     almostSemiCircle.left = circle.right + inset;
     almostSemiCircle.y = teardrop.y;
