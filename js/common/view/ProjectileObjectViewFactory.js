@@ -43,6 +43,7 @@ define( function( require ) {
      * @returns {Circle}
      */
     createCustom: function( diameter, dragCoefficient ) {
+
       // drag coefficients estimated from three sources:
       // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
@@ -81,7 +82,9 @@ define( function( require ) {
 
         return new Node( { children: [ strut, objectNode ] } );
       }
-      else { // sphere (exclusive) to kind of hemisphere (inclusive ) = ( 0.47 , 1 )
+      else {
+
+        // sphere (exclusive) to kind of hemisphere (inclusive ) = ( 0.47 , 1 )
         shape = new Shape();
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
         shape.moveTo( 0, -radius );
