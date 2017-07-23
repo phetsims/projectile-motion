@@ -100,7 +100,6 @@ define( function( require ) {
      *
      * @param {string} type
      * @param {number} diameter - in meters in model coordinates
-     * @param {number} dragCoefficient
      * @param {ModelViewTransform2} modelViewTransform
      * @returns {Circle|Image|Path}
      */
