@@ -47,7 +47,7 @@ define( function( require ) {
     this.type = type || null;
     this.rotates = rotates || false;
 
-    // optionscontains data about range and rounding for mass, diameter, drag coefficient
+    // options contains data about range and rounding for mass, diameter, drag coefficient
     // defaults are null, which means no specific range or rounding is needed
     options = options || {};
 
