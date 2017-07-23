@@ -5,7 +5,7 @@
  * Listens to an observable array of DataPoints in the model to draw dots on the trajectory
  * Creates and contains projectileNodes
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

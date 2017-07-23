@@ -4,7 +4,7 @@
  * KeypadLayer handles creation and management of a modal keypad.
  *
  * @author Chris Malley (PixelZoom, Inc.)
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

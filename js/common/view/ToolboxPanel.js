@@ -4,7 +4,7 @@
  * Toolbox from which the user can drag (or otherwise enable) tools.
  * The toolbox includes a measuring tape and a tracer tool.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

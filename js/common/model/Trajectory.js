@@ -7,7 +7,7 @@
  * Velocity, angle, mass, diameter, dragcoefficient only affect the next projectile fired.
  * Units are meters, kilograms, and seconds (mks)
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

@@ -3,7 +3,7 @@
 /**
  * Fire button, just a simple subtype of RectangularPushButton.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

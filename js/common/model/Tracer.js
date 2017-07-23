@@ -4,7 +4,7 @@
  * Model for the tracer tool.
  * Knows about trajectories, which contain arrays of points on their paths
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

@@ -4,7 +4,7 @@
  * Projectile object that contains properties of the projectile
  * Creates constants that are used by projectile choice dropdown on the Intro Screen.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

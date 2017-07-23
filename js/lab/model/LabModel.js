@@ -3,7 +3,7 @@
 /**
  * Model for the 'Lab' screen.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin(PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

@@ -4,7 +4,7 @@
  * Control panel that allows users to alter properties of the projectile fired.
  * Also includes a slider for changing altitude, which changes air density.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

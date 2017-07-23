@@ -6,7 +6,7 @@
  * Listens to the vectorVisibilityProperties for vector visibility properties.
  * Listens to a DataPoint property to figure out when to move.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

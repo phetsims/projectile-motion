@@ -3,7 +3,7 @@
 /**
  * A subtype of Vector2 that contains information about a data point on a trajectory.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';

@@ -3,7 +3,7 @@
 /**
  * Control panel that allows users to modify initial values for how the cannon fires a projectile.
  *
- * @author Andrea Lin( PhET Interactive Simulations )
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( function( require ) {
   'use strict';
