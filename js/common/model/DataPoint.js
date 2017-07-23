@@ -33,7 +33,7 @@ define( function( require ) {
     assert && assert( !isNaN( time ), 'DataPoint time is ' + time );
     assert && assert( time !== 0 || position.x === 0, 'Time is ' + time + 'but x is ' + position.x );
 
-    // @public - a datapoint may be part of multiple trajectories, so this is to keep track of how many are
+    // @public - a data point may be part of multiple trajectories, so this is to keep track of how many are
     // still using it, so we know when to dispose it.
     this.numberOfOtherTrajectoriesUsingSelf = 0;
 
