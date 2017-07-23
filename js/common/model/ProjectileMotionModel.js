@@ -77,10 +77,10 @@ define( function( require ) {
 
     // --Properties that change the environment and affect all projectiles, called global
 
-    // @public {Property.<number>} acceleration due to gravity, in meters per second squared
+    // @public acceleration due to gravity, in meters per second squared
     this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH );
 
-    // @public {Property.<number>} altitude of the environment, in meters
+    // @public altitude of the environment, in meters
     this.altitudeProperty = new NumberProperty( 0 );
 
     // @public whether air resistance is on
