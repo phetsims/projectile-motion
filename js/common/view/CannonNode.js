@@ -28,6 +28,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Range = require( 'DOT/Range' );
+  var platform = require( 'PHET_CORE/platform' );
 
   // image
   var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
@@ -76,7 +77,7 @@ define( function( require ) {
   function CannonNode( heightProperty, angleProperty, transformProperty, screenView, options ) {
 
     options = _.extend( {
-      renderer: 'canvas'
+      renderer: platform.mobileSafari ? 'canvas' : null
     }, options );
 
     Node.call( this, options );
