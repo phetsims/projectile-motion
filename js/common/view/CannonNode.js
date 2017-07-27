@@ -75,17 +75,19 @@ define( function( require ) {
    */
   function CannonNode( heightProperty, angleProperty, transformProperty, screenView, options ) {
 
-    options = options || {};
+    options = _.extend( {
+      renderer: 'canvas'
+    }, options );
 
     Node.call( this, options );
-    
+
     // the cannon, muzzle flash, and pedestal are not visible under ground
     var clippedByGroundNode = new Node( {
       x: transformProperty.get().modelToViewX( 0 ),
       y: transformProperty.get().modelToViewY( 0 ),
       cursor: 'pointer'
     } );
-    
+
     // shape used for ground circle and top of pedestal
     var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
 
@@ -132,7 +134,7 @@ define( function( require ) {
     cannonBase.addChild( cannonBaseBottom );
     var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
-    
+
     // scale everything according to the length of the cannon barrel
     clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
@@ -179,7 +181,7 @@ define( function( require ) {
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
     heightLabel.centerX = heightLeaderLine.tipX;
-    
+
     // cueing arrow for dragging height
     var heightCueingArrow = new ArrowNode( 0, 0, 0, -15, CUEING_ARROW_OPTIONS );
     heightCueingArrow.centerX = heightLeaderLine.tipX;
@@ -236,7 +238,7 @@ define( function( require ) {
       flameShape.lineTo( x, y );
     }
     flameShape.lineTo( -radius, 0 );
-    
+
     // create paths based on shape
     var outerFlame = new Path( flameShape, { fill: 'rgb( 255, 255, 0 )', stroke: null } );
     var innerFlame = new Path( flameShape, { fill: 'rgb( 255, 200, 0 )', stroke: null } );
@@ -245,7 +247,7 @@ define( function( require ) {
     innerFlame.left = 0;
     var muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
     cannonBarrel.addChild( muzzleFlash );
-    
+
     // @private for use in inherit methods
     this.muzzleFlash = muzzleFlash;
 
