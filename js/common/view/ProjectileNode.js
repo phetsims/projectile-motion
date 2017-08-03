@@ -51,7 +51,7 @@ define( function( require ) {
     headWidth: 6
   };
 
-  var VELOCITY_SCALAR = 30; // scales the velocity arrow representations
+  var VELOCITY_SCALAR = 15; // scales the velocity arrow representations
   var ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
   var FORCE_SCALAR = 3;
 
