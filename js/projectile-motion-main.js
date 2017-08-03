@@ -23,7 +23,7 @@ define( function( require ) {
     credits: {
       leadDesign: 'Amy Rouinfar, Mike Dubson',
       softwareDevelopment: 'Andrea Lin',
-      team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams',
+      team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams, John Blanco',
       qualityAssurance: 'Steele Dalton',
       graphicArts: '',
       thanks: ''
