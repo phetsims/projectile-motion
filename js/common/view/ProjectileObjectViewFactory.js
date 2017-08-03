@@ -23,8 +23,8 @@ define( function( require ) {
   var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
   var landedPumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
-  var buickImage = require( 'image!PROJECTILE_MOTION/buick_1.png' );
-  var landedBuickImage = require( 'image!PROJECTILE_MOTION/buick_2.png' );
+  var carImage = require( 'image!PROJECTILE_MOTION/car_1.png' );
+  var landedCarImage = require( 'image!PROJECTILE_MOTION/car_2.png' );
   var footballImage = require( 'image!PROJECTILE_MOTION/football.png' );
   var humanImage = require( 'image!PROJECTILE_MOTION/human_1.png' );
   var landedHumanImage = require( 'image!PROJECTILE_MOTION/human_2.png' );
@@ -118,8 +118,8 @@ define( function( require ) {
           return new Image( pumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
-        case 'buick':
-          return new Image( buickImage, { maxHeight: transformedBallSize * 0.9 } );
+        case 'car':
+          return new Image( carImage, { maxHeight: transformedBallSize * 0.9 } );
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':
@@ -156,8 +156,8 @@ define( function( require ) {
           return new Image( landedPumpkinImage, { maxHeight: transformedBallSize } );
         case 'baseball':
           return new Image( baseballImage, { maxWidth: transformedBallSize } );
-        case 'buick':
-          return new Image( landedBuickImage, { maxWidth: transformedBallSize * 1.75 } );
+        case 'car':
+          return new Image( landedCarImage, { maxWidth: transformedBallSize * 1.75 } );
         case 'football':
           return new Image( footballImage, { maxHeight: transformedBallSize } );
         case 'human':

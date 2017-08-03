@@ -19,7 +19,7 @@ define( function( require ) {
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
   var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
   var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
-  var buickString = require( 'string!PROJECTILE_MOTION/buick' );
+  var carString = require( 'string!PROJECTILE_MOTION/car' );
   var footballString = require( 'string!PROJECTILE_MOTION/football' );
   var humanString = require( 'string!PROJECTILE_MOTION/human' );
   var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
@@ -110,12 +110,12 @@ define( function( require ) {
     }
   );
 
-  ProjectileObjectType.BUICK = new ProjectileObjectType(
-    buickString,
+  ProjectileObjectType.CAR = new ProjectileObjectType(
+    carString,
     2000,
     2,
     0.55,
-    'buick',
+    'car',
     true, {
       massRange: new Range( 100, 5000 ),
       massRound: 1,

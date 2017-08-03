@@ -29,7 +29,7 @@ define( function( require ) {
       ProjectileObjectType.PUMPKIN,
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
-      ProjectileObjectType.BUICK
+      ProjectileObjectType.CAR
     ];
 
     ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false );

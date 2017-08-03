@@ -30,7 +30,7 @@ define( function( require ) {
       ProjectileObjectType.PUMPKIN,
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
-      ProjectileObjectType.BUICK
+      ProjectileObjectType.CAR
     ];
     
     // @public {Object} with objects by type

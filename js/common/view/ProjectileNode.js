@@ -302,7 +302,7 @@ define( function( require ) {
 
           if ( landedObjectView ) {
             landedObjectView.center = viewPosition;
-            if ( objectType ? objectType.type === 'human' || objectType.type === 'buick' : false ) {
+            if ( objectType ? objectType.type === 'human' || objectType.type === 'car' : false ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
             if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
