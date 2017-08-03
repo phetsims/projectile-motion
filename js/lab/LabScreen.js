@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // strings
-  var labTitleString = require( 'string!PROJECTILE_MOTION/screen.lab' );
+  var screenLabString = require( 'string!PROJECTILE_MOTION/screen.lab' );
 
   /**
    * @constructor
@@ -26,7 +26,7 @@ define( function( require ) {
   function LabScreen() {
 
     var options = {
-      name: labTitleString,
+      name: screenLabString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new LabIconNode( 'screen' ),
       navigationBarIcon: new LabIconNode( 'nav' )

@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // strings
-  var vectorsTitleString = require( 'string!PROJECTILE_MOTION/screen.vectors' );
+  var screenVectorsString = require( 'string!PROJECTILE_MOTION/screen.vectors' );
 
   /**
    * @constructor
@@ -26,7 +26,7 @@ define( function( require ) {
   function VectorsScreen() {
 
     var options = {
-      name: vectorsTitleString,
+      name: screenVectorsString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new VectorsIconNode( 'screen' ),
       navigationBarIcon: new VectorsIconNode( 'nav' )

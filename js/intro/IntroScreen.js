@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // strings
-  var introTitleString = require( 'string!PROJECTILE_MOTION/screen.intro' );
+  var screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );
 
   /**
    * @constructor
@@ -26,7 +26,7 @@ define( function( require ) {
   function IntroScreen() {
 
     var options = {
-      name: introTitleString,
+      name: screenIntroString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new IntroIconNode( 'screen' ),
       navigationBarIcon: new IntroIconNode( 'nav' )

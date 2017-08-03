@@ -18,7 +18,7 @@ define( function( require ) {
   var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
 
   // strings
-  var dragTitleString = require( 'string!PROJECTILE_MOTION/screen.drag' );
+  var screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );
 
   /**
    * @constructor
@@ -26,7 +26,7 @@ define( function( require ) {
   function DragScreen() {
 
     var options = {
-      name: dragTitleString,
+      name: screenDragString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new DragIconNode()
     };
