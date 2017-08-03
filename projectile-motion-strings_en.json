@@ -2,16 +2,16 @@
   "projectile-motion.title": {
     "value": "Projectile Motion"
   },
-  "lab.title": {
+  "screen.lab": {
     "value": "Lab"
   },
-  "intro.title": {
+  "screen.intro": {
     "value": "Intro"
   },
-  "drag.title": {
+  "screen.drag": {
     "value": "Drag"
   },
-  "vectors.title": {
+  "screen.vectors": {
     "value": "Vectors"
   },
   "pattern0Value1Units": {

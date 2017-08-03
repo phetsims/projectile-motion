@@ -18,7 +18,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
 
   // strings
-  var vectorsTitleString = require( 'string!PROJECTILE_MOTION/vectors.title' );
+  var vectorsTitleString = require( 'string!PROJECTILE_MOTION/screen.vectors' );
 
   /**
    * @constructor

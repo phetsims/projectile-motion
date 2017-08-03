@@ -18,7 +18,7 @@ define( function( require ) {
   var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
 
   // strings
-  var dragTitleString = require( 'string!PROJECTILE_MOTION/drag.title' );
+  var dragTitleString = require( 'string!PROJECTILE_MOTION/screen.drag' );
 
   /**
    * @constructor
