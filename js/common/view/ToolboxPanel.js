@@ -17,6 +17,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ScreenView = require( 'JOIST/ScreenView' );
+  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
 
   /**
    * Toolbox constructor
@@ -73,15 +74,8 @@ define( function( require ) {
       }
     } );
 
-    // When pressed, creates a model element and triggers startDrag() on the corresponding view
-    tracerIconNode.addInputListener( {
-      down: function( event ) {
-
-        // ignore this if already dragging
-        if ( event.pointer.dragging ) { return; }
-
-        // don't try to start drags with a right mouse button or an attached pointer
-        if ( !event.canStartPress() ) { return; }
+    // When pressed, forwards dragging to the actual tracer Node
+    tracerIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
         tracer.isActiveProperty.set( true );
 
@@ -92,18 +86,8 @@ define( function( require ) {
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
 
         tracerNode.movableDragHandler.startDrag( event );
-      },
 
-      // touch enters this node
-      touchenter: function( event ) {
-        this.down( event );
-      },
-
-      // touch moves over this node
-      touchmove: function( event ) {
-        this.down( event );
-      }
-    } );
+    }, { allowTouchSnag: true } ) );
 
     // tracer visibility has the opposite visibility of the tracerIcon
     tracer.isActiveProperty.link( function( active ) {
@@ -126,15 +110,8 @@ define( function( require ) {
     // determine the distance (in model coordinates) between the tip and the base position of the measuring tape
     var tipToBasePosition = measuringTape.tipPositionProperty.get().minus( measuringTape.basePositionProperty.get() );
 
-    // Add the listener that will allow the user to click on this and create a model element, then position it in the model.
-    measuringTapeIconNode.addInputListener( {
-      down: function( event ) {
-
-        // ignore this if already dragging
-        if ( event.pointer.dragging ) { return; }
-
-        // don't try to start drags with a right mouse button or an attached pointer
-        if ( !event.canStartPress() ) { return; }
+    // Add the listener that will allow the user to click on this and forward the dragging to the actual measuring tape node
+    measuringTapeIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
         measuringTape.isActiveProperty.set( true );
 
@@ -144,18 +121,8 @@ define( function( require ) {
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
         measuringTapeNode.startBaseDrag( event );
-      },
 
-      // touch enters this node
-      touchenter: function( event ) {
-        this.down( event );
-      },
-
-      // touch moves over this node
-      touchmove: function( event ) {
-        this.down( event );
-      }
-    } );
+      }, { allowTouchSnag: true } ) );
 
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
     measuringTape.isActiveProperty.link( function( active ) {
