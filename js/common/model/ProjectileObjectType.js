@@ -44,7 +44,7 @@ define( function( require ) {
     this.mass = mass;
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
-    this.benchmark = benchmark || null;
+    this.benchmark = benchmark;
     this.rotates = rotates;
 
     // options contains data about range and rounding for mass, diameter, drag coefficient
