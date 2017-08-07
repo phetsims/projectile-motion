@@ -66,14 +66,12 @@ define( function( require ) {
   /**
    * @param {Node} comboBoxListParent - node for containing the combobox
    * @param {KeypadLayer} keypadLayer - for entering values
-   * @param {function:KeypadPanel} setKeypadLocation - function for laying out the keypad, no return
    * @param {LabModel} model
    * @param {Object} [options]
    * @constructor
    */
   function LabProjectilePanel( comboBoxListParent,
                                keypadLayer,
-                               setKeypadLocation,
                                model,
                                options ) {
 
@@ -185,10 +183,7 @@ define( function( require ) {
       var editValue = function() {
         keypadLayer.beginEdit( property, range, {
           onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
-          onEndEdit: function() { backgroundNode.fill = 'white'; },
-          setKeypadLocation: setKeypadLocation,
-          maxDigits: 8,
-          maxDecimals: 2,
+          onEndEdit: function() { backgroundNode.fill = 'white'; }
         } );
       };
 

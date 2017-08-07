@@ -12,10 +12,24 @@ define( function( require ) {
   // modules
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var KeypadPanel = require( 'PROJECTILE_MOTION/lab/view/KeypadPanel' );
+  var Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
   var Plane = require( 'SCENERY/nodes/Plane' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Util = require( 'DOT/Util' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Panel = require( 'SUN/Panel' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+
+  // strings
+  var enterString = require( 'string!PROJECTILE_MOTION/enter' );
+
+  // constants
+  var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
 
   /**
    * @param {Object} [options]
@@ -26,8 +40,17 @@ define( function( require ) {
     var self = this;
 
     options = _.extend( {
-      fill: 'rgba( 0, 0, 0, 0.2 )',
-      visible: false
+
+      // KeypadPanel options
+      valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
+      valueYMargin: 3, // {number} vertical margin inside the value box
+      valueFont: TEXT_FONT,
+      maxDigits: 8, // {number} maximum number of digits that can be entered on the keypad
+      maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypd
+
+      // Plane options
+      visible: false,
+      fill: 'rgba( 0, 0, 0, 0.2 )'
     }, options );
 
     Plane.call( this, options );
@@ -43,9 +66,58 @@ define( function( require ) {
 
     // @private these will be set when the client calls beginEdit
     this.valueProperty = null;
-    this.keypad = null;
-    this.zeroIsValid = true;
     this.onEndEdit = null; // {function} called by endEdit
+
+    var valueNode = new Text( '', {
+      font: options.valueFont
+    } );
+
+    var valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
+      cornerRadius: 3,
+      fill: 'white',
+      stroke: 'black'
+    } );
+
+    var valueParent = new Node( {
+      children: [ valueBackgroundNode, valueNode ]
+    } );
+
+    this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
+      maxDigits: options.maxDigits,
+      maxDigitsRightOfMantissa: options.maxDecimals
+    } );
+
+    var enterButton = new RectangularPushButton( {
+      listener: this.commitEdit.bind( this ),
+      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
+      content: new Text( enterString, {
+        font: TEXT_FONT,
+        fill: 'black',
+        maxWidth: this.keypadNode.width // i18n
+      } )
+    } );
+
+    var contentNode = new VBox( {
+      spacing: 10,
+      align: 'center',
+      children: [ valueParent, this.keypadNode, enterButton ]
+    } );
+
+    this.keypadPanel = new Panel( contentNode, {
+      fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
+      backgroundPickable: true, // {boolean} so that clicking in the keypad's background doesn't close the keypad
+      xMargin: 10,
+      yMargin: 10,
+    } );
+
+    this.addChild( this.keypadPanel );
+
+    // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
+    this.keypadNode.stringProperty.link( function( string ) { // no unlink required
+      valueNode.text = string;
+      valueNode.center = valueBackgroundNode.center;
+    } );
+
   }
 
   projectileMotion.register( 'KeypadLayer', KeypadLayer );
@@ -57,7 +129,7 @@ define( function( require ) {
      * @param {function:KeypadPanel} setKeypadLocation - function that lays out keypad, no return
      */
     positionKeypad: function( setKeypadLocation ) {
-      this.keypad && setKeypadLocation( this.keypad );
+      this.keypadPanel && setKeypadLocation( this.keypadPanel );
     },
 
     /**
@@ -65,63 +137,43 @@ define( function( require ) {
      * @public
      *
      * @param {Property.<number>} valueProperty - the Property to be set by the keypad
+     * @param {Range} valueRange
      * @param {Object} [options]
      */
     beginEdit: function( valueProperty, valueRange, options ) {
 
-      // Ignore attempts to open another keypad. This can happen in unlikely multi-touch scenarios.
-      // See https://github.com/phetsims/unit-rates/issues/181
-      if ( this.keypad ) {
-        projectileMotion.log && projectileMotion.log( 'ignoring attempt to open another keypad' );
-        return;
-      }
-
       options = _.extend( {
         onBeginEdit: null, // {function} called by beginEdit
         onEndEdit: null, // {function} called by endEdit
-        setKeypadLocation: null, // {function:KeypadPanel} called by beginEdit to set the keypad location
-        maxDigits: 4, // {number} maximum number of digits that can be entered on the keypad
-        maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypad
-        zeroIsValid: true // {boolean} is zero a valid value?
       }, options );
 
       this.valueProperty = valueProperty; // remove this reference in endEdit
       this.onEndEdit = options.onEndEdit;
-      this.zeroIsValid = options.zeroIsValid;
 
-      // create a keypad
-      this.keypad = new KeypadPanel( {
-        maxDigits: options.maxDigits,
-        maxDecimals: options.maxDecimals,
-        enterButtonListener: this.commitEdit.bind( this, valueRange )
-      } );
+      this.valueRange = valueRange; // update value range to be used in commitedit
 
       // display the keypad
-      this.addChild( this.keypad );
       this.visible = true;
 
       // keypadLayer lasts for the lifetime of the sim, so listeners don't need to be disposed
       this.addInputListener( this.clickOutsideListener );
-
-      // position the keypad
-      options.setKeypadLocation && options.setKeypadLocation( this.keypad );
 
       // execute client-specific hook
       options.onBeginEdit && options.onBeginEdit();
     },
 
     /**
-     * Ends an edit
+     * Ends an edit, used by commitEdit and cancelEdit
      * @private
      */
     endEdit: function() {
 
+      // clear the keypad
+      this.keypadNode.clear();
+
       // hide the keypad
       this.visible = false;
       this.removeInputListener( this.clickOutsideListener );
-      this.removeChild( this.keypad );
-      this.keypad.dispose();
-      this.keypad = null;
 
       // execute client-specific hook
       this.onEndEdit && this.onEndEdit();
@@ -135,13 +187,15 @@ define( function( require ) {
      * @param {Range} valueRange
      * @private
      */
-    commitEdit: function( valueRange ) {
+    commitEdit: function() {
+
+      var valueRange = this.valueRange;
 
       // get the value from the keypad
-      var value = parseFloat( this.keypad.valueStringProperty.value );
+      var value = this.keypadNode.valueProperty.get();
 
       // not entering a value in the keypad is a cancel
-      if ( isNaN( value ) ) {
+      if ( this.keypadNode.stringProperty.get() === '' ) {
         this.cancelEdit();
         return;
       }

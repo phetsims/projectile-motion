@@ -36,7 +36,7 @@ define( function( require ) {
 
     // acts as listParent for the projectile dropdown box
     var comboBoxListParent = new Node();
-    var keypadLayer = new KeypadLayer( { decimalPointKey: true } );
+    var keypadLayer = new KeypadLayer();
 
     ProjectileMotionScreenView.call(
       this,
@@ -49,7 +49,6 @@ define( function( require ) {
       new LabProjectilePanel(
         comboBoxListParent,
         keypadLayer,
-        this.setKeypadLocation.bind( this ),
         model
       ),
       visibilityProperties,
@@ -64,8 +63,6 @@ define( function( require ) {
 
     // @private, for layout
     this.keypadLayer = keypadLayer;
-
-
   }
 
   projectileMotion.register( 'LabScreenView', LabScreenView );
@@ -92,9 +89,9 @@ define( function( require ) {
      *
      * @param {KeypadPanel} keypad
      */
-    setKeypadLocation: function( keypad ) {
-      keypad.right = this.topRightPanel.left - X_MARGIN;
-      keypad.top = this.toolboxPanel.bottom + Y_MARGIN;
+    setKeypadLocation: function( keypadPanel ) {
+      keypadPanel.right = this.topRightPanel.left - X_MARGIN;
+      keypadPanel.top = this.toolboxPanel.bottom + Y_MARGIN;
     }
 
   } );
