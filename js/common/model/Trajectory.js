@@ -163,7 +163,7 @@ define( function( require ) {
           this.reachedGround = true; // store the information that it has reached the ground
 
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = (
+          var timeToGround = ( previousPoint.acceleration.y === 0 ) ? -previousPoint.position.y / previousPoint.velocity.y : (
             -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
           ) / previousPoint.acceleration.y;
 
