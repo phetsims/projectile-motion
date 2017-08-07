@@ -98,79 +98,78 @@ define( function( require ) {
     },
 
     /**
-     * A preset object view for benchmarks
+     * Preset object view functions for benchmarks, some benchmarks have different landed objects
      * @public
      *
-     * @param {string} benchmark
      * @param {number} diameter - in meters in model coordinates
      * @param {ModelViewTransform2} modelViewTransform
+     * @param {boolean} landed - whether we want the landed object view, as opposed to a flying projectile view
      * @returns {Circle|Image|Path}
      */
-    createObjectView: function( benchmark, diameter, modelViewTransform ) {
 
-      // radius in view coordinates.
-      // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
+    cannonball: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch( benchmark ) {
-        case 'cannonball':
-          return new Circle( transformedBallSize / 2, { fill: 'black' } );
-        case 'pumpkin':
-          return new Image( pumpkinImage, { maxHeight: transformedBallSize } );
-        case 'baseball':
-          return new Image( baseballImage, { maxWidth: transformedBallSize } );
-        case 'car':
-          return new Image( carImage, { maxHeight: transformedBallSize * 0.9 } );
-        case 'football':
-          return new Image( footballImage, { maxHeight: transformedBallSize } );
-        case 'human':
-          return new Image( humanImage, { maxHeight: transformedBallSize * 1.9 } );
-        case 'piano':
-          return new Image( pianoImage, { maxWidth: transformedBallSize * 1.1 } );
-        case 'golfBall':
-          return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
-        case 'tankShell':
-          return new Image( tankShellImage, { maxHeight: transformedBallSize } );
-        default:
-          throw new Error( 'benchmark is not right' );
+      return new Circle( transformedBallSize / 2, { fill: 'black' } );
+    },
+
+    pumpkin: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      if ( landed ) {
+        return new Image( landedPumpkinImage, { maxHeight: transformedBallSize * 0.9 } );
+      }
+      else {
+        return new Image( pumpkinImage, { maxHeight: transformedBallSize * 1.2 } );
       }
     },
 
-    /**
-     * A preset landed object view for benchmarks
-     * @public
-     *
-     * @param {string} benchmark
-     * @param {number} diameter - in meters in model coordinates
-     * @param {ModelViewTransform2} modelViewTransform
-     * @returns {Circle|Image|Path}
-     */
-    createLandedObjectView: function( benchmark, diameter, modelViewTransform ) {
-
-      // radius in view coordinates.
-      // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
+    baseball: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch( benchmark ) {
-        case 'cannonball':
-          return new Circle( transformedBallSize / 2, { fill: 'black' } );
-        case 'pumpkin':
-          return new Image( landedPumpkinImage, { maxHeight: transformedBallSize } );
-        case 'baseball':
-          return new Image( baseballImage, { maxWidth: transformedBallSize } );
-        case 'car':
-          return new Image( landedCarImage, { maxWidth: transformedBallSize * 1.75 } );
-        case 'football':
-          return new Image( footballImage, { maxHeight: transformedBallSize } );
-        case 'human':
-          return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.35 } );
-        case 'piano':
-          return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
-        case 'golfBall':
-          return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
-        case 'tankShell':
-          return new Image( tankShellImage, { maxHeight: transformedBallSize } );
-        default:
-          throw new Error( 'benchmark is not right' );
+      return new Image( baseballImage, { maxWidth: transformedBallSize } );
+    },
+
+    car: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      if ( landed ) {
+        return new Image( landedCarImage, { maxHeight: transformedBallSize * 1.7 } );
       }
+      else {
+        return new Image( carImage, { maxHeight: transformedBallSize * 0.75 } );
+      }
+    },
+
+    football: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      return new Image( footballImage, { maxHeight: transformedBallSize } );
+    },
+
+    human: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      if ( landed ) {
+        return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.35 } );
+      }
+      else {
+        return new Image( humanImage, { maxHeight: transformedBallSize * 1.9 } );
+      }
+    },
+
+    piano: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      if ( landed ) {
+        return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
+      }
+      else {
+        return new Image( pianoImage, { maxWidth: transformedBallSize * 1.1 } );
+      }
+    },
+
+    golfBall: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
+    },
+
+    tankShell: function( diameter, modelViewTransform, landed ) {
+      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      return new Image( tankShellImage, { maxHeight: transformedBallSize } );
     }
   };
 
