@@ -20,16 +20,16 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
 
   // image
-  var pumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
-  var landedPumpkinImage = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
+  var pumpkin1Image = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
+  var pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
-  var carImage = require( 'image!PROJECTILE_MOTION/car_1.png' );
-  var landedCarImage = require( 'image!PROJECTILE_MOTION/car_2.png' );
+  var car1Image = require( 'image!PROJECTILE_MOTION/car_1.png' );
+  var car2Image = require( 'image!PROJECTILE_MOTION/car_2.png' );
   var footballImage = require( 'image!PROJECTILE_MOTION/football.png' );
-  var humanImage = require( 'image!PROJECTILE_MOTION/human_1.png' );
-  var landedHumanImage = require( 'image!PROJECTILE_MOTION/human_2.png' );
-  var pianoImage = require( 'image!PROJECTILE_MOTION/piano_1.png' );
-  var landedPianoImage = require( 'image!PROJECTILE_MOTION/piano_2.png' );
+  var human1Image = require( 'image!PROJECTILE_MOTION/human_1.png' );
+  var human2Image = require( 'image!PROJECTILE_MOTION/human_2.png' );
+  var piano1Image = require( 'image!PROJECTILE_MOTION/piano_1.png' );
+  var piano2Image = require( 'image!PROJECTILE_MOTION/piano_2.png' );
   var tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
 
   var ProjectileObjectViewFactory = {
@@ -115,10 +115,10 @@ define( function( require ) {
     pumpkin: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
-        return new Image( landedPumpkinImage, { maxHeight: transformedBallSize * 0.9 } );
+        return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.9 } );
       }
       else {
-        return new Image( pumpkinImage, { maxHeight: transformedBallSize * 1.2 } );
+        return new Image( pumpkin1Image, { maxHeight: transformedBallSize * 1.2 } );
       }
     },
 
@@ -130,10 +130,10 @@ define( function( require ) {
     car: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
-        return new Image( landedCarImage, { maxHeight: transformedBallSize * 1.7 } );
+        return new Image( car2Image, { maxHeight: transformedBallSize * 1.7 } );
       }
       else {
-        return new Image( carImage, { maxHeight: transformedBallSize * 0.75 } );
+        return new Image( car1Image, { maxHeight: transformedBallSize * 0.75 } );
       }
     },
 
@@ -145,20 +145,20 @@ define( function( require ) {
     human: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
-        return new Image( landedHumanImage, { maxWidth: transformedBallSize * 1.35 } );
+        return new Image( human2Image, { maxWidth: transformedBallSize * 1.35 } );
       }
       else {
-        return new Image( humanImage, { maxHeight: transformedBallSize * 1.9 } );
+        return new Image( human1Image, { maxHeight: transformedBallSize * 1.9 } );
       }
     },
 
     piano: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
-        return new Image( landedPianoImage, { maxWidth: transformedBallSize * 1.3 } );
+        return new Image( piano2Image, { maxWidth: transformedBallSize * 1.3 } );
       }
       else {
-        return new Image( pianoImage, { maxWidth: transformedBallSize * 1.1 } );
+        return new Image( piano1Image, { maxWidth: transformedBallSize * 1.1 } );
       }
     },
 
