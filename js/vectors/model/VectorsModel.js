@@ -13,12 +13,20 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
   var ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
 
   /**
    * @constructor
    */
   function VectorsModel() {
-    ProjectileMotionModel.call( this, ProjectileObjectType.VECTORS_SCREEN_CUSTOM_OBJECT, true );
+    ProjectileMotionModel.call( this, new ProjectileObjectType(
+      null,
+      5,
+      0.8,
+      ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
+      null,
+      true
+    ), true );
   }
 
   projectileMotion.register( 'VectorsModel', VectorsModel );

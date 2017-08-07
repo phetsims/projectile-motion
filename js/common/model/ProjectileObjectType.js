@@ -32,7 +32,7 @@ define( function( require ) {
    * @param {number} mass - in kg
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
-   * @param {string || null} benchmark - identifier of the object benchmark, such as 'tankShell', or no specific benchmark
+   * @param {string || null} benchmark - identifier of the object benchmark, such as 'tankShell', or null for no specific benchmark
    * @param {boolean} rotates - whether the object rotates or just translates in air
    * @param {Object} [options]
    * @constructor
@@ -48,12 +48,12 @@ define( function( require ) {
     this.rotates = rotates;
 
     // options contains data about range and rounding for mass, diameter, drag coefficient
-    // @public, defaults to those of CUSTOM
+    // @public, defaults to those of custom objects for screens that don't have benchmarks
     options = _.extend( {
-      massRange: new Range( 1, 5000 ),
-      massRound: 0.01,
-      diameterRange: new Range( 0.01, 3 ),
-      diameterRound: 0.01,
+      massRange: new Range( 1, 10 ),
+      massRound: 1,
+      diameterRange: new Range( 0.1, 1 ),
+      diameterRound: 0.1,
       dragCoefficientRange: new Range( 0.04, 1 ),
       dragCoefficientRound: 0.01
     }, options );
@@ -206,36 +206,11 @@ define( function( require ) {
     1,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
-    true
-  );
-
-  ProjectileObjectType.DRAG_SCREEN_CUSTOM_OBJECT = new ProjectileObjectType(
-    null,
-    5,
-    0.8,
-    ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
-    null,
     true, {
-      massRange: new Range( 1, 10 ),
-      massRound: 1,
-      diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.1,
-      dragCoefficientRange: new Range( 0.04, 1 ),
-      dragCoefficientRound: 0.01
-    }
-  );
-
-  ProjectileObjectType.VECTORS_SCREEN_CUSTOM_OBJECT = new ProjectileObjectType(
-    null,
-    5,
-    0.8,
-    ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
-    null,
-    true, {
-      massRange: new Range( 1, 10 ),
-      massRound: 1,
-      diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.1,
+      massRange: new Range( 1, 5000 ),
+      massRound: 0.01,
+      diameterRange: new Range( 0.01, 3 ),
+      diameterRound: 0.01,
       dragCoefficientRange: new Range( 0.04, 1 ),
       dragCoefficientRound: 0.01
     }
