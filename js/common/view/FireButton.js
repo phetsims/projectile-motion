@@ -15,7 +15,7 @@ define( function( require ) {
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
-  var fireImage = require( 'image!PROJECTILE_MOTION/fire_button.png' );
+  var fireImage = require( 'mipmap!PROJECTILE_MOTION/fire_button.png' );
 
   /**
    * @param {Object} [options]

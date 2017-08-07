@@ -31,9 +31,9 @@ define( function( require ) {
   var platform = require( 'PHET_CORE/platform' );
 
   // image
-  var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
-  var cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
-  var cannonBarrelImage = require( 'image!PROJECTILE_MOTION/cannon_barrel.png' );
+  var cannonBaseBottomImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_bottom.png' );
+  var cannonBaseTopImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_top.png' );
+  var cannonBarrelImage = require( 'mipmap!PROJECTILE_MOTION/cannon_barrel.png' );
   var cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
 
   // strings
@@ -122,7 +122,7 @@ define( function( require ) {
     clippedByGroundNode.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
-    var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
+    var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
     var cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
