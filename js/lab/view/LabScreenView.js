@@ -28,7 +28,6 @@ define( function( require ) {
    */
   function LabScreenView( model, options ) {
 
-    options = options || {};
     options = _.extend( { preciseCannonDelta: true }, options );
 
     // contains properties about vector visibility, used in super class

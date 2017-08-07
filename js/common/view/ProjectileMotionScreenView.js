@@ -86,8 +86,6 @@ define( function( require ) {
                                        bottomRightPanel,
                                        vectorVisibilityProperties,
                                        options ) {
-
-    options = options || {};
     var self = this;
 
     ScreenView.call( this, options );

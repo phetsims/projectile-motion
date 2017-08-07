@@ -23,8 +23,6 @@ define( function( require ) {
    */
   function VectorsScreenView( model, options ) {
 
-    options = options || {};
-
     // contains properties about vector visibility, used in super class
     var visibilityProperties = new VectorsVectorVisibilityProperties();
 

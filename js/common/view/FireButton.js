@@ -22,8 +22,6 @@ define( function( require ) {
    * @constructor
    */
   function FireButton( options ) {
-    options = options || {};
-
     options = _.extend( {
       baseColor: 'rgb( 255, 0, 0 )', // red
       iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height

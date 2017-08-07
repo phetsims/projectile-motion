@@ -58,7 +58,6 @@ define( function( require ) {
    * @constructor
    */
   function TracerNode( tracer, transformProperty, screenView, options ) {
-    options = options || {};
     var self = this;
     
     // @public is this being handled by user?
@@ -216,6 +215,9 @@ define( function( require ) {
       self.tracer.updateData();
     } );
 
+    options = options || {};
+    assert && assert( !options.children, 'this type sets is own children' );
+
     // Rendering order
     options.children = [
       haloNode,
@@ -305,11 +307,9 @@ define( function( require ) {
      * Create icon of Tracer node
      * @public
      *
-     * @param {Object} [options]
      * @returns {Node}
      */
-    createIcon: function( options ) {
-      options = options || {};
+    createIcon: function() {
       var rectangle = new Rectangle(
         0,
         0,
