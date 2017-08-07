@@ -31,7 +31,7 @@ define( function( require ) {
     GRAVITY_ON_EARTH: 9.81,
 
     // screen view layout
-    VIEW_ORIGIN: new Vector2( 100, 520 ),
+    VIEW_ORIGIN: new Vector2( 100, 510 ),
 
     // cannonball defaults
     CANNONBALL_MASS: 17.6,
@@ -133,7 +133,7 @@ define( function( require ) {
       fill: 'rgb( 235, 235, 235 )',
       lineWidth: 1,
       stroke: 'black',
-      xMargin: 20,
+      xMargin: 10,
       yMargin: 5
     },
 

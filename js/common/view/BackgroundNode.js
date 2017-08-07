@@ -23,7 +23,7 @@ define( function( require ) {
 
   // constants
   var CEMENT_WIDTH = 20;
-  var GRASS_WIDTH = 5;
+  var GRASS_WIDTH = 4;
   var YELLOW_LINE_WIDTH = 1.5;
   var FLATIRONS_WIDTH = 450;
   var FLATIRONS_LEFT = 8; // in meters

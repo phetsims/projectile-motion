@@ -62,6 +62,7 @@ define( function( require ) {
     arrowButtonScale: 0.65
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
+  var MINUS_ROOM_FOR_COMBO_BOX = 3; // px, to move the dropdown up ever so slightly to buy more room
 
   /**
    * @param {Node} comboBoxListParent - node for containing the combobox
@@ -415,7 +416,7 @@ define( function( require ) {
     } );
 
     // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
-    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
+    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height - MINUS_ROOM_FOR_COMBO_BOX );
 
     // The contents of the control panel
     var content = new VBox( {
@@ -451,7 +452,7 @@ define( function( require ) {
      */
     layoutComboBox: function() {
       this.projectileChoiceComboBox.centerX = this.centerX;
-      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace;
+      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace - MINUS_ROOM_FOR_COMBO_BOX;
     }
   } );
 } );

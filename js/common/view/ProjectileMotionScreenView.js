@@ -169,7 +169,7 @@ define( function( require ) {
       initialSpeedControl,
       _.extend( {
         left: this.layoutBounds.left + X_MARGIN,
-        bottom: this.layoutBounds.bottom - Y_MARGIN
+        bottom: this.layoutBounds.bottom - 10
       }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
@@ -297,6 +297,16 @@ define( function( require ) {
       centerY: initialSpeedPanel.centerY,
     } );
 
+    // eraser button
+    var eraserButton = new EraserButton( {
+      minWidth: 50,
+      iconWidth: 30,
+      minHeight: 40,
+      listener: function() { model.eraseTrajectories(); },
+      centerY: initialSpeedPanel.centerY,
+      left: initialSpeedPanel.right + 30
+    } );
+
     // fire button
     var fireButton = new FireButton( {
       minWidth: 50,
@@ -306,22 +316,38 @@ define( function( require ) {
         model.cannonFired();
         cannonNode.flashMuzzle();
       },
-      centerY: initialSpeedPanel.centerY,
-      left: initialSpeedPanel.right + 30
+      bottom: eraserButton.bottom,
+      left: eraserButton.right + X_MARGIN
     } );
 
     model.fireEnabledProperty.link( function( enable ) {
       fireButton.setEnabled( enable );
     } );
 
-    // eraser button
-    var eraserButton = new EraserButton( {
-      minWidth: 50,
-      iconWidth: 30,
-      minHeight: 40,
-      listener: function() { model.eraseTrajectories(); },
-      bottom: fireButton.bottom,
-      left: fireButton.right + 2 * X_MARGIN
+    // play/pause button
+    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+      radius: 18,
+      centerY: initialSpeedPanel.centerY,
+      left: fireButton.right + 40, // empirically determined
+      touchAreaDilation: 2
+    } );
+
+    // step button
+    var stepButton = new StepForwardButton( {
+      playingProperty: model.isPlayingProperty,
+      listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
+      radius: 12,
+      stroke: 'black',
+      fill: '#005566',
+      centerY: playPauseButton.centerY,
+      left: playPauseButton.right + PLAY_CONTROLS_INSET,
+      touchAreaDilation: 4
+    } );
+
+    // make the play/pause button bigger when it is paused
+    var pauseSizeIncreaseFactor = 1.25;
+    model.isPlayingProperty.lazyLink( function( isPlaying ) {
+      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // sim speed controls
@@ -340,33 +366,9 @@ define( function( require ) {
     var speedControl = new VBox( {
       align: 'left',
       spacing: 4,
-      bottom: resetAllButton.bottom,
-      left: eraserButton.right + 120, // empirically determined
+      centerY: initialSpeedPanel.centerY,
+      left: stepButton.right + 2 * PLAY_CONTROLS_INSET,
       children: [ normalMotionRadioBox, slowMotionRadioBox ]
-    } );
-
-    // play/pause button
-    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
-      radius: 18,
-      bottom: speedControl.bottom,
-      left: speedControl.right + 2 * PLAY_CONTROLS_INSET
-    } );
-
-    // step button
-    var stepButton = new StepForwardButton( {
-      playingProperty: model.isPlayingProperty,
-      listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
-      radius: 12,
-      stroke: 'black',
-      fill: '#005566',
-      centerY: playPauseButton.centerY,
-      left: playPauseButton.right + PLAY_CONTROLS_INSET
-    } );
-
-    // make the play/pause button bigger when it is paused
-    var pauseSizeIncreaseFactor = 1.25;
-    model.isPlayingProperty.lazyLink( function( isPlaying ) {
-      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // @private for layout convenience
