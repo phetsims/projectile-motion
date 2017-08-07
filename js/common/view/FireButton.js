@@ -27,6 +27,8 @@ define( function( require ) {
       iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
     }, options );
 
+    assert && assert( !options.content, 'this type sets is own content' );
+
     // fire button icon
     options.content = new Image( fireImage );
     options.content.scale( options.iconWidth / options.content.width );
