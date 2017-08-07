@@ -18,7 +18,7 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-
+  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   /**
    * Toolbox constructor
    * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
@@ -43,7 +43,7 @@ define( function( require ) {
     }, options );
     
     // Create the icon Node for the tracer tool
-    var tracerIconNode = tracerNode.createIcon();
+    var tracerIconNode = TracerNode.createIcon();
     tracerIconNode.cursor = 'pointer';
     tracerIconNode.scale( 0.4 );
 

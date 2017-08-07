@@ -44,7 +44,7 @@ define( function( require ) {
   var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
   var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
   var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
-  var SPACING = 4;
+  var SPACING = 4; // {number} x and y spacing and margins
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
  
   var TRACER_CONTENT_WIDTH = 155;
@@ -64,7 +64,6 @@ define( function( require ) {
     this.isUserControlledProperty = new BooleanProperty( false );
     
     // @private
-    this.spacing = SPACING; // {number} x and y spacing and margins
     this.tracer = tracer; // model
     this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
 
@@ -127,9 +126,9 @@ define( function( require ) {
     var rangeReadoutProperty = new Property( '-' );
     var heightReadoutProperty = new Property( '-' );
 
-    var timeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
-    var rangeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
-    var heightBox = this.createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
+    var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
+    var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
+    var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
 
     var textBox = new VBox( {
       align: 'left',
@@ -240,6 +239,53 @@ define( function( require ) {
 
   projectileMotion.register( 'TracerNode', TracerNode );
 
+
+  /**
+   * Auxiliary function to create label and number readout for information
+   *
+   * @param {number} maxWidth - max width for the label and value display
+   * @param {string} labelString
+   * @param {Property} readoutProperty
+   */
+  function createInformationBox( maxWidth, labelString, readoutProperty ) {
+    
+    // width of white rectangular background, also used for calculating max width
+    var backgroundWidth = 60;
+
+    // label
+    var labelText = new Text( labelString, _.defaults( {
+      maxWidth: maxWidth - backgroundWidth - 25
+    }, LABEL_OPTIONS ) );
+
+    // number
+    var numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    var numberNode = new Text( readoutProperty.get(), numberOptions );
+
+    var backgroundNode = new Rectangle(
+      0,
+      0,
+      backgroundWidth,
+      numberNode.height + 2 * SPACING, {
+        cornerRadius: 4,
+        fill: 'white',
+        stroke: 'black',
+        lineWidth: 0.5
+      }
+    );
+
+    // update text readout if information changes
+    readoutProperty.link( function( readout ) {
+      numberNode.setText( readout );
+      numberNode.center = backgroundNode.center;
+    } );
+
+    var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
+
+    var spacing = maxWidth - labelText.width - readoutParent.width - 4 * SPACING;
+
+    return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
+  }
+
   return inherit( Node, TracerNode, {
 
     /**
@@ -254,54 +300,8 @@ define( function( require ) {
         tracerBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
       }
       return tracerBounds;
-    },
-
-    /**
-     * Auxiliary function to create label and number readout for information
-     * @private
-     *
-     * @param {number} maxWidth - max width for the label and value display
-     * @param {string} labelString
-     * @param {Property} readoutProperty
-     */
-    createInformationBox: function( maxWidth, labelString, readoutProperty ) {
-      
-      // width of white rectangular background, also used for calculating max width
-      var backgroundWidth = 60;
-
-      // label
-      var labelText = new Text( labelString, _.defaults( {
-        maxWidth: maxWidth - backgroundWidth - 25
-      }, LABEL_OPTIONS ) );
-
-      // number
-      var numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-      var numberNode = new Text( readoutProperty.get(), numberOptions );
-
-      var backgroundNode = new Rectangle(
-        0,
-        0,
-        backgroundWidth,
-        numberNode.height + 2 * SPACING, {
-          cornerRadius: 4,
-          fill: 'white',
-          stroke: 'black',
-          lineWidth: 0.5
-        }
-      );
-
-      // update text readout if information changes
-      readoutProperty.link( function( readout ) {
-        numberNode.setText( readout );
-        numberNode.center = backgroundNode.center;
-      } );
-
-      var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
-
-      var spacing = maxWidth - labelText.width - readoutParent.width - 4 * this.spacing;
-
-      return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
-    },
+    }
+  }, {
 
     /**
      * Create icon of Tracer node
@@ -337,9 +337,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-      var timeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( '-' ) );
-      var rangeBox = this.createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( '-' ) );
-      var heightBox = this.createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( '-' ) );
+      var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( '-' ) );
+      var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( '-' ) );
+      var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( '-' ) );
 
       var textBox = new VBox( {
         align: 'left',
@@ -376,6 +376,7 @@ define( function( require ) {
 
       return tracerIcon;
     }
+
   } );
 } );
 
