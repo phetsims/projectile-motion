@@ -115,10 +115,10 @@ define( function( require ) {
     pumpkin: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
-        return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.9 } );
+        return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.75 } );
       }
       else {
-        return new Image( pumpkin1Image, { maxHeight: transformedBallSize * 1.2 } );
+        return new Image( pumpkin1Image, { maxHeight: transformedBallSize * 0.95 } );
       }
     },
 
