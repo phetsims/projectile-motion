@@ -101,17 +101,17 @@ define( function( require ) {
      * A preset object view for benchmarks
      * @public
      *
-     * @param {string} type
+     * @param {string} benchmark
      * @param {number} diameter - in meters in model coordinates
      * @param {ModelViewTransform2} modelViewTransform
      * @returns {Circle|Image|Path}
      */
-    createObjectView: function( type, diameter, modelViewTransform ) {
+    createObjectView: function( benchmark, diameter, modelViewTransform ) {
 
       // radius in view coordinates.
       // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch( type ) {
+      switch( benchmark ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
@@ -131,7 +131,7 @@ define( function( require ) {
         case 'tankShell':
           return new Image( tankShellImage, { maxHeight: transformedBallSize } );
         default:
-          throw new Error( 'type is not right' );
+          throw new Error( 'benchmark is not right' );
       }
     },
 
@@ -139,17 +139,17 @@ define( function( require ) {
      * A preset landed object view for benchmarks
      * @public
      *
-     * @param {string} type
+     * @param {string} benchmark
      * @param {number} diameter - in meters in model coordinates
      * @param {ModelViewTransform2} modelViewTransform
      * @returns {Circle|Image|Path}
      */
-    createLandedObjectView: function( type, diameter, modelViewTransform ) {
+    createLandedObjectView: function( benchmark, diameter, modelViewTransform ) {
 
       // radius in view coordinates.
       // Note, some images are Hollywooded, thus the empirically determined scalars on this variable
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-      switch( type ) {
+      switch( benchmark ) {
         case 'cannonball':
           return new Circle( transformedBallSize / 2, { fill: 'black' } );
         case 'pumpkin':
@@ -169,7 +169,7 @@ define( function( require ) {
         case 'tankShell':
           return new Image( tankShellImage, { maxHeight: transformedBallSize } );
         default:
-          throw new Error( 'type is not right' );
+          throw new Error( 'benchmark is not right' );
       }
     }
   };

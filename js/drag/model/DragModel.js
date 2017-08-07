@@ -19,7 +19,7 @@ define( function( require ) {
    */
   function DragModel() {
 
-    ProjectileMotionModel.call( this, ProjectileObjectType.DRAG_SCREEN, true );
+    ProjectileMotionModel.call( this, ProjectileObjectType.DRAG_SCREEN_CUSTOM_OBJECT, true );
 
   }
 

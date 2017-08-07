@@ -266,7 +266,7 @@ define( function( require ) {
     
     // update the type of control based on the objectType
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
-      if ( objectType.type ) {
+      if ( objectType.benchmark ) {
         if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
 
           // if there are already custom boxes, remove them

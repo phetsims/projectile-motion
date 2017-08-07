@@ -96,11 +96,11 @@ define( function( require ) {
     // @public for TrajectoryNode to access
     this.projectileViewLayer = projectileViewLayer;
 
-    // draw projectile object view, which has separate flying and landed views if it has a type.
+    // draw projectile object view, which has separate flying and landed views if it has a benchmark.
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    if ( objectType && objectType.type ) {
-      var projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType.type, diameter, modelViewTransform );
-      var landedObjectView = ProjectileObjectViewFactory.createLandedObjectView( objectType.type, diameter, modelViewTransform );
+    if ( objectType && objectType.benchmark ) {
+      var projectileObjectView = ProjectileObjectViewFactory.createObjectView( objectType.benchmark, diameter, modelViewTransform );
+      var landedObjectView = ProjectileObjectViewFactory.createLandedObjectView( objectType.benchmark, diameter, modelViewTransform );
     }
     else {
       projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize, dragCoefficient );
@@ -195,7 +195,7 @@ define( function( require ) {
     var updateProjectileObjectView = function( viewPoint ) {
       var dataPoint = viewPoint.dataPoint;
 
-      // only rotate the object if it doesn't have an assigned type, or it is an object that rotates
+      // only rotate the object if it doesn't have an assigned benchmark, or it is an object that rotates
       if ( objectType ? objectType.rotates : true ) {
         var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x ) ||
           ( dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2 );
@@ -302,7 +302,7 @@ define( function( require ) {
 
           if ( landedObjectView ) {
             landedObjectView.center = viewPosition;
-            if ( objectType ? objectType.type === 'human' || objectType.type === 'car' : false ) {
+            if ( objectType ? objectType.benchmark === 'human' || objectType.benchmark === 'car' : false ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
             if ( projectileViewLayer.hasChild( projectileObjectView ) ) {

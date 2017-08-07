@@ -28,36 +28,42 @@ define( function( require ) {
   var customString = require( 'string!PROJECTILE_MOTION/custom' );
 
   /**
-   * @param {string || null} name - name of the object, such as 'Golf ball'
+   * @param {string || null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
    * @param {number} mass - in kg
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
-   * @param {string || null} type - identifier of the object type, such as 'tankShell'
-   * @param {boolean || null} rotates - whether the object rotates or just translates in air
+   * @param {string || null} benchmark - identifier of the object benchmark, such as 'tankShell', or no specific benchmark
+   * @param {boolean} rotates - whether the object rotates or just translates in air
    * @param {Object} [options]
    * @constructor
    */
-  function ProjectileObjectType( name, mass, diameter, dragCoefficient, type, rotates, options ) {
+  function ProjectileObjectType( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
 
     // @public (read-only)
-    this.name = name || null;
+    this.name = name;
     this.mass = mass;
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
-    this.type = type || null;
-    this.rotates = rotates || false;
+    this.benchmark = benchmark || null;
+    this.rotates = rotates;
 
     // options contains data about range and rounding for mass, diameter, drag coefficient
-    // defaults are null, which means no specific range or rounding is needed
-    options = options || {};
+    // @public, defaults to those of CUSTOM
+    options = _.extend( {
+      massRange: new Range( 1, 5000 ),
+      massRound: 0.01,
+      diameterRange: new Range( 0.01, 3 ),
+      diameterRound: 0.01,
+      dragCoefficientRange: new Range( 0.04, 1 ),
+      dragCoefficientRound: 0.01
+    }, options );
 
-    // @public
-    this.massRange = options.massRange || null;
-    this.massRound = options.massRound || null;
-    this.diameterRange = options.diameterRange || null;
-    this.diameterRound = options.diameterRound || null;
-    this.dragCoefficientRange = options.dragCoefficientRange || null;
-    this.dragCoefficientRound = options.dragCoefficientRound || null;
+    this.massRange = options.massRange;
+    this.massRound = options.massRound;
+    this.diameterRange = options.diameterRange;
+    this.diameterRound = options.diameterRound;
+    this.dragCoefficientRange = options.dragCoefficientRange;
+    this.dragCoefficientRound = options.dragCoefficientRound;
   }
 
   projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
@@ -200,17 +206,10 @@ define( function( require ) {
     1,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
     null,
-    true, {
-      massRange: new Range( 1, 5000 ),
-      massRound: 0.01,
-      diameterRange: new Range( 0.01, 3 ),
-      diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.04, 1 ),
-      dragCoefficientRound: 0.01
-    }
+    true
   );
 
-  ProjectileObjectType.DRAG_SCREEN = new ProjectileObjectType(
+  ProjectileObjectType.DRAG_SCREEN_CUSTOM_OBJECT = new ProjectileObjectType(
     null,
     5,
     0.8,
@@ -226,7 +225,7 @@ define( function( require ) {
     }
   );
 
-  ProjectileObjectType.VECTORS_SCREEN = new ProjectileObjectType(
+  ProjectileObjectType.VECTORS_SCREEN_CUSTOM_OBJECT = new ProjectileObjectType(
     null,
     5,
     0.8,

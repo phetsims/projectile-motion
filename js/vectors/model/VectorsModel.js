@@ -18,7 +18,7 @@ define( function( require ) {
    * @constructor
    */
   function VectorsModel() {
-    ProjectileMotionModel.call( this, ProjectileObjectType.VECTORS_SCREEN, true );
+    ProjectileMotionModel.call( this, ProjectileObjectType.VECTORS_SCREEN_CUSTOM_OBJECT, true );
   }
 
   projectileMotion.register( 'VectorsModel', VectorsModel );
