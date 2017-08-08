@@ -168,7 +168,7 @@ define( function( require ) {
       lineWidth: 2
     } );
     heightLeaderLineBottomCap.x = heightLeaderLine.tipX;
-    heightLeaderLineBottomCap.y = heightLeaderLine.tipY;
+    heightLeaderLineBottomCap.y = transformProperty.get().modelToViewY( 0 );
 
     // height readout
     var heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );

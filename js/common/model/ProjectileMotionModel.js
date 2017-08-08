@@ -32,9 +32,11 @@ define( function( require ) {
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
    * @param {boolean} defaultAirResistance -  default air resistance on value
+   * @param {number} defaultCannonHeight - optional, defaults to 0, only used by Intro screen
+   * @param {number} defaultCannonAngle - option, defaults to 80, only used by Intro screen
    * @constructor
    */
-  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance ) {
+  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, defaultCannonHeight, defaultCannonAngle ) {
 
 
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
@@ -52,10 +54,10 @@ define( function( require ) {
     // --initial values
 
     // @public {Property.<number>} height of the cannon, in meters
-    this.cannonHeightProperty = new NumberProperty( 0 );
+    this.cannonHeightProperty = new NumberProperty( defaultCannonHeight ? defaultCannonHeight : 0 );
 
     // @public {Property.<number>} angle of the cannon, in degrees
-    this.cannonAngleProperty = new NumberProperty( 80 );
+    this.cannonAngleProperty = new NumberProperty( defaultCannonHeight ? defaultCannonAngle : 80 );
 
     // @public {Property.<number>} launch speed, in meters per second
     this.launchVelocityProperty = new NumberProperty( 18 );
