@@ -141,11 +141,12 @@ define( function( require ) {
     } );
     
     // halo node for highlighting the dataPoint whose information is shown in the tracer tool
-    var haloNode = new Circle( DOT_RADIUS * 2, {
-      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 4 )
+    var haloNode = new Circle( DOT_RADIUS * 5, {
+      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
         .addColorStop( 0, 'black' )
-        .addColorStop( 0.25, 'black' )
-        .addColorStop( 0.25, HALO_COLOR )
+        .addColorStop( 0.2, 'black' )
+        .addColorStop( 0.2, HALO_COLOR )
+        .addColorStop( 0.4, HALO_COLOR )
         .addColorStop( 1, HALO_EDGE_COLOR ),
     } );
 
