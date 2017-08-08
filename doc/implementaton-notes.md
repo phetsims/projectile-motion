@@ -17,7 +17,7 @@ This section describes how this simulation uses patterns that are common to most
 This simulation uses a model-view transform to convert from model units (meters) to view units (in the ScreenView coordinates).
 The zoom Property can change this model-view transform, which means a meter may map to a larger or smaller number of view units.
 
-**Memory management**: Many observer/observable relationships exist for the lifetime of the sim. For Properties related to the tracer tool, measuring tape, cannon, David, target, and controls, there is no need to call the various memory-management functions associated with objects (unlink, dispose, detach, etc.). Otherwise, the observer/observable relationships involved in objects that are created many times, such as trajectories, projectiles, and the animation stars on the target are disposed at the right time.
+**Memory management**: The only things that are dynamic and require disposal are Trajectory, TrajectoryNode, ProjectileNode, and the "reward stars" created in TargetNode. All other observer/observable relationships exist for the lifetime of the sim, so there is no need to call the various memory-management functions associated with these objects (unlink, dispose, detach, etc.).
 
 ## Structure
 
