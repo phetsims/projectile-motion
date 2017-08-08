@@ -146,13 +146,30 @@ define( function( require ) {
     // listen to model for whether score indicator should be shown
     score.scoredEmitter.addListener( function() {
 
-      var rewardNode = new Node( {
-        children: [
-          new StarNode( { x: -30, y: -20 } ),
-          new StarNode( { x: 0, y: -30 } ),
-          new StarNode( { x: 30, y: -20 } )
-        ]
-      } );
+      if ( score.numberOfStars === 1 ) {
+        var rewardNode = new Node( {
+          children: [
+            new StarNode( { x: 0, y: -30 } )
+          ]
+        } );
+      }
+      else if ( score.numberOfStars === 2 ) {
+        rewardNode = new Node( {
+          children: [
+            new StarNode( { x: -20, y: -20 } ),
+            new StarNode( { x: 20, y: -20 } )
+          ]
+        } );
+      }
+      else { // 3
+        rewardNode = new Node( {
+          children: [
+            new StarNode( { x: -30, y: -20 } ),
+            new StarNode( { x: 0, y: -30 } ),
+            new StarNode( { x: 30, y: -20 } )
+          ]
+        } );
+      }
       rewardNode.x = target.centerX;
       rewardNode.y = target.centerY;
       screenView.addChild( rewardNode );

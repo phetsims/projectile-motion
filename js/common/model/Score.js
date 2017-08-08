@@ -28,6 +28,9 @@ define( function( require ) {
     // @public {Emitter} if projectile has scored
     this.scoredEmitter = new Emitter();
 
+    // @public {number} number of stars
+    this.numberOfStars = 0;
+
   }
 
   projectileMotion.register( 'Score', Score );
@@ -51,8 +54,20 @@ define( function( require ) {
      */
     scoreIfWithinTarget: function( projectileX ) {
       var distance = Math.abs( projectileX - this.targetXProperty.get() );
-      if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) {
+      if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 6 ) { // center circle
+        this.numberOfStars = 3;
         this.scoredEmitter.emit();
+      }
+      else if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 3 ) { // middle circle
+        this.numberOfStars = 2;
+        this.scoredEmitter.emit();
+      }
+      else if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) { // just on the target
+        this.numberOfStars = 1;
+        this.scoredEmitter.emit();
+      }
+      else {
+        this.numberOfStars = 0;
       }
     }
 
