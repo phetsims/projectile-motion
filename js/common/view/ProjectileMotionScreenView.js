@@ -160,7 +160,9 @@ define( function( require ) {
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4,
-        arrowButtonScale: 0.65
+        arrowButtonScale: 0.65,
+        titleMaxWidth: 120, // empirically determined
+        valueMaxWidth: 80 // empirically determined
       }
     );
 
