@@ -36,7 +36,7 @@ define( function( require ) {
   return inherit( Object, ProjectileMotionMeasuringTape, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */

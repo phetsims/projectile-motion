@@ -61,7 +61,7 @@ define( function( require ) {
     // add the panelContent
     Panel.call( this, panelContent, options );
 
-    // listens to the isUserControlled property of the tracer tool
+    // listens to the isUserControlled Property of the tracer tool
     // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
       assert && assert( tracerNode.parent instanceof ScreenView );
@@ -94,7 +94,7 @@ define( function( require ) {
       tracerIconNode.visible = !active;
     } );
 
-    // listens to the isUserControlled property of the measuring tape
+    // listens to the isUserControlled Property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );

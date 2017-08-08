@@ -35,7 +35,7 @@ define( function( require ) {
   return inherit( Object, Score, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */

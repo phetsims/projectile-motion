@@ -1,7 +1,7 @@
 // Copyright 2016-2017, University of Colorado Boulder
 
 /**
- * Control panel that allows users to alter properties of the projectile fired.
+ * Control panel that allows users to alter Properties of the projectile fired.
  * Also includes a slider for changing altitude, which changes air density.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
@@ -75,20 +75,20 @@ define( function( require ) {
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
-     * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Range} range - range for the property value
+     * @param {Property.<number>} valueProperty - the Property that is set and linked to
+     * @param {Range} range - range for the valueProperty value
      * @param {Number} round - optional, for minor ticks
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, property, range, round ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
       // label
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
       // value text
       var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Util.toFixedNumber( property.get(), 2 ),
+        value: Util.toFixedNumber( valueProperty.get(), 2 ),
         units: unitsString
-      } ) : Util.toFixedNumber( property.get(), 2 ), textOptions );
+      } ) : Util.toFixedNumber( valueProperty.get(), 2 ), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -99,16 +99,16 @@ define( function( require ) {
         _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
       );
 
-      // text node updates if property value changes
-      property.link( function( value ) {
+      // text node updates if valueProperty value changes
+      valueProperty.link( function( value ) {
         valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: Util.toFixedNumber( value, 2 ),
           units: unitsString
-        } ) : Util.toFixedNumber( property.get(), 2 ) );
+        } ) : Util.toFixedNumber( valueProperty.get(), 2 ) );
         valueText.center = backgroundNode.center;
       } );
 
-      var slider = new HSlider( property, range, {
+      var slider = new HSlider( valueProperty, range, {
         constrainValue: function( value ) { return Util.roundSymmetric( value / round ) * round; }, // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,

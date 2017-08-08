@@ -31,7 +31,7 @@ define( function( require ) {
   var ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    * @constructor
    */

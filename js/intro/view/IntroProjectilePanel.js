@@ -124,13 +124,13 @@ define( function( require ) {
      * 
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
-     * @param {Property.<number>} property - the property that is set and linked to
+     * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, property ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
 
-      property.link( function( value ) {
+      valueProperty.link( function( value ) {
         var valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString

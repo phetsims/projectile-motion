@@ -1,7 +1,7 @@
 // Copyright 2017, University of Colorado Boulder
 
 /**
- * View properties that are specific to visibility of vectors
+ * View Properties that are specific to visibility of vectors
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -43,7 +43,7 @@ define( function( require ) {
   return inherit( VectorVisibilityProperties, VectorsVectorVisibilityProperties, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */

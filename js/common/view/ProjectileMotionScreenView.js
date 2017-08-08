@@ -77,7 +77,7 @@ define( function( require ) {
    * @param {ProjectileMotionModel} model
    * @param {Panel} topRightPanel - the projectile control panel at the top right
    * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    * @constructor
    */
@@ -207,7 +207,7 @@ define( function( require ) {
     // background, including grass, road, sky, flatirons
     var backgroundNode = new BackgroundNode( this.layoutBounds );
 
-    // listen to transform property
+    // listen to transform Property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
       measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.visibleBoundsProperty.get() ) );
@@ -228,7 +228,7 @@ define( function( require ) {
       this
     );
 
-    // zoom property
+    // zoom Property
     var zoomProperty = new NumberProperty( DEFAULT_ZOOM );
 
     // zoom control view
@@ -262,7 +262,7 @@ define( function( require ) {
     } );
     zoomControl.addChild( zoomInButton );
 
-    // Watch the zoom property and update transform property accordingly
+    // Watch the zoom Property and update transform Property accordingly
     zoomProperty.link( function( zoomFactor ) {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,

@@ -3,8 +3,8 @@
 /**
  * View for a projectile including the flying object and the vectors.
  * Constructed based on many individually passed parameters about the projectile.
- * Listens to the vectorVisibilityProperties for vector visibility properties.
- * Listens to a DataPoint property to figure out when to move.
+ * Listens to the vectorVisibilityProperties for vector visibility Properties.
+ * Listens to a DataPoint Property to figure out when to move.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -68,7 +68,7 @@ define( function( require ) {
   var totalDragForceText = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
    * @param {ProjectileObjectType} objectType
    * @param {number} diameter - how big the object is, in meters

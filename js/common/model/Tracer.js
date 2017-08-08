@@ -50,7 +50,7 @@ define( function( require ) {
   return inherit( Object, Tracer, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */

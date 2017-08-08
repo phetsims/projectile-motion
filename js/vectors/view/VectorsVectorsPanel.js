@@ -33,7 +33,7 @@ define( function( require ) {
   var FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    * @constructor
    */

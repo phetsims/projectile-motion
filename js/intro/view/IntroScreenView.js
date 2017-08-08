@@ -23,7 +23,7 @@ define( function( require ) {
    */
   function IntroScreenView( model, options ) {
 
-    // contains properties about vector visibility, used in super class
+    // contains Properties about vector visibility, used in super class
     var visibilityProperties = new VectorVisibilityProperties();
 
     // acts as listParent for the projectile dropdown box

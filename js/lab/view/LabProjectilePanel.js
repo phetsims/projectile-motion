@@ -148,20 +148,20 @@ define( function( require ) {
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
-     * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Range} range - range for the property value
+     * @param {Property.<number>} valueProperty - the Property that is set and linked to
+     * @param {Range} range - range for the valueProperty value
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, property, range ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty, range ) {
 
       // label
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
       var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: property.get(),
+        value: valueProperty.get(),
         units: unitsString
-      } ) : property.get(), textOptions );
+      } ) : valueProperty.get(), textOptions );
 
       // background for text
       var backgroundNode = new Rectangle(
@@ -172,8 +172,8 @@ define( function( require ) {
         _.defaults( { cornerRadius: 4, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
       );
 
-      // text node updates if property value changes
-      property.link( function( value ) {
+      // text node updates if valueProperty value changes
+      valueProperty.link( function( value ) {
         valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
@@ -182,7 +182,7 @@ define( function( require ) {
       } );
 
       var editValue = function() {
-        keypadLayer.beginEdit( property, range, {
+        keypadLayer.beginEdit( valueProperty, range, {
           onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
           onEndEdit: function() { backgroundNode.fill = 'white'; }
         } );

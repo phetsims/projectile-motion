@@ -58,15 +58,15 @@ define( function( require ) {
      * Auxiliary function that creates vbox for a parameter label and slider
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
-     * @param {Property.<number>} property - the property that is set and linked to
-     * @param {Range} range - range for the property value
+     * @param {Property.<number>} valueProperty - the Property that is set and linked to
+     * @param {Range} range - range for the valueProperty value
      * @param {string} degreeString - optional, just for the angle
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, property, range, degreeString ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty, range, degreeString ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
 
-      property.link( function( value ) {
+      valueProperty.link( function( value ) {
         var valueReadout = degreeString ?
                            StringUtils.fillIn( pattern0Value1UnitsString, {
                              value: Util.toFixedNumber( value, 2 ),

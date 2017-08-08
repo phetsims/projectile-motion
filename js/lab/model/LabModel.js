@@ -62,7 +62,7 @@ define( function( require ) {
   return inherit( ProjectileMotionModel, LabModel, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */

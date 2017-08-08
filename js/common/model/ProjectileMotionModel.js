@@ -178,13 +178,13 @@ define( function( require ) {
   return inherit( Object, ProjectileMotionModel, {
 
     /**
-     * Reset these properties
+     * Reset these Properties
      * @public
      * @override
      */
     reset: function() {
 
-      // disposes all trajectories and resets number of moving projectiles property
+      // disposes all trajectories and resets number of moving projectiles Property
       this.eraseTrajectories();
 
       this.score.reset();
@@ -243,7 +243,7 @@ define( function( require ) {
     },
 
     /**
-     * Removes all trajectories and resets corresponding properties
+     * Removes all trajectories and resets corresponding Properties
      * @public
      */
     eraseTrajectories: function() {
@@ -328,7 +328,7 @@ define( function( require ) {
     },
 
     /**
-     * Checks if position is close to David and updates the property accordingly
+     * Checks if position is close to David and updates the Property accordingly
      * @public
      *
      * @param {Vector2} position - a point in the model coordinate

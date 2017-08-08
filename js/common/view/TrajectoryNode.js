@@ -36,7 +36,7 @@ define( function( require ) {
   var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - properties that determine which vectors are shown,
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown,
    * only needed to pass down to ProjectileNode
    * @param {Trajectory} trajectory - model for the trajectory
    * @param {Property.<ModelViewTransform2>} transformProperty
