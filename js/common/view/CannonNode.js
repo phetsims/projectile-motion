@@ -63,18 +63,20 @@ define( function( require ) {
     headWidth: 14,
     headHeight: 6
   };
-  var MUZZLE_FLASH_TIME = 500; // milliseconds
   var MUZZLE_FLASH_SCALE = 2;
+  var MUZZLE_FLASH_OPACITY_DELTA = 0.05;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
    * @param {Property.<number>} angleProperty - angle of the cannon, in degrees
+   * @param {Emitter} muzzleFlashStepper - emits whenever model steps
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
    * @param {Object} [options]
    * @constructor
    */
-  function CannonNode( heightProperty, angleProperty, transformProperty, screenView, options ) {
+  function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, options ) {
+    var self = this;
 
     options = _.extend( {
       renderer: platform.mobileSafari ? 'canvas' : null
@@ -250,7 +252,21 @@ define( function( require ) {
     cannonBarrel.addChild( muzzleFlash );
 
     // @private for use in inherit methods
-    this.muzzleFlash = muzzleFlash;
+    this.muzzleFlashStage = 1; // 0 means animation starting, 1 means animation ended.
+    
+    function stepMuzzleFlash() {
+      if ( self.muzzleFlashStage < 1 ) {
+        muzzleFlash.opacity = self.muzzleFlashStage;
+        muzzleFlash.setScaleMagnitude( self.muzzleFlashStage * self.muzzleFlashStage * MUZZLE_FLASH_SCALE );
+        self.muzzleFlashStage = self.muzzleFlashStage + MUZZLE_FLASH_OPACITY_DELTA;
+      }
+      else {
+        muzzleFlash.opacity = 0;
+      }
+    }
+
+    // Listen to the muzzleFlashStepper to step the muzzle flash animation
+    muzzleFlashStepper.addListener( stepMuzzleFlash );
 
     // rendering order
     this.setChildren( [
@@ -453,19 +469,20 @@ define( function( require ) {
   return inherit( Node, CannonNode, {
 
     /**
+     * Reset this cannon, which makes muzzle flash stop
+     * @public
+     * @override
+     */
+    reset: function() {
+      this.muzzleFlashStage = 1;
+    },
+
+    /**
      * Make the muzzle flash
      * @public
      */
     flashMuzzle: function() {
-      var muzzleFlash = this.muzzleFlash;
-
-      new TWEEN.Tween( muzzleFlash ).to( {
-        opacity: 1
-      }, MUZZLE_FLASH_TIME ).onUpdate( function() {
-        muzzleFlash.setScaleMagnitude( muzzleFlash.opacity * muzzleFlash.opacity * MUZZLE_FLASH_SCALE );
-      } ).onComplete( function() {
-        muzzleFlash.opacity = 0;
-      } ).start( phet.joist.elapsedTime );
+      this.muzzleFlashStage = MUZZLE_FLASH_OPACITY_DELTA;
     }
   } );
 } );

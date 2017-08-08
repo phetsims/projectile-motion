@@ -132,6 +132,9 @@ define( function( require ) {
       this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 )
     );
 
+    // @public {Emitter} emits when cannon needs to update its muzzle flash animation
+    this.muzzleFlashStepper = new Emitter();
+
     // Links in this constructor last for the life time of the sim, so no need to dispose
   }
 
@@ -205,6 +208,8 @@ define( function( require ) {
       this.isPlayingProperty.reset();
 
       this.davidShortsOnProperty.reset();
+
+      this.muzzleFlashStepper.emit();
     },
 
     /**
@@ -229,6 +234,7 @@ define( function( require ) {
       for ( var i = 0; i < this.trajectories.length; i++ ) {
         this.trajectories.get( i ).step( dt );
       }
+      this.muzzleFlashStepper.emit();
     },
 
     /**

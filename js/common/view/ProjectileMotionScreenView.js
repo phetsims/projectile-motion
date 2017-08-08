@@ -139,7 +139,7 @@ define( function( require ) {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // cannon
-    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, transformProperty, this, options );
+    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this, options );
 
     // results in '{0} m/s'
     var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -295,6 +295,7 @@ define( function( require ) {
         vectorVisibilityProperties.reset();
         targetNode.reset();
         zoomProperty.reset();
+        cannonNode.reset();
       },
       centerY: initialSpeedPanel.centerY,
     } );
