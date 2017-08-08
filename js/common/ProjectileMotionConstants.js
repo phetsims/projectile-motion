@@ -62,7 +62,7 @@ define( function( require ) {
 
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds
-    TIME_PER_SHOWN_DOT: 50, // milliseconds
+    TIME_PER_SHOWN_DOT: 100, // milliseconds
     DOT_RADIUS: 1.75, // in global view coordinates
 
     // icons
