@@ -61,7 +61,8 @@ define( function( require ) {
     lineWidth: 1,
     tailWidth: 8,
     headWidth: 14,
-    headHeight: 6
+    headHeight: 6,
+    cursor: 'pointer'
   };
   var MUZZLE_FLASH_SCALE = 2;
   var MUZZLE_FLASH_OPACITY_DELTA = 0.05;
@@ -186,8 +187,17 @@ define( function( require ) {
     heightLabel.centerX = heightLeaderLine.tipX;
 
     // cueing arrow for dragging height
-    var heightCueingArrow = new ArrowNode( 0, 0, 0, -15, CUEING_ARROW_OPTIONS );
-    heightCueingArrow.centerX = heightLeaderLine.tipX;
+    var heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
+    var heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
+    var heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
+    heightCueingArrows.centerX = heightLeaderLine.tipX;
+
+    // @private for use in inherit methods
+    this.isIntroScreen = ( heightProperty.initialValue !== 0 );
+    this.heightCueingArrows = heightCueingArrows;
+
+    // cueing arrow only visible on intro screen
+    heightCueingArrows.visible = this.isIntroScreen;
 
     // angle indicator
     var angleIndicator = new Node();
@@ -251,7 +261,6 @@ define( function( require ) {
     var muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
     cannonBarrel.addChild( muzzleFlash );
 
-    // @private for use in inherit methods
     this.muzzleFlashStage = 1; // 0 means animation starting, 1 means animation ended.
     
     function stepMuzzleFlash() {
@@ -277,7 +286,7 @@ define( function( require ) {
       heightLeaderLineBottomCap,
       heightLabelBackground,
       heightLabel,
-      heightCueingArrow,
+      heightCueingArrows,
       angleIndicator//,
     ] );
 
@@ -345,7 +354,7 @@ define( function( require ) {
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );
       heightLabelBackground.setRectHeight( heightLabel.height );
       heightLabelBackground.center = heightLabel.center;
-      heightCueingArrow.bottom = heightLabel.top - 3;
+      heightCueingArrows.y = heightLabel.centerY;
 
       angleIndicator.y = transformProperty.get().modelToViewY( height );
     };
@@ -448,7 +457,7 @@ define( function( require ) {
       },
 
       end: function( event ) {
-        heightCueingArrow.visible = false;
+        heightCueingArrows.visible = false;
       },
 
       allowTouchSnag: true
@@ -461,7 +470,7 @@ define( function( require ) {
     cylinderTop.addInputListener( heightDragHandler );
     cannonBarrelBase.addInputListener( heightDragHandler );
     heightLabel.addInputListener( heightDragHandler );
-
+    heightCueingArrows.addInputListener( heightDragHandler );
   }
 
   projectileMotion.register( 'CannonNode', CannonNode );
@@ -469,12 +478,13 @@ define( function( require ) {
   return inherit( Node, CannonNode, {
 
     /**
-     * Reset this cannon, which makes muzzle flash stop
+     * Reset this cannon
      * @public
      * @override
      */
     reset: function() {
       this.muzzleFlashStage = 1;
+      this.heightCueingArrows.visible = this.isIntroScreen;
     },
 
     /**
