@@ -73,6 +73,8 @@ define( function( require ) {
     this.addChild( dotsLayer );
     this.addChild( projectileNodesLayer );
 
+    var apexDot = null;
+
     var viewLastPosition = null;
     
     // add view nodes based on new dataPoints added
@@ -103,7 +105,7 @@ define( function( require ) {
 
       // draw green dot if apex
       if ( addedPoint.apex ) {
-        var apexDot = new Circle( DOT_RADIUS, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: DOT_GREEN } );
+        apexDot = new Circle( DOT_RADIUS + 0.3, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: 'black', lineWidth: 0.3 } );
         dotsLayer.addChild( apexDot );
       }
     }
@@ -147,6 +149,9 @@ define( function( require ) {
 
       dotsShape = new Shape();
       dotsPath.shape = dotsShape;
+      if ( apexDot ) {
+        apexDot.dispose();
+      }
 
       viewLastPosition = null;
 
