@@ -143,7 +143,7 @@ define( function( require ) {
 
       options = _.extend( {
         onBeginEdit: null, // {function} called by beginEdit
-        onEndEdit: null, // {function} called by endEdit
+        onEndEdit: null // {function} called by endEdit
       }, options );
 
       this.valueProperty = valueProperty; // remove this reference in endEdit
@@ -183,7 +183,6 @@ define( function( require ) {
 
     /**
      * Commits an edit
-     * @param {Range} valueRange
      * @private
      */
     commitEdit: function() {
