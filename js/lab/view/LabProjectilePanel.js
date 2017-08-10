@@ -213,7 +213,7 @@ define( function( require ) {
 
       parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
 
-      var xSpacing = options.minWidth - 3 * options.xMargin - parameterLabel.width - valueNode.width;
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
 
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
