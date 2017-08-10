@@ -105,7 +105,7 @@ define( function( require ) {
 
       // draw green dot if apex
       if ( addedPoint.apex ) {
-        apexDot = new Circle( DOT_RADIUS, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: 'black', lineWidth: 0.3 } );
+        apexDot = new Circle( DOT_RADIUS + 0.3, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: 'black', lineWidth: 0.3 } );
         dotsLayer.addChild( apexDot );
       }
     }
