@@ -183,7 +183,8 @@ define( function( require ) {
         rewardNode.setScaleMagnitude( ( target.centerY - rewardNode.y ) / TOTAL_Y_CHANGE * (TOTAL_SCALE - 1) + 1 );
       } ).onComplete( function() {
         if ( screenView.hasChild( rewardNode ) ) {
-          self.rewardNodes.pop( rewardNode ).dispose();
+          self.rewardNodes.splice( self.rewardNodes.indexOf( rewardNode ), 1 );
+          rewardNode.dispose();
         }
       } ).start( phet.joist.elapsedTime );
 
