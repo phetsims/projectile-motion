@@ -41,12 +41,27 @@ define( function( require ) {
   var CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed
   var OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
-  var HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
-  var HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
-  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
   var SPACING = 4; // {number} x and y spacing and margins
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
- 
+  
+  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
+  var YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
+  var YELLOW_HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
+  var YELLOW_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
+    .addColorStop( 0, 'black' )
+    .addColorStop( 0.2, 'black' )
+    .addColorStop( 0.2, YELLOW_HALO_COLOR )
+    .addColorStop( 0.4, YELLOW_HALO_COLOR )
+    .addColorStop( 1, YELLOW_HALO_EDGE_COLOR );
+  var GREEN_HALO_COLOR = 'rgba( 50, 255, 50, 0.8 )';
+  var GREEN_HALO_EDGE_COLOR = 'rgba( 50, 255, 50, 0 )';
+  var GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
+    .addColorStop( 0, 'black' )
+    .addColorStop( 0.2, 'black' )
+    .addColorStop( 0.2, GREEN_HALO_COLOR )
+    .addColorStop( 0.4, GREEN_HALO_COLOR )
+    .addColorStop( 1, GREEN_HALO_EDGE_COLOR );
+
   var TRACER_CONTENT_WIDTH = 155;
   var RIGHTSIDE_PADDING = 6;
 
@@ -141,14 +156,7 @@ define( function( require ) {
     } );
     
     // halo node for highlighting the dataPoint whose information is shown in the tracer tool
-    var haloNode = new Circle( DOT_RADIUS * 5, {
-      fill: new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
-        .addColorStop( 0, 'black' )
-        .addColorStop( 0.2, 'black' )
-        .addColorStop( 0.2, HALO_COLOR )
-        .addColorStop( 0.4, HALO_COLOR )
-        .addColorStop( 1, HALO_EDGE_COLOR ),
-    } );
+    var haloNode = new Circle( DOT_RADIUS * 5 );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracer.dataPointProperty.link( function( point ) {
@@ -167,6 +175,7 @@ define( function( require ) {
         } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
         haloNode.centerY = transformProperty.get().modelToViewY( point.position.y );
+        haloNode.fill = point.apex ? GREEN_HALO_FILL : YELLOW_HALO_FILL;
         haloNode.visible = true;
       }
       else {
