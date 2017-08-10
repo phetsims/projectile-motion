@@ -32,7 +32,7 @@ define( function( require ) {
       ProjectileObjectType.CAR
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 0 ], false, 10, 0, 15 );
+    ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, 10, 0, 15 );
   }
 
   projectileMotion.register( 'IntroModel', IntroModel );
