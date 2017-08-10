@@ -225,7 +225,7 @@ define( function( require ) {
     } );
 
     options = options || {};
-    assert && assert( !options.children, 'this type sets is own children' );
+    assert && assert( !options.children, 'this type sets its own children' );
 
     // Rendering order
     options.children = [
