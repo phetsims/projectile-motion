@@ -132,8 +132,12 @@ define( function( require ) {
     step: function( dt ) {
       var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
+      var incrementTwice = false; // for if a second point for the apex is added
+
       // Haven't reached ground, so continue collecting datapoints
       if ( !this.reachedGround ) {
+
+        var apexExists = true;
 
         var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
         var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
@@ -146,10 +150,12 @@ define( function( require ) {
         // fix large drag errors by making it free fall
         if ( newVelocity.x < 0 ) {
           newVelocity.setXY( 0, 0 );
+          apexExists = false;
         }
 
         if ( newX < previousPoint.position.x ) {
           newX = previousPoint.position.x;
+          apexExists = false;
         }
 
         // cross sectional area of the projectile
@@ -159,7 +165,8 @@ define( function( require ) {
 
         var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() );
         
-        if ( previousPoint.velocity.y >= 0 && newVelocity.y < 0 ) { // passed apex
+        if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
+          incrementTwice = true;
           var dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
           var apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
           var apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
@@ -186,6 +193,9 @@ define( function( require ) {
           this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
           this.projectileMotionModel.updateDavidIfWithinRange( apexPoint.position );
 
+        }
+        else {
+          incrementTwice = false;
         }
 
         // Has reached ground or below
@@ -244,6 +254,9 @@ define( function( require ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
+          if ( incrementTwice ) {
+            object.index++;
+          }
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
         }
         
