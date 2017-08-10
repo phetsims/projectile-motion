@@ -233,8 +233,7 @@ define( function( require ) {
             spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2 - 2,
             resize: false, // prevent slider from causing a resize when thumb is at min or max
             children: [ leftArrowButton, slider, rightArrowButton ]
-          } ),
-          new HStrut( options.minWidth - 2 * options.xMargin )
+          } )
         ]
       } );
     };
