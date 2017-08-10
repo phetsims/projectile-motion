@@ -20,6 +20,7 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
 
   // constants
   var MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
@@ -34,6 +35,8 @@ define( function( require ) {
   var DOTS_MIN_OPACITY = 0;
   var DOTS_MAX_OPACITY = 0.5;
   var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
+
+  var DOT_GREEN = 'rgb( 50, 255, 50 )';
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown,
@@ -64,7 +67,10 @@ define( function( require ) {
 
     this.addChild( projectileObjectViewsLayer );
     this.addChild( pathsLayer );
-    this.addChild( dotsPath );
+
+    var dotsLayer = new Node();
+    dotsLayer.addChild( dotsPath );
+    this.addChild( dotsLayer );
     this.addChild( projectileNodesLayer );
 
     var viewLastPosition = null;
@@ -93,6 +99,12 @@ define( function( require ) {
 
         dotsShape.moveTo( viewAddedPosition.x + DOT_RADIUS, viewAddedPosition.y )
           .circle( viewAddedPosition.x, viewAddedPosition.y, DOT_RADIUS );
+      }
+
+      // draw green dot if apex
+      if ( addedPoint.apex ) {
+        var apexDot = new Circle( DOT_RADIUS, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: DOT_GREEN } );
+        dotsLayer.addChild( apexDot );
       }
     }
 

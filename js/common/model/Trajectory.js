@@ -20,6 +20,7 @@ define( function( require ) {
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Util = require( 'DOT/Util' );
 
   /**
    * @param {ProjectileMotionModel} model
@@ -157,6 +158,35 @@ define( function( require ) {
         var gravity = this.projectileMotionModel.gravityProperty.get();
 
         var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() );
+        
+        if ( previousPoint.velocity.y >= 0 && newVelocity.y < 0 ) { // passed apex
+          var dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
+          var apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
+          var apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
+          var apexVelocityX = Util.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
+          var apexVelocityY = Util.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
+          var apexDragX = Util.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
+          var apexDragY = Util.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
+
+          var apexPoint = new DataPoint(
+            previousPoint.time + dtToApex,
+            Vector2.createFromPool( apexX, apexY ),
+            airDensity,
+            Vector2.createFromPool( apexVelocityX, apexVelocityY ), // velocity
+            Vector2.createFromPool( -apexDragX / this.mass, -gravity - apexDragY / this.mass ), // acceleration
+            Vector2.createFromPool( apexDragX, apexDragY ), // drag force
+            -gravity * this.mass
+          );
+
+          // add this special property to just the apex point collected for a trajectory
+          apexPoint.apex = true;
+
+          // push it
+          this.dataPoints.push( apexPoint );
+          this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
+          this.projectileMotionModel.updateDavidIfWithinRange( apexPoint.position );
+
+        }
 
         // Has reached ground or below
         if ( newY <= 0 ) {
