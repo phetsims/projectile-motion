@@ -41,14 +41,13 @@ define( function( require ) {
 
     options = _.extend( {
 
-      // KeypadPanel options
       valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
       valueYMargin: 3, // {number} vertical margin inside the value box
       valueFont: TEXT_FONT,
       maxDigits: 8, // {number} maximum number of digits that can be entered on the keypad
       maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypd
 
-      // Plane options
+      // supertype options
       visible: false,
       fill: 'rgba( 0, 0, 0, 0.2 )'
     }, options );
