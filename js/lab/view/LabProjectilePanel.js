@@ -401,8 +401,8 @@ define( function( require ) {
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
       var opacity = airResistanceOn ? 1 : 0.5;
-      altitudeBox.opacity = airResistanceOn ? 1 : 0.5;
-      dragCoefficientBox.opacity = airResistanceOn ? 1 : 0.5;
+      altitudeBox.opacity = opacity;
+      dragCoefficientBox.opacity = opacity;
       altitudeBox.setPickable( airResistanceOn );
       dragCoefficientBox.setPickable( airResistanceOn );
     } );
