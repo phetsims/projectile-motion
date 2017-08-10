@@ -65,7 +65,9 @@ define( function( require ) {
     cursor: 'pointer'
   };
   var MUZZLE_FLASH_SCALE = 2;
-  var MUZZLE_FLASH_OPACITY_DELTA = 0.05;
+  var MUZZLE_FLASH_OPACITY_DELTA = 0.04;
+  var MUZZLE_FLASH_DURATION_OF_FRAMES = 16;
+  var MUZZLE_FLASH_START = 1 - MUZZLE_FLASH_DURATION_OF_FRAMES * MUZZLE_FLASH_OPACITY_DELTA;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -492,7 +494,7 @@ define( function( require ) {
      * @public
      */
     flashMuzzle: function() {
-      this.muzzleFlashStage = MUZZLE_FLASH_OPACITY_DELTA;
+      this.muzzleFlashStage = MUZZLE_FLASH_START;
     }
   } );
 } );
