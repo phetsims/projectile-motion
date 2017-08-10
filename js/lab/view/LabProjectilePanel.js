@@ -339,6 +339,7 @@ define( function( require ) {
           }, numberControlOptions )
         );
         dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+        dragCoefficientSpecificProjectileTypeBox.setBoundsMethod( 'accurate' );
         massBox.addChild( massSpecificProjectileTypeBox );
         diameterBox.addChild( diameterSpecificProjectileTypeBox );
         dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeBox );
