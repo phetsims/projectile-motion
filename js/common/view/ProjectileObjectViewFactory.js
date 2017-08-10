@@ -107,12 +107,12 @@ define( function( require ) {
      * @returns {Circle|Image|Path}
      */
 
-    cannonball: function( diameter, modelViewTransform, landed ) {
+    createCannonball: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Circle( transformedBallSize / 2, { fill: 'black' } );
     },
 
-    pumpkin: function( diameter, modelViewTransform, landed ) {
+    createPumpkin: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.75 } );
@@ -122,12 +122,12 @@ define( function( require ) {
       }
     },
 
-    baseball: function( diameter, modelViewTransform, landed ) {
+    createBaseball: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( baseballImage, { maxWidth: transformedBallSize } );
     },
 
-    car: function( diameter, modelViewTransform, landed ) {
+    createCar: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( car2Image, { maxHeight: transformedBallSize * 1.7 } );
@@ -137,12 +137,12 @@ define( function( require ) {
       }
     },
 
-    football: function( diameter, modelViewTransform, landed ) {
+    createFootball: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( footballImage, { maxHeight: transformedBallSize } );
     },
 
-    human: function( diameter, modelViewTransform, landed ) {
+    createHuman: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( human2Image, { maxWidth: transformedBallSize * 1.35 } );
@@ -152,7 +152,7 @@ define( function( require ) {
       }
     },
 
-    piano: function( diameter, modelViewTransform, landed ) {
+    createPiano: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( piano2Image, { maxWidth: transformedBallSize * 1.3 } );
@@ -162,12 +162,12 @@ define( function( require ) {
       }
     },
 
-    golfBall: function( diameter, modelViewTransform, landed ) {
+    createGolfBall: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
     },
 
-    tankShell: function( diameter, modelViewTransform, landed ) {
+    createTankShell: function( diameter, modelViewTransform, landed ) {
       var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( tankShellImage, { maxHeight: transformedBallSize } );
     }

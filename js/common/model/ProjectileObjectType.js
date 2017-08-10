@@ -14,6 +14,7 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Range = require( 'DOT/Range' );
+  var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
 
   // strings
   var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
@@ -55,15 +56,18 @@ define( function( require ) {
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.1,
       dragCoefficientRange: new Range( 0.04, 1 ),
-      dragCoefficientRound: 0.01
+      dragCoefficientRound: 0.01,
+      viewCreationFunction: null
     }, options );
 
+    // @public (read-only)
     this.massRange = options.massRange;
     this.massRound = options.massRound;
     this.diameterRange = options.diameterRange;
     this.diameterRound = options.diameterRound;
     this.dragCoefficientRange = options.dragCoefficientRange;
     this.dragCoefficientRound = options.dragCoefficientRound;
+    this.viewCreationFunction = options.viewCreationFunction;
   }
 
   projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
@@ -84,7 +88,8 @@ define( function( require ) {
       massRange: new Range( 1, 31.00 ),
       massRound: 0.01,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createCannonball
     }
   );
 
@@ -98,7 +103,8 @@ define( function( require ) {
       massRange: new Range( 1, 1000 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 3 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createPumpkin
     }
   );
 
@@ -112,7 +118,8 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createBaseball
     }
   );
 
@@ -126,7 +133,8 @@ define( function( require ) {
       massRange: new Range( 100, 5000 ),
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
-      diameterRound: 0.1
+      diameterRound: 0.1,
+      viewCreationFunction: ProjectileObjectViewFactory.createCar
     }
   );
 
@@ -140,7 +148,8 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createFootball
     }
   );
 
@@ -154,7 +163,8 @@ define( function( require ) {
       massRange: new Range( 10, 200 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1.5 ),
-      diameterRound: 0.1
+      diameterRound: 0.1,
+      viewCreationFunction: ProjectileObjectViewFactory.createHuman
     }
   );
 
@@ -168,7 +178,8 @@ define( function( require ) {
       massRange: new Range( 50, 1000 ),
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
-      diameterRound: 0.1
+      diameterRound: 0.1,
+      viewCreationFunction: ProjectileObjectViewFactory.createPiano
     }
   );
 
@@ -182,7 +193,8 @@ define( function( require ) {
       massRange: new Range( 0.01, 5 ),
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createGolfBall
     }
   );
 
@@ -196,7 +208,8 @@ define( function( require ) {
       massRange: new Range( 5, 200 ),
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.01
+      diameterRound: 0.01,
+      viewCreationFunction: ProjectileObjectViewFactory.createTankShell
     }
   );
 

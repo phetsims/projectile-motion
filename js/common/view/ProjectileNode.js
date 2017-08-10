@@ -99,8 +99,8 @@ define( function( require ) {
     // draw projectile object view, which has separate flying and landed views if it has a benchmark.
     var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( objectType && objectType.benchmark ) {
-      var projectileObjectView = ProjectileObjectViewFactory[ objectType.benchmark ]( diameter, modelViewTransform, false );
-      var landedObjectView = ProjectileObjectViewFactory[ objectType.benchmark ]( diameter, modelViewTransform, true );
+      var projectileObjectView = objectType.viewCreationFunction( diameter, modelViewTransform, false );
+      var landedObjectView = objectType.viewCreationFunction( diameter, modelViewTransform, true );
     }
     else {
       projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize, dragCoefficient );
