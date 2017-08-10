@@ -144,20 +144,31 @@ define( function( require ) {
     // scale everything according to the length of the cannon barrel
     clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
-    // add line for indicating the height
-    var heightLeaderLine = new ArrowNode(
+    // add dashed line for indicating the height
+    var heightLeaderLine = new Line(
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
       transformProperty.get().modelToViewY( 0 ),
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         stroke: 'black',
+        lineDash: [ 5, 5 ],
+      }
+    );
+    
+    // added arrows for indicating height
+    var heightLeaderArrows = new ArrowNode(
+      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      transformProperty.get().modelToViewY( 0 ),
+      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      transformProperty.get().modelToViewY( heightProperty.get() ), {
         headHeight: 5,
         headWidth: 5,
-        lineDash: [ 5, 5 ],
         tailWidth: 0,
+        lineWidth: 0,
         doubleHead: true
       }
     );
+
 
     // draw the line caps for the height leader line
 
@@ -170,7 +181,7 @@ define( function( require ) {
       stroke: 'black',
       lineWidth: 2
     } );
-    heightLeaderLineBottomCap.x = heightLeaderLine.tipX;
+    heightLeaderLineBottomCap.x = heightLeaderArrows.tipX;
     heightLeaderLineBottomCap.y = transformProperty.get().modelToViewY( 0 );
 
     // height readout
@@ -186,13 +197,13 @@ define( function( require ) {
     } ), heightLabelOptions );
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
-    heightLabel.centerX = heightLeaderLine.tipX;
+    heightLabel.centerX = heightLeaderArrows.tipX;
 
     // cueing arrow for dragging height
     var heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
     var heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
     var heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
-    heightCueingArrows.centerX = heightLeaderLine.tipX;
+    heightCueingArrows.centerX = heightLeaderArrows.tipX;
 
     // @private for use in inherit methods
     this.isIntroScreen = ( heightProperty.initialValue !== 0 );
@@ -284,6 +295,7 @@ define( function( require ) {
       groundCircle,
       clippedByGroundNode,
       heightLeaderLine,
+      heightLeaderArrows,
       heightLeaderLineTopCap,
       heightLeaderLineBottomCap,
       heightLabelBackground,
@@ -339,20 +351,21 @@ define( function( require ) {
         .close();
       clippedByGroundNode.setClipArea( clipArea );
 
-      heightLeaderLine.setTailAndTip(
-        heightLeaderLine.tailX,
-        heightLeaderLine.tailY,
-        heightLeaderLine.tipX,
+      heightLeaderArrows.setTailAndTip(
+        heightLeaderArrows.tailX,
+        heightLeaderArrows.tailY,
+        heightLeaderArrows.tipX,
         transformProperty.get().modelToViewY( height )
       );
-      heightLeaderLineTopCap.x = heightLeaderLine.tipX;
-      heightLeaderLineTopCap.y = heightLeaderLine.tipY;
+      heightLeaderLine.setLine( heightLeaderArrows.tailX, heightLeaderArrows.tailY, heightLeaderArrows.tipX, heightLeaderArrows.tipY );
+      heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
+      heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
       heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         value: Util.toFixedNumber( height, 2 ),
         units: mString
       } );
-      heightLabel.centerX = heightLeaderLine.tipX;
-      heightLabel.y = heightLeaderLine.tipY - 5;
+      heightLabel.centerX = heightLeaderArrows.tipX;
+      heightLabel.y = heightLeaderArrows.tipY - 5;
       heightLabelBackground.setRectWidth( heightLabel.width + 2 );
       heightLabelBackground.setRectHeight( heightLabel.height );
       heightLabelBackground.center = heightLabel.center;
