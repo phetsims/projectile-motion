@@ -51,7 +51,7 @@ define( function( require ) {
     this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
     this.flatirons.visible = false;
 
-    assert && assert( !options.children, 'this type sets is own children' );
+    assert && assert( !options.children, 'this type sets its own children' );
     options.children = [ this.sky, this.flatirons, this.topGrass, this.bottomGrass, this.road, this.roadDashedLine ];
 
     Node.call( this, options );
