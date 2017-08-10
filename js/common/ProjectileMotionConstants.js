@@ -116,7 +116,7 @@ define( function( require ) {
     // control panels
     RIGHTSIDE_PANEL_OPTIONS: {
       align: 'center',
-      controlsVerticalSpace: 10,
+      controlsVerticalSpace: 9,
       minWidth: 260,
       xMargin: 10,
       xSpacing: 10,

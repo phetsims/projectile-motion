@@ -223,16 +223,18 @@ define( function( require ) {
       titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
+        align: 'center',
         children: [
           new HBox( {
-            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
+            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width - 3,
             children: [ titleNode, numberDisplay ]
           } ),
           new HBox( {
-            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
+            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2 - 2,
             resize: false, // prevent slider from causing a resize when thumb is at min or max
             children: [ leftArrowButton, slider, rightArrowButton ]
-          } )
+          } ),
+          new HStrut( options.minWidth - 2 * options.xMargin )
         ]
       } );
     };
@@ -339,7 +341,6 @@ define( function( require ) {
           }, numberControlOptions )
         );
         dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
-        dragCoefficientSpecificProjectileTypeBox.setBoundsMethod( 'accurate' );
         massBox.addChild( massSpecificProjectileTypeBox );
         diameterBox.addChild( diameterSpecificProjectileTypeBox );
         dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeBox );
@@ -400,8 +401,8 @@ define( function( require ) {
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
       var opacity = airResistanceOn ? 1 : 0.5;
-      altitudeBox.setOpacity( opacity );
-      dragCoefficientBox.setOpacity( opacity );
+      altitudeBox.opacity = airResistanceOn ? 1 : 0.5;
+      dragCoefficientBox.opacity = airResistanceOn ? 1 : 0.5;
       altitudeBox.setPickable( airResistanceOn );
       dragCoefficientBox.setPickable( airResistanceOn );
     } );
@@ -432,7 +433,7 @@ define( function( require ) {
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckBoxAndIcon,
         altitudeBox,
-        dragCoefficientBox
+        dragCoefficientBox,
       ]
     } );
 
