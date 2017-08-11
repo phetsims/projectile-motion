@@ -56,7 +56,7 @@ define( function( require ) {
       ]
     } );
 
-    var checkBoxOptions = { maxWidth: titleOptions.maxWidth };
+    var checkBoxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
     var totalVelocityCheckBox = new CheckBox(
       totalVelocityLabel,

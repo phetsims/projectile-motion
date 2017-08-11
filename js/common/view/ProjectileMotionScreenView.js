@@ -160,7 +160,7 @@ define( function( require ) {
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4,
-        arrowButtonScale: 0.65,
+        arrowButtonScale: 0.56,
         titleMaxWidth: 120, // empirically determined
         valueMaxWidth: 80 // empirically determined
       }
@@ -358,13 +358,13 @@ define( function( require ) {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
     } );
-    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 10 } );
+    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 8 } );
 
     var slowText = new Text( slowString, {
       font: new PhetFont( 14 ),
       maxWidth: TEXT_MAX_WIDTH
     } );
-    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 10 } );
+    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 8 } );
 
     var speedControl = new VBox( {
       align: 'left',

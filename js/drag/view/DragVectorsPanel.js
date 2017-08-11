@@ -44,7 +44,7 @@ define( function( require ) {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
     var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
-    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width };
+    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, boxWidth: 18 };
 
     var totalLabel = new Text( totalString, titleOptions );
     var componentsLabel = new Text( componentsString, titleOptions );

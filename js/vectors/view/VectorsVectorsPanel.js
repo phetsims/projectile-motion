@@ -45,7 +45,7 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
-    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width };
+    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, boxWidth: 18 };
 
     var totalLabel = new Text( totalString, LABEL_OPTIONS );
     var componentsLabel = new Text( componentsString, LABEL_OPTIONS );

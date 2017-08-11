@@ -163,7 +163,8 @@ define( function( require ) {
     // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
-      maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin
+      maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin,
+      boxWidth: 18
     } );
     var airResistanceCheckBoxAndIcon = new HBox( {
       spacing: options.xMargin,

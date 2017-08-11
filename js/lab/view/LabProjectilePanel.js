@@ -59,7 +59,7 @@ define( function( require ) {
     thumbSize: new Dimension2( 13, 22 ),
     thumbTouchAreaXDilation: 6,
     thumbTouchAreaYDilation: 4,
-    arrowButtonScale: 0.65
+    arrowButtonScale: 0.56
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
   var MINUS_ROOM_FOR_COMBO_BOX = 3; // px, to move the dropdown up ever so slightly to buy more room
@@ -409,7 +409,8 @@ define( function( require ) {
     // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
-      maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin
+      maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
+      boxWidth: 18
     } );
     var airResistanceCheckBoxAndIcon = new HBox( {
       spacing: options.xMargin,
