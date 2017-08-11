@@ -23,7 +23,7 @@ define( function( require ) {
 
   // constants
   var CEMENT_WIDTH = 20;
-  var GRASS_WIDTH = 4;
+  var GRASS_ABOVE_ROAD_WIDTH = 4;
   var YELLOW_LINE_WIDTH = 1.5;
   var FLATIRONS_WIDTH = 450;
   var FLATIRONS_LEFT = 8; // in meters
@@ -40,8 +40,7 @@ define( function( require ) {
 
     // @private
     this.sky = new Rectangle( 0, 0, 0, 0 );
-    this.bottomGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
-    this.topGrass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
+    this.grass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
     this.roadDashedLine = new Line( 0, 0, 0, 0, {
       stroke: 'rgb( 235, 234, 48 )',
@@ -52,7 +51,7 @@ define( function( require ) {
     this.flatirons.visible = false;
 
     assert && assert( !options.children, 'this type sets its own children' );
-    options.children = [ this.sky, this.flatirons, this.topGrass, this.bottomGrass, this.road, this.roadDashedLine ];
+    options.children = [ this.sky, this.flatirons, this.grass, this.road, this.roadDashedLine ];
 
     Node.call( this, options );
   }
@@ -79,9 +78,7 @@ define( function( require ) {
 
       this.road.setRect( -offsetX, dashedLineY - 0.5 * CEMENT_WIDTH, width / layoutScale, CEMENT_WIDTH );
 
-      this.topGrass.setRect( -offsetX, this.road.top - GRASS_WIDTH, width / layoutScale, height / layoutScale );
-
-      this.bottomGrass.setRect( -offsetX, dashedLineY, width / layoutScale, height / layoutScale );
+      this.grass.setRect( -offsetX, this.road.top - GRASS_ABOVE_ROAD_WIDTH, width / layoutScale, height / layoutScale );
 
       this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
 
