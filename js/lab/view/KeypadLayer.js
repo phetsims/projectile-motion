@@ -102,6 +102,22 @@ define( function( require ) {
       children: [ valueParent, this.keypadNode, enterButton ]
     } );
 
+    this.saidHello = false;
+    var helloText = new Text('Hello!', { font: TEXT_FONT } );
+
+    this.addHelloText = function() {
+      if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
+        contentNode.addChild( helloText );
+        this.saidHello = true;
+      }
+    };
+
+    this.removeHelloText = function() {
+      if ( contentNode.hasChild( helloText ) ) {
+        contentNode.removeChild( helloText );
+      }
+    };
+
     this.keypadPanel = new Panel( contentNode, {
       fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
       backgroundPickable: true, // {boolean} so that clicking in the keypad's background doesn't close the keypad
@@ -179,6 +195,8 @@ define( function( require ) {
 
       // remove reference to valueProperty that was passed to beginEdit
       this.valueProperty = null;
+
+      this.removeHelloText();
     },
 
     /**
@@ -203,6 +221,15 @@ define( function( require ) {
         this.valueProperty.set( Util.toFixedNumber( value, 2 ) );
         this.endEdit();
       }
+      else if ( value === 43110 ) {
+        if ( !this.saidHello ) {
+          this.sayHi();
+        }
+        else {
+          this.valueProperty.set( valueRange.max );
+          this.endEdit();
+        }
+      }
       // value is closer to max than min
       else if ( valueRange.max + valueRange.min < 2 * value ) {
         this.valueProperty.set( valueRange.max );
@@ -220,6 +247,10 @@ define( function( require ) {
      */
     cancelEdit: function() {
       this.endEdit();
+    },
+
+    sayHi: function() {
+      this.addHelloText();
     }
   } );
 } );
