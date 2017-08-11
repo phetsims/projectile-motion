@@ -89,6 +89,9 @@ define( function( require ) {
       -model.gravityProperty.get() * this.mass // force gravity
     );
 
+    // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
+    this.apexPoint = null;
+
     // add dataPoint for initial conditions
     this.dataPoints.push( initialPoint );
     model.tracer.updateDataIfWithinRange( initialPoint );
@@ -101,6 +104,7 @@ define( function( require ) {
 
     // @private
     this.disposeTrajectory = function() {
+      this.apexPoint = null; // remove reference
       for ( var i = 0; i < this.dataPoints.length; i++ ) {
         var point = this.dataPoints.get( i );
 
@@ -187,6 +191,8 @@ define( function( require ) {
 
           // add this special property to just the apex point collected for a trajectory
           apexPoint.apex = true;
+
+          this.apexPoint = apexPoint; // save apex point
 
           // push it
           this.dataPoints.push( apexPoint );
