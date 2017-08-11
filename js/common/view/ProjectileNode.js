@@ -197,8 +197,12 @@ define( function( require ) {
 
       // only rotate the object if it doesn't have an assigned benchmark, or it is an object that rotates
       if ( objectType ? objectType.rotates : true ) {
-        var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x ) ||
-          ( dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2 );
+        if ( dataPoint.velocity.x ) { // if x velocity is not zero
+          var angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x );
+        }
+        else { // x velocity is zero
+          angle = dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2;
+        }
         projectileObjectView.setRotation( -angle );
       }
 
