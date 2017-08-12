@@ -23,6 +23,7 @@ define( function( require ) {
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   var Property = require( 'AXON/Property' );
   var RichText = require( 'SCENERY/nodes/RichText' );
+  var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -58,7 +59,7 @@ define( function( require ) {
   var FREE_BODY_RADIUS = 3;
   var FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
   var FORCES_BOX_DILATION = 7;
-  
+
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
   var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
 
@@ -185,8 +186,11 @@ define( function( require ) {
 
     // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     var viewPointProperty = new DerivedProperty( [ dataPointProperty ], function( dataPoint ) {
+      var viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
+      viewPosition.x = Util.roundSymmetric( viewPosition.x );
+      viewPosition.y = Util.roundSymmetric( viewPosition.y );
       return {
-        viewPosition: modelViewTransform.modelToViewPosition( dataPoint.position ),
+        viewPosition: viewPosition,
         dataPoint: dataPoint
       };
     } );

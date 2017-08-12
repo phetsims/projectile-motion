@@ -24,7 +24,7 @@ define( function( require ) {
 
   // constants
   var MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
-  
+
   var PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
   var PATH_MIN_OPACITY = 0;
   var PATH_MAX_OPACITY = 1;
@@ -76,11 +76,13 @@ define( function( require ) {
     var apexDot = null;
 
     var viewLastPosition = null;
-    
+
     // add view nodes based on new dataPoints added
     function handleDataPointAdded( addedPoint ) {
       var viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
+      viewAddedPosition.x = Util.roundSymmetric( viewAddedPosition.x );
+      viewAddedPosition.y = Util.roundSymmetric( viewAddedPosition.y );
 
       if ( viewLastPosition ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
@@ -113,7 +115,7 @@ define( function( require ) {
     // view listens to whether a datapoint has been added in the model
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
-    
+
     // Update view based on new projectile objects added
     function handleProjectileObjectAdded( addedProjectileObject ) {
       var newProjectileNode = new ProjectileNode(
