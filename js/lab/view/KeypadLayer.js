@@ -24,9 +24,11 @@ define( function( require ) {
   var VBox = require( 'SCENERY/nodes/VBox' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
 
   // strings
   var enterString = require( 'string!PROJECTILE_MOTION/enter' );
+  var rangeMessageString = require( 'string!PROJECTILE_MOTION/rangeMessage' );
 
   // constants
   var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
@@ -182,7 +184,11 @@ define( function( require ) {
       this.onEndEdit = options.onEndEdit;
 
       this.valueRange = valueRange; // update value range to be used in commitedit
-      this.rangeMessage = 'Range: ' + valueRange.min + ' - ' + valueRange.max + ' ' + ( unitsString ? unitsString : '' );
+      this.rangeMessage = StringUtils.fillIn( rangeMessageString, {
+        min: valueRange.min,
+        max: valueRange.max,
+        units: unitsString ? unitsString : ''
+      } ).trim();
 
       // display the keypad
       this.visible = true;
