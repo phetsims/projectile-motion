@@ -32,7 +32,8 @@ define( function( require ) {
 
   // constants
   var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
-  var RED_COLOR = 'red';
+  var TEXT_FILL_DEFAULT = 'black';
+  var TEXT_FILL_ERROR = 'red';
 
   /**
    * @param {Object} [options]
@@ -110,7 +111,7 @@ define( function( require ) {
 
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
-    var notificationText = new Text( '', { font: TEXT_FONT, fill: RED_COLOR } );
+    var notificationText = new Text( '', { font: TEXT_FONT, fill: TEXT_FILL_ERROR } );
 
     // @private functions changing the notification text that shows up below the enter button
 
@@ -157,7 +158,7 @@ define( function( require ) {
 
     // for resetting color of value to black when it has been red.
     this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
-      valueNode.fill = 'black';
+      valueNode.fill = TEXT_FILL_DEFAULT;
     } );
 
   }
@@ -230,7 +231,7 @@ define( function( require ) {
 
       this.removeHelloText();
       this.removeNotificationText();
-      this.valueNode.fill = 'black';
+      this.valueNode.fill = TEXT_FILL_DEFAULT;
     },
 
     /**
@@ -239,7 +240,7 @@ define( function( require ) {
      */
     warnOutOfRange: function() {
       this.notify( this.rangeMessage );
-      this.valueNode.fill = RED_COLOR;
+      this.valueNode.fill = TEXT_FILL_ERROR;
       this.keypadNode.setClearOnNextKeyPress( true );
     },
 
