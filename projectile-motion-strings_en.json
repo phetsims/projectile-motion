@@ -135,6 +135,6 @@
     "value": "Components"
   },
   "rangeMessage": {
-    "value": "{{min}} - {{max}} {{units}}"
+    "value": "Range: {{min}} - {{max}} {{units}}"
   }
 }
