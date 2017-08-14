@@ -19,7 +19,6 @@ define( function( require ) {
 
   // constants
   var X_MARGIN = 10;
-  var Y_MARGIN = 5;
 
   /**
    * @param {LabModel} model
