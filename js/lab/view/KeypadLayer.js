@@ -32,7 +32,7 @@ define( function( require ) {
 
   // constants
   var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
-  var COLOR_BLACK = '#000000'
+  var COLOR_BLACK = '#000000';
 
   /**
    * @param {Object} [options]
@@ -240,7 +240,7 @@ define( function( require ) {
      */
     warnOutOfRange: function() {
       this.notify( this.rangeMessage );
-      this.valueNode.fill = 'red'
+      this.valueNode.fill = 'red';
       this.keypadNode.setClearOnNextKeyPress( true );
     },
 
