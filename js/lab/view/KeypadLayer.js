@@ -111,7 +111,7 @@ define( function( require ) {
 
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
-    var notificationText = new Text( '', { font: TEXT_FONT, fill: TEXT_FILL_ERROR } );
+    var notificationText = new Text( '', { font: TEXT_FONT, fill: TEXT_FILL_ERROR, maxWidth: this.keypadNode.width } );
 
     // @private functions changing the notification text that shows up below the enter button
 
