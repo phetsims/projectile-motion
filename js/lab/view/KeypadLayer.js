@@ -272,20 +272,10 @@ define( function( require ) {
         else {
           this.removeHelloText();
           this.warnOutOfRange();
-          // this.valueProperty.set( valueRange.max );
-          // this.endEdit();
         }
-      }
-      // value is closer to max than min
-      else if ( valueRange.max + valueRange.min < 2 * value ) {
-        this.warnOutOfRange();
-        // this.valueProperty.set( valueRange.max );
-        // this.endEdit();
       }
       else {
         this.warnOutOfRange();
-        // this.valueProperty.set( valueRange.min );
-        // this.endEdit();
       }
     },
 
