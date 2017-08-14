@@ -159,6 +159,7 @@ define( function( require ) {
 
         if ( newX < previousPoint.position.x ) {
           newX = previousPoint.position.x;
+          newY = previousPoint.position.y;
           apexExists = false;
         }
 
