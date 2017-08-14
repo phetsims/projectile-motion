@@ -274,7 +274,7 @@ define( function( require ) {
           this.removeHelloText();
           this.warnOutOfRange();
         }
-      }
+      } // out of range
       else {
         this.warnOutOfRange();
       }
