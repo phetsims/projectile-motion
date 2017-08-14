@@ -81,8 +81,8 @@ define( function( require ) {
     function handleDataPointAdded( addedPoint ) {
       var viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
-      viewAddedPosition.x = Util.roundSymmetric( viewAddedPosition.x );
-      viewAddedPosition.y = Util.roundSymmetric( viewAddedPosition.y );
+      viewAddedPosition.x = Util.roundSymmetric( viewAddedPosition.x * 10000 ) / 10000;
+      viewAddedPosition.y = Util.roundSymmetric( viewAddedPosition.y * 10000 ) / 10000;
 
       if ( viewLastPosition ) {
         var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;

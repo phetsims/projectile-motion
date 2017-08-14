@@ -187,8 +187,8 @@ define( function( require ) {
     // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     var viewPointProperty = new DerivedProperty( [ dataPointProperty ], function( dataPoint ) {
       var viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
-      viewPosition.x = Util.roundSymmetric( viewPosition.x );
-      viewPosition.y = Util.roundSymmetric( viewPosition.y );
+      viewPosition.x = Util.roundSymmetric( viewPosition.x * 10000 ) / 10000;
+      viewPosition.y = Util.roundSymmetric( viewPosition.y * 10000 ) / 10000;
       return {
         viewPosition: viewPosition,
         dataPoint: dataPoint
