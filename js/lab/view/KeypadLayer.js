@@ -75,9 +75,6 @@ define( function( require ) {
       font: options.valueFont
     } );
 
-    // @private for convenient access by methods
-    this.valueNode = valueNode;
-
     var valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
       cornerRadius: 3,
       fill: 'white',
@@ -103,15 +100,20 @@ define( function( require ) {
       } )
     } );
 
+    var notificationText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
+
+    // @private for convenient access by methods
+    this.valueNode = valueNode;
+    this.notificationText = notificationText;
+
     var contentNode = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ valueParent, this.keypadNode, enterButton ]
+      children: [ notificationText, valueParent, this.keypadNode, enterButton ]
     } );
 
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
-    var notificationText = new Text( '', { font: TEXT_FONT, fill: TEXT_FILL_ERROR, maxWidth: this.keypadNode.width } );
 
     // @private functions changing the notification text that shows up below the enter button
 
@@ -125,19 +127,6 @@ define( function( require ) {
     this.removeHelloText = function() {
       if ( contentNode.hasChild( helloText ) ) {
         contentNode.removeChild( helloText );
-      }
-    };
-
-    this.notify = function( message ) {
-      notificationText.setText( message );
-      if ( !contentNode.hasChild( notificationText ) ) {
-        contentNode.addChild( notificationText );
-      }
-    };
-
-    this.removeNotificationText = function() {
-      if ( contentNode.hasChild( notificationText ) ) {
-        contentNode.removeChild( notificationText );
       }
     };
 
@@ -159,6 +148,7 @@ define( function( require ) {
     // for resetting color of value to black when it has been red.
     this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
       valueNode.fill = TEXT_FILL_DEFAULT;
+      notificationText.fill = TEXT_FILL_DEFAULT;
     } );
 
   }
@@ -194,11 +184,12 @@ define( function( require ) {
       this.onEndEdit = options.onEndEdit;
 
       this.valueRange = valueRange; // update value range to be used in commitedit
-      this.rangeMessage = StringUtils.fillIn( rangeMessageString, {
+      var rangeMessage = StringUtils.fillIn( rangeMessageString, {
         min: valueRange.min,
         max: valueRange.max,
         units: unitsString ? unitsString : ''
       } ).trim();
+      this.notificationText.setText( rangeMessage );
 
       // display the keypad
       this.visible = true;
@@ -230,7 +221,6 @@ define( function( require ) {
       this.valueProperty = null;
 
       this.removeHelloText();
-      this.removeNotificationText();
       this.valueNode.fill = TEXT_FILL_DEFAULT;
     },
 
@@ -239,8 +229,8 @@ define( function( require ) {
      * @private
      */
     warnOutOfRange: function() {
-      this.notify( this.rangeMessage );
       this.valueNode.fill = TEXT_FILL_ERROR;
+      this.notificationText.fill = TEXT_FILL_ERROR;
       this.keypadNode.setClearOnNextKeyPress( true );
     },
 
