@@ -106,10 +106,12 @@ define( function( require ) {
     this.valueNode = valueNode;
     this.rangeMessageText = rangeMessageText;
 
+    var valueAndRangeMessage = new VBox( { spacing: 5, align: 'center', children: [ rangeMessageText, valueParent ] } );
+
     var contentNode = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ rangeMessageText, valueParent, this.keypadNode, enterButton ]
+      children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
     } );
 
     // @private

@@ -90,7 +90,7 @@ define( function( require ) {
      */
     setKeypadLocation: function( keypadPanel ) {
       keypadPanel.right = this.topRightPanel.left - X_MARGIN;
-      keypadPanel.top = this.toolboxPanel.bottom + Y_MARGIN;
+      keypadPanel.top = this.bottomRightPanel.top;
     }
 
   } );
