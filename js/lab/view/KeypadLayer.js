@@ -155,10 +155,9 @@ define( function( require ) {
       valueNode.center = valueBackgroundNode.center;
     } );
 
+    // for resetting color of value to black when it has been red.
     this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
-      if ( keys.length === 1 && valueNode.fill !== COLOR_BLACK ) {
-        valueNode.fill = COLOR_BLACK;
-      }
+      valueNode.fill = COLOR_BLACK;
     } );
 
   }
