@@ -100,22 +100,23 @@ define( function( require ) {
       } )
     } );
 
-    var notificationText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
+    var rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
 
     // @private for convenient access by methods
     this.valueNode = valueNode;
-    this.notificationText = notificationText;
+    this.rangeMessageText = rangeMessageText;
 
     var contentNode = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ notificationText, valueParent, this.keypadNode, enterButton ]
+      children: [ rangeMessageText, valueParent, this.keypadNode, enterButton ]
     } );
 
+    // @private
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
 
-    // @private functions changing the notification text that shows up below the enter button
+    // @private
 
     this.addHelloText = function() {
       if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
@@ -148,7 +149,7 @@ define( function( require ) {
     // for resetting color of value to black when it has been red.
     this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
       valueNode.fill = TEXT_FILL_DEFAULT;
-      notificationText.fill = TEXT_FILL_DEFAULT;
+      rangeMessageText.fill = TEXT_FILL_DEFAULT;
     } );
 
   }
@@ -189,7 +190,7 @@ define( function( require ) {
         max: valueRange.max,
         units: unitsString ? unitsString : ''
       } ).trim();
-      this.notificationText.setText( rangeMessage );
+      this.rangeMessageText.setText( rangeMessage );
 
       // display the keypad
       this.visible = true;
@@ -230,7 +231,7 @@ define( function( require ) {
      */
     warnOutOfRange: function() {
       this.valueNode.fill = TEXT_FILL_ERROR;
-      this.notificationText.fill = TEXT_FILL_ERROR;
+      this.rangeMessageText.fill = TEXT_FILL_ERROR;
       this.keypadNode.setClearOnNextKeyPress( true );
     },
 
