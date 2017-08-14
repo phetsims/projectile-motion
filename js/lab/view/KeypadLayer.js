@@ -32,6 +32,7 @@ define( function( require ) {
 
   // constants
   var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
+  var COLOR_BLACK = '#000000'
 
   /**
    * @param {Object} [options]
@@ -73,6 +74,9 @@ define( function( require ) {
       font: options.valueFont
     } );
 
+    // @private for convenient access by methods
+    this.valueNode = valueNode;
+
     var valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
       cornerRadius: 3,
       fill: 'white',
@@ -106,7 +110,7 @@ define( function( require ) {
 
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
-    var notificationText = new Text( '', { font: TEXT_FONT } );
+    var notificationText = new Text( '', { font: TEXT_FONT, fill: 'red' } );
 
     // @private functions changing the notification text that shows up below the enter button
 
@@ -149,6 +153,12 @@ define( function( require ) {
     this.keypadNode.stringProperty.link( function( string ) { // no unlink required
       valueNode.text = string;
       valueNode.center = valueBackgroundNode.center;
+    } );
+
+    this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
+      if ( keys.length === 1 && valueNode.fill !== COLOR_BLACK ) {
+        valueNode.fill = COLOR_BLACK;
+      }
     } );
 
   }
@@ -221,6 +231,17 @@ define( function( require ) {
 
       this.removeHelloText();
       this.removeNotificationText();
+      this.valueNode.fill = COLOR_BLACK;
+    },
+
+    /**
+     * Warns the user that out of range
+     * @private
+     */
+    warnOutOfRange: function() {
+      this.notify( this.rangeMessage );
+      this.valueNode.fill = 'red'
+      this.keypadNode.setClearOnNextKeyPress( true );
     },
 
     /**
@@ -230,7 +251,6 @@ define( function( require ) {
     commitEdit: function() {
 
       var valueRange = this.valueRange;
-      var rangeMessage = this.rangeMessage;
 
       // get the value from the keypad
       var value = this.keypadNode.valueProperty.get();
@@ -252,19 +272,19 @@ define( function( require ) {
         }
         else {
           this.removeHelloText();
-          this.notify( rangeMessage );
+          this.warnOutOfRange();
           // this.valueProperty.set( valueRange.max );
           // this.endEdit();
         }
       }
       // value is closer to max than min
       else if ( valueRange.max + valueRange.min < 2 * value ) {
-        this.notify( rangeMessage );
+        this.warnOutOfRange();
         // this.valueProperty.set( valueRange.max );
         // this.endEdit();
       }
       else {
-        this.notify( rangeMessage );
+        this.warnOutOfRange();
         // this.valueProperty.set( valueRange.min );
         // this.endEdit();
       }
