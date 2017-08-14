@@ -126,13 +126,13 @@ define( function( require ) {
       if ( !contentNode.hasChild( notificationText ) ) {
         contentNode.addChild( notificationText );
       }
-    }
+    };
 
     this.removeNotificationText = function() {
       if ( contentNode.hasChild( notificationText ) ) {
         contentNode.removeChild( notificationText );
       }
-    }
+    };
 
     this.keypadPanel = new Panel( contentNode, {
       fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
@@ -246,19 +246,19 @@ define( function( require ) {
         }
         else {
           this.removeHelloText();
-          this.notify( rangeMessage )
+          this.notify( rangeMessage );
           // this.valueProperty.set( valueRange.max );
           // this.endEdit();
         }
       }
       // value is closer to max than min
       else if ( valueRange.max + valueRange.min < 2 * value ) {
-        this.notify( rangeMessage )
+        this.notify( rangeMessage );
         // this.valueProperty.set( valueRange.max );
         // this.endEdit();
       }
       else {
-        this.notify( rangeMessage )
+        this.notify( rangeMessage );
         // this.valueProperty.set( valueRange.min );
         // this.endEdit();
       }
