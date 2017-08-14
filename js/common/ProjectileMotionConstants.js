@@ -63,7 +63,7 @@ define( function( require ) {
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds
     TIME_PER_SHOWN_DOT: 100, // milliseconds
-    DOT_RADIUS: 1.75, // in global view coordinates
+    DOT_RADIUS: 1.65, // in global view coordinates
 
     // icons
     VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, {
@@ -144,7 +144,7 @@ define( function( require ) {
     TEXT_BACKGROUND_OPTIONS: { fill: 'white', stroke: 'lightGray' },
 
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
-    
+
     //Light gray, used as the 'disabled' color
     LIGHT_GRAY: 'rgb( 220, 220, 220 )',
 

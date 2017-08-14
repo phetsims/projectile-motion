@@ -62,7 +62,7 @@ define( function( require ) {
 
     var dotsShape = new Shape();
     var dotsPath = new Path( dotsShape, {
-      fill: 'black'
+      stroke: 'black'
     } );
 
     this.addChild( projectileObjectViewsLayer );
