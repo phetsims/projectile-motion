@@ -182,7 +182,7 @@ define( function( require ) {
       } );
 
       var editValue = function() {
-        keypadLayer.beginEdit( valueProperty, range, {
+        keypadLayer.beginEdit( valueProperty, range, unitsString, {
           onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
           onEndEdit: function() { backgroundNode.fill = 'white'; }
         } );

@@ -104,6 +104,9 @@ define( function( require ) {
 
     this.saidHello = false;
     var helloText = new Text('Hello!', { font: TEXT_FONT } );
+    var notificationText = new Text( '', { font: TEXT_FONT } );
+
+    // @private functions changing the notification text that shows up below the enter button
 
     this.addHelloText = function() {
       if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
@@ -117,6 +120,19 @@ define( function( require ) {
         contentNode.removeChild( helloText );
       }
     };
+
+    this.notify = function( message ) {
+      notificationText.setText( message );
+      if ( !contentNode.hasChild( notificationText ) ) {
+        contentNode.addChild( notificationText );
+      }
+    }
+
+    this.removeNotificationText = function() {
+      if ( contentNode.hasChild( notificationText ) ) {
+        contentNode.removeChild( notificationText );
+      }
+    }
 
     this.keypadPanel = new Panel( contentNode, {
       fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
@@ -155,7 +171,7 @@ define( function( require ) {
      * @param {Range} valueRange
      * @param {Object} [options]
      */
-    beginEdit: function( valueProperty, valueRange, options ) {
+    beginEdit: function( valueProperty, valueRange, unitsString, options ) {
 
       options = _.extend( {
         onBeginEdit: null, // {function} called by beginEdit
@@ -166,6 +182,7 @@ define( function( require ) {
       this.onEndEdit = options.onEndEdit;
 
       this.valueRange = valueRange; // update value range to be used in commitedit
+      this.rangeMessage = 'Range: ' + valueRange.min + ' - ' + valueRange.max + ' ' + ( unitsString ? unitsString : '' );
 
       // display the keypad
       this.visible = true;
@@ -197,6 +214,7 @@ define( function( require ) {
       this.valueProperty = null;
 
       this.removeHelloText();
+      this.removeNotificationText();
     },
 
     /**
@@ -206,6 +224,7 @@ define( function( require ) {
     commitEdit: function() {
 
       var valueRange = this.valueRange;
+      var rangeMessage = this.rangeMessage;
 
       // get the value from the keypad
       var value = this.keypadNode.valueProperty.get();
@@ -226,18 +245,22 @@ define( function( require ) {
           this.sayHi();
         }
         else {
-          this.valueProperty.set( valueRange.max );
-          this.endEdit();
+          this.removeHelloText();
+          this.notify( rangeMessage )
+          // this.valueProperty.set( valueRange.max );
+          // this.endEdit();
         }
       }
       // value is closer to max than min
       else if ( valueRange.max + valueRange.min < 2 * value ) {
-        this.valueProperty.set( valueRange.max );
-        this.endEdit();
+        this.notify( rangeMessage )
+        // this.valueProperty.set( valueRange.max );
+        // this.endEdit();
       }
       else {
-        this.valueProperty.set( valueRange.min );
-        this.endEdit();
+        this.notify( rangeMessage )
+        // this.valueProperty.set( valueRange.min );
+        // this.endEdit();
       }
     },
 
