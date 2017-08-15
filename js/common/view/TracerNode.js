@@ -224,6 +224,7 @@ define( function( require ) {
     } );
 
     // Rendering order
+    assert && assert( !options.children, 'this type sets its own children' );
     options.children = [
       haloNode,
       crosshairMount,
