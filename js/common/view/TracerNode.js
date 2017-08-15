@@ -93,7 +93,6 @@ define( function( require ) {
         stroke: 'gray',
         lineWidth: 4,
         opacity: 0.8,
-        pickable: true,
         cursor: 'pointer'
       }
     );
@@ -331,7 +330,6 @@ define( function( require ) {
           stroke: 'gray',
           lineWidth: 4,
           opacity: 0.8,
-          pickable: true,
           cursor: 'pointer'
         }
       );
