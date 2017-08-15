@@ -155,7 +155,7 @@ define( function( require ) {
     } );
     
     // halo node for highlighting the dataPoint whose information is shown in the tracer tool
-    var haloNode = new Circle( DOT_RADIUS * 5 );
+    var haloNode = new Circle( DOT_RADIUS * 5, { pickable: false } );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracer.dataPointProperty.link( function( point ) {
