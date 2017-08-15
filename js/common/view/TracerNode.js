@@ -74,7 +74,11 @@ define( function( require ) {
    */
   function TracerNode( tracer, transformProperty, screenView, options ) {
     var self = this;
-    
+
+    options = _.extend( {
+      cursor: 'pointer'
+    }, options );
+
     // @public is this being handled by user?
     this.isUserControlledProperty = new BooleanProperty( false );
     
@@ -92,8 +96,7 @@ define( function( require ) {
         fill: OPAQUE_BLUE,
         stroke: 'gray',
         lineWidth: 4,
-        opacity: 0.8,
-        cursor: 'pointer'
+        opacity: 0.8
       }
     );
 
@@ -115,7 +118,7 @@ define( function( require ) {
       .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
     var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE, cursor: 'pointer' } );
+    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
 
     // Create the base of the crosshair
     var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
@@ -131,10 +134,6 @@ define( function( require ) {
         self.isUserControlledProperty.set( false );
       }
     } );
-
-    // When dragging, move the tracer tool
-    rectangle.addInputListener( this.movableDragHandler );
-    circle.addInputListener( this.movableDragHandler );
 
     // label and values readouts
     var timeReadoutProperty = new Property( '-' );
@@ -224,9 +223,6 @@ define( function( require ) {
       self.tracer.updateData();
     } );
 
-    options = options || {};
-    assert && assert( !options.children, 'this type sets its own children' );
-
     // Rendering order
     options.children = [
       haloNode,
@@ -238,6 +234,9 @@ define( function( require ) {
     ];
 
     Node.call( this, options );
+
+    // When dragging, move the tracer tool
+    this.addInputListener( this.movableDragHandler );
 
     // visibility of the tracer
     tracer.isActiveProperty.link( function( active ) {
