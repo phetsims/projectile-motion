@@ -38,8 +38,9 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
       xMargin: 12,
-      yMargin: 10,
-      fill: 'white'
+      yMargin: 18,
+      fill: 'white',
+      minWidth: 200
     }, options );
     
     // Create the icon Node for the tracer tool

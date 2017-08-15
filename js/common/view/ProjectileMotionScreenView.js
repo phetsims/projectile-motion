@@ -185,8 +185,12 @@ define( function( require ) {
         tipPositionProperty: model.measuringTape.tipPositionProperty,
         isTipDragBounded: true,
         textColor: 'black',
-        significantFigures: 2
+        significantFigures: 2,
+        textFont: new PhetFont( { size: 16, weight: 'bold' } )
       } );
+
+    measuringTapeNode.labelText.stroke = 'white';
+    measuringTapeNode.labelText.lineWidth = 0.3;
 
     // David
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
@@ -355,14 +359,18 @@ define( function( require ) {
 
     // sim speed controls
     var normalText = new Text( normalString, {
-      font: new PhetFont( 14 ),
-      maxWidth: TEXT_MAX_WIDTH
+      font: new PhetFont( 15 ),
+      maxWidth: TEXT_MAX_WIDTH,
+      stroke: 'rgb( 0, 173, 78 )',
+      lineWidth: 0.3
     } );
     var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 8 } );
 
     var slowText = new Text( slowString, {
-      font: new PhetFont( 14 ),
-      maxWidth: TEXT_MAX_WIDTH
+      font: new PhetFont( 15 ),
+      maxWidth: TEXT_MAX_WIDTH,
+      stroke: 'rgb( 0, 173, 78 )',
+      lineWidth: 0.3
     } );
     var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 8 } );
 
