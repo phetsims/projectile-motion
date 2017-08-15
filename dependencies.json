@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.0-dev.10 Mon Aug 14 2017 12:24:08 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.0-dev.11 Tue Aug 15 2017 15:36:36 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -13,7 +13,7 @@
     "branch": "master"
   },
   "chipper": {
-    "sha": "8fd53332cb4a250f35a6ecd677da2fb71d32c0fa",
+    "sha": "2c49c31cf9f2f43c91fdeaa31255009475d22c36",
     "branch": "master"
   },
   "dot": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "a3ec6ff4740a4c79985c1428d619c9bdd11aa0b3",
+    "sha": "6d349c9632af90c63a483975b18bbcf059496b48",
     "branch": "master"
   },
   "query-string-machine": {
@@ -45,11 +45,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "3419b7dd5a2cadcb7604809843235816b3deee8e",
+    "sha": "a60404a3c3221c93c4aedecd8183e655fac26d86",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7bdef2eeb8d20cf69363d4e225ab01833fa7d206",
+    "sha": "b47f90ab81d5fabb758e686cf57d4ccaa6d7c864",
     "branch": "master"
   },
   "sherpa": {
