@@ -325,6 +325,7 @@ define( function( require ) {
               removedProjectileObjects.push( projectileObject );
               this.updateTrajectoryRanksEmitter.emit();
               newTrajectory = trajectory.newTrajectory( projectileObject );
+              newTrajectory.changedInMidAir = true;
               newTrajectories.push( newTrajectory );
             }
           }
