@@ -108,7 +108,20 @@ define( function( require ) {
     // of the screen
     var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING;
 
-    // @public Should be added as a listener by our parent when the time is right
+    // crosshair view
+    var crosshairShape = new Shape()
+      .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+      .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
+      .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
+      .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
+
+    var crosshair = new Path( crosshairShape, { stroke: 'black' } );
+    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE, cursor: 'pointer' } );
+
+    // Create the base of the crosshair
+    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
+    
+    // @public so events can be forwarded to it by ToolboxPanel
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: transformProperty.get(),
       dragBounds: screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ),
@@ -122,20 +135,8 @@ define( function( require ) {
 
     // When dragging, move the tracer tool
     rectangle.addInputListener( this.movableDragHandler );
+    circle.addInputListener( this.movableDragHandler );
 
-    // crosshair view
-    var crosshairShape = new Shape()
-      .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
-      .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
-      .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
-      .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
-
-    var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
-
-    // Create the base of the crosshair
-    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-    
     // label and values readouts
     var timeReadoutProperty = new Property( '-' );
     var rangeReadoutProperty = new Property( '-' );
