@@ -381,6 +381,13 @@ define( function( require ) {
       viewPointProperty
     ], updateFreeBodyDiagram );
 
+    viewPointProperty.link( function( point ) {
+      var dragForceExists = point.dataPoint.airDensity > 0;
+      xDragForceLabel.visible = dragForceExists;
+      yDragForceLabel.visible = dragForceExists;
+      totalDragForceLabel.visible = dragForceExists;
+    } );
+
     this.disposeProjectileNode = function() {
       componentVelocityVectorsMultilink.dispose();
       totalVelocityVectorMultilink.dispose();
