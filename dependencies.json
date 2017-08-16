@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.0-rc.1 Tue Aug 15 2017 17:35:35 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.0-rc.1 Tue Aug 15 2017 16:01:32 GMT-0800 (Alaskan Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "ef09ca4814eb74e916bda9047637bb55eea5ba24",
+    "sha": "7d518ed4f4067e7e6910adf491edba3aa05ac13e",
     "branch": "master"
   },
   "kite": {
@@ -37,7 +37,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "8c3e65338fac48cdc8e1fce539e6b0fb0eac2939",
+    "sha": "77666df971a9e78b2f077e123922de200ae49c64",
     "branch": "1.0"
   },
   "query-string-machine": {
