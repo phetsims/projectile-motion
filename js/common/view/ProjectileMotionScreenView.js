@@ -13,6 +13,7 @@ define( function( require ) {
   var BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
+  var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
   var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
@@ -179,7 +180,6 @@ define( function( require ) {
     var measuringTapeNode = new MeasuringTapeNode(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
-        dragBounds: transformProperty.get().viewToModelBounds( this.visibleBoundsProperty.get() ),
         modelViewTransform: transformProperty.get(),
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
@@ -188,6 +188,19 @@ define( function( require ) {
         significantFigures: 2,
         textFont: new PhetFont( { size: 16, weight: 'bold' } )
       } );
+
+    // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
+    // so that it remains easily visible and grabbable. Unlike TracerNode, MeasuringTapeNode does
+    // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
+    // See https://github.com/phetsims/projectile-motion/issues/145.
+    var measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
+      function( transform, visibleBounds ) {
+        return transform.viewToModelBounds( visibleBounds.eroded( 20 ) );
+      } );
+    // unlink unnecessary
+    measuringTapeDragBoundsProperty.link( function( bounds ) {
+      measuringTapeNode.setDragBounds( bounds );
+    } );
 
     measuringTapeNode.labelText.stroke = 'white';
     measuringTapeNode.labelText.lineWidth = 0.3;
@@ -214,17 +227,9 @@ define( function( require ) {
     // listen to transform Property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
-      measuringTapeNode.setDragBounds( transform.viewToModelBounds( self.visibleBoundsProperty.get() ) );
       davidNode.setScaleMagnitude( Math.abs( transform.modelToViewDeltaY( DAVID_HEIGHT ) / davidBottom.height ) );
       davidNode.x = transform.modelToViewX( DAVID_HORIZONTAL_PLACEMENT );
       backgroundNode.updateFlatironsPosition( transform );
-    } );
-
-    // make tools floating
-    this.visibleBoundsProperty.link( function( bounds ) {
-
-      // Constrain to dilated bounds, so that measuring tape remains easily visible and grabbable, see #145
-      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds.dilated( -20 ) ) );
     } );
 
     // add view for tracer
