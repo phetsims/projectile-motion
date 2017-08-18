@@ -222,7 +222,9 @@ define( function( require ) {
 
     // make tools floating
     this.visibleBoundsProperty.link( function( bounds ) {
-      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds ) );
+
+      // Constrain to dilated bounds, so that measuring tape remains easily visible and grabbable, see #145
+      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds.dilated( -20 ) ) );
     } );
 
     // add view for tracer
