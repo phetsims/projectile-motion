@@ -80,12 +80,9 @@ define( function( require ) {
 
         tracer.isActiveProperty.set( true );
 
-        var tracerOriginPosition = tracerNode.globalToParentPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
-
         // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -170, 20 );
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -170, 20 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
-
         tracerNode.movableDragHandler.startDrag( event );
 
     }, { allowTouchSnag: true } ) );
