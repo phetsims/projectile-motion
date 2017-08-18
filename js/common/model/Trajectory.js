@@ -136,8 +136,6 @@ define( function( require ) {
     step: function( dt ) {
       var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
-      var incrementTwice = false; // for if a second point for the apex is added
-
       // Haven't reached ground, so continue collecting datapoints
       if ( !this.reachedGround ) {
 
@@ -171,7 +169,6 @@ define( function( require ) {
         var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() );
         
         if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
-          incrementTwice = true;
           var dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
           var apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
           var apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
@@ -200,9 +197,6 @@ define( function( require ) {
           this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
           this.projectileMotionModel.updateDavidIfWithinRange( apexPoint.position );
 
-        }
-        else {
-          incrementTwice = false;
         }
 
         // Has reached ground or below
@@ -261,10 +255,11 @@ define( function( require ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
-          if ( incrementTwice ) {
-            object.index++;
-          }
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+          if ( object.dataPointProperty.get().apex ) { // if on apex, increment to the next point to maintain true time step
+            object.index++;
+            object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+          }
         }
         
         // if it has just reached the end, check if landed on target and remove the last projectile
