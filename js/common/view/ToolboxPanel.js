@@ -81,7 +81,7 @@ define( function( require ) {
         tracer.isActiveProperty.set( true );
 
         // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -170, 20 );
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         tracerNode.movableDragHandler.startDrag( event );
 
