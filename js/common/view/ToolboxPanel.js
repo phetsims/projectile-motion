@@ -113,8 +113,8 @@ define( function( require ) {
 
         measuringTape.isActiveProperty.set( true );
 
-        var tapeBasePosition = tracerNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
+        var tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
+        var initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
         measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
