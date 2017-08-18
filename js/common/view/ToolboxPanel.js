@@ -80,12 +80,9 @@ define( function( require ) {
 
         tracer.isActiveProperty.set( true );
 
-        var tracerOriginPosition = tracerNode.globalToParentPoint( tracerNode.localToGlobalPoint( tracer.positionProperty.get() ) );
-
         // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tracerOriginPosition ).plusXY( -170, 20 );
+        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
-
         tracerNode.movableDragHandler.startDrag( event );
 
     }, { allowTouchSnag: true } ) );
@@ -116,8 +113,8 @@ define( function( require ) {
 
         measuringTape.isActiveProperty.set( true );
 
-        var tapeBasePosition = tracerNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
+        var tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
+        var initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
         measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
