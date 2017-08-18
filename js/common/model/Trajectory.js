@@ -261,10 +261,11 @@ define( function( require ) {
         var object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
-          if ( incrementTwice ) {
-            object.index++;
-          }
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+          if ( object.dataPointProperty.get().apex ) { // if on apex, increment to the next point to maintain true time step
+            object.index++;
+            object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+          }
         }
         
         // if it has just reached the end, check if landed on target and remove the last projectile
