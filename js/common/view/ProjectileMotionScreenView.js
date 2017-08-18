@@ -222,7 +222,7 @@ define( function( require ) {
 
     // make tools floating
     this.visibleBoundsProperty.link( function( bounds ) {
-      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds ) );
+      measuringTapeNode.setDragBounds( transformProperty.get().viewToModelBounds( bounds.dilated( -20 ) ) );
     } );
 
     // add view for tracer
