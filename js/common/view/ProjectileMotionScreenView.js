@@ -413,8 +413,6 @@ define( function( require ) {
       bottomRightPanel,
       topRightPanel,
       toolboxPanel,
-      measuringTapeNode,
-      tracerNode,
       fireButton,
       eraserButton,
       speedControl,
@@ -422,6 +420,8 @@ define( function( require ) {
       playPauseButton,
       zoomControl,
       resetAllButton
+      measuringTapeNode,
+      tracerNode,
     ] );
 
     // Links in this constructor last for the life time of the sim, so they don't need to be disposed
