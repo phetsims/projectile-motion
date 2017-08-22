@@ -419,9 +419,9 @@ define( function( require ) {
       stepButton,
       playPauseButton,
       zoomControl,
-      resetAllButton
+      resetAllButton,
       measuringTapeNode,
-      tracerNode,
+      tracerNode
     ] );
 
     // Links in this constructor last for the life time of the sim, so they don't need to be disposed
