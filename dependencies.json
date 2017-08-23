@@ -1,67 +1,67 @@
 {
-  "comment": "# projectile-motion 1.0.0-rc.1 Tue Aug 15 2017 16:01:32 GMT-0800 (Alaskan Daylight Time)",
+  "comment": "# projectile-motion 1.0.0-rc.2 Wed Aug 23 2017 15:27:56 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "axon": {
     "sha": "b7268ab04a8a80daf70f77fb1dccb01ccd8b9d9d",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "brand": {
     "sha": "90738131ad331ea901c6d224a98a74a7e84b4e9a",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "chipper": {
     "sha": "bccad091d1520a6456653221da4802039843be49",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "dot": {
     "sha": "f7d9de8b5650a10126d3f8755a98cf64a0acc93c",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "joist": {
     "sha": "7d518ed4f4067e7e6910adf491edba3aa05ac13e",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phet-core": {
     "sha": "6bfeef5c876a7f4c52ba269412a4c4985bceb2fb",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "phetcommon": {
     "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "77666df971a9e78b2f077e123922de200ae49c64",
+    "sha": "f7a8eb9d1c1e1682c9f6768500d3a0c73f84b1a8",
     "branch": "1.0"
   },
   "query-string-machine": {
     "sha": "c74e454ec68033a9546b8181d4d962eb8ceef81f",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery": {
     "sha": "41bc57fb367defe349eb55e58ae83c10d25e0320",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "scenery-phet": {
-    "sha": "4a9502e1efc6960565c796abdac9cc274e28840f",
-    "branch": "master"
+    "sha": "6c693b230fefb6356c880249a3261e0aaab2a440",
+    "branch": "projectile-motion-1.0"
   },
   "sherpa": {
     "sha": "7be57a56484a08b829ad60a853431667cb163973",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "sun": {
     "sha": "7b2c6f33d2d731c6289b42b35be2ff59c6dbbdc9",
-    "branch": "master"
+    "branch": "HEAD"
   },
   "tandem": {
     "sha": "74233a040a2985dbb75cfbc7e927674aca1abfed",
-    "branch": "master"
+    "branch": "HEAD"
   }
 }
