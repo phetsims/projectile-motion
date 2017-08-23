@@ -24,9 +24,7 @@ define( function( require ) {
       leadDesign: 'Amy Rouinfar, Mike Dubson',
       softwareDevelopment: 'Andrea Lin',
       team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams, John Blanco',
-      qualityAssurance: 'Steele Dalton, Alex Dornan, Ethan Johnson, Liam Mulhall',
-      graphicArts: '',
-      thanks: ''
+      qualityAssurance: 'Steele Dalton, Alex Dornan, Ethan Johnson, Liam Mulhall'
     }
   };
 
