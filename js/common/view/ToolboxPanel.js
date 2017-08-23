@@ -98,7 +98,7 @@ define( function( require ) {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );
       assert && assert( measuringTapeNode.parent === self.parent );
 
-      var tapeBaseBounds = measuringTapeNode.globalToParentBounds( measuringTapeNode.getGlobalBounds() );
+      var tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
       var toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
