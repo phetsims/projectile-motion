@@ -13,14 +13,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Property = require( 'AXON/Property' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {ProjectileMotionModel} model

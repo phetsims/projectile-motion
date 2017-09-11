@@ -10,21 +10,21 @@ define( function( require ) {
 
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
   var Text = require( 'SCENERY/nodes/Text' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
+  var VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
-  var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
   var accelerationVectorsString = require( 'string!PROJECTILE_MOTION/accelerationVectors' );
+  var componentsString = require( 'string!PROJECTILE_MOTION/components' );
   var forceVectorsString = require( 'string!PROJECTILE_MOTION/forceVectors' );
   var totalString = require( 'string!PROJECTILE_MOTION/total' );
-  var componentsString = require( 'string!PROJECTILE_MOTION/components' );
+  var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

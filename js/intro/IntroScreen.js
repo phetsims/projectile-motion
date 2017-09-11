@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var IntroIconNode = require( 'PROJECTILE_MOTION/intro/view/IntroIconNode' );
   var IntroModel = require( 'PROJECTILE_MOTION/intro/model/IntroModel' );
   var IntroScreenView = require( 'PROJECTILE_MOTION/intro/view/IntroScreenView' );
-  var Screen = require( 'JOIST/Screen' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );

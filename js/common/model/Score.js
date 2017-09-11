@@ -12,9 +12,9 @@ define( function( require ) {
   // modules
   var Emitter = require( 'AXON/Emitter' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
 
   /**
    * @param {number} initialTargetX - initial x position of the target

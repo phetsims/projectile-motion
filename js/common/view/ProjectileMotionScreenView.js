@@ -23,12 +23,14 @@ define( function( require ) {
   var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var Panel = require( 'SUN/Panel' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var platform = require( 'PHET_CORE/platform' );
   var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Property = require( 'AXON/Property' );
   var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   var ScreenView = require( 'JOIST/ScreenView' );
   var Shape = require( 'KITE/Shape' );
@@ -39,26 +41,24 @@ define( function( require ) {
   var ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
   var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
+  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var Property = require( 'AXON/Property' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // image
   var davidBottomImage = require( 'image!PROJECTILE_MOTION/david_bottom.png' );
   var davidMiddleImage = require( 'image!PROJECTILE_MOTION/david_middle.png' );
-  var davidTopImage = require( 'image!PROJECTILE_MOTION/david_top.png' );
   var davidShortsImage = require( 'image!PROJECTILE_MOTION/david_shorts.png' );
+  var davidTopImage = require( 'image!PROJECTILE_MOTION/david_top.png' );
 
   // strings
-  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
-  var normalString = require( 'string!PROJECTILE_MOTION/normal' );
-  var slowString = require( 'string!PROJECTILE_MOTION/slow' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
+  var normalString = require( 'string!PROJECTILE_MOTION/normal' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
   var DEFAULT_SCALE = 30;

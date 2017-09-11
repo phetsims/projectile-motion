@@ -8,22 +8,22 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Color = require( 'SCENERY/util/Color' );
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var Path = require( 'SCENERY/nodes/Path' );
   var Shape = require( 'KITE/Shape' );
-  var Color = require( 'SCENERY/util/Color' );
-  var Node = require( 'SCENERY/nodes/Node' );
 
   // image
-  var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
-  var cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
   var cannonBarrelImage = require( 'image!PROJECTILE_MOTION/cannon_barrel.png' );
   var cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
+  var cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
+  var cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
 
   // constants
   var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;

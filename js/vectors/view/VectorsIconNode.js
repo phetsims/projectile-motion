@@ -8,13 +8,13 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Screen = require( 'JOIST/Screen' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Screen = require( 'JOIST/Screen' );
 
   // constants
   var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;

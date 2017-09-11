@@ -10,12 +10,12 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var LabIconNode = require( 'PROJECTILE_MOTION/lab/view/LabIconNode' );
   var LabModel = require( 'PROJECTILE_MOTION/lab/model/LabModel' );
   var LabScreenView = require( 'PROJECTILE_MOTION/lab/view/LabScreenView' );
-  var Screen = require( 'JOIST/Screen' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenLabString = require( 'string!PROJECTILE_MOTION/screen.lab' );

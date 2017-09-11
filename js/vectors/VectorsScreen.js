@@ -11,11 +11,11 @@ define( function( require ) {
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Property = require( 'AXON/Property' );
+  var Screen = require( 'JOIST/Screen' );
   var VectorsIconNode = require( 'PROJECTILE_MOTION/vectors/view/VectorsIconNode' );
   var VectorsModel = require( 'PROJECTILE_MOTION/vectors/model/VectorsModel' );
   var VectorsScreenView = require( 'PROJECTILE_MOTION/vectors/view/VectorsScreenView' );
-  var Screen = require( 'JOIST/Screen' );
-  var Property = require( 'AXON/Property' );
 
   // strings
   var screenVectorsString = require( 'string!PROJECTILE_MOTION/screen.vectors' );

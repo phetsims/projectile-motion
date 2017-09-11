@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Image = require( 'SCENERY/nodes/Image' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images

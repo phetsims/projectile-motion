@@ -9,9 +9,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
 
   /**
    * @constructor

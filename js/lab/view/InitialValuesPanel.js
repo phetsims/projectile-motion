@@ -16,19 +16,19 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
   var Util = require( 'DOT/Util' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
-  var heightString = require( 'string!PROJECTILE_MOTION/height' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
   var angleString = require( 'string!PROJECTILE_MOTION/angle' );
   var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
-  var speedString = require( 'string!PROJECTILE_MOTION/speed' );
+  var heightString = require( 'string!PROJECTILE_MOTION/height' );
+  var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
   var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var speedString = require( 'string!PROJECTILE_MOTION/speed' );
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;

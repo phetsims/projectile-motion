@@ -15,17 +15,17 @@ define( function( require ) {
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var StarNode = require( 'SCENERY_PHET/StarNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;

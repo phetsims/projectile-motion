@@ -9,11 +9,11 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var VectorsVectorsPanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorsPanel' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var VectorsProjectilePanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsProjectilePanel' );
+  var VectorsVectorsPanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorsPanel' );
   var VectorsVectorVisibilityProperties = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorVisibilityProperties' );
 
   /**

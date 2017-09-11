@@ -17,30 +17,30 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var platform = require( 'PHET_CORE/platform' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  var Range = require( 'DOT/Range' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Shape = require( 'KITE/Shape' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Shape = require( 'KITE/Shape' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Range = require( 'DOT/Range' );
-  var platform = require( 'PHET_CORE/platform' );
+  var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // image
-  var cannonBaseBottomImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_bottom.png' );
-  var cannonBaseTopImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_top.png' );
   var cannonBarrelImage = require( 'mipmap!PROJECTILE_MOTION/cannon_barrel.png' );
   var cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
+  var cannonBaseBottomImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_bottom.png' );
+  var cannonBaseTopImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_top.png' );
 
   // strings
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
   var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var CANNON_LENGTH = 4;

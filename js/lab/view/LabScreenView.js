@@ -9,13 +9,13 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
   var InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
+  var KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
+  var LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
   var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
 
   // constants
   var X_MARGIN = 10;

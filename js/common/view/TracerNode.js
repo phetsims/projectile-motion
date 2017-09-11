@@ -9,6 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var Bounds2 = require( 'DOT/Bounds2' );
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
@@ -19,23 +20,22 @@ define( function( require ) {
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Property = require( 'AXON/Property' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
+  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Shape = require( 'KITE/Shape' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var Vector2 = require( 'DOT/Vector2' );
-  var Util = require( 'DOT/Util' );
-  var RadialGradient = require( 'SCENERY/util/RadialGradient' );
 
   // strings
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var timeString = require( 'string!PROJECTILE_MOTION/time' );
-  var sString = require( 'string!PROJECTILE_MOTION/s' );
-  var rangeString = require( 'string!PROJECTILE_MOTION/range' );
   var heightString = require( 'string!PROJECTILE_MOTION/height' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var rangeString = require( 'string!PROJECTILE_MOTION/range' );
+  var sString = require( 'string!PROJECTILE_MOTION/s' );
+  var timeString = require( 'string!PROJECTILE_MOTION/time' );
 
   // constants
   var CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed

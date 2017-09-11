@@ -9,12 +9,12 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var DragProjectilePanel = require( 'PROJECTILE_MOTION/drag/view/DragProjectilePanel' );
   var DragVectorsPanel = require( 'PROJECTILE_MOTION/drag/view/DragVectorsPanel' );
+  var DragVectorVisibilityProperties = require( 'PROJECTILE_MOTION/drag/view/DragVectorVisibilityProperties' );
   var inherit = require( 'PHET_CORE/inherit' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  var DragProjectilePanel = require( 'PROJECTILE_MOTION/drag/view/DragProjectilePanel' );
-  var DragVectorVisibilityProperties = require( 'PROJECTILE_MOTION/drag/view/DragVectorVisibilityProperties' );
 
   /**
    * @param {DragModel} model

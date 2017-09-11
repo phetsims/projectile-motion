@@ -9,11 +9,11 @@ define( function( require ) {
 
   // modules
   var inherit = require( 'PHET_CORE/inherit' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var Screen = require( 'JOIST/Screen' );
   var LinearGradient = require( 'SCENERY/util/LinearGradient' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Screen = require( 'JOIST/Screen' );
 
   // constants
   var WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;

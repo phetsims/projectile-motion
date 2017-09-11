@@ -13,18 +13,18 @@ define( function( require ) {
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
-  var Plane = require( 'SCENERY/nodes/Plane' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Util = require( 'DOT/Util' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Panel = require( 'SUN/Panel' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  var Plane = require( 'SCENERY/nodes/Plane' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
   var enterString = require( 'string!PROJECTILE_MOTION/enter' );

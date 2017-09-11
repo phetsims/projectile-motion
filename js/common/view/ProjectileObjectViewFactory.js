@@ -11,17 +11,15 @@ define( function( require ) {
   // modules
   var Circle = require( 'SCENERY/nodes/Circle' );
   var Image = require( 'SCENERY/nodes/Image' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Matrix3 = require( 'DOT/Matrix3' );
+  var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Shape = require( 'KITE/Shape' );
   var Util = require( 'DOT/Util' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Line = require( 'SCENERY/nodes/Line' );
 
   // image
-  var pumpkin1Image = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
-  var pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
   var car1Image = require( 'image!PROJECTILE_MOTION/car_1.png' );
   var car2Image = require( 'image!PROJECTILE_MOTION/car_2.png' );
@@ -30,6 +28,8 @@ define( function( require ) {
   var human2Image = require( 'image!PROJECTILE_MOTION/human_2.png' );
   var piano1Image = require( 'image!PROJECTILE_MOTION/piano_1.png' );
   var piano2Image = require( 'image!PROJECTILE_MOTION/piano_2.png' );
+  var pumpkin1Image = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
+  var pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   var tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
 
   var ProjectileObjectViewFactory = {

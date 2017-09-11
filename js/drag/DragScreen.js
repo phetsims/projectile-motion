@@ -9,13 +9,13 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
   var DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
   var DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
-  var Screen = require( 'JOIST/Screen' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Property = require( 'AXON/Property' );
-  var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
+  var Screen = require( 'JOIST/Screen' );
 
   // strings
   var screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );

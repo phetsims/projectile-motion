@@ -8,14 +8,14 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Image = require( 'SCENERY/nodes/Image' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var Screen = require( 'JOIST/Screen' );
-  var LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Image = require( 'SCENERY/nodes/Image' );
 
   // images
   var humanImage = require( 'image!PROJECTILE_MOTION/uncentered_human_1.png' );

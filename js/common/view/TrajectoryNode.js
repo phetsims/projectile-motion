@@ -11,6 +11,7 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Circle = require( 'SCENERY/nodes/Circle' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -18,9 +19,8 @@ define( function( require ) {
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   var Shape = require( 'KITE/Shape' );
-  var Vector2 = require( 'DOT/Vector2' );
   var Util = require( 'DOT/Util' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;

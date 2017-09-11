@@ -11,37 +11,37 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var Dimension2 = require( 'DOT/Dimension2' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   var HBox = require( 'SCENERY/nodes/HBox' );
+  var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
   var Panel = require( 'SUN/Panel' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
+  var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
   var VStrut = require( 'SCENERY/nodes/VStrut' );
-  var Util = require( 'DOT/Util' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var Line = require( 'SCENERY/nodes/Line' );
 
   // strings
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
-  var massString = require( 'string!PROJECTILE_MOTION/mass' );
-  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
   var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
   var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
-  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
-  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
   var gravityString = require( 'string!PROJECTILE_MOTION/gravity' );
+  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var massString = require( 'string!PROJECTILE_MOTION/mass' );
+  var metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants

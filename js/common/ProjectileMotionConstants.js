@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
     lineWidth: 3,

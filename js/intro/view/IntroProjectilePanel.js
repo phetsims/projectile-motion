@@ -13,27 +13,27 @@ define( function( require ) {
   // modules
   var CheckBox = require( 'SUN/CheckBox' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var Line = require( 'SCENERY/nodes/Line' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
   var Util = require( 'DOT/Util' );
-  var Line = require( 'SCENERY/nodes/Line' );
+  var VBox = require( 'SCENERY/nodes/VBox' );
+  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var massString = require( 'string!PROJECTILE_MOTION/mass' );
-  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
-  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  var massString = require( 'string!PROJECTILE_MOTION/mass' );
+  var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
