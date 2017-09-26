@@ -92,7 +92,7 @@ define( function( require ) {
 
     var enterButton = new RectangularPushButton( {
       listener: this.commitEdit.bind( this ),
-      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       content: new Text( enterString, {
         font: TEXT_FONT,
         fill: 'black',

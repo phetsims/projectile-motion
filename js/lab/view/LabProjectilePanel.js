@@ -183,7 +183,7 @@ define( function( require ) {
 
       var editValue = function() {
         keypadLayer.beginEdit( valueProperty, range, unitsString, {
-          onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.PHET_LOGO_YELLOW; },
+          onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.BUTTON_YELLOW; },
           onEndEdit: function() { backgroundNode.fill = 'white'; }
         } );
       };
@@ -196,7 +196,7 @@ define( function( require ) {
         centerY: backgroundNode.centerY,
         left: backgroundNode.right + options.xMargin,
         content: pencilIcon,
-        baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
+        baseColor: PhetColorScheme.BUTTON_YELLOW,
         listener: editValue
       } );
 
