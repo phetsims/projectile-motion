@@ -202,9 +202,6 @@ define( function( require ) {
       measuringTapeNode.setDragBounds( bounds );
     } );
 
-    measuringTapeNode.labelText.stroke = 'white';
-    measuringTapeNode.labelText.lineWidth = 0.3;
-
     // David
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
     var davidBottom = new Image( davidBottomImage, { centerX: 0, bottom: 0 } );
