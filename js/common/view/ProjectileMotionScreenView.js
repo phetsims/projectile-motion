@@ -185,6 +185,7 @@ define( function( require ) {
         tipPositionProperty: model.measuringTape.tipPositionProperty,
         isTipDragBounded: true,
         textColor: 'black',
+        textBackgroundColor: 'rgba( 255, 255, 255, 0.2 )', // translucent white background
         significantFigures: 2,
         textFont: new PhetFont( { size: 16, weight: 'bold' } )
       } );
