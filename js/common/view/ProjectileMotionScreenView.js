@@ -185,6 +185,7 @@ define( function( require ) {
         tipPositionProperty: model.measuringTape.tipPositionProperty,
         isTipDragBounded: true,
         textColor: 'black',
+        textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
         significantFigures: 2,
         textFont: new PhetFont( { size: 16, weight: 'bold' } )
       } );
@@ -201,9 +202,6 @@ define( function( require ) {
     measuringTapeDragBoundsProperty.link( function( bounds ) {
       measuringTapeNode.setDragBounds( bounds );
     } );
-
-    measuringTapeNode.labelText.stroke = 'white';
-    measuringTapeNode.labelText.lineWidth = 0.3;
 
     // David
     var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
