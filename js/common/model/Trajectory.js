@@ -195,8 +195,6 @@ define( function( require ) {
           // push it
           this.dataPoints.push( apexPoint );
           this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
-          this.projectileMotionModel.updateDavidIfWithinRange( apexPoint.position );
-
         }
 
         // Has reached ground or below
@@ -244,7 +242,6 @@ define( function( require ) {
         // add point, and update tracer tool and David
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
-        this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
       }
 
       // keep track of old objects that need to be removed

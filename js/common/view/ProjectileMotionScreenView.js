@@ -46,11 +46,8 @@ define( function( require ) {
   var Vector2 = require( 'DOT/Vector2' );
   var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
-  // image
-  var davidBottomImage = require( 'image!PROJECTILE_MOTION/david_bottom.png' );
-  var davidMiddleImage = require( 'image!PROJECTILE_MOTION/david_middle.png' );
-  var davidShortsImage = require( 'image!PROJECTILE_MOTION/david_shorts.png' );
-  var davidTopImage = require( 'image!PROJECTILE_MOTION/david_top.png' );
+  // images
+  var davidImage = require( 'image!PROJECTILE_MOTION/david.png' );
 
   // strings
   var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
@@ -71,8 +68,6 @@ define( function( require ) {
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
   var FLATIRONS_RANGE = { min: 1500, max: 1700 };
-  var DAVID_HEIGHT = ProjectileMotionConstants.DAVID_HEIGHT; // in meters
-  var DAVID_HORIZONTAL_PLACEMENT = ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT; // in meters
 
   /**
    * @param {ProjectileMotionModel} model
@@ -204,20 +199,7 @@ define( function( require ) {
     } );
 
     // David
-    var davidNode = new Node( { y: transformProperty.get().modelToViewY( 0 ) } );
-    var davidBottom = new Image( davidBottomImage, { centerX: 0, bottom: 0 } );
-    davidNode.addChild( davidBottom );
-    var davidMiddle = new Image( davidMiddleImage, { centerX: davidBottom.centerX, centerY: davidBottom.centerY } );
-    davidNode.addChild( davidMiddle );
-    var davidTop = new Image( davidTopImage, { centerX: 0, centerY: davidBottom.centerY } );
-    davidNode.addChild( davidTop );
-    var davidShorts = new Image( davidShortsImage, { left: davidBottom.right + X_MARGIN, centerY: 0 } );
-    davidNode.addChild( davidShorts );
-
-    model.davidShortsOnProperty.link( function( shortsOn ) {
-      davidMiddle.visible = shortsOn;
-      davidShorts.visible = !shortsOn;
-    } );
+    var davidNode = new Image( davidImage );
 
     // background, including grass, road, sky, flatirons
     var backgroundNode = new BackgroundNode( this.layoutBounds );
@@ -225,8 +207,9 @@ define( function( require ) {
     // listen to transform Property
     transformProperty.link( function( transform ) {
       measuringTapeNode.setModelViewTransform( transform );
-      davidNode.setScaleMagnitude( Math.abs( transform.modelToViewDeltaY( DAVID_HEIGHT ) / davidBottom.height ) );
-      davidNode.x = transform.modelToViewX( DAVID_HORIZONTAL_PLACEMENT );
+      davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
+      davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
+      davidNode.bottom = transformProperty.get().modelToViewY( model.davidPosition.y );
       backgroundNode.updateFlatironsPosition( transform );
     } );
 
