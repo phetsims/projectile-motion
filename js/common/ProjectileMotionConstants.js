@@ -9,16 +9,16 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
+  var Circle = require( 'SCENERY/nodes/Circle' );
+  var Node = require( 'SCENERY/nodes/Node' );
+  var Path = require( 'SCENERY/nodes/Path' );
+  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var PhetFont = require( 'SCENERY_PHET/PhetFont' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var Range = require( 'DOT/Range' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   var Shape = require( 'KITE/Shape' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   var AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
     lineWidth: 3,
@@ -150,7 +150,7 @@ define( function( require ) {
 
     YELLOW_BUTTON_OPTIONS: {
       font: new PhetFont( 14 ),
-      baseColor: PhetColorScheme.PHET_LOGO_YELLOW,
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
       cornerRadius: 4,
       xMargin: 12,
       yMargin: 7
@@ -163,11 +163,7 @@ define( function( require ) {
 
     // normal/slow/play/pause/step
     PLAY_CONTROLS_HORIZONTAL_INSET: 10,
-    PLAY_CONTROLS_TEXT_MAX_WIDTH: 80,
-
-    // David
-    DAVID_HEIGHT: 2, // meters
-    DAVID_HORIZONTAL_PLACEMENT: 7 // meters
+    PLAY_CONTROLS_TEXT_MAX_WIDTH: 80
   };
 
   projectileMotion.register( 'ProjectileMotionConstants', ProjectileMotionConstants );

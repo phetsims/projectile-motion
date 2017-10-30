@@ -9,25 +9,24 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
+  var BooleanProperty = require( 'AXON/BooleanProperty' );
   var DerivedProperty = require( 'AXON/DerivedProperty' );
   var Emitter = require( 'AXON/Emitter' );
   var EventTimer = require( 'PHET_CORE/EventTimer' );
+  var inherit = require( 'PHET_CORE/inherit' );
+  var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Property = require( 'AXON/Property' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
-  var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
-  var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
+  var Property = require( 'AXON/Property' );
+  var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
+  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   var Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
-  var DAVID_PROXIMITY_RADIUS = 0.5; // in meters, how close the projectile needs to fly to knock off his shorts
 
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
@@ -107,15 +106,9 @@ define( function( require ) {
     // @public whether animation is playing (as opposed to paused)
     this.isPlayingProperty = new BooleanProperty( true );
 
-
-    // @private
-    this.davidShortsOnProperty = new BooleanProperty( true );
-
     // @public (read-only)
-    this.davidPosition = new Vector2(
-      ProjectileMotionConstants.DAVID_HORIZONTAL_PLACEMENT,
-      ProjectileMotionConstants.DAVID_HEIGHT / 2
-    );
+    this.davidHeight = 2; // meters
+    this.davidPosition = new Vector2( 7, 0 ); // meters
 
     // @public number of projectiles that are still moving
     this.numberOfMovingProjectilesProperty = new NumberProperty( 0 );
@@ -209,8 +202,6 @@ define( function( require ) {
       this.airResistanceOnProperty.reset();
       this.speedProperty.reset();
       this.isPlayingProperty.reset();
-
-      this.davidShortsOnProperty.reset();
 
       this.muzzleFlashStepper.emit();
     },
@@ -335,18 +326,6 @@ define( function( require ) {
       }
       this.trajectories.addAll( newTrajectories );
       this.limitTrajectories();
-    },
-
-    /**
-     * Checks if position is close to David and updates the Property accordingly
-     * @public
-     *
-     * @param {Vector2} position - a point in the model coordinate
-     */
-    updateDavidIfWithinRange: function( position ) {
-      if ( position && position.distance( this.davidPosition ) <= DAVID_PROXIMITY_RADIUS ) {
-        this.davidShortsOnProperty.set( false );
-      }
     },
 
     /**

@@ -71,31 +71,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Amy Rouinfar"
   },
-  "david_bottom.png": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amy Rouinfar"
-  },
-  "david_middle.png": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amy Rouinfar"
-  },
-  "david_shorts.png": {
-    "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
-    ],
-    "projectURL": "http://phet.colorado.edu",
-    "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amy Rouinfar"
-  },
-  "david_top.png": {
+  "david.png": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],

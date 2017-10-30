@@ -13,14 +13,14 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
   var DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Property = require( 'AXON/Property' );
+  var inherit = require( 'PHET_CORE/inherit' );
   var NumberProperty = require( 'AXON/NumberProperty' );
   var ObservableArray = require( 'AXON/ObservableArray' );
-  var Vector2 = require( 'DOT/Vector2' );
+  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
+  var Vector2 = require( 'DOT/Vector2' );
 
   /**
    * @param {ProjectileMotionModel} model
@@ -195,8 +195,6 @@ define( function( require ) {
           // push it
           this.dataPoints.push( apexPoint );
           this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
-          this.projectileMotionModel.updateDavidIfWithinRange( apexPoint.position );
-
         }
 
         // Has reached ground or below
@@ -244,7 +242,6 @@ define( function( require ) {
         // add point, and update tracer tool and David
         this.dataPoints.push( newPoint );
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
-        this.projectileMotionModel.updateDavidIfWithinRange( newPoint.position );
       }
 
       // keep track of old objects that need to be removed
