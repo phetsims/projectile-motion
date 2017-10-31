@@ -20,10 +20,13 @@ define( function( require ) {
   var Shape = require( 'KITE/Shape' );
   var Vector2 = require( 'DOT/Vector2' );
 
+  // constants
   var AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
     lineWidth: 3,
     stroke: 'rgb( 252, 40, 252 )'
   } );
+  var TIME_PER_MINOR_DOT = 100; // milliseconds
+  var SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
 
   var ProjectileMotionConstants = {
 
@@ -62,8 +65,10 @@ define( function( require ) {
 
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds
-    TIME_PER_SHOWN_DOT: 100, // milliseconds
-    DOT_RADIUS: 1.65, // in global view coordinates
+    TIME_PER_MINOR_DOT: TIME_PER_MINOR_DOT, // milliseconds
+    TIME_PER_MAJOR_DOT: TIME_PER_MINOR_DOT * 10, // milliseconds, must be a multiple of the other dot size
+    SMALL_DOT_RADIUS: SMALL_DOT_RADIUS, // in global view coordinates
+    LARGE_DOT_RADIUS: SMALL_DOT_RADIUS * 2, // in global view coordinates
 
     // icons
     VELOCITY_VECTOR_ICON: new ArrowNode( 0, 0, 20, 0, {

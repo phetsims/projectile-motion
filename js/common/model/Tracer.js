@@ -20,7 +20,7 @@ define( function( require ) {
 
   // constants
   var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
-  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
+  var TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 
   /**
    * @param {ObservableArray.<Trajectory>} trajectories
@@ -73,7 +73,7 @@ define( function( require ) {
         }
         var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
         var pointIsReadable = point &&
-          ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
+          ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.dataPointProperty.set( point );
           return;
@@ -92,7 +92,7 @@ define( function( require ) {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
       var pointIsReadable = point &&
-        ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 );
+        ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
         this.dataPointProperty.set( point );
       }
