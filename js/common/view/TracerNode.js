@@ -42,12 +42,19 @@ define( function( require ) {
   var OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
   var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
   var SPACING = 4; // {number} x and y spacing and margins
+  var TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT;
   var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-  
-  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS;
+  var SMALL_HALO_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS * 5;
+  var LARGE_HALO_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS * 5;
   var YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
   var YELLOW_HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
-  var YELLOW_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
+  var YELLOW_HALO_FILL_SMALL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
+    .addColorStop( 0, 'black' )
+    .addColorStop( 0.2, 'black' )
+    .addColorStop( 0.2, YELLOW_HALO_COLOR )
+    .addColorStop( 0.4, YELLOW_HALO_COLOR )
+    .addColorStop( 1, YELLOW_HALO_EDGE_COLOR );
+  var YELLOW_HALO_FILL_LARGE = new RadialGradient( 0, 0, 0, 0, 0, LARGE_HALO_RADIUS )
     .addColorStop( 0, 'black' )
     .addColorStop( 0.2, 'black' )
     .addColorStop( 0.2, YELLOW_HALO_COLOR )
@@ -55,7 +62,7 @@ define( function( require ) {
     .addColorStop( 1, YELLOW_HALO_EDGE_COLOR );
   var GREEN_HALO_COLOR = 'rgba( 50, 255, 50, 0.8 )';
   var GREEN_HALO_EDGE_COLOR = 'rgba( 50, 255, 50, 0 )';
-  var GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, DOT_RADIUS * 5 )
+  var GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
     .addColorStop( 0, 'black' )
     .addColorStop( 0.2, 'black' )
     .addColorStop( 0.2, GREEN_HALO_COLOR )
@@ -63,7 +70,7 @@ define( function( require ) {
     .addColorStop( 1, GREEN_HALO_EDGE_COLOR );
 
   var TRACER_CONTENT_WIDTH = 155;
-  var RIGHTSIDE_PADDING = 6;
+  var RIGHT_SIDE_PADDING = 6;
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -81,7 +88,7 @@ define( function( require ) {
 
     // @public is this being handled by user?
     this.isUserControlledProperty = new BooleanProperty( false );
-    
+
     // @private
     this.tracer = tracer; // model
     this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
@@ -90,7 +97,7 @@ define( function( require ) {
     var rectangle = new Rectangle(
       0,
       0,
-      TRACER_CONTENT_WIDTH + RIGHTSIDE_PADDING,
+      TRACER_CONTENT_WIDTH + RIGHT_SIDE_PADDING,
       95, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
@@ -108,7 +115,7 @@ define( function( require ) {
 
     // shift the tracer drag bounds so that it can only be dragged until the center reaches the left or right side
     // of the screen
-    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHTSIDE_PADDING;
+    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
 
     // crosshair view
     var crosshairShape = new Shape()
@@ -118,11 +125,21 @@ define( function( require ) {
       .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
     var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
+    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
+      lineWidth: 2,
+      stroke: 'black',
+      fill: TRANSPARENT_WHITE
+    } );
 
     // Create the base of the crosshair
-    var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-    
+    var crosshairMount = new Rectangle(
+      0,
+      0,
+      0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS,
+      0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS,
+      { fill: 'gray' }
+    );
+
     // @public so events can be forwarded to it by ToolboxPanel
     this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
       modelViewTransform: transformProperty.get(),
@@ -153,9 +170,11 @@ define( function( require ) {
         heightBox
       ]
     } );
-    
+
     // halo node for highlighting the dataPoint whose information is shown in the tracer tool
-    var haloNode = new Circle( DOT_RADIUS * 5, { pickable: false } );
+    var smallHaloShape = Shape.circle( 0, 0, SMALL_HALO_RADIUS );
+    var largeHaloShape = Shape.circle( 0, 0, LARGE_HALO_RADIUS );
+    var haloNode = new Path( smallHaloShape, { pickable: false } );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracer.dataPointProperty.link( function( point ) {
@@ -174,8 +193,20 @@ define( function( require ) {
         } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
         haloNode.centerY = transformProperty.get().modelToViewY( point.position.y );
-        haloNode.fill = point.apex ? GREEN_HALO_FILL : YELLOW_HALO_FILL;
         haloNode.visible = true;
+        haloNode.shape = null;
+        if ( point.apex ) {
+          haloNode.shape = smallHaloShape;
+          haloNode.fill = GREEN_HALO_FILL;
+        }
+        else if ( Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MAJOR_DOT === 0 ) {
+          haloNode.shape = largeHaloShape;
+          haloNode.fill = YELLOW_HALO_FILL_LARGE;
+        }
+        else {
+          haloNode.shape = smallHaloShape;
+          haloNode.fill = YELLOW_HALO_FILL_SMALL;
+        }
       }
       else {
         timeReadoutProperty.set( '-' );
@@ -258,7 +289,7 @@ define( function( require ) {
    * @param {Property} readoutProperty
    */
   function createInformationBox( maxWidth, labelString, readoutProperty ) {
-    
+
     // width of white rectangular background, also used for calculating max width
     var backgroundWidth = 60;
 
@@ -342,7 +373,11 @@ define( function( require ) {
         .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
       var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-      var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, { lineWidth: 2, stroke: 'black', fill: TRANSPARENT_WHITE } );
+      var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
+        lineWidth: 2,
+        stroke: 'black',
+        fill: TRANSPARENT_WHITE
+      } );
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );

@@ -31,10 +31,12 @@ define( function( require ) {
   var AIR_RESISTANCE_OFF_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
   var AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
 
-  var DOT_RADIUS = ProjectileMotionConstants.DOT_RADIUS; // view units
+  var SMALL_DOT_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS; // view units
+  var LARGE_DOT_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS; // view units
   var DOTS_MIN_OPACITY = 0;
   var DOTS_MAX_OPACITY = 0.5;
-  var TIME_PER_SHOWN_DOT = ProjectileMotionConstants.TIME_PER_SHOWN_DOT; // milliseconds
+  var TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
+  var TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT; // milliseconds
 
   var DOT_GREEN = 'rgb( 50, 255, 50 )';
 
@@ -99,15 +101,26 @@ define( function( require ) {
       viewLastPosition = scratchVector2.set( viewAddedPosition );
 
       // draw dot if it is time for data point should be shown
-      if ( Util.toFixedNumber( addedPoint.time * 1000, 0 ) % TIME_PER_SHOWN_DOT === 0 ) {
+      var addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
+      if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
 
-        dotsShape.moveTo( viewAddedPosition.x + DOT_RADIUS, viewAddedPosition.y )
-          .circle( viewAddedPosition.x, viewAddedPosition.y, DOT_RADIUS );
+        // determine whether a large or small dot should be drawn
+        var dotRadius = addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ? LARGE_DOT_RADIUS : SMALL_DOT_RADIUS;
+
+        dotsShape
+          .moveTo( viewAddedPosition.x + dotRadius, viewAddedPosition.y )
+          .circle( viewAddedPosition.x, viewAddedPosition.y, dotRadius );
       }
 
       // draw green dot if apex
       if ( addedPoint.apex ) {
-        apexDot = new Circle( DOT_RADIUS + 0.3, { x: viewAddedPosition.x, y: viewAddedPosition.y, fill: DOT_GREEN, stroke: 'black', lineWidth: 0.3 } );
+        apexDot = new Circle( SMALL_DOT_RADIUS + 0.3, {
+          x: viewAddedPosition.x,
+          y: viewAddedPosition.y,
+          fill: DOT_GREEN,
+          stroke: 'black',
+          lineWidth: 0.3
+        } );
         dotsLayer.addChild( apexDot );
       }
     }
