@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.1 Tue Oct 03 2017 15:48:53 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.2-rc.1 Tue Oct 31 2017 14:11:27 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "f870489891451154a163f41b5321efa572a38c32",
+    "sha": "2f11ee078d3af72257a0e7bb1825ab51bc472d11",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -50,7 +50,7 @@
   },
   "scenery-phet": {
     "sha": "74487e45ca49496016ffe021dce27452ddaabc99",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "sherpa": {
     "sha": "7be57a56484a08b829ad60a853431667cb163973",
