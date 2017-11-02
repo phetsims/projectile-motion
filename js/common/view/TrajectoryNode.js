@@ -102,14 +102,15 @@ define( function( require ) {
 
       // draw dot if it is time for data point should be shown
       var addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
-      if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
-
-        // determine whether a large or small dot should be drawn
-        var dotRadius = addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ? LARGE_DOT_RADIUS : SMALL_DOT_RADIUS;
-
+      if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ){
         dotsShape
-          .moveTo( viewAddedPosition.x + dotRadius, viewAddedPosition.y )
-          .circle( viewAddedPosition.x, viewAddedPosition.y, dotRadius );
+          .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )
+          .circle( viewAddedPosition.x, viewAddedPosition.y, LARGE_DOT_RADIUS );
+      }
+      else if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
+        dotsShape
+          .moveTo( viewAddedPosition.x + SMALL_DOT_RADIUS, viewAddedPosition.y )
+          .circle( viewAddedPosition.x, viewAddedPosition.y, SMALL_DOT_RADIUS );
       }
 
       // draw green dot if apex
