@@ -25,7 +25,6 @@ define( function( require ) {
     lineWidth: 3,
     stroke: 'rgb( 252, 40, 252 )'
   } );
-  var TIME_PER_MINOR_DOT = 100; // milliseconds
   var SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
 
   var ProjectileMotionConstants = {
@@ -65,8 +64,8 @@ define( function( require ) {
 
     // data point collection along the trajectory
     TIME_PER_DATA_POINT: 25, // milliseconds
-    TIME_PER_MINOR_DOT: TIME_PER_MINOR_DOT, // milliseconds
-    TIME_PER_MAJOR_DOT: TIME_PER_MINOR_DOT * 10, // milliseconds, must be a multiple of the other dot size
+    TIME_PER_MINOR_DOT: 100, // milliseconds
+    TIME_PER_MAJOR_DOT: 1000, // milliseconds
     SMALL_DOT_RADIUS: SMALL_DOT_RADIUS, // in global view coordinates
     LARGE_DOT_RADIUS: SMALL_DOT_RADIUS * 2, // in global view coordinates
 
