@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.2-rc.2 Tue Nov 14 2017 15:02:22 GMT-0700 (Mountain Standard Time)",
+  "comment": "# projectile-motion 1.0.2 Thu Nov 16 2017 10:51:37 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -22,7 +22,7 @@
   },
   "joist": {
     "sha": "15322d6843d17d7443296339fc409db866b6ce60",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "774ef1fee4e192799e26f559c085a73766dc1ccd",
+    "sha": "93de0a4e98f50f6ce820f6dd08b06fa72d772a98",
     "branch": "1.0"
   },
   "query-string-machine": {
