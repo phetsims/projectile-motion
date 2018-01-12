@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -45,7 +45,10 @@ define( function( require ) {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
-    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, boxWidth: 18 };
+    var checkboxOptions = {
+      maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width,
+      boxWidth: 18
+    };
 
     var totalLabel = new Text( totalString, LABEL_OPTIONS );
     var componentsLabel = new Text( componentsString, LABEL_OPTIONS );
@@ -57,43 +60,43 @@ define( function( require ) {
       radius: 8,      // radius of radio button circle
       spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5,
-      maxWidth: checkBoxOptions.maxWidth
+      maxWidth: checkboxOptions.maxWidth
     } );
 
     var velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
-    var velocityCheckBox = new CheckBox(
+    var velocityCheckbox = new Checkbox(
       velocityLabel,
       vectorVisibilityProperties.velocityVectorsOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
-    var velocityCheckBoxAndIcon = new HBox( {
-      spacing: options.minWidth - velocityCheckBox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
+    var velocityCheckboxAndIcon = new HBox( {
+      spacing: options.minWidth - velocityCheckbox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
-        velocityCheckBox,
+        velocityCheckbox,
         VELOCITY_VECTOR_ICON
       ]
     } );
 
     var accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
-    var accelerationCheckBox = new CheckBox(
+    var accelerationCheckbox = new Checkbox(
       accelerationLabel,
       vectorVisibilityProperties.accelerationVectorsOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
-    var accelerationCheckBoxAndIcon = new HBox( {
-      spacing: options.minWidth - accelerationCheckBox.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
+    var accelerationCheckboxAndIcon = new HBox( {
+      spacing: options.minWidth - accelerationCheckbox.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
-        accelerationCheckBox,
+        accelerationCheckbox,
         ACCELERATION_VECTOR_ICON
       ]
     } );
 
     var forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
-    var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
-    var forceCheckBoxAndIcon = new HBox( {
-      spacing: options.minWidth - forceCheckBox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
+    var forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkboxOptions );
+    var forceCheckboxAndIcon = new HBox( {
+      spacing: options.minWidth - forceCheckbox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
-        forceCheckBox,
+        forceCheckbox,
         FORCE_VECTOR_ICON
       ]
     } );
@@ -104,9 +107,9 @@ define( function( require ) {
       spacing: options.controlsVerticalSpace,
       children: [
         totalOrComponentsGroup,
-        velocityCheckBoxAndIcon,
-        accelerationCheckBoxAndIcon,
-        forceCheckBoxAndIcon
+        velocityCheckboxAndIcon,
+        accelerationCheckboxAndIcon,
+        forceCheckboxAndIcon
       ]
     } );
 

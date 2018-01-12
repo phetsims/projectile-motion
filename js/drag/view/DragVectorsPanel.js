@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -44,7 +44,10 @@ define( function( require ) {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
     var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
-    var checkBoxOptions = { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, boxWidth: 18 };
+    var checkboxOptions = {
+      maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width,
+      boxWidth: 18
+    };
 
     var totalLabel = new Text( totalString, titleOptions );
     var componentsLabel = new Text( componentsString, titleOptions );
@@ -60,21 +63,21 @@ define( function( require ) {
     } );
 
     var velocityLabel = new Text( velocityVectorsString, titleOptions );
-    var velocityCheckBox = new CheckBox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkBoxOptions );
-    var velocityCheckBoxAndIcon = new HBox( {
-      spacing: options.minWidth - velocityCheckBox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
+    var velocityCheckbox = new Checkbox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkboxOptions );
+    var velocityCheckboxAndIcon = new HBox( {
+      spacing: options.minWidth - velocityCheckbox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
-        velocityCheckBox,
+        velocityCheckbox,
         VELOCITY_VECTOR_ICON
       ]
     } );
 
     var forceLabel = new Text( forceVectorsString, titleOptions );
-    var forceCheckBox = new CheckBox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkBoxOptions );
-    var forceCheckBoxAndIcon = new HBox( {
-      spacing: options.minWidth - forceCheckBox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
+    var forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkboxOptions );
+    var forceCheckboxAndIcon = new HBox( {
+      spacing: options.minWidth - forceCheckbox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
-        forceCheckBox,
+        forceCheckbox,
         FORCE_VECTOR_ICON
       ]
     } );
@@ -85,8 +88,8 @@ define( function( require ) {
       spacing: options.controlsVerticalSpace,
       children: [
         totalOrComponentsGroup,
-        velocityCheckBoxAndIcon,
-        forceCheckBoxAndIcon
+        velocityCheckboxAndIcon,
+        forceCheckboxAndIcon
       ]
     } );
 

@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Panel = require( 'SUN/Panel' );
@@ -56,19 +56,19 @@ define( function( require ) {
       ]
     } );
 
-    var checkBoxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
+    var checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
     var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalVelocityCheckBox = new CheckBox(
+    var totalVelocityCheckbox = new Checkbox(
       totalVelocityLabel,
       vectorVisibilityProperties.totalVelocityVectorOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
 
     var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsVelocityCheckBox = new CheckBox(
+    var componentsVelocityCheckbox = new Checkbox(
       componentsVelocityLabel,
       vectorVisibilityProperties.componentsVelocityVectorsOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
 
     var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
@@ -81,17 +81,17 @@ define( function( require ) {
     } );
 
     var totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalAccelerationCheckBox = new CheckBox(
+    var totalAccelerationCheckbox = new Checkbox(
       totalAccelerationLabel,
       vectorVisibilityProperties.totalAccelerationVectorOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
 
     var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsAccelerationCheckBox = new CheckBox(
+    var componentsAccelerationCheckbox = new Checkbox(
       componentsAccelerationLabel,
       vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
-      checkBoxOptions
+      checkboxOptions
     );
 
     // The contents of the control panel
@@ -100,11 +100,11 @@ define( function( require ) {
       spacing: options.controlsVerticalSpace,
       children: [
         velocityTitleBox,
-        totalVelocityCheckBox,
-        componentsVelocityCheckBox,
+        totalVelocityCheckbox,
+        componentsVelocityCheckbox,
         accelerationTitleBox,
-        totalAccelerationCheckBox,
-        componentsAccelerationCheckBox
+        totalAccelerationCheckbox,
+        componentsAccelerationCheckbox
       ]
     } );
 

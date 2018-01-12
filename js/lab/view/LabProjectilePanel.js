@@ -9,7 +9,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var ComboBox = require( 'SUN/ComboBox' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
@@ -408,13 +408,13 @@ define( function( require ) {
 
     // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
+    var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18
     } );
-    var airResistanceCheckBoxAndIcon = new HBox( {
+    var airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
-      children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
+      children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
@@ -431,7 +431,7 @@ define( function( require ) {
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         gravityBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckBoxAndIcon,
+        airResistanceCheckboxAndIcon,
         altitudeBox,
         dragCoefficientBox,
       ]

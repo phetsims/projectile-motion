@@ -10,7 +10,7 @@ define( function( require ) {
   'use strict';
 
   // modules
-  var CheckBox = require( 'SUN/CheckBox' );
+  var Checkbox = require( 'SUN/Checkbox' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HSlider = require( 'SUN/HSlider' );
@@ -169,13 +169,13 @@ define( function( require ) {
     
     // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckBox = new CheckBox( airResistanceLabel, airResistanceOnProperty, {
+    var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - 3 * options.xMargin - AIR_RESISTANCE_ICON.width,
       boxWidth: 18
     } );
-    var airResistanceCheckBoxAndIcon = new HBox( {
+    var airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
-      children: [ airResistanceCheckBox, AIR_RESISTANCE_ICON ]
+      children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
@@ -198,7 +198,7 @@ define( function( require ) {
         diameterBox,
         massBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckBoxAndIcon,
+        airResistanceCheckboxAndIcon,
         dragCoefficientBox
       ]
     } );
