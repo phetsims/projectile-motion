@@ -24,7 +24,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
@@ -112,9 +111,6 @@ define( function( require ) {
       }
     );
 
-    // and add it to its appropriate parent
-    comboBoxListParent.addChild( projectileChoiceComboBox );
-
     // local var for layout and formatting
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
@@ -177,15 +173,12 @@ define( function( require ) {
       dragCoefficientBox.setOpacity( opacity );
     } );
     
-    // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
-    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height );
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        vStrutForComboBox,
+        projectileChoiceComboBox,
         massBox,
         diameterBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
@@ -194,26 +187,12 @@ define( function( require ) {
       ]
     } );
 
-    // @private for layout convenience
-    this.projectileChoiceComboBox = projectileChoiceComboBox;
-    this.controlsVerticalSpace = options.controlsVerticalSpace;
-
     Panel.call( this, content, options );
 
   }
 
   projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
 
-  return inherit( Panel, IntroProjectilePanel, {
-
-    /**
-     * Layout the combobox
-     * @public
-     */
-    layoutComboBox: function() {
-      this.projectileChoiceComboBox.centerX = this.centerX;
-      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace;
-    }
-  } );
+  return inherit( Panel, IntroProjectilePanel );
 } );
 
