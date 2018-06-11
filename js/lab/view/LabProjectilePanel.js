@@ -30,7 +30,6 @@ define( function( require ) {
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var VBox = require( 'SCENERY/nodes/VBox' );
-  var VStrut = require( 'SCENERY/nodes/VStrut' );
 
   // strings
   var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
@@ -62,7 +61,6 @@ define( function( require ) {
     arrowButtonScale: 0.56
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
-  var MINUS_ROOM_FOR_COMBO_BOX = 3; // px, to move the dropdown up ever so slightly to buy more room
 
   /**
    * @param {Node} comboBoxListParent - node for containing the combobox
@@ -136,9 +134,6 @@ define( function( require ) {
         buttonYMargin: 0
       }
     );
-    
-    // then add it to its appropraite parent
-    comboBoxListParent.addChild( projectileChoiceComboBox );
     
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.3;
@@ -417,15 +412,12 @@ define( function( require ) {
       children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
-    // vertical strut to account for the space that combobox takes up, since it is not added as a child to panel
-    var vStrutForComboBox = new VStrut( projectileChoiceComboBox.height - MINUS_ROOM_FOR_COMBO_BOX );
-
     // The contents of the control panel
     var content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        vStrutForComboBox,
+        projectileChoiceComboBox,
         massBox,
         diameterBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
@@ -437,26 +429,12 @@ define( function( require ) {
       ]
     } );
 
-    // @private for layout convenience
-    this.projectileChoiceComboBox = projectileChoiceComboBox;
-    this.controlsVerticalSpace = options.controlsVerticalSpace;
-
     Panel.call( this, content, options );
   }
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
-  return inherit( Panel, LabProjectilePanel, {
-
-    /**
-     * Layout the combobox
-     * @public
-     */
-    layoutComboBox: function() {
-      this.projectileChoiceComboBox.centerX = this.centerX;
-      this.projectileChoiceComboBox.top = this.top + this.controlsVerticalSpace - MINUS_ROOM_FOR_COMBO_BOX;
-    }
-  } );
+  return inherit( Panel, LabProjectilePanel );
 } );
 
 

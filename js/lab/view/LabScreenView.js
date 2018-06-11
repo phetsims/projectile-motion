@@ -77,7 +77,6 @@ define( function( require ) {
      */
     layout: function( width, height ) {
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
-      this.bottomRightPanel.layoutComboBox();
       this.keypadLayer.positionKeypad( this.setKeypadLocation.bind( this ) );
     },
 
