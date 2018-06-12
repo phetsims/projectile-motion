@@ -125,7 +125,7 @@ define( function( require ) {
       spacing: 0,
       children: [
         initialValuesTitle,
-        content,
+        content
       ]
     } );
 

@@ -137,7 +137,7 @@ define( function( require ) {
       fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
       backgroundPickable: true, // {boolean} so that clicking in the keypad's background doesn't close the keypad
       xMargin: 10,
-      yMargin: 10,
+      yMargin: 10
     } );
 
     this.addChild( this.keypadPanel );

@@ -150,7 +150,7 @@ define( function( require ) {
     // forces view
     var forcesBox = new Rectangle( 0, 0, 10, 50, {
       fill: TRANSPARENT_WHITE,
-      lineWidth: 0,
+      lineWidth: 0
     } );
     this.addChild( forcesBox );
 

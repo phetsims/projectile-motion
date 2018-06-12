@@ -200,7 +200,7 @@ define( function( require ) {
         valuePattern: valuePattern,
         constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
         decimalPlaces: 0,
-        delta: 100,
+        delta: 100
       }, numberControlOptions )
     );
 
@@ -240,7 +240,7 @@ define( function( require ) {
       selectedObjectTypeProperty.get().dragCoefficientRange, _.extend( {
         constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
         decimalPlaces: 2,
-        delta: 0.01,
+        delta: 0.01
       }, numberControlOptions )
     );
     

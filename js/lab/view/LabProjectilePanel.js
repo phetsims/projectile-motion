@@ -322,7 +322,7 @@ define( function( require ) {
             } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
             decimalPlaces: 2,
-            delta: 0.01,
+            delta: 0.01
           }, numberControlOptions )
         );
         altitudeSpecificProjectileTypeBox = new NumberControl(
@@ -331,7 +331,7 @@ define( function( require ) {
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
             decimalPlaces: 0,
-            delta: 100,
+            delta: 100
           }, numberControlOptions )
         );
         dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
@@ -425,7 +425,7 @@ define( function( require ) {
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckboxAndIcon,
         altitudeBox,
-        dragCoefficientBox,
+        dragCoefficientBox
       ]
     } );
 

@@ -289,7 +289,7 @@ define( function( require ) {
         zoomProperty.reset();
         cannonNode.reset();
       },
-      centerY: initialSpeedPanel.centerY,
+      centerY: initialSpeedPanel.centerY
     } );
 
     // eraser button

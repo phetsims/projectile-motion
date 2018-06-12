@@ -151,7 +151,7 @@ define( function( require ) {
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         stroke: 'black',
-        lineDash: [ 5, 5 ],
+        lineDash: [ 5, 5 ]
       }
     );
     
