@@ -134,6 +134,9 @@ define( function( require ) {
         buttonYMargin: 0
       }
     );
+
+    // @private make visible to methods
+    this.projectileChoiceComboBox = projectileChoiceComboBox;
     
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.3;
@@ -434,7 +437,13 @@ define( function( require ) {
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
-  return inherit( Panel, LabProjectilePanel );
+  return inherit( Panel, LabProjectilePanel, {
+
+    // @public for use by screen view
+    hideComboBoxList: function() {
+      this.projectileChoiceComboBox.hideList();
+    }
+  } );
 } );
 
 
