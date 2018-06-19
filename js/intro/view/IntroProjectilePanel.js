@@ -111,6 +111,9 @@ define( function( require ) {
       }
     );
 
+    // @private make visible to methods
+    this.projectileChoiceComboBox = projectileChoiceComboBox;
+
     // local var for layout and formatting
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
@@ -193,6 +196,12 @@ define( function( require ) {
 
   projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
 
-  return inherit( Panel, IntroProjectilePanel );
+  return inherit( Panel, IntroProjectilePanel, {
+
+    // @public for use by screen view
+    hideComboBoxList: function() {
+      this.projectileChoiceComboBox.hideList();
+    }
+  } );
 } );
 

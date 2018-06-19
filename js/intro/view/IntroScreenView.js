@@ -29,18 +29,21 @@ define( function( require ) {
     // acts as listParent for the projectile dropdown box
     var comboBoxListParent = new Node();
 
+    // @private for access by methods
+    this.introProjectilePanel = new IntroProjectilePanel(
+      model.objectTypes,
+      model.selectedProjectileObjectTypeProperty,
+      comboBoxListParent,
+      model.projectileMassProperty,
+      model.projectileDiameterProperty,
+      model.projectileDragCoefficientProperty,
+      model.airResistanceOnProperty
+    );
+
     ProjectileMotionScreenView.call(
       this,
       model,
-      new IntroProjectilePanel(
-        model.objectTypes,
-        model.selectedProjectileObjectTypeProperty,
-        comboBoxListParent,
-        model.projectileMassProperty,
-        model.projectileDiameterProperty,
-        model.projectileDragCoefficientProperty,
-        model.airResistanceOnProperty
-      ),
+      this.introProjectilePanel,
       new IntroVectorsPanel( visibilityProperties ),
       visibilityProperties,
       options
@@ -52,6 +55,18 @@ define( function( require ) {
 
   projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
-  return inherit( ProjectileMotionScreenView, IntroScreenView );
+  return inherit( ProjectileMotionScreenView, IntroScreenView, {
+    /**
+     * Layout
+     * @param {number} width
+     * @param {number} height
+     *
+     * @override
+     */
+    layout: function( width, height ) {
+      this.introProjectilePanel.hideComboBoxList();
+      ProjectileMotionScreenView.prototype.layout.call( this, width, height );
+    }
+  } );
 } );
 
