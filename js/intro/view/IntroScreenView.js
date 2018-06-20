@@ -29,7 +29,7 @@ define( function( require ) {
     // acts as listParent for the projectile dropdown box
     var comboBoxListParent = new Node();
 
-    // @private for access by methods
+    // @private, for layout
     this.introProjectilePanel = new IntroProjectilePanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
