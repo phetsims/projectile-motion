@@ -37,7 +37,7 @@ define( function( require ) {
    * @constructor
    */
   function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, defaultCannonHeight, defaultCannonAngle, defaultInitialSpeed ) {
-
+    // test commit for Andrea, please ignore
 
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
     this.trajectories = new ObservableArray();
