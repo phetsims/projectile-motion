@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.3 Fri Apr 27 2018 15:27:00 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.3 Wed Jul 25 2018 01:52:34 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,8 +13,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "bccad091d1520a6456653221da4802039843be49",
-    "branch": "HEAD"
+    "sha": "b67926040eeb1b8cfd8c892eadf8a9600571d37d",
+    "branch": "projectile-motion-1.0"
   },
   "dot": {
     "sha": "f7d9de8b5650a10126d3f8755a98cf64a0acc93c",
@@ -37,7 +37,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "69b5474a5cb4e12c314e9dcb6f9d66fc9370bef5",
+    "sha": "afece37fa5228243e4935001f23cb438f338c4b4",
     "branch": "1.0"
   },
   "query-string-machine": {
