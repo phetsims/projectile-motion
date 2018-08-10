@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.4 Thu Aug 09 2018 20:32:04 GMT-0600 (MDT)",
+  "comment": "# projectile-motion 1.0.4 Thu Aug 09 2018 23:45:07 GMT-0600 (MDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -13,8 +13,8 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "b67926040eeb1b8cfd8c892eadf8a9600571d37d",
-    "branch": "HEAD"
+    "sha": "c6f57132e01e657a0a3192cc6f24fed4b7086d82",
+    "branch": "projectile-motion-1.0"
   },
   "dot": {
     "sha": "f7d9de8b5650a10126d3f8755a98cf64a0acc93c",
@@ -33,11 +33,11 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "7ec5d29971d7faf69f31e028c45b17df040b721b",
-    "branch": "HEAD"
+    "sha": "f9a8c7ef8e8858db1546b65a40c7efdaf8791920",
+    "branch": "projectile-motion-1.0"
   },
   "projectile-motion": {
-    "sha": "45bfb5380ef22573a30e1d04712ccdc0da508181",
+    "sha": "008a7568a179707a81d5d5b48ab9c4ac01935675",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -46,7 +46,7 @@
   },
   "scenery": {
     "sha": "64a399b7fef78d883052f4e712d45f6e7408b70f",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "scenery-phet": {
     "sha": "74487e45ca49496016ffe021dce27452ddaabc99",
