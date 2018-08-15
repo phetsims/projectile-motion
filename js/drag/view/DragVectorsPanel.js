@@ -56,8 +56,8 @@ define( function( require ) {
       { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
       { node: componentsLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'components' }
     ], {
-      radius: 8,      // radius of radio button circle
-      spacing: 10,     // vertical spacing between each radio button
+      radioButtonOptions: { radius: 8 },
+      spacing: 10,
       touchAreaXDilation: 5,
       maxWidth: titleOptions.maxWidth
     } );
