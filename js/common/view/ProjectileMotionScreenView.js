@@ -329,7 +329,7 @@ define( function( require ) {
 
     // step button
     var stepButton = new StepForwardButton( {
-      playingProperty: model.isPlayingProperty,
+      isPlayingProperty: model.isPlayingProperty,
       listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
       radius: 12,
       stroke: 'black',
