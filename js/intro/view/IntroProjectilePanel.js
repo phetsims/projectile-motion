@@ -128,7 +128,7 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, valueProperty ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
-      parameterLabel.setBoundsMethod( 'accurate' );
+      // parameterLabel.setBoundsMethod( 'accurate' );
 
       valueProperty.link( function( value ) {
         var valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
