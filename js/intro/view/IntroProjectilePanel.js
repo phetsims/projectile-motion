@@ -128,6 +128,9 @@ define( function( require ) {
      */
     function createParameterControlBox( labelString, unitsString, valueProperty ) {
       var parameterLabel = new Text( '', parameterLabelOptions );
+
+      // TODO: The following line was commented out as a short-term fix for https://github.com/phetsims/projectile-motion/issues/165,
+      // this should be either put back in when the underlying issue is fixed of removed entirely if not needed.
       // parameterLabel.setBoundsMethod( 'accurate' );
 
       valueProperty.link( function( value ) {
