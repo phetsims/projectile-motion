@@ -200,9 +200,7 @@ define( function( require ) {
 
       // kick off the animation
       rewardNodeAnimation.start();
-
     } );
-
 
     // Observe changes in the model horizontal position and update the view correspondingly
     var updateHorizontalPosition = function( targetX ) {
