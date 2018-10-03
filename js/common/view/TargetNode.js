@@ -10,7 +10,9 @@ define( function( require ) {
   'use strict';
 
   // modules
+  var Animation = require( 'TWIXT/Animation' );
   var Circle = require( 'SCENERY/nodes/Circle' );
+  var Easing = require( 'TWIXT/Easing' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -31,9 +33,9 @@ define( function( require ) {
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
   var TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
   var LABEL_OPTIONS = _.defaults( { fill: 'black' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-  var SCREEN_CHANGE_TIME = 1000; // milliseconds
-  var TOTAL_Y_CHANGE = 70;
-  var TOTAL_SCALE = 1.5;
+  var REWARD_NODE_INITIAL_Y_OFFSET = -10; // in screen coords
+  var REWARD_NODE_Y_MOVEMENT = 70; // in screen coords
+  var REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
   var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
   var TEXT_DISPLAY_MARGIN = 2;
 
@@ -46,13 +48,13 @@ define( function( require ) {
   function TargetNode( score, transformProperty, screenView ) {
     var self = this;
     Node.call( this );
-    
+
     // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
 
     // local var to improve readability
     var targetXProperty = score.targetXProperty;
-    
+
     // red and white circles of the target
     var outerCircle = new Circle( 1, {
       fill: 'red',
@@ -80,15 +82,15 @@ define( function( require ) {
         innerCircle
       ]
     } );
-    
+
     // scaling the target to the right size
     var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
     var targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     target.setScaleMagnitude( viewRadius, targetHeightInView );
-    
+
     // center on model's targetXProperty
     target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( score.targetXProperty.get(), 0 ) );
-    
+
     // add target to scene graph
     this.addChild( target );
 
@@ -124,7 +126,7 @@ define( function( require ) {
       value: Util.toFixed( targetXProperty.get(), 1 ),
       units: mString
     } ), LABEL_OPTIONS );
-    
+
     // white rectangle background for the text
     var backgroundNode = new Rectangle(
       0, // x
@@ -170,23 +172,34 @@ define( function( require ) {
           ]
         } );
       }
-      rewardNode.x = target.centerX;
-      rewardNode.y = target.centerY;
+      var rewardNodeStartPosition = new Vector2( target.centerX, target.centerY + REWARD_NODE_INITIAL_Y_OFFSET );
+      rewardNode.center = rewardNodeStartPosition;
       screenView.addChild( rewardNode );
       self.rewardNodes.push( rewardNode );
 
-      // animate the stars to go up, out, and fade
-      new TWEEN.Tween( rewardNode ).to( {
-        y: target.centerY - TOTAL_Y_CHANGE,
-        opacity: 0
-      }, SCREEN_CHANGE_TIME ).onUpdate( function() {
-        rewardNode.setScaleMagnitude( ( target.centerY - rewardNode.y ) / TOTAL_Y_CHANGE * (TOTAL_SCALE - 1) + 1 );
-      } ).onComplete( function() {
-        if ( screenView.hasChild( rewardNode ) ) {
-          self.rewardNodes.splice( self.rewardNodes.indexOf( rewardNode ), 1 );
-          rewardNode.dispose();
-        }
-      } ).start( phet.joist.elapsedTime );
+      // animate the reward node (one to three stars) to move up, expand, and fade out
+      var rewardNodeAnimation = new Animation( {
+        duration: 1,
+        stepper: 'timer',
+        easing: Easing.QUADRATIC_OUT,
+        setValue: function( newYPos ) {
+          if ( !rewardNode.isDisposed() ) {
+            var animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
+            if ( animationProportionCompleted < 1 ) {
+              rewardNode.centerY = newYPos;
+              rewardNode.opacity = 1 - animationProportionCompleted;
+              rewardNode.setScaleMagnitude( 1 + ( animationProportionCompleted * REWARD_NODE_GROWTH_AMOUNT ) );
+            }
+            else {
+              self.rewardNodes.splice( self.rewardNodes.indexOf( rewardNode ), 1 );
+              rewardNode.dispose();
+            }
+          }
+        },
+        from: rewardNodeStartPosition.y,
+        to: rewardNodeStartPosition.y - REWARD_NODE_Y_MOVEMENT
+      } );
+      rewardNodeAnimation.start();
 
     } );
 
@@ -207,7 +220,7 @@ define( function( require ) {
     };
 
     targetXProperty.link( updateHorizontalPosition );
-    
+
     // Observe changes in the modelViewTransform and update the view
     transformProperty.link( function( transform ) {
       var viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
