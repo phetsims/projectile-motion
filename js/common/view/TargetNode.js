@@ -183,22 +183,22 @@ define( function( require ) {
         stepper: 'timer',
         easing: Easing.QUADRATIC_OUT,
         setValue: function( newYPos ) {
-          if ( !rewardNode.isDisposed() ) {
-            var animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
-            if ( animationProportionCompleted < 1 ) {
-              rewardNode.centerY = newYPos;
-              rewardNode.opacity = 1 - animationProportionCompleted;
-              rewardNode.setScaleMagnitude( 1 + ( animationProportionCompleted * REWARD_NODE_GROWTH_AMOUNT ) );
-            }
-            else {
-              self.rewardNodes.splice( self.rewardNodes.indexOf( rewardNode ), 1 );
-              rewardNode.dispose();
-            }
-          }
+          rewardNode.centerY = newYPos;
+          var animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
+          rewardNode.opacity = 1 - animationProportionCompleted;
+          rewardNode.setScaleMagnitude( 1 + ( animationProportionCompleted * REWARD_NODE_GROWTH_AMOUNT ) );
         },
         from: rewardNodeStartPosition.y,
         to: rewardNodeStartPosition.y - REWARD_NODE_Y_MOVEMENT
       } );
+
+      // remove the reward node when the animation finishes
+      rewardNodeAnimation.finishEmitter.addListener( function() {
+        self.rewardNodes.splice( self.rewardNodes.indexOf( rewardNode ), 1 );
+        rewardNode.dispose();
+      } );
+
+      // kick off the animation
       rewardNodeAnimation.start();
 
     } );
