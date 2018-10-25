@@ -55,6 +55,7 @@ define( function( require ) {
   var metersString = require( 'string!PROJECTILE_MOTION/meters' );
   var normalString = require( 'string!PROJECTILE_MOTION/normal' );
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  var Range = require( 'DOT/Range' );
   var slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
@@ -67,7 +68,7 @@ define( function( require ) {
   var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
   var X_MARGIN = 10;
   var Y_MARGIN = 5;
-  var FLATIRONS_RANGE = { min: 1500, max: 1700 };
+  var FLATIRONS_RANGE = new Range( 1500, 1700 );
 
   /**
    * @param {ProjectileMotionModel} model
