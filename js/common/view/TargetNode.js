@@ -180,7 +180,6 @@ define( function( require ) {
       // animate the reward node (one to three stars) to move up, expand, and fade out
       var rewardNodeAnimation = new Animation( {
         duration: 1,
-        stepper: 'timer',
         easing: Easing.QUADRATIC_OUT,
         setValue: function( newYPos ) {
           rewardNode.centerY = newYPos;
