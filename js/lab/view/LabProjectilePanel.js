@@ -58,7 +58,7 @@ define( function( require ) {
     thumbSize: new Dimension2( 13, 22 ),
     thumbTouchAreaXDilation: 6,
     thumbTouchAreaYDilation: 4,
-    arrowButtonScale: 0.56
+    arrowButtonOptions: { scale: 0.56 }
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 

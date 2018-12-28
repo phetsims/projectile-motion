@@ -156,7 +156,7 @@ define( function( require ) {
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4,
-        arrowButtonScale: 0.56,
+        arrowButtonOptions: { scale: 0.56 },
         titleMaxWidth: 120, // empirically determined
         valueMaxWidth: 80 // empirically determined
       }
