@@ -187,9 +187,8 @@ define( function( require ) {
       valueMaxWidth: textDisplayWidth
     }, NUMBER_CONTROL_OPTIONS );
 
-    // results in '{0} m'
+    // results in '{{value}} m'
     var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      value: '{0}', // map to numbered placeholder for NumberControl
       units: mString
     } );
 

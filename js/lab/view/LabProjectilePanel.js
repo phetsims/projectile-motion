@@ -290,7 +290,9 @@ define( function( require ) {
         massSpecificProjectileTypeBox = new NumberControl(
           massString, projectileMassProperty,
           objectType.massRange, _.extend( {
-            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: kgString } ),
+
+            // '{{value}} kg'
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
             majorTicks: [ {
               value: objectType.massRange.min,
@@ -303,7 +305,9 @@ define( function( require ) {
         diameterSpecificProjectileTypeBox = new NumberControl(
           diameterString, projectileDiameterProperty,
           objectType.diameterRange, _.extend( {
-            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
+
+            // '{{value}} m'
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
             majorTicks: [ {
               value: objectType.diameterRange.min,
@@ -319,8 +323,9 @@ define( function( require ) {
         gravitySpecificProjectileTypeBox = new NumberControl(
           gravityString, gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
+
+            // '{{value}} m/s^2
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-              value: '{0}',
               units: metersPerSecondSquaredString
             } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
@@ -331,7 +336,9 @@ define( function( require ) {
         altitudeSpecificProjectileTypeBox = new NumberControl(
           altitudeString, altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
-            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { value: '{0}', units: mString } ),
+
+            // '{{value}} m'
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
             constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
             decimalPlaces: 0,
             delta: 100

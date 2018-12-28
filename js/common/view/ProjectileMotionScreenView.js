@@ -138,9 +138,8 @@ define( function( require ) {
     // cannon
     var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this, options );
 
-    // results in '{0} m/s'
+    // results in '{{value}} m/s'
     var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      value: '{0}', // map to numbered placeholder for NumberControl
       units: metersPerSecondString
     } );
 
