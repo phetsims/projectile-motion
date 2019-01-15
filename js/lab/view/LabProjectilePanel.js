@@ -126,12 +126,10 @@ define( function( require ) {
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
       comboBoxListParent, {
-        itemXMargin: itemXMargin,
-        buttonXMargin: buttonXMargin,
+        xMargin: 12,
+        yMargin: 7,
         buttonLineWidth: comboBoxLineWidth,
-        listLineWidth: comboBoxLineWidth,
-        itemHighlightLineWidth: comboBoxLineWidth,
-        buttonYMargin: 0
+        listLineWidth: comboBoxLineWidth
       }
     );
 
