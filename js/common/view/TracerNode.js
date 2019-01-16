@@ -14,6 +14,7 @@ define( function( require ) {
   var Circle = require( 'SCENERY/nodes/Circle' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var inherit = require( 'PHET_CORE/inherit' );
+  var MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   var MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   var Node = require( 'SCENERY/nodes/Node' );
   var Path = require( 'SCENERY/nodes/Path' );
@@ -36,6 +37,7 @@ define( function( require ) {
   var rangeString = require( 'string!PROJECTILE_MOTION/range' );
   var sString = require( 'string!PROJECTILE_MOTION/s' );
   var timeString = require( 'string!PROJECTILE_MOTION/time' );
+  var noValueString = MathSymbols.NO_VALUE;
 
   // constants
   var CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed
@@ -153,9 +155,9 @@ define( function( require ) {
     } );
 
     // label and values readouts
-    var timeReadoutProperty = new Property( '-' );
-    var rangeReadoutProperty = new Property( '-' );
-    var heightReadoutProperty = new Property( '-' );
+    var timeReadoutProperty = new Property( noValueString );
+    var rangeReadoutProperty = new Property( noValueString );
+    var heightReadoutProperty = new Property( noValueString );
 
     var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
     var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
@@ -209,9 +211,9 @@ define( function( require ) {
         }
       }
       else {
-        timeReadoutProperty.set( '-' );
-        rangeReadoutProperty.set( '-' );
-        heightReadoutProperty.set( '-' );
+        timeReadoutProperty.set( noValueString );
+        rangeReadoutProperty.set( noValueString );
+        heightReadoutProperty.set( noValueString );
         haloNode.visible = false;
       }
     } );
@@ -381,9 +383,9 @@ define( function( require ) {
 
       // Create the base of the crosshair
       var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-      var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( '-' ) );
-      var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( '-' ) );
-      var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( '-' ) );
+      var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( noValueString ) );
+      var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
+      var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property(noValueString) );
 
       var textBox = new VBox( {
         align: 'left',
