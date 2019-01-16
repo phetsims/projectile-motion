@@ -104,6 +104,7 @@ define( function( require ) {
       comboBoxListParent, {
         xMargin: 12,
         yMargin: 7,
+        cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth
       }
