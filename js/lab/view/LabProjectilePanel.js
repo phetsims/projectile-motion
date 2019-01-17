@@ -11,6 +11,7 @@ define( function( require ) {
   // modules
   var Checkbox = require( 'SUN/Checkbox' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
   var Dimension2 = require( 'DOT/Dimension2' );
   var DownUpListener = require( 'SCENERY/input/DownUpListener' );
   var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
@@ -114,11 +115,11 @@ define( function( require ) {
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     var comboBoxItems = [];
-    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, objectTypes[ 0 ] );
+    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ] );
 
     for ( var i = 1; i < objectTypes.length; i++ ) {
       var projectileObject = objectTypes[ i ];
-      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
+      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
     
     // create view for the dropdown
@@ -127,7 +128,7 @@ define( function( require ) {
       selectedProjectileObjectTypeProperty,
       comboBoxListParent, {
         xMargin: 12,
-        yMargin: 7,
+        yMargin: 8,
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth

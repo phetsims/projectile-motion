@@ -13,6 +13,7 @@ define( function( require ) {
   // modules
   var Checkbox = require( 'SUN/Checkbox' );
   var ComboBox = require( 'SUN/ComboBox' );
+  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
   var HBox = require( 'SCENERY/nodes/HBox' );
   var HStrut = require( 'SCENERY/nodes/HStrut' );
   var inherit = require( 'PHET_CORE/inherit' );
@@ -90,11 +91,11 @@ define( function( require ) {
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     var comboBoxItems = [];
-    comboBoxItems[ 0 ] = ComboBox.createItem( firstItemNode, objectTypes[ 0 ] );
+    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ] );
 
     for ( var i = 1; i < objectTypes.length; i++ ) {
       var projectileObject = objectTypes[ i ];
-      comboBoxItems[ i ] = ComboBox.createItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
+      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
     // create view for dropdown
