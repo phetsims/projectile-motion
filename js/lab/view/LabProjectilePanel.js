@@ -63,7 +63,7 @@ define( function( require ) {
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
-   * @param {Node} comboBoxListParent - node for containing the combobox
+   * @param {Node} comboBoxListParent - node for containing the combo box
    * @param {KeypadLayer} keypadLayer - for entering values
    * @param {LabModel} model
    * @param {Object} [options]
@@ -109,7 +109,7 @@ define( function( require ) {
     var buttonXMargin = 10;
     var comboBoxLineWidth = 1;
 
-    // first item contains horizontal strut that sets width of combobox
+    // first item contains horizontal strut that sets width of combo box
     var firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 

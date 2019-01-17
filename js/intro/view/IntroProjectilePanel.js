@@ -41,7 +41,7 @@ define( function( require ) {
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
    * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
-   * @param {Node} comboBoxListParent - node for containing the combobox
+   * @param {Node} comboBoxListParent - node for containing the combo box
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
@@ -79,7 +79,7 @@ define( function( require ) {
     var buttonXMargin = 10;
     var comboBoxLineWidth = 1;
 
-    // first item contains horizontal strut that sets width of combobox
+    // first item contains horizontal strut that sets width of combo box
     var firstItemNodeWidth = comboBoxWidth -
       itemXMargin -
       0.5 * firstItemNode.height -
