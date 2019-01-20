@@ -448,7 +448,7 @@ define( function( require ) {
 
     // @public for use by screen view
     hideComboBoxList: function() {
-      this.projectileChoiceComboBox.hideListbox();
+      this.projectileChoiceComboBox.hideListBox();
     }
   } );
 } );
