@@ -52,13 +52,17 @@ define( function( require ) {
   };
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {
-    valueAlign: 'center',
-    titleFont: TEXT_FONT,
-    valueFont: TEXT_FONT,
-    majorTickLength: 5,
-    thumbSize: new Dimension2( 13, 22 ),
-    thumbTouchAreaXDilation: 6,
-    thumbTouchAreaYDilation: 4,
+    titleNodeOptions: { font: TEXT_FONT },
+    numberDisplayOptions: {
+      align: 'center',
+      font: TEXT_FONT
+    },
+    sliderOptions: {
+      majorTickLength: 5,
+      thumbSize: new Dimension2( 13, 22 ),
+      thumbTouchAreaXDilation: 6,
+      thumbTouchAreaYDilation: 4
+    },
     arrowButtonOptions: { scale: 0.56 }
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
@@ -81,7 +85,7 @@ define( function( require ) {
 
     // {Property.<ProjectileObjectType>}
     var selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
-    
+
     var projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
     var projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
     var projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}
@@ -121,7 +125,7 @@ define( function( require ) {
       var projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
-    
+
     // create view for the dropdown
     var projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
@@ -137,7 +141,7 @@ define( function( require ) {
 
     // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
-    
+
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.3;
     var textOptions = _.defaults( { cursor: 'pointer', maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
@@ -205,7 +209,7 @@ define( function( require ) {
 
       valueText.addInputListener( new DownUpListener( { // no removeInputListener required
         down: editValue
-      } ) );      
+      } ) );
 
       var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
 
@@ -215,7 +219,7 @@ define( function( require ) {
 
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
-    
+
     // layout function for the number controls
     var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
@@ -237,13 +241,21 @@ define( function( require ) {
     };
 
     var numberControlOptions = _.extend( {
-      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
-      layoutFunction: layoutFunction,
-      valueMaxWidth: textDisplayWidth
+      numberDisplayOptions: null,
+      sliderOptions: null,
+      layoutFunction: layoutFunction
     }, NUMBER_CONTROL_OPTIONS );
 
+    numberControlOptions.numberDisplayOptions = _.extend( {
+      maxWidth: textDisplayWidth
+    }, numberControlOptions.numberDisplayOptions );
+
+    numberControlOptions.sliderOptions = _.extend( {
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 )
+    }, numberControlOptions.sliderOptions );
+
     // readout, slider, and tweakers
-    
+
     // local vars for improving readability and tracking control boxes
     // __Box such as massBox is the parent of the control, and it is a child of Panel
     // __SpecificProjectileTypeBox is a number control for when a benchmark is selected from the dropdown
@@ -263,14 +275,14 @@ define( function( require ) {
     var dragCoefficientCustomBox = null;
     var altitudeCustomBox = null;
     var gravityCustomBox = null;
-    
+
     // update the type of control based on the objectType
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
       if ( objectType.benchmark ) {
         if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
 
           // if there are already custom boxes, remove them
-          
+
           massBox.removeChild( massCustomBox );
           diameterBox.removeChild( diameterCustomBox );
           dragCoefficientBox.removeChild( dragCoefficientCustomBox );
@@ -280,69 +292,103 @@ define( function( require ) {
         if ( massSpecificProjectileTypeBox ) {
 
           // if there are already benchmark boxes, remove them
-          
+
           massSpecificProjectileTypeBox.dispose();
           diameterSpecificProjectileTypeBox.dispose();
           dragCoefficientSpecificProjectileTypeBox.dispose();
           altitudeSpecificProjectileTypeBox.dispose();
           gravitySpecificProjectileTypeBox.dispose();
         }
-        massSpecificProjectileTypeBox = new NumberControl(
-          massString, projectileMassProperty,
-          objectType.massRange, _.extend( {
 
+        var massSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.massRound } );
+        massSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
+          numberControlOptions.numberDisplayOptions, {
             // '{{value}} kg'
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
+            decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) )
+          }
+        );
+        massSpecificTypeBoxOptions.sliderOptions = _.extend( {},
+          numberControlOptions.sliderOptions, {
             constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
             majorTicks: [ {
               value: objectType.massRange.min,
               label: new Text( objectType.massRange.min, LABEL_OPTIONS )
-            }, { value: objectType.massRange.max, label: new Text( objectType.massRange.max, LABEL_OPTIONS ) } ],
-            decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) ),
-            delta: objectType.massRound
-          }, numberControlOptions )
+            }, {
+              value: objectType.massRange.max,
+              label: new Text( objectType.massRange.max, LABEL_OPTIONS )
+            } ]
+          } );
+        massSpecificProjectileTypeBox = new NumberControl(
+          massString, projectileMassProperty,
+          objectType.massRange,
+          massSpecificTypeBoxOptions
         );
-        diameterSpecificProjectileTypeBox = new NumberControl(
-          diameterString, projectileDiameterProperty,
-          objectType.diameterRange, _.extend( {
+
+        var diameterSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.diameterRound } );
+        diameterSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
+          numberControlOptions.numberDisplayOptions, {
 
             // '{{value}} m'
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
+            decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) )
+          }
+        );
+        diameterSpecificTypeBoxOptions.sliderOptions = _.extend( {},
+          numberControlOptions.sliderOptions, {
+          constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
             majorTicks: [ {
               value: objectType.diameterRange.min,
               label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
             }, {
               value: objectType.diameterRange.max,
               label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
-            } ],
-            decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) ),
-            delta: objectType.diameterRound
-          }, numberControlOptions )
+            } ]
+          } );
+
+        diameterSpecificProjectileTypeBox = new NumberControl(
+          diameterString, projectileDiameterProperty,
+          objectType.diameterRange,
+          diameterSpecificTypeBoxOptions
         );
-        gravitySpecificProjectileTypeBox = new NumberControl(
-          gravityString, gravityProperty,
-          ProjectileMotionConstants.GRAVITY_RANGE, _.extend( {
+
+        var gravitySpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
+        gravitySpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
+          numberControlOptions.numberDisplayOptions, {
 
             // '{{value}} m/s^2
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
               units: metersPerSecondSquaredString
             } ),
-            constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
-            decimalPlaces: 2,
-            delta: 0.01
-          }, numberControlOptions )
+            decimalPlaces: 2
+          }
         );
-        altitudeSpecificProjectileTypeBox = new NumberControl(
-          altitudeString, altitudeProperty,
-          ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
+        gravitySpecificTypeBoxOptions.sliderOptions = _.extend( {},
+          numberControlOptions.sliderOptions, {
+            constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; }
+          } );
+        gravitySpecificProjectileTypeBox = new NumberControl(
+          gravityString, gravityProperty,
+          ProjectileMotionConstants.GRAVITY_RANGE,
+          gravitySpecificTypeBoxOptions
+        );
+
+        var altitudeSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
+        altitudeSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
+          numberControlOptions.numberDisplayOptions, {
 
             // '{{value}} m'
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-            constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
-            decimalPlaces: 0,
-            delta: 100
-          }, numberControlOptions )
+            decimalPlaces: 0
+          } );
+        altitudeSpecificTypeBoxOptions.sliderOptions = _.extend( {},
+          numberControlOptions.sliderOptions, {
+            constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; }
+          } );
+        altitudeSpecificProjectileTypeBox = new NumberControl(
+          altitudeString, altitudeProperty,
+          ProjectileMotionConstants.ALTITUDE_RANGE,
+          altitudeSpecificTypeBoxOptions
         );
         dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
         massBox.addChild( massSpecificProjectileTypeBox );

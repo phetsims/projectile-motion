@@ -42,14 +42,18 @@ define( function( require ) {
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var NUMBER_CONTROL_OPTIONS = {
-    valueAlign: 'center',
-    titleFont: TEXT_FONT,
-    valueFont: TEXT_FONT,
-    thumbSize: new Dimension2( 13, 22 ),
-    thumbTouchAreaXDilation: 6,
-    thumbTouchAreaYDilation: 4,
-    arrowButtonOptions: { scale: 0.56 },
-    valueYMargin: 4
+    numberDisplayOptions: {
+      align: 'center',
+      yMargin: 4,
+      font: TEXT_FONT
+    },
+    titleNodeOptions: { font: TEXT_FONT },
+    sliderOptions: {
+      thumbSize: new Dimension2( 13, 22 ),
+      thumbTouchAreaXDilation: 6,
+      thumbTouchAreaYDilation: 4
+    },
+    arrowButtonOptions: { scale: 0.56 }
   };
 
   /**
@@ -73,7 +77,7 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
-    
+
     // local vars used for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
@@ -161,7 +165,7 @@ define( function( require ) {
       selectedObjectTypeProperty.get().massRange,
       selectedObjectTypeProperty.get().massRound
     );
-    
+
     // layout function for altitude NumberControl
     var altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - numberDisplay.width );
@@ -182,10 +186,18 @@ define( function( require ) {
     };
 
     var numberControlOptions = _.extend( {
-      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
-      layoutFunction: altitudeLayoutFunction,
-      valueMaxWidth: textDisplayWidth
+      sliderOptions: null,
+      numberDisplayOptions: null,
+      layoutFunction: altitudeLayoutFunction
     }, NUMBER_CONTROL_OPTIONS );
+
+    numberControlOptions.sliderOptions = _.extend( {
+      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 )
+    }, numberControlOptions.sliderOptions );
+
+    numberControlOptions.numberDisplayOptions = _.extend( {
+      maxWidth: textDisplayWidth
+    }, numberControlOptions.numberDisplayOptions );
 
     // results in '{{value}} m'
     var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -193,14 +205,18 @@ define( function( require ) {
     } );
 
     // create altitude control box
+    var altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
+    altitudeOptions.numberDisplayOptions = _.extend( {}, numberControlOptions.numberDisplayOptions, {
+      valuePattern: valuePattern,
+      decimalPlaces: 0
+    } );
+    altitudeOptions.sliderOptions = _.extend( {}, numberControlOptions.sliderOptions, {
+      constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; }
+    } );
     var altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
-      ProjectileMotionConstants.ALTITUDE_RANGE, _.extend( {
-        valuePattern: valuePattern,
-        constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; },
-        decimalPlaces: 0,
-        delta: 100
-      }, numberControlOptions )
+      ProjectileMotionConstants.ALTITUDE_RANGE,
+      altitudeOptions
     );
 
     var dragObjectDisplay = new Node();
@@ -227,22 +243,27 @@ define( function( require ) {
         ]
       } );
     };
-    
+
     // replace the number control options with the new layout function
     _.extend( numberControlOptions, {
       layoutFunction: dragLayoutFunction
     } );
 
     // create drag coefficient control box
+    var dragCoefficientOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
+    dragCoefficientOptions.numberDisplayOptions = _.extend( {},
+      numberControlOptions.numberDisplayOptions,
+      {
+        constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
+        decimalPlaces: 2
+      }
+    );
     var dragCoefficientBox = new NumberControl(
       dragCoefficientString, projectileDragCoefficientProperty,
-      selectedObjectTypeProperty.get().dragCoefficientRange, _.extend( {
-        constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
-        decimalPlaces: 2,
-        delta: 0.01
-      }, numberControlOptions )
+      selectedObjectTypeProperty.get().dragCoefficientRange,
+      dragCoefficientOptions
     );
-    
+
     // Listen to changes in model drag coefficient and update the little projectile object display
     projectileDragCoefficientProperty.link( function( dragCoefficient ) {
       if ( dragObjectDisplay.children.length > 1 ) {

@@ -147,18 +147,26 @@ define( function( require ) {
     var initialSpeedControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-        valuePattern: valuePattern,
-        valueAlign: 'center',
-        titleFont: TEXT_FONT,
-        valueFont: TEXT_FONT,
-        constrainValue: function( value ) { return Util.roundSymmetric( value ); },
-        trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
-        thumbSize: new Dimension2( 13, 22 ),
-        thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4,
-        arrowButtonOptions: { scale: 0.56 },
-        titleMaxWidth: 120, // empirically determined
-        valueMaxWidth: 80 // empirically determined
+        titleNodeOptions: {
+          font: TEXT_FONT,
+          maxWidth: 120 // empirically determined
+        },
+        numberDisplayOptions: {
+          valuePattern: valuePattern,
+          align: 'center',
+          font: TEXT_FONT,
+          maxWidth: 80 // empirically determined
+        },
+        sliderOptions: {
+          constrainValue: function( value ) { return Util.roundSymmetric( value ); },
+          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
+          thumbSize: new Dimension2( 13, 22 )
+        },
+        arrowButtonOptions: {
+          scale: 0.56,
+          thumbTouchAreaXDilation: 6,
+          thumbTouchAreaYDilation: 4
+        }
       }
     );
 
@@ -442,7 +450,7 @@ define( function( require ) {
 
       // call on backgroundNode's function to lay it out
       this.backgroundNode.layout( offsetX, offsetY, width, height, scale );
-      
+
       // layout controls
       this.topRightPanel.right = width / scale - offsetX - X_MARGIN;
       this.topRightPanel.top = Y_MARGIN - offsetY;
