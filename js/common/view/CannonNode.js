@@ -412,11 +412,11 @@ define( function( require ) {
         var startPointAngle = Vector2.createFromPool(
           startPoint.x - clippedByGroundNode.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
-        ).angle();
+        ).angle;
         var mousePointAngle = Vector2.createFromPool(
           mousePoint.x - clippedByGroundNode.x,
           mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
-        ).angle();
+        ).angle;
         var angleChange = startPointAngle - mousePointAngle; // radians
         var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
