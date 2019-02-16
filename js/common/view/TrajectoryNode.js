@@ -52,8 +52,8 @@ define( function( require ) {
                            transformProperty ) {
     Node.call( this, { pickable: false, preventFit: true } );
 
-    var scratchVector = new Vector2();
-    var scratchVector2 = new Vector2();
+    var scratchVector = new Vector2( 0, 0 );
+    var scratchVector2 = new Vector2( 0, 0 );
 
     var currentPathShape = null;
     var currentPathStroke = null;
