@@ -77,7 +77,7 @@ define( function( require ) {
     var airDensity = this.projectileMotionModel.airDensityProperty.get();
     var gravity = this.projectileMotionModel.gravityProperty.get();
 
-    var dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude() );
+    var dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
 
     var initialPoint = new DataPoint(
       0, // total time elapsed
@@ -166,7 +166,7 @@ define( function( require ) {
         var airDensity = this.projectileMotionModel.airDensityProperty.get();
         var gravity = this.projectileMotionModel.gravityProperty.get();
 
-        var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude() );
+        var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
         
         if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
           var dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
