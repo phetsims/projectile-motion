@@ -64,7 +64,7 @@ define( function( require ) {
              && this.velocity.equals( dataPoint.velocity )
              && this.acceleration.equals( dataPoint.acceleration )
              && this.dragForce.equals( dataPoint.dragForce )
-             && this.forceGravity === this.forceGravity;
+             && this.forceGravity === dataPoint.forceGravity;
     }
   } );
 } );
