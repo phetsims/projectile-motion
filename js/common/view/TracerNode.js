@@ -320,8 +320,13 @@ define( function( require ) {
     // update text readout if information changes
     readoutProperty.link( function( readout ) {
       numberNode.setText( readout );
-      numberNode.right = backgroundNode.right - READOUT_X_MARGIN;
-      numberNode.centerY = backgroundNode.centerY;
+      if ( readout === noValueString ) {
+        numberNode.center = backgroundNode.center;
+      }
+      else {
+        numberNode.right = backgroundNode.right - READOUT_X_MARGIN;
+        numberNode.centerY = backgroundNode.centerY;
+      }
     } );
 
     var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
