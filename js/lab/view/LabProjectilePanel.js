@@ -51,10 +51,12 @@ define( function( require ) {
     stroke: 'black'
   };
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  var READOUT_X_MARGIN = 4;
   var NUMBER_CONTROL_OPTIONS = {
     titleNodeOptions: { font: TEXT_FONT },
     numberDisplayOptions: {
-      align: 'center',
+      align: 'right',
+      xMargin: READOUT_X_MARGIN,
       font: TEXT_FONT
     },
     sliderOptions: {
@@ -66,6 +68,7 @@ define( function( require ) {
     arrowButtonOptions: { scale: 0.56 }
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
+  var GRAVITY_READOUT_X_MARGIN = 6;
 
   /**
    * @param {Node} comboBoxListParent - node for containing the combo box
@@ -74,10 +77,7 @@ define( function( require ) {
    * @param {Object} [options]
    * @constructor
    */
-  function LabProjectilePanel( comboBoxListParent,
-                               keypadLayer,
-                               model,
-                               options ) {
+  function LabProjectilePanel( comboBoxListParent, keypadLayer, model, options ) {
 
     // convenience variables with description comments
 
@@ -143,8 +143,11 @@ define( function( require ) {
     this.projectileChoiceComboBox = projectileChoiceComboBox;
 
     // local vars for layout and formatting
-    var textDisplayWidth = options.textDisplayWidth * 1.3;
-    var textOptions = _.defaults( { cursor: 'pointer', maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    var textDisplayWidth = options.textDisplayWidth * 1.4;
+    var textOptions = _.defaults( {
+      cursor: 'pointer',
+      maxWidth: textDisplayWidth - 2 * options.readoutXMargin
+    }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -180,7 +183,8 @@ define( function( require ) {
           value: value,
           units: unitsString
         } ) : value );
-        valueText.center = backgroundNode.center;
+        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
+        valueText.centerY = backgroundNode.centerY;
       } );
 
       var editValue = function() {
@@ -320,7 +324,8 @@ define( function( require ) {
             } ]
           } );
         massSpecificProjectileTypeBox = new NumberControl(
-          massString, projectileMassProperty,
+          massString,
+          projectileMassProperty,
           objectType.massRange,
           massSpecificTypeBoxOptions
         );
@@ -360,7 +365,9 @@ define( function( require ) {
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
               units: metersPerSecondSquaredString
             } ),
-            decimalPlaces: 2
+            decimalPlaces: 2,
+            xMargin: GRAVITY_READOUT_X_MARGIN,
+            maxWidth: textDisplayWidth + GRAVITY_READOUT_X_MARGIN
           }
         );
         gravitySpecificTypeBoxOptions.sliderOptions = _.extend( {},
@@ -368,7 +375,8 @@ define( function( require ) {
             constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; }
           } );
         gravitySpecificProjectileTypeBox = new NumberControl(
-          gravityString, gravityProperty,
+          gravityString,
+          gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE,
           gravitySpecificTypeBoxOptions
         );
@@ -470,7 +478,7 @@ define( function( require ) {
 
     // The contents of the control panel
     var content = new VBox( {
-      align: 'left',
+      align: 'center',
       spacing: options.controlsVerticalSpace,
       children: [
         projectileChoiceComboBox,

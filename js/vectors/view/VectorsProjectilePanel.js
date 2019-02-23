@@ -40,6 +40,7 @@ define( function( require ) {
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
+  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
   var DRAG_OBJECT_DISPlAY_DIAMETER = 24;
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
@@ -64,12 +65,12 @@ define( function( require ) {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { textDisplayWidth: 45 }, options );
     
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
-    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * READOUT_X_MARGIN }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -105,7 +106,8 @@ define( function( require ) {
           value: Util.toFixedNumber( value, 2 ),
           units: unitsString
         } ) : Util.toFixedNumber( valueProperty.get(), 2 ) );
-        valueText.center = backgroundNode.center;
+        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
+        valueText.centerY = backgroundNode.centerY;
       } );
 
       var slider = new HSlider( valueProperty, range, {

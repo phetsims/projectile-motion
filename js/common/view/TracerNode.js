@@ -73,6 +73,7 @@ define( function( require ) {
 
   var TRACER_CONTENT_WIDTH = 155;
   var RIGHT_SIDE_PADDING = 6;
+  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -319,7 +320,8 @@ define( function( require ) {
     // update text readout if information changes
     readoutProperty.link( function( readout ) {
       numberNode.setText( readout );
-      numberNode.center = backgroundNode.center;
+      numberNode.right = backgroundNode.right - READOUT_X_MARGIN;
+      numberNode.centerY = backgroundNode.centerY;
     } );
 
     var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );

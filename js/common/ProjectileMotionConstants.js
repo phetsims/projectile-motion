@@ -128,8 +128,9 @@ define( function( require ) {
       fill: 'rgb( 255, 238, 218 )',
       lineWidth: 1,
       stroke: 'black',
-      textDisplayWidth: 60,
+      textDisplayWidth: 50,
       textDisplayHeight: 24,
+      readoutXMargin: 5,
       sliderLabelSpacing: 6
     },
 

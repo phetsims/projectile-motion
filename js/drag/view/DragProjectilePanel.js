@@ -41,9 +41,11 @@ define( function( require ) {
   var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
   var NUMBER_CONTROL_OPTIONS = {
     numberDisplayOptions: {
-      align: 'center',
+      align: 'right',
+      xMargin: READOUT_X_MARGIN,
       yMargin: 4,
       font: TEXT_FONT
     },
@@ -93,6 +95,7 @@ define( function( require ) {
      * @returns {VBox}
      */
     function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
+
       // label
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
@@ -117,7 +120,8 @@ define( function( require ) {
           value: Util.toFixedNumber( value, 2 ),
           units: unitsString
         } ) : Util.toFixedNumber( valueProperty.get(), 2 ) );
-        valueText.center = backgroundNode.center;
+        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
+        valueText.centerY = backgroundNode.centerY;
       } );
 
       var slider = new HSlider( valueProperty, range, {
@@ -196,7 +200,7 @@ define( function( require ) {
     }, numberControlOptions.sliderOptions );
 
     numberControlOptions.numberDisplayOptions = _.extend( {
-      maxWidth: textDisplayWidth
+      maxWidth: textDisplayWidth + options.readoutXMargin * 2
     }, numberControlOptions.numberDisplayOptions );
 
     // results in '{{value}} m'
@@ -208,7 +212,8 @@ define( function( require ) {
     var altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
     altitudeOptions.numberDisplayOptions = _.extend( {}, numberControlOptions.numberDisplayOptions, {
       valuePattern: valuePattern,
-      decimalPlaces: 0
+      decimalPlaces: 0,
+      xMargin: 8
     } );
     altitudeOptions.sliderOptions = _.extend( {}, numberControlOptions.sliderOptions, {
       constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; }

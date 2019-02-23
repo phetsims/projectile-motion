@@ -153,7 +153,7 @@ define( function( require ) {
         },
         numberDisplayOptions: {
           valuePattern: valuePattern,
-          align: 'center',
+          align: 'right',
           font: TEXT_FONT,
           maxWidth: 80 // empirically determined
         },
