@@ -17,6 +17,7 @@ define( function( require ) {
   var Property = require( 'AXON/Property' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
+  var Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
   var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
@@ -30,8 +31,8 @@ define( function( require ) {
    */
   function Tracer( trajectories, tracerX, tracerY ) {
 
-    // @public {Property.<Vector2>} position of the tracer
-    this.positionProperty = new Property( new Vector2( tracerX, tracerY ) );
+    // @public - position of the tracer
+    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ) );
 
     // @public {Property.<DataPoint||null>} point that the tracer is displaying information about, or null if no info displayed
     this.dataPointProperty = new Property( null );
