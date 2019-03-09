@@ -34,7 +34,7 @@ define( function( require ) {
     // @public - position of the tracer
     this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ) );
 
-    // @public {Property.<DataPoint||null>} point that the tracer is displaying information about, or null if no info displayed
+    // @public {Property.<DataPoint|null>} point that the tracer is displaying information about, or null if no info displayed
     this.dataPointProperty = new Property( null );
 
     // @public whether the tracer is out in the play area (false when in toolbox)
