@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.6 Fri Mar 08 2019 14:01:17 GMT-0500 (EST)",
+  "comment": "# projectile-motion 1.0.6 Tue Mar 19 2019 17:13:14 GMT-0400 (EDT)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -10,11 +10,11 @@
   },
   "brand": {
     "sha": "0b7722cb133a70a8f8659f3cf29ed8f30e7d443f",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "chipper": {
-    "sha": "c6f57132e01e657a0a3192cc6f24fed4b7086d82",
-    "branch": "HEAD"
+    "sha": "af35ef1b96f7b5d5f64c50851581b55de31c576a",
+    "branch": "projectile-motion-1.0"
   },
   "dot": {
     "sha": "f7d9de8b5650a10126d3f8755a98cf64a0acc93c",
@@ -22,7 +22,7 @@
   },
   "joist": {
     "sha": "50a6c44f3fafa852b243ade31f25c62152ac53f0",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "kite": {
     "sha": "dc5c4382bce034652a4e0bae6c739ba8284b2558",
@@ -36,8 +36,12 @@
     "sha": "f9a8c7ef8e8858db1546b65a40c7efdaf8791920",
     "branch": "HEAD"
   },
+  "phetmarks": {
+    "sha": "d2ceb4af52ddea03fe473ea3d3aec078aca57a42",
+    "branch": "HEAD"
+  },
   "projectile-motion": {
-    "sha": "c31457147f2dc144ed93a26e796e4fdf921c3615",
+    "sha": "c91ab62f537fcd96ccf341f540b37414174e5b31",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -63,9 +67,5 @@
   "tandem": {
     "sha": "74233a040a2985dbb75cfbc7e927674aca1abfed",
     "branch": "HEAD"
-  },
-  "phetmarks": {
-    "branch": "master",
-    "sha": "d2ceb4af52ddea03fe473ea3d3aec078aca57a42"
   }
 }
