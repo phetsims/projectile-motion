@@ -16,6 +16,9 @@
       "phet",
       "adapted-from-phet"
     ],
+    "phetLibs": [
+      "twixt"
+    ],
     "simulation": true
   },
   "eslintConfig": {
