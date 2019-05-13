@@ -52,9 +52,9 @@ define( function( require ) {
     var totalLabel = new Text( totalString, titleOptions );
     var componentsLabel = new Text( componentsString, titleOptions );
 
-    var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( [
-      { node: totalLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'total' },
-      { node: componentsLabel, property: vectorVisibilityProperties.totalOrComponentsProperty, value: 'components' }
+    var totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.totalOrComponentsProperty, [
+      { node: totalLabel, value: 'total' },
+      { node: componentsLabel, value: 'components' }
     ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,
