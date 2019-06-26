@@ -65,7 +65,11 @@ define( function( require ) {
       thumbTouchAreaXDilation: 6,
       thumbTouchAreaYDilation: 4
     },
-    arrowButtonOptions: { scale: 0.56 }
+    arrowButtonOptions: {
+      scale: 0.56,
+      touchAreaXDilation: 20,
+      touchAreaYDilation: 20
+    }
   };
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
   var GRAVITY_READOUT_X_MARGIN = 6;

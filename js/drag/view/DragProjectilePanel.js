@@ -55,7 +55,11 @@ define( function( require ) {
       thumbTouchAreaXDilation: 6,
       thumbTouchAreaYDilation: 4
     },
-    arrowButtonOptions: { scale: 0.56 }
+    arrowButtonOptions: {
+      scale: 0.56,
+      touchAreaXDilation: 20,
+      touchAreaYDilation: 20
+    }
   };
 
   /**
