@@ -164,8 +164,8 @@ define( function( require ) {
         },
         arrowButtonOptions: {
           scale: 0.56,
-          thumbTouchAreaXDilation: 6,
-          thumbTouchAreaYDilation: 4
+          touchAreaXDilation: 20,
+          touchAreaYDilation: 20
         }
       }
     );
