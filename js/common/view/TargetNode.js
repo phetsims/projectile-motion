@@ -15,13 +15,13 @@ define( function( require ) {
   var Easing = require( 'TWIXT/Easing' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
+  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  var Range = require( 'DOT/Range' );
   var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   var StarNode = require( 'SCENERY_PHET/StarNode' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
   var Vector2 = require( 'DOT/Vector2' );
 
@@ -32,12 +32,9 @@ define( function( require ) {
   // constants
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
   var TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
-  var LABEL_OPTIONS = _.defaults( { fill: 'black' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   var REWARD_NODE_INITIAL_Y_OFFSET = -10; // in screen coords
   var REWARD_NODE_Y_MOVEMENT = 70; // in screen coords
   var REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
-  var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
-  var TEXT_DISPLAY_MARGIN = 2;
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
@@ -122,25 +119,29 @@ define( function( require ) {
     target.addInputListener( horizontalDragHandler );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distanceLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      value: Util.toFixed( targetXProperty.get(), 1 ),
-      units: mString
-    } ), LABEL_OPTIONS );
-
-    // white rectangle background for the text
-    var backgroundNode = new Rectangle(
-      0, // x
-      0, // y
-      distanceLabel.width * 1.5, // width, widened
-      distanceLabel.height + 2 * TEXT_DISPLAY_MARGIN, // height
-      _.defaults( { cornerRadius: 1, pickable: true, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
+    var distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
+    var distanceLabel = new NumberDisplay(
+      targetXProperty,
+      new Range(
+        transformProperty.get().viewToModelX( screenView.layoutBounds.minX ),
+        transformProperty.get().viewToModelX( screenView.layoutBounds.maxX )
+      ),
+      _.extend(
+        ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+          numberFill: 'black',
+          valuePattern: distancePattern,
+          xMargin: 10.5,
+          yMargin: 2,
+          decimalPlaces: 1,
+          cursor: 'pointer'
+        }
+      )
     );
 
-    this.addChild( backgroundNode );
     this.addChild( distanceLabel );
 
     // drag text to change horizontal position
-    backgroundNode.addInputListener( horizontalDragHandler );
+    distanceLabel.addInputListener( horizontalDragHandler );
 
     // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
     this.rewardNodes = [];
@@ -204,13 +205,8 @@ define( function( require ) {
     // Observe changes in the model horizontal position and update the view correspondingly
     var updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
-      distanceLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Util.toFixed( targetXProperty.get(), 1 ),
-        units: mString
-      } );
-      backgroundNode.centerX = target.centerX;
-      backgroundNode.top = target.bottom + 2;
-      distanceLabel.center = backgroundNode.center;
+      distanceLabel.centerX = target.centerX;
+      distanceLabel.top = target.bottom + 2;
       self.rewardNodes.forEach( function( rewardNode ) {
         rewardNode.x = target.centerX;
       } );

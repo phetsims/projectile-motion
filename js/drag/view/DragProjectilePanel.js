@@ -17,11 +17,11 @@ define( function( require ) {
   var inherit = require( 'PHET_CORE/inherit' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -38,7 +38,6 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
   var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
@@ -82,8 +81,9 @@ define( function( require ) {
 
     // local vars used for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
-    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
-    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    var parameterLabelOptions = _.defaults( {
+      maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth
+    }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -99,33 +99,20 @@ define( function( require ) {
       // label
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
-      // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Util.toFixedNumber( valueProperty.get(), 2 ),
-        units: unitsString
-      } ) : Util.toFixedNumber( valueProperty.get(), 2 ), textOptions );
-
-      // background for text
-      var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        textDisplayWidth, // width, widened
-        options.textDisplayHeight,
-        TEXT_BACKGROUND_OPTIONS
+      var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
+      var valueLabel = new NumberDisplay(
+        valueProperty,
+        range,
+        _.extend(
+          ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+            valuePattern: valuePattern,
+            decimalPlaces: null
+          }
+        )
       );
 
-      // text node updates if valueProperty changes
-      valueProperty.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Util.toFixedNumber( value, 2 ),
-          units: unitsString
-        } ) : Util.toFixedNumber( valueProperty.get(), 2 ) );
-        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
-        valueText.centerY = backgroundNode.centerY;
-      } );
-
       var slider = new HSlider( valueProperty, range, {
-        constrainValue: function( value ) { return Util.roundSymmetric( value / round ) * round; }, // two decimal place accuracy
+        constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,
         tickLabelSpacing: 2,
@@ -143,12 +130,10 @@ define( function( require ) {
         }
       }
 
-      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
-
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
           slider
         ]
       } );
@@ -212,11 +197,10 @@ define( function( require ) {
     var altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
     altitudeOptions.numberDisplayOptions = _.extend( {}, numberControlOptions.numberDisplayOptions, {
       valuePattern: valuePattern,
-      decimalPlaces: 0,
       xMargin: 8
     } );
     altitudeOptions.sliderOptions = _.extend( {}, numberControlOptions.sliderOptions, {
-      constrainValue: function( value ) { return Util.roundSymmetric( value / 100 ) * 100; }
+      constrainValue: function( value ) { return Util.roundToInterval( value, 100 ); }
     } );
     var altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
@@ -259,7 +243,7 @@ define( function( require ) {
     dragCoefficientOptions.numberDisplayOptions = _.extend( {},
       numberControlOptions.numberDisplayOptions,
       {
-        constrainValue: function( value ) { return Util.roundSymmetric( value * 100 ) / 100; },
+        constrainValue: function( value ) { return Util.roundToInterval( value, 0.01 ); },
         decimalPlaces: 2
       }
     );

@@ -16,12 +16,11 @@ define( function( require ) {
   var HSlider = require( 'SUN/HSlider' );
   var inherit = require( 'PHET_CORE/inherit' );
   var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
+  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   var Panel = require( 'SUN/Panel' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
   var Util = require( 'DOT/Util' );
@@ -39,8 +38,6 @@ define( function( require ) {
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var TEXT_BACKGROUND_OPTIONS = ProjectileMotionConstants.TEXT_BACKGROUND_OPTIONS;
-  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
   var DRAG_OBJECT_DISPlAY_DIAMETER = 24;
   var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
@@ -66,11 +63,10 @@ define( function( require ) {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { textDisplayWidth: 45 }, options );
-    
+
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.2;
     var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
-    var textOptions = _.defaults( { maxWidth: textDisplayWidth - 2 * READOUT_X_MARGIN }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -85,33 +81,20 @@ define( function( require ) {
       // label
       var parameterLabel = new Text( labelString, parameterLabelOptions );
 
-      // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Util.toFixedNumber( valueProperty.get(), 2 ),
-        units: unitsString
-      } ) : Util.toFixedNumber( valueProperty.get(), 2 ), textOptions );
-
-      // background for text
-      var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        textDisplayWidth, // width, widened
-        options.textDisplayHeight,
-        _.defaults( { cornerRadius: 1 }, TEXT_BACKGROUND_OPTIONS )
+      var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
+      var valueLabel = new NumberDisplay(
+        valueProperty,
+        range,
+        _.extend(
+          ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+            valuePattern: valuePattern,
+            decimalPlaces: null
+          }
+        )
       );
 
-      // text node updates if valueProperty value changes
-      valueProperty.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Util.toFixedNumber( value, 2 ),
-          units: unitsString
-        } ) : Util.toFixedNumber( valueProperty.get(), 2 ) );
-        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
-        valueText.centerY = backgroundNode.centerY;
-      } );
-
       var slider = new HSlider( valueProperty, range, {
-        constrainValue: function( value ) { return Util.roundSymmetric( value / round ) * round; }, // two decimal place accuracy
+        constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,
         tickLabelSpacing: 2,
@@ -129,18 +112,16 @@ define( function( require ) {
         }
       }
 
-      var valueNode = new Node( { children: [ backgroundNode, valueText ] } );
-
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } ),
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
           slider
         ]
       } );
 
     }
-    
+
     // drag coefficient object shape view
     var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
     var objectDisplay = new HBox( {
@@ -168,7 +149,7 @@ define( function( require ) {
     );
 
     var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
-    
+
     // air resistance
     var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
@@ -185,7 +166,7 @@ define( function( require ) {
       var opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
-    
+
     // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( function( value ) {
       dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );

@@ -130,7 +130,7 @@ define( function( require ) {
       stroke: 'black',
       textDisplayWidth: 50,
       textDisplayHeight: 24,
-      readoutXMargin: 5,
+      readoutXMargin: 7,
       sliderLabelSpacing: 6
     },
 
@@ -146,7 +146,14 @@ define( function( require ) {
     PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
     PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
 
-    TEXT_BACKGROUND_OPTIONS: { fill: 'white', stroke: 'lightGray' },
+    NUMBER_DISPLAY_OPTIONS: {
+      font: new PhetFont( 14 ),
+      backgroundFill: 'white',
+      backgroundStroke: 'lightGray',
+      cursor: 'pointer',
+      align: 'right',
+      yMargin: 4
+    },
 
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 

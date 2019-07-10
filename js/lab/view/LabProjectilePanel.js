@@ -21,11 +21,11 @@ define( function( require ) {
   var Line = require( 'SCENERY/nodes/Line' );
   var Node = require( 'SCENERY/nodes/Node' );
   var NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   var Panel = require( 'SUN/Panel' );
   var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
   var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
   var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   var Text = require( 'SCENERY/nodes/Text' );
@@ -42,14 +42,12 @@ define( function( require ) {
   var massString = require( 'string!PROJECTILE_MOTION/mass' );
   var metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
   var mString = require( 'string!PROJECTILE_MOTION/m' );
+  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
   var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var TEXT_BACKGROUND_OPTIONS = {
-    fill: 'white',
-    stroke: 'black'
-  };
+  var NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
   var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   var READOUT_X_MARGIN = 4;
   var NUMBER_CONTROL_OPTIONS = {
@@ -57,6 +55,7 @@ define( function( require ) {
     numberDisplayOptions: {
       align: 'right',
       xMargin: READOUT_X_MARGIN,
+      yMargin: 4,
       font: TEXT_FONT
     },
     sliderOptions: {
@@ -144,10 +143,15 @@ define( function( require ) {
 
     // local vars for layout and formatting
     var textDisplayWidth = options.textDisplayWidth * 1.4;
-    var textOptions = _.defaults( {
+    var valueLabelOptions = _.defaults( {
       cursor: 'pointer',
-      maxWidth: textDisplayWidth - 2 * options.readoutXMargin
-    }, LABEL_OPTIONS );
+      backgroundStroke: 'black',
+      decimalPlaces: null,
+      cornerRadius: 4,
+      xMargin: 4,
+      minBackgroundWidth: textDisplayWidth,
+      numberMaxWidth: textDisplayWidth - 2 * options.readoutXMargin
+    }, NUMBER_DISPLAY_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -163,34 +167,22 @@ define( function( require ) {
       var parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valueText = new Text( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: valueProperty.get(),
+      var valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         units: unitsString
-      } ) : valueProperty.get(), textOptions );
-
-      // background for text
-      var backgroundNode = new Rectangle(
-        0, // x
-        0, // y
-        textDisplayWidth,
-        options.textDisplayHeight,
-        _.defaults( { cornerRadius: 4, cursor: 'pointer' }, TEXT_BACKGROUND_OPTIONS )
-      );
-
-      // text node updates if valueProperty value changes
-      valueProperty.link( function( value ) {
-        valueText.setText( unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: value,
-          units: unitsString
-        } ) : value );
-        valueText.right = backgroundNode.right - READOUT_X_MARGIN;
-        valueText.centerY = backgroundNode.centerY;
+      } ) : StringUtils.fillIn( pattern0Value1UnitsString, {
+        units: ''
       } );
+
+      var valueLabel = new NumberDisplay(
+        valueProperty,
+        range,
+        _.extend( valueLabelOptions, { valuePattern: valuePattern } )
+      );
 
       var editValue = function() {
         keypadLayer.beginEdit( valueProperty, range, unitsString, {
-          onBeginEdit: function() { backgroundNode.fill = PhetColorScheme.BUTTON_YELLOW; },
-          onEndEdit: function() { backgroundNode.fill = 'white'; }
+          onBeginEdit: function() { valueLabel.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
+          onEndEdit: function() { valueLabel.backgroundFill = 'white'; }
         } );
       };
 
@@ -199,23 +191,18 @@ define( function( require ) {
       var editButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20,
-        centerY: backgroundNode.centerY,
-        left: backgroundNode.right + options.xMargin,
+        centerY: valueLabel.centerY,
+        left: valueLabel.right + options.xMargin,
         content: pencilIcon,
         baseColor: PhetColorScheme.BUTTON_YELLOW,
         listener: editValue
       } );
 
-      // include readout to open keypad
-      backgroundNode.addInputListener( new DownUpListener( { // no removeInputListener required
+      valueLabel.addInputListener( new DownUpListener( { // no removeInputListener required
         down: editValue
       } ) );
 
-      valueText.addInputListener( new DownUpListener( { // no removeInputListener required
-        down: editValue
-      } ) );
-
-      var valueNode = new Node( { children: [ backgroundNode, valueText, editButton ] } );
+      var valueNode = new Node( { children: [ valueLabel, editButton ] } );
 
       parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
 
@@ -341,7 +328,7 @@ define( function( require ) {
         );
         diameterSpecificTypeBoxOptions.sliderOptions = _.extend( {},
           numberControlOptions.sliderOptions, {
-          constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
+            constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound; },
             majorTicks: [ {
               value: objectType.diameterRange.min,
               label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
