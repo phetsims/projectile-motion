@@ -186,7 +186,6 @@ define( function( require ) {
         modelViewTransform: transformProperty.get(),
         basePositionProperty: model.measuringTape.basePositionProperty,
         tipPositionProperty: model.measuringTape.tipPositionProperty,
-        isTipDragBounded: true,
         textColor: 'black',
         textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
         significantFigures: 2,
