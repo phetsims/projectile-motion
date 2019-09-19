@@ -5,45 +5,45 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var ComboBox = require( 'SUN/ComboBox' );
-  var ComboBoxItem = require( 'SUN/ComboBoxItem' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
-  var FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const ComboBox = require( 'SUN/ComboBox' );
+  const ComboBoxItem = require( 'SUN/ComboBoxItem' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
-  var altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
-  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
-  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
-  var gravityString = require( 'string!PROJECTILE_MOTION/gravity' );
-  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
-  var massString = require( 'string!PROJECTILE_MOTION/mass' );
-  var metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  const airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  const altitudeString = require( 'string!PROJECTILE_MOTION/altitude' );
+  const diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  const dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  const gravityString = require( 'string!PROJECTILE_MOTION/gravity' );
+  const kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  const massString = require( 'string!PROJECTILE_MOTION/mass' );
+  const metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
+  const mString = require( 'string!PROJECTILE_MOTION/m' );
+  const pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
+  const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

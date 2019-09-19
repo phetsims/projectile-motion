@@ -5,25 +5,25 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var BooleanProperty = require( 'AXON/BooleanProperty' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Emitter = require( 'AXON/Emitter' );
-  var EventTimer = require( 'PHET_CORE/EventTimer' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var ObservableArray = require( 'AXON/ObservableArray' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
-  var Property = require( 'AXON/Property' );
-  var Score = require( 'PROJECTILE_MOTION/common/model/Score' );
-  var Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
-  var Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Emitter = require( 'AXON/Emitter' );
+  const EventTimer = require( 'PHET_CORE/EventTimer' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const ObservableArray = require( 'AXON/ObservableArray' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
+  const Property = require( 'AXON/Property' );
+  const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
+  const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // constants
   var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms

@@ -5,32 +5,32 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var Matrix3 = require( 'DOT/Matrix3' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Path = require( 'SCENERY/nodes/Path' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Shape = require( 'KITE/Shape' );
-  var Util = require( 'DOT/Util' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const Matrix3 = require( 'DOT/Matrix3' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Path = require( 'SCENERY/nodes/Path' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const Shape = require( 'KITE/Shape' );
+  const Util = require( 'DOT/Util' );
 
   // image
-  var baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
-  var car1Image = require( 'image!PROJECTILE_MOTION/car_1.png' );
-  var car2Image = require( 'image!PROJECTILE_MOTION/car_2.png' );
-  var footballImage = require( 'image!PROJECTILE_MOTION/football.png' );
-  var human1Image = require( 'image!PROJECTILE_MOTION/human_1.png' );
-  var human2Image = require( 'image!PROJECTILE_MOTION/human_2.png' );
-  var piano1Image = require( 'image!PROJECTILE_MOTION/piano_1.png' );
-  var piano2Image = require( 'image!PROJECTILE_MOTION/piano_2.png' );
-  var pumpkin1Image = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
-  var pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
-  var tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
+  const baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
+  const car1Image = require( 'image!PROJECTILE_MOTION/car_1.png' );
+  const car2Image = require( 'image!PROJECTILE_MOTION/car_2.png' );
+  const footballImage = require( 'image!PROJECTILE_MOTION/football.png' );
+  const human1Image = require( 'image!PROJECTILE_MOTION/human_1.png' );
+  const human2Image = require( 'image!PROJECTILE_MOTION/human_2.png' );
+  const piano1Image = require( 'image!PROJECTILE_MOTION/piano_1.png' );
+  const piano2Image = require( 'image!PROJECTILE_MOTION/piano_2.png' );
+  const pumpkin1Image = require( 'image!PROJECTILE_MOTION/pumpkin_1.png' );
+  const pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
+  const tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
 
   var ProjectileObjectViewFactory = {
 

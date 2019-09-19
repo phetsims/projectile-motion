@@ -5,24 +5,24 @@
  *
  * @author Andrea Lin(PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var accelerationVectorsString = require( 'string!PROJECTILE_MOTION/accelerationVectors' );
-  var componentsString = require( 'string!PROJECTILE_MOTION/components' );
-  var totalString = require( 'string!PROJECTILE_MOTION/total' );
-  var velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
+  const accelerationVectorsString = require( 'string!PROJECTILE_MOTION/accelerationVectors' );
+  const componentsString = require( 'string!PROJECTILE_MOTION/components' );
+  const totalString = require( 'string!PROJECTILE_MOTION/total' );
+  const velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;

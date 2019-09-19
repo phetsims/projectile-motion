@@ -5,58 +5,58 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var AquaRadioButton = require( 'SUN/AquaRadioButton' );
-  var BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
-  var Bounds2 = require( 'DOT/Bounds2' );
-  var CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
-  var DerivedProperty = require( 'AXON/DerivedProperty' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
-  var FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
-  var ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  var NumberProperty = require( 'AXON/NumberProperty' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetFont = require( 'SCENERY_PHET/PhetFont' );
-  var platform = require( 'PHET_CORE/platform' );
-  var PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Property = require( 'AXON/Property' );
-  var ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var Shape = require( 'KITE/Shape' );
-  var StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
-  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
-  var TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
-  var Vector2 = require( 'DOT/Vector2' );
-  var ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
+  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
+  const BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
+  const Bounds2 = require( 'DOT/Bounds2' );
+  const CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
+  const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const EraserButton = require( 'SCENERY_PHET/buttons/EraserButton' );
+  const FireButton = require( 'PROJECTILE_MOTION/common/view/FireButton' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
+  const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberControl = require( 'SCENERY_PHET/NumberControl' );
+  const NumberProperty = require( 'AXON/NumberProperty' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetFont = require( 'SCENERY_PHET/PhetFont' );
+  const platform = require( 'PHET_CORE/platform' );
+  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const Property = require( 'AXON/Property' );
+  const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const Shape = require( 'KITE/Shape' );
+  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
+  const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+  const TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
+  const Vector2 = require( 'DOT/Vector2' );
+  const ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
   // images
-  var davidImage = require( 'image!PROJECTILE_MOTION/david.png' );
+  const davidImage = require( 'image!PROJECTILE_MOTION/david.png' );
 
   // strings
-  var initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
-  var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
-  var metersString = require( 'string!PROJECTILE_MOTION/meters' );
-  var normalString = require( 'string!PROJECTILE_MOTION/normal' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var Range = require( 'DOT/Range' );
-  var slowString = require( 'string!PROJECTILE_MOTION/slow' );
+  const initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
+  const metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+  const metersString = require( 'string!PROJECTILE_MOTION/meters' );
+  const normalString = require( 'string!PROJECTILE_MOTION/normal' );
+  const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  const Range = require( 'DOT/Range' );
+  const slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
   var DEFAULT_SCALE = 30;

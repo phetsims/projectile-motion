@@ -5,19 +5,19 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DragScreen = require( 'PROJECTILE_MOTION/drag/DragScreen' );
-  var IntroScreen = require( 'PROJECTILE_MOTION/intro/IntroScreen' );
-  var LabScreen = require( 'PROJECTILE_MOTION/lab/LabScreen' );
-  var Sim = require( 'JOIST/Sim' );
-  var SimLauncher = require( 'JOIST/SimLauncher' );
-  var VectorsScreen = require( 'PROJECTILE_MOTION/vectors/VectorsScreen' );
+  const DragScreen = require( 'PROJECTILE_MOTION/drag/DragScreen' );
+  const IntroScreen = require( 'PROJECTILE_MOTION/intro/IntroScreen' );
+  const LabScreen = require( 'PROJECTILE_MOTION/lab/LabScreen' );
+  const Sim = require( 'JOIST/Sim' );
+  const SimLauncher = require( 'JOIST/SimLauncher' );
+  const VectorsScreen = require( 'PROJECTILE_MOTION/vectors/VectorsScreen' );
 
   // strings
-  var projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
+  const projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
   var simOptions = {
     credits: {

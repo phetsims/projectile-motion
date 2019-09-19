@@ -6,28 +6,28 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Animation = require( 'TWIXT/Animation' );
-  var Circle = require( 'SCENERY/nodes/Circle' );
-  var Easing = require( 'TWIXT/Easing' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Range = require( 'DOT/Range' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var StarNode = require( 'SCENERY_PHET/StarNode' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Util = require( 'DOT/Util' );
-  var Vector2 = require( 'DOT/Vector2' );
+  const Animation = require( 'TWIXT/Animation' );
+  const Circle = require( 'SCENERY/nodes/Circle' );
+  const Easing = require( 'TWIXT/Easing' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const Range = require( 'DOT/Range' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const StarNode = require( 'SCENERY_PHET/StarNode' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Util = require( 'DOT/Util' );
+  const Vector2 = require( 'DOT/Vector2' );
 
   // strings
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  const mString = require( 'string!PROJECTILE_MOTION/m' );
+  const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;

@@ -6,19 +6,19 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
-  var Panel = require( 'SUN/Panel' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ScreenView = require( 'JOIST/ScreenView' );
-  var SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
-  var TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
+  const Panel = require( 'SUN/Panel' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ScreenView = require( 'JOIST/ScreenView' );
+  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   /**
    * Toolbox constructor
    * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape

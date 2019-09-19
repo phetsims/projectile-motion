@@ -6,27 +6,27 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
-  var Range = require( 'DOT/Range' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  const Range = require( 'DOT/Range' );
 
   // strings
-  var baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
-  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
-  var carString = require( 'string!PROJECTILE_MOTION/car' );
-  var customString = require( 'string!PROJECTILE_MOTION/custom' );
-  var footballString = require( 'string!PROJECTILE_MOTION/football' );
-  var golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
-  var humanString = require( 'string!PROJECTILE_MOTION/human' );
-  var pianoString = require( 'string!PROJECTILE_MOTION/piano' );
-  var pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
-  var tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
+  const baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
+  const cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
+  const carString = require( 'string!PROJECTILE_MOTION/car' );
+  const customString = require( 'string!PROJECTILE_MOTION/custom' );
+  const footballString = require( 'string!PROJECTILE_MOTION/football' );
+  const golfBallString = require( 'string!PROJECTILE_MOTION/golfBall' );
+  const humanString = require( 'string!PROJECTILE_MOTION/human' );
+  const pianoString = require( 'string!PROJECTILE_MOTION/piano' );
+  const pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
+  const tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
 
   /**
    * @param {string || null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name

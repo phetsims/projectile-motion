@@ -4,18 +4,18 @@
  * ScreenView for the 'Lab' screen
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
-  var KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
-  var LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  var VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
+  const KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
+  const LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+  const VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   // constants
   var X_MARGIN = 10;

@@ -6,29 +6,29 @@
  * @author Chris Malley (PixelZoom, Inc.)
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DownUpListener = require( 'SCENERY/input/DownUpListener' );
-  var inherit = require( 'PHET_CORE/inherit' );
+  const DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  const inherit = require( 'PHET_CORE/inherit' );
   var Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
-  var Node = require( 'SCENERY/nodes/Node' );
-  var Panel = require( 'SUN/Panel' );
-  var PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  var Plane = require( 'SCENERY/nodes/Plane' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Node = require( 'SCENERY/nodes/Node' );
+  const Panel = require( 'SUN/Panel' );
+  const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  const Plane = require( 'SCENERY/nodes/Plane' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var enterString = require( 'string!PROJECTILE_MOTION/enter' );
-  var rangeMessageString = require( 'string!PROJECTILE_MOTION/rangeMessage' );
+  const enterString = require( 'string!PROJECTILE_MOTION/enter' );
+  const rangeMessageString = require( 'string!PROJECTILE_MOTION/rangeMessage' );
 
   // constants
   var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;

@@ -5,30 +5,30 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var HStrut = require( 'SCENERY/nodes/HStrut' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Panel = require( 'SUN/Panel' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Panel = require( 'SUN/Panel' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  var degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
-  var heightString = require( 'string!PROJECTILE_MOTION/height' );
-  var initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
-  var metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-  var speedString = require( 'string!PROJECTILE_MOTION/speed' );
+  const angleString = require( 'string!PROJECTILE_MOTION/angle' );
+  const degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
+  const heightString = require( 'string!PROJECTILE_MOTION/height' );
+  const initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
+  const metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
+  const mString = require( 'string!PROJECTILE_MOTION/m' );
+  const pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
+  const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  const speedString = require( 'string!PROJECTILE_MOTION/speed' );
 
   // constants
   var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;

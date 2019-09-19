@@ -5,20 +5,20 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var inherit = require( 'PHET_CORE/inherit' );
-  var IntroIconNode = require( 'PROJECTILE_MOTION/intro/view/IntroIconNode' );
-  var IntroModel = require( 'PROJECTILE_MOTION/intro/model/IntroModel' );
-  var IntroScreenView = require( 'PROJECTILE_MOTION/intro/view/IntroScreenView' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const IntroIconNode = require( 'PROJECTILE_MOTION/intro/view/IntroIconNode' );
+  const IntroModel = require( 'PROJECTILE_MOTION/intro/model/IntroModel' );
+  const IntroScreenView = require( 'PROJECTILE_MOTION/intro/view/IntroScreenView' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );
+  const screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );
 
   /**
    * @constructor

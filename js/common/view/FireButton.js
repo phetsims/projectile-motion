@@ -5,17 +5,17 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Image = require( 'SCENERY/nodes/Image' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
+  const Image = require( 'SCENERY/nodes/Image' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
   // images
-  var fireImage = require( 'mipmap!PROJECTILE_MOTION/fire_button.png' );
+  const fireImage = require( 'mipmap!PROJECTILE_MOTION/fire_button.png' );
 
   /**
    * @param {Object} [options]

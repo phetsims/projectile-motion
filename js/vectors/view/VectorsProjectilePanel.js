@@ -6,35 +6,35 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var Checkbox = require( 'SUN/Checkbox' );
-  var Dimension2 = require( 'DOT/Dimension2' );
-  var HBox = require( 'SCENERY/nodes/HBox' );
-  var HSlider = require( 'SUN/HSlider' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var Line = require( 'SCENERY/nodes/Line' );
-  var NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
-  var Panel = require( 'SUN/Panel' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  var ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
-  var StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  var Text = require( 'SCENERY/nodes/Text' );
-  var Util = require( 'DOT/Util' );
-  var VBox = require( 'SCENERY/nodes/VBox' );
+  const Checkbox = require( 'SUN/Checkbox' );
+  const Dimension2 = require( 'DOT/Dimension2' );
+  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HSlider = require( 'SUN/HSlider' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const Line = require( 'SCENERY/nodes/Line' );
+  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
+  const Panel = require( 'SUN/Panel' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Text = require( 'SCENERY/nodes/Text' );
+  const Util = require( 'DOT/Util' );
+  const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  var airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
-  var cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
-  var diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
-  var dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
-  var kgString = require( 'string!PROJECTILE_MOTION/kg' );
-  var massString = require( 'string!PROJECTILE_MOTION/mass' );
-  var mString = require( 'string!PROJECTILE_MOTION/m' );
-  var pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
+  const airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
+  const cannonballString = require( 'string!PROJECTILE_MOTION/cannonball' );
+  const diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
+  const dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
+  const kgString = require( 'string!PROJECTILE_MOTION/kg' );
+  const massString = require( 'string!PROJECTILE_MOTION/mass' );
+  const mString = require( 'string!PROJECTILE_MOTION/m' );
+  const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

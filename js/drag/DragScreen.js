@@ -5,20 +5,20 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( function( require ) {
+define( require => {
   'use strict';
 
   // modules
-  var DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
-  var DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
-  var DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
-  var inherit = require( 'PHET_CORE/inherit' );
-  var projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  var Property = require( 'AXON/Property' );
-  var Screen = require( 'JOIST/Screen' );
+  const DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
+  const DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
+  const DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
+  const inherit = require( 'PHET_CORE/inherit' );
+  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const Property = require( 'AXON/Property' );
+  const Screen = require( 'JOIST/Screen' );
 
   // strings
-  var screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );
+  const screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );
 
   /**
    * @constructor
