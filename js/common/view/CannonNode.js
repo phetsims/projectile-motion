@@ -43,19 +43,19 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var CANNON_LENGTH = 4;
-  var ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
-  var ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
-  var ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
-  var HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  var HEIGHT_LEADER_LINE_POSITION = -2.6;
-  var CROSSHAIR_LENGTH = 120;
-  var LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
-  var BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
-  var DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
-  var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
-  var ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
-  var CUEING_ARROW_OPTIONS = {
+  const CANNON_LENGTH = 4;
+  const ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
+  const ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
+  const ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
+  const HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
+  const HEIGHT_LEADER_LINE_POSITION = -2.6;
+  const CROSSHAIR_LENGTH = 120;
+  const LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
+  const BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
+  const DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
+  const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
+  const ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
+  const CUEING_ARROW_OPTIONS = {
     fill: 'rgb( 100, 200, 255 )',
     stroke: 'black',
     lineWidth: 1,
@@ -64,10 +64,10 @@ define( require => {
     headHeight: 6,
     cursor: 'pointer'
   };
-  var MUZZLE_FLASH_SCALE = 2;
-  var MUZZLE_FLASH_OPACITY_DELTA = 0.04;
-  var MUZZLE_FLASH_DURATION_OF_FRAMES = 16;
-  var MUZZLE_FLASH_START = 1 - MUZZLE_FLASH_DURATION_OF_FRAMES * MUZZLE_FLASH_OPACITY_DELTA;
+  const MUZZLE_FLASH_SCALE = 2;
+  const MUZZLE_FLASH_OPACITY_DELTA = 0.04;
+  const MUZZLE_FLASH_DURATION_OF_FRAMES = 16;
+  const MUZZLE_FLASH_START = 1 - MUZZLE_FLASH_DURATION_OF_FRAMES * MUZZLE_FLASH_OPACITY_DELTA;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -79,7 +79,7 @@ define( require => {
    * @constructor
    */
   function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       renderer: platform.mobileSafari ? 'canvas' : null
@@ -88,21 +88,21 @@ define( require => {
     Node.call( this, options );
 
     // the cannon, muzzle flash, and pedestal are not visible under ground
-    var clippedByGroundNode = new Node( {
+    const clippedByGroundNode = new Node( {
       x: transformProperty.get().modelToViewX( 0 ),
       y: transformProperty.get().modelToViewY( 0 ),
       cursor: 'pointer'
     } );
 
     // shape used for ground circle and top of pedestal
-    var ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
+    const ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
 
     // ground circle, which shows the "inside" of the circular hole that the cannon is sitting in
-    var groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
+    const groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
       .addColorStop( 0.0, 'gray' )
       .addColorStop( 0.3, 'white' )
       .addColorStop( 1, 'gray' );
-    var groundCircle = new Path( ellipseShape, {
+    const groundCircle = new Path( ellipseShape, {
       x: clippedByGroundNode.x,
       y: transformProperty.get().modelToViewY( 0 ),
       fill: groundFill,
@@ -110,42 +110,42 @@ define( require => {
     } );
 
     // side of the cylinder
-    var sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
+    const sideFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
       .addColorStop( 0.0, DARK_GRAY_COLOR )
       .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
       .addColorStop( 1, DARK_GRAY_COLOR );
-    var cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
+    const cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
     clippedByGroundNode.addChild( cylinderSide );
 
     // top of the cylinder
-    var cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
+    const cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
     clippedByGroundNode.addChild( cylinderTop );
 
     // cannon
 
-    var cannonBarrel = new Node();
+    const cannonBarrel = new Node();
     clippedByGroundNode.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
-    var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
-    var cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
+    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
+    const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
 
-    var cannonBase = new Node();
+    const cannonBase = new Node();
     clippedByGroundNode.addChild( cannonBase );
 
-    var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
-    var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
+    const cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
     // scale everything according to the length of the cannon barrel
     clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
 
     // add dashed line for indicating the height
-    var heightLeaderLine = new Line(
+    const heightLeaderLine = new Line(
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
       transformProperty.get().modelToViewY( 0 ),
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
@@ -156,7 +156,7 @@ define( require => {
     );
     
     // added arrows for indicating height
-    var heightLeaderArrows = new ArrowNode(
+    const heightLeaderArrows = new ArrowNode(
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
       transformProperty.get().modelToViewY( 0 ),
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
@@ -172,12 +172,12 @@ define( require => {
 
     // draw the line caps for the height leader line
 
-    var heightLeaderLineTopCap = new Line( -6, 0, 6, 0, {
+    const heightLeaderLineTopCap = new Line( -6, 0, 6, 0, {
       stroke: 'black',
       lineWidth: 2
     } );
 
-    var heightLeaderLineBottomCap = new Line( -6, 0, 6, 0, {
+    const heightLeaderLineBottomCap = new Line( -6, 0, 6, 0, {
       stroke: 'black',
       lineWidth: 2
     } );
@@ -185,13 +185,13 @@ define( require => {
     heightLeaderLineBottomCap.y = transformProperty.get().modelToViewY( 0 );
 
     // height readout
-    var heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
-    var heightLabelOptions = _.extend( {
+    const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
+    const heightLabelOptions = _.extend( {
       pickable: true,
       cursor: 'pointer',
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
-    var heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+    const heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       value: Util.toFixedNumber( heightProperty.get(), 2 ),
       units: mString
     } ), heightLabelOptions );
@@ -200,9 +200,9 @@ define( require => {
     heightLabel.centerX = heightLeaderArrows.tipX;
 
     // cueing arrow for dragging height
-    var heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
-    var heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
-    var heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
+    const heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
+    const heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
+    const heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
     heightCueingArrows.centerX = heightLeaderArrows.tipX;
 
     // @private for use in inherit methods
@@ -213,36 +213,36 @@ define( require => {
     heightCueingArrows.visible = this.isIntroScreen;
 
     // angle indicator
-    var angleIndicator = new Node();
+    const angleIndicator = new Node();
     angleIndicator.x = clippedByGroundNode.x;
 
     // crosshair view
-    var crosshairShape = new Shape()
+    const crosshairShape = new Shape()
       .moveTo( -CROSSHAIR_LENGTH / 4, 0 )
       .lineTo( CROSSHAIR_LENGTH, 0 )
       .moveTo( 0, -CROSSHAIR_LENGTH )
       .lineTo( 0, CROSSHAIR_LENGTH );
 
-    var crosshair = new Path( crosshairShape, { stroke: 'gray' } );
+    const crosshair = new Path( crosshairShape, { stroke: 'gray' } );
     angleIndicator.addChild( crosshair );
 
-    var darkerCrosshairShape = new Shape()
+    const darkerCrosshairShape = new Shape()
       .moveTo( -CROSSHAIR_LENGTH / 15, 0 )
       .lineTo( CROSSHAIR_LENGTH / 15, 0 )
       .moveTo( 0, -CROSSHAIR_LENGTH / 15 )
       .lineTo( 0, CROSSHAIR_LENGTH / 15 );
 
-    var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
+    const darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
     angleIndicator.addChild( darkerCrosshair );
 
     // view for the angle arc
-    var angleArc = new Path( null, { stroke: 'gray' } );
+    const angleArc = new Path( null, { stroke: 'gray' } );
     angleIndicator.addChild( angleArc );
 
     // angle readout
-    var angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
+    const angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     angleIndicator.addChild( angleLabelBackground );
-    var angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
+    const angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
       value: Util.toFixedNumber( angleProperty.get(), 2 ),
       units: degreesSymbolString
     } ), LABEL_OPTIONS );
@@ -253,25 +253,25 @@ define( require => {
     // muzzle flash
 
     // the flames are the shape of tear drops
-    var tearDropShapeStrength = 3;
-    var flameShape = new Shape();
-    var radius = 100; // in view coordinates
+    const tearDropShapeStrength = 3;
+    const flameShape = new Shape();
+    const radius = 100; // in view coordinates
     flameShape.moveTo( -radius, 0 );
-    var t;
+    let t;
     for ( t = Math.PI / 24; t < 2 * Math.PI; t += Math.PI / 24 ) {
-      var x = Math.cos( t ) * radius;
-      var y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), tearDropShapeStrength ) * radius;
+      const x = Math.cos( t ) * radius;
+      const y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), tearDropShapeStrength ) * radius;
       flameShape.lineTo( x, y );
     }
     flameShape.lineTo( -radius, 0 );
 
     // create paths based on shape
-    var outerFlame = new Path( flameShape, { fill: 'rgb( 255, 255, 0 )', stroke: null } );
-    var innerFlame = new Path( flameShape, { fill: 'rgb( 255, 200, 0 )', stroke: null } );
+    const outerFlame = new Path( flameShape, { fill: 'rgb( 255, 255, 0 )', stroke: null } );
+    const innerFlame = new Path( flameShape, { fill: 'rgb( 255, 200, 0 )', stroke: null } );
     innerFlame.setScaleMagnitude( 0.7 );
     outerFlame.left = 0;
     innerFlame.left = 0;
-    var muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
+    const muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
     cannonBarrel.addChild( muzzleFlash );
 
     this.muzzleFlashStage = 1; // 0 means animation starting, 1 means animation ended.
@@ -307,7 +307,7 @@ define( require => {
     // Observe changes in model angle and update the cannon view
     angleProperty.link( function( angle ) {
       cannonBarrel.setRotation( -angle * Math.PI / 180 );
-      var arcShape = angle > 0
+      const arcShape = angle > 0
         ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
         : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
@@ -321,18 +321,18 @@ define( require => {
     } );
 
     // starts at 1, but is updated by modelViewTransform.
-    var scaleMagnitude = 1;
+    let scaleMagnitude = 1;
 
     // Function to transform everything to the right height
-    var updateHeight = function( height ) {
-      var viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
-      var heightInClipCoordinates = clippedByGroundNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
+    const updateHeight = function( height ) {
+      const viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
+      const heightInClipCoordinates = clippedByGroundNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
       viewHeightPoint.freeToPool();
       cannonBarrel.y = heightInClipCoordinates;
       cannonBase.y = heightInClipCoordinates;
       cylinderTop.y = cannonBase.bottom - ELLIPSE_HEIGHT / 4;
 
-      var sideShape = new Shape();
+      const sideShape = new Shape();
       sideShape.moveTo( -ELLIPSE_WIDTH / 2, 0 )
         .lineTo( -ELLIPSE_WIDTH / 2, cylinderTop.y )
         .ellipticalArc( 0, cylinderTop.y, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, Math.PI, 0, true )
@@ -341,7 +341,7 @@ define( require => {
         .close();
       cylinderSide.setShape( sideShape );
 
-      var clipArea = new Shape();
+      const clipArea = new Shape();
       clipArea.moveTo( -ELLIPSE_WIDTH / 2, 0 )
         .lineTo( -ELLIPSE_WIDTH / 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
         .lineTo( ELLIPSE_WIDTH * 2, -ELLIPSE_WIDTH * 50 ) // high enough to include how high the cannon could be
@@ -393,10 +393,10 @@ define( require => {
     // Links in CannonNode last for the lifetime of the sim, so they don't need to be disposed
 
     // @private variables used for drag handlers
-    var startPoint;
-    var startAngle;
-    var mousePoint;
-    var startHeight;
+    let startPoint;
+    let startAngle;
+    let mousePoint;
+    let startHeight;
 
     // drag the tip of the cannon to change angle
     cannonBarrelTop.addInputListener( new SimpleDragHandler( {
@@ -409,24 +409,24 @@ define( require => {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        var startPointAngle = Vector2.createFromPool(
+        const startPointAngle = Vector2.createFromPool(
           startPoint.x - clippedByGroundNode.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
-        var mousePointAngle = Vector2.createFromPool(
+        const mousePointAngle = Vector2.createFromPool(
           mousePoint.x - clippedByGroundNode.x,
           mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
-        var angleChange = startPointAngle - mousePointAngle; // radians
-        var angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
+        const angleChange = startPointAngle - mousePointAngle; // radians
+        const angleChangeInDegrees = angleChange * 180 / Math.PI; // degrees
 
-        var unboundedNewAngle = startAngle + angleChangeInDegrees;
+        const unboundedNewAngle = startAngle + angleChangeInDegrees;
 
-        var angleRange = heightProperty.get() < 4 ? new Range( ANGLE_RANGE_MINS[ heightProperty.get() ], 90 ) : ANGLE_RANGE;
+        const angleRange = heightProperty.get() < 4 ? new Range( ANGLE_RANGE_MINS[ heightProperty.get() ], 90 ) : ANGLE_RANGE;
 
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
-          var delta = options.preciseCannonDelta ? 1 : 5;
+          const delta = options.preciseCannonDelta ? 1 : 5;
           angleProperty.set( Util.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
         // the current, unchanged, angle is closer to max than min
@@ -445,7 +445,7 @@ define( require => {
     } ) );
 
     // drag handler for controlling the height
-    var heightDragHandler = new SimpleDragHandler( {
+    const heightDragHandler = new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
@@ -453,9 +453,9 @@ define( require => {
 
       drag: function( event ) {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
-        var heightChange = mousePoint.y - startPoint.y;
+        const heightChange = mousePoint.y - startPoint.y;
 
-        var unboundedNewHeight = transformProperty.get().viewToModelY( startHeight + heightChange );
+        const unboundedNewHeight = transformProperty.get().viewToModelY( startHeight + heightChange );
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {

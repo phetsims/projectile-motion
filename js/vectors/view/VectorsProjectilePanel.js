@@ -37,10 +37,10 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
-  var DRAG_OBJECT_DISPlAY_DIAMETER = 24;
-  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
+  const DRAG_OBJECT_DISPlAY_DIAMETER = 24;
+  const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Property.<ProjectiLeObjectType} selectedObjectTypeProperty
@@ -65,8 +65,8 @@ define( require => {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { textDisplayWidth: 45 }, options );
 
     // local vars for layout and formatting
-    var textDisplayWidth = options.textDisplayWidth * 1.2;
-    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
+    const textDisplayWidth = options.textDisplayWidth * 1.2;
+    const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -79,10 +79,10 @@ define( require => {
      */
     function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
       // label
-      var parameterLabel = new Text( labelString, parameterLabelOptions );
+      const parameterLabel = new Text( labelString, parameterLabelOptions );
 
-      var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
-      var valueLabel = new NumberDisplay(
+      const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
+      const valueLabel = new NumberDisplay(
         valueProperty,
         range,
         _.extend(
@@ -93,7 +93,7 @@ define( require => {
         )
       );
 
-      var slider = new HSlider( valueProperty, range, {
+      const slider = new HSlider( valueProperty, range, {
         constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,
@@ -107,12 +107,12 @@ define( require => {
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
 
       if ( round ) {
-        for ( var i = range.min + round; i < range.max; i += round ) {
+        for ( let i = range.min + round; i < range.max; i += round ) {
           slider.addMinorTick( i );
         }
       }
 
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
+      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
           new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
@@ -123,8 +123,8 @@ define( require => {
     }
 
     // drag coefficient object shape view
-    var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
-    var objectDisplay = new HBox( {
+    const objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPlAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+    const objectDisplay = new HBox( {
       spacing: options.xMargin,
       children: [
         new Text( cannonballString, _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - objectView.width }, LABEL_OPTIONS ) ),
@@ -132,7 +132,7 @@ define( require => {
       ]
     } );
 
-    var diameterBox = createParameterControlBox(
+    const diameterBox = createParameterControlBox(
       diameterString,
       mString,
       projectileDiameterProperty,
@@ -140,7 +140,7 @@ define( require => {
       selectedObjectTypeProperty.get().diameterRound
     );
 
-    var massBox = createParameterControlBox(
+    const massBox = createParameterControlBox(
       massString,
       kgString,
       projectileMassProperty,
@@ -148,22 +148,22 @@ define( require => {
       selectedObjectTypeProperty.get().massRound
     );
 
-    var dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+    const dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
 
     // air resistance
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
+    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - 3 * options.xMargin - AIR_RESISTANCE_ICON.width,
       boxWidth: 18
     } );
-    var airResistanceCheckboxAndIcon = new HBox( {
+    const airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
       children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
-      var opacity = airResistanceOn ? 1 : 0.5;
+      const opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
 
@@ -173,7 +173,7 @@ define( require => {
     } );
 
     // The contents of the control panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [

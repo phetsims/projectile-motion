@@ -12,7 +12,7 @@ define( require => {
   // modules
   const DownUpListener = require( 'SCENERY/input/DownUpListener' );
   const inherit = require( 'PHET_CORE/inherit' );
-  var Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
+  const Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
@@ -31,9 +31,9 @@ define( require => {
   const rangeMessageString = require( 'string!PROJECTILE_MOTION/rangeMessage' );
 
   // constants
-  var TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
-  var TEXT_FILL_DEFAULT = 'black';
-  var TEXT_FILL_ERROR = 'red';
+  const TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
+  const TEXT_FILL_DEFAULT = 'black';
+  const TEXT_FILL_ERROR = 'red';
 
   /**
    * @param {Object} [options]
@@ -41,7 +41,7 @@ define( require => {
    */
   function KeypadLayer( options ) {
 
-    var self = this;
+    const self = this;
 
     options = _.extend( {
 
@@ -71,17 +71,17 @@ define( require => {
     this.valueProperty = null;
     this.onEndEdit = null; // {function} called by endEdit
 
-    var valueNode = new Text( '', {
+    const valueNode = new Text( '', {
       font: options.valueFont
     } );
 
-    var valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
+    const valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
       cornerRadius: 3,
       fill: 'white',
       stroke: 'black'
     } );
 
-    var valueParent = new Node( {
+    const valueParent = new Node( {
       children: [ valueBackgroundNode, valueNode ]
     } );
 
@@ -90,7 +90,7 @@ define( require => {
       maxDigitsRightOfMantissa: options.maxDecimals
     } );
 
-    var enterButton = new RectangularPushButton( {
+    const enterButton = new RectangularPushButton( {
       listener: this.commitEdit.bind( this ),
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       content: new Text( enterString, {
@@ -100,15 +100,15 @@ define( require => {
       } )
     } );
 
-    var rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
+    const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
 
     // @private for convenient access by methods
     this.valueNode = valueNode;
     this.rangeMessageText = rangeMessageText;
 
-    var valueAndRangeMessage = new VBox( { spacing: 5, align: 'center', children: [ rangeMessageText, valueParent ] } );
+    const valueAndRangeMessage = new VBox( { spacing: 5, align: 'center', children: [ rangeMessageText, valueParent ] } );
 
-    var contentNode = new VBox( {
+    const contentNode = new VBox( {
       spacing: 10,
       align: 'center',
       children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
@@ -116,7 +116,7 @@ define( require => {
 
     // @private
     this.saidHello = false;
-    var helloText = new Text('Hello!', { font: TEXT_FONT } );
+    const helloText = new Text('Hello!', { font: TEXT_FONT } );
 
     // @private
 
@@ -187,7 +187,7 @@ define( require => {
       this.onEndEdit = options.onEndEdit;
 
       this.valueRange = valueRange; // update value range to be used in commitedit
-      var rangeMessage = StringUtils.fillIn( rangeMessageString, {
+      const rangeMessage = StringUtils.fillIn( rangeMessageString, {
         min: valueRange.min,
         max: valueRange.max,
         units: unitsString ? unitsString : ''
@@ -243,10 +243,10 @@ define( require => {
      */
     commitEdit: function() {
 
-      var valueRange = this.valueRange;
+      const valueRange = this.valueRange;
 
       // get the value from the keypad
-      var value = this.keypadNode.valueProperty.get();
+      const value = this.keypadNode.valueProperty.get();
 
       // not entering a value in the keypad is a cancel
       if ( this.keypadNode.stringProperty.get() === '' ) {

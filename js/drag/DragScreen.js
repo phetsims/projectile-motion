@@ -25,7 +25,7 @@ define( require => {
    */
   function DragScreen() {
 
-    var options = {
+    const options = {
       name: screenDragString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new DragIconNode()

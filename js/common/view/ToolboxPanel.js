@@ -30,7 +30,7 @@ define( require => {
    * @constructor
    */
   function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, transformProperty, options ) {
-    var self = this;
+    const self = this;
 
     // The first object is an empty placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -44,17 +44,17 @@ define( require => {
     }, options );
     
     // Create the icon Node for the tracer tool
-    var tracerIconNode = TracerNode.createIcon();
+    const tracerIconNode = TracerNode.createIcon();
     tracerIconNode.cursor = 'pointer';
     tracerIconNode.scale( 0.4 );
 
     // Create the icon image for the measuringTape
-    var measuringTapeIconNode = MeasuringTapeNode.createIcon();
+    const measuringTapeIconNode = MeasuringTapeNode.createIcon();
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );
 
     // The content panel with the two icons
-    var panelContent = new HBox( {
+    const panelContent = new HBox( {
       spacing: 30,
       children: [ tracerIconNode, measuringTapeIconNode ]
     } );
@@ -68,8 +68,8 @@ define( require => {
       assert && assert( tracerNode.parent instanceof ScreenView );
       assert && assert( tracerNode.parent === self.parent );
 
-      var tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
-      var toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
+      const tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
+      const toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
         tracer.isActiveProperty.set( false );
       }
@@ -81,7 +81,7 @@ define( require => {
         tracer.isActiveProperty.set( true );
 
         // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-        var initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
+        const initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
         tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         tracerNode.movableDragHandler.startDrag( event );
 
@@ -98,23 +98,23 @@ define( require => {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );
       assert && assert( measuringTapeNode.parent === self.parent );
 
-      var tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
-      var toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
+      const tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
+      const toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
       if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
       }
     } );
 
     // determine the distance (in model coordinates) between the tip and the base position of the measuring tape
-    var tipToBasePosition = measuringTape.tipPositionProperty.get().minus( measuringTape.basePositionProperty.get() );
+    const tipToBasePosition = measuringTape.tipPositionProperty.get().minus( measuringTape.basePositionProperty.get() );
 
     // Add the listener that will allow the user to click on this and forward the dragging to the actual measuring tape node
     measuringTapeIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
         measuringTape.isActiveProperty.set( true );
 
-        var tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
-        var initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
+        const tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
+        const initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
         measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
         measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 

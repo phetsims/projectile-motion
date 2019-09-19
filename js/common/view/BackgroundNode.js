@@ -22,11 +22,11 @@ define( require => {
   const flatironsImage = require( 'image!PROJECTILE_MOTION/flatirons.png' );
 
   // constants
-  var CEMENT_WIDTH = 20;
-  var GRASS_ABOVE_ROAD_WIDTH = 4;
-  var YELLOW_LINE_WIDTH = 1.5;
-  var FLATIRONS_WIDTH = 450;
-  var FLATIRONS_LEFT = 8; // in meters
+  const CEMENT_WIDTH = 20;
+  const GRASS_ABOVE_ROAD_WIDTH = 4;
+  const YELLOW_LINE_WIDTH = 1.5;
+  const FLATIRONS_WIDTH = 450;
+  const FLATIRONS_LEFT = 8; // in meters
 
   /**
    * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
@@ -71,7 +71,7 @@ define( require => {
      * @param {number} layoutScale
      */
     layout: function( offsetX, offsetY, width, height, layoutScale ) {
-      var dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
+      const dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
       this.sky.setRect( -offsetX, -offsetY, width / layoutScale, height / layoutScale );
       this.sky.fill = new LinearGradient( 0, 0, 0, 2 * height / 3 ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );

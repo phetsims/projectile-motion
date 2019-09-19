@@ -18,7 +18,7 @@ define( require => {
   const VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   // constants
-  var X_MARGIN = 10;
+  const X_MARGIN = 10;
 
   /**
    * @param {LabModel} model
@@ -30,12 +30,12 @@ define( require => {
     options = _.extend( { preciseCannonDelta: true }, options );
 
     // contains Properties about vector visibility, used in super class
-    var visibilityProperties = new VectorVisibilityProperties();
+    const visibilityProperties = new VectorVisibilityProperties();
 
     // acts as listParent for the projectile dropdown box
-    var comboBoxListParent = new Node();
-    var keypadLayer = new KeypadLayer();
-    var labProjectilePanel = new LabProjectilePanel(
+    const comboBoxListParent = new Node();
+    const keypadLayer = new KeypadLayer();
+    const labProjectilePanel = new LabProjectilePanel(
       comboBoxListParent,
       keypadLayer,
       model

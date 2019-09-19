@@ -26,7 +26,7 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
+  const TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
@@ -147,8 +147,8 @@ define( require => {
     // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
 
     if ( airResistanceOn ) {
-      var temperature;
-      var pressure;
+      let temperature;
+      let pressure;
 
       // The sim doesn't go beyond 5000, rendering the elses unnecessary, but keeping if others would like to
       // increase the altitude range.
@@ -225,7 +225,7 @@ define( require => {
      * @param {number} dt
      */
     stepModelElements: function( dt ) {
-      for ( var i = 0; i < this.trajectories.length; i++ ) {
+      for ( let i = 0; i < this.trajectories.length; i++ ) {
         this.trajectories.get( i ).step( dt );
       }
       this.muzzleFlashStepper.emit();
@@ -236,8 +236,8 @@ define( require => {
      * @private
      */
     limitTrajectories: function() {
-      var numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
-      for ( var i = 0; i < numberToRemove; i++ ) {
+      const numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+      for ( let i = 0; i < numberToRemove; i++ ) {
         this.trajectories.shift().dispose();
       }
     },
@@ -260,8 +260,8 @@ define( require => {
      * @public
      */
     cannonFired: function() {
-      var lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
-      var newTrajectory = new Trajectory( this );
+      const lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
+      const newTrajectory = new Trajectory( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
         lastTrajectory.addProjectileObject();
         newTrajectory.dispose();
@@ -280,13 +280,13 @@ define( require => {
      * @private
      */
     updateTrajectoriesWithMovingProjectiles: function() {
-      var i;
-      var newTrajectories = [];
-      var trajectory;
-      for ( var j = 0; j < this.trajectories.length; j++ ) {
+      let i;
+      const newTrajectories = [];
+      let trajectory;
+      for ( let j = 0; j < this.trajectories.length; j++ ) {
         trajectory = this.trajectories.get( j );
 
-        var removedProjectileObjects = [];
+        const removedProjectileObjects = [];
 
         // Furthest projectile on trajectory has not reached ground
         if ( !trajectory.reachedGround ) {

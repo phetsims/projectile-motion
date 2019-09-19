@@ -19,7 +19,7 @@ define( require => {
   // strings
   const projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
 
-  var simOptions = {
+  const simOptions = {
     credits: {
       leadDesign: 'Amy Rouinfar, Mike Dubson',
       softwareDevelopment: 'Andrea Lin',
@@ -30,7 +30,7 @@ define( require => {
   };
 
   SimLauncher.launch( function() {
-    var sim = new Sim( projectileMotionTitleString, [
+    const sim = new Sim( projectileMotionTitleString, [
       new IntroScreen(),
       new VectorsScreen(),
       new DragScreen(),

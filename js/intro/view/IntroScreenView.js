@@ -24,10 +24,10 @@ define( require => {
   function IntroScreenView( model, options ) {
 
     // contains Properties about vector visibility, used in super class
-    var visibilityProperties = new VectorVisibilityProperties();
+    const visibilityProperties = new VectorVisibilityProperties();
 
     // acts as listParent for the projectile dropdown box
-    var comboBoxListParent = new Node();
+    const comboBoxListParent = new Node();
 
     // @private, for layout
     this.introProjectilePanel = new IntroProjectilePanel(

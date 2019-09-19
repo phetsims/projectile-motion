@@ -23,22 +23,22 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+  const MAX_TRAJECTORY_COUNT = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
 
-  var PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
-  var PATH_MIN_OPACITY = 0;
-  var PATH_MAX_OPACITY = 1;
-  var AIR_RESISTANCE_OFF_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
-  var AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
+  const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
+  const PATH_MIN_OPACITY = 0;
+  const PATH_MAX_OPACITY = 1;
+  const AIR_RESISTANCE_OFF_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
+  const AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
 
-  var SMALL_DOT_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS; // view units
-  var LARGE_DOT_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS; // view units
-  var DOTS_MIN_OPACITY = 0;
-  var DOTS_MAX_OPACITY = 0.5;
-  var TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
-  var TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT; // milliseconds
+  const SMALL_DOT_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS; // view units
+  const LARGE_DOT_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS; // view units
+  const DOTS_MIN_OPACITY = 0;
+  const DOTS_MAX_OPACITY = 0.5;
+  const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
+  const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT; // milliseconds
 
-  var DOT_GREEN = 'rgb( 50, 255, 50 )';
+  const DOT_GREEN = 'rgb( 50, 255, 50 )';
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown,
@@ -52,42 +52,42 @@ define( require => {
                            transformProperty ) {
     Node.call( this, { pickable: false, preventFit: true } );
 
-    var scratchVector = new Vector2( 0, 0 );
-    var scratchVector2 = new Vector2( 0, 0 );
+    const scratchVector = new Vector2( 0, 0 );
+    const scratchVector2 = new Vector2( 0, 0 );
 
-    var currentPathShape = null;
-    var currentPathStroke = null;
+    let currentPathShape = null;
+    let currentPathStroke = null;
 
-    var pathsLayer = new Node();
-    var projectileNodesLayer = new Node();
-    var projectileObjectViewsLayer = new Node();
+    const pathsLayer = new Node();
+    const projectileNodesLayer = new Node();
+    const projectileObjectViewsLayer = new Node();
 
-    var dotsShape = new Shape();
-    var dotsPath = new Path( dotsShape, {
+    let dotsShape = new Shape();
+    const dotsPath = new Path( dotsShape, {
       stroke: 'black'
     } );
 
     this.addChild( projectileObjectViewsLayer );
     this.addChild( pathsLayer );
 
-    var dotsLayer = new Node();
+    const dotsLayer = new Node();
     dotsLayer.addChild( dotsPath );
     this.addChild( dotsLayer );
     this.addChild( projectileNodesLayer );
 
-    var apexDot = null;
+    let apexDot = null;
 
-    var viewLastPosition = null;
+    let viewLastPosition = null;
 
     // add view nodes based on new dataPoints added
     function handleDataPointAdded( addedPoint ) {
-      var viewAddedPosition = scratchVector.set( addedPoint.position );
+      const viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
       viewAddedPosition.x = Util.roundSymmetric( viewAddedPosition.x * 10000 ) / 10000;
       viewAddedPosition.y = Util.roundSymmetric( viewAddedPosition.y * 10000 ) / 10000;
 
       if ( viewLastPosition ) {
-        var pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
+        const pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
         if ( !currentPathShape || currentPathStroke !== pathStroke ) {
           currentPathShape = new Shape().moveTo( viewLastPosition.x, viewLastPosition.y );
           currentPathStroke = pathStroke;
@@ -101,7 +101,7 @@ define( require => {
       viewLastPosition = scratchVector2.set( viewAddedPosition );
 
       // draw dot if it is time for data point should be shown
-      var addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
+      const addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
       if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ){
         dotsShape
           .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )
@@ -132,7 +132,7 @@ define( require => {
 
     // Update view based on new projectile objects added
     function handleProjectileObjectAdded( addedProjectileObject ) {
-      var newProjectileNode = new ProjectileNode(
+      const newProjectileNode = new ProjectileNode(
         vectorVisibilityProperties,
         addedProjectileObject.dataPointProperty,
         trajectory.projectileObjectType,
@@ -185,7 +185,7 @@ define( require => {
     transformProperty.lazyLink( updateTransform );
 
     function updateOpacity( rank ) {
-      var strength = ( MAX_TRAJECTORY_COUNT - rank ) / MAX_TRAJECTORY_COUNT;
+      const strength = ( MAX_TRAJECTORY_COUNT - rank ) / MAX_TRAJECTORY_COUNT;
       pathsLayer.opacity = PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
       projectileNodesLayer.opacity = pathsLayer.opacity;
       dotsPath.opacity = DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );

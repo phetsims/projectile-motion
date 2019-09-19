@@ -37,43 +37,43 @@ define( require => {
   const rangeString = require( 'string!PROJECTILE_MOTION/range' );
   const sString = require( 'string!PROJECTILE_MOTION/s' );
   const timeString = require( 'string!PROJECTILE_MOTION/time' );
-  var noValueString = MathSymbols.NO_VALUE;
+  const noValueString = MathSymbols.NO_VALUE;
 
   // constants
-  var CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed
-  var OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
-  var TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
-  var SPACING = 4; // {number} x and y spacing and margins
-  var TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT;
-  var LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-  var SMALL_HALO_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS * 5;
-  var LARGE_HALO_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS * 5;
-  var YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
-  var YELLOW_HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
-  var YELLOW_HALO_FILL_SMALL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
+  const CIRCLE_AROUND_CROSSHAIR_RADIUS = 15; // view units, will not be transformed
+  const OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
+  const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
+  const SPACING = 4; // {number} x and y spacing and margins
+  const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT;
+  const LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+  const SMALL_HALO_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS * 5;
+  const LARGE_HALO_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS * 5;
+  const YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
+  const YELLOW_HALO_EDGE_COLOR = 'rgba( 255, 255, 0, 0 )';
+  const YELLOW_HALO_FILL_SMALL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
     .addColorStop( 0, 'black' )
     .addColorStop( 0.2, 'black' )
     .addColorStop( 0.2, YELLOW_HALO_COLOR )
     .addColorStop( 0.4, YELLOW_HALO_COLOR )
     .addColorStop( 1, YELLOW_HALO_EDGE_COLOR );
-  var YELLOW_HALO_FILL_LARGE = new RadialGradient( 0, 0, 0, 0, 0, LARGE_HALO_RADIUS )
+  const YELLOW_HALO_FILL_LARGE = new RadialGradient( 0, 0, 0, 0, 0, LARGE_HALO_RADIUS )
     .addColorStop( 0, 'black' )
     .addColorStop( 0.2, 'black' )
     .addColorStop( 0.2, YELLOW_HALO_COLOR )
     .addColorStop( 0.4, YELLOW_HALO_COLOR )
     .addColorStop( 1, YELLOW_HALO_EDGE_COLOR );
-  var GREEN_HALO_COLOR = 'rgba( 50, 255, 50, 0.8 )';
-  var GREEN_HALO_EDGE_COLOR = 'rgba( 50, 255, 50, 0 )';
-  var GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
+  const GREEN_HALO_COLOR = 'rgba( 50, 255, 50, 0.8 )';
+  const GREEN_HALO_EDGE_COLOR = 'rgba( 50, 255, 50, 0 )';
+  const GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
     .addColorStop( 0, 'black' )
     .addColorStop( 0.2, 'black' )
     .addColorStop( 0.2, GREEN_HALO_COLOR )
     .addColorStop( 0.4, GREEN_HALO_COLOR )
     .addColorStop( 1, GREEN_HALO_EDGE_COLOR );
 
-  var TRACER_CONTENT_WIDTH = 155;
-  var RIGHT_SIDE_PADDING = 6;
-  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
+  const TRACER_CONTENT_WIDTH = 155;
+  const RIGHT_SIDE_PADDING = 6;
+  const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -83,7 +83,7 @@ define( require => {
    * @constructor
    */
   function TracerNode( tracer, transformProperty, screenView, options ) {
-    var self = this;
+    const self = this;
 
     options = _.extend( {
       cursor: 'pointer'
@@ -97,7 +97,7 @@ define( require => {
     this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
 
     // draggable node
-    var rectangle = new Rectangle(
+    const rectangle = new Rectangle(
       0,
       0,
       TRACER_CONTENT_WIDTH + RIGHT_SIDE_PADDING,
@@ -118,24 +118,24 @@ define( require => {
 
     // shift the tracer drag bounds so that it can only be dragged until the center reaches the left or right side
     // of the screen
-    var dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
+    const dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
 
     // crosshair view
-    var crosshairShape = new Shape()
+    const crosshairShape = new Shape()
       .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
       .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
       .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
       .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
-    var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-    var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
+    const crosshair = new Path( crosshairShape, { stroke: 'black' } );
+    const circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
       lineWidth: 2,
       stroke: 'black',
       fill: TRANSPARENT_WHITE
     } );
 
     // Create the base of the crosshair
-    var crosshairMount = new Rectangle(
+    const crosshairMount = new Rectangle(
       0,
       0,
       0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS,
@@ -156,15 +156,15 @@ define( require => {
     } );
 
     // label and values readouts
-    var timeReadoutProperty = new Property( noValueString );
-    var rangeReadoutProperty = new Property( noValueString );
-    var heightReadoutProperty = new Property( noValueString );
+    const timeReadoutProperty = new Property( noValueString );
+    const rangeReadoutProperty = new Property( noValueString );
+    const heightReadoutProperty = new Property( noValueString );
 
-    var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
-    var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
-    var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
+    const timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
+    const rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
+    const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
 
-    var textBox = new VBox( {
+    const textBox = new VBox( {
       align: 'left',
       spacing: SPACING,
       children: [
@@ -175,9 +175,9 @@ define( require => {
     } );
 
     // halo node for highlighting the dataPoint whose information is shown in the tracer tool
-    var smallHaloShape = Shape.circle( 0, 0, SMALL_HALO_RADIUS );
-    var largeHaloShape = Shape.circle( 0, 0, LARGE_HALO_RADIUS );
-    var haloNode = new Path( smallHaloShape, { pickable: false } );
+    const smallHaloShape = Shape.circle( 0, 0, SMALL_HALO_RADIUS );
+    const largeHaloShape = Shape.circle( 0, 0, LARGE_HALO_RADIUS );
+    const haloNode = new Path( smallHaloShape, { pickable: false } );
 
     // Listen for when time, range, and height change, and update the readouts.
     tracer.dataPointProperty.link( function( point ) {
@@ -220,7 +220,7 @@ define( require => {
     } );
 
     // function align locations, and update model.
-    var updatePosition = function( position ) {
+    const updatePosition = function( position ) {
       self.probeOrigin.set( transformProperty.get().modelToViewPosition( position ) );
 
       crosshair.center = self.probeOrigin;
@@ -294,18 +294,18 @@ define( require => {
   function createInformationBox( maxWidth, labelString, readoutProperty ) {
 
     // width of white rectangular background, also used for calculating max width
-    var backgroundWidth = 60;
+    const backgroundWidth = 60;
 
     // label
-    var labelText = new Text( labelString, _.defaults( {
+    const labelText = new Text( labelString, _.defaults( {
       maxWidth: maxWidth - backgroundWidth - 25
     }, LABEL_OPTIONS ) );
 
     // number
-    var numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
-    var numberNode = new Text( readoutProperty.get(), numberOptions );
+    const numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    const numberNode = new Text( readoutProperty.get(), numberOptions );
 
-    var backgroundNode = new Rectangle(
+    const backgroundNode = new Rectangle(
       0,
       0,
       backgroundWidth,
@@ -329,9 +329,9 @@ define( require => {
       }
     } );
 
-    var readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
+    const readoutParent = new Node( { children: [ backgroundNode, numberNode ] } );
 
-    var spacing = maxWidth - labelText.width - readoutParent.width - 4 * SPACING;
+    const spacing = maxWidth - labelText.width - readoutParent.width - 4 * SPACING;
 
     return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
   }
@@ -343,10 +343,10 @@ define( require => {
      * @public
      */
     getJustTracerBounds: function() {
-      var tracerBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
+      const tracerBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
 
       // include every child except for the halo in the calculations of tracer bounds
-      for ( var i = 1; i < this.children.length; i++ ) {
+      for ( let i = 1; i < this.children.length; i++ ) {
         tracerBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
       }
       return tracerBounds;
@@ -360,7 +360,7 @@ define( require => {
      * @returns {Node}
      */
     createIcon: function() {
-      var rectangle = new Rectangle(
+      const rectangle = new Rectangle(
         0,
         0,
         TRACER_CONTENT_WIDTH,
@@ -375,26 +375,26 @@ define( require => {
       );
 
       // crosshair view
-      var crosshairShape = new Shape()
+      const crosshairShape = new Shape()
         .moveTo( -CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
         .lineTo( CIRCLE_AROUND_CROSSHAIR_RADIUS, 0 )
         .moveTo( 0, -CIRCLE_AROUND_CROSSHAIR_RADIUS )
         .lineTo( 0, CIRCLE_AROUND_CROSSHAIR_RADIUS );
 
-      var crosshair = new Path( crosshairShape, { stroke: 'black' } );
-      var circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
+      const crosshair = new Path( crosshairShape, { stroke: 'black' } );
+      const circle = new Circle( CIRCLE_AROUND_CROSSHAIR_RADIUS, {
         lineWidth: 2,
         stroke: 'black',
         fill: TRANSPARENT_WHITE
       } );
 
       // Create the base of the crosshair
-      var crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-      var timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( noValueString ) );
-      var rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
-      var heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property(noValueString) );
+      const crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
+      const timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( noValueString ) );
+      const rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
+      const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property(noValueString) );
 
-      var textBox = new VBox( {
+      const textBox = new VBox( {
         align: 'left',
         spacing: SPACING,
         children: [
@@ -404,7 +404,7 @@ define( require => {
         ]
       } );
 
-      var probeOrigin = Vector2.createFromPool( 0, 0 );
+      const probeOrigin = Vector2.createFromPool( 0, 0 );
 
       crosshair.center = probeOrigin;
       circle.center = probeOrigin;
@@ -417,7 +417,7 @@ define( require => {
 
       probeOrigin.freeToPool();
 
-      var tracerIcon = new Node( {
+      const tracerIcon = new Node( {
         children: [
           crosshairMount,
           rectangle,

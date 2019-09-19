@@ -53,7 +53,7 @@ define( require => {
      * @param {number} projectileX - x coordinate in model coordinates
      */
     scoreIfWithinTarget: function( projectileX ) {
-      var distance = Math.abs( projectileX - this.targetXProperty.get() );
+      const distance = Math.abs( projectileX - this.targetXProperty.get() );
       if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 6 ) { // center circle
         this.numberOfStars = 3;
         this.scoredEmitter.emit();

@@ -20,8 +20,8 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  var SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
-  var TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
+  const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
+  const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 
   /**
    * @param {ObservableArray.<Trajectory>} trajectories
@@ -66,14 +66,14 @@ define( require => {
      * @public
      */
     updateData: function() {
-      for ( var i = this.trajectories.length - 1; i >= 0; i-- ) {
-        var currentTrajectory = this.trajectories.get( i );
+      for ( let i = this.trajectories.length - 1; i >= 0; i-- ) {
+        const currentTrajectory = this.trajectories.get( i );
         if ( currentTrajectory.apexPoint && currentTrajectory.apexPoint.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) { // current point shown is apex and it is still within sensing radius
           this.dataPointProperty.set( currentTrajectory.apexPoint );
           return;
         }
-        var point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
-        var pointIsReadable = point &&
+        const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
+        const pointIsReadable = point &&
           ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.dataPointProperty.set( point );
@@ -92,7 +92,7 @@ define( require => {
     updateDataIfWithinRange: function( point ) {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
-      var pointIsReadable = point &&
+      const pointIsReadable = point &&
         ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
         this.dataPointProperty.set( point );

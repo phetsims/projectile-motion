@@ -27,7 +27,7 @@ define( require => {
    * @constructor
    */
   function Trajectory( model ) {
-    var self = this;
+    const self = this;
     this.projectileMotionModel = model;
 
     if ( model.selectedProjectileObjectTypeProperty ) {
@@ -62,7 +62,7 @@ define( require => {
     // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray();
 
-    var velocity = Vector2.dirtyFromPool().setPolar(
+    const velocity = Vector2.dirtyFromPool().setPolar(
       model.launchVelocityProperty.value,
       model.cannonAngleProperty.value * Math.PI / 180
     );
@@ -73,13 +73,13 @@ define( require => {
     }
 
     // cross sectional area of the projectile
-    var area = Math.PI * this.diameter * this.diameter / 4;
-    var airDensity = this.projectileMotionModel.airDensityProperty.get();
-    var gravity = this.projectileMotionModel.gravityProperty.get();
+    const area = Math.PI * this.diameter * this.diameter / 4;
+    const airDensity = this.projectileMotionModel.airDensityProperty.get();
+    const gravity = this.projectileMotionModel.gravityProperty.get();
 
-    var dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
+    const dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
 
-    var initialPoint = new DataPoint(
+    const initialPoint = new DataPoint(
       0, // total time elapsed
       Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
@@ -105,8 +105,8 @@ define( require => {
     // @private
     this.disposeTrajectory = function() {
       this.apexPoint = null; // remove reference
-      for ( var i = 0; i < this.dataPoints.length; i++ ) {
-        var point = this.dataPoints.get( i );
+      for ( let i = 0; i < this.dataPoints.length; i++ ) {
+        const point = this.dataPoints.get( i );
 
         if ( point.numberOfOtherTrajectoriesUsingSelf ) {
           point.numberOfOtherTrajectoriesUsingSelf--;
@@ -134,17 +134,17 @@ define( require => {
      * @param {number} dt
      */
     step: function( dt ) {
-      var previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
+      const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
       // Haven't reached ground, so continue collecting datapoints
       if ( !this.reachedGround ) {
 
-        var apexExists = true;
+        let apexExists = true;
 
-        var newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
-        var newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
+        let newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
+        let newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
 
-        var newVelocity = Vector2.dirtyFromPool().setXY(
+        const newVelocity = Vector2.dirtyFromPool().setXY(
           previousPoint.velocity.x + previousPoint.acceleration.x * dt,
           previousPoint.velocity.y + previousPoint.acceleration.y * dt
         );
@@ -162,22 +162,22 @@ define( require => {
         }
 
         // cross sectional area of the projectile
-        var area = Math.PI * this.diameter * this.diameter / 4;
-        var airDensity = this.projectileMotionModel.airDensityProperty.get();
-        var gravity = this.projectileMotionModel.gravityProperty.get();
+        const area = Math.PI * this.diameter * this.diameter / 4;
+        const airDensity = this.projectileMotionModel.airDensityProperty.get();
+        const gravity = this.projectileMotionModel.gravityProperty.get();
 
-        var newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
+        const newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
         
         if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
-          var dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
-          var apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
-          var apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
-          var apexVelocityX = Util.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
-          var apexVelocityY = Util.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
-          var apexDragX = Util.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
-          var apexDragY = Util.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
+          const dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
+          const apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
+          const apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
+          const apexVelocityX = Util.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
+          const apexVelocityY = Util.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
+          const apexDragX = Util.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
+          const apexDragY = Util.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
 
-          var apexPoint = new DataPoint(
+          const apexPoint = new DataPoint(
             previousPoint.time + dtToApex,
             Vector2.createFromPool( apexX, apexY ),
             airDensity,
@@ -202,7 +202,7 @@ define( require => {
           this.reachedGround = true; // store the information that it has reached the ground
 
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          var timeToGround = ( previousPoint.acceleration.y === 0 ) ? -previousPoint.position.y / previousPoint.velocity.y : (
+          const timeToGround = ( previousPoint.acceleration.y === 0 ) ? -previousPoint.position.y / previousPoint.velocity.y : (
             -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
           ) / previousPoint.acceleration.y;
 
@@ -245,11 +245,11 @@ define( require => {
       }
 
       // keep track of old objects that need to be removed
-      var projectileObjectsToRemove = [];
+      const projectileObjectsToRemove = [];
 
       // increment position of projectile objects, unless it has reached the end
-      for ( var i = 0; i < this.projectileObjects.length; i++ ) {
-        var object = this.projectileObjects.get( i );
+      for ( let i = 0; i < this.projectileObjects.length; i++ ) {
+        const object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
           object.dataPointProperty.set( this.dataPoints.get( object.index ) );
@@ -291,14 +291,14 @@ define( require => {
       }
 
       // First, set nearest point and corresponding distance to the first datapoint.
-      var nearestPoint = this.dataPoints.get( 0 );
-      var minDistance = nearestPoint.position.distanceXY( x, y );
+      let nearestPoint = this.dataPoints.get( 0 );
+      let minDistance = nearestPoint.position.distanceXY( x, y );
 
       // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
       // with more time is chosen.
-      for (  var i = 0; i < this.dataPoints.length; i++ ) {
-        var currentPoint = this.dataPoints.get( i );
-        var currentDistance = currentPoint.position.distanceXY( x, y );
+      for (  let i = 0; i < this.dataPoints.length; i++ ) {
+        const currentPoint = this.dataPoints.get( i );
+        const currentDistance = currentPoint.position.distanceXY( x, y );
 
         if ( currentDistance <= minDistance ) {
           nearestPoint = currentPoint;
@@ -327,11 +327,11 @@ define( require => {
     newTrajectory: function( projectileObject ) {
 
       // create a brand new trajectory
-      var newTrajectory = new Trajectory( this.projectileMotionModel );
+      const newTrajectory = new Trajectory( this.projectileMotionModel );
 
       // clear all the data points and then add up to where the current flying projectile is
       newTrajectory.dataPoints.clear();
-      for ( var i = 0; i <= projectileObject.index; i++ ) {
+      for ( let i = 0; i <= projectileObject.index; i++ ) {
 
         assert && assert(
           this.dataPoints.get( 0 ).position.x === 0,
@@ -361,8 +361,8 @@ define( require => {
      * @returns {boolean}
      */
     equals: function( trajectory ) {
-      var thisInitialPoint = this.dataPoints.get( 0 );
-      var trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
+      const thisInitialPoint = this.dataPoints.get( 0 );
+      const trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
         && !trajectory.changedInMidAir
         && this.projectileObjectType === trajectory.projectileObjectType

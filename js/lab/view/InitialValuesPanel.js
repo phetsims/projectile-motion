@@ -31,8 +31,8 @@ define( require => {
   const speedString = require( 'string!PROJECTILE_MOTION/speed' );
 
   // constants
-  var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   /**
    * Control panel constructor
@@ -51,8 +51,8 @@ define( require => {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { yMargin: 5 }, options );
     
     // local vars for layout and formatting
-    var titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
-    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    const titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
+    const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and slider
@@ -64,10 +64,10 @@ define( require => {
      * @returns {VBox}
      */
     function createParameterControlBox( labelString, unitsString, valueProperty, range, degreeString ) {
-      var parameterLabel = new Text( '', parameterLabelOptions );
+      const parameterLabel = new Text( '', parameterLabelOptions );
 
       valueProperty.link( function( value ) {
-        var valueReadout = degreeString ?
+        const valueReadout = degreeString ?
                            StringUtils.fillIn( pattern0Value1UnitsString, {
                              value: Util.toFixedNumber( value, 2 ),
                              units: degreeString
@@ -85,14 +85,14 @@ define( require => {
       } );
     }
 
-    var heightBox = createParameterControlBox(
+    const heightBox = createParameterControlBox(
       heightString,
       mString,
       cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     );
 
-    var angleBox = createParameterControlBox(
+    const angleBox = createParameterControlBox(
       angleString,
       null,
       cannonAngleProperty,
@@ -100,7 +100,7 @@ define( require => {
       degreesSymbolString
     );
 
-    var velocityBox = createParameterControlBox(
+    const velocityBox = createParameterControlBox(
       speedString,
       metersPerSecondString,
       launchVelocityProperty,
@@ -108,7 +108,7 @@ define( require => {
     );
 
     // contents of the panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace / 3,
       children: [
@@ -118,9 +118,9 @@ define( require => {
       ]
     } );
 
-    var initialValuesTitle = new Text( initialValuesString, titleOptions );
+    const initialValuesTitle = new Text( initialValuesString, titleOptions );
 
-    var initialValuesVBox = new VBox( {
+    const initialValuesVBox = new VBox( {
       align: 'center',
       spacing: 0,
       children: [

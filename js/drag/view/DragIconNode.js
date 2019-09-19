@@ -16,8 +16,8 @@ define( require => {
   const Screen = require( 'JOIST/Screen' );
 
   // constants
-  var WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  var HEIGHT = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+  const WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+  const HEIGHT = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
 
   /**
    * @constructor
@@ -25,24 +25,24 @@ define( require => {
   function DragIconNode() {
 
     // create the background
-    var backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+    const backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     Rectangle.call( this, 0, 0, WIDTH, HEIGHT, { fill: backgroundFill } );
 
-    var diameter = HEIGHT / 4;
-    var inset = diameter * 0.7;
+    const diameter = HEIGHT / 4;
+    const inset = diameter * 0.7;
     
     // the three projectile object shapes
-    var teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
+    const teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
     teardrop.left = 10; // empirically determined
     teardrop.y = HEIGHT / 2;
     this.addChild( teardrop );
 
-    var circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
+    const circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
     circle.left = teardrop.children[ 0 ].right + inset; // gets the shape, without the strut
     circle.y = teardrop.y;
     this.addChild( circle );
     
-    var almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
+    const almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
     almostSemiCircle.left = circle.right + inset;
     almostSemiCircle.y = teardrop.y;
     this.addChild( almostSemiCircle );

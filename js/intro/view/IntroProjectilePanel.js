@@ -36,8 +36,8 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
@@ -66,22 +66,22 @@ define( require => {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     // maxWidth of the labels within the dropdown empirically determined
-    var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
+    const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
-    var firstItemNode = new VBox( {
+    const firstItemNode = new VBox( {
       align: 'left',
       children: [
         new Text( objectTypes[ 0 ].name, itemNodeOptions )
       ]
     } );
 
-    var comboBoxWidth = options.minWidth - 2 * options.xMargin;
-    var itemXMargin = 6;
-    var buttonXMargin = 10;
-    var comboBoxLineWidth = 1;
+    const comboBoxWidth = options.minWidth - 2 * options.xMargin;
+    const itemXMargin = 6;
+    const buttonXMargin = 10;
+    const comboBoxLineWidth = 1;
 
     // first item contains horizontal strut that sets width of combo box
-    var firstItemNodeWidth = comboBoxWidth -
+    const firstItemNodeWidth = comboBoxWidth -
       itemXMargin -
       0.5 * firstItemNode.height -
       4 * buttonXMargin -
@@ -90,16 +90,16 @@ define( require => {
     ;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
-    var comboBoxItems = [];
+    const comboBoxItems = [];
     comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ] );
 
-    for ( var i = 1; i < objectTypes.length; i++ ) {
-      var projectileObject = objectTypes[ i ];
+    for ( let i = 1; i < objectTypes.length; i++ ) {
+      const projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
     // create view for dropdown
-    var projectileChoiceComboBox = new ComboBox(
+    const projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
       comboBoxListParent, {
@@ -115,7 +115,7 @@ define( require => {
     this.projectileChoiceComboBox = projectileChoiceComboBox;
 
     // local var for layout and formatting
-    var parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -127,12 +127,12 @@ define( require => {
      * @returns {VBox}
      */
     function createParameterControlBox( labelString, unitsString, valueProperty ) {
-      var parameterLabel = new Text( '', parameterLabelOptions );
+      const parameterLabel = new Text( '', parameterLabelOptions );
 
       parameterLabel.setBoundsMethod( 'accurate' );
 
       valueProperty.link( function( value ) {
-        var valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
         } ) : Util.toFixed( value, 2 );
@@ -142,43 +142,43 @@ define( require => {
       return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ] } );
     }
 
-    var massBox = createParameterControlBox(
+    const massBox = createParameterControlBox(
       massString,
       kgString,
       projectileMassProperty
     );
 
-    var diameterBox = createParameterControlBox(
+    const diameterBox = createParameterControlBox(
       diameterString,
       mString,
       projectileDiameterProperty
     );
 
-    var dragCoefficientBox = createParameterControlBox(
+    const dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
       projectileDragCoefficientProperty
     );
     
     // air resistance
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
+    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin,
       boxWidth: 18
     } );
-    var airResistanceCheckboxAndIcon = new HBox( {
+    const airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
       children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
-      var opacity = airResistanceOn ? 1 : 0.5;
+      const opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
     
     // The contents of the control panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [

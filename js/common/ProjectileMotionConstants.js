@@ -21,13 +21,13 @@ define( require => {
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
-  var AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
+  const AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
     lineWidth: 3,
     stroke: 'rgb( 252, 40, 252 )'
   } );
-  var SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
+  const SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
 
-  var ProjectileMotionConstants = {
+  const ProjectileMotionConstants = {
 
     // truths about the world
     GRAVITY_ON_EARTH: 9.81,

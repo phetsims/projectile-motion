@@ -59,16 +59,16 @@ define( require => {
   const slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
-  var DEFAULT_SCALE = 30;
-  var MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
-  var MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
-  var DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
-  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-  var PLAY_CONTROLS_INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
-  var TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
-  var X_MARGIN = 10;
-  var Y_MARGIN = 5;
-  var FLATIRONS_RANGE = new Range( 1500, 1700 );
+  const DEFAULT_SCALE = 30;
+  const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+  const MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+  const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+  const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  const PLAY_CONTROLS_INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
+  const TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
+  const X_MARGIN = 10;
+  const Y_MARGIN = 5;
+  const FLATIRONS_RANGE = new Range( 1500, 1700 );
 
   /**
    * @param {ProjectileMotionModel} model
@@ -83,7 +83,7 @@ define( require => {
                                        bottomRightPanel,
                                        vectorVisibilityProperties,
                                        options ) {
-    var self = this;
+    const self = this;
 
     ScreenView.call( this, options );
 
@@ -95,25 +95,25 @@ define( require => {
     }
 
     // model view transform
-    var modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       ProjectileMotionConstants.VIEW_ORIGIN,
       DEFAULT_SCALE
     );
 
     // tracks changes to modelViewTransform
-    var transformProperty = new Property( modelViewTransform );
+    const transformProperty = new Property( modelViewTransform );
 
     // target
-    var targetNode = new TargetNode( model.score, transformProperty, this );
+    const targetNode = new TargetNode( model.score, transformProperty, this );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
-    var trajectoriesLayer = new Node();
+    const trajectoriesLayer = new Node();
 
     function handleTrajectoryAdded( addedTrajectory ) {
 
       // create the view representation for added trajectory
-      var trajectoryNode = new TrajectoryNode(
+      const trajectoryNode = new TrajectoryNode(
         vectorVisibilityProperties,
         addedTrajectory,
         transformProperty
@@ -136,15 +136,15 @@ define( require => {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // cannon
-    var cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this, options );
+    const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this, options );
 
     // results in '{{value}} m/s'
-    var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+    const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       units: metersPerSecondString
     } );
 
     // initial speed readout, slider, and tweakers
-    var initialSpeedControl = new NumberControl(
+    const initialSpeedControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         titleNodeOptions: {
@@ -171,7 +171,7 @@ define( require => {
     );
 
     // panel under the cannon, controls initial speed of projectiles
-    var initialSpeedPanel = new Panel(
+    const initialSpeedPanel = new Panel(
       initialSpeedControl,
       _.extend( {
         left: this.layoutBounds.left + X_MARGIN,
@@ -180,7 +180,7 @@ define( require => {
     );
 
     // Create a measuring tape (set to invisible initially)
-    var measuringTapeNode = new MeasuringTapeNode(
+    const measuringTapeNode = new MeasuringTapeNode(
       new Property( { name: metersString, multiplier: 1 } ),
       model.measuringTape.isActiveProperty, {
         modelViewTransform: transformProperty.get(),
@@ -196,7 +196,7 @@ define( require => {
     // so that it remains easily visible and grabbable. Unlike TracerNode, MeasuringTapeNode does
     // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
     // See https://github.com/phetsims/projectile-motion/issues/145.
-    var measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
+    const measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
       function( transform, visibleBounds ) {
         return transform.viewToModelBounds( visibleBounds.eroded( 20 ) );
       } );
@@ -206,10 +206,10 @@ define( require => {
     } );
 
     // David
-    var davidNode = new Image( davidImage );
+    const davidNode = new Image( davidImage );
 
     // background, including grass, road, sky, flatirons
-    var backgroundNode = new BackgroundNode( this.layoutBounds );
+    const backgroundNode = new BackgroundNode( this.layoutBounds );
 
     // listen to transform Property
     transformProperty.link( function( transform ) {
@@ -221,19 +221,19 @@ define( require => {
     } );
 
     // add view for tracer
-    var tracerNode = new TracerNode(
+    const tracerNode = new TracerNode(
       model.tracer,
       transformProperty,
       this
     );
 
     // zoom Property
-    var zoomProperty = new NumberProperty( DEFAULT_ZOOM );
+    const zoomProperty = new NumberProperty( DEFAULT_ZOOM );
 
     // zoom control view
-    var zoomControl = new Node();
+    const zoomControl = new Node();
 
-    var zoomOutButton = new ZoomButton( {
+    const zoomOutButton = new ZoomButton( {
       baseColor: '#E7E8E9',
       radius: 8,
       xMargin: 3,
@@ -247,7 +247,7 @@ define( require => {
     } );
     zoomControl.addChild( zoomOutButton );
 
-    var zoomInButton = new ZoomButton( {
+    const zoomInButton = new ZoomButton( {
       baseColor: '#E7E8E9',
       radius: 8,
       xMargin: 3,
@@ -285,10 +285,10 @@ define( require => {
 
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    var toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
+    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
 
     // reset all button, also a closure for zoomProperty and measuringTape
-    var resetAllButton = new ResetAllButton( {
+    const resetAllButton = new ResetAllButton( {
       listener: function() {
         model.reset();
         vectorVisibilityProperties.reset();
@@ -300,7 +300,7 @@ define( require => {
     } );
 
     // eraser button
-    var eraserButton = new EraserButton( {
+    const eraserButton = new EraserButton( {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
@@ -310,7 +310,7 @@ define( require => {
     } );
 
     // fire button
-    var fireButton = new FireButton( {
+    const fireButton = new FireButton( {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
@@ -327,7 +327,7 @@ define( require => {
     } );
 
     // play/pause button
-    var playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
+    const playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
@@ -335,7 +335,7 @@ define( require => {
     } );
 
     // step button
-    var stepButton = new StepForwardButton( {
+    const stepButton = new StepForwardButton( {
       isPlayingProperty: model.isPlayingProperty,
       listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
       radius: 12,
@@ -347,29 +347,29 @@ define( require => {
     } );
 
     // make the play/pause button bigger when it is paused
-    var pauseSizeIncreaseFactor = 1.25;
+    const pauseSizeIncreaseFactor = 1.25;
     model.isPlayingProperty.lazyLink( function( isPlaying ) {
       playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // sim speed controls
-    var normalText = new Text( normalString, {
+    const normalText = new Text( normalString, {
       font: new PhetFont( 15 ),
       maxWidth: TEXT_MAX_WIDTH,
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    var normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 8 } );
+    const normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 8 } );
 
-    var slowText = new Text( slowString, {
+    const slowText = new Text( slowString, {
       font: new PhetFont( 15 ),
       maxWidth: TEXT_MAX_WIDTH,
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    var slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 8 } );
+    const slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 8 } );
 
-    var speedControl = new VBox( {
+    const speedControl = new VBox( {
       align: 'left',
       spacing: 4,
       centerY: initialSpeedPanel.centerY,
@@ -430,11 +430,11 @@ define( require => {
     layout: function( width, height ) {
       this.resetTransform();
 
-      var scale = this.getLayoutScale( width, height );
+      const scale = this.getLayoutScale( width, height );
       this.setScaleMagnitude( scale );
 
-      var offsetX = 0;
-      var offsetY = 0;
+      let offsetX = 0;
+      let offsetY = 0;
 
       // Move to bottom vertically
       if ( scale === width / this.layoutBounds.width ) {

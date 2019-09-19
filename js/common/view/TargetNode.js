@@ -30,11 +30,11 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
-  var TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
-  var REWARD_NODE_INITIAL_Y_OFFSET = -10; // in screen coords
-  var REWARD_NODE_Y_MOVEMENT = 70; // in screen coords
-  var REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
+  const TARGET_DIAMETER = ProjectileMotionConstants.TARGET_WIDTH;
+  const TARGET_HEIGHT = ProjectileMotionConstants.TARGET_HEIGHT;
+  const REWARD_NODE_INITIAL_Y_OFFSET = -10; // in screen coords
+  const REWARD_NODE_Y_MOVEMENT = 70; // in screen coords
+  const REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
 
   /**
    * @param {Score} score - model of the target and scoring algorithms
@@ -43,34 +43,34 @@ define( require => {
    * @constructor
    */
   function TargetNode( score, transformProperty, screenView ) {
-    var self = this;
+    const self = this;
     Node.call( this );
 
     // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
 
     // local var to improve readability
-    var targetXProperty = score.targetXProperty;
+    const targetXProperty = score.targetXProperty;
 
     // red and white circles of the target
-    var outerCircle = new Circle( 1, {
+    const outerCircle = new Circle( 1, {
       fill: 'red',
       stroke: 'black',
       lineWidth: transformProperty.get().viewToModelDeltaX( 1 )
     } );
-    var middleCircle = new Circle( 2 / 3, {
+    const middleCircle = new Circle( 2 / 3, {
       fill: 'white',
       stroke: 'black',
       lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
     } );
-    var innerCircle = new Circle( 1 / 3, {
+    const innerCircle = new Circle( 1 / 3, {
       fill: 'red',
       stroke: 'black',
       lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
     } );
 
     // target view
-    var target = new Node( {
+    const target = new Node( {
       pickable: true,
       cursor: 'pointer',
       children: [
@@ -81,8 +81,8 @@ define( require => {
     } );
 
     // scaling the target to the right size
-    var viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
-    var targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
+    const viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+    const targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     target.setScaleMagnitude( viewRadius, targetHeightInView );
 
     // center on model's targetXProperty
@@ -92,10 +92,10 @@ define( require => {
     this.addChild( target );
 
     // @private variables used in drag handler
-    var startPoint;
-    var startX;
-    var mousePoint;
-    var horizontalDragHandler = new SimpleDragHandler( {
+    let startPoint;
+    let startX;
+    let mousePoint;
+    const horizontalDragHandler = new SimpleDragHandler( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = target.centerX; // view units
@@ -105,7 +105,7 @@ define( require => {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // change in x, view units
-        var xChange = mousePoint.x - startPoint.x;
+        const xChange = mousePoint.x - startPoint.x;
 
         targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX(
           Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX )
@@ -119,8 +119,8 @@ define( require => {
     target.addInputListener( horizontalDragHandler );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
-    var distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
-    var distanceLabel = new NumberDisplay(
+    const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
+    const distanceLabel = new NumberDisplay(
       targetXProperty,
       new Range(
         transformProperty.get().viewToModelX( screenView.layoutBounds.minX ),
@@ -173,18 +173,18 @@ define( require => {
           ]
         } );
       }
-      var rewardNodeStartPosition = new Vector2( target.centerX, target.centerY + REWARD_NODE_INITIAL_Y_OFFSET );
+      const rewardNodeStartPosition = new Vector2( target.centerX, target.centerY + REWARD_NODE_INITIAL_Y_OFFSET );
       rewardNode.center = rewardNodeStartPosition;
       screenView.addChild( rewardNode );
       self.rewardNodes.push( rewardNode );
 
       // animate the reward node (one to three stars) to move up, expand, and fade out
-      var rewardNodeAnimation = new Animation( {
+      const rewardNodeAnimation = new Animation( {
         duration: 1,
         easing: Easing.QUADRATIC_OUT,
         setValue: function( newYPos ) {
           rewardNode.centerY = newYPos;
-          var animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
+          const animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
           rewardNode.opacity = 1 - animationProportionCompleted;
           rewardNode.setScaleMagnitude( 1 + ( animationProportionCompleted * REWARD_NODE_GROWTH_AMOUNT ) );
         },
@@ -203,7 +203,7 @@ define( require => {
     } );
 
     // Observe changes in the model horizontal position and update the view correspondingly
-    var updateHorizontalPosition = function( targetX ) {
+    const updateHorizontalPosition = function( targetX ) {
       target.centerX = transformProperty.get().modelToViewX( targetX );
       distanceLabel.centerX = target.centerX;
       distanceLabel.top = target.bottom + 2;
@@ -216,7 +216,7 @@ define( require => {
 
     // Observe changes in the modelViewTransform and update the view
     transformProperty.link( function( transform ) {
-      var viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+      const viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       target.setScaleMagnitude( viewRadius, targetHeightInView );
       updateHorizontalPosition( targetXProperty.get() );
     } );
@@ -235,7 +235,7 @@ define( require => {
      * @override
      */
     reset: function() {
-      var self = this;
+      const self = this;
       this.rewardNodes.forEach( function( rewardNode ) {
         if ( self.screenView.hasChild( rewardNode ) ) {
           self.screenView.removeChild( rewardNode );

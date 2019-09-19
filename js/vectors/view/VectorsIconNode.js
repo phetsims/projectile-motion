@@ -17,13 +17,13 @@ define( require => {
   const Screen = require( 'JOIST/Screen' );
 
   // constants
-  var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
-  var NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
-  var VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
-  var ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
-  var ARROW_TAIL_WIDTH = 6;
-  var ARROW_HEAD_WIDTH = 12;
-  var ARROW_HEAD_HEIGHT = 12;
+  const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
+  const NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
+  const VELOCITY_ARROW_FILL = 'rgb( 50, 255, 50 )';
+  const ACCELERATION_ARROW_FILL = 'rgb( 255, 255, 50 )';
+  const ARROW_TAIL_WIDTH = 6;
+  const ARROW_HEAD_WIDTH = 12;
+  const ARROW_HEAD_HEIGHT = 12;
 
   /**
    * @param {string} type - 'nav' or 'screen'
@@ -88,7 +88,7 @@ define( require => {
     }
 
     // create the background
-    var backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+    const backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     this.mutate( { fill: backgroundFill } );
     this.setRectWidth( width );
     this.setRectHeight( height );

@@ -25,10 +25,10 @@ define( require => {
   const velocityVectorsString = require( 'string!PROJECTILE_MOTION/velocityVectors' );
 
   // constants
-  var TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
-  var ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
+  const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
+  const ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
@@ -43,12 +43,12 @@ define( require => {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
-    var titleOptions = _.defaults(
+    const titleOptions = _.defaults(
       { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width },
       TITLE_OPTIONS
     );
-    var velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
-    var velocityTitleBox = new HBox( {
+    const velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
+    const velocityTitleBox = new HBox( {
       spacing: options.minWidth - velocityVectorsTitle.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
         velocityVectorsTitle,
@@ -56,23 +56,23 @@ define( require => {
       ]
     } );
 
-    var checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
-    var totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalVelocityCheckbox = new Checkbox(
+    const checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
+    const totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
+    const totalVelocityCheckbox = new Checkbox(
       totalVelocityLabel,
       vectorVisibilityProperties.totalVelocityVectorOnProperty,
       checkboxOptions
     );
 
-    var componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsVelocityCheckbox = new Checkbox(
+    const componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
+    const componentsVelocityCheckbox = new Checkbox(
       componentsVelocityLabel,
       vectorVisibilityProperties.componentsVelocityVectorsOnProperty,
       checkboxOptions
     );
 
-    var accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
-    var accelerationTitleBox = new HBox( {
+    const accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
+    const accelerationTitleBox = new HBox( {
       spacing: options.minWidth - accelerationVectorsTitle.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
         accelerationVectorsTitle,
@@ -80,22 +80,22 @@ define( require => {
       ]
     } );
 
-    var totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
-    var totalAccelerationCheckbox = new Checkbox(
+    const totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
+    const totalAccelerationCheckbox = new Checkbox(
       totalAccelerationLabel,
       vectorVisibilityProperties.totalAccelerationVectorOnProperty,
       checkboxOptions
     );
 
-    var componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
-    var componentsAccelerationCheckbox = new Checkbox(
+    const componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
+    const componentsAccelerationCheckbox = new Checkbox(
       componentsAccelerationLabel,
       vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
       checkboxOptions
     );
 
     // The contents of the control panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [

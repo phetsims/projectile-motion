@@ -24,7 +24,7 @@ define( require => {
   function DragScreenView( model, options ) {
 
     // contains Properties about vector visibility, used in super class
-    var visibilityProperties = new DragVectorVisibilityProperties();
+    const visibilityProperties = new DragVectorVisibilityProperties();
 
     ProjectileMotionScreenView.call(
       this,

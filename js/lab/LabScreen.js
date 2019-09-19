@@ -25,7 +25,7 @@ define( require => {
    */
   function LabScreen() {
 
-    var options = {
+    const options = {
       name: screenLabString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new LabIconNode( 'screen' ),

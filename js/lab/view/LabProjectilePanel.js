@@ -46,11 +46,11 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
-  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-  var READOUT_X_MARGIN = 4;
-  var NUMBER_CONTROL_OPTIONS = {
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
+  const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  const READOUT_X_MARGIN = 4;
+  const NUMBER_CONTROL_OPTIONS = {
     titleNodeOptions: { font: TEXT_FONT },
     numberDisplayOptions: {
       align: 'right',
@@ -70,8 +70,8 @@ define( require => {
       touchAreaYDilation: 20
     }
   };
-  var AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
-  var GRAVITY_READOUT_X_MARGIN = 6;
+  const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
+  const GRAVITY_READOUT_X_MARGIN = 6;
 
   /**
    * @param {Node} comboBoxListParent - node for containing the combo box
@@ -84,17 +84,17 @@ define( require => {
 
     // convenience variables with description comments
 
-    var objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
+    const objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
 
     // {Property.<ProjectileObjectType>}
-    var selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
+    const selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
 
-    var projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
-    var projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
-    var projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}
-    var altitudeProperty = model.altitudeProperty; // {Property.<number>}
-    var airResistanceOnProperty = model.airResistanceOnProperty; // {Property.<boolean>}
-    var gravityProperty = model.gravityProperty; // {Property.<number>}
+    const projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
+    const projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
+    const projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}
+    const altitudeProperty = model.altitudeProperty; // {Property.<number>}
+    const airResistanceOnProperty = model.airResistanceOnProperty; // {Property.<boolean>}
+    const gravityProperty = model.gravityProperty; // {Property.<number>}
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -103,34 +103,34 @@ define( require => {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     // maxWidth empirically determined for labels in the dropdown
-    var itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
+    const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
-    var firstItemNode = new VBox( {
+    const firstItemNode = new VBox( {
       align: 'left',
       children: [
         new Text( objectTypes[ 0 ].name, itemNodeOptions )
       ]
     } );
 
-    var comboBoxWidth = options.minWidth - 2 * options.xMargin;
-    var itemXMargin = 6;
-    var buttonXMargin = 10;
-    var comboBoxLineWidth = 1;
+    const comboBoxWidth = options.minWidth - 2 * options.xMargin;
+    const itemXMargin = 6;
+    const buttonXMargin = 10;
+    const comboBoxLineWidth = 1;
 
     // first item contains horizontal strut that sets width of combo box
-    var firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
+    const firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
-    var comboBoxItems = [];
+    const comboBoxItems = [];
     comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ] );
 
-    for ( var i = 1; i < objectTypes.length; i++ ) {
-      var projectileObject = objectTypes[ i ];
+    for ( let i = 1; i < objectTypes.length; i++ ) {
+      const projectileObject = objectTypes[ i ];
       comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
     }
 
     // create view for the dropdown
-    var projectileChoiceComboBox = new ComboBox(
+    const projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
       selectedProjectileObjectTypeProperty,
       comboBoxListParent, {
@@ -146,8 +146,8 @@ define( require => {
     this.projectileChoiceComboBox = projectileChoiceComboBox;
 
     // local vars for layout and formatting
-    var textDisplayWidth = options.textDisplayWidth * 1.4;
-    var valueLabelOptions = _.defaults( {
+    const textDisplayWidth = options.textDisplayWidth * 1.4;
+    const valueLabelOptions = _.defaults( {
       cursor: 'pointer',
       backgroundStroke: 'black',
       decimalPlaces: null,
@@ -168,22 +168,22 @@ define( require => {
     function createParameterControlBox( labelString, unitsString, valueProperty, range ) {
 
       // label
-      var parameterLabel = new Text( labelString, LABEL_OPTIONS );
+      const parameterLabel = new Text( labelString, LABEL_OPTIONS );
 
       // value text
-      var valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         units: unitsString
       } ) : StringUtils.fillIn( pattern0Value1UnitsString, {
         units: ''
       } );
 
-      var valueLabel = new NumberDisplay(
+      const valueLabel = new NumberDisplay(
         valueProperty,
         range,
         _.extend( valueLabelOptions, { valuePattern: valuePattern } )
       );
 
-      var editValue = function() {
+      const editValue = function() {
         keypadLayer.beginEdit( valueProperty, range, unitsString, {
           onBeginEdit: function() { valueLabel.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
           onEndEdit: function() { valueLabel.backgroundFill = 'white'; }
@@ -191,8 +191,8 @@ define( require => {
       };
 
       // edit button
-      var pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
-      var editButton = new RectangularPushButton( {
+      const pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
+      const editButton = new RectangularPushButton( {
         minWidth: 25,
         minHeight: 20,
         centerY: valueLabel.centerY,
@@ -206,17 +206,17 @@ define( require => {
         down: editValue
       } ) );
 
-      var valueNode = new Node( { children: [ valueLabel, editButton ] } );
+      const valueNode = new Node( { children: [ valueLabel, editButton ] } );
 
       parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
 
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
+      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
 
       return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
     }
 
     // layout function for the number controls
-    var layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+    const layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
@@ -235,7 +235,7 @@ define( require => {
       } );
     };
 
-    var numberControlOptions = _.extend( {
+    const numberControlOptions = _.extend( {
       numberDisplayOptions: null,
       sliderOptions: null,
       layoutFunction: layoutFunction
@@ -255,21 +255,21 @@ define( require => {
     // __Box such as massBox is the parent of the control, and it is a child of Panel
     // __SpecificProjectileTypeBox is a number control for when a benchmark is selected from the dropdown
     // __CustomBox is a control box with label, readout, and edit button for when Custom is selected from the dropdown
-    var massBox = new Node();
-    var diameterBox = new Node();
-    var dragCoefficientBox = new Node();
-    var altitudeBox = new Node();
-    var gravityBox = new Node();
-    var massSpecificProjectileTypeBox = null;
-    var diameterSpecificProjectileTypeBox = null;
-    var dragCoefficientSpecificProjectileTypeBox = null;
-    var altitudeSpecificProjectileTypeBox = null;
-    var gravitySpecificProjectileTypeBox = null;
-    var massCustomBox = null;
-    var diameterCustomBox = null;
-    var dragCoefficientCustomBox = null;
-    var altitudeCustomBox = null;
-    var gravityCustomBox = null;
+    const massBox = new Node();
+    const diameterBox = new Node();
+    const dragCoefficientBox = new Node();
+    const altitudeBox = new Node();
+    const gravityBox = new Node();
+    let massSpecificProjectileTypeBox = null;
+    let diameterSpecificProjectileTypeBox = null;
+    let dragCoefficientSpecificProjectileTypeBox = null;
+    let altitudeSpecificProjectileTypeBox = null;
+    let gravitySpecificProjectileTypeBox = null;
+    let massCustomBox = null;
+    let diameterCustomBox = null;
+    let dragCoefficientCustomBox = null;
+    let altitudeCustomBox = null;
+    let gravityCustomBox = null;
 
     // update the type of control based on the objectType
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
@@ -295,7 +295,7 @@ define( require => {
           gravitySpecificProjectileTypeBox.dispose();
         }
 
-        var massSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.massRound } );
+        const massSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.massRound } );
         massSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
           numberControlOptions.numberDisplayOptions, {
             // '{{value}} kg'
@@ -321,7 +321,7 @@ define( require => {
           massSpecificTypeBoxOptions
         );
 
-        var diameterSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.diameterRound } );
+        const diameterSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: objectType.diameterRound } );
         diameterSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
           numberControlOptions.numberDisplayOptions, {
 
@@ -348,7 +348,7 @@ define( require => {
           diameterSpecificTypeBoxOptions
         );
 
-        var gravitySpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
+        const gravitySpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
         gravitySpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
           numberControlOptions.numberDisplayOptions, {
 
@@ -372,7 +372,7 @@ define( require => {
           gravitySpecificTypeBoxOptions
         );
 
-        var altitudeSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
+        const altitudeSpecificTypeBoxOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
         altitudeSpecificTypeBoxOptions.numberDisplayOptions = _.extend( {},
           numberControlOptions.numberDisplayOptions, {
 
@@ -449,7 +449,7 @@ define( require => {
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( function( airResistanceOn ) {
-      var opacity = airResistanceOn ? 1 : 0.5;
+      const opacity = airResistanceOn ? 1 : 0.5;
       altitudeBox.opacity = opacity;
       dragCoefficientBox.opacity = opacity;
       altitudeBox.setPickable( airResistanceOn );
@@ -457,18 +457,18 @@ define( require => {
     } );
 
     // air resistance
-    var airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    var airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
+    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18
     } );
-    var airResistanceCheckboxAndIcon = new HBox( {
+    const airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
       children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // The contents of the control panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'center',
       spacing: options.controlsVerticalSpace,
       children: [

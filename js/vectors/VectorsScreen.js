@@ -25,7 +25,7 @@ define( require => {
    */
   function VectorsScreen() {
 
-    var options = {
+    const options = {
       name: screenVectorsString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new VectorsIconNode( 'screen' ),

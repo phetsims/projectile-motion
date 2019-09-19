@@ -26,11 +26,11 @@ define( require => {
   const cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
 
   // constants
-  var SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
-  var NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
-  var CANNON_ANGLE = 35;
-  var BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
-  var DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
+  const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
+  const NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
+  const CANNON_ANGLE = 35;
+  const BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
+  const DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
 
   /**
    * @constructor
@@ -64,31 +64,31 @@ define( require => {
     }
 
     // layer for scalable cannon parts
-    var scalableNode = new Node( { x: cannonX, y: cannonY } );
+    const scalableNode = new Node( { x: cannonX, y: cannonY } );
 
     // cannon
-    var cannonBarrel = new Node( { rotation: -CANNON_ANGLE * Math.PI / 180 } );
+    const cannonBarrel = new Node( { rotation: -CANNON_ANGLE * Math.PI / 180 } );
     scalableNode.addChild( cannonBarrel );
 
-    var cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
-    var cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
+    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
+    const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
 
-    var cannonBase = new Node( { pickable: true, cursor: 'pointer' } );
+    const cannonBase = new Node( { pickable: true, cursor: 'pointer' } );
     scalableNode.addChild( cannonBase );
 
-    var cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
-    var cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
+    const cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
     
     //pedestal
-    var ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
-    var cylinderTop = new Path( ellipseShape, {
+    const ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
+    const cylinderTop = new Path( ellipseShape, {
       x: cannonX,
       y: scalableNode.bottom - scaledEllipseHeight / 4,
       fill: DARK_GRAY_COLOR,
@@ -96,45 +96,45 @@ define( require => {
       lineWidth: 2
     } );
 
-    var sideShape = new Shape();
+    const sideShape = new Shape();
     sideShape.moveTo( cannonX - scaledEllipseWidth / 2, height - 1 )
       .lineTo( cannonX - scaledEllipseWidth / 2, cylinderTop.y )
       .ellipticalArc( cannonX, cylinderTop.y, scaledEllipseWidth / 2, scaledEllipseHeight / 2, 0, Math.PI, 0, true )
       .lineTo( cannonX + scaledEllipseWidth / 2, height - 1 )
       .close();
-    var sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 )
+    const sideFill = new LinearGradient( cannonX - scaledEllipseWidth / 2, 0, cannonX + scaledEllipseWidth / 2, 0 )
       .addColorStop( 0.0, DARK_GRAY_COLOR )
       .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
       .addColorStop( 1, DARK_GRAY_COLOR );
-    var cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
+    const cylinderSide = new Path( sideShape, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR, lineWidth: 2 } );
 
     // layer for angle indicators
-    var angleIndicator = new Node( { x: cannonX, y: cannonY } );
+    const angleIndicator = new Node( { x: cannonX, y: cannonY } );
 
     // crosshair view
-    var crosshairShape = new Shape()
+    const crosshairShape = new Shape()
       .moveTo( -width * 0.2, 0 )
       .lineTo( width * 0.5, 0 )
       .moveTo( 0, -height * 0.3 )
       .lineTo( 0, height * 0.3 );
-    var crosshair = new Path( crosshairShape, { stroke: 'gray' } );
+    const crosshair = new Path( crosshairShape, { stroke: 'gray' } );
     angleIndicator.addChild( crosshair );
 
-    var darkerCrosshairShape = new Shape()
+    const darkerCrosshairShape = new Shape()
       .moveTo( -height / 25, 0 )
       .lineTo( height / 25, 0 )
       .moveTo( 0, -height / 25 )
       .lineTo( 0, height / 25 );
-    var darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
+    const darkerCrosshair = new Path( darkerCrosshairShape, { stroke: 'black', lineWidth: 3 } );
     angleIndicator.addChild( darkerCrosshair );
 
     // view for the angle arc
-    var arcShape = Shape.arc( 0, 0, cannonLength + 5, 0, -CANNON_ANGLE * Math.PI / 180, true );
-    var angleArc = new Path( arcShape, { stroke: 'gray' } );
+    const arcShape = Shape.arc( 0, 0, cannonLength + 5, 0, -CANNON_ANGLE * Math.PI / 180, true );
+    const angleArc = new Path( arcShape, { stroke: 'gray' } );
     angleIndicator.addChild( angleArc );
 
     // create the background
-    var backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+    const backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
     Rectangle.call( this, 0, 0, width, height, {
       fill: backgroundFill,
       children: [

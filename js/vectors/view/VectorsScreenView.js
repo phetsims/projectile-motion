@@ -24,7 +24,7 @@ define( require => {
   function VectorsScreenView( model, options ) {
 
     // contains Properties about vector visibility, used in super class
-    var visibilityProperties = new VectorsVectorVisibilityProperties();
+    const visibilityProperties = new VectorsVectorVisibilityProperties();
 
     ProjectileMotionScreenView.call(
       this,

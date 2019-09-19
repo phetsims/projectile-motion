@@ -41,8 +41,8 @@ define( require => {
     } };
 
     // populate the savedValues with default values for each benchmark
-    for ( var i = 1; i < this.objectTypes.length; i++ ) {
-      var objectType = this.objectTypes[i];
+    for ( let i = 1; i < this.objectTypes.length; i++ ) {
+      const objectType = this.objectTypes[i];
       this.savedValues[ objectType.benchmark ] = {
         mass: objectType.mass,
         diameter: objectType.diameter,
@@ -73,8 +73,8 @@ define( require => {
       this.savedValues.custom.mass = this.objectTypes[0].mass;
       this.savedValues.custom.diameter = this.objectTypes[0].diameter;
       this.savedValues.custom.dragCoefficient = this.objectTypes[0].dragCoefficient;
-      for ( var i = 1; i < this.objectTypes.length; i++ ) {
-        var objectType = this.objectTypes[i];
+      for ( let i = 1; i < this.objectTypes.length; i++ ) {
+        const objectType = this.objectTypes[i];
         this.savedValues[ objectType.benchmark ].mass = objectType.mass;
         this.savedValues[ objectType.benchmark ].diameter = objectType.diameter;
         this.savedValues[ objectType.benchmark ].dragCoefficient = objectType.dragCoefficient;

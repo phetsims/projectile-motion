@@ -25,7 +25,7 @@ define( require => {
    */
   function IntroScreen() {
 
-    var options = {
+    const options = {
       name: screenIntroString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new IntroIconNode( 'screen' ),

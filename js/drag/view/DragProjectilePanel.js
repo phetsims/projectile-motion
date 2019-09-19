@@ -37,11 +37,11 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  var LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  var DRAG_OBJECT_DISPLAY_DIAMETER = 24;
-  var TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-  var READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
-  var NUMBER_CONTROL_OPTIONS = {
+  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const DRAG_OBJECT_DISPLAY_DIAMETER = 24;
+  const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
+  const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
+  const NUMBER_CONTROL_OPTIONS = {
     numberDisplayOptions: {
       align: 'right',
       xMargin: READOUT_X_MARGIN,
@@ -84,8 +84,8 @@ define( require => {
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     // local vars used for layout and formatting
-    var textDisplayWidth = options.textDisplayWidth * 1.2;
-    var parameterLabelOptions = _.defaults( {
+    const textDisplayWidth = options.textDisplayWidth * 1.2;
+    const parameterLabelOptions = _.defaults( {
       maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth
     }, LABEL_OPTIONS );
 
@@ -101,10 +101,10 @@ define( require => {
     function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
 
       // label
-      var parameterLabel = new Text( labelString, parameterLabelOptions );
+      const parameterLabel = new Text( labelString, parameterLabelOptions );
 
-      var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
-      var valueLabel = new NumberDisplay(
+      const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
+      const valueLabel = new NumberDisplay(
         valueProperty,
         range,
         _.extend(
@@ -115,7 +115,7 @@ define( require => {
         )
       );
 
-      var slider = new HSlider( valueProperty, range, {
+      const slider = new HSlider( valueProperty, range, {
         constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,
@@ -129,12 +129,12 @@ define( require => {
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
 
       if ( round ) {
-        for ( var i = range.min + round; i < range.max; i += round ) {
+        for ( let i = range.min + round; i < range.max; i += round ) {
           slider.addMinorTick( i );
         }
       }
 
-      var xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
+      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
           new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
@@ -143,7 +143,7 @@ define( require => {
       } );
     }
 
-    var diameterBox = createParameterControlBox(
+    const diameterBox = createParameterControlBox(
       diameterString,
       mString,
       projectileDiameterProperty,
@@ -151,7 +151,7 @@ define( require => {
       selectedObjectTypeProperty.get().diameterRound
     );
 
-    var massBox = createParameterControlBox(
+    const massBox = createParameterControlBox(
       massString,
       kgString,
       projectileMassProperty,
@@ -160,7 +160,7 @@ define( require => {
     );
 
     // layout function for altitude NumberControl
-    var altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+    const altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - numberDisplay.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
@@ -178,7 +178,7 @@ define( require => {
       } );
     };
 
-    var numberControlOptions = _.extend( {
+    const numberControlOptions = _.extend( {
       sliderOptions: null,
       numberDisplayOptions: null,
       layoutFunction: altitudeLayoutFunction
@@ -193,12 +193,12 @@ define( require => {
     }, numberControlOptions.numberDisplayOptions );
 
     // results in '{{value}} m'
-    var valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+    const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       units: mString
     } );
 
     // create altitude control box
-    var altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
+    const altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
     altitudeOptions.numberDisplayOptions = _.extend( {}, numberControlOptions.numberDisplayOptions, {
       valuePattern: valuePattern,
       xMargin: 8
@@ -206,20 +206,20 @@ define( require => {
     altitudeOptions.sliderOptions = _.extend( {}, numberControlOptions.sliderOptions, {
       constrainValue: function( value ) { return Util.roundToInterval( value, 100 ); }
     } );
-    var altitudeBox = new NumberControl(
+    const altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE,
       altitudeOptions
     );
 
-    var dragObjectDisplay = new Node();
+    const dragObjectDisplay = new Node();
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
 
     // layout function for drag coefficient NumberControl
-    var dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      var strut = new HStrut( 70 ); // empirically determined to account for the largest width of dragObjectDisplay
-      var displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
-      var displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
+    const dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+      const strut = new HStrut( 70 ); // empirically determined to account for the largest width of dragObjectDisplay
+      const displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
+      const displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
       titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - displayAndValueBox.width );
       return new VBox( {
         spacing: options.sliderLabelSpacing,
@@ -243,7 +243,7 @@ define( require => {
     } );
 
     // create drag coefficient control box
-    var dragCoefficientOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
+    const dragCoefficientOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
     dragCoefficientOptions.numberDisplayOptions = _.extend( {},
       numberControlOptions.numberDisplayOptions,
       {
@@ -251,7 +251,7 @@ define( require => {
         decimalPlaces: 2
       }
     );
-    var dragCoefficientBox = new NumberControl(
+    const dragCoefficientBox = new NumberControl(
       dragCoefficientString, projectileDragCoefficientProperty,
       selectedObjectTypeProperty.get().dragCoefficientRange,
       dragCoefficientOptions
@@ -262,14 +262,14 @@ define( require => {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );
       }
-      var objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER
+      const objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER
         , dragCoefficient );
       objectView.center = dragObjectDisplay.center;
       dragObjectDisplay.addChild( objectView );
     } );
 
     // The contents of the control panel
-    var content = new VBox( {
+    const content = new VBox( {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [

@@ -32,7 +32,7 @@ define( require => {
   const pumpkin2Image = require( 'image!PROJECTILE_MOTION/pumpkin_2.png' );
   const tankShellImage = require( 'image!PROJECTILE_MOTION/tank_shell.png' );
 
-  var ProjectileObjectViewFactory = {
+  const ProjectileObjectViewFactory = {
 
     /**
      * A custom object view
@@ -49,36 +49,36 @@ define( require => {
       // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
       // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
       assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient ' + dragCoefficient + ' out of bounds' );
-      var radius = diameter / 2;
-      var shape;
-      var angle;
-      var newRadius;
-      var newCenterX;
+      const radius = diameter / 2;
+      let shape;
+      let angle;
+      let newRadius;
+      let newCenterX;
       if ( dragCoefficient <= 0.47 ) { // teardrop (inclusive) to sphere (inclusive)
 
         // Algorithm from http://mathworld.wolfram.com/TeardropCurve.html
         // drag coefficient ranges from [ 0.04 , 0.47 ], and m ranges from 0 to 7
-        var m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
+        const m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
         shape = new Shape();
         shape.moveTo( -radius, 0 );
-        var t;
+        let t;
         for ( t = Math.PI / 24; t < 2 * Math.PI; t += Math.PI / 24 ) {
-          var x = -Math.cos( t ) * radius;
-          var y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), m ) * radius;
+          const x = -Math.cos( t ) * radius;
+          const y = Math.sin( t ) * Math.pow( Math.sin( 0.5 * t ), m ) * radius;
           shape.lineTo( x, y );
         }
         shape.lineTo( -radius, 0 );
 
         // to maintain the same cross sectional area
-        var currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
-        var scaleFactor = radius / currentCrossSectionalRadius;
+        const currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
+        const scaleFactor = radius / currentCrossSectionalRadius;
 
         shape = shape.transformed( Matrix3.scaling( scaleFactor, scaleFactor ) );
 
-        var objectNode = new Path( shape, { fill: 'black' } );
+        const objectNode = new Path( shape, { fill: 'black' } );
 
         // used to shift center onto COM
-        var strut = new Line( objectNode.left, 0, 1.5 * objectNode.width - 2 * radius, 0, { visible: false } );
+        const strut = new Line( objectNode.left, 0, 1.5 * objectNode.width - 2 * radius, 0, { visible: false } );
 
         return new Node( { children: [ strut, objectNode ] } );
       }
@@ -108,12 +108,12 @@ define( require => {
      */
 
     createCannonball: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Circle( transformedBallSize / 2, { fill: 'black' } );
     },
 
     createPumpkin: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.75 } );
       }
@@ -123,12 +123,12 @@ define( require => {
     },
 
     createBaseball: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( baseballImage, { maxWidth: transformedBallSize } );
     },
 
     createCar: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( car2Image, { maxHeight: transformedBallSize * 1.7 } );
       }
@@ -138,12 +138,12 @@ define( require => {
     },
 
     createFootball: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( footballImage, { maxHeight: transformedBallSize } );
     },
 
     createHuman: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( human2Image, { maxWidth: transformedBallSize * 1.35 } );
       }
@@ -153,7 +153,7 @@ define( require => {
     },
 
     createPiano: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       if ( landed ) {
         return new Image( piano2Image, { maxWidth: transformedBallSize * 1.3 } );
       }
@@ -163,12 +163,12 @@ define( require => {
     },
 
     createGolfBall: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
     },
 
     createTankShell: function( diameter, modelViewTransform, landed ) {
-      var transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+      const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
       return new Image( tankShellImage, { maxHeight: transformedBallSize } );
     }
   };
