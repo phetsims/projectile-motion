@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.14-rc.1 Tue Sep 24 2019 12:44:06 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# projectile-motion 1.0.14-rc.1 Wed Sep 25 2019 15:01:05 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -29,8 +29,8 @@
     "branch": "HEAD"
   },
   "phet-core": {
-    "sha": "6bfeef5c876a7f4c52ba269412a4c4985bceb2fb",
-    "branch": "HEAD"
+    "sha": "2f225ac9900afae61f810fddd300c1b41c842d41",
+    "branch": "projectile-motion-1.0"
   },
   "phetcommon": {
     "sha": "4513d24b799f1addcdc55b33c83f8c4b384d4c03",
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "b2a9c10961ae1702d94e7c04728939c9dd561e6c",
+    "sha": "8502d2e04eb6b1b4c5596f8a72b46cf6d6a8b1ad",
     "branch": "1.0"
   },
   "query-string-machine": {
