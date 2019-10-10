@@ -29,7 +29,8 @@ define( require => {
     const options = {
       name: screenDragString,
       backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new DragIconNode()
+      homeScreenIcon: new DragIconNode(),
+      tandem: tandem
     };
 
     Screen.call( this,

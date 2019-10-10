@@ -30,7 +30,8 @@ define( require => {
       name: screenIntroString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new IntroIconNode( 'screen' ),
-      navigationBarIcon: new IntroIconNode( 'nav' )
+      navigationBarIcon: new IntroIconNode( 'nav' ),
+      tandem: tandem
     };
 
     Screen.call( this,

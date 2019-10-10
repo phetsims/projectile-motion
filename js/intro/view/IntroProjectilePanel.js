@@ -47,6 +47,7 @@ define( require => {
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
@@ -57,6 +58,7 @@ define( require => {
                                  projectileDiameterProperty,
                                  projectileDragCoefficientProperty,
                                  airResistanceOnProperty,
+                                 tandem,
                                  options ) {
 
     // The first object is a placeholder so none of the others get mutated
@@ -82,20 +84,25 @@ define( require => {
 
     // first item contains horizontal strut that sets width of combo box
     const firstItemNodeWidth = comboBoxWidth -
-      itemXMargin -
-      0.5 * firstItemNode.height -
-      4 * buttonXMargin -
-      2 * itemXMargin -
-      2 * comboBoxLineWidth
-    ;
+                               itemXMargin -
+                               0.5 * firstItemNode.height -
+                               4 * buttonXMargin -
+                               2 * itemXMargin -
+                               2 * comboBoxLineWidth;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     const comboBoxItems = [];
-    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ] );
+    assert && assert( objectTypes[ 0 ].benchmark, 'benchmark needed for tandemName' );
+    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ], {
+      tandemName: objectTypes[ 0 ].benchmark
+    } );
 
     for ( let i = 1; i < objectTypes.length; i++ ) {
       const projectileObject = objectTypes[ i ];
-      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject );
+      assert && assert( projectileObject.benchmark, 'benchmark needed for tandemName' );
+      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject, {
+        tandemName: projectileObject.benchmark
+      } );
     }
 
     // create view for dropdown
@@ -107,7 +114,8 @@ define( require => {
         yMargin: 7,
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
-        listLineWidth: comboBoxLineWidth
+        listLineWidth: comboBoxLineWidth,
+        tandem: tandem.createTandem( 'projectileChoiceComboBox' )
       }
     );
 
@@ -120,13 +128,14 @@ define( require => {
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
      * @private
-     * 
+     *
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
+     * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty, tandem ) {
       const parameterLabel = new Text( '', parameterLabelOptions );
 
       parameterLabel.setBoundsMethod( 'accurate' );
@@ -139,32 +148,40 @@ define( require => {
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
-      return new VBox( { align: 'left', children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ] } );
+      return new VBox( {
+        align: 'left',
+        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ],
+        tandem: tandem // TODO: I'm not sure about this one, https://github.com/phetsims/projectile-motion/issues/177
+      } );
     }
 
     const massBox = createParameterControlBox(
       massString,
       kgString,
-      projectileMassProperty
+      projectileMassProperty,
+      tandem.createTandem( 'massControlBox' )
     );
 
     const diameterBox = createParameterControlBox(
       diameterString,
       mString,
-      projectileDiameterProperty
+      projectileDiameterProperty,
+      tandem.createTandem( 'diameterControlBox' )
     );
 
     const dragCoefficientBox = createParameterControlBox(
       dragCoefficientString,
       null,
-      projectileDragCoefficientProperty
+      projectileDragCoefficientProperty,
+      tandem.createTandem( 'dragCoefficientControlBox' )
     );
-    
+
     // air resistance
     const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin,
-      boxWidth: 18
+      boxWidth: 18,
+      tandem: tandem.createTandem( 'airResistanceCheckbox' )
     } );
     const airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
@@ -176,7 +193,7 @@ define( require => {
       const opacity = airResistanceOn ? 1 : 0.5;
       dragCoefficientBox.setOpacity( opacity );
     } );
-    
+
     // The contents of the control panel
     const content = new VBox( {
       align: 'left',
@@ -192,7 +209,6 @@ define( require => {
     } );
 
     Panel.call( this, content, options );
-
   }
 
   projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );

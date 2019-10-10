@@ -30,7 +30,8 @@ define( require => {
       name: screenVectorsString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new VectorsIconNode( 'screen' ),
-      navigationBarIcon: new VectorsIconNode( 'nav' )
+      navigationBarIcon: new VectorsIconNode( 'nav' ),
+      tandem: tandem
     };
 
     Screen.call( this,

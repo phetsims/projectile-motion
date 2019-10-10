@@ -30,7 +30,8 @@ define( require => {
       name: screenLabString,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new LabIconNode( 'screen' ),
-      navigationBarIcon: new LabIconNode( 'nav' )
+      navigationBarIcon: new LabIconNode( 'nav' ),
+      tandem: tandem
     };
 
     Screen.call( this,

@@ -31,21 +31,22 @@ define( require => {
     const comboBoxListParent = new Node();
 
     // @private, for layout
-    this.introProjectilePanel = new IntroProjectilePanel(
+    this.projectilePanel = new IntroProjectilePanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
       comboBoxListParent,
       model.projectileMassProperty,
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
-      model.airResistanceOnProperty
+      model.airResistanceOnProperty,
+      tandem.createTandem( 'projectilePanel' )
     );
 
     ProjectileMotionScreenView.call(
       this,
       model,
-      this.introProjectilePanel,
-      new IntroVectorsPanel( visibilityProperties ),
+      this.projectilePanel,
+      new IntroVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsPanel' ) }  ),
       visibilityProperties,
       options
     );
@@ -65,7 +66,7 @@ define( require => {
      * @override
      */
     layout: function( width, height ) {
-      this.introProjectilePanel.hideComboBoxList();
+      this.projectilePanel.hideComboBoxList();
       ProjectileMotionScreenView.prototype.layout.call( this, width, height );
     }
   } );
