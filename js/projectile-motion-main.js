@@ -29,14 +29,13 @@ define( require => {
       graphicArts: 'Mariah Hermsmeyer, Cheryl McCutchan'
     }
   };
-  const screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
 
   SimLauncher.launch( function() {
     const sim = new Sim( projectileMotionTitleString, [
-      new IntroScreen( screenTandem.createTandem( 'introScreen' ) ),
-      new VectorsScreen( screenTandem.createTandem( 'vectorsScreen' ) ),
-      new DragScreen( screenTandem.createTandem( 'dragScreen' ) ),
-      new LabScreen( screenTandem.createTandem( 'labScreen' ) )
+      new IntroScreen( Tandem.rootTandem.createTandem( 'introScreen' ) ),
+      new VectorsScreen( Tandem.rootTandem.createTandem( 'vectorsScreen' ) ),
+      new DragScreen( Tandem.rootTandem.createTandem( 'dragScreen' ) ),
+      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) )
     ], simOptions );
     sim.start();
   } );

@@ -19,6 +19,28 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<>"
     },
+    "ActionIO<BooleanIO>": {
+      "documentation": "Executes when an event occurs.",
+      "events": [
+        "emitted"
+      ],
+      "methodOrder": [],
+      "methods": {
+        "execute": {
+          "documentation": "Executes the function the Action is wrapping.",
+          "invocableForReadOnlyElements": false,
+          "parameterTypes": [
+            "BooleanIO"
+          ],
+          "returnType": "VoidIO"
+        }
+      },
+      "parameterTypes": [
+        "BooleanIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "ActionIO<BooleanIO>"
+    },
     "ActionIO<DOMEventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
@@ -196,6 +218,17 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "ObjectIO",
       "typeName": "BooleanIO"
+    },
+    "ComboBoxIO": {
+      "documentation": "A combo box is composed of a push button and a listbox. The listbox contains items that represent choices. Pressing the button pops up the listbox. Selecting from an item in the listbox sets the value of an associated Property. The button shows the item that is currently selected.",
+      "events": [
+        "listBoxShown",
+        "listBoxHidden"
+      ],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "NodeIO",
+      "typeName": "ComboBoxIO"
     },
     "DOMEventIO": {
       "documentation": "A DOM Event",
@@ -425,6 +458,14 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(Vector2IO,NullableIO<Vector2IO>)=>VoidIO"
+    },
+    "LinkedElementIO": {
+      "documentation": "A LinkedElement",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "LinkedElementIO"
     },
     "NodeIO": {
       "documentation": "The base type for graphical and potentially interactive objects.  NodeIO has nested PropertyIO values for visibility, pickability and opacity.<br><br>Pickable can take one of three values:<br><ul><li>null: pass-through behavior. Nodes with input listeners are pickable, but nodes without input listeners won't block events for nodes behind it.</li><li>false: The node cannot be interacted with, and it blocks events for nodes behind it.</li><li>true: The node can be interacted with (if it has an input listener).</li></ul>For more about Scenery node pickability, please see <a href=\"http://phetsims.github.io/scenery/doc/implementation-notes#pickability\">http://phetsims.github.io/scenery/doc/implementation-notes#pickability</a>",
