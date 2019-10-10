@@ -18,13 +18,14 @@ define( require => {
 
   /**
    * @param {DragModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function DragScreenView( model, options ) {
+  function DragScreenView( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new DragVectorVisibilityProperties();
+    const visibilityProperties = new DragVectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
 
     ProjectileMotionScreenView.call(
       this,
@@ -38,9 +39,8 @@ define( require => {
       ),
       new DragVectorsPanel( visibilityProperties ),
       visibilityProperties,
-      options
-    );
-
+      tandem,
+      options );
   }
 
   projectileMotion.register( 'DragScreenView', DragScreenView );

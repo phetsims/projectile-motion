@@ -9,11 +9,14 @@ define( require => {
   'use strict';
 
   // modules
+  const BooleanIO = require( 'TANDEM/types/BooleanIO' );
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
   const Emitter = require( 'AXON/Emitter' );
   const EventTimer = require( 'PHET_CORE/EventTimer' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const NumberIO = require( 'TANDEM/types/NumberIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -31,47 +34,67 @@ define( require => {
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
    * @param {boolean} defaultAirResistance -  default air resistance on value
-   * @param {number} defaultCannonHeight - optional, defaults to 0, only used by Intro screen
-   * @param {number} defaultCannonAngle - option, defaults to 80, only used by Intro screen
-   * @param {number} defaultInitialSpeed - option, defaults to 80, only used by Intro screen
+   * @param {Tandem} tandem
    * @constructor
    */
-  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, defaultCannonHeight, defaultCannonAngle, defaultInitialSpeed ) {
+  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, tandem, options ) {
 
+    options = _.extend( {
+      defaultCannonHeight: 0,
+      defaultCannonAngle: 80,
+      defaultInitialSpeed: 18
+    }, options );
 
     // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
-    this.trajectories = new ObservableArray();
+    this.trajectories = new ObservableArray( { tandem: tandem.createTandem( 'trajectories' ) } );
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
-    this.measuringTape = new ProjectileMotionMeasuringTape();
+    this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
 
     // @public {Tracer} model for the tracer probe
-    this.tracer = new Tracer( this.trajectories, 10, 10 ); // location arbitrary
+    this.tracer = new Tracer( this.trajectories, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
 
     // --initial values
 
     // @public {Property.<number>} height of the cannon, in meters
-    this.cannonHeightProperty = new NumberProperty( defaultCannonHeight ? defaultCannonHeight : 0 );
+    this.cannonHeightProperty = new NumberProperty( options.defaultCannonHeight, {
+      tandem: tandem.createTandem( 'cannonHeightProperty' ),
+      units: 'm'
+    } );
 
     // @public {Property.<number>} angle of the cannon, in degrees
-    this.cannonAngleProperty = new NumberProperty( defaultCannonHeight ? defaultCannonAngle : 80 );
+    this.cannonAngleProperty = new NumberProperty( options.defaultCannonAngle, {
+      tandem: tandem.createTandem( 'cannonAngleProperty' ),
+      units: '\u00B0'
+    } );
 
     // @public {Property.<number>} launch speed, in meters per second
-    this.launchVelocityProperty = new NumberProperty( defaultCannonHeight ? defaultInitialSpeed : 18 );
+    this.launchVelocityProperty = new NumberProperty( options.defaultInitialSpeed, {
+      tandem: tandem.createTandem( 'launchVelocityProperty' ),
+      units: 'm/s'
+    } );
 
     // --parameters for next projectile fired
 
     // @public {Property.<number>} mass of the projectile, in kilograms
-    this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass );
+    this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass, {
+      tandem: tandem.createTandem( 'projectileMassProperty' ),
+      units: 'kg'
+    } );
 
     // @public {Property.<number>} diameter of the projectile, in meters
-    this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter );
+    this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter, {
+      tandem: tandem.createTandem( 'projectileDiameterProperty' ),
+      units: 'm'
+    } );
 
     // @public {Property.<number>} drag coefficient of the projectile, unitless as it is a coefficient
-    this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient );
+    this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient, {
+      tandem: tandem.createTandem( 'projectileDragCoefficientProperty' )
+    } );
 
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
 
@@ -80,19 +103,28 @@ define( require => {
     // --Properties that change the environment and affect all projectiles, called global
 
     // @public acceleration due to gravity, in meters per second squared
-    this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH );
+    this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH, {
+      tandem: tandem.createTandem( 'gravityProperty' ),
+      units: 'm/s^2'
+    } );
 
     // @public altitude of the environment, in meters
-    this.altitudeProperty = new NumberProperty( 0 );
+    this.altitudeProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'altitudeProperty' ),
+      units: 'm'
+    } );
 
     // @public whether air resistance is on
-    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance );
+    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance, { tandem: tandem.createTandem( 'airResistanceOnProperty' ) } );
 
     // @public {DerivedProperty.<number>} air density, in kg/cu m, depends on altitude and whether air resistance is on
     this.airDensityProperty = new DerivedProperty( [
       this.altitudeProperty,
       this.airResistanceOnProperty
-    ], calculateAirDensity );
+    ], calculateAirDensity, {
+      tandem: tandem.createTandem( 'airDensityProperty' ),
+      phetioType: DerivedPropertyIO( NumberIO )
+    } );
 
     // if any of the global Properties change, update the status of moving projectiles
     this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
@@ -104,19 +136,22 @@ define( require => {
     this.speedProperty = new Property( 'normal' );
 
     // @public whether animation is playing (as opposed to paused)
-    this.isPlayingProperty = new BooleanProperty( true );
+    this.isPlayingProperty = new BooleanProperty( true, { tandem: tandem.createTandem( 'isPlayingProperty' ) } );
 
     // @public (read-only)
     this.davidHeight = 2; // meters
     this.davidPosition = new Vector2( 7, 0 ); // meters
 
     // @public number of projectiles that are still moving
-    this.numberOfMovingProjectilesProperty = new NumberProperty( 0 );
+    this.numberOfMovingProjectilesProperty = new NumberProperty( 0, { tandem: tandem.createTandem( 'numberOfMovingProjectilesProperty' ) } );
 
     // @public {DerivedProperty.<boolean>} is the fire button enabled? Yes if there are less than the max projectiles
     // in the air.
     this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty ], function( number ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
+    }, {
+      tandem: tandem.createTandem( 'fireEnabledProperty' ),
+      phetioType: DerivedPropertyIO( BooleanIO )
     } );
 
     // @public {Emitter}
@@ -290,7 +325,7 @@ define( require => {
 
         // Furthest projectile on trajectory has not reached ground
         if ( !trajectory.reachedGround ) {
-          
+
           // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
           trajectory.changedInMidAir = true;
 
@@ -307,7 +342,7 @@ define( require => {
 
         // Furthest object on trajectory has reached ground
         else {
-          
+
           // For each projectile still in the air, create a new trajectory
           for ( i = 0; i < trajectory.projectileObjects.length; i++ ) {
             projectileObject = trajectory.projectileObjects.get( i );

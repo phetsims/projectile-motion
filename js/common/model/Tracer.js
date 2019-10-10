@@ -27,18 +27,19 @@ define( require => {
    * @param {ObservableArray.<Trajectory>} trajectories
    * @param {number} tracerX - x position of the tracer
    * @param {number} tracerY - y position of the tracer
+   * @param {Tandem} tandem
    * @constructor
    */
-  function Tracer( trajectories, tracerX, tracerY ) {
+  function Tracer( trajectories, tracerX, tracerY, tandem ) {
 
     // @public - position of the tracer
-    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ) );
+    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), { tandem: tandem.createTandem( 'positionProperty' ) } );
 
     // @public {Property.<DataPoint|null>} point that the tracer is displaying information about, or null if no info displayed
     this.dataPointProperty = new Property( null );
 
     // @public whether the tracer is out in the play area (false when in toolbox)
-    this.isActiveProperty = new BooleanProperty( false );
+    this.isActiveProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'isActiveProperty' ) } );
 
     // @public {ObservableArray.<Trajectory>} array of trajectories in the model
     this.trajectories = trajectories;
@@ -74,7 +75,7 @@ define( require => {
         }
         const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
         const pointIsReadable = point &&
-          ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                                ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.dataPointProperty.set( point );
           return;
@@ -93,7 +94,7 @@ define( require => {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
       const pointIsReadable = point &&
-        ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                              ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
         this.dataPointProperty.set( point );
       }

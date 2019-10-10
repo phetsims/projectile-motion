@@ -21,9 +21,10 @@ define( require => {
   const screenVectorsString = require( 'string!PROJECTILE_MOTION/screen.vectors' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function VectorsScreen() {
+  function VectorsScreen( tandem ) {
 
     const options = {
       name: screenVectorsString,
@@ -33,8 +34,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new VectorsModel(); },
-      function( model ) { return new VectorsScreenView( model ); },
+      function() { return new VectorsModel( tandem.createTandem( 'model' ) ); },
+      function( model ) { return new VectorsScreenView( model, tandem.createTandem( 'view' ) ); },
       options
     );
   }

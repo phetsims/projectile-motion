@@ -14,28 +14,40 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function VectorVisibilityProperties() {
+  function VectorVisibilityProperties( tandem ) {
 
     // @public whether total velocity vector is showing
-    this.totalVelocityVectorOnProperty = new BooleanProperty( false );
+    this.totalVelocityVectorOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'totalVelocityVectorOnProperty' )
+    } );
 
     // @public whether component velocity vectors are showing
-    this.componentsVelocityVectorsOnProperty = new BooleanProperty( false );
+    this.componentsVelocityVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'componentsVelocityVectorsOnProperty' )
+    } );
 
     // @public whether total force vector is showing
-    this.totalForceVectorOnProperty = new BooleanProperty( false );
+    this.totalForceVectorOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'totalForceVectorOnProperty' )
+    } );
 
     // @public whether component force vectors are showing
-    this.componentsForceVectorsOnProperty = new BooleanProperty( false );
+    this.componentsForceVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'componentsForceVectorsOnProperty' )
+    } );
 
     // @public whether total acceleration vector is shown
-    this.totalAccelerationVectorOnProperty = new BooleanProperty( false );
+    this.totalAccelerationVectorOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'totalAccelerationVectorOnProperty' )
+    } );
 
     // @public whether component acceleration vectors are showing
-    this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false );
-
+    this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'componentsAccelerationVectorsOnProperty' )
+    } );
   }
 
   projectileMotion.register( 'VectorVisibilityProperties', VectorVisibilityProperties );

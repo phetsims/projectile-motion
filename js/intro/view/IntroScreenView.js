@@ -18,13 +18,14 @@ define( require => {
 
   /**
    * @param {IntroModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function IntroScreenView( model, options ) {
+  function IntroScreenView( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorVisibilityProperties();
+    const visibilityProperties = new VectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();

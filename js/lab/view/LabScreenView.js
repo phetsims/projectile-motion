@@ -22,15 +22,16 @@ define( require => {
 
   /**
    * @param {LabModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function LabScreenView( model, options ) {
+  function LabScreenView( model, tandem, options ) {
 
     options = _.extend( { preciseCannonDelta: true }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorVisibilityProperties();
+    const visibilityProperties = new VectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
@@ -53,7 +54,7 @@ define( require => {
       visibilityProperties,
       options
     );
-    
+
     // insert dropdown right on top of the rightside panels
     this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
 

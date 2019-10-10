@@ -21,9 +21,10 @@ define( require => {
   const screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function DragScreen() {
+  function DragScreen( tandem ) {
 
     const options = {
       name: screenDragString,
@@ -32,8 +33,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new DragModel(); },
-      function( model ) { return new DragScreenView( model ); },
+      function() { return new DragModel( tandem.createTandem( 'model' ) ); },
+      function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
       options
     );
   }

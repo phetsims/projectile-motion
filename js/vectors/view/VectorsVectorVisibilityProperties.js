@@ -16,10 +16,11 @@ define( require => {
   const VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function VectorsVectorVisibilityProperties() {
-    VectorVisibilityProperties.call( this );
+  function VectorsVectorVisibilityProperties( tandem ) {
+    VectorVisibilityProperties.call( this, tandem );
 
     // @public vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new BooleanProperty( false );

@@ -75,6 +75,7 @@ define( require => {
    * @param {Panel} topRightPanel - the projectile control panel at the top right
    * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
@@ -82,6 +83,7 @@ define( require => {
                                        topRightPanel,
                                        bottomRightPanel,
                                        vectorVisibilityProperties,
+                                       tandem,
                                        options ) {
     const self = this;
 

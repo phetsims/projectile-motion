@@ -14,6 +14,7 @@ define( require => {
   const LabScreen = require( 'PROJECTILE_MOTION/lab/LabScreen' );
   const Sim = require( 'JOIST/Sim' );
   const SimLauncher = require( 'JOIST/SimLauncher' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const VectorsScreen = require( 'PROJECTILE_MOTION/vectors/VectorsScreen' );
 
   // strings
@@ -28,13 +29,14 @@ define( require => {
       graphicArts: 'Mariah Hermsmeyer, Cheryl McCutchan'
     }
   };
+  const screenTandem = Tandem.rootTandem.createTandem( 'frictionScreen' );
 
   SimLauncher.launch( function() {
     const sim = new Sim( projectileMotionTitleString, [
-      new IntroScreen(),
-      new VectorsScreen(),
-      new DragScreen(),
-      new LabScreen()
+      new IntroScreen( screenTandem.createTandem( 'introScreen' ) ),
+      new VectorsScreen( screenTandem.createTandem( 'vectorsScreen' ) ),
+      new DragScreen( screenTandem.createTandem( 'dragScreen' ) ),
+      new LabScreen( screenTandem.createTandem( 'labScreen' ) )
     ], simOptions );
     sim.start();
   } );

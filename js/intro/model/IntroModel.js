@@ -15,9 +15,10 @@ define( require => {
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function IntroModel() {
+  function IntroModel( tandem ) {
 
     // @public
     this.objectTypes = [
@@ -32,7 +33,11 @@ define( require => {
       ProjectileObjectType.CAR
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, 10, 0, 15 );
+    ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, tandem, {
+      defaultCannonHeight: 10,
+      defaultCannonAngle: 0,
+      defaultInitialSpeed: 15
+    } );
   }
 
   projectileMotion.register( 'IntroModel', IntroModel );

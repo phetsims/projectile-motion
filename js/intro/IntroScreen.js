@@ -21,9 +21,10 @@ define( require => {
   const screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function IntroScreen() {
+  function IntroScreen( tandem ) {
 
     const options = {
       name: screenIntroString,
@@ -33,8 +34,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new IntroModel(); },
-      function( model ) { return new IntroScreenView( model ); },
+      function() { return new IntroModel( tandem.createTandem( 'model' ) ); },
+      function( model ) { return new IntroScreenView( model, tandem.createTandem( 'view' ) ); },
       options
     );
   }

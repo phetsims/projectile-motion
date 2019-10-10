@@ -21,9 +21,10 @@ define( require => {
   const screenLabString = require( 'string!PROJECTILE_MOTION/screen.lab' );
 
   /**
+   *  @param {Tandem} tandem
    * @constructor
    */
-  function LabScreen() {
+  function LabScreen( tandem ) {
 
     const options = {
       name: screenLabString,
@@ -33,8 +34,8 @@ define( require => {
     };
 
     Screen.call( this,
-      function() { return new LabModel(); },
-      function( model ) { return new LabScreenView( model ); },
+      function() { return new LabModel( tandem.createTandem( 'model' ) ); },
+      function( model ) { return new LabScreenView( model, tandem.createTandem( 'view' ) ); },
       options
     );
   }

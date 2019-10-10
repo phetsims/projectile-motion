@@ -18,13 +18,14 @@ define( require => {
 
   /**
    * @param {VectorsModel} model
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function VectorsScreenView( model, options ) {
+  function VectorsScreenView( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorsVectorVisibilityProperties();
+    const visibilityProperties = new VectorsVectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
 
     ProjectileMotionScreenView.call(
       this,
@@ -38,9 +39,9 @@ define( require => {
       ),
       new VectorsVectorsPanel( visibilityProperties ),
       visibilityProperties,
+      tandem,
       options
     );
-
   }
 
   projectileMotion.register( 'VectorsScreenView', VectorsScreenView );

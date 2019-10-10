@@ -16,9 +16,10 @@ define( require => {
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
 
   /**
+   * @param {Tandem} tandem
    * @constructor
    */
-  function DragModel() {
+  function DragModel( tandem ) {
 
     ProjectileMotionModel.call( this, new ProjectileObjectType(
       null,
@@ -27,7 +28,7 @@ define( require => {
       ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
       null,
       true
-    ), true );
+    ), true, tandem );
 
   }
 
