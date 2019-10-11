@@ -107,7 +107,7 @@ define( require => {
     const transformProperty = new Property( modelViewTransform );
 
     // target
-    const targetNode = new TargetNode( model.score, transformProperty, this );
+    const targetNode = new TargetNode( model.score, transformProperty, this, tandem.createTandem( 'targetNode' ) );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     const trajectoriesLayer = new Node();
@@ -138,7 +138,8 @@ define( require => {
     model.trajectories.addItemAddedListener( handleTrajectoryAdded );
 
     // cannon
-    const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this, options );
+    const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper,
+      transformProperty, this, tandem.createTandem( 'cannonNode' ), _.omit( options, 'tandem' ) ); // TODO: don't pass all options in
 
     // results in '{{value}} m/s'
     const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -168,8 +169,9 @@ define( require => {
           scale: 0.56,
           touchAreaXDilation: 20,
           touchAreaYDilation: 20
-        }
-      }
+        },
+        tandem: tandem.createTandem( 'initialSpeedControl' )
+      },
     );
 
     // panel under the cannon, controls initial speed of projectiles
@@ -191,7 +193,8 @@ define( require => {
         textColor: 'black',
         textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
         significantFigures: 2,
-        textFont: new PhetFont( { size: 16, weight: 'bold' } )
+        textFont: new PhetFont( { size: 16, weight: 'bold' } ),
+        tandem: tandem.createTandem( 'measuringTapeNode' )
       } );
 
     // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
@@ -223,11 +226,9 @@ define( require => {
     } );
 
     // add view for tracer
-    const tracerNode = new TracerNode(
-      model.tracer,
-      transformProperty,
-      this
-    );
+    const tracerNode = new TracerNode( model.tracer, transformProperty, this, {
+      tandem: tandem.createTandem( 'tracerNode' )
+    } );
 
     // zoom Property
     const zoomProperty = new NumberProperty( DEFAULT_ZOOM );
@@ -245,7 +246,8 @@ define( require => {
       left: 0,
       top: 0,
       touchAreaXDilation: 3,
-      touchAreaYDilation: 6
+      touchAreaYDilation: 6,
+      tandem: tandem.createTandem( 'zoomOutButton' )
     } );
     zoomControl.addChild( zoomOutButton );
 
@@ -259,7 +261,8 @@ define( require => {
       left: zoomOutButton.right + X_MARGIN,
       top: zoomOutButton.top,
       touchAreaXDilation: 3,
-      touchAreaYDilation: 6
+      touchAreaYDilation: 6,
+      tandem: tandem.createTandem( 'zoomInButton' )
     } );
     zoomControl.addChild( zoomInButton );
 
@@ -298,7 +301,8 @@ define( require => {
         zoomProperty.reset();
         cannonNode.reset();
       },
-      centerY: initialSpeedPanel.centerY
+      centerY: initialSpeedPanel.centerY,
+      tandem: tandem.createTandem( 'resetAllButton' )
     } );
 
     // eraser button
@@ -308,7 +312,8 @@ define( require => {
       minHeight: 40,
       listener: function() { model.eraseTrajectories(); },
       centerY: initialSpeedPanel.centerY,
-      left: initialSpeedPanel.right + 30
+      left: initialSpeedPanel.right + 30,
+      tandem: tandem.createTandem( 'eraserButton' )
     } );
 
     // fire button
@@ -321,7 +326,8 @@ define( require => {
         cannonNode.flashMuzzle();
       },
       bottom: eraserButton.bottom,
-      left: eraserButton.right + X_MARGIN
+      left: eraserButton.right + X_MARGIN,
+      tandem: tandem.createTandem( 'fireButton' )
     } );
 
     model.fireEnabledProperty.link( function( enable ) {
@@ -333,7 +339,8 @@ define( require => {
       radius: 18,
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
-      touchAreaDilation: 2
+      touchAreaDilation: 2,
+      tandem: tandem.createTandem( 'playPauseButton' )
     } );
 
     // step button
@@ -345,7 +352,8 @@ define( require => {
       fill: '#005566',
       centerY: playPauseButton.centerY,
       left: playPauseButton.right + PLAY_CONTROLS_INSET,
-      touchAreaDilation: 4
+      touchAreaDilation: 4,
+      tandem: tandem.createTandem( 'stepButton' )
     } );
 
     // make the play/pause button bigger when it is paused
@@ -361,7 +369,10 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const normalMotionRadioBox = new AquaRadioButton( model.speedProperty, 'normal', normalText, { radius: 8 } );
+    const normalMotionRadioButton = new AquaRadioButton( model.speedProperty, 'normal', normalText, {
+      radius: 8,
+      tandem: tandem.createTandem( 'normalMotionRadioButton' )
+    } );
 
     const slowText = new Text( slowString, {
       font: new PhetFont( 15 ),
@@ -369,14 +380,18 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const slowMotionRadioBox = new AquaRadioButton( model.speedProperty, 'slow', slowText, { radius: 8 } );
+    const slowMotionRadioButton = new AquaRadioButton( model.speedProperty, 'slow', slowText, {
+      radius: 8,
+      tandem: tandem.createTandem( 'slowMotionRadioButton' )
+    } );
 
+    // TODO: should use VerticalAquaRadioButtonGroup unless there is a good reason not to
     const speedControl = new VBox( {
       align: 'left',
       spacing: 4,
       centerY: initialSpeedPanel.centerY,
       left: stepButton.right + 2 * PLAY_CONTROLS_INSET,
-      children: [ normalMotionRadioBox, slowMotionRadioBox ]
+      children: [ normalMotionRadioButton, slowMotionRadioButton ]
     } );
 
     // @private for layout convenience

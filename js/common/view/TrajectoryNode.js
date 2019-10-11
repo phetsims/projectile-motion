@@ -102,7 +102,7 @@ define( require => {
 
       // draw dot if it is time for data point should be shown
       const addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
-      if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ){
+      if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ) {
         dotsShape
           .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )
           .circle( viewAddedPosition.x, viewAddedPosition.y, LARGE_DOT_RADIUS );

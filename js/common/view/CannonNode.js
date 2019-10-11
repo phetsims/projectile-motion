@@ -75,14 +75,16 @@ define( require => {
    * @param {Emitter} muzzleFlashStepper - emits whenever model steps
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, options ) {
+  function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, tandem, options ) {
     const self = this;
 
     options = _.extend( {
-      renderer: platform.mobileSafari ? 'canvas' : null
+      renderer: platform.mobileSafari ? 'canvas' : null,
+      tandem: tandem
     }, options );
 
     Node.call( this, options );
@@ -154,7 +156,7 @@ define( require => {
         lineDash: [ 5, 5 ]
       }
     );
-    
+
     // added arrows for indicating height
     const heightLeaderArrows = new ArrowNode(
       transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
@@ -193,7 +195,8 @@ define( require => {
     }, LABEL_OPTIONS );
     const heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       value: Util.toFixedNumber( heightProperty.get(), 2 ),
-      units: mString
+      units: mString,
+      tandem: tandem.createTandem( 'heightLabel' )
     } ), heightLabelOptions );
     heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
     heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
@@ -271,11 +274,16 @@ define( require => {
     innerFlame.setScaleMagnitude( 0.7 );
     outerFlame.left = 0;
     innerFlame.left = 0;
-    const muzzleFlash = new Node( { opacity: 0, x: cannonBarrelTop.right, y: 0, children: [ outerFlame, innerFlame ] } );
+    const muzzleFlash = new Node( {
+      opacity: 0,
+      x: cannonBarrelTop.right,
+      y: 0,
+      children: [ outerFlame, innerFlame ]
+    } );
     cannonBarrel.addChild( muzzleFlash );
 
     this.muzzleFlashStage = 1; // 0 means animation starting, 1 means animation ended.
-    
+
     function stepMuzzleFlash() {
       if ( self.muzzleFlashStage < 1 ) {
         muzzleFlash.opacity = self.muzzleFlashStage;
@@ -308,8 +316,8 @@ define( require => {
     angleProperty.link( function( angle ) {
       cannonBarrel.setRotation( -angle * Math.PI / 180 );
       const arcShape = angle > 0
-        ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
-        : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
+                       ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
+                       : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, {
         value: Util.toFixedNumber( angleProperty.get(), 2 ),
@@ -440,7 +448,8 @@ define( require => {
 
       },
 
-      allowTouchSnag: true
+      allowTouchSnag: true,
+      tandem: tandem.createTandem( 'barrelTopDragHandler' )
 
     } ) );
 
@@ -475,8 +484,8 @@ define( require => {
         heightCueingArrows.visible = false;
       },
 
-      allowTouchSnag: true
-
+      allowTouchSnag: true,
+      tandem: tandem.createTandem( 'heightDragHandler' )
     } );
 
     // multiple parts of the cannon can be dragged to change height

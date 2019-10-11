@@ -25,6 +25,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -86,7 +87,8 @@ define( require => {
     const self = this;
 
     options = _.extend( {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      tandem: Tandem.required
     }, options );
 
     // @public is this being handled by user?
@@ -150,9 +152,10 @@ define( require => {
       startDrag: function( event ) {
         self.isUserControlledProperty.set( true );
       },
-      endDrag: function( event ) {
+      endDrag: function() {
         self.isUserControlledProperty.set( false );
-      }
+      },
+      tandem: options.tandem.createTandem( 'dragHandler' )
     } );
 
     // label and values readouts
@@ -392,7 +395,7 @@ define( require => {
       const crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
       const timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( noValueString ) );
       const rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
-      const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property(noValueString) );
+      const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( noValueString ) );
 
       const textBox = new VBox( {
         align: 'left',

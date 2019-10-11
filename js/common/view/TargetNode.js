@@ -40,9 +40,10 @@ define( require => {
    * @param {Score} score - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
+   * @param {Tandem} tandem
    * @constructor
    */
-  function TargetNode( score, transformProperty, screenView ) {
+  function TargetNode( score, transformProperty, screenView, tandem ) {
     const self = this;
     Node.call( this );
 
@@ -112,7 +113,8 @@ define( require => {
         ) * 10 ) / 10 );
       },
 
-      allowTouchSnag: true
+      allowTouchSnag: true,
+      tandem: tandem.createTandem( 'dragHandler' )
     } );
 
     // drag target to change horizontal position

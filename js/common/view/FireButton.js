@@ -34,7 +34,6 @@ define( require => {
     options.content.scale( options.iconWidth / options.content.width );
 
     RectangularPushButton.call( this, options );
-
   }
 
   projectileMotion.register( 'FireButton', FireButton );

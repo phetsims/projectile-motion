@@ -52,6 +52,7 @@ define( require => {
       ),
       labProjectilePanel,
       visibilityProperties,
+      tandem,
       options
     );
 
