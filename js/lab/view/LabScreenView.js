@@ -35,11 +35,12 @@ define( require => {
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
-    const keypadLayer = new KeypadLayer();
+    const keypadLayer = new KeypadLayer( { tandem: tandem } );
     const labProjectilePanel = new LabProjectilePanel(
       comboBoxListParent,
       keypadLayer,
-      model
+      model,
+      tandem.createTandem( 'projectilePanel' )
     );
 
     ProjectileMotionScreenView.call(

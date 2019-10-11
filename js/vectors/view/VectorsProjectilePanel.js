@@ -16,6 +16,7 @@ define( require => {
   const HSlider = require( 'SUN/HSlider' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -48,6 +49,7 @@ define( require => {
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
    * @param {Property.<number>} projectileDragCoefficientProperty
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
@@ -56,13 +58,14 @@ define( require => {
                                    projectileMassProperty,
                                    airResistanceOnProperty,
                                    projectileDragCoefficientProperty,
+                                   tandem,
                                    options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { textDisplayWidth: 45 }, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { textDisplayWidth: 45 }, options );
 
     // local vars for layout and formatting
     const textDisplayWidth = options.textDisplayWidth * 1.2;
@@ -75,22 +78,21 @@ define( require => {
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
      * @param {Number} round - optional, for minor ticks
+     * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
-      // label
-      const parameterLabel = new Text( labelString, parameterLabelOptions );
+    function createParameterControlBox( labelString, unitsString, valueProperty, range, round, tandem ) {
 
-      const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
+      // label
+      const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, parameterLabelOptions ) );
+
       const valueLabel = new NumberDisplay(
         valueProperty,
         range,
-        _.extend(
-          ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
-            valuePattern: valuePattern,
-            decimalPlaces: null
-          }
-        )
+        merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+          valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
+          decimalPlaces: null
+        } )
       );
 
       const slider = new HSlider( valueProperty, range, {
@@ -101,7 +103,8 @@ define( require => {
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
+        thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
+        tandem: tandem.createTandem( 'slider' )
       } );
       slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
@@ -132,20 +135,22 @@ define( require => {
       ]
     } );
 
-    const diameterBox = createParameterControlBox(
+    const diameterControlBox = createParameterControlBox(
       diameterString,
       mString,
       projectileDiameterProperty,
       selectedObjectTypeProperty.get().diameterRange,
-      selectedObjectTypeProperty.get().diameterRound
+      selectedObjectTypeProperty.get().diameterRound,
+      tandem.createTandem( 'diameterControlBox' )
     );
 
-    const massBox = createParameterControlBox(
+    const massControlBox = createParameterControlBox(
       massString,
       kgString,
       projectileMassProperty,
       selectedObjectTypeProperty.get().massRange,
-      selectedObjectTypeProperty.get().massRound
+      selectedObjectTypeProperty.get().massRound,
+      tandem.createTandem( 'massControlBox' )
     );
 
     const dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
@@ -154,7 +159,8 @@ define( require => {
     const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
     const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
       maxWidth: options.minWidth - 3 * options.xMargin - AIR_RESISTANCE_ICON.width,
-      boxWidth: 18
+      boxWidth: 18,
+      tandem: tandem.createTandem( 'airResistanceCheckbox' )
     } );
     const airResistanceCheckboxAndIcon = new HBox( {
       spacing: options.xMargin,
@@ -178,8 +184,8 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         objectDisplay,
-        diameterBox,
-        massBox,
+        diameterControlBox,
+        massControlBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckboxAndIcon,
         dragCoefficientBox

@@ -12,7 +12,7 @@ define( require => {
   // modules
   const DownUpListener = require( 'SCENERY/input/DownUpListener' );
   const inherit = require( 'PHET_CORE/inherit' );
-  const Keypad= require( 'SCENERY_PHET/keypad/Keypad' );
+  const Keypad = require( 'SCENERY_PHET/keypad/Keypad' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
@@ -22,6 +22,7 @@ define( require => {
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -53,7 +54,8 @@ define( require => {
 
       // supertype options
       visible: false,
-      fill: 'rgba( 0, 0, 0, 0.2 )'
+      fill: 'rgba( 0, 0, 0, 0.2 )',
+      tandem: Tandem.required
     }, options );
 
     Plane.call( this, options );
@@ -87,7 +89,8 @@ define( require => {
 
     this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
       maxDigits: options.maxDigits,
-      maxDigitsRightOfMantissa: options.maxDecimals
+      maxDigitsRightOfMantissa: options.maxDecimals,
+      tandem: options.tandem.createTandem( 'keypad' )
     } );
 
     const enterButton = new RectangularPushButton( {
@@ -97,7 +100,8 @@ define( require => {
         font: TEXT_FONT,
         fill: 'black',
         maxWidth: this.keypadNode.width // i18n
-      } )
+      } ),
+      tandem: options.tandem.createTandem( 'enterButton' )
     } );
 
     const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
@@ -106,7 +110,11 @@ define( require => {
     this.valueNode = valueNode;
     this.rangeMessageText = rangeMessageText;
 
-    const valueAndRangeMessage = new VBox( { spacing: 5, align: 'center', children: [ rangeMessageText, valueParent ] } );
+    const valueAndRangeMessage = new VBox( {
+      spacing: 5,
+      align: 'center',
+      children: [ rangeMessageText, valueParent ]
+    } );
 
     const contentNode = new VBox( {
       spacing: 10,
@@ -116,7 +124,7 @@ define( require => {
 
     // @private
     this.saidHello = false;
-    const helloText = new Text('Hello!', { font: TEXT_FONT } );
+    const helloText = new Text( 'Hello!', { font: TEXT_FONT } );
 
     // @private
 
