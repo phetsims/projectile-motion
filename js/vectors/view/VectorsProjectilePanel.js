@@ -86,12 +86,13 @@ define( require => {
       // label
       const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, parameterLabelOptions ) );
 
-      const valueLabel = new NumberDisplay(
+      const numberDisplay = new NumberDisplay(
         valueProperty,
         range,
         merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
           valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
-          decimalPlaces: null
+          decimalPlaces: null,
+          tandem: tandem.createTandem( 'numberDisplay' )
         } )
       );
 
@@ -115,10 +116,10 @@ define( require => {
         }
       }
 
-      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
+      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - numberDisplay.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, numberDisplay ] } ),
           slider
         ]
       } );

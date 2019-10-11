@@ -91,12 +91,11 @@ define( require => {
       const numberDisplay = new NumberDisplay(
         valueProperty,
         range,
-        _.extend(
-          ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
-            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
-            decimalPlaces: null,
-            tandem: tandem.createTandem( 'numberDisplay' )
-          } )
+        merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+          valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
+          decimalPlaces: null,
+          tandem: tandem.createTandem( 'numberDisplay' )
+        } )
       );
 
       const slider = new HSlider( valueProperty, range, {

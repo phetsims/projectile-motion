@@ -14,6 +14,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const Easing = require( 'TWIXT/Easing' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -128,14 +129,14 @@ define( require => {
         transformProperty.get().viewToModelX( screenView.layoutBounds.minX ),
         transformProperty.get().viewToModelX( screenView.layoutBounds.maxX )
       ),
-      _.extend(
-        ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+      merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
           numberFill: 'black',
           valuePattern: distancePattern,
           xMargin: 10.5,
           yMargin: 2,
           decimalPlaces: 1,
-          cursor: 'pointer'
+          cursor: 'pointer',
+          tandem: tandem.createTandem( 'numberDisplay' )
         }
       )
     );
