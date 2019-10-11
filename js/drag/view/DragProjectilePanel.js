@@ -15,6 +15,7 @@ define( require => {
   const HSlider = require( 'SUN/HSlider' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
@@ -41,25 +42,6 @@ define( require => {
   const DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
-  const NUMBER_CONTROL_OPTIONS = {
-    numberDisplayOptions: {
-      align: 'right',
-      xMargin: READOUT_X_MARGIN,
-      yMargin: 4,
-      font: TEXT_FONT
-    },
-    titleNodeOptions: { font: TEXT_FONT },
-    sliderOptions: {
-      thumbSize: new Dimension2( 13, 22 ),
-      thumbTouchAreaXDilation: 6,
-      thumbTouchAreaYDilation: 4
-    },
-    arrowButtonOptions: {
-      scale: 0.56,
-      touchAreaXDilation: 20,
-      touchAreaYDilation: 20
-    }
-  };
 
   /**
    * @param {Property.<ProjectileObjectType>} selectedObjectTypeProperty
@@ -67,6 +49,7 @@ define( require => {
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} altitudeProperty
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
@@ -75,6 +58,7 @@ define( require => {
                                 projectileDiameterProperty,
                                 projectileMassProperty,
                                 altitudeProperty,
+                                tandem,
                                 options ) {
 
     // The first object is a placeholder so none of the others get mutated
@@ -96,23 +80,23 @@ define( require => {
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
      * @param {Number} round - optional, for minor ticks
+     * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, round ) {
+    function createParameterControlBox( labelString, unitsString, valueProperty, range, round, tandem ) {
 
       // label
-      const parameterLabel = new Text( labelString, parameterLabelOptions );
+      const parameterLabel = new Text( labelString, parameterLabelOptions, { tandem: tandem.createTandem( 'label' ) } );
 
-      const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } );
-      const valueLabel = new NumberDisplay(
+      const numberDisplay = new NumberDisplay(
         valueProperty,
         range,
         _.extend(
           ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
-            valuePattern: valuePattern,
-            decimalPlaces: null
-          }
-        )
+            valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
+            decimalPlaces: null,
+            tandem: tandem.createTandem( 'numberDisplay' )
+          } )
       );
 
       const slider = new HSlider( valueProperty, range, {
@@ -123,7 +107,8 @@ define( require => {
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4 // smaller to prevent overlap with above number spinner buttons
+        thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
+        tandem: tandem.createTandem( 'slider' )
       } );
       slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
       slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
@@ -134,10 +119,10 @@ define( require => {
         }
       }
 
-      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueLabel.width;
+      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - numberDisplay.width;
       return new VBox( {
         spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, valueLabel ] } ),
+          new HBox( { spacing: xSpacing, children: [ parameterLabel, numberDisplay ] } ),
           slider
         ]
       } );
@@ -148,7 +133,8 @@ define( require => {
       mString,
       projectileDiameterProperty,
       selectedObjectTypeProperty.get().diameterRange,
-      selectedObjectTypeProperty.get().diameterRound
+      selectedObjectTypeProperty.get().diameterRound,
+      tandem.createTandem( 'diameterBox' )
     );
 
     const massBox = createParameterControlBox(
@@ -156,7 +142,8 @@ define( require => {
       kgString,
       projectileMassProperty,
       selectedObjectTypeProperty.get().massRange,
-      selectedObjectTypeProperty.get().massRound
+      selectedObjectTypeProperty.get().massRound,
+      tandem.createTandem( 'massBox' )
     );
 
     // layout function for altitude NumberControl
@@ -178,38 +165,46 @@ define( require => {
       } );
     };
 
-    const numberControlOptions = _.extend( {
-      sliderOptions: null,
-      numberDisplayOptions: null,
-      layoutFunction: altitudeLayoutFunction
-    }, NUMBER_CONTROL_OPTIONS );
+    const defaultNumberControlOptions = {
+      numberDisplayOptions: {
+        align: 'right',
+        maxWidth: textDisplayWidth + options.readoutXMargin * 2,
+        xMargin: READOUT_X_MARGIN,
+        yMargin: 4,
+        font: TEXT_FONT
+      },
+      titleNodeOptions: { font: TEXT_FONT },
+      sliderOptions: {
+        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
+        thumbSize: new Dimension2( 13, 22 ),
+        thumbTouchAreaXDilation: 6,
+        thumbTouchAreaYDilation: 4
+      },
+      arrowButtonOptions: {
+        scale: 0.56,
+        touchAreaXDilation: 20,
+        touchAreaYDilation: 20
+      }
+    };
 
-    numberControlOptions.sliderOptions = _.extend( {
-      trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 )
-    }, numberControlOptions.sliderOptions );
-
-    numberControlOptions.numberDisplayOptions = _.extend( {
-      maxWidth: textDisplayWidth + options.readoutXMargin * 2
-    }, numberControlOptions.numberDisplayOptions );
-
-    // results in '{{value}} m'
-    const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      units: mString
-    } );
-
-    // create altitude control box
-    const altitudeOptions = _.extend( {}, numberControlOptions, { delta: 100 } );
-    altitudeOptions.numberDisplayOptions = _.extend( {}, numberControlOptions.numberDisplayOptions, {
-      valuePattern: valuePattern,
-      xMargin: 8
-    } );
-    altitudeOptions.sliderOptions = _.extend( {}, numberControlOptions.sliderOptions, {
-      constrainValue: function( value ) { return Util.roundToInterval( value, 100 ); }
-    } );
+    // create altitude number control
     const altitudeBox = new NumberControl(
       altitudeString, altitudeProperty,
       ProjectileMotionConstants.ALTITUDE_RANGE,
-      altitudeOptions
+      merge( {}, defaultNumberControlOptions, {
+        numberDisplayOptions: {
+
+          // results in '{{value}} m'
+          valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
+          xMargin: 8
+        },
+        sliderOptions: {
+          constrainValue: value => Util.roundToInterval( value, 100 )
+        },
+        delta: 100,
+        layoutFunction: altitudeLayoutFunction,
+        tandem: tandem.createTandem( 'altitudeNumberControl' )
+      } )
     );
 
     const dragObjectDisplay = new Node();
@@ -237,24 +232,20 @@ define( require => {
       } );
     };
 
-    // replace the number control options with the new layout function
-    _.extend( numberControlOptions, {
-      layoutFunction: dragLayoutFunction
-    } );
-
     // create drag coefficient control box
-    const dragCoefficientOptions = _.extend( {}, numberControlOptions, { delta: 0.01 } );
-    dragCoefficientOptions.numberDisplayOptions = _.extend( {},
-      numberControlOptions.numberDisplayOptions,
-      {
-        constrainValue: function( value ) { return Util.roundToInterval( value, 0.01 ); },
-        decimalPlaces: 2
-      }
-    );
     const dragCoefficientBox = new NumberControl(
       dragCoefficientString, projectileDragCoefficientProperty,
       selectedObjectTypeProperty.get().dragCoefficientRange,
-      dragCoefficientOptions
+      merge( {}, defaultNumberControlOptions, {
+        numberDisplayOptions: {
+          constrainValue: value => Util.roundToInterval( value, 0.01 ),
+          decimalPlaces: 2
+        },
+
+        delta: 0.01,
+        layoutFunction: dragLayoutFunction,
+        tandem: tandem.createTandem( 'dragCoefficientNumberControl' )
+      } )
     );
 
     // Listen to changes in model drag coefficient and update the little projectile object display

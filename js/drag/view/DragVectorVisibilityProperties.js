@@ -23,8 +23,8 @@ define( require => {
     VectorVisibilityProperties.call( this, tandem );
 
     // @public vectors visibility for velocity and force, total or component
-    this.velocityVectorsOnProperty = new BooleanProperty( false );
-    this.forceVectorsOnProperty = new BooleanProperty( false );
+    this.velocityVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'velocityVectorsOnProperty' ) }  );
+    this.forceVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'forceVectorsOnProperty' ) }  );
     this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
 
     // update which vectors to show based on controls

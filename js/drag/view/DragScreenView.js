@@ -35,9 +35,10 @@ define( require => {
         model.projectileDragCoefficientProperty,
         model.projectileDiameterProperty,
         model.projectileMassProperty,
-        model.altitudeProperty
+        model.altitudeProperty,
+        tandem.createTandem( 'dragProjectilPanel' )
       ),
-      new DragVectorsPanel( visibilityProperties ),
+      new DragVectorsPanel( visibilityProperties, tandem.createTandem( 'dragVectorsPanel' ) ),
       visibilityProperties,
       tandem,
       options );

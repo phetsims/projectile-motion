@@ -12,6 +12,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -32,16 +33,17 @@ define( require => {
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function DragVectorsPanel( vectorVisibilityProperties, options ) {
+  function DragVectorsPanel( vectorVisibilityProperties, tandem, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
 
     const titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
     const checkboxOptions = {
@@ -52,18 +54,21 @@ define( require => {
     const totalLabel = new Text( totalString, titleOptions );
     const componentsLabel = new Text( componentsString, titleOptions );
 
-    const totalOrComponentsGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.totalOrComponentsProperty, [
-      { node: totalLabel, value: 'total' },
-      { node: componentsLabel, value: 'components' }
+    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.totalOrComponentsProperty, [
+      { node: totalLabel, tandemName: 'total', value: 'total' },
+      { node: componentsLabel, tandemName: 'components', value: 'components' }
     ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,
       touchAreaXDilation: 5,
-      maxWidth: titleOptions.maxWidth
+      maxWidth: titleOptions.maxWidth,
+      tandem: tandem.createTandem( 'totalOrComponentsRadioButtonGroup' )
     } );
 
     const velocityLabel = new Text( velocityVectorsString, titleOptions );
-    const velocityCheckbox = new Checkbox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, checkboxOptions );
+    const velocityCheckbox = new Checkbox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
+      tandem: tandem.createTandem( 'velocityCheckbox' )
+    }, checkboxOptions ) );
     const velocityCheckboxAndIcon = new HBox( {
       spacing: options.minWidth - velocityCheckbox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
@@ -73,7 +78,9 @@ define( require => {
     } );
 
     const forceLabel = new Text( forceVectorsString, titleOptions );
-    const forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, checkboxOptions );
+    const forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
+      tandem: tandem.createTandem( 'forceCheckbox' )
+    }, checkboxOptions ) );
     const forceCheckboxAndIcon = new HBox( {
       spacing: options.minWidth - forceCheckbox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
@@ -87,7 +94,7 @@ define( require => {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        totalOrComponentsGroup,
+        totalOrComponentsRadioButtonGroup,
         velocityCheckboxAndIcon,
         forceCheckboxAndIcon
       ]
