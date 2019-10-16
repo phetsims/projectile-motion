@@ -23,6 +23,8 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
   const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
+  const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
@@ -90,7 +92,10 @@ define( require => {
       tandem: tandem.createTandem( 'projectileDragCoefficientProperty' )
     } );
 
-    this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
+    this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
+      tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
+      phetioType: PropertyIO( ReferenceIO )
+    } );
 
     // --Properties that change the environment and affect all projectiles, called global
 

@@ -87,9 +87,6 @@ define( require => {
     // @private;
     this.textDisplayWidth = options.textDisplayWidth * 1.4;
 
-    // {Property.<ProjectileObjectType>}
-    const selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
-
     // maxWidth empirically determined for labels in the dropdown
     const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
@@ -127,7 +124,7 @@ define( require => {
     // create view for the dropdown
     const projectileChoiceComboBox = new ComboBox(
       comboBoxItems,
-      selectedProjectileObjectTypeProperty,
+      model.selectedProjectileObjectTypeProperty,
       comboBoxListParent, {
         xMargin: 12,
         yMargin: 8,
@@ -135,8 +132,7 @@ define( require => {
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
         tandem: tandem.createTandem( 'projectileChoiceComboBox' )
-      }
-    );
+      } );
 
     // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
@@ -151,7 +147,7 @@ define( require => {
     const gravityBox = new Node();
 
     // update the type of control based on the objectType
-    selectedProjectileObjectTypeProperty.link( objectType => {
+    model.selectedProjectileObjectTypeProperty.link( objectType => {
       const objectTypeControls = this.objectTypeControls[ this.objectTypes.indexOf( objectType ) ];
       massBox.children = [ objectTypeControls.massControl ];
       diameterBox.children = [ objectTypeControls.diameterControl ];

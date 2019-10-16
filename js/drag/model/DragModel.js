@@ -27,7 +27,7 @@ define( require => {
       0.8,
       ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
       null,
-      true
+      true, { tandem: tandem.createTandem( 'generalObjectType' ) }
     ), true, tandem );
 
   }

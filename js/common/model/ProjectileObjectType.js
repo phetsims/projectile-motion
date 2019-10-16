@@ -10,11 +10,12 @@ define( require => {
   'use strict';
 
   // modules
-  const inherit = require( 'PHET_CORE/inherit' );
+  const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const Range = require( 'DOT/Range' );
+  const Tandem = require( 'TANDEM/Tandem' );
 
   // strings
   const baseballString = require( 'string!PROJECTILE_MOTION/baseball' );
@@ -28,52 +29,63 @@ define( require => {
   const pumpkinString = require( 'string!PROJECTILE_MOTION/pumpkin' );
   const tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
 
-  /**
-   * @param {string|null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
-   * @param {number} mass - in kg
-   * @param {number} diameter - in meters
-   * @param {number} dragCoefficient
-   * @param {string} benchmark - identifier of the object benchmark, such as 'tankShell', also considered a
-   *                                      'name' for it like for Tandems.
-   * @param {boolean} rotates - whether the object rotates or just translates in air
-   * @param {Object} [options]
-   * @constructor
-   */
-  function ProjectileObjectType( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
+  // constants
+  const objectTypesTandem = Tandem.GLOBAL_MODEL.createTandem( 'projectileObjectTypes' );
 
-    // @public (read-only)
-    this.name = name;
-    this.mass = mass;
-    this.diameter = diameter;
-    this.dragCoefficient = dragCoefficient;
-    this.benchmark = benchmark;
-    this.rotates = rotates;
+  class ProjectileObjectType extends PhetioObject {
 
-    // options contains data about range and rounding for mass, diameter, drag coefficient
-    // @public, defaults to those of custom objects for screens that don't have benchmarks
-    options = _.extend( {
-      massRange: new Range( 1, 10 ),
-      massRound: 1,
-      diameterRange: new Range( 0.1, 1 ),
-      diameterRound: 0.1,
-      dragCoefficientRange: new Range( 0.04, 1 ),
-      dragCoefficientRound: 0.01,
-      viewCreationFunction: null
-    }, options );
+    /**
+     * @param {string|null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
+     * @param {number} mass - in kg
+     * @param {number} diameter - in meters
+     * @param {number} dragCoefficient
+     * @param {string|null} benchmark - identifier of the object benchmark, such as 'tankShell', also considered a
+     *                                      'name' for it like for Tandems. null for screens with only one object type
+     * @param {boolean} rotates - whether the object rotates or just translates in air
+     * @param {Object} [options]
+     * @constructor
+     */
+    constructor( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
 
-    // @public (read-only)
-    this.massRange = options.massRange;
-    this.massRound = options.massRound;
-    this.diameterRange = options.diameterRange;
-    this.diameterRound = options.diameterRound;
-    this.dragCoefficientRange = options.dragCoefficientRange;
-    this.dragCoefficientRound = options.dragCoefficientRound;
-    this.viewCreationFunction = options.viewCreationFunction;
+      options = _.extend( {
+        phetioState: false,
+        tandem: Tandem.required
+      }, options );
+
+      super( options );
+
+      // @public (read-only)
+      this.name = name;
+      this.mass = mass;
+      this.diameter = diameter;
+      this.dragCoefficient = dragCoefficient;
+      this.benchmark = benchmark;
+      this.rotates = rotates;
+
+      // options contains data about range and rounding for mass, diameter, drag coefficient
+      // @public, defaults to those of custom objects for screens that don't have benchmarks
+      options = _.extend( {
+        massRange: new Range( 1, 10 ),
+        massRound: 1,
+        diameterRange: new Range( 0.1, 1 ),
+        diameterRound: 0.1,
+        dragCoefficientRange: new Range( 0.04, 1 ),
+        dragCoefficientRound: 0.01,
+        viewCreationFunction: null
+      }, options );
+
+      // @public (read-only)
+      this.massRange = options.massRange;
+      this.massRound = options.massRound;
+      this.diameterRange = options.diameterRange;
+      this.diameterRound = options.diameterRound;
+      this.dragCoefficientRange = options.dragCoefficientRange;
+      this.dragCoefficientRound = options.dragCoefficientRound;
+      this.viewCreationFunction = options.viewCreationFunction;
+    }
   }
 
   projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
-
-  inherit( Object, ProjectileObjectType );
 
   //-------------------------------------------------------------------------------------------
   // Specific projectile objects below ...
@@ -90,7 +102,8 @@ define( require => {
       massRound: 0.01,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createCannonball
+      viewCreationFunction: ProjectileObjectViewFactory.createCannonball,
+      tandem: objectTypesTandem.createTandem( 'cannonball' )
     }
   );
 
@@ -105,7 +118,8 @@ define( require => {
       massRound: 1,
       diameterRange: new Range( 0.1, 3 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createPumpkin
+      viewCreationFunction: ProjectileObjectViewFactory.createPumpkin,
+      tandem: objectTypesTandem.createTandem( 'pumpkin' )
     }
   );
 
@@ -120,7 +134,8 @@ define( require => {
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createBaseball
+      viewCreationFunction: ProjectileObjectViewFactory.createBaseball,
+      tandem: objectTypesTandem.createTandem( 'baseball' )
     }
   );
 
@@ -135,7 +150,8 @@ define( require => {
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
       diameterRound: 0.1,
-      viewCreationFunction: ProjectileObjectViewFactory.createCar
+      viewCreationFunction: ProjectileObjectViewFactory.createCar,
+      tandem: objectTypesTandem.createTandem( 'car' )
     }
   );
 
@@ -150,7 +166,8 @@ define( require => {
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createFootball
+      viewCreationFunction: ProjectileObjectViewFactory.createFootball,
+      tandem: objectTypesTandem.createTandem( 'football' )
     }
   );
 
@@ -165,7 +182,8 @@ define( require => {
       massRound: 1,
       diameterRange: new Range( 0.1, 1.5 ),
       diameterRound: 0.1,
-      viewCreationFunction: ProjectileObjectViewFactory.createHuman
+      viewCreationFunction: ProjectileObjectViewFactory.createHuman,
+      tandem: objectTypesTandem.createTandem( 'human' )
     }
   );
 
@@ -180,7 +198,8 @@ define( require => {
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
       diameterRound: 0.1,
-      viewCreationFunction: ProjectileObjectViewFactory.createPiano
+      viewCreationFunction: ProjectileObjectViewFactory.createPiano,
+      tandem: objectTypesTandem.createTandem( 'piano' )
     }
   );
 
@@ -195,7 +214,8 @@ define( require => {
       massRound: 0.01,
       diameterRange: new Range( 0.01, 1 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createGolfBall
+      viewCreationFunction: ProjectileObjectViewFactory.createGolfBall,
+      tandem: objectTypesTandem.createTandem( 'golfBall' )
     }
   );
 
@@ -210,7 +230,8 @@ define( require => {
       massRound: 1,
       diameterRange: new Range( 0.1, 1 ),
       diameterRound: 0.01,
-      viewCreationFunction: ProjectileObjectViewFactory.createTankShell
+      viewCreationFunction: ProjectileObjectViewFactory.createTankShell,
+      tandem: objectTypesTandem.createTandem( 'tankShell' )
     }
   );
 
@@ -226,7 +247,8 @@ define( require => {
       diameterRange: new Range( 0.01, 3 ),
       diameterRound: 0.01,
       dragCoefficientRange: new Range( 0.04, 1 ),
-      dragCoefficientRound: 0.01
+      dragCoefficientRound: 0.01,
+      tandem: objectTypesTandem.createTandem( 'custom' )
     }
   );
 

@@ -35,7 +35,9 @@ define( require => {
       ProjectileObjectType.CAR
     ];
 
-    // @public {Object} with objects by type
+    // @public {Object.<benchmark:string,{mass:number, diameter:number, dragCoefficient:number}} - keep track when the
+    // lab screen values changes for an objectType, so that we can cycle through different objectTypes without overwriting
+    // the constants in ProjectileObjectType.js
     this.savedValues = {};
 
     // populate the savedValues with default values for each benchmark
