@@ -18,6 +18,7 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -167,7 +168,7 @@ define( require => {
         const gravity = this.projectileMotionModel.gravityProperty.get();
 
         const newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
-        
+
         if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
           const dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
           const apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
@@ -203,8 +204,8 @@ define( require => {
 
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
           const timeToGround = ( previousPoint.acceleration.y === 0 ) ? -previousPoint.position.y / previousPoint.velocity.y : (
-            -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
-          ) / previousPoint.acceleration.y;
+                                                                                                                                 -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
+                                                                                                                               ) / previousPoint.acceleration.y;
 
           assert && assert( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
 
@@ -258,7 +259,7 @@ define( require => {
             object.dataPointProperty.set( this.dataPoints.get( object.index ) );
           }
         }
-        
+
         // if it has just reached the end, check if landed on target and remove the last projectile
         else if ( !object.checkedScore ) {
           this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
@@ -296,7 +297,7 @@ define( require => {
 
       // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
       // with more time is chosen.
-      for (  let i = 0; i < this.dataPoints.length; i++ ) {
+      for ( let i = 0; i < this.dataPoints.length; i++ ) {
         const currentPoint = this.dataPoints.get( i );
         const currentDistance = currentPoint.position.distanceXY( x, y );
 
@@ -321,10 +322,11 @@ define( require => {
      * Creates a new trajectory that is a copy of this one, but with one projectile object
      * @public
      *
-     * @param {Object} projectileObject - provides the index and data points.
+     * @param {ProjectileObjectType} projectileObject - provides the index and data points.
      * @returns {Trajectory}
      */
-    newTrajectory: function( projectileObject ) {
+    copyFromProjectile: function( projectileObject ) {
+      assert && assert( projectileObject instanceof ProjectileObjectType );
 
       // create a brand new trajectory
       const newTrajectory = new Trajectory( this.projectileMotionModel );
@@ -364,12 +366,12 @@ define( require => {
       const thisInitialPoint = this.dataPoints.get( 0 );
       const trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
-        && !trajectory.changedInMidAir
-        && this.projectileObjectType === trajectory.projectileObjectType
-        && this.diameter === trajectory.diameter
-        && this.mass === trajectory.mass
-        && this.dragCoefficient === trajectory.dragCoefficient
-        && thisInitialPoint.equals( trajectoryInitialPoint );
+             && !trajectory.changedInMidAir
+             && this.projectileObjectType === trajectory.projectileObjectType
+             && this.diameter === trajectory.diameter
+             && this.mass === trajectory.mass
+             && this.dragCoefficient === trajectory.dragCoefficient
+             && thisInitialPoint.equals( trajectoryInitialPoint );
     },
 
     /**
