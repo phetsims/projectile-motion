@@ -24,7 +24,7 @@ define( require => {
   const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 
   /**
-   * @param {ObservableArray.<Trajectory>} trajectories
+   * @param {PhetioGroup.<Trajectory>} trajectories
    * @param {number} tracerX - x position of the tracer
    * @param {number} tracerY - y position of the tracer
    * @param {Tandem} tandem
@@ -41,10 +41,10 @@ define( require => {
     // @public whether the tracer is out in the play area (false when in toolbox)
     this.isActiveProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'isActiveProperty' ) } );
 
-    // @public {ObservableArray.<Trajectory>} array of trajectories in the model
+    // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
     this.trajectories = trajectories;
 
-    this.trajectories.addItemRemovedListener( this.updateData.bind( this ) );
+    this.trajectories.addMemberDisposedListener( this.updateData.bind( this ) );
   }
 
   projectileMotion.register( 'Tracer', Tracer );

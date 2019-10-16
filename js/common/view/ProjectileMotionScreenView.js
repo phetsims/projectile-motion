@@ -125,17 +125,17 @@ define( require => {
       trajectoriesLayer.addChild( trajectoryNode );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
-      model.trajectories.addItemRemovedListener( function removalListener( removedTrajectory ) {
+      model.trajectories.addMemberDisposedListener( function removalListener( removedTrajectory ) {
         if ( removedTrajectory === addedTrajectory ) {
           trajectoryNode.dispose();
-          model.trajectories.removeItemRemovedListener( removalListener );
+          model.trajectories.removeMemberDisposedListener( removalListener );
         }
       } );
     }
 
     // view listens to whether a trajectory has been added in the model
     model.trajectories.forEach( handleTrajectoryAdded );
-    model.trajectories.addItemAddedListener( handleTrajectoryAdded );
+    model.trajectories.addMemberCreatedListener( handleTrajectoryAdded );
 
     // cannon
     const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper,

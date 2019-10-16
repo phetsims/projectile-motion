@@ -249,21 +249,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": true,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ObjectIO>"
+      "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.dragScreen.model.trajectories.lengthProperty": {
+    "projectileMotion.dragScreen.model.trajectories.prototype": {
       "phetioDocumentation": "",
-      "phetioDynamicElement": false,
+      "phetioDynamicElement": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": true,
+      "phetioReadOnly": false,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
+      "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.dragScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -8313,21 +8313,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": true,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ObjectIO>"
+      "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.introScreen.model.trajectories.lengthProperty": {
+    "projectileMotion.introScreen.model.trajectories.prototype": {
       "phetioDocumentation": "",
-      "phetioDynamicElement": false,
+      "phetioDynamicElement": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": true,
+      "phetioReadOnly": false,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
+      "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.introScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -12309,21 +12309,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": true,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ObjectIO>"
+      "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.labScreen.model.trajectories.lengthProperty": {
+    "projectileMotion.labScreen.model.trajectories.prototype": {
       "phetioDocumentation": "",
-      "phetioDynamicElement": false,
+      "phetioDynamicElement": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": true,
+      "phetioReadOnly": false,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
+      "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.labScreen.view": {
       "phetioDocumentation": "",
@@ -19785,21 +19785,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": true,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ObjectIO>"
+      "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.vectorsScreen.model.trajectories.lengthProperty": {
+    "projectileMotion.vectorsScreen.model.trajectories.prototype": {
       "phetioDocumentation": "",
-      "phetioDynamicElement": false,
+      "phetioDynamicElement": true,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
-      "phetioReadOnly": true,
-      "phetioState": true,
+      "phetioReadOnly": false,
+      "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
+      "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.vectorsScreen.view.cannonNode": {
       "phetioDocumentation": "",

@@ -18,7 +18,6 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
-  const ObservableArray = require( 'AXON/ObservableArray' );
   const PhysicalConstants = require( 'PHET_CORE/PhysicalConstants' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -46,17 +45,11 @@ define( require => {
       defaultInitialSpeed: 18
     }, options );
 
-    // @public {ObservableArray.<Trajectory>} observable array of trajectories, limited to 5
-    this.trajectories = new ObservableArray( { tandem: tandem.createTandem( 'trajectories' ) } );
-
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
     this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
-
-    // @public {Tracer} model for the tracer probe
-    this.tracer = new Tracer( this.trajectories, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
 
     // --initial values
 
@@ -99,8 +92,6 @@ define( require => {
 
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType );
 
-    this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
-
     // --Properties that change the environment and affect all projectiles, called global
 
     // @public acceleration due to gravity, in meters per second squared
@@ -126,10 +117,6 @@ define( require => {
       tandem: tandem.createTandem( 'airDensityProperty' ),
       phetioType: DerivedPropertyIO( NumberIO )
     } );
-
-    // if any of the global Properties change, update the status of moving projectiles
-    this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
-    this.gravityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
 
     // --animation controls
 
@@ -167,7 +154,19 @@ define( require => {
     // @public {Emitter} emits when cannon needs to update its muzzle flash animation
     this.muzzleFlashStepper = new Emitter();
 
+    // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
+    // Create this after model properties to support the PhetioGroup creating the prototype immediately
+    this.trajectories = Trajectory.createGroup( this, tandem.createTandem( 'trajectories' ) );
+
+    // @public {Tracer} model for the tracer probe
+    this.tracer = new Tracer( this.trajectories, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
+
     // Links in this constructor last for the life time of the sim, so no need to dispose
+
+    // if any of the global Properties change, update the status of moving projectiles
+    this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
+    this.gravityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
+    this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
   }
 
   projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
@@ -274,7 +273,7 @@ define( require => {
     limitTrajectories: function() {
       const numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
       for ( let i = 0; i < numberToRemove; i++ ) {
-        this.trajectories.shift().dispose();
+        this.trajectories.disposeMember( this.trajectories.get( 0 ) );
       }
     },
 
@@ -283,9 +282,7 @@ define( require => {
      * @public
      */
     eraseTrajectories: function() {
-      while ( this.trajectories.length ) {
-        this.trajectories.pop().dispose();
-      }
+      this.trajectories.clear();
       this.numberOfMovingProjectilesProperty.reset();
     },
 
@@ -297,15 +294,14 @@ define( require => {
      */
     cannonFired: function() {
       const lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
-      const newTrajectory = new Trajectory( this );
+      const newTrajectory = this.trajectories.createNextMember( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
         lastTrajectory.addProjectileObject();
-        newTrajectory.dispose();
+        this.trajectories.disposeGroupMember( newTrajectory );
       }
       else {
         this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
         newTrajectory.rankProperty.reset(); // make the new Trajectory's rank go back to zero
-        this.trajectories.push( newTrajectory );
       }
       this.numberOfMovingProjectilesProperty.value++;
       this.limitTrajectories();
@@ -317,12 +313,20 @@ define( require => {
      */
     updateTrajectoriesWithMovingProjectiles: function() {
       let i;
-      const newTrajectories = [];
       let trajectory;
+
       for ( let j = 0; j < this.trajectories.length; j++ ) {
         trajectory = this.trajectories.get( j );
 
         const removedProjectileObjects = [];
+
+        const updateTrajectoryForProjectileObject = ( trajectory, projectileObjectIndex ) => {
+          var projectileObject = trajectory.projectileObjects.get( projectileObjectIndex );
+          removedProjectileObjects.push( projectileObject );
+          this.updateTrajectoryRanksEmitter.emit();
+          var newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
+          newTrajectory.changedInMidAir = true;
+        };
 
         // Furthest projectile on trajectory has not reached ground
         if ( !trajectory.reachedGround ) {
@@ -332,12 +336,7 @@ define( require => {
 
           // For each projectile except for the one furthest along the path, create a new trajectory
           for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
-            var projectileObject = trajectory.projectileObjects.get( i );
-            removedProjectileObjects.push( projectileObject );
-            this.updateTrajectoryRanksEmitter.emit();
-            var newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
-            newTrajectory.changedInMidAir = true;
-            newTrajectories.push( newTrajectory );
+            updateTrajectoryForProjectileObject( trajectory, i );
           }
         }
 
@@ -346,21 +345,14 @@ define( require => {
 
           // For each projectile still in the air, create a new trajectory
           for ( i = 0; i < trajectory.projectileObjects.length; i++ ) {
-            projectileObject = trajectory.projectileObjects.get( i );
-            if ( !projectileObject.dataPointProperty.get().reachedGround ) {
-              projectileObject = trajectory.projectileObjects.get( i );
-              removedProjectileObjects.push( projectileObject );
-              this.updateTrajectoryRanksEmitter.emit();
-              newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
-              newTrajectory.changedInMidAir = true;
-              newTrajectories.push( newTrajectory );
+            if ( !trajectory.projectileObjects.get( i ).dataPointProperty.get().reachedGround ) {
+              updateTrajectoryForProjectileObject( trajectory, i );
             }
           }
         }
 
         trajectory.projectileObjects.removeAll( removedProjectileObjects );
       }
-      this.trajectories.addAll( newTrajectories );
       this.limitTrajectories();
     },
 

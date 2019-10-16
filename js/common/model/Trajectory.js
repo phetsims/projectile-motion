@@ -16,8 +16,13 @@ define( require => {
   const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
+  const PhetioGroup = require( 'TANDEM/PhetioGroup' );
+  const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
+  const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const Property = require( 'AXON/Property' );
+  const Tandem = require( 'TANDEM/Tandem' );
+  const TrajectoryIO = require( 'PROJECTILE_MOTION/common/model/TrajectoryIO' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -25,8 +30,16 @@ define( require => {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  class Trajectory {
-    constructor( model ) {
+  class Trajectory extends PhetioObject {
+    constructor( model, options ) {
+      options = _.extend( {
+        tandem: Tandem.required,
+        phetioDynamicElement: true,
+        phetioState: false // TODO: fix this
+      }, options );
+
+      super( options );
+
       this.projectileMotionModel = model;
 
       if ( model.selectedProjectileObjectTypeProperty ) {
@@ -93,7 +106,9 @@ define( require => {
 
       // add dataPoint for initial conditions
       this.dataPoints.push( initialPoint );
-      model.tracer.updateDataIfWithinRange( initialPoint );
+
+      // It is not gauranteed that the tracer exists
+      model.tracer && model.tracer.updateDataIfWithinRange( initialPoint );
 
       // @public {ObservableArray.<Object: { {number} index, {Property.<DataPoint>} dataPointProperty>}
       this.projectileObjects = new ObservableArray();
@@ -322,7 +337,7 @@ define( require => {
     copyFromProjectileObject( projectileObject ) {
 
       // create a brand new trajectory
-      const newTrajectory = new Trajectory( this.projectileMotionModel );
+      const newTrajectory = this.projectileMotionModel.trajectories.createNextMember( this.projectileMotionModel );
 
       // clear all the data points and then add up to where the current flying projectile is
       newTrajectory.dataPoints.clear();
@@ -368,11 +383,28 @@ define( require => {
     }
 
     /**
+     * Create a PhetioGroup for the trajectories
+     * @param model
+     * @param tandem
+     */
+    static createGroup( model, tandem ) {
+      return new PhetioGroup( 'particle', tandem => {
+        return new Trajectory( model, {
+          tandem: tandem
+        } );
+      }, [], {
+        tandem: tandem,
+        phetioType: PhetioGroupIO( TrajectoryIO )
+      } );
+    }
+
+    /**
      * Dispose this Trajectory, for memory management
      * @public
      */
     dispose() {
       this.disposeTrajectory();
+      super.dispose();
     }
   }
 

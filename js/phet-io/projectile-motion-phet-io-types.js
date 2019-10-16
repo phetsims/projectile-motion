@@ -750,40 +750,6 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": null,
       "typeName": "ObjectIO"
     },
-    "ObservableArrayIO<ObjectIO>": {
-      "documentation": "An array that sends notifications when its values have changed.",
-      "events": [
-        "itemAdded",
-        "itemRemoved"
-      ],
-      "methodOrder": [],
-      "methods": {
-        "addItemAddedListener": {
-          "documentation": "Add a listener that is called when an item is added to the observable array.",
-          "parameterTypes": [
-            "FunctionIO(ObjectIO)=>VoidIO"
-          ],
-          "returnType": "VoidIO"
-        },
-        "addItemRemovedListener": {
-          "documentation": "Add a listener that is called when an item is removed from the observable array.",
-          "parameterTypes": [
-            "FunctionIO(ObjectIO)=>VoidIO"
-          ],
-          "returnType": "VoidIO"
-        },
-        "getLength": {
-          "documentation": "Get the number of elements in the observable array",
-          "parameterTypes": [],
-          "returnType": "NumberIO"
-        }
-      },
-      "parameterTypes": [
-        "ObjectIO"
-      ],
-      "supertype": "ObjectIO",
-      "typeName": "ObservableArrayIO<ObjectIO>"
-    },
     "PhetButtonIO": {
       "documentation": "The PhET Button in the bottom right of the screen",
       "events": [],
@@ -1022,6 +988,17 @@ window.phet.phetio.phetioTypes = assert &&
       },
       "supertype": "ObjectIO",
       "typeName": "PhetioEngineIO"
+    },
+    "PhetioGroupIO<TrajectoryIO>": {
+      "documentation": "An array that sends notifications when its values have changed.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "TrajectoryIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "PhetioGroupIO<TrajectoryIO>"
     },
     "PropertyIO<BooleanIO>": {
       "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",
@@ -1472,6 +1449,14 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "NodeIO",
       "typeName": "ToggleButtonIO"
+    },
+    "TrajectoryIO": {
+      "documentation": "A trajectory outlining the projectil's path",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "TrajectoryIO"
     },
     "Vector2IO": {
       "documentation": "A numerical object with x and y properties, like {x:3,y:4}",
