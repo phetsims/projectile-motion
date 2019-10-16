@@ -335,7 +335,7 @@ define( require => {
             var projectileObject = trajectory.projectileObjects.get( i );
             removedProjectileObjects.push( projectileObject );
             this.updateTrajectoryRanksEmitter.emit();
-            var newTrajectory = trajectory.copyFromProjectile( projectileObject );
+            var newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
             newTrajectory.changedInMidAir = true;
             newTrajectories.push( newTrajectory );
           }
@@ -351,7 +351,7 @@ define( require => {
               projectileObject = trajectory.projectileObjects.get( i );
               removedProjectileObjects.push( projectileObject );
               this.updateTrajectoryRanksEmitter.emit();
-              newTrajectory = trajectory.copyFromProjectile( projectileObject );
+              newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
               newTrajectory.changedInMidAir = true;
               newTrajectories.push( newTrajectory );
             }

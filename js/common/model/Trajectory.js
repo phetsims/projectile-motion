@@ -28,7 +28,6 @@ define( require => {
    */
   class Trajectory {
     constructor( model ) {
-      const self = this;
       this.projectileMotionModel = model;
 
       if ( model.selectedProjectileObjectTypeProperty ) {
@@ -51,7 +50,7 @@ define( require => {
 
       // Add one to the rank
       const incrementRank = () => {
-        self.rankProperty.value++;
+        this.rankProperty.value++;
       };
 
       // Listen to whether this rank should be incremented
@@ -104,7 +103,7 @@ define( require => {
       this.addProjectileObject();
 
       // @private
-      this.disposeTrajectory = function() {
+      this.disposeTrajectory = () => {
         this.apexPoint = null; // remove reference
         for ( let i = 0; i < this.dataPoints.length; i++ ) {
           const point = this.dataPoints.get( i );
@@ -203,7 +202,7 @@ define( require => {
                                                                                                                                  -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
                                                                                                                                ) / previousPoint.acceleration.y;
 
-          assert && assert( !isNaN( timeToGround ), 'timeToGround is ' + timeToGround );
+          assert && assert( !isNaN( timeToGround ), `timeToGround is ${timeToGround}` );
 
           newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
@@ -321,8 +320,7 @@ define( require => {
      * @param {ProjectileObjectType} projectileObject - provides the index and data points.
      * @returns {Trajectory}
      */
-    copyFromProjectile( projectileObject ) {
-      assert && assert( projectileObject instanceof ProjectileObjectType );
+    copyFromProjectileObject( projectileObject ) {
 
       // create a brand new trajectory
       const newTrajectory = new Trajectory( this.projectileMotionModel );
@@ -333,7 +331,7 @@ define( require => {
 
         assert && assert(
           this.dataPoints.get( 0 ).position.x === 0,
-          'Initial point x is not zero but ' + this.dataPoints.get( 0 ).position.x
+          `Initial point x is not zero but ${this.dataPoints.get( 0 ).position.x}`
         );
 
         // add one to the number of trajectories using this datapoint
