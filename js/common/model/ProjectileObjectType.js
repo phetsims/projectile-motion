@@ -29,11 +29,12 @@ define( require => {
   const tankShellString = require( 'string!PROJECTILE_MOTION/tankShell' );
 
   /**
-   * @param {string || null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
+   * @param {string|null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
    * @param {number} mass - in kg
    * @param {number} diameter - in meters
    * @param {number} dragCoefficient
-   * @param {string || null} benchmark - identifier of the object benchmark, such as 'tankShell', or null for no specific benchmark
+   * @param {string} benchmark - identifier of the object benchmark, such as 'tankShell', also considered a
+   *                                      'name' for it like for Tandems.
    * @param {boolean} rotates - whether the object rotates or just translates in air
    * @param {Object} [options]
    * @constructor
@@ -218,7 +219,7 @@ define( require => {
     100,
     1,
     ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
-    null,
+    'custom',
     true, {
       massRange: new Range( 1, 5000 ),
       massRound: 0.01,

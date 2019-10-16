@@ -17845,7 +17845,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -17857,7 +17857,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ComboBoxIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17869,7 +17869,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.enabledProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17881,7 +17881,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.firedEmitter": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -17893,7 +17893,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17905,7 +17905,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17917,7 +17917,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -17929,7 +17929,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -17941,7 +17941,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.button.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17953,7 +17953,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.displayOnlyProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.displayOnlyProperty": {
       "phetioDocumentation": "disables interaction with the ComboBox and makes it appear like a display that shows the current selection",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17965,7 +17965,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.enabledProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.enabledProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17977,7 +17977,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -17989,7 +17989,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.baseball": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.baseball": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18001,7 +18001,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.baseball.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.baseball.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18013,7 +18013,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.baseball.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.baseball.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18025,7 +18025,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.baseball.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.baseball.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18037,7 +18037,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.cannonball": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.cannonball": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18049,7 +18049,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.cannonball.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.cannonball.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18061,7 +18061,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.cannonball.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.cannonball.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18073,7 +18073,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.cannonball.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.cannonball.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18085,7 +18085,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.car": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.car": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18097,7 +18097,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.car.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.car.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18109,7 +18109,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.car.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.car.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18121,7 +18121,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.car.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.car.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18133,7 +18133,55 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.fireAction": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.custom": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.custom.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.custom.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.custom.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.fireAction": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -18145,7 +18193,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.football": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.football": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18157,7 +18205,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.football.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.football.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18169,7 +18217,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.football.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.football.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18181,7 +18229,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.football.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.football.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18193,7 +18241,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.golfBall": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.golfBall": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18205,7 +18253,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.golfBall.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.golfBall.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18217,7 +18265,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.golfBall.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.golfBall.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18229,7 +18277,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.golfBall.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.golfBall.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18241,7 +18289,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.human": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.human": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18253,7 +18301,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.human.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.human.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18265,7 +18313,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.human.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.human.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18277,7 +18325,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.human.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.human.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18289,7 +18337,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18301,7 +18349,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.piano": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.piano": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18313,7 +18361,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.piano.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.piano.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18325,7 +18373,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.piano.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.piano.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18337,7 +18385,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.piano.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.piano.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18349,7 +18397,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18361,7 +18409,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.pumpkin": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.pumpkin": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18373,7 +18421,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.pumpkin.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.pumpkin.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18385,7 +18433,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.pumpkin.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.pumpkin.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18397,7 +18445,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.pumpkin.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.pumpkin.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18409,7 +18457,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.tankShell": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.tankShell": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18421,7 +18469,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.tankShell.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.tankShell.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18433,7 +18481,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.tankShell.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.tankShell.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18445,7 +18493,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.tankShell.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.tankShell.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18457,7 +18505,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.listBox.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.listBox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18469,7 +18517,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.opacityProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18481,7 +18529,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.pickableProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -18493,7 +18541,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.projectilePanel.projectilChoiceComboBox.visibleProperty": {
+    "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",

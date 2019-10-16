@@ -123,7 +123,7 @@ define( require => {
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        tandem: tandem.createTandem( 'projectilChoiceComboBox' )
+        tandem: tandem.createTandem( 'projectileChoiceComboBox' )
       }
     );
 
@@ -270,7 +270,7 @@ define( require => {
 
     // update the type of control based on the objectType
     selectedProjectileObjectTypeProperty.link( function( objectType ) {
-      if ( objectType.benchmark ) {
+      if ( objectType.benchmark !== 'custom' ) {
         if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
 
           // if there are already custom boxes, remove them

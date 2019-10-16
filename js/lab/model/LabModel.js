@@ -13,6 +13,7 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
+  const StringProperty = require( 'AXON/StringProperty' );
 
   /**
    * @param {Tandem} tandem
@@ -35,17 +36,12 @@ define( require => {
     ];
 
     // @public {Object} with objects by type
-    this.savedValues = {
-      custom: {
-        mass: this.objectTypes[ 0 ].mass,
-        diameter: this.objectTypes[ 0 ].diameter,
-        dragCoefficient: this.objectTypes[ 0 ].dragCoefficient
-      }
-    };
+    this.savedValues = {};
 
     // populate the savedValues with default values for each benchmark
-    for ( let i = 1; i < this.objectTypes.length; i++ ) {
+    for ( let i = 0; i < this.objectTypes.length; i++ ) {
       const objectType = this.objectTypes[ i ];
+      assert && assert( objectType.benchmark, 'all objectTypes need  benchmark' );
       this.savedValues[ objectType.benchmark ] = {
         mass: objectType.mass,
         diameter: objectType.diameter,
@@ -53,11 +49,12 @@ define( require => {
       };
     }
 
-    // @public {string} save the most recent benchmark (e.g. pumpkin, human, etc.) used
-    this.lastType = this.objectTypes[ 1 ].benchmark;
+    const initialObjectType = this.objectTypes[ 1 ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 1 ], false, tandem );
+    // @private {Property.<string>} save the most recent benchmark (e.g. pumpkin, human, etc.) used
+    this.lastTypeProperty = new StringProperty( initialObjectType.benchmark );
 
+    ProjectileMotionModel.call( this, initialObjectType, false, tandem );
   }
 
   projectileMotion.register( 'LabModel', LabModel );
@@ -73,16 +70,13 @@ define( require => {
       ProjectileMotionModel.prototype.reset.call( this );
 
       // reset saved values
-      this.savedValues.custom.mass = this.objectTypes[ 0 ].mass;
-      this.savedValues.custom.diameter = this.objectTypes[ 0 ].diameter;
-      this.savedValues.custom.dragCoefficient = this.objectTypes[ 0 ].dragCoefficient;
-      for ( let i = 1; i < this.objectTypes.length; i++ ) {
+      for ( let i = 0; i < this.objectTypes.length; i++ ) {
         const objectType = this.objectTypes[ i ];
         this.savedValues[ objectType.benchmark ].mass = objectType.mass;
         this.savedValues[ objectType.benchmark ].diameter = objectType.diameter;
         this.savedValues[ objectType.benchmark ].dragCoefficient = objectType.dragCoefficient;
       }
-      this.lastType = this.objectTypes[ 2 ].benchmark;
+      this.lastTypeProperty.reset();
     },
 
     /**
@@ -94,34 +88,22 @@ define( require => {
      */
     setProjectileParameters: function( selectedProjectileObjectType ) {
 
+      // {string}
+      const lastType = this.lastTypeProperty.value;
+
       // first, save values for last type
-      if ( this.lastType ) {
-        this.savedValues[ this.lastType ].mass = this.projectileMassProperty.get();
-        this.savedValues[ this.lastType ].diameter = this.projectileDiameterProperty.get();
-        this.savedValues[ this.lastType ].dragCoefficient = this.projectileDragCoefficientProperty.get();
-      }
-      else {
-        this.savedValues.custom.mass = this.projectileMassProperty.get();
-        this.savedValues.custom.diameter = this.projectileDiameterProperty.get();
-        this.savedValues.custom.dragCoefficient = this.projectileDragCoefficientProperty.get();
-      }
+      this.savedValues[ lastType ].mass = this.projectileMassProperty.get();
+      this.savedValues[ lastType ].diameter = this.projectileDiameterProperty.get();
+      this.savedValues[ lastType ].dragCoefficient = this.projectileDragCoefficientProperty.get();
 
       // then, apply saved values for this type
-      if ( selectedProjectileObjectType.benchmark ) {
-        this.projectileMassProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].mass );
-        this.projectileDiameterProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].diameter );
-        this.projectileDragCoefficientProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].dragCoefficient );
-      }
-      else {
-        this.projectileMassProperty.set( this.savedValues.custom.mass );
-        this.projectileDiameterProperty.set( this.savedValues.custom.diameter );
-        this.projectileDragCoefficientProperty.set( this.savedValues.custom.dragCoefficient );
-      }
+      this.projectileMassProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].mass );
+      this.projectileDiameterProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].diameter );
+      this.projectileDragCoefficientProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].dragCoefficient );
 
       // finally, save this type so we know what the last type was when type changes
-      this.lastType = selectedProjectileObjectType.benchmark;
+      this.lastTypeProperty.value = selectedProjectileObjectType.benchmark;
     }
-
   } );
 } );
 
