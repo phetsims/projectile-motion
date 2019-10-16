@@ -273,7 +273,7 @@ define( require => {
     limitTrajectories: function() {
       const numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
       for ( let i = 0; i < numberToRemove; i++ ) {
-        this.trajectories.disposeMember( this.trajectories.get( 0 ) );
+        this.trajectories.disposeGroupMember( this.trajectories.get( 0 ) );
       }
     },
 
