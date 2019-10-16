@@ -14,7 +14,6 @@ define( require => {
 
   // modules
   const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
-  const inherit = require( 'PHET_CORE/inherit' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -27,106 +26,103 @@ define( require => {
    * @param {ProjectileMotionModel} model
    * @constructor
    */
-  function Trajectory( model ) {
-    const self = this;
-    this.projectileMotionModel = model;
+  class Trajectory {
+    constructor( model ) {
+      const self = this;
+      this.projectileMotionModel = model;
 
-    if ( model.selectedProjectileObjectTypeProperty ) {
-      this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
-    }
-
-    // @private {number} mass of projectiles in kilograms
-    this.mass = model.projectileMassProperty.get();
-
-    // @private {number} diameter of projectiles in meters
-    this.diameter = model.projectileDiameterProperty.get();
-
-    // @private {number} drag coefficient of the projectiles
-    this.dragCoefficient = model.projectileDragCoefficientProperty.get();
-
-    // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
-    // The most recent trajectory fired has rank 0. The second recent has rank 1. The oldest still on screen has rank
-    // max - 1.
-    this.rankProperty = new NumberProperty( 0 );
-
-    // Add one to the rank
-    function incrementRank() {
-      self.rankProperty.value++;
-    }
-
-    // Listen to whether this rank should be incremented
-    model.updateTrajectoryRanksEmitter.addListener( incrementRank );
-
-    // @public did the trajectory path change in mid air due to air density change
-    this.changedInMidAir = false;
-
-    // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
-    this.dataPoints = new ObservableArray();
-
-    const velocity = Vector2.dirtyFromPool().setPolar(
-      model.launchVelocityProperty.value,
-      model.cannonAngleProperty.value * Math.PI / 180
-    );
-
-    // fix large drag errors
-    if ( velocity.x < 0 ) {
-      velocity.setXY( 0, 0 );
-    }
-
-    // cross sectional area of the projectile
-    const area = Math.PI * this.diameter * this.diameter / 4;
-    const airDensity = this.projectileMotionModel.airDensityProperty.get();
-    const gravity = this.projectileMotionModel.gravityProperty.get();
-
-    const dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
-
-    const initialPoint = new DataPoint(
-      0, // total time elapsed
-      Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
-      model.airDensityProperty.get(), // air density
-      velocity,
-      Vector2.createFromPool( -dragForce.x / this.mass, -gravity - dragForce.y / this.mass ), // acceleration
-      dragForce, // drag force
-      -model.gravityProperty.get() * this.mass // force gravity
-    );
-
-    // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
-    this.apexPoint = null;
-
-    // add dataPoint for initial conditions
-    this.dataPoints.push( initialPoint );
-    model.tracer.updateDataIfWithinRange( initialPoint );
-
-    // @public {ObservableArray.<Object: { {number} index, {Property.<DataPoint>} dataPointProperty>}
-    this.projectileObjects = new ObservableArray();
-
-    // add first projectile object
-    this.addProjectileObject();
-
-    // @private
-    this.disposeTrajectory = function() {
-      this.apexPoint = null; // remove reference
-      for ( let i = 0; i < this.dataPoints.length; i++ ) {
-        const point = this.dataPoints.get( i );
-
-        if ( point.numberOfOtherTrajectoriesUsingSelf ) {
-          point.numberOfOtherTrajectoriesUsingSelf--;
-        }
-        else {
-          point.position.freeToPool();
-          point.velocity.freeToPool();
-          point.acceleration.freeToPool();
-          point.dragForce.freeToPool();
-        }
+      if ( model.selectedProjectileObjectTypeProperty ) {
+        this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
       }
-      this.projectileObjects.clear();
-      model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
-    };
-  }
 
-  projectileMotion.register( 'Trajectory', Trajectory );
+      // @private {number} mass of projectiles in kilograms
+      this.mass = model.projectileMassProperty.get();
 
-  return inherit( Object, Trajectory, {
+      // @private {number} diameter of projectiles in meters
+      this.diameter = model.projectileDiameterProperty.get();
+
+      // @private {number} drag coefficient of the projectiles
+      this.dragCoefficient = model.projectileDragCoefficientProperty.get();
+
+      // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
+      // The most recent trajectory fired has rank 0. The second recent has rank 1. The oldest still on screen has rank
+      // max - 1.
+      this.rankProperty = new NumberProperty( 0 );
+
+      // Add one to the rank
+      const incrementRank = () => {
+        self.rankProperty.value++;
+      };
+
+      // Listen to whether this rank should be incremented
+      model.updateTrajectoryRanksEmitter.addListener( incrementRank );
+
+      // @public did the trajectory path change in mid air due to air density change
+      this.changedInMidAir = false;
+
+      // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
+      this.dataPoints = new ObservableArray();
+
+      const velocity = Vector2.dirtyFromPool().setPolar(
+        model.launchVelocityProperty.value,
+        model.cannonAngleProperty.value * Math.PI / 180
+      );
+
+      // fix large drag errors
+      if ( velocity.x < 0 ) {
+        velocity.setXY( 0, 0 );
+      }
+
+      // cross sectional area of the projectile
+      const area = Math.PI * this.diameter * this.diameter / 4;
+      const airDensity = this.projectileMotionModel.airDensityProperty.get();
+      const gravity = this.projectileMotionModel.gravityProperty.get();
+
+      const dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
+
+      const initialPoint = new DataPoint(
+        0, // total time elapsed
+        Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
+        model.airDensityProperty.get(), // air density
+        velocity,
+        Vector2.createFromPool( -dragForce.x / this.mass, -gravity - dragForce.y / this.mass ), // acceleration
+        dragForce, // drag force
+        -model.gravityProperty.get() * this.mass // force gravity
+      );
+
+      // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
+      this.apexPoint = null;
+
+      // add dataPoint for initial conditions
+      this.dataPoints.push( initialPoint );
+      model.tracer.updateDataIfWithinRange( initialPoint );
+
+      // @public {ObservableArray.<Object: { {number} index, {Property.<DataPoint>} dataPointProperty>}
+      this.projectileObjects = new ObservableArray();
+
+      // add first projectile object
+      this.addProjectileObject();
+
+      // @private
+      this.disposeTrajectory = function() {
+        this.apexPoint = null; // remove reference
+        for ( let i = 0; i < this.dataPoints.length; i++ ) {
+          const point = this.dataPoints.get( i );
+
+          if ( point.numberOfOtherTrajectoriesUsingSelf ) {
+            point.numberOfOtherTrajectoriesUsingSelf--;
+          }
+          else {
+            point.position.freeToPool();
+            point.velocity.freeToPool();
+            point.acceleration.freeToPool();
+            point.dragForce.freeToPool();
+          }
+        }
+        this.projectileObjects.clear();
+        model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
+      };
+    }
 
     /**
      * Does calculations and steps the trajectory elements forward given a time step
@@ -134,7 +130,7 @@ define( require => {
      *
      * @param {number} dt
      */
-    step: function( dt ) {
+    step( dt ) {
       const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
       // Haven't reached ground, so continue collecting datapoints
@@ -275,7 +271,7 @@ define( require => {
 
       // remove the objects that need to be removed
       this.projectileObjects.removeAll( projectileObjectsToRemove );
-    },
+    }
 
     /**
      * Finds the dataPoint in this trajectory with the least euclidian distance to coordinates given,
@@ -286,7 +282,7 @@ define( require => {
      * @param {number} y - coordinate in model
      * @returns {DataPoint|null}
      */
-    getNearestPoint: function( x, y ) {
+    getNearestPoint( x, y ) {
       if ( this.dataPoints.length === 0 ) {
         return null;
       }
@@ -308,15 +304,15 @@ define( require => {
 
       }
       return nearestPoint;
-    },
+    }
 
     /**
      * Add a projectile object that starts at the first data point
      * @public
      */
-    addProjectileObject: function() {
+    addProjectileObject() {
       this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
-    },
+    }
 
     /**
      * Creates a new trajectory that is a copy of this one, but with one projectile object
@@ -325,7 +321,7 @@ define( require => {
      * @param {ProjectileObjectType} projectileObject - provides the index and data points.
      * @returns {Trajectory}
      */
-    copyFromProjectile: function( projectileObject ) {
+    copyFromProjectile( projectileObject ) {
       assert && assert( projectileObject instanceof ProjectileObjectType );
 
       // create a brand new trajectory
@@ -353,7 +349,7 @@ define( require => {
       newTrajectory.projectileObjects.push( projectileObject );
 
       return newTrajectory;
-    },
+    }
 
     /**
      * Whether this trajectory is equal to the one given
@@ -362,7 +358,7 @@ define( require => {
      * @param {Trajectory} trajectory
      * @returns {boolean}
      */
-    equals: function( trajectory ) {
+    equals( trajectory ) {
       const thisInitialPoint = this.dataPoints.get( 0 );
       const trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
       return !this.changedInMidAir
@@ -372,16 +368,17 @@ define( require => {
              && this.mass === trajectory.mass
              && this.dragCoefficient === trajectory.dragCoefficient
              && thisInitialPoint.equals( trajectoryInitialPoint );
-    },
+    }
 
     /**
      * Dispose this Trajectory, for memory management
      * @public
      */
-    dispose: function() {
+    dispose() {
       this.disposeTrajectory();
     }
+  }
 
-  } );
+  return projectileMotion.register( 'Trajectory', Trajectory );
 } );
 
