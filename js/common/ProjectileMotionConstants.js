@@ -29,9 +29,6 @@ define( require => {
 
   const ProjectileMotionConstants = {
 
-    // truths about the world
-    GRAVITY_ON_EARTH: 9.81,
-
     // screen view layout
     VIEW_ORIGIN: new Vector2( 100, 510 ),
 

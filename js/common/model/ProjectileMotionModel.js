@@ -19,6 +19,7 @@ define( require => {
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
+  const PhysicalConstants = require( 'PHET_CORE/PhysicalConstants' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
@@ -103,7 +104,7 @@ define( require => {
     // --Properties that change the environment and affect all projectiles, called global
 
     // @public acceleration due to gravity, in meters per second squared
-    this.gravityProperty = new NumberProperty( ProjectileMotionConstants.GRAVITY_ON_EARTH, {
+    this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
       tandem: tandem.createTandem( 'gravityProperty' ),
       units: 'm/s^2'
     } );
