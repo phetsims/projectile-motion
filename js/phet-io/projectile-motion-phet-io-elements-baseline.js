@@ -4405,7 +4405,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4417,7 +4417,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4429,7 +4429,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.enabledProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.enabledProperty": {
       "phetioDocumentation": "Determines whether the AquaRadioButton is enabled (pressable) or disabled (grayed-out)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4441,7 +4441,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4453,7 +4453,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4465,7 +4465,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4477,7 +4477,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.opacityProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4489,7 +4489,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.pickableProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4501,7 +4501,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.visibleProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4513,7 +4513,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.opacityProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4525,7 +4525,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.pickableProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4537,7 +4537,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4549,7 +4549,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.enabledProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.enabledProperty": {
       "phetioDocumentation": "Determines whether the AquaRadioButton is enabled (pressable) or disabled (grayed-out)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4561,7 +4561,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. No arguments.",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4573,7 +4573,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4585,7 +4585,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4597,7 +4597,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.opacityProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4609,7 +4609,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.pickableProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4621,7 +4621,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.visibleProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4633,7 +4633,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.visibleProperty": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -4812,6 +4812,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.dragScreen.view.visibilityProperties.vectorsDisplayProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(TOTAL|COMPONENTS)>"
     },
     "projectileMotion.dragScreen.view.visibilityProperties.velocityVectorsOnProperty": {
       "phetioDocumentation": "",
@@ -35256,6 +35268,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.vectorsScreen.view.visibilityProperties.vectorsDisplayProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(TOTAL|COMPONENTS)>"
     },
     "projectileMotion.vectorsScreen.view.visibilityProperties.velocityVectorsOnProperty": {
       "phetioDocumentation": "",

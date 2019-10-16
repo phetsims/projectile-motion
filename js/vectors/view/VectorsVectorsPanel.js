@@ -18,6 +18,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
+  const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
   const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
@@ -55,10 +56,15 @@ define( require => {
     const totalLabel = new Text( totalString, LABEL_OPTIONS );
     const componentsLabel = new Text( componentsString, LABEL_OPTIONS );
 
-    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.totalOrComponentsProperty, [
-      { node: totalLabel, tandemName: 'total', value: 'total' },
-      { node: componentsLabel, tandemName: 'components', value: 'components' }
-    ], {
+    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.vectorsDisplayProperty, [ {
+      node: totalLabel,
+      tandemName: _.camelCase( VectorsDisplayEnumeration.TOTAL.toString() ),
+      value: VectorsDisplayEnumeration.TOTAL
+    }, {
+      node: componentsLabel,
+      tandemName: _.camelCase( VectorsDisplayEnumeration.COMPONENTS.toString() ),
+      value: VectorsDisplayEnumeration.COMPONENTS
+    } ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5,

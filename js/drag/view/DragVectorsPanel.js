@@ -16,6 +16,7 @@ define( require => {
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
@@ -54,15 +55,20 @@ define( require => {
     const totalLabel = new Text( totalString, titleOptions );
     const componentsLabel = new Text( componentsString, titleOptions );
 
-    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.totalOrComponentsProperty, [
-      { node: totalLabel, tandemName: 'total', value: 'total' },
-      { node: componentsLabel, tandemName: 'components', value: 'components' }
-    ], {
+    const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.vectorsDisplayProperty, [ {
+      node: totalLabel,
+      tandemName: _.camelCase( VectorsDisplayEnumeration.TOTAL.toString() ),
+      value: VectorsDisplayEnumeration.TOTAL
+    }, {
+      node: componentsLabel,
+      tandemName: _.camelCase( VectorsDisplayEnumeration.COMPONENTS.toString() ),
+      value: VectorsDisplayEnumeration.COMPONENTS
+    } ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,
       touchAreaXDilation: 5,
       maxWidth: titleOptions.maxWidth,
-      tandem: tandem.createTandem( 'totalOrComponentsRadioButtonGroup' )
+      tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' )
     } );
 
     const velocityLabel = new Text( velocityVectorsString, titleOptions );
@@ -94,7 +100,7 @@ define( require => {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        totalOrComponentsRadioButtonGroup,
+        vectorsDisplayRadioButtonGroup,
         velocityCheckboxAndIcon,
         forceCheckboxAndIcon
       ]

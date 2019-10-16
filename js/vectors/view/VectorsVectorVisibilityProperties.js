@@ -10,9 +10,11 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const Property = require( 'AXON/Property' );
+  const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
   const VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   /**
@@ -26,7 +28,9 @@ define( require => {
     this.velocityVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'velocityVectorsOnProperty' ) } );
     this.accelerationVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'accelerationVectorsOnProperty' ) } );
     this.forceVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'forceVectorsOnProperty' ) } );
-    this.totalOrComponentsProperty = new Property( 'total' ); // or 'components'
+    this.vectorsDisplayProperty = new EnumerationProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
+      tandem: tandem.createTandem( 'vectorsDisplayProperty' )
+    } );
 
     // update which vectors to show based on controls
     // Doesn't need to be disposed because it lasts for the lifetime of the sim
@@ -34,7 +38,7 @@ define( require => {
       this.velocityVectorsOnProperty,
       this.accelerationVectorsOnProperty,
       this.forceVectorsOnProperty,
-      this.totalOrComponentsProperty
+      this.vectorsDisplayProperty
     ], this.updateVectorVisibilities.bind( this ) );
 
   }
@@ -53,7 +57,7 @@ define( require => {
       this.velocityVectorsOnProperty.reset();
       this.accelerationVectorsOnProperty.reset();
       this.forceVectorsOnProperty.reset();
-      this.totalOrComponentsProperty.reset();
+      this.vectorsDisplayProperty.reset();
     },
 
     /**
@@ -64,15 +68,18 @@ define( require => {
      * @param {boolean} velocityVectorsOn
      * @param {boolean} accelerationVectorsOn
      * @param {boolean} forceVectorsOn
-     * @param {string} totalOrComponents
+     * @param {string} vectorsDisplay
      */
-    updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, totalOrComponents ) {
-      this.totalVelocityVectorOnProperty.set( velocityVectorsOn && totalOrComponents === 'total' );
-      this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && totalOrComponents === 'components' );
-      this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && totalOrComponents === 'total' );
-      this.componentsAccelerationVectorsOnProperty.set( accelerationVectorsOn && totalOrComponents === 'components' );
-      this.totalForceVectorOnProperty.set( forceVectorsOn && totalOrComponents === 'total' );
-      this.componentsForceVectorsOnProperty.set( forceVectorsOn && totalOrComponents === 'components' );
+    updateVectorVisibilities: function( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, vectorsDisplay ) {
+      const displayTotal = vectorsDisplay === VectorsDisplayEnumeration.TOTAL;
+      const displayComponents = vectorsDisplay === VectorsDisplayEnumeration.COMPONENTS;
+
+      this.totalVelocityVectorOnProperty.set( velocityVectorsOn && displayTotal );
+      this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && displayComponents );
+      this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && displayTotal );
+      this.componentsAccelerationVectorsOnProperty.set( accelerationVectorsOn && displayComponents );
+      this.totalForceVectorOnProperty.set( forceVectorsOn && displayTotal );
+      this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
     }
   } );
 } );
