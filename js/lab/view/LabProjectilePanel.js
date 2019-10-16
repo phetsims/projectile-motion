@@ -80,6 +80,10 @@ define( require => {
     // @private save them for later
     this.options = options;
 
+    // @private - these number controls don't change between all "benchmarked" elements (not custom), so we can reuse them
+    this.gravityNumberControl = null;
+    this.altitudeNumberControl = null;
+
     // @private;
     this.textDisplayWidth = options.textDisplayWidth * 1.4;
 
@@ -117,7 +121,7 @@ define( require => {
       } );
 
       // Create the controls for tht objectType too.
-      this.objectTypeControls.push( this.createControlsForObjectType( projectileObject, tandem.createTandem( `${projectileObject.benchmark}Control` ) ) );
+      this.objectTypeControls.push( this.createControlsForObjectType( projectileObject, tandem, tandem.createTandem( `${projectileObject.benchmark}Control` ) ) );
     }
 
     // create view for the dropdown
@@ -351,13 +355,14 @@ define( require => {
      * Given an objectType, create the controls needed for that type.
      * @private
      * @param {ProjectileObjectType} objectType
-     * @param {Tandem} tandem
+     * @param {Tandem} generalComponentTandem - used for the elements that can be reused between all elements
+     * @param {Tandem} objectSpecificTandem - used for the elements that change for each object type
      * @returns {ObjectTypeControls}
      */
-    createControlsForObjectType: function( objectType, tandem ) {
+    createControlsForObjectType: function( objectType, generalComponentTandem, objectSpecificTandem ) {
 
       if ( objectType.benchmark === 'custom' ) {
-        return this.createControlsForCustomObjectType( objectType, tandem );
+        return this.createControlsForCustomObjectType( objectType, objectSpecificTandem );
       }
       else {
 
@@ -427,7 +432,7 @@ define( require => {
                 label: new Text( objectType.massRange.max, LABEL_OPTIONS )
               } ]
             },
-            tandem: tandem.createTandem( 'massNumberControl' )
+            tandem: objectSpecificTandem.createTandem( 'massNumberControl' )
           }, defaultNumberControlOptions ) );
 
         const diameterNumberControl = new NumberControl(
@@ -451,11 +456,10 @@ define( require => {
                 label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
               } ]
             },
-            tandem: tandem.createTandem( 'diameterNumberControl' )
+            tandem: objectSpecificTandem.createTandem( 'diameterNumberControl' )
           }, defaultNumberControlOptions ) );
 
-        // TODO: you don't need to be created for each one.
-        const gravityNumberControl = new NumberControl(
+        const gravityNumberControl = this.gravityNumberControl || new NumberControl(
           gravityString,
           this.model.gravityProperty,
           ProjectileMotionConstants.GRAVITY_RANGE,
@@ -474,12 +478,12 @@ define( require => {
             sliderOptions: {
               constrainValue: value => Util.roundSymmetric( value * 100 ) / 100
             },
-            tandem: tandem.createTandem( 'gravityNumberControl' )
+            tandem: generalComponentTandem.createTandem( 'gravityNumberControl' )
           }, defaultNumberControlOptions )
         );
+        this.gravityNumberControl = gravityNumberControl;
 
-        // TODO: you don't need to be created for each one.
-        const altitudeNumberControl = new NumberControl(
+        const altitudeNumberControl = this.altitudeNumberControl || new NumberControl(
           altitudeString, this.model.altitudeProperty,
           ProjectileMotionConstants.ALTITUDE_RANGE,
           merge( {
@@ -493,9 +497,10 @@ define( require => {
             sliderOptions: {
               constrainValue: value => Util.roundSymmetric( value / 100 ) * 100
             },
-            tandem: tandem.createTandem( 'altitudeNumberControl' )
+            tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' )
           }, defaultNumberControlOptions, )
         );
+        this.altitudeNumberControl = altitudeNumberControl;
 
         const dragCoefficientText = new Text( '', _.defaults( {
           maxWidth: this.options.minWidth - 2 * this.options.xMargin
@@ -516,5 +521,4 @@ define( require => {
     }
   } );
 } );
-
 
