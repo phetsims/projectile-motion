@@ -17,7 +17,6 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
   const Property = require( 'AXON/Property' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
