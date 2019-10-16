@@ -63,7 +63,7 @@
     "value": "m/s"
   },
   "degreesSymbol": {
-     "value": "˚"
+     "value": "\u00B0"
   },
   "metersPerSecondSquared": {
     "value": "m/s\u00b2"
