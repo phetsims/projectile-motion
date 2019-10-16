@@ -64,19 +64,12 @@ define( require => {
    */
   function LabProjectilePanel( comboBoxListParent, keypadLayer, model, tandem, options ) {
 
-    // convenience variables with description comments
-
-    const objectTypes = model.objectTypes; // {Array.<ProjectileObjectType>} - for dropdown
-
-    // {Property.<ProjectileObjectType>}
-    const selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
-
-    const projectileMassProperty = model.projectileMassProperty; // {Property.<number>}
-    const projectileDiameterProperty = model.projectileDiameterProperty; // {Property.<number>}
-    const projectileDragCoefficientProperty = model.projectileDragCoefficientProperty; // {Property.<number>}
-    const altitudeProperty = model.altitudeProperty; // {Property.<number>}
-    const airResistanceOnProperty = model.airResistanceOnProperty; // {Property.<boolean>}
-    const gravityProperty = model.gravityProperty; // {Property.<number>}
+    // convenience variables as much of the logic in this type is in prototype functions only called on construction.
+    // @private
+    this.objectTypes = model.objectTypes;
+    this.objectTypeControls = []; // {Array.<ObjectTypeControls>} same size as objectTypes, holds a Node that is the controls;
+    this.keypadLayer = keypadLayer;
+    this.model = model; // @private
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -84,13 +77,22 @@ define( require => {
     // The fourth object is options given at time of construction, which overrides all the others
     options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
+    // @private save them for later
+    this.options = options;
+
+    // @private;
+    this.textDisplayWidth = options.textDisplayWidth * 1.4;
+
+    // {Property.<ProjectileObjectType>}
+    const selectedProjectileObjectTypeProperty = model.selectedProjectileObjectTypeProperty;
+
     // maxWidth empirically determined for labels in the dropdown
     const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
 
     const firstItemNode = new VBox( {
       align: 'left',
       children: [
-        new Text( objectTypes[ 0 ].name, itemNodeOptions )
+        new Text( this.objectTypes[ 0 ].name, itemNodeOptions )
       ]
     } );
 
@@ -100,17 +102,22 @@ define( require => {
     const comboBoxLineWidth = 1;
 
     // first item contains horizontal strut that sets width of combo box
-    const firstItemNodeWidth = comboBoxWidth - itemXMargin - 0.5 * firstItemNode.height - 4 * buttonXMargin - 2 * itemXMargin - 2 * comboBoxLineWidth;
+    const firstItemNodeWidth = comboBoxWidth - itemXMargin -
+                               0.5 * firstItemNode.height -
+                               4 * buttonXMargin -
+                               2 * itemXMargin -
+                               2 * comboBoxLineWidth;
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     const comboBoxItems = [];
-    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ], { tandemName: objectTypes[ 0 ].benchmark } );
-
-    for ( let i = 1; i < objectTypes.length; i++ ) {
-      const projectileObject = objectTypes[ i ];
+    for ( let i = 0; i < this.objectTypes.length; i++ ) {
+      const projectileObject = this.objectTypes[ i ];
       comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject, {
         tandemName: projectileObject.benchmark
       } );
+
+      // Create the controls for tht objectType too.
+      this.objectTypeControls.push( this.createControlsForObjectType( projectileObject, tandem.createTandem( `${projectileObject.benchmark}Control` ) ) );
     }
 
     // create view for the dropdown
@@ -130,322 +137,27 @@ define( require => {
     // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
 
-    // local vars for layout and formatting
-    const textDisplayWidth = options.textDisplayWidth * 1.4;
-    const valueLabelOptions = _.defaults( {
-      cursor: 'pointer',
-      backgroundStroke: 'black',
-      decimalPlaces: null,
-      cornerRadius: 4,
-      xMargin: 4,
-      minBackgroundWidth: textDisplayWidth,
-      numberMaxWidth: textDisplayWidth - 2 * options.readoutXMargin
-    }, NUMBER_DISPLAY_OPTIONS );
-
-    /**
-     * Auxiliary function that creates vbox for a parameter label and readouts
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Range} range - range for the valueProperty value
-     * @param {Tandem} tandem
-     * @returns {VBox}
-     */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, tandem ) {
-
-      // label
-      const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, LABEL_OPTIONS ) );
-
-      // value text
-      const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        units: unitsString
-      } ) : StringUtils.fillIn( pattern0Value1UnitsString, {
-        units: ''
-      } );
-
-      const numberDisplay = new NumberDisplay(
-        valueProperty,
-        range,
-        merge( valueLabelOptions, { tandem: tandem.createTandem( 'numberDisplay' ), valuePattern: valuePattern } )
-      );
-
-      const editValue = function() {
-        keypadLayer.beginEdit( valueProperty, range, unitsString, {
-          onBeginEdit: function() { numberDisplay.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
-          onEndEdit: function() { numberDisplay.backgroundFill = 'white'; }
-        } );
-      };
-
-      // edit button
-      const pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
-      const editButton = new RectangularPushButton( {
-        minWidth: 25,
-        minHeight: 20,
-        centerY: numberDisplay.centerY,
-        left: numberDisplay.right + options.xMargin,
-        content: pencilIcon,
-        baseColor: PhetColorScheme.BUTTON_YELLOW,
-        listener: editValue,
-        tandem: tandem.createTandem( 'editButton' )
-      } );
-
-      numberDisplay.addInputListener( new DownUpListener( { // no removeInputListener required
-        down: editValue
-      } ) );
-
-      const valueNode = new Node( { children: [ numberDisplay, editButton ] } );
-
-      parameterLabel.setMaxWidth( options.minWidth - 4 * options.xMargin - valueNode.width );
-
-      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - valueNode.width;
-
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
-    }
-
-    // layout function for the number controls
-    const layoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      titleNode.setMaxWidth( options.minWidth - 3 * options.xMargin - numberDisplay.width );
-      return new VBox( {
-        spacing: options.sliderLabelSpacing,
-        align: 'center',
-        children: [
-          new HBox( {
-            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width - 3,
-            children: [ titleNode, numberDisplay ]
-          } ),
-          new HBox( {
-            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2 - 2,
-            resize: false, // prevent slider from causing a resize when thumb is at min or max
-            children: [ leftArrowButton, slider, rightArrowButton ]
-          } )
-        ]
-      } );
-    };
-
-    const defaultNumberControlOptions = {
-      titleNodeOptions: { font: TEXT_FONT },
-      numberDisplayOptions: {
-        maxWidth: textDisplayWidth,
-        align: 'right',
-        xMargin: READOUT_X_MARGIN,
-        yMargin: 4,
-        font: TEXT_FONT
-      },
-      sliderOptions: {
-        majorTickLength: 5,
-        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
-        thumbSize: new Dimension2( 13, 22 ),
-        thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4
-      },
-      arrowButtonOptions: {
-        scale: 0.56,
-        touchAreaXDilation: 20,
-        touchAreaYDilation: 20
-      },
-      layoutFunction: layoutFunction
-    };
-
     // readout, slider, and tweakers
 
-    // local vars for improving readability and tracking control boxes
-    // __Box such as massBox is the parent of the control, and it is a child of Panel
-    // __SpecificProjectileTypeBox is a number control for when a benchmark is selected from the dropdown
-    // __CustomBox is a control box with label, readout, and edit button for when Custom is selected from the dropdown
+    // These containers are added into the Panel as desired, and their children are changed as the object type does.
     const massBox = new Node();
     const diameterBox = new Node();
     const dragCoefficientBox = new Node();
     const altitudeBox = new Node();
     const gravityBox = new Node();
-    let massSpecificProjectileNumberControl = null;
-    let diameterSpecificProjectileTypeNumberControl = null;
-    let dragCoefficientSpecificProjectileTypeNumberControl = null;
-    let altitudeSpecificProjectileTypeNumberControl = null;
-    let gravitySpecificProjectileTypeNumberControl = null;
-    let massCustomBox = null;
-    let diameterCustomBox = null;
-    let dragCoefficientCustomBox = null;
-    let altitudeCustomBox = null;
-    let gravityCustomBox = null;
 
     // update the type of control based on the objectType
-    selectedProjectileObjectTypeProperty.link( function( objectType ) {
-      if ( objectType.benchmark !== 'custom' ) {
-        if ( massCustomBox && massBox.hasChild( massCustomBox ) ) {
-
-          // if there are already custom boxes, remove them
-
-          massBox.removeChild( massCustomBox );
-          diameterBox.removeChild( diameterCustomBox );
-          dragCoefficientBox.removeChild( dragCoefficientCustomBox );
-          altitudeBox.removeChild( altitudeCustomBox );
-          gravityBox.removeChild( gravityCustomBox );
-        }
-        if ( massSpecificProjectileNumberControl ) {
-
-          // if there are already benchmark boxes, remove them
-
-          massSpecificProjectileNumberControl.dispose();
-          diameterSpecificProjectileTypeNumberControl.dispose();
-          dragCoefficientSpecificProjectileTypeNumberControl.dispose();
-          altitudeSpecificProjectileTypeNumberControl.dispose();
-          gravitySpecificProjectileTypeNumberControl.dispose();
-        }
-
-        massSpecificProjectileNumberControl = new NumberControl(
-          massString,
-          projectileMassProperty,
-          objectType.massRange,
-          merge( {
-            delta: objectType.massRound,
-            numberDisplayOptions: {
-
-              // '{{value}} kg'
-              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
-              decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) )
-            },
-            sliderOptions: {
-              constrainValue: function( value ) { return Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound; },
-              majorTicks: [ {
-                value: objectType.massRange.min,
-                label: new Text( objectType.massRange.min, LABEL_OPTIONS )
-              }, {
-                value: objectType.massRange.max,
-                label: new Text( objectType.massRange.max, LABEL_OPTIONS )
-              } ]
-            },
-            tandem: tandem.createTandem( 'massSpecificProjectileNumberControl' )
-          }, defaultNumberControlOptions ) );
-
-        diameterSpecificProjectileTypeNumberControl = new NumberControl(
-          diameterString, projectileDiameterProperty,
-          objectType.diameterRange,
-          merge( {
-            delta: objectType.diameterRound,
-            numberDisplayOptions: {
-
-              // '{{value}} m'
-              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-              decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) )
-            },
-            sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
-              majorTicks: [ {
-                value: objectType.diameterRange.min,
-                label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
-              }, {
-                value: objectType.diameterRange.max,
-                label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
-              } ]
-            },
-            tandem: tandem.createTandem( 'diameterSpecificProjectileTypeNumberControl' )
-          }, defaultNumberControlOptions ) );
-
-        gravitySpecificProjectileTypeNumberControl = new NumberControl(
-          gravityString,
-          gravityProperty,
-          ProjectileMotionConstants.GRAVITY_RANGE,
-          merge( {
-            delta: 0.01,
-            numberDisplayOptions: {
-
-              // '{{value}} m/s^2
-              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-                units: metersPerSecondSquaredString
-              } ),
-              decimalPlaces: 2,
-              xMargin: GRAVITY_READOUT_X_MARGIN,
-              maxWidth: textDisplayWidth + GRAVITY_READOUT_X_MARGIN
-            },
-            sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value * 100 ) / 100
-            },
-            tandem: tandem.createTandem( 'gravitySpecificProjectileTypeNumberControl' )
-          }, defaultNumberControlOptions )
-        );
-
-        altitudeSpecificProjectileTypeNumberControl = new NumberControl(
-          altitudeString, altitudeProperty,
-          ProjectileMotionConstants.ALTITUDE_RANGE,
-          merge( {
-            delta: 100,
-            numberDisplayOptions: {
-
-              // '{{value}} m'
-              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-              decimalPlaces: 0
-            },
-            sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value / 100 ) * 100
-            },
-            tandem: tandem.createTandem( 'altitudeSpecificProjectileTypeNumberControl' )
-          }, defaultNumberControlOptions, )
-        );
-        dragCoefficientSpecificProjectileTypeNumberControl = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
-        massBox.addChild( massSpecificProjectileNumberControl );
-        diameterBox.addChild( diameterSpecificProjectileTypeNumberControl );
-        dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeNumberControl );
-        altitudeBox.addChild( altitudeSpecificProjectileTypeNumberControl );
-        gravityBox.addChild( gravitySpecificProjectileTypeNumberControl );
-      }
-      else {
-        if ( massSpecificProjectileNumberControl && massBox.hasChild( massSpecificProjectileNumberControl ) ) {
-
-          // if there are already benchmark boxes, remove them
-
-          massBox.removeChild( massSpecificProjectileNumberControl );
-          diameterBox.removeChild( diameterSpecificProjectileTypeNumberControl );
-          dragCoefficientBox.removeChild( dragCoefficientSpecificProjectileTypeNumberControl );
-          altitudeBox.removeChild( altitudeSpecificProjectileTypeNumberControl );
-          gravityBox.removeChild( gravitySpecificProjectileTypeNumberControl );
-        }
-        if ( !massCustomBox ) {
-          massCustomBox = createParameterControlBox(
-            massString,
-            kgString,
-            projectileMassProperty,
-            objectType.massRange,
-            tandem.createTandem( 'massCustomBox' )
-          );
-          diameterCustomBox = createParameterControlBox(
-            diameterString,
-            mString,
-            projectileDiameterProperty,
-            objectType.diameterRange,
-            tandem.createTandem( 'diameterCustomBox' )
-          );
-          gravityCustomBox = createParameterControlBox(
-            gravityString,
-            metersPerSecondSquaredString,
-            gravityProperty,
-            ProjectileMotionConstants.GRAVITY_RANGE,
-            tandem.createTandem( 'gravityCustomBox' )
-          );
-          altitudeCustomBox = createParameterControlBox(
-            altitudeString,
-            mString,
-            altitudeProperty,
-            ProjectileMotionConstants.ALTITUDE_RANGE,
-            tandem.createTandem( 'altitudeCustomBox' )
-          );
-          dragCoefficientCustomBox = createParameterControlBox(
-            dragCoefficientString,
-            null,
-            projectileDragCoefficientProperty,
-            objectType.dragCoefficientRange,
-            tandem.createTandem( 'dragCoefficientCustomBox' )
-          );
-        }
-        massBox.addChild( massCustomBox );
-        diameterBox.addChild( diameterCustomBox );
-        dragCoefficientBox.addChild( dragCoefficientCustomBox );
-        altitudeBox.addChild( altitudeCustomBox );
-        gravityBox.addChild( gravityCustomBox );
-      }
+    selectedProjectileObjectTypeProperty.link( objectType => {
+      const objectTypeControls = this.objectTypeControls[ this.objectTypes.indexOf( objectType ) ];
+      massBox.children = [ objectTypeControls.massControl ];
+      diameterBox.children = [ objectTypeControls.diameterControl ];
+      dragCoefficientBox.children = [ objectTypeControls.dragCoefficientControl ];
+      altitudeBox.children = [ objectTypeControls.altitudeControl ];
+      gravityBox.children = [ objectTypeControls.gravityControl ];
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
-    airResistanceOnProperty.link( function( airResistanceOn ) {
+    model.airResistanceOnProperty.link( airResistanceOn => {
       const opacity = airResistanceOn ? 1 : 0.5;
       altitudeBox.opacity = opacity;
       dragCoefficientBox.opacity = opacity;
@@ -455,7 +167,7 @@ define( require => {
 
     // air resistance
     const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
+    const airResistanceCheckbox = new Checkbox( airResistanceLabel, model.airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18,
       tandem: tandem.createTandem( 'airResistanceCheckbox' )
@@ -487,11 +199,320 @@ define( require => {
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
+  class ObjectTypeControls {
+    constructor( massControl, diameterControl, gravityControl, altitudeControl, dragCoefficientControl ) {
+
+      // @public (read-only) {Node}
+      this.massControl = massControl;
+      this.diameterControl = diameterControl;
+      this.gravityControl = gravityControl;
+      this.altitudeControl = altitudeControl;
+      this.dragCoefficientControl = dragCoefficientControl;
+    }
+  }
+
   return inherit( Panel, LabProjectilePanel, {
 
     // @public for use by screen view
     hideComboBoxList: function() {
       this.projectileChoiceComboBox.hideListBox();
+    },
+
+    /**
+     * Auxiliary function that creates vbox for a parameter label and readouts
+     * @param {string} labelString - label for the parameter
+     * @param {string} unitsString - units
+     * @param {Property.<number>} valueProperty - the Property that is set and linked to
+     * @param {Range} range - range for the valueProperty value
+     * @param {Tandem} tandem
+     * @returns {VBox}
+     */
+    createCustomParameterControlBox: function( labelString, unitsString, valueProperty, range, tandem ) {
+
+      // label
+      const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, LABEL_OPTIONS ) );
+
+      // value text
+      const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+        units: unitsString
+      } ) : StringUtils.fillIn( pattern0Value1UnitsString, {
+        units: ''
+      } );
+
+      const valueLabelOptions = _.defaults( {
+        cursor: 'pointer',
+        backgroundStroke: 'black',
+        decimalPlaces: null,
+        cornerRadius: 4,
+        xMargin: 4,
+        minBackgroundWidth: this.textDisplayWidth,
+        numberMaxWidth: this.textDisplayWidth - 2 * this.options.readoutXMargin
+      }, NUMBER_DISPLAY_OPTIONS );
+
+      const numberDisplay = new NumberDisplay(
+        valueProperty,
+        range,
+        merge( valueLabelOptions, { tandem: tandem.createTandem( 'numberDisplay' ), valuePattern: valuePattern } )
+      );
+
+      const editValue = () => {
+        this.keypadLayer.beginEdit( valueProperty, range, unitsString, {
+          onBeginEdit: () => { numberDisplay.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
+          onEndEdit: () => { numberDisplay.backgroundFill = 'white'; }
+        } );
+      };
+
+      // edit button
+      const pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
+      const editButton = new RectangularPushButton( {
+        minWidth: 25,
+        minHeight: 20,
+        centerY: numberDisplay.centerY,
+        left: numberDisplay.right + this.options.xMargin,
+        content: pencilIcon,
+        baseColor: PhetColorScheme.BUTTON_YELLOW,
+        listener: editValue,
+        tandem: tandem.createTandem( 'editButton' )
+      } );
+
+      numberDisplay.addInputListener( new DownUpListener( { // no removeInputListener required
+        down: editValue
+      } ) );
+
+      const valueNode = new Node( { children: [ numberDisplay, editButton ] } );
+
+      parameterLabel.setMaxWidth( this.options.minWidth - 4 * this.options.xMargin - valueNode.width );
+
+      const xSpacing = this.options.minWidth - 2 * this.options.xMargin - parameterLabel.width - valueNode.width;
+
+      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+    },
+
+    /**
+     * Create the controls for the "custom" object type. This is involes a keypad to input custom numbers.
+     * @private
+     * @returns {ObjectTypeControls}
+     */
+    createControlsForCustomObjectType: function( objectType, tandem ) {
+
+      // mass
+      const massControl = this.createCustomParameterControlBox(
+        massString,
+        kgString,
+        this.model.projectileMassProperty,
+        objectType.massRange,
+        tandem.createTandem( 'massControl' )
+      );
+
+      // diameter
+      const diameterControl = this.createCustomParameterControlBox(
+        diameterString,
+        mString,
+        this.model.projectileDiameterProperty,
+        objectType.diameterRange,
+        tandem.createTandem( 'diameterControl' )
+      );
+
+      // gravity
+      const gravityControl = this.createCustomParameterControlBox(
+        gravityString,
+        metersPerSecondSquaredString,
+        this.model.gravityProperty,
+        ProjectileMotionConstants.GRAVITY_RANGE,
+        tandem.createTandem( 'gravityControl' )
+      );
+
+      // altitude
+      const altitudeControl = this.createCustomParameterControlBox(
+        altitudeString,
+        mString,
+        this.model.altitudeProperty,
+        ProjectileMotionConstants.ALTITUDE_RANGE,
+        tandem.createTandem( 'altitudeControl' )
+      );
+
+      // dragCoefficient
+      const dragCoefficientControl = this.createCustomParameterControlBox(
+        dragCoefficientString,
+        null,
+        this.model.projectileDragCoefficientProperty,
+        objectType.dragCoefficientRange,
+        tandem.createTandem( 'dragCoefficientControl' )
+      );
+      return new ObjectTypeControls(
+        massControl,
+        diameterControl,
+        gravityControl,
+        altitudeControl,
+        dragCoefficientControl );
+    },
+
+    /**
+     * Given an objectType, create the controls needed for that type.
+     * @private
+     * @param {ProjectileObjectType} objectType
+     * @param {Tandem} tandem
+     * @returns {ObjectTypeControls}
+     */
+    createControlsForObjectType: function( objectType, tandem ) {
+
+      if ( objectType.benchmark === 'custom' ) {
+        return this.createControlsForCustomObjectType( objectType, tandem );
+      }
+      else {
+
+        // layout function for the number controls
+        const layoutFunction = ( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) => {
+          titleNode.setMaxWidth( this.options.minWidth - 3 * this.options.xMargin - numberDisplay.width );
+          return new VBox( {
+            spacing: this.options.sliderLabelSpacing,
+            align: 'center',
+            children: [
+              new HBox( {
+                spacing: this.options.minWidth - 2 * this.options.xMargin - titleNode.width - numberDisplay.width - 3,
+                children: [ titleNode, numberDisplay ]
+              } ),
+              new HBox( {
+                spacing: ( this.options.minWidth - 2 * this.options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2 - 2,
+                resize: false, // prevent slider from causing a resize when thumb is at min or max
+                children: [ leftArrowButton, slider, rightArrowButton ]
+              } )
+            ]
+          } );
+        };
+
+        const defaultNumberControlOptions = {
+          titleNodeOptions: { font: TEXT_FONT },
+          numberDisplayOptions: {
+            maxWidth: this.textDisplayWidth,
+            align: 'right',
+            xMargin: READOUT_X_MARGIN,
+            yMargin: 4,
+            font: TEXT_FONT
+          },
+          sliderOptions: {
+            majorTickLength: 5,
+            trackSize: new Dimension2( this.options.minWidth - 2 * this.options.xMargin - 80, 0.5 ),
+            thumbSize: new Dimension2( 13, 22 ),
+            thumbTouchAreaXDilation: 6,
+            thumbTouchAreaYDilation: 4
+          },
+          arrowButtonOptions: {
+            scale: 0.56,
+            touchAreaXDilation: 20,
+            touchAreaYDilation: 20
+          },
+          layoutFunction: layoutFunction
+        };
+
+        const massNumberControl = new NumberControl(
+          massString,
+          this.model.projectileMassProperty,
+          objectType.massRange,
+          merge( {
+            delta: objectType.massRound,
+            numberDisplayOptions: {
+
+              // '{{value}} kg'
+              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
+              decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) )
+            },
+            sliderOptions: {
+              constrainValue: value => Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound,
+              majorTicks: [ {
+                value: objectType.massRange.min,
+                label: new Text( objectType.massRange.min, LABEL_OPTIONS )
+              }, {
+                value: objectType.massRange.max,
+                label: new Text( objectType.massRange.max, LABEL_OPTIONS )
+              } ]
+            },
+            tandem: tandem.createTandem( 'massNumberControl' )
+          }, defaultNumberControlOptions ) );
+
+        const diameterNumberControl = new NumberControl(
+          diameterString, this.model.projectileDiameterProperty,
+          objectType.diameterRange,
+          merge( {
+            delta: objectType.diameterRound,
+            numberDisplayOptions: {
+
+              // '{{value}} m'
+              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
+              decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) )
+            },
+            sliderOptions: {
+              constrainValue: value => Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
+              majorTicks: [ {
+                value: objectType.diameterRange.min,
+                label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
+              }, {
+                value: objectType.diameterRange.max,
+                label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
+              } ]
+            },
+            tandem: tandem.createTandem( 'diameterNumberControl' )
+          }, defaultNumberControlOptions ) );
+
+        // TODO: you don't need to be created for each one.
+        const gravityNumberControl = new NumberControl(
+          gravityString,
+          this.model.gravityProperty,
+          ProjectileMotionConstants.GRAVITY_RANGE,
+          merge( {
+            delta: 0.01,
+            numberDisplayOptions: {
+
+              // '{{value}} m/s^2
+              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+                units: metersPerSecondSquaredString
+              } ),
+              decimalPlaces: 2,
+              xMargin: GRAVITY_READOUT_X_MARGIN,
+              maxWidth: this.textDisplayWidth + GRAVITY_READOUT_X_MARGIN
+            },
+            sliderOptions: {
+              constrainValue: value => Util.roundSymmetric( value * 100 ) / 100
+            },
+            tandem: tandem.createTandem( 'gravityNumberControl' )
+          }, defaultNumberControlOptions )
+        );
+
+        // TODO: you don't need to be created for each one.
+        const altitudeNumberControl = new NumberControl(
+          altitudeString, this.model.altitudeProperty,
+          ProjectileMotionConstants.ALTITUDE_RANGE,
+          merge( {
+            delta: 100,
+            numberDisplayOptions: {
+
+              // '{{value}} m'
+              valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
+              decimalPlaces: 0
+            },
+            sliderOptions: {
+              constrainValue: value => Util.roundSymmetric( value / 100 ) * 100
+            },
+            tandem: tandem.createTandem( 'altitudeNumberControl' )
+          }, defaultNumberControlOptions, )
+        );
+
+        const dragCoefficientText = new Text( '', _.defaults( {
+          maxWidth: this.options.minWidth - 2 * this.options.xMargin
+        }, LABEL_OPTIONS ) );
+
+        // exists for the lifetime of the simulation
+        this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
+          dragCoefficientText.text = dragCoefficientString + ': ' + Util.toFixed( dragCoefficient, 2 );
+        } );
+
+        return new ObjectTypeControls(
+          massNumberControl,
+          diameterNumberControl,
+          gravityNumberControl,
+          altitudeNumberControl,
+          dragCoefficientText );
+      }
     }
   } );
 } );
