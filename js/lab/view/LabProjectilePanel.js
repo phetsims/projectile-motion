@@ -259,7 +259,7 @@ define( require => {
     const gravityBox = new Node();
     let massSpecificProjectileNumberControl = null;
     let diameterSpecificProjectileTypeNumberControl = null;
-    let dragCoefficientSpecificProjectileTypeBox = null;
+    let dragCoefficientSpecificProjectileTypeNumberControl = null;
     let altitudeSpecificProjectileTypeNumberControl = null;
     let gravitySpecificProjectileTypeNumberControl = null;
     let massCustomBox = null;
@@ -287,7 +287,7 @@ define( require => {
 
           massSpecificProjectileNumberControl.dispose();
           diameterSpecificProjectileTypeNumberControl.dispose();
-          dragCoefficientSpecificProjectileTypeBox.dispose();
+          dragCoefficientSpecificProjectileTypeNumberControl.dispose();
           altitudeSpecificProjectileTypeNumberControl.dispose();
           gravitySpecificProjectileTypeNumberControl.dispose();
         }
@@ -381,10 +381,10 @@ define( require => {
             tandem: tandem.createTandem( 'altitudeSpecificProjectileTypeNumberControl' )
           }, defaultNumberControlOptions, )
         );
-        dragCoefficientSpecificProjectileTypeBox = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+        dragCoefficientSpecificProjectileTypeNumberControl = new Text( dragCoefficientString + ': ' + Util.toFixed( projectileDragCoefficientProperty.get(), 2 ), _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
         massBox.addChild( massSpecificProjectileNumberControl );
         diameterBox.addChild( diameterSpecificProjectileTypeNumberControl );
-        dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeBox );
+        dragCoefficientBox.addChild( dragCoefficientSpecificProjectileTypeNumberControl );
         altitudeBox.addChild( altitudeSpecificProjectileTypeNumberControl );
         gravityBox.addChild( gravitySpecificProjectileTypeNumberControl );
       }
@@ -395,7 +395,7 @@ define( require => {
 
           massBox.removeChild( massSpecificProjectileNumberControl );
           diameterBox.removeChild( diameterSpecificProjectileTypeNumberControl );
-          dragCoefficientBox.removeChild( dragCoefficientSpecificProjectileTypeBox );
+          dragCoefficientBox.removeChild( dragCoefficientSpecificProjectileTypeNumberControl );
           altitudeBox.removeChild( altitudeSpecificProjectileTypeNumberControl );
           gravityBox.removeChild( gravitySpecificProjectileTypeNumberControl );
         }
