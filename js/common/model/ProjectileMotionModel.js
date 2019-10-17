@@ -36,10 +36,12 @@ define( require => {
   /**
    * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
    * @param {boolean} defaultAirResistance -  default air resistance on value
+   * @param {ProjectileObjectType[]} possibleObjectTypes - a list of the possible ProjectileObjectTypes for the model
    * @param {Tandem} tandem
+   * @param options
    * @constructor
    */
-  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, tandem, options ) {
+  function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, possibleObjectTypes, tandem, options ) {
 
     options = _.extend( {
       defaultCannonHeight: 0,
@@ -94,7 +96,8 @@ define( require => {
 
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
       tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
-      phetioType: PropertyIO( ReferenceIO )
+      phetioType: PropertyIO( ReferenceIO ),
+      validValues: possibleObjectTypes
     } );
 
     // --Properties that change the environment and affect all projectiles, called global

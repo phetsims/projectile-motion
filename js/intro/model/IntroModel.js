@@ -33,7 +33,7 @@ define( require => {
       ProjectileObjectType.CAR
     ];
 
-    ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, tandem, {
+    ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, this.objectTypes, tandem, {
       defaultCannonHeight: 10,
       defaultCannonAngle: 0,
       defaultInitialSpeed: 15

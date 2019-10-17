@@ -20,14 +20,15 @@ define( require => {
    * @constructor
    */
   function VectorsModel( tandem ) {
-    ProjectileMotionModel.call( this, new ProjectileObjectType(
+    const defaultObjectType = new ProjectileObjectType(
       null,
       5,
       0.8,
       ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
       null,
       true, { tandem: tandem.createTandem( 'generalObjectType' ) }
-    ), true, tandem );
+    );
+    ProjectileMotionModel.call( this, defaultObjectType, true, [ defaultObjectType ], tandem );
   }
 
   projectileMotion.register( 'VectorsModel', VectorsModel );

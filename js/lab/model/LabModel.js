@@ -56,7 +56,7 @@ define( require => {
     // @private {Property.<string>} save the most recent benchmark (e.g. pumpkin, human, etc.) used
     this.lastTypeProperty = new StringProperty( initialObjectType.benchmark );
 
-    ProjectileMotionModel.call( this, initialObjectType, false, tandem );
+    ProjectileMotionModel.call( this, initialObjectType, false, this.objectTypes, tandem );
   }
 
   projectileMotion.register( 'LabModel', LabModel );
