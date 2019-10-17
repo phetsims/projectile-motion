@@ -41,9 +41,9 @@ define( require => {
     MAX_NUMBER_OF_TRAJECTORIES: 5,
     MAX_NUMBER_OF_FLYING_PROJECTILES: 3,
 
-    CANNON_HEIGHT_RANGE: new Range( 0, 15 ),
-    CANNON_ANGLE_RANGE: new Range( -90, 90 ),
-    LAUNCH_VELOCITY_RANGE: new Range( 0, 30 ),
+    CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
+    CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
+    LAUNCH_VELOCITY_RANGE: new Range( 0, 30 ), // m/s
 
     PROJECTILE_MASS_RANGE: new Range( 1, 10 ), // in original, highest is 1000
     PROJECTILE_DIAMETER_RANGE: new Range( 0.1, 1 ), // in original, smallest is 0.043

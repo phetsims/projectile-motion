@@ -50,7 +50,7 @@ define( require => {
     }, options );
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
-    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT );
+    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT, tandem.createTandem( 'score' ) );
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
     this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
@@ -60,19 +60,22 @@ define( require => {
     // @public {Property.<number>} height of the cannon, in meters
     this.cannonHeightProperty = new NumberProperty( options.defaultCannonHeight, {
       tandem: tandem.createTandem( 'cannonHeightProperty' ),
-      units: 'm'
+      units: 'm',
+      range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     } );
 
     // @public {Property.<number>} angle of the cannon, in degrees
     this.cannonAngleProperty = new NumberProperty( options.defaultCannonAngle, {
       tandem: tandem.createTandem( 'cannonAngleProperty' ),
-      units: '\u00B0'
+      units: '\u00B0',
+      range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
     } );
 
     // @public {Property.<number>} launch speed, in meters per second
     this.launchVelocityProperty = new NumberProperty( options.defaultInitialSpeed, {
       tandem: tandem.createTandem( 'launchVelocityProperty' ),
-      units: 'm/s'
+      units: 'm/s',
+      range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     } );
 
     // --parameters for next projectile fired

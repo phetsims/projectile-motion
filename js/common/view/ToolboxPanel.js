@@ -18,6 +18,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   /**
    * Toolbox constructor
@@ -40,7 +41,8 @@ define( require => {
       xMargin: 12,
       yMargin: 18,
       fill: 'white',
-      minWidth: 200
+      minWidth: 200,
+      tandem: Tandem.required
     }, options );
     
     // Create the icon Node for the tracer tool

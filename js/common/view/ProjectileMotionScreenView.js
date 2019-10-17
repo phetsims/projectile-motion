@@ -107,7 +107,9 @@ define( require => {
     const transformProperty = new Property( modelViewTransform );
 
     // target
-    const targetNode = new TargetNode( model.score, transformProperty, this, tandem.createTandem( 'targetNode' ) );
+    const targetNode = new TargetNode( model.score, transformProperty, this, {
+      tandem: tandem.createTandem( 'targetNode' )
+    } );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     const trajectoriesLayer = new Node();
@@ -147,7 +149,7 @@ define( require => {
     } );
 
     // initial speed readout, slider, and tweakers
-    const initialSpeedControl = new NumberControl(
+    const initialSpeedNumberControl = new NumberControl(
       initialSpeedString, model.launchVelocityProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         titleNodeOptions: {
@@ -170,16 +172,17 @@ define( require => {
           touchAreaXDilation: 20,
           touchAreaYDilation: 20
         },
-        tandem: tandem.createTandem( 'initialSpeedControl' )
+        tandem: tandem.createTandem( 'initialSpeedNumberControl' )
       },
     );
 
     // panel under the cannon, controls initial speed of projectiles
     const initialSpeedPanel = new Panel(
-      initialSpeedControl,
+      initialSpeedNumberControl,
       _.extend( {
         left: this.layoutBounds.left + X_MARGIN,
-        bottom: this.layoutBounds.bottom - 10
+        bottom: this.layoutBounds.bottom - 10,
+        tandem: tandem.createTandem( 'initialSpeedPanel' )
       }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
@@ -211,7 +214,7 @@ define( require => {
     } );
 
     // David
-    const davidNode = new Image( davidImage );
+    const davidNode = new Image( davidImage, { tandem: tandem.createTandem( 'davidNode' ) } );
 
     // background, including grass, road, sky, flatirons
     const backgroundNode = new BackgroundNode( this.layoutBounds );
@@ -290,7 +293,9 @@ define( require => {
 
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty );
+    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty, {
+      tandem: tandem.createTandem( 'toolboxPanel' )
+    } );
 
     // reset all button, also a closure for zoomProperty and measuringTape
     const resetAllButton = new ResetAllButton( {

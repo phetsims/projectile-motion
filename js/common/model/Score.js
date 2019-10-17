@@ -18,12 +18,15 @@ define( require => {
 
   /**
    * @param {number} initialTargetX - initial x position of the target
+   * @param {Tandem} tandem
    * @constructor
    */
-  function Score( initialTargetX ) {
+  function Score( initialTargetX, tandem ) {
 
     // @public {Property.<number>} x position of target
-    this.targetXProperty = new NumberProperty( initialTargetX );
+    this.targetXProperty = new NumberProperty( initialTargetX, {
+      tandem: tandem.createTandem( 'targetXProperty' )
+    } );
 
     // @public {Emitter} if projectile has scored
     this.scoredEmitter = new Emitter();

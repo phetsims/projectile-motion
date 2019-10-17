@@ -23,6 +23,7 @@ define( require => {
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const StarNode = require( 'SCENERY_PHET/StarNode' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -41,12 +42,17 @@ define( require => {
    * @param {Score} score - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
-   * @param {Tandem} tandem
+   * @param {Object} options
    * @constructor
    */
-  function TargetNode( score, transformProperty, screenView, tandem ) {
+  function TargetNode( score, transformProperty, screenView, options ) {
     const self = this;
-    Node.call( this );
+
+    options = _.extend( {
+      tandem: Tandem.required
+    }, options );
+
+    Node.call( this, options );
 
     // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
@@ -115,7 +121,7 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'dragHandler' )
+      tandem: options.tandem.createTandem( 'dragHandler' )
     } );
 
     // drag target to change horizontal position
@@ -136,7 +142,7 @@ define( require => {
           yMargin: 2,
           decimalPlaces: 1,
           cursor: 'pointer',
-          tandem: tandem.createTandem( 'numberDisplay' )
+          tandem: options.tandem.createTandem( 'numberDisplay' )
         }
       )
     );
