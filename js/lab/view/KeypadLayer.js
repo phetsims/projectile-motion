@@ -13,6 +13,7 @@ define( require => {
   const DownUpListener = require( 'SCENERY/input/DownUpListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Keypad = require( 'SCENERY_PHET/keypad/Keypad' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
@@ -44,7 +45,7 @@ define( require => {
 
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
 
       valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
       valueYMargin: 3, // {number} vertical margin inside the value box
@@ -186,7 +187,7 @@ define( require => {
      */
     beginEdit: function( valueProperty, valueRange, unitsString, options ) {
 
-      options = _.extend( {
+      options = merge( {
         onBeginEdit: null, // {function} called by beginEdit
         onEndEdit: null // {function} called by endEdit
       }, options );

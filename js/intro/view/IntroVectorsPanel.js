@@ -12,6 +12,7 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -42,7 +43,7 @@ define( require => {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = _.extend( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
       align: 'left',
       tandem: Tandem.required
     }, options );
@@ -65,14 +66,14 @@ define( require => {
     const totalVelocityCheckbox = new Checkbox(
       totalVelocityLabel,
       vectorVisibilityProperties.totalVelocityVectorOnProperty,
-      _.extend( { tandem: options.tandem.createTandem( 'totalVelocityCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'totalVelocityCheckbox' ) }, checkboxOptions )
     );
 
     const componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsVelocityCheckbox = new Checkbox(
       componentsVelocityLabel,
       vectorVisibilityProperties.componentsVelocityVectorsOnProperty,
-      _.extend( { tandem: options.tandem.createTandem( 'componentsVelocityCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'componentsVelocityCheckbox' ) }, checkboxOptions )
     );
 
     const accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
@@ -88,14 +89,14 @@ define( require => {
     const totalAccelerationCheckbox = new Checkbox(
       totalAccelerationLabel,
       vectorVisibilityProperties.totalAccelerationVectorOnProperty,
-      _.extend( { tandem: options.tandem.createTandem( 'totalAccelerationCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'totalAccelerationCheckbox' ) }, checkboxOptions )
     );
 
     const componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsAccelerationCheckbox = new Checkbox(
       componentsAccelerationLabel,
       vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
-      _.extend( { tandem: options.tandem.createTandem( 'componentsAccelerationCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'componentsAccelerationCheckbox' ) }, checkboxOptions )
     );
 
     // The contents of the control panel

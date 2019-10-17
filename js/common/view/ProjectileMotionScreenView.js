@@ -20,6 +20,7 @@ define( require => {
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
+  const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
@@ -179,7 +180,7 @@ define( require => {
     // panel under the cannon, controls initial speed of projectiles
     const initialSpeedPanel = new Panel(
       initialSpeedNumberControl,
-      _.extend( {
+      merge( {
         left: this.layoutBounds.left + X_MARGIN,
         bottom: this.layoutBounds.bottom - 10,
         tandem: tandem.createTandem( 'initialSpeedPanel' )

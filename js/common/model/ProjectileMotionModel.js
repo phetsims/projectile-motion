@@ -16,6 +16,7 @@ define( require => {
   const Emitter = require( 'AXON/Emitter' );
   const EventTimer = require( 'PHET_CORE/EventTimer' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const PhysicalConstants = require( 'PHET_CORE/PhysicalConstants' );
@@ -43,7 +44,7 @@ define( require => {
    */
   function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistance, possibleObjectTypes, tandem, options ) {
 
-    options = _.extend( {
+    options = merge( {
       defaultCannonHeight: 0,
       defaultCannonAngle: 80,
       defaultInitialSpeed: 18

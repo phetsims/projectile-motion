@@ -11,6 +11,7 @@ define( require => {
   // modules
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
 
@@ -22,7 +23,7 @@ define( require => {
    * @constructor
    */
   function FireButton( options ) {
-    options = _.extend( {
+    options = merge( {
       baseColor: 'rgb( 255, 0, 0 )', // red
       iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
     }, options );

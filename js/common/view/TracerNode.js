@@ -15,6 +15,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
+  const merge = require( 'PHET_CORE/merge' );
   const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -86,7 +87,7 @@ define( require => {
   function TracerNode( tracer, transformProperty, screenView, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       cursor: 'pointer',
       tandem: Tandem.required
     }, options );

@@ -48,7 +48,7 @@ define( require => {
   function TargetNode( score, transformProperty, screenView, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       tandem: Tandem.required
     }, options );
 

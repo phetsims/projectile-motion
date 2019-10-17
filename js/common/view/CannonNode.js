@@ -16,6 +16,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const platform = require( 'PHET_CORE/platform' );
@@ -82,7 +83,7 @@ define( require => {
   function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, tandem, options ) {
     const self = this;
 
-    options = _.extend( {
+    options = merge( {
       renderer: platform.mobileSafari ? 'canvas' : null,
       tandem: tandem
     }, options );
@@ -188,7 +189,7 @@ define( require => {
 
     // height readout
     const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
-    const heightLabelOptions = _.extend( {
+    const heightLabelOptions = merge( {
       pickable: true,
       cursor: 'pointer',
       maxWidth: 40 // empirically determined

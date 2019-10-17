@@ -12,6 +12,7 @@ define( require => {
   const InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
   const KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
   const LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
@@ -28,7 +29,7 @@ define( require => {
    */
   function LabScreenView( model, tandem, options ) {
 
-    options = _.extend( { preciseCannonDelta: true }, options );
+    options = merge( { preciseCannonDelta: true }, options );
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new VectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );

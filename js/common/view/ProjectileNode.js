@@ -16,6 +16,7 @@ define( require => {
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -86,7 +87,7 @@ define( require => {
                            modelViewTransform,
                            options ) {
 
-    options = _.extend( {
+    options = merge( {
       preventFit: true
     }, options );
     Node.call( this, options );

@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const merge = require( 'PHET_CORE/merge' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -47,7 +48,7 @@ define( require => {
      */
     constructor( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
 
-      options = _.extend( {
+      options = merge( {
         phetioState: false,
         tandem: Tandem.required
       }, options );
@@ -64,7 +65,7 @@ define( require => {
 
       // options contains data about range and rounding for mass, diameter, drag coefficient
       // @public, defaults to those of custom objects for screens that don't have benchmarks
-      options = _.extend( {
+      options = merge( {
         massRange: new Range( 1, 10 ),
         massRound: 1,
         diameterRange: new Range( 0.1, 1 ),

@@ -14,6 +14,7 @@ define( require => {
 
   // modules
   const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
+  const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
   const PhetioGroup = require( 'TANDEM/PhetioGroup' );
@@ -32,7 +33,7 @@ define( require => {
    */
   class Trajectory extends PhetioObject {
     constructor( model, options ) {
-      options = _.extend( {
+      options = merge( {
         tandem: Tandem.required,
         phetioDynamicElement: true,
         phetioState: false // TODO: fix this
