@@ -123,7 +123,6 @@ define( require => {
           slider
         ]
       } );
-
     }
 
     // drag coefficient object shape view
@@ -154,29 +153,36 @@ define( require => {
       tandem.createTandem( 'massControlBox' )
     );
 
-    const dragCoefficientBox = new Text( '', _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS ) );
+    const dragCoefficientText = new Text( '', _.defaults( {
+      maxWidth: options.minWidth - 2 * options.xMargin,
+      tandem: tandem.createTandem( 'dragCoefficientText' ),
+      phetioComponentOptions: { textProperty: { phetioReadOnly: true } } // because this display shouldn't be edited
+    }, LABEL_OPTIONS ) );
 
     // air resistance
-    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
-      maxWidth: options.minWidth - 3 * options.xMargin - AIR_RESISTANCE_ICON.width,
+    const airResistanceText = new Text( airResistanceString, merge( {}, LABEL_OPTIONS, {
+      tandem: tandem.createTandem( 'airResistanceText' )
+    } ) );
+    const airResistanceCheckboxContent = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceText, AIR_RESISTANCE_ICON ]
+    } );
+
+    const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
+      maxWidth: options.minWidth - 3 * options.xMargin, // left, right, and spacing between text and icon
       boxWidth: 18,
       tandem: tandem.createTandem( 'airResistanceCheckbox' )
     } );
-    const airResistanceCheckboxAndIcon = new HBox( {
-      spacing: options.xMargin,
-      children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
-    } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
-    airResistanceOnProperty.link( function( airResistanceOn ) {
+    airResistanceOnProperty.link( airResistanceOn => {
       const opacity = airResistanceOn ? 1 : 0.5;
-      dragCoefficientBox.setOpacity( opacity );
+      dragCoefficientText.setOpacity( opacity );
     } );
 
     // Listen to changes in model drag coefficient and update the view text
-    projectileDragCoefficientProperty.link( function( value ) {
-      dragCoefficientBox.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
+    projectileDragCoefficientProperty.link( value => {
+      dragCoefficientText.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
     } );
 
     // The contents of the control panel
@@ -188,8 +194,8 @@ define( require => {
         diameterControlBox,
         massControlBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckboxAndIcon,
-        dragCoefficientBox
+        airResistanceCheckbox,
+        dragCoefficientText
       ]
     } );
 

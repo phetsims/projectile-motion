@@ -178,10 +178,12 @@ define( require => {
     );
 
     // air resistance
-    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    const airResistanceText = new Text( airResistanceString, merge( {}, LABEL_OPTIONS, {
+      tandem: tandem.createTandem( 'airResistanceText' )
+    } ) );
     const airResistanceCheckboxContent = new HBox( {
       spacing: options.xMargin,
-      children: [ airResistanceLabel,  AIR_RESISTANCE_ICON ]
+      children: [ airResistanceText, AIR_RESISTANCE_ICON ]
     } );
     const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
       maxWidth: parameterLabelOptions.maxWidth,
