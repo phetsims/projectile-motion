@@ -83,7 +83,8 @@ define( require => {
       children: [
         velocityCheckbox,
         VELOCITY_VECTOR_ICON
-      ]
+      ],
+      tandem: tandem.createTandem( 'velocityCheckboxAndIcon' )
     } );
 
     const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
@@ -97,7 +98,8 @@ define( require => {
       children: [
         accelerationCheckbox,
         ACCELERATION_VECTOR_ICON
-      ]
+      ],
+      tandem: tandem.createTandem( 'accelerationCheckboxAndIcon' )
     } );
 
     const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
@@ -109,7 +111,8 @@ define( require => {
       children: [
         forceCheckbox,
         FORCE_VECTOR_ICON
-      ]
+      ],
+      tandem: tandem.createTandem( 'forceCheckboxAndIcon' )
     } );
 
     // The contents of the control panel
