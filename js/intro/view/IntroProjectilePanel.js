@@ -179,14 +179,14 @@ define( require => {
 
     // air resistance
     const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    const airResistanceCheckbox = new Checkbox( airResistanceLabel, airResistanceOnProperty, {
-      maxWidth: parameterLabelOptions.maxWidth - AIR_RESISTANCE_ICON.width - options.xMargin,
+    const airResistanceCheckboxContent = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceLabel,  AIR_RESISTANCE_ICON ]
+    } );
+    const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
+      maxWidth: parameterLabelOptions.maxWidth,
       boxWidth: 18,
       tandem: tandem.createTandem( 'airResistanceCheckbox' )
-    } );
-    const airResistanceCheckboxAndIcon = new HBox( {
-      spacing: options.xMargin,
-      children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
@@ -204,7 +204,7 @@ define( require => {
         massBox,
         diameterBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckboxAndIcon,
+        airResistanceCheckbox,
         dragCoefficientBox
       ]
     } );

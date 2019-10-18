@@ -58,7 +58,8 @@ define( require => {
       children: [
         velocityVectorsTitle,
         VELOCITY_VECTOR_ICON
-      ]
+      ],
+      tandem: options.tandem.createTandem( 'velocityVectorsTitleNode' )
     } );
 
     const checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
@@ -82,7 +83,8 @@ define( require => {
       children: [
         accelerationVectorsTitle,
         ACCELERATION_VECTOR_ICON
-      ]
+      ],
+      tandem: options.tandem.createTandem( 'accelerationVectorsTitleNode' )
     } );
 
     const totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
