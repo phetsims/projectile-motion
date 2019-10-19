@@ -45,17 +45,17 @@ define( require => {
 
   // constants
   const CANNON_LENGTH = 4;
-  const ELLIPSE_WIDTH = 400; // empirically determined in view coordinates
-  const ELLIPSE_HEIGHT = 50; // empirically determinedin view coordinates
+  const ELLIPSE_WIDTH = 420; // empirically determined in view coordinates
+  const ELLIPSE_HEIGHT = 40; // empirically determined in view coordinates
   const ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   const HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  const HEIGHT_LEADER_LINE_POSITION = -2.6;
+  const HEIGHT_LEADER_LINE_POSITION = -1.1; // in model coords
   const CROSSHAIR_LENGTH = 120;
   const LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   const BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
   const DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
   const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.6 )';
-  const ANGLE_RANGE_MINS = [ 25, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
+  const ANGLE_RANGE_MINS = [ 5, -5, -20, -40 ]; // angle range minimums, corresponding to height through their index
   const CUEING_ARROW_OPTIONS = {
     fill: 'rgb( 100, 200, 255 )',
     stroke: 'black',
@@ -90,9 +90,13 @@ define( require => {
 
     Node.call( this, options );
 
+    // where the projectile is fired from
+    const xOrigin = transformProperty.get().modelToViewX( 0 ); // in view coords
+    const centerXOfCylinder = transformProperty.get().modelToViewX( 1.5 ); // in view coords
+
     // the cannon, muzzle flash, and pedestal are not visible under ground
     const clippedByGroundNode = new Node( {
-      x: transformProperty.get().modelToViewX( 0 ),
+      x: centerXOfCylinder,
       y: transformProperty.get().modelToViewY( 0 ),
       cursor: 'pointer'
     } );
@@ -126,7 +130,9 @@ define( require => {
 
     // cannon
 
-    const cannonBarrel = new Node();
+    const cannonBarrel = new Node( {
+      x: -centerXOfCylinder // offset the offset to be back at the orgin, but still a child of the clippedByGroundNode
+    } );
     clippedByGroundNode.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
@@ -136,7 +142,9 @@ define( require => {
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
 
-    const cannonBase = new Node();
+    const cannonBase = new Node( {
+      x: -centerXOfCylinder // offset the offset to be back at the orgin, but still a child of the clippedByGroundNode
+    } );
     clippedByGroundNode.addChild( cannonBase );
 
     const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
@@ -218,7 +226,7 @@ define( require => {
 
     // angle indicator
     const angleIndicator = new Node();
-    angleIndicator.x = clippedByGroundNode.x;
+    angleIndicator.x = xOrigin; // cenetered at the origin, independent of the cyndlider location
 
     // crosshair view
     const crosshairShape = new Shape()
@@ -310,7 +318,7 @@ define( require => {
       heightLabelBackground,
       heightLabel,
       heightCueingArrows,
-      angleIndicator//,
+      angleIndicator
     ] );
 
     // Observe changes in model angle and update the cannon view
@@ -419,11 +427,11 @@ define( require => {
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
         const startPointAngle = Vector2.createFromPool(
-          startPoint.x - clippedByGroundNode.x,
+          startPoint.x - cannonBase.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
         const mousePointAngle = Vector2.createFromPool(
-          mousePoint.x - clippedByGroundNode.x,
+          mousePoint.x - cannonBase.x,
           mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
         const angleChange = startPointAngle - mousePointAngle; // radians

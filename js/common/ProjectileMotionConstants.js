@@ -30,7 +30,7 @@ define( require => {
   const ProjectileMotionConstants = {
 
     // screen view layout
-    VIEW_ORIGIN: new Vector2( 100, 510 ),
+    VIEW_ORIGIN: new Vector2( 60, 510 ),
 
     // cannonball defaults
     CANNONBALL_MASS: 17.6,
@@ -154,7 +154,7 @@ define( require => {
 
     LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
-    //Light gray, used as the 'disabled' color
+    // Light gray, used as the 'disabled' color
     LIGHT_GRAY: 'rgb( 220, 220, 220 )',
 
     YELLOW_BUTTON_OPTIONS: {
