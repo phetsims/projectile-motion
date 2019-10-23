@@ -348,6 +348,14 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "PropertyIO<StringIO>",
       "typeName": "DerivedPropertyIO<StringIO>"
     },
+    "DialogIO": {
+      "documentation": "A dialog panel",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "NodeIO",
+      "typeName": "DialogIO"
+    },
     "EmitterIO<>": {
       "documentation": "Emits when an event occurs and calls added listeners.",
       "events": [
@@ -821,6 +829,17 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "ObjectIO",
       "typeName": "PhetMenuIO"
+    },
+    "PhetioCapsuleIO<DialogIO>": {
+      "documentation": "An array that sends notifications when its values have changed.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "DialogIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "PhetioCapsuleIO<DialogIO>"
     },
     "PhetioCommandProcessorIO": {
       "documentation": "Invokes PhET-iO API commands on a running simulation.",
