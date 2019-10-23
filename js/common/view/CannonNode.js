@@ -16,6 +16,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const LinearGradient = require( 'SCENERY/util/LinearGradient' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
@@ -38,7 +39,6 @@ define( require => {
   const cannonBaseTopImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_top.png' );
 
   // strings
-  const degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
   const mString = require( 'string!PROJECTILE_MOTION/m' );
   const pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -69,6 +69,7 @@ define( require => {
   const MUZZLE_FLASH_OPACITY_DELTA = 0.04;
   const MUZZLE_FLASH_DURATION_OF_FRAMES = 16;
   const MUZZLE_FLASH_START = 1 - MUZZLE_FLASH_DURATION_OF_FRAMES * MUZZLE_FLASH_OPACITY_DELTA;
+  const DEGREES = MathSymbols.DEGREES;
 
   /**
    * @param {Property.<number>} heightProperty - height of the cannon
@@ -256,7 +257,7 @@ define( require => {
     angleIndicator.addChild( angleLabelBackground );
     const angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
       value: Util.toFixedNumber( angleProperty.get(), 2 ),
-      units: degreesSymbolString
+      units: DEGREES
     } ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
     angleLabel.left = CROSSHAIR_LENGTH * 2 / 3 + 10;
@@ -330,7 +331,7 @@ define( require => {
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, {
         value: Util.toFixedNumber( angleProperty.get(), 2 ),
-        units: degreesSymbolString
+        units: DEGREES
       } );
       angleLabelBackground.setRectWidth( angleLabel.width + 2 );
       angleLabelBackground.setRectHeight( angleLabel.height );

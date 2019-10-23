@@ -11,6 +11,7 @@ define( require => {
   // modules
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -22,7 +23,6 @@ define( require => {
 
   // strings
   const angleString = require( 'string!PROJECTILE_MOTION/angle' );
-  const degreesSymbolString = require( 'string!PROJECTILE_MOTION/degreesSymbol' );
   const heightString = require( 'string!PROJECTILE_MOTION/height' );
   const initialValuesString = require( 'string!PROJECTILE_MOTION/initialValues' );
   const metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
@@ -34,6 +34,7 @@ define( require => {
   // constants
   const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
   const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+  const DEGREES = MathSymbols.DEGREES;
 
   /**
    * Control panel constructor
@@ -50,7 +51,7 @@ define( require => {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
     options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { yMargin: 5 }, options );
-    
+
     // local vars for layout and formatting
     const titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, TITLE_OPTIONS );
     const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
@@ -61,7 +62,7 @@ define( require => {
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
-     * @param {string} degreeString - optional, just for the angle
+     * @param {string} [degreeString] - just for the angle
      * @returns {VBox}
      */
     function createParameterControlBox( labelString, unitsString, valueProperty, range, degreeString ) {
@@ -69,14 +70,14 @@ define( require => {
 
       valueProperty.link( function( value ) {
         const valueReadout = degreeString ?
-                           StringUtils.fillIn( pattern0Value1UnitsString, {
-                             value: Util.toFixedNumber( value, 2 ),
-                             units: degreeString
-                           } ) :
-                           StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-                             value: Util.toFixedNumber( value, 2 ),
-                             units: unitsString
-                           } );
+                             StringUtils.fillIn( pattern0Value1UnitsString, {
+                               value: Util.toFixedNumber( value, 2 ),
+                               units: degreeString
+                             } ) :
+                             StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+                               value: Util.toFixedNumber( value, 2 ),
+                               units: unitsString
+                             } );
         parameterLabel.setText( labelString + ': ' + valueReadout );
       } );
 
@@ -98,7 +99,7 @@ define( require => {
       null,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE,
-      degreesSymbolString
+      DEGREES
     );
 
     const velocityBox = createParameterControlBox(
