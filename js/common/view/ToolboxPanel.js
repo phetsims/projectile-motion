@@ -21,6 +21,7 @@ define( require => {
   const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+
   /**
    * Toolbox constructor
    * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
@@ -45,14 +46,14 @@ define( require => {
       minWidth: 200,
       tandem: Tandem.required
     }, options );
-    
+
     // Create the icon Node for the tracer tool
-    const tracerIconNode = TracerNode.createIcon();
+    const tracerIconNode = TracerNode.createIcon( options.tandem.createTandem( 'tracerIconNode' ) );
     tracerIconNode.cursor = 'pointer';
     tracerIconNode.scale( 0.4 );
 
     // Create the icon image for the measuringTape
-    const measuringTapeIconNode = MeasuringTapeNode.createIcon();
+    const measuringTapeIconNode = MeasuringTapeNode.createIcon( {}, options.tandem.createTandem( 'measuringTapeIconNode' ), );
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );
 
@@ -81,12 +82,12 @@ define( require => {
     // When pressed, forwards dragging to the actual tracer Node
     tracerIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
-        tracer.isActiveProperty.set( true );
+      tracer.isActiveProperty.set( true );
 
-        // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-        const initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
-        tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
-        tracerNode.movableDragHandler.startDrag( event );
+      // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
+      const initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
+      tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
+      tracerNode.movableDragHandler.startDrag( event );
 
     }, { allowTouchSnag: true } ) );
 
@@ -114,16 +115,16 @@ define( require => {
     // Add the listener that will allow the user to click on this and forward the dragging to the actual measuring tape node
     measuringTapeIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
 
-        measuringTape.isActiveProperty.set( true );
+      measuringTape.isActiveProperty.set( true );
 
-        const tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
-        const initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
-        measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
-        measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
+      const tapeBasePosition = measuringTapeNode.globalToParentPoint( measuringTapeNode.localToGlobalPoint( measuringTapeNode.getLocalBaseCenter() ) );
+      const initialViewPosition = measuringTapeNode.globalToParentPoint( event.pointer.point ).minus( tapeBasePosition );
+      measuringTape.basePositionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
+      measuringTape.tipPositionProperty.set( measuringTape.basePositionProperty.get().plus( tipToBasePosition ) );
 
-        measuringTapeNode.startBaseDrag( event );
+      measuringTapeNode.startBaseDrag( event );
 
-      }, { allowTouchSnag: true } ) );
+    }, { allowTouchSnag: true } ) );
 
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
     measuringTape.isActiveProperty.link( function( active ) {
