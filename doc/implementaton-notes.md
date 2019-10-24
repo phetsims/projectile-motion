@@ -3,7 +3,7 @@
 This document contains miscellaneous notes related to the implementation of Projectile Motion. It
 supplements the internal (source code) documentation, and (hopefully) provides insight into
 "big picture" implementation issues.  The audience for this document is software developers who are familiar
-with JavaScript and PhET simulation development (as described in [PhET Development Overview](http://bit.ly/phet-html5-development-overview)).
+with JavaScript and PhET simulation development (as described in [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)).
 
 First, read [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md), which provides
 a high-level description of the simulation model.
