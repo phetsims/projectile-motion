@@ -361,9 +361,10 @@ define( require => {
      * Create icon of Tracer node
      * @public
      *
+     * @param {Tandem} tandem
      * @returns {Node}
      */
-    createIcon: function() {
+    createIcon: function( tandem ) {
       const rectangle = new Rectangle(
         0,
         0,
@@ -421,19 +422,17 @@ define( require => {
 
       probeOrigin.freeToPool();
 
-      const tracerIcon = new Node( {
+      return new Node( {
         children: [
           crosshairMount,
           rectangle,
           circle,
           crosshair,
           textBox
-        ]
+        ],
+        tandem: tandem
       } );
-
-      return tracerIcon;
     }
-
   } );
 } );
 
