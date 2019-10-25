@@ -13,6 +13,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -72,48 +73,53 @@ define( require => {
       tandem: tandem.createTandem( 'totalOrComponentsRadioButtonGroup' )
     } );
 
+    // checkbox texts
     const velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
+    const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
+    const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
+
+    // plus a bit of margin
+    const largestLabelWidth = Math.max( velocityLabel.width, accelerationLabel.width, forceLabel.width ) + options.xMargin;
+
+    const velocityLabelAndIcon = new HBox( {
+      spacing: largestLabelWidth - velocityLabel.width,
+      children: [
+        velocityLabel,
+        new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
+      ]
+    } );
+
+    const accelerationLabelAndIcon = new HBox( {
+      spacing: largestLabelWidth - accelerationLabel.width,
+      children: [
+        accelerationLabel,
+        new Node( { children: [ ACCELERATION_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
+      ]
+    } );
+
+    const forceLabelAndIcon = new HBox( {
+      spacing: largestLabelWidth - forceLabel.width,
+      children: [
+        forceLabel,
+        new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
+      ]
+    } );
+
     const velocityCheckbox = new Checkbox(
-      velocityLabel,
+      velocityLabelAndIcon,
       vectorVisibilityProperties.velocityVectorsOnProperty,
       merge( { tandem: tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
     );
-    const velocityCheckboxAndIcon = new HBox( {
-      spacing: options.minWidth - velocityCheckbox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
-      children: [
-        velocityCheckbox,
-        VELOCITY_VECTOR_ICON
-      ],
-      tandem: tandem.createTandem( 'velocityCheckboxAndIcon' )
-    } );
 
-    const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     const accelerationCheckbox = new Checkbox(
-      accelerationLabel,
+      accelerationLabelAndIcon,
       vectorVisibilityProperties.accelerationVectorsOnProperty,
       merge( { tandem: tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
     );
-    const accelerationCheckboxAndIcon = new HBox( {
-      spacing: options.minWidth - accelerationCheckbox.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
-      children: [
-        accelerationCheckbox,
-        ACCELERATION_VECTOR_ICON
-      ],
-      tandem: tandem.createTandem( 'accelerationCheckboxAndIcon' )
-    } );
 
-    const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
-    const forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty,
+    const forceCheckbox = new Checkbox( forceLabelAndIcon, vectorVisibilityProperties.forceVectorsOnProperty,
       merge( { tandem: tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
     );
-    const forceCheckboxAndIcon = new HBox( {
-      spacing: options.minWidth - forceCheckbox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
-      children: [
-        forceCheckbox,
-        FORCE_VECTOR_ICON
-      ],
-      tandem: tandem.createTandem( 'forceCheckboxAndIcon' )
-    } );
 
     // The contents of the control panel
     const content = new VBox( {
@@ -121,9 +127,9 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         totalOrComponentsRadioButtonGroup,
-        velocityCheckboxAndIcon,
-        accelerationCheckboxAndIcon,
-        forceCheckboxAndIcon
+        velocityCheckbox,
+        accelerationCheckbox,
+        forceCheckbox
       ]
     } );
 
