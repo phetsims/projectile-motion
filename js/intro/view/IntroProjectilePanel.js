@@ -19,6 +19,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const merge = require( 'PHET_CORE/merge' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -181,7 +182,7 @@ define( require => {
     } ) );
     const airResistanceCheckboxContent = new HBox( {
       spacing: options.xMargin,
-      children: [ airResistanceText, AIR_RESISTANCE_ICON ]
+      children: [ airResistanceText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
     } );
     const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
       maxWidth: parameterLabelOptions.maxWidth,

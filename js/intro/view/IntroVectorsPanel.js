@@ -13,6 +13,7 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -57,7 +58,7 @@ define( require => {
       spacing: options.minWidth - velocityVectorsTitle.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
         velocityVectorsTitle,
-        VELOCITY_VECTOR_ICON
+        new Node( { children: [ VELOCITY_VECTOR_ICON ] } )
       ],
       tandem: options.tandem.createTandem( 'velocityVectorsTitleNode' )
     } );
@@ -82,7 +83,7 @@ define( require => {
       spacing: options.minWidth - accelerationVectorsTitle.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
       children: [
         accelerationVectorsTitle,
-        ACCELERATION_VECTOR_ICON
+        new Node( { children: [ ACCELERATION_VECTOR_ICON ] } )
       ],
       tandem: options.tandem.createTandem( 'accelerationVectorsTitleNode' )
     } );
