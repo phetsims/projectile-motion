@@ -13,12 +13,13 @@ define( require => {
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
+  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
+  const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
   const VerticalAquaRadioButtonGroup = require( 'SUN/VerticalAquaRadioButtonGroup' );
 
   // strings
@@ -48,7 +49,7 @@ define( require => {
 
     const titleOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
     const checkboxOptions = {
-      maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width,
+      maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, // arbitrary icon
       boxWidth: 18
     };
 
@@ -72,30 +73,34 @@ define( require => {
     } );
 
     const velocityLabel = new Text( velocityVectorsString, titleOptions );
-    const velocityCheckbox = new Checkbox( velocityLabel, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
-      tandem: tandem.createTandem( 'velocityCheckbox' )
-    }, checkboxOptions ) );
-    const velocityCheckboxAndIcon = new HBox( {
-      spacing: options.minWidth - velocityCheckbox.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
+    const forceLabel = new Text( forceVectorsString, titleOptions );
+
+    // calculate the max width of the largest text, and add some margin
+    const labelMaxWidth = Math.max( velocityLabel.width, forceLabel.width ) + options.xMargin;
+
+    // apply space based on the largest text, to align all icons
+    const velocityLabelAndIcon = new HBox( {
+      spacing: labelMaxWidth - velocityLabel.width,
       children: [
-        velocityCheckbox,
-        VELOCITY_VECTOR_ICON
-      ],
-      tandem: tandem.createTandem( 'velocityCheckboxAndIcon' )
+        velocityLabel,
+        new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
+      ]
+    } );
+    const forceLabelAndIcon = new HBox( {
+      spacing: labelMaxWidth - forceLabel.width,
+      children: [
+        forceLabel,
+        new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
+      ]
     } );
 
-    const forceLabel = new Text( forceVectorsString, titleOptions );
-    const forceCheckbox = new Checkbox( forceLabel, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
+    const velocityCheckbox = new Checkbox( velocityLabelAndIcon, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
+      tandem: tandem.createTandem( 'velocityCheckbox' )
+    }, checkboxOptions ) );
+
+    const forceCheckbox = new Checkbox( forceLabelAndIcon, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
       tandem: tandem.createTandem( 'forceCheckbox' )
     }, checkboxOptions ) );
-    const forceCheckboxAndIcon = new HBox( {
-      spacing: options.minWidth - forceCheckbox.width - FORCE_VECTOR_ICON.width - 2 * options.xMargin,
-      children: [
-        forceCheckbox,
-        FORCE_VECTOR_ICON
-      ],
-      tandem: tandem.createTandem( 'forceCheckboxAndIcon' )
-    } );
 
     // The contents of the control panel
     const content = new VBox( {
@@ -103,8 +108,8 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         vectorsDisplayRadioButtonGroup,
-        velocityCheckboxAndIcon,
-        forceCheckboxAndIcon
+        velocityCheckbox,
+        forceCheckbox
       ]
     } );
 
