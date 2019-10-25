@@ -93,17 +93,15 @@ define( require => {
     firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     const comboBoxItems = [];
-    assert && assert( objectTypes[ 0 ].benchmark, 'benchmark needed for tandemName' );
-    comboBoxItems[ 0 ] = new ComboBoxItem( firstItemNode, objectTypes[ 0 ], {
-      tandemName: objectTypes[ 0 ].benchmark
-    } );
 
-    for ( let i = 1; i < objectTypes.length; i++ ) {
+    for ( let i = 0; i < objectTypes.length; i++ ) {
       const projectileObject = objectTypes[ i ];
       assert && assert( projectileObject.benchmark, 'benchmark needed for tandemName' );
-      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject, {
-        tandemName: projectileObject.benchmark
-      } );
+
+      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileObject.name, itemNodeOptions ),
+        projectileObject, {
+          tandemName: projectileObject.benchmark
+        } );
     }
 
     // create view for dropdown

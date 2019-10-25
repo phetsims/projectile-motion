@@ -113,9 +113,11 @@ define( require => {
     const comboBoxItems = [];
     for ( let i = 0; i < this.objectTypes.length; i++ ) {
       const projectileObject = this.objectTypes[ i ];
-      comboBoxItems[ i ] = new ComboBoxItem( new Text( projectileObject.name, itemNodeOptions ), projectileObject, {
-        tandemName: projectileObject.benchmark
-      } );
+
+      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileObject.name, itemNodeOptions ),
+        projectileObject, {
+          tandemName: projectileObject.benchmark
+        } );
 
       // Create the controls for tht objectType too.
       this.objectTypeControls.push( this.createControlsForObjectType( projectileObject, tandem, tandem.createTandem( `${projectileObject.benchmark}Control` ) ) );
@@ -167,19 +169,19 @@ define( require => {
 
     // air resistance
     const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-    const airResistanceCheckbox = new Checkbox( airResistanceLabel, model.airResistanceOnProperty, {
+    const airResistanceLabelAndIcon = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceLabel, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
+    } );
+    const airResistanceCheckbox = new Checkbox( airResistanceLabelAndIcon, model.airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18,
       tandem: tandem.createTandem( 'airResistanceCheckbox' )
     } );
-    const airResistanceCheckboxAndIcon = new HBox( {
-      spacing: options.xMargin,
-      children: [ airResistanceCheckbox, AIR_RESISTANCE_ICON ]
-    } );
 
     // The contents of the control panel
     const content = new VBox( {
-      align: 'center',
+      align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
         projectileChoiceComboBox,
@@ -188,7 +190,7 @@ define( require => {
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         gravityBox,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckboxAndIcon,
+        airResistanceCheckbox,
         altitudeBox,
         dragCoefficientBox
       ]
