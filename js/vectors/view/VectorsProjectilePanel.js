@@ -155,7 +155,7 @@ define( require => {
 
     const dragCoefficientText = new Text( '', _.defaults( {
       maxWidth: options.minWidth - 2 * options.xMargin,
-      tandem: tandem.createTandem( 'dragCoefficientText' ),
+      tandem: tandem.createTandem( 'dragCoefficientReadout' ),
       phetioComponentOptions: { textProperty: { phetioReadOnly: true } } // because this display shouldn't be edited
     }, LABEL_OPTIONS ) );
 
