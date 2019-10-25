@@ -151,7 +151,7 @@ define( require => {
 
     // initial speed readout, slider, and tweakers
     const initialSpeedNumberControl = new NumberControl(
-      initialSpeedString, model.launchVelocityProperty,
+      initialSpeedString, model.initialSpeedProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         titleNodeOptions: {
           font: TEXT_FONT,

@@ -76,7 +76,7 @@ define( require => {
       this.dataPoints = new ObservableArray();
 
       const velocity = Vector2.dirtyFromPool().setPolar(
-        model.launchVelocityProperty.value,
+        model.initialSpeedProperty.value,
         model.cannonAngleProperty.value * Math.PI / 180
       );
 

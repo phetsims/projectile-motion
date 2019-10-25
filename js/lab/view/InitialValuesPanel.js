@@ -40,11 +40,11 @@ define( require => {
    * Control panel constructor
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
-   * @param {Property.<number>} launchVelocityProperty - velocity of next projectile to be fired
+   * @param {Property.<number>} initialSpeedProperty - velocity of next projectile to be fired
    * @param {Object} [options]
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, launchVelocityProperty, options ) {
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -105,7 +105,7 @@ define( require => {
     const velocityBox = createParameterControlBox(
       speedString,
       metersPerSecondString,
-      launchVelocityProperty,
+      initialSpeedProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     );
 

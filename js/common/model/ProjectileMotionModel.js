@@ -73,8 +73,8 @@ define( require => {
     } );
 
     // @public {Property.<number>} launch speed, in meters per second
-    this.launchVelocityProperty = new NumberProperty( options.defaultInitialSpeed, {
-      tandem: tandem.createTandem( 'launchVelocityProperty' ),
+    this.initialSpeedProperty = new NumberProperty( options.defaultInitialSpeed, {
+      tandem: tandem.createTandem( 'initialSpeedProperty' ),
       units: 'm/s',
       range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     } );
@@ -239,7 +239,7 @@ define( require => {
 
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
-      this.launchVelocityProperty.reset();
+      this.initialSpeedProperty.reset();
       this.selectedProjectileObjectTypeProperty.reset();
       this.projectileMassProperty.reset();
       this.projectileDiameterProperty.reset();

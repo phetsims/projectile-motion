@@ -50,7 +50,7 @@ define( require => {
       new InitialValuesPanel(
         model.cannonHeightProperty,
         model.cannonAngleProperty,
-        model.launchVelocityProperty
+        model.initialSpeedProperty
       ),
       labProjectilePanel,
       visibilityProperties,
