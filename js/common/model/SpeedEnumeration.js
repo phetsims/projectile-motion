@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * Enumeration for the two ways to view vectors in the sim
+ * Enumeration for the two speeds of animation in the sim.
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 define( require => {
