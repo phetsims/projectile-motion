@@ -14,6 +14,7 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
   const Emitter = require( 'AXON/Emitter' );
+  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EventTimer = require( 'PHET_CORE/EventTimer' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
@@ -27,6 +28,7 @@ define( require => {
   const PropertyIO = require( 'AXON/PropertyIO' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  const SpeedEnumeration = require( 'PROJECTILE_MOTION/common/model/SpeedEnumeration' );
   const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -133,7 +135,9 @@ define( require => {
     // --animation controls
 
     // @public {Property.<String>} speed of animation, normal/slow
-    this.speedProperty = new Property( 'normal' );
+    this.speedProperty = new EnumerationProperty( SpeedEnumeration, SpeedEnumeration.NORMAL, {
+      tandem: tandem.createTandem( 'speedProperty' )
+    } );
 
     // @public whether animation is playing (as opposed to paused)
     this.isPlayingProperty = new BooleanProperty( true, { tandem: tandem.createTandem( 'isPlayingProperty' ) } );
@@ -261,7 +265,7 @@ define( require => {
      */
     step: function( dt ) {
       if ( this.isPlayingProperty.value ) {
-        this.eventTimer.step( ( this.speedProperty.value === 'normal' ? 1 : 0.33 ) * dt );
+        this.eventTimer.step( ( this.speedProperty.value === SpeedEnumeration.NORMAL ? 1 : 0.33 ) * dt );
       }
     },
 

@@ -35,6 +35,7 @@ define( require => {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
+  const SpeedEnumeration = require( 'PROJECTILE_MOTION/common/model/SpeedEnumeration' );
   const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
@@ -375,7 +376,7 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const normalMotionRadioButton = new AquaRadioButton( model.speedProperty, 'normal', normalText, {
+    const normalMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.NORMAL, normalText, {
       radius: 8,
       tandem: tandem.createTandem( 'normalMotionRadioButton' )
     } );
@@ -386,7 +387,7 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const slowMotionRadioButton = new AquaRadioButton( model.speedProperty, 'slow', slowText, {
+    const slowMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.SLOW, slowText, {
       radius: 8,
       tandem: tandem.createTandem( 'slowMotionRadioButton' )
     } );

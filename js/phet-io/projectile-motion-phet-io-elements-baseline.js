@@ -253,6 +253,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
+    "projectileMotion.dragScreen.model.speedProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
+    },
     "projectileMotion.dragScreen.model.tracer.isActiveProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -8929,6 +8941,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
+    "projectileMotion.introScreen.model.speedProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
+    },
     "projectileMotion.introScreen.model.tracer.isActiveProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -13404,6 +13428,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
+    },
+    "projectileMotion.labScreen.model.speedProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.labScreen.model.tracer.isActiveProperty": {
       "phetioDocumentation": "",
@@ -33144,6 +33180,18 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
+    },
+    "projectileMotion.vectorsScreen.model.speedProperty": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.vectorsScreen.model.tracer.isActiveProperty": {
       "phetioDocumentation": "",
