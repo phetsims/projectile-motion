@@ -70,7 +70,9 @@ define( require => {
 
     // local vars for layout and formatting
     const textDisplayWidth = options.textDisplayWidth * 1.2;
-    const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth }, LABEL_OPTIONS );
+    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
+      maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth
+    } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -131,7 +133,9 @@ define( require => {
     const objectDisplay = new HBox( {
       spacing: options.xMargin,
       children: [
-        new Text( cannonballString, _.defaults( { maxWidth: options.minWidth - 3 * options.xMargin - objectView.width }, LABEL_OPTIONS ) ),
+        new Text( cannonballString, merge( {}, LABEL_OPTIONS, {
+          maxWidth: options.minWidth - 3 * options.xMargin - objectView.width
+        } ) ),
         objectView
       ]
     } );
@@ -154,11 +158,11 @@ define( require => {
       tandem.createTandem( 'massControlBox' )
     );
 
-    const dragCoefficientText = new Text( '', _.defaults( {
+    const dragCoefficientText = new Text( '', merge( {}, LABEL_OPTIONS, {
       maxWidth: options.minWidth - 2 * options.xMargin,
       tandem: tandem.createTandem( 'dragCoefficientReadout' ),
       phetioComponentOptions: { textProperty: { phetioReadOnly: true } } // because this display shouldn't be edited
-    }, LABEL_OPTIONS ) );
+    } ) );
 
     // air resistance
     const airResistanceText = new Text( airResistanceString, merge( {}, LABEL_OPTIONS, {

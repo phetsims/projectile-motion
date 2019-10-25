@@ -70,7 +70,7 @@ define( require => {
     options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
     // maxWidth of the labels within the dropdown empirically determined
-    const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
+    const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
 
     const firstItemNode = new VBox( {
       align: 'left',
@@ -123,7 +123,7 @@ define( require => {
     this.projectileChoiceComboBox = projectileChoiceComboBox;
 
     // local var for layout and formatting
-    const parameterLabelOptions = _.defaults( { maxWidth: options.minWidth - 2 * options.xMargin }, LABEL_OPTIONS );
+    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts

@@ -88,7 +88,7 @@ define( require => {
     this.textDisplayWidth = options.textDisplayWidth * 1.4;
 
     // maxWidth empirically determined for labels in the dropdown
-    const itemNodeOptions = _.defaults( { maxWidth: 170 }, LABEL_OPTIONS );
+    const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
 
     const firstItemNode = new VBox( {
       align: 'left',
@@ -241,7 +241,7 @@ define( require => {
         units: ''
       } );
 
-      const valueLabelOptions = _.defaults( {
+      const valueLabelOptions = merge( {}, NUMBER_DISPLAY_OPTIONS, {
         cursor: 'pointer',
         backgroundStroke: 'black',
         decimalPlaces: null,
@@ -249,7 +249,7 @@ define( require => {
         xMargin: 4,
         minBackgroundWidth: this.textDisplayWidth,
         numberMaxWidth: this.textDisplayWidth - 2 * this.options.readoutXMargin
-      }, NUMBER_DISPLAY_OPTIONS );
+      } );
 
       const numberDisplay = new NumberDisplay(
         valueProperty,
@@ -500,9 +500,9 @@ define( require => {
         );
         this.altitudeNumberControl = altitudeNumberControl;
 
-        const dragCoefficientText = new Text( '', _.defaults( {
+        const dragCoefficientText = new Text( '', merge( {}, LABEL_OPTIONS, {
           maxWidth: this.options.minWidth - 2 * this.options.xMargin
-        }, LABEL_OPTIONS ) );
+        } ) );
 
         // exists for the lifetime of the simulation
         this.model.projectileDragCoefficientProperty.link( dragCoefficient => {

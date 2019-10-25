@@ -47,7 +47,7 @@ define( require => {
   const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
   const SPACING = 4; // {number} x and y spacing and margins
   const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT;
-  const LABEL_OPTIONS = _.defaults( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+  const LABEL_OPTIONS = merge( {}, ProjectileMotionConstants.LABEL_TEXT_OPTIONS, { fill: 'white' } );
   const SMALL_HALO_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS * 5;
   const LARGE_HALO_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS * 5;
   const YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
@@ -301,12 +301,12 @@ define( require => {
     const backgroundWidth = 60;
 
     // label
-    const labelText = new Text( labelString, _.defaults( {
+    const labelText = new Text( labelString, merge( {}, LABEL_OPTIONS, {
       maxWidth: maxWidth - backgroundWidth - 25
-    }, LABEL_OPTIONS ) );
+    } ) );
 
     // number
-    const numberOptions = _.defaults( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
+    const numberOptions = merge( {}, ProjectileMotionConstants.LABEL_TEXT_OPTIONS, { maxWidth: backgroundWidth - 6 } );
     const numberNode = new Text( readoutProperty.get(), numberOptions );
 
     const backgroundNode = new Rectangle(

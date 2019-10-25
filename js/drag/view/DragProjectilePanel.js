@@ -69,9 +69,9 @@ define( require => {
 
     // local vars used for layout and formatting
     const textDisplayWidth = options.textDisplayWidth * 1.2;
-    const parameterLabelOptions = _.defaults( {
+    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
       maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth
-    }, LABEL_OPTIONS );
+    } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts

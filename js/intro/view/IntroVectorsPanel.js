@@ -49,10 +49,9 @@ define( require => {
       tandem: Tandem.required
     }, options );
 
-    const titleOptions = _.defaults(
-      { maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width },
-      TITLE_OPTIONS
-    );
+    const titleOptions = merge( {}, TITLE_OPTIONS, {
+      maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width
+    } );
     const velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
     const velocityTitleBox = new HBox( {
       spacing: options.minWidth - velocityVectorsTitle.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
