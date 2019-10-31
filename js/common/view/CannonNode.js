@@ -47,10 +47,11 @@ define( require => {
   const CANNON_LENGTH = 4;
   const ELLIPSE_WIDTH = 420; // empirically determined in view coordinates
   const ELLIPSE_HEIGHT = 40; // empirically determined in view coordinates
+  const CYLINDER_DISTANCE_FROM_ORIGIN = 1.5; // empirically determined in model coords as it needs to update each time the mvt changes
+  const HEIGHT_LEADER_LINE_X = 27; // empirically determined in view coords
+  const CROSSHAIR_LENGTH = 120; // empirically determined in view coords
   const ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   const HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
-  const HEIGHT_LEADER_LINE_POSITION = -1.1; // in model coords
-  const CROSSHAIR_LENGTH = 120;
   const LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
   const BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
   const DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
@@ -92,8 +93,8 @@ define( require => {
     Node.call( this, options );
 
     // where the projectile is fired from
-    const xOrigin = transformProperty.get().modelToViewX( 0 ); // in view coords
-    const centerXOfCylinder = transformProperty.get().modelToViewX( 1.5 ); // in view coords
+    const viewOrginX = transformProperty.get().modelToViewX( 0 );
+    const centerXOfCylinder = transformProperty.get().modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
 
     // the cannon, muzzle flash, and pedestal are not visible under ground
     const clippedByGroundNode = new Node( {
@@ -158,9 +159,9 @@ define( require => {
 
     // add dashed line for indicating the height
     const heightLeaderLine = new Line(
-      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      HEIGHT_LEADER_LINE_X,
       transformProperty.get().modelToViewY( 0 ),
-      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      HEIGHT_LEADER_LINE_X,
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         stroke: 'black',
         lineDash: [ 5, 5 ]
@@ -169,9 +170,9 @@ define( require => {
 
     // added arrows for indicating height
     const heightLeaderArrows = new ArrowNode(
-      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      HEIGHT_LEADER_LINE_X,
       transformProperty.get().modelToViewY( 0 ),
-      transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_POSITION ),
+      HEIGHT_LEADER_LINE_X,
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         headHeight: 5,
         headWidth: 5,
@@ -227,7 +228,7 @@ define( require => {
 
     // angle indicator
     const angleIndicator = new Node();
-    angleIndicator.x = xOrigin; // cenetered at the origin, independent of the cyndlider location
+    angleIndicator.x = viewOrginX; // cenetered at the origin, independent of the cyndlider location
 
     // crosshair view
     const crosshairShape = new Shape()
@@ -405,6 +406,9 @@ define( require => {
       scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
       clippedByGroundNode.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
+      const newX = transformProperty.get().modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
+      clippedByGroundNode.x = newX;
+      groundCircle.x = newX;
       updateHeight( heightProperty.get() );
     } );
 
