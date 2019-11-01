@@ -13,12 +13,11 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const HSlider = require( 'SUN/HSlider' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
-  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
+  const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -75,57 +74,58 @@ define( require => {
     } );
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and readouts
+     * Auxiliary function that creates a NumberControl
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
-     * @param {Number} round - optional, for minor ticks
+     * @param {Number} round - for minor ticks
      * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, round, tandem ) {
+    function createNumberControl( labelString, unitsString, valueProperty, range, round, tandem ) {
 
-      // label
-      const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, parameterLabelOptions ) );
-
-      const numberDisplay = new NumberDisplay(
-        valueProperty,
-        range,
-        merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+      const numberControlOptions = merge( {
+        numberDisplayOptions: {
           valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
-          decimalPlaces: null,
-          tandem: tandem.createTandem( 'numberDisplay' )
-        } )
-      );
+          decimalPlaces: null
+        },
+        sliderOptions: {
+          constrainValue: value => Util.roundToInterval( value, round ), // two decimal place accuracy
+          majorTickLength: 12,
+          minorTickLength: 5,
+          minorTickSpacing: round,
+          tickLabelSpacing: 2,
+          trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
+          thumbSize: new Dimension2( 13, 22 ),
+          thumbTouchAreaXDilation: 6,
+          thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
+          majorTicks: [
+            { value: range.min, label: new Text( range.min, LABEL_OPTIONS ) },
+            { value: range.max, label: new Text( range.max, LABEL_OPTIONS ) }
+          ]
+        },
 
-      const slider = new HSlider( valueProperty, range, {
-        constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
-        majorTickLength: 12,
-        minorTickLength: 5,
-        tickLabelSpacing: 2,
-        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
-        thumbSize: new Dimension2( 13, 22 ),
-        thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
-        tandem: tandem.createTandem( 'slider' )
+        // This layout function doesn't display the tweaker buttons
+        layoutFunction: ( titleNode, numberDisplay, slider ) => {
+          return new VBox( {
+            spacing: options.sliderLabelSpacing,
+            children: [
+              new HBox( {
+                spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
+                children: [ titleNode, numberDisplay ]
+              } ),
+              slider
+            ]
+          } );
+        },
+        tandem: tandem
+      }, {
+        numberDisplayOptions: ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS,
+        titleNodeOptions: parameterLabelOptions
       } );
-      slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
-      slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
 
-      if ( round ) {
-        for ( let i = range.min + round; i < range.max; i += round ) {
-          slider.addMinorTick( i );
-        }
-      }
-
-      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - numberDisplay.width;
-      return new VBox( {
-        spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, numberDisplay ] } ),
-          slider
-        ]
-      } );
+      return new NumberControl( labelString, valueProperty, range, numberControlOptions );
     }
 
     // drag coefficient object shape view
@@ -140,22 +140,24 @@ define( require => {
       ]
     } );
 
-    const diameterControlBox = createParameterControlBox(
+    const selectedObjectType = selectedObjectTypeProperty.get();
+
+    const diameterNumberControl = createNumberControl(
       diameterString,
       mString,
       projectileDiameterProperty,
-      selectedObjectTypeProperty.get().diameterRange,
-      selectedObjectTypeProperty.get().diameterRound,
-      tandem.createTandem( 'diameterControlBox' )
+      selectedObjectType.diameterRange,
+      selectedObjectType.diameterRound,
+      tandem.createTandem( 'diameterNumberControl' )
     );
 
-    const massControlBox = createParameterControlBox(
+    const massNumberControl = createNumberControl(
       massString,
       kgString,
       projectileMassProperty,
-      selectedObjectTypeProperty.get().massRange,
-      selectedObjectTypeProperty.get().massRound,
-      tandem.createTandem( 'massControlBox' )
+      selectedObjectType.massRange,
+      selectedObjectType.massRound,
+      tandem.createTandem( 'massNumberControl' )
     );
 
     const dragCoefficientText = new Text( '', merge( {}, LABEL_OPTIONS, {
@@ -196,8 +198,8 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         objectDisplay,
-        diameterControlBox,
-        massControlBox,
+        diameterNumberControl,
+        massNumberControl,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckbox,
         dragCoefficientText
