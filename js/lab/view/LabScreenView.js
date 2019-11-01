@@ -32,7 +32,7 @@ define( require => {
     options = merge( { preciseCannonDelta: true }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
+    const visibilityProperties = new VectorVisibilityProperties();
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();

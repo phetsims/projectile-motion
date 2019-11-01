@@ -22,7 +22,9 @@ define( require => {
    * @constructor
    */
   function DragVectorVisibilityProperties( tandem ) {
-    VectorVisibilityProperties.call( this, tandem );
+    VectorVisibilityProperties.call( this, {
+      accelerationProperties: false
+    } );
 
     // @public vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'velocityVectorsOnProperty' ) } );
