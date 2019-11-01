@@ -30,7 +30,7 @@ define( require => {
   const ProjectileMotionConstants = {
 
     // screen view layout
-    VIEW_ORIGIN: new Vector2( 60, 510 ),
+    VIEW_ORIGIN: new Vector2( 70, 510 ),
 
     // cannonball defaults
     CANNONBALL_MASS: 17.6,

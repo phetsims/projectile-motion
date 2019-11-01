@@ -44,11 +44,11 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  const CANNON_LENGTH = 4;
+  const CANNON_LENGTH = 4; // empirically determined in model coords
   const ELLIPSE_WIDTH = 420; // empirically determined in view coordinates
   const ELLIPSE_HEIGHT = 40; // empirically determined in view coordinates
-  const CYLINDER_DISTANCE_FROM_ORIGIN = 1.5; // empirically determined in model coords as it needs to update each time the mvt changes
-  const HEIGHT_LEADER_LINE_X = 27; // empirically determined in view coords
+  const CYLINDER_DISTANCE_FROM_ORIGIN = 1.3; // empirically determined in model coords as it needs to update each time the mvt changes
+  const HEIGHT_LEADER_LINE_X = -1.5; // empirically determined in view coords
   const CROSSHAIR_LENGTH = 120; // empirically determined in view coords
   const ANGLE_RANGE = ProjectileMotionConstants.CANNON_ANGLE_RANGE;
   const HEIGHT_RANGE = ProjectileMotionConstants.CANNON_HEIGHT_RANGE;
@@ -93,15 +93,16 @@ define( require => {
     Node.call( this, options );
 
     // where the projectile is fired from
-    const viewOrginX = transformProperty.get().modelToViewX( 0 );
-    const centerXOfCylinder = transformProperty.get().modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
+    const viewOrgin = transformProperty.get().modelToViewPosition( new Vector2( 0, 0 ) );
 
     // the cannon, muzzle flash, and pedestal are not visible under ground
-    const clippedByGroundNode = new Node( {
-      x: centerXOfCylinder,
-      y: transformProperty.get().modelToViewY( 0 ),
+    const clipContainer = new Node(); // no transform, just for clip area
+
+    const cylinderNode = new Node( {
+      y: viewOrgin.y,
       cursor: 'pointer'
     } );
+    clipContainer.addChild( cylinderNode );
 
     // shape used for ground circle and top of pedestal
     const ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
@@ -112,8 +113,7 @@ define( require => {
       .addColorStop( 0.3, 'white' )
       .addColorStop( 1, 'gray' );
     const groundCircle = new Path( ellipseShape, {
-      x: clippedByGroundNode.x,
-      y: transformProperty.get().modelToViewY( 0 ),
+      y: viewOrgin.y,
       fill: groundFill,
       stroke: BRIGHT_GRAY_COLOR
     } );
@@ -124,18 +124,18 @@ define( require => {
       .addColorStop( 0.3, BRIGHT_GRAY_COLOR )
       .addColorStop( 1, DARK_GRAY_COLOR );
     const cylinderSide = new Path( null, { fill: sideFill, stroke: BRIGHT_GRAY_COLOR } );
-    clippedByGroundNode.addChild( cylinderSide );
+    cylinderNode.addChild( cylinderSide );
 
     // top of the cylinder
     const cylinderTop = new Path( ellipseShape, { fill: DARK_GRAY_COLOR, stroke: BRIGHT_GRAY_COLOR } );
-    clippedByGroundNode.addChild( cylinderTop );
+    cylinderNode.addChild( cylinderTop );
 
     // cannon
-
     const cannonBarrel = new Node( {
-      x: -centerXOfCylinder // offset the offset to be back at the orgin, but still a child of the clippedByGroundNode
+      x: viewOrgin.x,
+      y: viewOrgin.y
     } );
-    clippedByGroundNode.addChild( cannonBarrel );
+    clipContainer.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
     const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
@@ -145,23 +145,23 @@ define( require => {
     cannonBarrel.addChild( cannonBarrelTop );
 
     const cannonBase = new Node( {
-      x: -centerXOfCylinder // offset the offset to be back at the orgin, but still a child of the clippedByGroundNode
+      x: viewOrgin.x,
+      y: viewOrgin.y
     } );
-    clippedByGroundNode.addChild( cannonBase );
+    clipContainer.addChild( cannonBase );
 
     const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
     const cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
-    // scale everything according to the length of the cannon barrel
-    clippedByGroundNode.setScaleMagnitude( transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width );
+    const viewHeightLeaderLineX = transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_X );
 
     // add dashed line for indicating the height
     const heightLeaderLine = new Line(
-      HEIGHT_LEADER_LINE_X,
-      transformProperty.get().modelToViewY( 0 ),
-      HEIGHT_LEADER_LINE_X,
+      viewHeightLeaderLineX,
+      viewOrgin.y,
+      viewHeightLeaderLineX,
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         stroke: 'black',
         lineDash: [ 5, 5 ]
@@ -170,9 +170,9 @@ define( require => {
 
     // added arrows for indicating height
     const heightLeaderArrows = new ArrowNode(
-      HEIGHT_LEADER_LINE_X,
-      transformProperty.get().modelToViewY( 0 ),
-      HEIGHT_LEADER_LINE_X,
+      viewHeightLeaderLineX,
+      viewOrgin.y,
+      viewHeightLeaderLineX,
       transformProperty.get().modelToViewY( heightProperty.get() ), {
         headHeight: 5,
         headWidth: 5,
@@ -195,7 +195,7 @@ define( require => {
       lineWidth: 2
     } );
     heightLeaderLineBottomCap.x = heightLeaderArrows.tipX;
-    heightLeaderLineBottomCap.y = transformProperty.get().modelToViewY( 0 );
+    heightLeaderLineBottomCap.y = viewOrgin.y;
 
     // height readout
     const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
@@ -228,7 +228,7 @@ define( require => {
 
     // angle indicator
     const angleIndicator = new Node();
-    angleIndicator.x = viewOrginX; // cenetered at the origin, independent of the cyndlider location
+    angleIndicator.x = viewOrgin.x; // centered at the origin, independent of the cyndlider location
 
     // crosshair view
     const crosshairShape = new Shape()
@@ -312,7 +312,7 @@ define( require => {
     // rendering order
     this.setChildren( [
       groundCircle,
-      clippedByGroundNode,
+      clipContainer,
       heightLeaderLine,
       heightLeaderArrows,
       heightLeaderLineTopCap,
@@ -343,13 +343,16 @@ define( require => {
     let scaleMagnitude = 1;
 
     // Function to transform everything to the right height
-    const updateHeight = function( height ) {
+    const updateHeight = height => {
       const viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
-      const heightInClipCoordinates = clippedByGroundNode.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
-      viewHeightPoint.freeToPool();
+      const heightInClipCoordinates = this.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
+
       cannonBarrel.y = heightInClipCoordinates;
       cannonBase.y = heightInClipCoordinates;
-      cylinderTop.y = cannonBase.bottom - ELLIPSE_HEIGHT / 4;
+
+      // The cannonBase and cylinder are siblings, so transform into the same coordinate frame.
+      cylinderTop.y = cylinderNode.parentToLocalPoint( viewHeightPoint.setY( cannonBase.bottom ) ).y - ELLIPSE_HEIGHT / 4;
+      viewHeightPoint.freeToPool();
 
       const sideShape = new Shape();
       sideShape.moveTo( -ELLIPSE_WIDTH / 2, 0 )
@@ -368,7 +371,11 @@ define( require => {
         .lineTo( ELLIPSE_WIDTH / 2, 0 )
         .ellipticalArc( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0, 0, Math.PI, false )
         .close();
-      clippedByGroundNode.setClipArea( clipArea );
+
+      // this shape is made in the context of the cylinder, so transform it to match the cylinder's transform.
+      // This doesn't need to happen ever again because the clipContainer is the parent to all Nodes that are updated on
+      // layout change.
+      clipContainer.setClipArea( clipArea.transformed( cylinderNode.matrix ) );
 
       heightLeaderArrows.setTailAndTip(
         heightLeaderArrows.tailX,
@@ -401,14 +408,27 @@ define( require => {
       }
     } );
 
-    // Observe changes in modelviewtransform and update the view
-    transformProperty.link( function( transform ) {
-      scaleMagnitude = transformProperty.get().modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
-      clippedByGroundNode.setScaleMagnitude( scaleMagnitude );
+    // Update the layout of cannon Nodes based on the current transform.
+    const updateCannonLayout = () => {
+
+      const transform = transformProperty.get();
+
+      // Scale everything to be based on the cannon barrel.
+      scaleMagnitude = transform.modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
+      cylinderNode.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
-      const newX = transformProperty.get().modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
-      clippedByGroundNode.x = newX;
+      cannonBarrel.setScaleMagnitude( scaleMagnitude );
+      cannonBase.setScaleMagnitude( scaleMagnitude );
+
+      // Transform the cylindrical Nodes over, because they are offset from the orgin.
+      const newX = transform.modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
+      cylinderNode.x = newX;
       groundCircle.x = newX;
+    };
+
+    // Observe changes in modelviewtransform and update the view
+    transformProperty.link( () => {
+      updateCannonLayout();
       updateHeight( heightProperty.get() );
     } );
 
@@ -423,7 +443,7 @@ define( require => {
     // drag the tip of the cannon to change angle
     cannonBarrelTop.addInputListener( new SimpleDragHandler( {
       start: function( event ) {
-        startPoint = screenView.globalToLocalPoint( event.pointer.point );
+        startPoint = screenView.globalToLocalPoint( event.pointer.point ); // TODO: cannonBarrelTop is not in screenView coords
         startAngle = angleProperty.get(); // degrees
       },
 
@@ -431,6 +451,7 @@ define( require => {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
+        // TODO: can this be factored out to once per drag?
         const startPointAngle = Vector2.createFromPool(
           startPoint.x - cannonBase.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
