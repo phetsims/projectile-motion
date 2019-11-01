@@ -15,6 +15,7 @@ define( require => {
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Circle = require( 'SCENERY/nodes/Circle' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
+  const Emitter = require( 'AXON/Emitter' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -92,6 +93,9 @@ define( require => {
       // @public for TrajectoryNode to access
       this.projectileViewLayer = projectileViewLayer;
 
+      // @private
+      this.disposeProjectileNodeEmitter = new Emitter();
+
       let landedObjectView = null;
       let projectileObjectView = null;
 
@@ -110,40 +114,6 @@ define( require => {
         children: [ projectileObjectView ]
       } );
       projectileViewLayer.addChild( projectileObjectView );
-
-      // add vector view for acceleration x component
-      const xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
-      this.addChild( xAccelerationArrow );
-
-      // add vector view for acceleration y component
-      const yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
-      this.addChild( yAccelerationArrow );
-
-      // add vector view for total acceleration
-      const totalAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
-        pickable: false,
-        fill: ACCELERATION_ARROW_FILL,
-        tailWidth: TOTAL_ARROW_TAIL_WIDTH,
-        headWidth: TOTAL_ARROW_HEAD_WIDTH
-      } );
-      this.addChild( totalAccelerationArrow );
-
-      // add vector view for velocity x component
-      const xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
-      this.addChild( xVelocityArrow );
-
-      // add vector view for velocity y component
-      const yVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
-      this.addChild( yVelocityArrow );
-
-      // add vector view for total velocity
-      const totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
-        pickable: false,
-        fill: VELOCITY_ARROW_FILL,
-        tailWidth: TOTAL_ARROW_TAIL_WIDTH,
-        headWidth: TOTAL_ARROW_HEAD_WIDTH
-      } );
-      this.addChild( totalVelocityArrow );
 
       // forces view
       const forcesBox = new Rectangle( 0, 0, 10, 50, {
@@ -192,6 +162,7 @@ define( require => {
           dataPoint: dataPoint
         };
       } );
+      this.viewPointProperty = viewPointProperty; // TODO: once conversion is done, inline this
 
       // Update the projectile's object view.
       const updateProjectileObjectView = viewPoint => {
@@ -214,85 +185,10 @@ define( require => {
 
       viewPointProperty.link( updateProjectileObjectView );
 
-      // Update component-wise velocity vectors.
-      const updateComponentVelocityVectors = ( visible, viewPoint ) => {
-        xVelocityArrow.visible = visible;
-        yVelocityArrow.visible = visible;
-
-        if ( visible ) {
-          const viewPosition = viewPoint.viewPosition;
-          const dataPoint = viewPoint.dataPoint;
-          xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x, viewPosition.y );
-          yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y );
-        }
-      };
-
-      const componentVelocityVectorsMultilink = Property.multilink( [ vectorVisibilityProperties.componentsVelocityVectorsOnProperty, viewPointProperty ], updateComponentVelocityVectors );
-
-      // Update total velocity vector.
-      const updateTotalVelocityVector = ( visible, viewPoint ) => {
-        totalVelocityArrow.visible = visible;
-
-        if ( visible ) {
-          const viewPosition = viewPoint.viewPosition;
-          const dataPoint = viewPoint.dataPoint;
-          totalVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-            viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x,
-            viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
-          );
-        }
-      };
-
-      const totalVelocityVectorMultilink = Property.multilink( [ vectorVisibilityProperties.totalVelocityVectorOnProperty, viewPointProperty ], updateTotalVelocityVector );
-
-      // Update component-wise acceleration vectors.
-      const updateComponentAccelerationVectors = ( visible, viewPoint ) => {
-        xAccelerationArrow.visible = visible;
-        yAccelerationArrow.visible = visible;
-
-        if ( visible ) {
-          const viewPosition = viewPoint.viewPosition;
-          const dataPoint = viewPoint.dataPoint;
-
-          xAccelerationArrow.setTailAndTip(
-            viewPosition.x,
-            viewPosition.y,
-            viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
-            viewPosition.y
-          );
-          yAccelerationArrow.setTailAndTip(
-            viewPosition.x,
-            viewPosition.y,
-            viewPosition.x,
-            viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
-          );
-        }
-      };
-
-      const componentAccelerationVectorsMultilink = Property.multilink( [
-        vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
-        viewPointProperty
-      ], updateComponentAccelerationVectors );
-
-      // Update total acceleration vector.
-      const updateTotalAccelerationVector = ( visible, viewPoint ) => {
-        totalAccelerationArrow.visible = visible;
-
-        if ( visible ) {
-          const viewPosition = viewPoint.viewPosition;
-          const dataPoint = viewPoint.dataPoint;
-
-          totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
-            viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
-            viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
-          );
-        }
-      };
-
-      const totalAccelerationVectorMultilink = Property.multilink( [
-        vectorVisibilityProperties.totalAccelerationVectorOnProperty,
-        viewPointProperty
-      ], updateTotalAccelerationVector );
+      this.addComponentsVelocityVectors( vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
+      this.addTotalVelocityVector( vectorVisibilityProperties.totalVelocityVectorOnProperty );
+      this.addComponentsAccelerationVectors( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
+      this.addTotalAccelerationVector( vectorVisibilityProperties.totalAccelerationVectorOnProperty );
 
       // Update the free body diagram
       let removed = false;
@@ -388,20 +284,10 @@ define( require => {
       } );
 
       this.disposeProjectileNode = () => {
-        componentVelocityVectorsMultilink.dispose();
-        totalVelocityVectorMultilink.dispose();
-        componentAccelerationVectorsMultilink.dispose();
-        totalAccelerationVectorMultilink.dispose();
         freeBodyDiagramMultilink.dispose();
         viewPointProperty.dispose();
-        xVelocityArrow.dispose();
-        yVelocityArrow.dispose();
-        xAccelerationArrow.dispose();
-        yAccelerationArrow.dispose();
         xDragForceArrow.dispose();
         yDragForceArrow.dispose();
-        totalVelocityArrow.dispose();
-        totalAccelerationArrow.dispose();
         totalDragForceArrow.dispose();
         forceGravityArrow.dispose();
         projectileViewLayer.dispose();
@@ -409,9 +295,169 @@ define( require => {
         yDragForceLabel.dispose();
         forceGravityLabel.dispose();
         totalDragForceLabel.dispose();
+        this.disposeProjectileNodeEmitter.emit();
       };
     }
 
+    /**
+     * Add vectors that show the velocity x/y components
+     * @private
+     * @param {Property.<boolean>} property
+     */
+    addComponentsVelocityVectors( property ) {
+
+      // add vector view for velocity x component
+      const xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
+      this.addChild( xVelocityArrow );
+
+      // add vector view for velocity y component
+      const yVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
+      this.addChild( yVelocityArrow );
+
+
+      // Update component-wise velocity vectors.
+      const multilink = Property.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
+        xVelocityArrow.visible = visible;
+        yVelocityArrow.visible = visible;
+
+        if ( visible ) {
+          const viewPosition = viewPoint.viewPosition;
+          const dataPoint = viewPoint.dataPoint;
+          xVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x, viewPosition.y );
+          yVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y, viewPosition.x, viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y );
+        }
+      } );
+
+      this.disposeProjectileNodeEmitter.addListener( () => {
+        multilink.dispose();
+        xVelocityArrow.dispose();
+        yVelocityArrow.dispose();
+      } );
+    }
+
+    /**
+     *
+     * Add vector that show the total velocity
+     * @private
+     * @param {Property.<boolean>} property
+     */
+    addTotalVelocityVector( property ) {
+
+      // add vector view for total velocity
+      const totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
+        pickable: false,
+        fill: VELOCITY_ARROW_FILL,
+        tailWidth: TOTAL_ARROW_TAIL_WIDTH,
+        headWidth: TOTAL_ARROW_HEAD_WIDTH
+      } );
+      this.addChild( totalVelocityArrow );
+
+      const multilink = Property.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
+        totalVelocityArrow.visible = visible;
+
+        if ( visible ) {
+          const viewPosition = viewPoint.viewPosition;
+          const dataPoint = viewPoint.dataPoint;
+          totalVelocityArrow.setTailAndTip( viewPosition.x, viewPosition.y,
+            viewPosition.x + VELOCITY_SCALAR * dataPoint.velocity.x,
+            viewPosition.y - VELOCITY_SCALAR * dataPoint.velocity.y
+          );
+        }
+      } );
+
+      this.disposeProjectileNodeEmitter.addListener( () => {
+        multilink.dispose();
+        totalVelocityArrow.dispose();
+      } );
+    }
+
+    /**
+     * Add vectors that show the acceleration x/y components
+     * @private
+     * @param {Property.<boolean>} property
+     */
+    addComponentsAccelerationVectors( property ) {
+
+      // add vector view for acceleration x component
+      const xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
+      this.addChild( xAccelerationArrow );
+
+      // add vector view for acceleration y component
+      const yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
+      this.addChild( yAccelerationArrow );
+
+      const multilink = Property.multilink( [
+        property,
+        this.viewPointProperty
+      ], ( visible, viewPoint ) => {
+        xAccelerationArrow.visible = visible;
+        yAccelerationArrow.visible = visible;
+
+        if ( visible ) {
+          const viewPosition = viewPoint.viewPosition;
+          const dataPoint = viewPoint.dataPoint;
+
+          xAccelerationArrow.setTailAndTip(
+            viewPosition.x,
+            viewPosition.y,
+            viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
+            viewPosition.y
+          );
+          yAccelerationArrow.setTailAndTip(
+            viewPosition.x,
+            viewPosition.y,
+            viewPosition.x,
+            viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
+          );
+        }
+      } );
+
+      this.disposeProjectileNodeEmitter.addListener( () => {
+        multilink.dispose();
+        xAccelerationArrow.dispose();
+        yAccelerationArrow.dispose();
+      } );
+    }
+
+    /**
+     *
+     * Add vector that shows the total acceleration
+     * @private
+     * @param {Property.<boolean>} property
+     */
+    addTotalAccelerationVector( property ) {
+
+      // add vector view for total acceleration
+      const totalAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
+        pickable: false,
+        fill: ACCELERATION_ARROW_FILL,
+        tailWidth: TOTAL_ARROW_TAIL_WIDTH,
+        headWidth: TOTAL_ARROW_HEAD_WIDTH
+      } );
+      this.addChild( totalAccelerationArrow );
+
+      const totalAccelerationVectorMultilink = Property.multilink( [
+        property,
+        this.viewPointProperty
+      ], ( visible, viewPoint ) => {
+        totalAccelerationArrow.visible = visible;
+
+        if ( visible ) {
+          const viewPosition = viewPoint.viewPosition;
+          const dataPoint = viewPoint.dataPoint;
+
+          totalAccelerationArrow.setTailAndTip( viewPosition.x, viewPosition.y,
+            viewPosition.x + ACCELERATION_SCALAR * dataPoint.acceleration.x,
+            viewPosition.y - ACCELERATION_SCALAR * dataPoint.acceleration.y
+          );
+        }
+      } );
+
+      this.disposeProjectileNodeEmitter.addListener( () => {
+        totalAccelerationVectorMultilink.dispose();
+        totalAccelerationArrow.dispose();
+      } );
+    }
 
     /**
      * Dispose this trajectory for memory management
