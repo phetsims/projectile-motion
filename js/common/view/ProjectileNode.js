@@ -13,7 +13,6 @@ define( require => {
 
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
-  const Circle = require( 'SCENERY/nodes/Circle' );
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const Emitter = require( 'AXON/Emitter' );
   const merge = require( 'PHET_CORE/merge' );
@@ -21,9 +20,8 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
+  const FreeBodyDiagram = require( 'PROJECTILE_MOTION/common/view/FreeBodyDiagram' );
   const Property = require( 'AXON/Property' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const RichText = require( 'SCENERY/nodes/RichText' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -46,28 +44,9 @@ define( require => {
     tailWidth: 2,
     headWidth: 6
   };
-  const FORCE_ARROW_OPTIONS = {
-    fill: 'black',
-    stroke: null,
-    tailWidth: 2,
-    headWidth: 6
-  };
 
   const VELOCITY_SCALAR = 15; // scales the velocity arrow representations
   const ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
-  const FORCE_SCALAR = 3;
-
-  const FREE_BODY_RADIUS = 3;
-  const FREE_BODY_OFFSET = new Vector2( -40, -40 ); // distance from free body to projectile
-  const FORCES_BOX_DILATION = 7;
-
-  const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.35 )';
-  const LABEL_OPTIONS = ProjectileMotionConstants.LABEL_TEXT_OPTIONS;
-
-  const xDragForceText = new RichText( 'F<sub>dx</sub>', LABEL_OPTIONS );
-  const yDragForceText = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
-  const forceGravityText = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
-  const totalDragForceText = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
 
   class ProjectileNode extends Node {
 
@@ -87,11 +66,9 @@ define( require => {
       }, options );
       super( options );
 
-      // create a layer for the projectile object node that would contain the flying object, and then the landed object
-      const projectileViewLayer = new Node();
-
-      // @public for TrajectoryNode to access
-      this.projectileViewLayer = projectileViewLayer;
+      // @public (TrajectoryNode) - create a layer for the projectile object Node that would contain the flying object,
+      // and then the landed object
+      this.projectileViewLayer = new Node();
 
       // @private
       this.disposeProjectileNodeEmitter = new Emitter();
@@ -113,47 +90,11 @@ define( require => {
       projectileObjectView = new Node( {
         children: [ projectileObjectView ]
       } );
-      projectileViewLayer.addChild( projectileObjectView );
+      this.projectileViewLayer.addChild( projectileObjectView );
 
-      // forces view
-      const forcesBox = new Rectangle( 0, 0, 10, 50, {
-        fill: TRANSPARENT_WHITE,
-        lineWidth: 0
-      } );
-      this.addChild( forcesBox );
 
-      const freeBodyDiagram = new Node();
-      this.addChild( freeBodyDiagram );
-
-      const freeBody = new Circle( FREE_BODY_RADIUS, { x: 0, y: 0, fill: 'black' } );
-
-      const freeBodyComponents = new Node();
-
-      const xDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-      freeBodyComponents.addChild( xDragForceArrow );
-
-      const xDragForceLabel = new Node( { children: [ xDragForceText ] } );
-      freeBodyComponents.addChild( xDragForceLabel );
-
-      const yDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-      freeBodyComponents.addChild( yDragForceArrow );
-
-      const yDragForceLabel = new Node( { children: [ yDragForceText ] } );
-      freeBodyComponents.addChild( yDragForceLabel );
-
-      const forceGravityArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-      const forceGravityLabel = new Node( { children: [ forceGravityText ] } );
-
-      const freeBodyTotals = new Node();
-
-      const totalDragForceArrow = new ArrowNode( 0, 0, 0, 0, FORCE_ARROW_OPTIONS );
-      freeBodyTotals.addChild( totalDragForceArrow );
-
-      const totalDragForceLabel = new Node( { children: [ totalDragForceText ] } );
-      freeBodyTotals.addChild( totalDragForceLabel );
-
-      // {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
-      const viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
+      // @private {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
+      this.viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
         const viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
         viewPosition.x = Util.roundSymmetric( viewPosition.x * 10000 ) / 10000;
         viewPosition.y = Util.roundSymmetric( viewPosition.y * 10000 ) / 10000;
@@ -162,7 +103,35 @@ define( require => {
           dataPoint: dataPoint
         };
       } );
-      this.viewPointProperty = viewPointProperty; // TODO: once conversion is done, inline this
+
+      // Add support for velocity vectors
+      this.addComponentsVelocityVectors( vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
+      this.addTotalVelocityVector( vectorVisibilityProperties.totalVelocityVectorOnProperty );
+
+      // Add support for acceleration vectors if applicable
+      if ( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty ) {
+        this.addComponentsAccelerationVectors( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
+      }
+      if ( vectorVisibilityProperties.totalAccelerationVectorOnProperty ) {
+        this.addTotalAccelerationVector( vectorVisibilityProperties.totalAccelerationVectorOnProperty );
+      }
+
+
+      // Add support for force vectors via the FreeBodyDiagram if applicable
+      let freeBodyDiagram = null;
+      const addFreeBodyDiagram = vectorVisibilityProperties.totalForceVectorOnProperty &&
+                                 vectorVisibilityProperties.componentsForceVectorsOnProperty;
+      if ( addFreeBodyDiagram ) {
+        freeBodyDiagram = new FreeBodyDiagram( this.viewPointProperty, vectorVisibilityProperties.totalForceVectorOnProperty,
+          vectorVisibilityProperties.componentsForceVectorsOnProperty );
+        this.addChild( freeBodyDiagram );
+
+        // will be disposed if hits the ground, but cover the case where it is disposed mid-air
+        this.disposeProjectileNodeEmitter.addListener( () => !freeBodyDiagram.isDisposed && freeBodyDiagram.dispose() );
+      }
+
+      // keep track of if this Projectile has been removed from the main layer yet so we don't do it twice.
+      let removed = false;
 
       // Update the projectile's object view.
       const updateProjectileObjectView = viewPoint => {
@@ -181,120 +150,36 @@ define( require => {
         }
 
         projectileObjectView.translation = viewPoint.viewPosition;
-      };
 
-      viewPointProperty.link( updateProjectileObjectView );
-
-      this.addComponentsVelocityVectors( vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
-      this.addTotalVelocityVector( vectorVisibilityProperties.totalVelocityVectorOnProperty );
-      this.addComponentsAccelerationVectors( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
-      this.addTotalAccelerationVector( vectorVisibilityProperties.totalAccelerationVectorOnProperty );
-
-      // Update the free body diagram
-      let removed = false;
-      const updateFreeBodyDiagram = ( componentsVisible, totalVisible, viewPoint ) => {
-        const viewPosition = viewPoint.viewPosition;
-        const dataPoint = viewPoint.dataPoint;
-
-        // When the projectile lands, remove the force diagram
         if ( dataPoint.reachedGround ) {
+
+          // only remove it once
           if ( !removed ) {
             removed = true;
-            forcesBox.visible = false;
-            freeBodyDiagram.visible = false;
+            if ( addFreeBodyDiagram ) {
+              freeBodyDiagram.dispose();
+            }
 
             if ( landedObjectView ) {
-              landedObjectView.center = viewPosition;
-              if ( objectType ? objectType.benchmark === 'human' || objectType.benchmark === 'car' : false ) {
+              landedObjectView.center = viewPoint.viewPosition;
+              if ( objectType && ( objectType.benchmark === 'human' || objectType.benchmark === 'car' ) ) {
                 landedObjectView.bottom = landedObjectView.centerY;
               }
-              if ( projectileViewLayer.hasChild( projectileObjectView ) ) {
-                projectileViewLayer.removeChild( projectileObjectView );
+              if ( this.projectileViewLayer.hasChild( projectileObjectView ) ) {
+                this.projectileViewLayer.removeChild( projectileObjectView );
               }
-              projectileViewLayer.addChild( landedObjectView );
+              this.projectileViewLayer.addChild( landedObjectView );
             }
           }
-          return;
-        }
-
-        forcesBox.visible = componentsVisible || totalVisible;
-        freeBodyDiagram.visible = componentsVisible || totalVisible;
-
-        if ( componentsVisible || totalVisible ) {
-          freeBodyDiagram.children = [ freeBody ].concat( componentsVisible ? [ freeBodyComponents ] : [] )
-            .concat( [ forceGravityArrow, forceGravityLabel ] )
-            .concat( totalVisible ? [ freeBodyTotals ] : [] );
-
-          freeBody.x = viewPosition.x + FREE_BODY_OFFSET.x;
-          freeBody.y = viewPosition.y + FREE_BODY_OFFSET.y;
-
-          if ( componentsVisible ) {
-            xDragForceArrow.setTailAndTip( freeBody.x,
-              freeBody.y,
-              freeBody.x - FORCE_SCALAR * dataPoint.dragForce.x,
-              freeBody.y
-            );
-            xDragForceLabel.right = xDragForceArrow.tipX - 5;
-            xDragForceLabel.y = xDragForceArrow.tipY;
-
-            yDragForceArrow.setTailAndTip( freeBody.x,
-              freeBody.y,
-              freeBody.x,
-              freeBody.y + FORCE_SCALAR * dataPoint.dragForce.y
-            );
-            yDragForceLabel.left = yDragForceArrow.tipX + 5;
-            yDragForceLabel.y = yDragForceArrow.tipY;
-          }
-
-          forceGravityArrow.setTailAndTip( freeBody.x,
-            freeBody.y,
-            freeBody.x,
-            freeBody.y - FORCE_SCALAR * dataPoint.forceGravity
-          );
-          forceGravityLabel.left = forceGravityArrow.tipX + 5;
-          forceGravityLabel.y = forceGravityArrow.tipY;
-
-          if ( totalVisible ) {
-            const xTotalForce = dataPoint.dragForce.x;
-            const yTotalForce = dataPoint.dragForce.y;
-            totalDragForceArrow.setTailAndTip( freeBody.x,
-              freeBody.y,
-              freeBody.x - FORCE_SCALAR * xTotalForce,
-              freeBody.y + FORCE_SCALAR * yTotalForce
-            );
-            totalDragForceLabel.right = totalDragForceArrow.tipX - 5;
-            totalDragForceLabel.bottom = totalDragForceArrow.tipY - 5;
-          }
-
-          forcesBox.setRectBounds( freeBodyDiagram.getChildBounds().dilated( FORCES_BOX_DILATION ) );
         }
       };
 
-      const freeBodyDiagramMultilink = Property.multilink( [
-        vectorVisibilityProperties.componentsForceVectorsOnProperty,
-        vectorVisibilityProperties.totalForceVectorOnProperty,
-        viewPointProperty
-      ], updateFreeBodyDiagram );
+      this.viewPointProperty.link( updateProjectileObjectView );
 
-      viewPointProperty.link( point => {
-        const dragForceExists = point.dataPoint.airDensity > 0;
-        xDragForceLabel.visible = dragForceExists;
-        yDragForceLabel.visible = dragForceExists;
-        totalDragForceLabel.visible = dragForceExists;
-      } );
-
+      // @private
       this.disposeProjectileNode = () => {
-        freeBodyDiagramMultilink.dispose();
-        viewPointProperty.dispose();
-        xDragForceArrow.dispose();
-        yDragForceArrow.dispose();
-        totalDragForceArrow.dispose();
-        forceGravityArrow.dispose();
-        projectileViewLayer.dispose();
-        xDragForceLabel.dispose();
-        yDragForceLabel.dispose();
-        forceGravityLabel.dispose();
-        totalDragForceLabel.dispose();
+        this.viewPointProperty.dispose();
+        this.projectileViewLayer.dispose();
         this.disposeProjectileNodeEmitter.emit();
       };
     }
