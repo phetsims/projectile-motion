@@ -88,7 +88,8 @@ define( require => {
       const numberControlOptions = merge( {
         numberDisplayOptions: {
           valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
-          decimalPlaces: null
+          decimalPlaces: null,
+          maxWidth: textDisplayWidth
         },
         sliderOptions: {
           constrainValue: value => Util.roundToInterval( value, round ), // two decimal place accuracy
@@ -105,21 +106,12 @@ define( require => {
             { value: range.max, label: new Text( range.max, LABEL_OPTIONS ) }
           ]
         },
-
-        // This layout function doesn't display the tweaker buttons
-        layoutFunction: ( titleNode, numberDisplay, slider ) => {
-          return new VBox( {
-            spacing: options.sliderLabelSpacing,
-            children: [
-              new HBox( {
-                spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
-                children: [ titleNode, numberDisplay ]
-              } ),
-              slider
-            ]
-          } );
-        },
-        tandem: tandem
+        excludeTweakers: true,
+        layoutFunction: NumberControl.createLayoutFunction4( {
+          sliderPadding: options.xMargin / 2
+        } ),
+        tandem: tandem,
+        width: options.minWidth - 3 * options.xMargin //  left, right, and sliderPadding *2
       }, {
         numberDisplayOptions: ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS,
         titleNodeOptions: parameterLabelOptions
