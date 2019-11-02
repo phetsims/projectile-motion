@@ -12,19 +12,17 @@ define( require => {
   // modules
   const Dimension2 = require( 'DOT/Dimension2' );
   const HBox = require( 'SCENERY/nodes/HBox' );
-  const HSlider = require( 'SUN/HSlider' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Text = require( 'SCENERY/nodes/Text' );
+  const TweakerlessNumberControl = require( 'PROJECTILE_MOTION/common/view/TweakerlessNumberControl' );
   const Util = require( 'DOT/Util' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -38,7 +36,6 @@ define( require => {
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
-  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
   const DRAG_OBJECT_DISPLAY_DIAMETER = 24;
   const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
@@ -67,82 +64,30 @@ define( require => {
     // The fourth object is options given at time of construction, which overrides all the others
     options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    // local vars used for layout and formatting
-    const textDisplayWidth = options.textDisplayWidth * 1.2;
-    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
-      maxWidth: options.minWidth - 3 * options.xMargin - textDisplayWidth
-    } );
-
-    /**
-     * Auxiliary function that creates vbox for a parameter label and readouts
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Range} range - range for the valueProperty value
-     * @param {Number} round - optional, for minor ticks
-     * @param {Tandem} tandem
-     * @returns {VBox}
-     */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, round, tandem ) {
-
-      // label
-      const parameterLabel = new Text( labelString, parameterLabelOptions, { tandem: tandem.createTandem( 'label' ) } );
-
-      const numberDisplay = new NumberDisplay(
-        valueProperty,
-        range,
-        merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
-          valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
-          decimalPlaces: null,
-          tandem: tandem.createTandem( 'numberDisplay' )
-        } )
-      );
-
-      const slider = new HSlider( valueProperty, range, {
-        constrainValue: function( value ) { return Util.roundToInterval( value, round ); }, // two decimal place accuracy
-        majorTickLength: 12,
-        minorTickLength: 5,
-        tickLabelSpacing: 2,
-        trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 30, 0.5 ),
-        thumbSize: new Dimension2( 13, 22 ),
-        thumbTouchAreaXDilation: 6,
-        thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
-        tandem: tandem.createTandem( 'slider' )
-      } );
-      slider.addMajorTick( range.min, new Text( range.min, LABEL_OPTIONS ) );
-      slider.addMajorTick( range.max, new Text( range.max, LABEL_OPTIONS ) );
-
-      if ( round ) {
-        for ( let i = range.min + round; i < range.max; i += round ) {
-          slider.addMinorTick( i );
-        }
-      }
-
-      const xSpacing = options.minWidth - 2 * options.xMargin - parameterLabel.width - numberDisplay.width;
-      return new VBox( {
-        spacing: options.sliderLabelSpacing, children: [
-          new HBox( { spacing: xSpacing, children: [ parameterLabel, numberDisplay ] } ),
-          slider
-        ]
-      } );
-    }
-
-    const diameterBox = createParameterControlBox(
+    const diameterNumberControl = new TweakerlessNumberControl(
       diameterString,
       mString,
       projectileDiameterProperty,
       selectedObjectTypeProperty.get().diameterRange,
-      selectedObjectTypeProperty.get().diameterRound,
-      tandem.createTandem( 'diameterBox' )
+      selectedObjectTypeProperty.get().diameterRound, {
+        containerWidth: options.minWidth,
+        xMargin: options.xMargin,
+        textDisplayWidth: options.textDisplayWidth,
+        tandem: tandem.createTandem( 'diameterNumberControl' )
+      }
     );
 
-    const massBox = createParameterControlBox(
+    const massNumberControl = new TweakerlessNumberControl(
       massString,
       kgString,
       projectileMassProperty,
       selectedObjectTypeProperty.get().massRange,
-      selectedObjectTypeProperty.get().massRound,
-      tandem.createTandem( 'massBox' )
+      selectedObjectTypeProperty.get().massRound, {
+        containerWidth: options.minWidth,
+        xMargin: options.xMargin,
+        textDisplayWidth: options.textDisplayWidth,
+        tandem: tandem.createTandem( 'massNumberControl' )
+      }
     );
 
     // layout function for altitude NumberControl
@@ -167,7 +112,7 @@ define( require => {
     const defaultNumberControlOptions = {
       numberDisplayOptions: {
         align: 'right',
-        maxWidth: textDisplayWidth + options.readoutXMargin * 2,
+        maxWidth: options.textDisplayWidth * 1.2 + options.readoutXMargin * 2,
         xMargin: READOUT_X_MARGIN,
         yMargin: 4,
         font: TEXT_FONT
@@ -201,6 +146,8 @@ define( require => {
           constrainValue: value => Util.roundToInterval( value, 100 )
         },
         delta: 100,
+
+        // TODO: does this need a custom layout function?
         layoutFunction: altitudeLayoutFunction,
         tandem: tandem.createTandem( 'altitudeNumberControl' )
       } )
@@ -264,8 +211,8 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         dragCoefficientBox,
-        diameterBox,
-        massBox,
+        diameterNumberControl,
+        massNumberControl,
         altitudeBox
       ]
     } );
