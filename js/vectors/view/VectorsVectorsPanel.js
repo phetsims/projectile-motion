@@ -73,51 +73,40 @@ define( require => {
       tandem: tandem.createTandem( 'totalOrComponentsRadioButtonGroup' )
     } );
 
-    // checkbox texts
     const velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );
-    const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
-    const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
-
-    // plus a bit of margin
-    const largestLabelWidth = Math.max( velocityLabel.width, accelerationLabel.width, forceLabel.width ) + options.xMargin;
-
-    const velocityLabelAndIcon = new HBox( {
-      spacing: largestLabelWidth - velocityLabel.width,
+    const velocityCheckboxContent = new HBox( {
+      spacing: options.xMargin,
       children: [
         velocityLabel,
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
+    const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty,
+      merge( { tandem: tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
+    );
 
-    const accelerationLabelAndIcon = new HBox( {
-      spacing: largestLabelWidth - accelerationLabel.width,
+    const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
+    const accelerationCheckboxContent = new HBox( {
+      spacing: options.xMargin,
       children: [
         accelerationLabel,
         new Node( { children: [ ACCELERATION_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
+    const accelerationCheckbox = new Checkbox( accelerationCheckboxContent,
+      vectorVisibilityProperties.accelerationVectorsOnProperty,
+      merge( { tandem: tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
+    );
 
-    const forceLabelAndIcon = new HBox( {
-      spacing: largestLabelWidth - forceLabel.width,
+    const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
+    const forceCheckboxContent = new HBox( {
+      spacing: options.xMargin,
       children: [
         forceLabel,
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-
-    const velocityCheckbox = new Checkbox(
-      velocityLabelAndIcon,
-      vectorVisibilityProperties.velocityVectorsOnProperty,
-      merge( { tandem: tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
-    );
-
-    const accelerationCheckbox = new Checkbox(
-      accelerationLabelAndIcon,
-      vectorVisibilityProperties.accelerationVectorsOnProperty,
-      merge( { tandem: tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
-    );
-
-    const forceCheckbox = new Checkbox( forceLabelAndIcon, vectorVisibilityProperties.forceVectorsOnProperty,
+    const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty,
       merge( { tandem: tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
     );
 

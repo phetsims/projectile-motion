@@ -73,32 +73,26 @@ define( require => {
     } );
 
     const velocityLabel = new Text( velocityVectorsString, titleOptions );
-    const forceLabel = new Text( forceVectorsString, titleOptions );
-
-    // calculate the max width of the largest text, and add some margin
-    const largestLabelWidth = Math.max( velocityLabel.width, forceLabel.width ) + options.xMargin;
-
-    // apply space based on the largest text, to align all icons
-    const velocityLabelAndIcon = new HBox( {
-      spacing: largestLabelWidth - velocityLabel.width,
+    const velocityCheckboxContent = new HBox( {
+      spacing: options.xMargin,
       children: [
         velocityLabel,
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceLabelAndIcon = new HBox( {
-      spacing: largestLabelWidth - forceLabel.width,
+    const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
+      tandem: tandem.createTandem( 'velocityCheckbox' )
+    }, checkboxOptions ) );
+
+    const forceLabel = new Text( forceVectorsString, titleOptions );
+    const forceCheckboxContent = new HBox( {
+      spacing: options.xMargin,
       children: [
         forceLabel,
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-
-    const velocityCheckbox = new Checkbox( velocityLabelAndIcon, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
-      tandem: tandem.createTandem( 'velocityCheckbox' )
-    }, checkboxOptions ) );
-
-    const forceCheckbox = new Checkbox( forceLabelAndIcon, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
+    const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
       tandem: tandem.createTandem( 'forceCheckbox' )
     }, checkboxOptions ) );
 
