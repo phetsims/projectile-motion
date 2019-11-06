@@ -12,6 +12,7 @@ define( require => {
   // modules
   const ArrowNode = require( 'SCENERY_PHET/ArrowNode' );
   const Color = require( 'SCENERY/util/Color' );
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Image = require( 'SCENERY/nodes/Image' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
@@ -26,7 +27,6 @@ define( require => {
   const Range = require( 'DOT/Range' );
   const Rectangle = require( 'SCENERY/nodes/Rectangle' );
   const Shape = require( 'KITE/Shape' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
@@ -441,7 +441,7 @@ define( require => {
     let startHeight;
 
     // drag the tip of the cannon to change angle
-    cannonBarrelTop.addInputListener( new SimpleDragHandler( {
+    cannonBarrelTop.addInputListener( new DragListener( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point ); // TODO: cannonBarrelTop is not in screenView coords
         startAngle = angleProperty.get(); // degrees
@@ -489,7 +489,7 @@ define( require => {
     } ) );
 
     // drag handler for controlling the height
-    const heightDragHandler = new SimpleDragHandler( {
+    const heightDragHandler = new DragListener( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units

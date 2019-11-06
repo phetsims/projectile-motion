@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
@@ -18,7 +19,6 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ScreenView = require( 'JOIST/ScreenView' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
 
@@ -80,7 +80,7 @@ define( require => {
     } );
 
     // When pressed, forwards dragging to the actual tracer Node
-    tracerIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
+    tracerIconNode.addInputListener( DragListener.createForwardingListener( function( event ) {
 
       tracer.isActiveProperty.set( true );
 
@@ -98,7 +98,7 @@ define( require => {
 
     // listens to the isUserControlled Property of the measuring tape
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
-    measuringTapeNode.isBaseUserControlledProperty.lazyLink( function( isUserControlled ) {
+    measuringTapeNode.isBaseUserControlledProperty.lazyLink( isUserControlled => {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );
       assert && assert( measuringTapeNode.parent === self.parent );
 
@@ -113,7 +113,7 @@ define( require => {
     const tipToBasePosition = measuringTape.tipPositionProperty.get().minus( measuringTape.basePositionProperty.get() );
 
     // Add the listener that will allow the user to click on this and forward the dragging to the actual measuring tape node
-    measuringTapeIconNode.addInputListener( SimpleDragHandler.createForwardingListener( function( event ) {
+    measuringTapeIconNode.addInputListener( DragListener.createForwardingListener( event => {
 
       measuringTape.isActiveProperty.set( true );
 

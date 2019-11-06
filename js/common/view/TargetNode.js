@@ -12,6 +12,7 @@ define( require => {
   // modules
   const Animation = require( 'TWIXT/Animation' );
   const Circle = require( 'SCENERY/nodes/Circle' );
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const Easing = require( 'TWIXT/Easing' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
@@ -20,7 +21,6 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Range = require( 'DOT/Range' );
-  const SimpleDragHandler = require( 'SCENERY/input/SimpleDragHandler' );
   const StarNode = require( 'SCENERY_PHET/StarNode' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -103,7 +103,7 @@ define( require => {
     let startPoint;
     let startX;
     let mousePoint;
-    const horizontalDragHandler = new SimpleDragHandler( {
+    const horizontalDragHandler = new DragListener( {
       start: function( event ) {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = target.centerX; // view units
