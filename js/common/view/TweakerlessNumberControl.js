@@ -71,7 +71,7 @@ define( require => {
             { value: range.max, label: new Text( range.max, LABEL_OPTIONS ) }
           ]
         },
-        excludeTweakers: true,
+        includeArrowButtons: false,
         layoutFunction: NumberControl.createLayoutFunction4( {
           sliderPadding: options.xMargin / 2
         } ),
