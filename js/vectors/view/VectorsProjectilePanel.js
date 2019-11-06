@@ -21,7 +21,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const TweakerlessNumberControl = require( 'PROJECTILE_MOTION/common/view/TweakerlessNumberControl' );
+  const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
   const Util = require( 'DOT/Util' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -78,7 +78,7 @@ define( require => {
 
     const selectedObjectType = selectedObjectTypeProperty.get();
 
-    const diameterNumberControl = new TweakerlessNumberControl(
+    const diameterNumberControl = new ArrowlessNumberControl(
       diameterString,
       mString,
       projectileDiameterProperty,
@@ -91,7 +91,7 @@ define( require => {
       }
     );
 
-    const massNumberControl = new TweakerlessNumberControl(
+    const massNumberControl = new ArrowlessNumberControl(
       massString,
       kgString,
       projectileMassProperty,

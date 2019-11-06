@@ -22,7 +22,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const TweakerlessNumberControl = require( 'PROJECTILE_MOTION/common/view/TweakerlessNumberControl' );
+  const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
   const Util = require( 'DOT/Util' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -64,7 +64,7 @@ define( require => {
     // The fourth object is options given at time of construction, which overrides all the others
     options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
 
-    const diameterNumberControl = new TweakerlessNumberControl(
+    const diameterNumberControl = new ArrowlessNumberControl(
       diameterString,
       mString,
       projectileDiameterProperty,
@@ -77,7 +77,7 @@ define( require => {
       }
     );
 
-    const massNumberControl = new TweakerlessNumberControl(
+    const massNumberControl = new ArrowlessNumberControl(
       massString,
       kgString,
       projectileMassProperty,

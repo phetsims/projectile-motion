@@ -24,7 +24,7 @@ define( require => {
   // constants
   const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
-  class TweakerlessNumberControl extends NumberControl {
+  class ArrowlessNumberControl extends NumberControl {
 
     /**
      * Auxiliary function that creates a NumberControl
@@ -85,6 +85,6 @@ define( require => {
     }
   }
 
-  return projectileMotion.register( 'TweakerlessNumberControl', TweakerlessNumberControl );
+  return projectileMotion.register( 'ArrowlessNumberControl', ArrowlessNumberControl );
 } );
 
