@@ -33,7 +33,6 @@ define( require => {
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
      * @param {Number} round - for minor ticks
-     * @param {Tandem} tandem
      * @param {Object} [options]
      * @returns {VBox}
      */
@@ -51,6 +50,9 @@ define( require => {
       } );
 
       options = merge( {
+        numberDisplayOptions: merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS ), // we don't own this constant
+        titleNodeOptions: parameterLabelOptions
+      }, {
         numberDisplayOptions: {
           valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
           decimalPlaces: null,
@@ -74,11 +76,7 @@ define( require => {
         includeArrowButtons: false,
         layoutFunction: NumberControl.createLayoutFunction4( {
           sliderPadding: options.xMargin / 2
-        } ),
-        width: options.containerWidth - 3 * options.xMargin //  left, right, and sliderPadding *2
-      }, {
-        numberDisplayOptions: ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS,
-        titleNodeOptions: parameterLabelOptions
+        } )
       }, options );
 
       super( labelString, valueProperty, range, options );
