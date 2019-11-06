@@ -138,7 +138,11 @@ define( require => {
     clipContainer.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
-    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
+    const cannonBarrelTop = new Image( cannonBarrelTopImage, {
+      centerY: 0,
+      opacity: 0,
+      cursor: 'pointer'
+    } );
     const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
@@ -181,7 +185,6 @@ define( require => {
         doubleHead: true
       }
     );
-
 
     // draw the line caps for the height leader line
 
