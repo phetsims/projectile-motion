@@ -121,7 +121,7 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: options.tandem.createTandem( 'dragHandler' )
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
 
     // drag target to change horizontal position

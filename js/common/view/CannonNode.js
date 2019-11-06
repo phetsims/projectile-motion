@@ -487,7 +487,7 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'barrelTopDragHandler' )
+      tandem: tandem.createTandem( 'barrelTopDragListener' )
 
     } ) );
 
@@ -523,7 +523,7 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'heightDragHandler' )
+      tandem: tandem.createTandem( 'heightDragListener' )
     } );
 
     // multiple parts of the cannon can be dragged to change height
