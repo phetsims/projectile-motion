@@ -133,16 +133,13 @@ define( require => {
     // cannon
     const cannonBarrel = new Node( {
       x: viewOrgin.x,
-      y: viewOrgin.y
+      y: viewOrgin.y,
+      cursor: 'pointer'
     } );
     clipContainer.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
-    const cannonBarrelTop = new Image( cannonBarrelTopImage, {
-      centerY: 0,
-      opacity: 0,
-      cursor: 'pointer'
-    } );
+    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
     const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
@@ -150,7 +147,8 @@ define( require => {
 
     const cannonBase = new Node( {
       x: viewOrgin.x,
-      y: viewOrgin.y
+      y: viewOrgin.y,
+      cursor: 'pointer'
     } );
     clipContainer.addChild( cannonBase );
 
@@ -440,25 +438,25 @@ define( require => {
     // @private variables used for drag handlers
     let startPoint;
     let startAngle;
+    let startPointAngle;
     let mousePoint;
     let startHeight;
 
     // drag the tip of the cannon to change angle
     cannonBarrelTop.addInputListener( new DragListener( {
-      start: function( event ) {
-        startPoint = screenView.globalToLocalPoint( event.pointer.point ); // TODO: cannonBarrelTop is not in screenView coords
+      start: event => {
+        startPoint = this.globalToLocalPoint( event.pointer.point );
         startAngle = angleProperty.get(); // degrees
-      },
-
-      drag: function( event ) {
-        mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        // TODO: can this be factored out to once per drag?
-        const startPointAngle = Vector2.createFromPool(
+        startPointAngle = Vector2.createFromPool(
           startPoint.x - cannonBase.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
+      },
+      drag: event => {
+        mousePoint = this.globalToLocalPoint( event.pointer.point );
+
         const mousePointAngle = Vector2.createFromPool(
           mousePoint.x - cannonBase.x,
           mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
@@ -475,10 +473,12 @@ define( require => {
           const delta = options.preciseCannonDelta ? 1 : 5;
           angleProperty.set( Util.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
+
         // the current, unchanged, angle is closer to max than min
         else if ( angleRange.max + angleRange.min < 2 * angleProperty.get() ) {
           angleProperty.set( angleRange.max );
         }
+
         // the current, unchanged, angle is closer or same distance to min than max
         else {
           angleProperty.set( angleRange.min );
@@ -488,18 +488,17 @@ define( require => {
 
       allowTouchSnag: true,
       tandem: tandem.createTandem( 'barrelTopDragListener' )
-
     } ) );
 
     // drag handler for controlling the height
     const heightDragHandler = new DragListener( {
-      start: function( event ) {
-        startPoint = screenView.globalToLocalPoint( event.pointer.point );
+      start: event => {
+        startPoint = this.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
       },
 
-      drag: function( event ) {
-        mousePoint = screenView.globalToLocalPoint( event.pointer.point );
+      drag: event => {
+        mousePoint = this.globalToLocalPoint( event.pointer.point );
         const heightChange = mousePoint.y - startPoint.y;
 
         const unboundedNewHeight = transformProperty.get().viewToModelY( startHeight + heightChange );
