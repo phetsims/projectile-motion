@@ -54,7 +54,7 @@ define( require => {
     } );
     const velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
     const velocityTitleBox = new HBox( {
-      spacing: options.minWidth - velocityVectorsTitle.width - VELOCITY_VECTOR_ICON.width - 2 * options.xMargin,
+      spacing: options.xMargin,
       children: [
         velocityVectorsTitle,
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } )
@@ -79,7 +79,7 @@ define( require => {
 
     const accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
     const accelerationTitleBox = new HBox( {
-      spacing: options.minWidth - accelerationVectorsTitle.width - ACCELERATION_VECTOR_ICON.width - 2 * options.xMargin,
+      spacing: options.xMargin,
       children: [
         accelerationVectorsTitle,
         new Node( { children: [ ACCELERATION_VECTOR_ICON ] } )
