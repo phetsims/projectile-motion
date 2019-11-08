@@ -262,7 +262,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
       "phetioEventType": "MODEL",
@@ -9817,7 +9817,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
       "phetioEventType": "MODEL",
@@ -14614,7 +14614,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
       "phetioEventType": "MODEL",
@@ -35895,7 +35895,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
       "phetioEventType": "MODEL",
