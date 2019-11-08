@@ -57,8 +57,8 @@ define( require => {
     // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
 
-    // local var to improve readability
-    const targetXProperty = score.targetXProperty;
+    // @private - local var to improve readability
+    this.targetXProperty = score.targetXProperty;
 
     // red and white circles of the target
     const outerCircle = new Circle( 1, {
@@ -94,7 +94,7 @@ define( require => {
     target.setScaleMagnitude( viewRadius, targetHeightInView );
 
     // center on model's targetXProperty
-    target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( score.targetXProperty.get(), 0 ) );
+    target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
 
     // add target to scene graph
     this.addChild( target );
@@ -104,20 +104,19 @@ define( require => {
     let startX;
     let mousePoint;
     const horizontalDragHandler = new DragListener( {
-      start: function( event ) {
+      start: event => {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = target.centerX; // view units
       },
 
-      drag: function( event ) {
+      drag: event => {
         mousePoint = screenView.globalToLocalPoint( event.pointer.point );
 
         // change in x, view units
         const xChange = mousePoint.x - startPoint.x;
 
-        targetXProperty.set( Util.roundSymmetric( transformProperty.get().viewToModelX(
-          Util.clamp( startX + xChange, screenView.layoutBounds.minX, screenView.layoutBounds.maxX )
-        ) * 10 ) / 10 );
+        const newTargetX = Util.roundSymmetric( transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
+        this.targetXProperty.set( Util.clamp( newTargetX, this.targetXProperty.range.value.min, this.targetXProperty.range.value.max ) );
       },
 
       allowTouchSnag: true,
@@ -127,14 +126,14 @@ define( require => {
     // drag target to change horizontal position
     target.addInputListener( horizontalDragHandler );
 
+    // update the range based on the current transform
+    this.updateTargetXRange( transformProperty.get(), true ); // overwrite initial value this first time.
+
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
     const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
     const distanceLabel = new NumberDisplay(
-      targetXProperty,
-      new Range(
-        transformProperty.get().viewToModelX( screenView.layoutBounds.minX ),
-        transformProperty.get().viewToModelX( screenView.layoutBounds.maxX )
-      ),
+      this.targetXProperty,
+      this.targetXProperty.range.value,
       merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
           numberFill: 'black',
           valuePattern: distancePattern,
@@ -221,13 +220,14 @@ define( require => {
       } );
     };
 
-    targetXProperty.link( updateHorizontalPosition );
+    this.targetXProperty.link( updateHorizontalPosition );
 
     // Observe changes in the modelViewTransform and update the view
-    transformProperty.link( function( transform ) {
+    transformProperty.link( transform => {
+      this.updateTargetXRange( transform );
       const viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       target.setScaleMagnitude( viewRadius, targetHeightInView );
-      updateHorizontalPosition( targetXProperty.get() );
+      updateHorizontalPosition( this.targetXProperty.get() );
     } );
 
     // The node lasts for the lifetime of the sim, so its links/references don't need to be disposed
@@ -237,6 +237,24 @@ define( require => {
   projectileMotion.register( 'TargetNode', TargetNode );
 
   return inherit( Node, TargetNode, {
+
+    /**
+     * @private
+     * @param {ModelViewTransform2} transform
+     */
+    updateTargetXRange: function( transform, updateInitialValue = false ) {
+
+      const newRange = new Range(
+        transform.viewToModelX( this.screenView.layoutBounds.minX ),
+        transform.viewToModelX( this.screenView.layoutBounds.maxX )
+      );
+      this.targetXProperty.set( Util.clamp( this.targetXProperty.value, newRange.min, newRange.max ) );
+      this.targetXProperty.range.value = newRange;
+
+      if ( updateInitialValue ) {
+        this.targetXProperty.range.setInitialValue( newRange );
+      }
+    },
 
     /**
      * Remove animations

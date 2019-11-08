@@ -261,6 +261,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
+    "projectileMotion.dragScreen.model.score.targetXRangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<RangeIO>"
+    },
     "projectileMotion.dragScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -9803,6 +9816,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
+    "projectileMotion.introScreen.model.score.targetXRangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<RangeIO>"
+    },
     "projectileMotion.introScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -14586,6 +14612,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.model.score.targetXRangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.labScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "",
@@ -35854,6 +35893,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.vectorsScreen.model.score.targetXRangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.vectorsScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "",
