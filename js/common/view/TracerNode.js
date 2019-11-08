@@ -12,11 +12,11 @@ define( require => {
   const BooleanProperty = require( 'AXON/BooleanProperty' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const Circle = require( 'SCENERY/nodes/Circle' );
+  const DragListener = require( 'SCENERY/listeners/DragListener' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const inherit = require( 'PHET_CORE/inherit' );
   const MathSymbols = require( 'SCENERY_PHET/MathSymbols' );
   const merge = require( 'PHET_CORE/merge' );
-  const MovableDragHandler = require( 'SCENERY_PHET/input/MovableDragHandler' );
   const Node = require( 'SCENERY/nodes/Node' );
   const Path = require( 'SCENERY/nodes/Path' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -76,6 +76,9 @@ define( require => {
   const TRACER_CONTENT_WIDTH = 155;
   const RIGHT_SIDE_PADDING = 6;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
+
+  // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
+  const DRAG_OFFSET = new Vector2( -180, 0 );
 
   /**
    * @param {Score} tracer - model of the tracer tool
@@ -146,17 +149,18 @@ define( require => {
       { fill: 'gray' }
     );
 
+    const dragBoundsProperty = new Property( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
+
     // @public so events can be forwarded to it by ToolboxPanel
-    this.movableDragHandler = new MovableDragHandler( tracer.positionProperty, {
+    this.dragListener = new DragListener( {
+      locationProperty: tracer.positionProperty,
       modelViewTransform: transformProperty.get(),
-      dragBounds: screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ),
-      startDrag: function( event ) {
-        self.isUserControlledProperty.set( true );
-      },
-      endDrag: function() {
-        self.isUserControlledProperty.set( false );
-      },
-      tandem: options.tandem.createTandem( 'dragHandler' )
+      dragBoundsProperty: dragBoundsProperty,
+      offsetLocation: () => DRAG_OFFSET,
+      applyOffset: false, // ignore where the pointer pressed in relation to the TracerNode origin
+      start: () => self.isUserControlledProperty.set( true ),
+      end: () => self.isUserControlledProperty.set( false ),
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
 
     // label and values readouts
@@ -244,14 +248,14 @@ define( require => {
 
     // Observe changes in the modelViewTransform and update/adjust positions accordingly
     transformProperty.link( function( transform ) {
-      self.movableDragHandler.setModelViewTransform( transform );
-      self.movableDragHandler.setDragBounds( transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
+      self.dragListener.transform = transform;
+      dragBoundsProperty.value =  transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
     // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
     screenView.visibleBoundsProperty.link( function( bounds ) {
-      self.movableDragHandler.setDragBounds( transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) ) );
+      dragBoundsProperty.value = transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
       updatePosition( tracer.positionProperty.get() );
     } );
 
@@ -275,7 +279,7 @@ define( require => {
     Node.call( this, options );
 
     // When dragging, move the tracer tool
-    this.addInputListener( this.movableDragHandler );
+    this.addInputListener( this.dragListener );
 
     // visibility of the tracer
     tracer.isActiveProperty.link( function( active ) {

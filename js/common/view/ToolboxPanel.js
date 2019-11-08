@@ -80,15 +80,9 @@ define( require => {
     } );
 
     // When pressed, forwards dragging to the actual tracer Node
-    tracerIconNode.addInputListener( DragListener.createForwardingListener( function( event ) {
-
+    tracerIconNode.addInputListener( DragListener.createForwardingListener( event => {
       tracer.isActiveProperty.set( true );
-
-      // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-      const initialViewPosition = tracerNode.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
-      tracer.positionProperty.set( transformProperty.get().viewToModelPosition( initialViewPosition ) );
-      tracerNode.movableDragHandler.startDrag( event );
-
+      tracerNode.dragListener.press( event, tracerNode );
     }, { allowTouchSnag: true } ) );
 
     // tracer visibility has the opposite visibility of the tracerIcon
