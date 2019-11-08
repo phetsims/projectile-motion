@@ -25,7 +25,7 @@ define( require => {
   function VectorsScreenView( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorsVectorVisibilityProperties( tandem.createTandem( 'visibilityProperties' ) );
+    const visibilityProperties = new VectorsVectorVisibilityProperties( tandem.createTandem( 'vectorVisibilityProperties' ) );
 
     ProjectileMotionScreenView.call(
       this,

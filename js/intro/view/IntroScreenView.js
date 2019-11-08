@@ -26,7 +26,7 @@ define( require => {
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new VectorVisibilityProperties( {
-      tandem: tandem.createTandem( 'visibilityProperties' ),
+      tandem: tandem.createTandem( 'vectorVisibilityProperties' ),
       forceProperties: false
     } );
 
