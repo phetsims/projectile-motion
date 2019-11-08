@@ -287,7 +287,7 @@ define( require => {
 
       const xSpacing = this.options.minWidth - 2 * this.options.xMargin - parameterLabel.width - valueNode.width;
 
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ] } );
+      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ], tandem: tandem } );
     },
 
     /**
