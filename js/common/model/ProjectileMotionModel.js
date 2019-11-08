@@ -289,7 +289,7 @@ define( require => {
     limitTrajectories: function() {
       const numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
       for ( let i = 0; i < numberToRemove; i++ ) {
-        this.trajectories.disposeGroupMember( this.trajectories.get( 0 ) );
+        this.trajectories.disposeMember( this.trajectories.get( 0 ) );
       }
     },
 
@@ -313,7 +313,7 @@ define( require => {
       const newTrajectory = this.trajectories.createNextMember( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
         lastTrajectory.addProjectileObject();
-        this.trajectories.disposeGroupMember( newTrajectory );
+        this.trajectories.disposeMember( newTrajectory );
       }
       else {
         this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
