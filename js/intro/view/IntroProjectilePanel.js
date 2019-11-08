@@ -135,12 +135,15 @@ define( require => {
      * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty, tandem ) {
-      const parameterLabel = new Text( '', parameterLabelOptions );
+    function createReadout( labelString, unitsString, valueProperty, tandem ) {
+      const parameterLabel = new Text( '', merge( {
+        phetioReadOnly: true,
+        tandem: tandem
+      }, parameterLabelOptions ) );
 
       parameterLabel.setBoundsMethod( 'accurate' );
 
-      valueProperty.link( function( value ) {
+      valueProperty.link( value => {
         const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
@@ -150,30 +153,29 @@ define( require => {
 
       return new VBox( {
         align: 'left',
-        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ],
-        tandem: tandem // TODO: I'm not sure about this one, https://github.com/phetsims/projectile-motion/issues/177
+        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ]
       } );
     }
 
-    const massBox = createParameterControlBox(
+    const massReadout = createReadout(
       massString,
       kgString,
       projectileMassProperty,
-      tandem.createTandem( 'massControlBox' )
+      tandem.createTandem( 'massReadout' )
     );
 
-    const diameterBox = createParameterControlBox(
+    const diameterReadout = createReadout(
       diameterString,
       mString,
       projectileDiameterProperty,
-      tandem.createTandem( 'diameterControlBox' )
+      tandem.createTandem( 'diameterReadout' )
     );
 
-    const dragCoefficientBox = createParameterControlBox(
+    const dragCoefficientReadout = createReadout(
       dragCoefficientString,
       null,
       projectileDragCoefficientProperty,
-      tandem.createTandem( 'dragCoefficientControlBox' )
+      tandem.createTandem( 'dragCoefficientReadout' )
     );
 
     // air resistance
@@ -191,10 +193,7 @@ define( require => {
     } );
 
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
-    airResistanceOnProperty.link( function( airResistanceOn ) {
-      const opacity = airResistanceOn ? 1 : 0.5;
-      dragCoefficientBox.setOpacity( opacity );
-    } );
+    airResistanceOnProperty.link( airResistanceOn => dragCoefficientReadout.setOpacity( airResistanceOn ? 1 : 0.5 ) );
 
     // The contents of the control panel
     const content = new VBox( {
@@ -202,11 +201,11 @@ define( require => {
       spacing: options.controlsVerticalSpace,
       children: [
         projectileChoiceComboBox,
-        massBox,
-        diameterBox,
+        massReadout,
+        diameterReadout,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
         airResistanceCheckbox,
-        dragCoefficientBox
+        dragCoefficientReadout
       ]
     } );
 
