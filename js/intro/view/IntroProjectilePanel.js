@@ -137,8 +137,8 @@ define( require => {
      */
     function createReadout( labelString, unitsString, valueProperty, tandem ) {
       const parameterLabel = new Text( '', merge( {
-        phetioReadOnly: true,
-        tandem: tandem
+        tandem: tandem,
+        phetioComponentOptions: { textProperty: { phetioReadOnly: true } }
       }, parameterLabelOptions ) );
 
       parameterLabel.setBoundsMethod( 'accurate' );

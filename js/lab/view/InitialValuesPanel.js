@@ -41,10 +41,11 @@ define( require => {
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
    * @param {Property.<number>} initialSpeedProperty - velocity of next projectile to be fired
+   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, options ) {
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, tandem, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -62,11 +63,15 @@ define( require => {
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
      * @param {Range} range - range for the valueProperty value
+     * @param {Tandem} tandem
      * @param {string} [degreeString] - just for the angle
      * @returns {VBox}
      */
-    function createParameterControlBox( labelString, unitsString, valueProperty, range, degreeString ) {
-      const parameterLabel = new Text( '', parameterLabelOptions );
+    function createReadout( labelString, unitsString, valueProperty, range, tandem, degreeString ) {
+      const parameterLabel = new Text( '', merge( {}, parameterLabelOptions, {
+        tandem: tandem,
+        phetioComponentOptions: { textProperty: { phetioReadOnly: true } }
+      } ) );
 
       valueProperty.link( function( value ) {
         const valueReadout = degreeString ?
@@ -87,26 +92,29 @@ define( require => {
       } );
     }
 
-    const heightBox = createParameterControlBox(
+    const heightReadout = createReadout(
       heightString,
       mString,
       cannonHeightProperty,
-      ProjectileMotionConstants.CANNON_HEIGHT_RANGE
+      ProjectileMotionConstants.CANNON_HEIGHT_RANGE,
+      tandem.createTandem( 'heightReadout' )
     );
 
-    const angleBox = createParameterControlBox(
+    const angleReadout = createReadout(
       angleString,
       null,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE,
+      tandem.createTandem( 'angleReadout' ),
       DEGREES
     );
 
-    const velocityBox = createParameterControlBox(
+    const velocityReadout = createReadout(
       speedString,
       metersPerSecondString,
       initialSpeedProperty,
-      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE,
+      tandem.createTandem( 'velocityReadout' )
     );
 
     // contents of the panel
@@ -114,9 +122,9 @@ define( require => {
       align: 'left',
       spacing: options.controlsVerticalSpace / 3,
       children: [
-        heightBox,
-        angleBox,
-        velocityBox
+        heightReadout,
+        angleReadout,
+        velocityReadout
       ]
     } );
 

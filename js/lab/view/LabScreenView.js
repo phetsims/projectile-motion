@@ -50,7 +50,8 @@ define( require => {
       new InitialValuesPanel(
         model.cannonHeightProperty,
         model.cannonAngleProperty,
-        model.initialSpeedProperty
+        model.initialSpeedProperty,
+        tandem.createTandem( 'initialValuesPanel' )
       ),
       labProjectilePanel,
       visibilityProperties,

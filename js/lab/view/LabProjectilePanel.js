@@ -229,7 +229,7 @@ define( require => {
      * @param {Tandem} tandem
      * @returns {VBox}
      */
-    createCustomParameterControlBox: function( labelString, unitsString, valueProperty, range, tandem ) {
+    createCustomControl: function( labelString, unitsString, valueProperty, range, tandem ) {
 
       // label
       const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, LABEL_OPTIONS ) );
@@ -298,7 +298,7 @@ define( require => {
     createControlsForCustomObjectType: function( objectType, tandem ) {
 
       // mass
-      const massControl = this.createCustomParameterControlBox(
+      const massControl = this.createCustomControl(
         massString,
         kgString,
         this.model.projectileMassProperty,
@@ -307,7 +307,7 @@ define( require => {
       );
 
       // diameter
-      const diameterControl = this.createCustomParameterControlBox(
+      const diameterControl = this.createCustomControl(
         diameterString,
         mString,
         this.model.projectileDiameterProperty,
@@ -316,7 +316,7 @@ define( require => {
       );
 
       // gravity
-      const gravityControl = this.createCustomParameterControlBox(
+      const gravityControl = this.createCustomControl(
         gravityString,
         metersPerSecondSquaredString,
         this.model.gravityProperty,
@@ -325,7 +325,7 @@ define( require => {
       );
 
       // altitude
-      const altitudeControl = this.createCustomParameterControlBox(
+      const altitudeControl = this.createCustomControl(
         altitudeString,
         mString,
         this.model.altitudeProperty,
@@ -334,7 +334,7 @@ define( require => {
       );
 
       // dragCoefficient
-      const dragCoefficientControl = this.createCustomParameterControlBox(
+      const dragCoefficientControl = this.createCustomControl(
         dragCoefficientString,
         null,
         this.model.projectileDragCoefficientProperty,
