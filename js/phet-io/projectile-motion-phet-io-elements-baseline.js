@@ -326,7 +326,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
-    "projectileMotion.dragScreen.model.trajectories": {
+    "projectileMotion.dragScreen.model.trajectoryGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -339,7 +339,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.dragScreen.model.trajectories.prototype": {
+    "projectileMotion.dragScreen.model.trajectoryGroup.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,
@@ -9855,7 +9855,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
-    "projectileMotion.introScreen.model.trajectories": {
+    "projectileMotion.introScreen.model.trajectoryGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -9868,7 +9868,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.introScreen.model.trajectories.prototype": {
+    "projectileMotion.introScreen.model.trajectoryGroup.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,
@@ -14665,7 +14665,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
-    "projectileMotion.labScreen.model.trajectories": {
+    "projectileMotion.labScreen.model.trajectoryGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -14678,7 +14678,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.labScreen.model.trajectories.prototype": {
+    "projectileMotion.labScreen.model.trajectoryGroup.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,
@@ -36375,7 +36375,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
-    "projectileMotion.vectorsScreen.model.trajectories": {
+    "projectileMotion.vectorsScreen.model.trajectoryGroup": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -36388,7 +36388,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PhetioGroupIO<TrajectoryIO>"
     },
-    "projectileMotion.vectorsScreen.model.trajectories.prototype": {
+    "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": true,

@@ -172,7 +172,7 @@ define( require => {
 
     // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
-    this.trajectories = Trajectory.createGroup( this, tandem.createTandem( 'trajectories' ) );
+    this.trajectories = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
     // @public {Tracer} model for the tracer probe
     this.tracer = new Tracer( this.trajectories, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
