@@ -27,6 +27,8 @@ define( require => {
   } );
   const SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
 
+  const TEXT_DISPLAY_WIDTH = 50;
+
   const ProjectileMotionConstants = {
 
     // screen view layout
@@ -125,7 +127,8 @@ define( require => {
       fill: 'rgb( 255, 238, 218 )',
       lineWidth: 1,
       stroke: 'black',
-      textDisplayWidth: 50,
+      textDisplayWidth: TEXT_DISPLAY_WIDTH,
+      numberControlTextDisplayWidth: TEXT_DISPLAY_WIDTH * 1.2,
       textDisplayHeight: 24,
       readoutXMargin: 7,
       sliderLabelSpacing: 6

@@ -19,10 +19,8 @@ define( require => {
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
 
+  // strings
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
-
-  // constants
-  const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
   class ArrowlessNumberControl extends NumberControl {
 
@@ -37,27 +35,27 @@ define( require => {
      * @returns {VBox}
      */
     constructor( labelString, unitsString, valueProperty, range, round, options ) {
+
+      // options used to compute other option values
       options = merge( {
         containerWidth: 200,
-        textDisplayWidth: 20,
+        numberDisplayMaxWidth: 50, // this is a separate option as it is used to compute other components' maxWidth.
         xMargin: 8
       }, options );
 
-      // local vars used for layout and formatting
-      const textDisplayWidth = options.textDisplayWidth * 1.2;
-      const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
-        maxWidth: options.containerWidth - 3 * options.xMargin - textDisplayWidth
-      } );
+      // compute maxWidth for subcomponents
+      const titleMaxWidth = options.containerWidth - 3 * options.xMargin - options.numberDisplayMaxWidth;
 
+      // now specify the rest of the options
       options = merge( {
-        numberDisplayOptions: merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS ), // we don't own this constant
-        titleNodeOptions: parameterLabelOptions
-      }, {
-        numberDisplayOptions: {
+        titleNodeOptions: merge( {}, ProjectileMotionConstants.PANEL_LABEL_OPTIONS, {
+          maxWidth: titleMaxWidth
+        } ),
+        numberDisplayOptions: merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
           valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
           decimalPlaces: null,
-          maxWidth: textDisplayWidth
-        },
+          maxWidth: options.numberDisplayMaxWidth
+        } ),
         sliderOptions: {
           constrainValue: value => Util.roundToInterval( value, round ), // two decimal place accuracy
           majorTickLength: 12,
@@ -69,8 +67,8 @@ define( require => {
           thumbTouchAreaXDilation: 6,
           thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
           majorTicks: [
-            { value: range.min, label: new Text( range.min, LABEL_OPTIONS ) },
-            { value: range.max, label: new Text( range.max, LABEL_OPTIONS ) }
+            { value: range.min, label: new Text( range.min, ProjectileMotionConstants.PANEL_LABEL_OPTIONS ) },
+            { value: range.max, label: new Text( range.max, ProjectileMotionConstants.PANEL_LABEL_OPTIONS ) }
           ]
         },
         includeArrowButtons: false,
@@ -85,4 +83,3 @@ define( require => {
 
   return projectileMotion.register( 'ArrowlessNumberControl', ArrowlessNumberControl );
 } );
-
