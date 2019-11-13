@@ -36,6 +36,7 @@ define( require => {
       options = merge( {
         tandem: Tandem.required,
         phetioDynamicElement: true,
+        phetioType: TrajectoryIO,
         phetioState: false // TODO: fix this
       }, options );
 
