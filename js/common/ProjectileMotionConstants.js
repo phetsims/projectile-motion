@@ -128,7 +128,7 @@ define( require => {
       lineWidth: 1,
       stroke: 'black',
       textDisplayWidth: TEXT_DISPLAY_WIDTH,
-      numberControlTextDisplayWidth: TEXT_DISPLAY_WIDTH * 1.2,
+      numberDisplayMaxWidth: TEXT_DISPLAY_WIDTH * 1.2,
       textDisplayHeight: 24,
       readoutXMargin: 7,
       sliderLabelSpacing: 6

@@ -72,7 +72,7 @@ define( require => {
       selectedObjectTypeProperty.get().diameterRound, {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
-        numberDisplayMaxWidth: options.numberControlTextDisplayWidth,
+        numberDisplayMaxWidth: options.numberDisplayMaxWidth,
         tandem: tandem.createTandem( 'diameterNumberControl' )
       }
     );
@@ -85,7 +85,7 @@ define( require => {
       selectedObjectTypeProperty.get().massRound, {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
-        numberDisplayMaxWidth: options.numberControlTextDisplayWidth,
+        numberDisplayMaxWidth: options.numberDisplayMaxWidth,
         tandem: tandem.createTandem( 'massNumberControl' )
       }
     );
@@ -112,7 +112,7 @@ define( require => {
     const defaultNumberControlOptions = {
       numberDisplayOptions: {
         align: 'right',
-        maxWidth: options.numberControlTextDisplayWidth + options.readoutXMargin * 2,
+        maxWidth: options.numberDisplayMaxWidth + options.readoutXMargin * 2,
         xMargin: READOUT_X_MARGIN,
         yMargin: 4,
         font: TEXT_FONT

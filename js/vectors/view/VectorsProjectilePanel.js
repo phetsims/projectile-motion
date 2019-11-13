@@ -86,7 +86,7 @@ define( require => {
       selectedObjectType.diameterRound, {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
-        numberDisplayMaxWidth: options.numberControlTextDisplayWidth,
+        numberDisplayMaxWidth: options.numberDisplayMaxWidth,
         tandem: tandem.createTandem( 'diameterNumberControl' )
       }
     );
@@ -99,7 +99,7 @@ define( require => {
       selectedObjectType.massRound, {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
-        numberDisplayMaxWidth: options.numberControlTextDisplayWidth,
+        numberDisplayMaxWidth: options.numberDisplayMaxWidth,
         tandem: tandem.createTandem( 'massNumberControl' )
       }
     );
