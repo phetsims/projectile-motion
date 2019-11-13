@@ -27,11 +27,12 @@ define( require => {
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
 
-  /**
-   * @param {ProjectileMotionModel} model
-   * @constructor
-   */
   class Trajectory extends PhetioObject {
+
+    /**
+     * @param {ProjectileMotionModel} model
+     * @param {Object} options
+     */
     constructor( model, options ) {
       options = merge( {
         tandem: Tandem.required,
@@ -42,6 +43,7 @@ define( require => {
 
       super( options );
 
+      // @private
       this.projectileMotionModel = model;
 
       if ( model.selectedProjectileObjectTypeProperty ) {

@@ -350,7 +350,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.dragScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -10074,7 +10074,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.introScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -14884,7 +14884,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.labScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -36594,7 +36594,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": false,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.vectorsScreen.view.cannonNode": {
       "phetioDocumentation": "",

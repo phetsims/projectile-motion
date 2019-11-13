@@ -24,6 +24,7 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileMotionMeasuringTape = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionMeasuringTape' );
+  const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
@@ -51,6 +52,8 @@ define( require => {
       defaultCannonAngle: 80,
       defaultInitialSpeed: 18
     }, options );
+
+    assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType );
 
     // @public {Score} model for handling scoring ( if/when projectile hits target )
     this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT, tandem.createTandem( 'score' ) );
