@@ -14691,19 +14691,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ObjectIO"
     },
-    "projectileMotion.labScreen.view": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
     "projectileMotion.labScreen.view.cannonNode": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
@@ -14879,110 +14866,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioDynamicElementPrototype": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.enterButton": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.labScreen.view.enterButton.enabledProperty": {
-      "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": true,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.enterButton.firedEmitter": {
-      "phetioDocumentation": "Emits when the button is fired No arguments.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<>"
-    },
-    "projectileMotion.labScreen.view.enterButton.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.labScreen.view.enterButton.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.labScreen.view.enterButton.pressListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<EventIO>"
-    },
-    "projectileMotion.labScreen.view.enterButton.pressListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
-    },
-    "projectileMotion.labScreen.view.enterButton.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
@@ -16160,7 +16043,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad": {
+    "projectileMotion.labScreen.view.keypadLayer": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16173,7 +16056,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.0Button": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16186,7 +16069,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16199,7 +16082,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16212,7 +16095,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16225,7 +16108,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16238,7 +16121,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16251,7 +16134,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16264,7 +16147,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.0Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.enterButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16277,7 +16160,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.1Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16290,98 +16173,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.1Button.enabledProperty": {
-      "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": true,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.firedEmitter": {
-      "phetioDocumentation": "Emits when the button is fired No arguments.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<>"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.pressListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<EventIO>"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.pressListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
-    },
-    "projectileMotion.labScreen.view.keypad.1Button.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": true,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.keypad.2Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16394,7 +16186,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16407,7 +16199,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16420,7 +16212,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16433,7 +16225,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16446,7 +16238,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16459,7 +16251,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16472,7 +16264,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.2Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.0Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16485,7 +16277,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16498,7 +16290,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16511,7 +16303,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16524,7 +16316,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16537,7 +16329,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16550,7 +16342,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16563,7 +16355,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16576,7 +16368,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.3Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.1Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16589,7 +16381,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16602,7 +16394,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16615,7 +16407,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16628,7 +16420,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16641,7 +16433,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16654,7 +16446,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16667,7 +16459,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16680,7 +16472,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.4Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.2Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16693,7 +16485,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16706,7 +16498,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16719,7 +16511,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16732,7 +16524,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16745,7 +16537,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16758,7 +16550,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16771,7 +16563,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16784,7 +16576,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.5Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.3Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16797,7 +16589,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16810,7 +16602,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16823,7 +16615,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16836,7 +16628,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16849,7 +16641,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16862,7 +16654,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16875,7 +16667,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16888,7 +16680,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.6Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.4Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16901,7 +16693,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16914,7 +16706,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16927,7 +16719,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16940,7 +16732,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16953,7 +16745,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16966,7 +16758,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16979,7 +16771,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -16992,7 +16784,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.7Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.5Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17005,7 +16797,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17018,7 +16810,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17031,7 +16823,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17044,7 +16836,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17057,7 +16849,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17070,7 +16862,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17083,7 +16875,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17096,7 +16888,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.8Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.6Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17109,7 +16901,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17122,7 +16914,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17135,7 +16927,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17148,7 +16940,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17161,7 +16953,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17174,7 +16966,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17187,7 +16979,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17200,7 +16992,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.9Button.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.7Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17213,7 +17005,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17226,7 +17018,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17239,7 +17031,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17252,7 +17044,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17265,7 +17057,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17278,7 +17070,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17291,7 +17083,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17304,7 +17096,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.backspaceButton.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.8Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17317,7 +17109,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17330,7 +17122,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.enabledProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.enabledProperty": {
       "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17343,7 +17135,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.firedEmitter": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.firedEmitter": {
       "phetioDocumentation": "Emits when the button is fired No arguments.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17356,7 +17148,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17369,7 +17161,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17382,7 +17174,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.pressListener.pressAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.pressListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17395,7 +17187,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.pressListener.releaseAction": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.pressListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17408,7 +17200,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.decimalButton.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.9Button.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17421,7 +17213,215 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.keypad.numberAccumulator.stringProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.enabledProperty": {
+      "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.firedEmitter": {
+      "phetioDocumentation": "Emits when the button is fired No arguments.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.pressListener.pressAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO<EventIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.pressListener.releaseAction": {
+      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.backspaceButton.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.enabledProperty": {
+      "phetioDocumentation": "When disabled, the button is grayed out and cannot be pressed",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.firedEmitter": {
+      "phetioDocumentation": "Emits when the button is fired No arguments.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.pressListener.pressAction": {
+      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO<EventIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.pressListener.releaseAction": {
+      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "USER",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.decimalButton.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": true,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.keypad.numberAccumulator.stringProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17434,7 +17434,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "DerivedPropertyIO<StringIO>"
     },
-    "projectileMotion.labScreen.view.keypad.numberAccumulator.valueProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.numberAccumulator.valueProperty": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17447,7 +17447,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "DerivedPropertyIO<NullableIO<NumberIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.opacityProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17460,7 +17460,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.view.keypad.pickableProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17473,7 +17473,46 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.labScreen.view.keypad.visibleProperty": {
+    "projectileMotion.labScreen.view.keypadLayer.keypad.visibleProperty": {
+      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.opacityProperty": {
+      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.pickableProperty": {
+      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementPrototype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.labScreen.view.keypadLayer.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
@@ -17784,32 +17823,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.labScreen.view.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.labScreen.view.playPauseButton": {
       "phetioDocumentation": "",
@@ -35622,19 +35635,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.labScreen.view.tracerNode.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.labScreen.view.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementPrototype": false,
