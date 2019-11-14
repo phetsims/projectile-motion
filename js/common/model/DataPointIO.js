@@ -58,19 +58,18 @@ define( require => {
 
     /**
      *
-     * @param stateObject
+     * @param state
      * @returns {Array}
      */
-    static stateObjectToArgs( stateObject ) {
-      const fromStateObject = DataPointIO.fromStateObject( stateObject );
+    static stateToArgs( state ) {
       return [
-        fromStateObject.time,
-        fromStateObject.position,
-        fromStateObject.airDensity,
-        fromStateObject.velocity,
-        fromStateObject.acceleration,
-        fromStateObject.dragForce,
-        fromStateObject.forceGravity
+        state.time,
+        state.position,
+        state.airDensity,
+        state.velocity,
+        state.acceleration,
+        state.dragForce,
+        state.forceGravity
       ];
     }
 
