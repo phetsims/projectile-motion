@@ -103,6 +103,7 @@ define( require => {
       tandem: tandem.createTandem( 'projectileDragCoefficientProperty' )
     } );
 
+    // @public {Property.<ProjectileObjectType>}
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
       tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
       phetioType: PropertyIO( ReferenceIO ),

@@ -17,11 +17,13 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
+  const ObservableArrayIO = require( 'AXON/ObservableArrayIO' );
   const PhetioGroup = require( 'TANDEM/PhetioGroup' );
   const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const Property = require( 'AXON/Property' );
+  const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TrajectoryIO = require( 'PROJECTILE_MOTION/common/model/TrajectoryIO' );
   const Util = require( 'DOT/Util' );
@@ -37,8 +39,7 @@ define( require => {
       options = merge( {
         tandem: Tandem.required,
         phetioDynamicElement: true,
-        phetioType: TrajectoryIO,
-        phetioState: false // TODO: fix this
+        phetioType: TrajectoryIO
       }, options );
 
       super( options );
@@ -46,9 +47,8 @@ define( require => {
       // @private
       this.projectileMotionModel = model;
 
-      if ( model.selectedProjectileObjectTypeProperty ) {
-        this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get(); // may be undefined
-      }
+      // @private
+      this.projectileObjectType = model.selectedProjectileObjectTypeProperty.get();
 
       // @private {number} mass of projectiles in kilograms
       this.mass = model.projectileMassProperty.get();
@@ -64,6 +64,23 @@ define( require => {
       // max - 1.
       this.rankProperty = new NumberProperty( 0 );
 
+      // @public did the trajectory path change in mid air due to air density change
+      this.changedInMidAir = false;
+
+      // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
+      this.dataPointsGroup = DataPoint.createGroup( options.tandem.createTandem( 'dataPointsGroup' ) );
+
+      // Use this as the ordered list of data points, because PhetioGroup doesn't guarantee order.
+      this.dataPoints = new ObservableArray( {
+        phetioType: ObservableArrayIO( ReferenceIO ),
+        tandem: options.tandem.createTandem( 'dataPoints' )
+      } );
+      this.dataPointsGroup.memberCreatedEmitter.addListener( addedDataPoint => this.dataPoints.add( addedDataPoint ) );
+      this.dataPointsGroup.memberDisposedEmitter.addListener( removedDataPoint => this.dataPoints.remove( removedDataPoint ) );
+
+      // @public (read-only) set by TrajectoryIO.js
+      this.reachedGround = false;
+
       // Add one to the rank
       const incrementRank = () => {
         this.rankProperty.value++;
@@ -71,12 +88,6 @@ define( require => {
 
       // Listen to whether this rank should be incremented
       model.updateTrajectoryRanksEmitter.addListener( incrementRank );
-
-      // @public did the trajectory path change in mid air due to air density change
-      this.changedInMidAir = false;
-
-      // @public {ObservableArray.<DataPoint>} record points along the trajectory with critical information
-      this.dataPoints = new ObservableArray();
 
       const velocity = Vector2.dirtyFromPool().setPolar(
         model.initialSpeedProperty.value,
@@ -95,7 +106,7 @@ define( require => {
 
       const dragForce = Vector2.dirtyFromPool().set( velocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
 
-      const initialPoint = new DataPoint(
+      const initialPoint = this.dataPointsGroup.createNextMember(
         0, // total time elapsed
         Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
         model.airDensityProperty.get(), // air density
@@ -107,9 +118,6 @@ define( require => {
 
       // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
       this.apexPoint = null;
-
-      // add dataPoint for initial conditions
-      this.dataPoints.push( initialPoint );
 
       // It is not gauranteed that the tracer exists
       model.tracer && model.tracer.updateDataIfWithinRange( initialPoint );
@@ -123,22 +131,21 @@ define( require => {
       // @private
       this.disposeTrajectory = () => {
         this.apexPoint = null; // remove reference
-        for ( let i = 0; i < this.dataPoints.length; i++ ) {
-          const point = this.dataPoints.get( i );
 
-          if ( point.numberOfOtherTrajectoriesUsingSelf ) {
-            point.numberOfOtherTrajectoriesUsingSelf--;
-          }
-          else {
-            point.position.freeToPool();
-            point.velocity.freeToPool();
-            point.acceleration.freeToPool();
-            point.dragForce.freeToPool();
-          }
-        }
+        this.dataPoints.forEach( dataPoint => dataPoint.dispose() );
         this.projectileObjects.clear();
         model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
       };
+
+      assert && phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( () => {
+        let time = -1;
+        for ( let i = 0; i < this.dataPoints.length; i++ ) {
+          const currentDataPoint = this.dataPoints.get( i );
+          assert && assert( currentDataPoint.time > time );
+          time = currentDataPoint.time;
+        }
+
+      } );
     }
 
     /**
@@ -191,7 +198,7 @@ define( require => {
           const apexDragX = Util.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
           const apexDragY = Util.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
 
-          const apexPoint = new DataPoint(
+          const apexPoint = this.dataPointsGroup.createNextMember(
             previousPoint.time + dtToApex,
             Vector2.createFromPool( apexX, apexY ),
             airDensity,
@@ -206,8 +213,6 @@ define( require => {
 
           this.apexPoint = apexPoint; // save apex point
 
-          // push it
-          this.dataPoints.push( apexPoint );
           this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
         }
 
@@ -225,7 +230,7 @@ define( require => {
           newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
 
-          var newPoint = new DataPoint(
+          var newPoint = this.dataPointsGroup.createNextMember(
             previousPoint.time + timeToGround,
             Vector2.createFromPool( newX, newY ),
             airDensity,
@@ -241,7 +246,7 @@ define( require => {
 
         // Still in the air
         else {
-          newPoint = new DataPoint(
+          newPoint = this.dataPointsGroup.createNextMember(
             previousPoint.time + dt,
             Vector2.createFromPool( newX, newY ),
             airDensity,
@@ -253,8 +258,7 @@ define( require => {
 
         }
 
-        // add point, and update tracer tool and David
-        this.dataPoints.push( newPoint );
+        // and update tracer tool and David
         this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
       }
 
@@ -266,10 +270,11 @@ define( require => {
         const object = this.projectileObjects.get( i );
         if ( object.index < this.dataPoints.length - 1 ) {
           object.index++;
-          object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+          const currentDataPoint = this.dataPoints.get( object.index );
+          object.dataPointProperty.set( currentDataPoint );
           if ( object.dataPointProperty.get().apex ) { // if on apex, increment to the next point to maintain true time step
             object.index++;
-            object.dataPointProperty.set( this.dataPoints.get( object.index ) );
+            object.dataPointProperty.set( currentDataPoint );
           }
         }
 
@@ -328,6 +333,7 @@ define( require => {
      * @public
      */
     addProjectileObject() {
+      assert && assert( this.dataPoints.length >= 1, 'at least one data point should be in this trajectory' );
       this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
     }
 
@@ -353,8 +359,7 @@ define( require => {
         );
 
         // add one to the number of trajectories using this datapoint
-        this.dataPoints.get( i ).numberOfOtherTrajectoriesUsingSelf++;
-        newTrajectory.dataPoints.add( this.dataPoints.get( i ) );
+        newTrajectory.addDataPointFromClone( this.dataPoints.get( i ) );
       }
 
       // set the datapoint that indicates the location of the projectile object
@@ -365,6 +370,22 @@ define( require => {
       newTrajectory.projectileObjects.push( projectileObject );
 
       return newTrajectory;
+    }
+
+    /**
+     * Given another DataPoint reference, create a new cloned data point in this Trajectory.
+     * @param dataPoint
+     */
+    addDataPointFromClone( dataPoint ) {
+      this.dataPointsGroup.createNextMember( [
+        dataPoint.time,
+        dataPoint.position,
+        dataPoint.airDensity,
+        dataPoint.velocity,
+        dataPoint.acceleration,
+        dataPoint.dragForce,
+        dataPoint.forceGravity
+      ] );
     }
 
     /**
@@ -388,11 +409,11 @@ define( require => {
 
     /**
      * Create a PhetioGroup for the trajectories
-     * @param model
-     * @param tandem
+     * @param {ProjectileMotionModel} model
+     * @param {Tandem} tandem
      */
     static createGroup( model, tandem ) {
-      return new PhetioGroup( 'particle', tandem => {
+      return new PhetioGroup( 'trajectory', tandem => {
         return new Trajectory( model, {
           tandem: tandem
         } );
