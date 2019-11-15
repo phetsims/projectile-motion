@@ -63,7 +63,10 @@ define( require => {
       // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
       // The most recent trajectory fired has rank 0. The second recent has rank 1. The oldest still on screen has rank
       // max - 1.
-      this.rankProperty = new NumberProperty( 0 );
+      this.rankProperty = new NumberProperty( 0, {
+        tandem: options.tandem.createTandem( 'rankProperty' ),
+        phetioReadOnly: true
+      } );
 
       // @public did the trajectory path change in mid air due to air density change
       this.changedInMidAir = false;
@@ -135,6 +138,7 @@ define( require => {
 
         this.dataPoints.dispose();
         this.projectileObjects.dispose();
+        this.rankProperty.dispose();
         model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
       };
     }
