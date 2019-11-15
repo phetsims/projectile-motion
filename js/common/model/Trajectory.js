@@ -137,16 +137,6 @@ define( require => {
         this.projectileObjects.dispose();
         model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
       };
-
-      assert && phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( () => {
-        let time = -1;
-        for ( let i = 0; i < this.dataPoints.length; i++ ) {
-          const currentDataPoint = this.dataPoints.get( i );
-          assert && assert( currentDataPoint.time > time );
-          time = currentDataPoint.time;
-        }
-
-      } );
     }
 
     /**
