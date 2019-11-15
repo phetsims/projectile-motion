@@ -383,7 +383,7 @@ define( require => {
      * @param {DataPoint} dataPoint
      */
     addDataPointFromClone( dataPoint ) {
-      this.dataPoints.push( new DataPoint( [
+      this.dataPoints.push( new DataPoint(
         dataPoint.time,
         dataPoint.position,
         dataPoint.airDensity,
@@ -391,7 +391,7 @@ define( require => {
         dataPoint.acceleration,
         dataPoint.dragForce,
         dataPoint.forceGravity
-      ] ) );
+      ) );
     }
 
     /**

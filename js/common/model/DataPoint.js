@@ -34,7 +34,7 @@ define( require => {
         reachedGround: false
       }, options );
 
-      // @public (read-only) - set by DataPointIO
+      // @public (read-only)
       this.time = time;
       this.position = position;
       this.airDensity = airDensity;

@@ -40,23 +40,22 @@ define( require => {
 
     /**
      * @param {DataPoint} dataPoint
-     * @returns {Object}
+     * @returns {DataPoint}
      * @override
      */
     static fromStateObject( dataPoint ) {
-      const newDataPoint = new DataPoint(
+      return new DataPoint(
         NumberIO.fromStateObject( dataPoint.time ),
         Vector2IO.fromStateObject( dataPoint.position ),
         NumberIO.fromStateObject( dataPoint.airDensity ),
         Vector2IO.fromStateObject( dataPoint.velocity ),
         Vector2IO.fromStateObject( dataPoint.acceleration ),
         Vector2IO.fromStateObject( dataPoint.dragForce ),
-        NumberIO.fromStateObject( dataPoint.forceGravity )
+        NumberIO.fromStateObject( dataPoint.forceGravity ), {
+          apex: dataPoint.apex,
+          reachedGround: dataPoint.reachedGround
+        }
       );
-
-      newDataPoint.apex = dataPoint.apex;
-      newDataPoint.reachedGround = dataPoint.reachedGround;
-      return newDataPoint;
     }
   }
 
