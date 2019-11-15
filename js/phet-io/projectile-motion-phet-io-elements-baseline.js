@@ -363,7 +363,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
+      "phetioTypeName": "ObservableArrayIO<DataPointIO>"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup.prototype.dataPoints.lengthProperty": {
       "phetioDocumentation": "",
@@ -377,45 +377,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.dragScreen.model.trajectoryGroup.prototype.dataPointsGroup": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PhetioGroupIO<DataPointIO>"
-    },
-    "projectileMotion.dragScreen.model.trajectoryGroup.prototype.dataPointsGroup.dataPoint_0": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
-    },
-    "projectileMotion.dragScreen.model.trajectoryGroup.prototype.dataPointsGroup.prototype": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
     },
     "projectileMotion.dragScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -10152,7 +10113,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
+      "phetioTypeName": "ObservableArrayIO<DataPointIO>"
     },
     "projectileMotion.introScreen.model.trajectoryGroup.prototype.dataPoints.lengthProperty": {
       "phetioDocumentation": "",
@@ -10166,45 +10127,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.introScreen.model.trajectoryGroup.prototype.dataPointsGroup": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PhetioGroupIO<DataPointIO>"
-    },
-    "projectileMotion.introScreen.model.trajectoryGroup.prototype.dataPointsGroup.dataPoint_0": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
-    },
-    "projectileMotion.introScreen.model.trajectoryGroup.prototype.dataPointsGroup.prototype": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
     },
     "projectileMotion.introScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -15027,7 +14949,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
+      "phetioTypeName": "ObservableArrayIO<DataPointIO>"
     },
     "projectileMotion.labScreen.model.trajectoryGroup.prototype.dataPoints.lengthProperty": {
       "phetioDocumentation": "",
@@ -15041,45 +14963,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.labScreen.model.trajectoryGroup.prototype.dataPointsGroup": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PhetioGroupIO<DataPointIO>"
-    },
-    "projectileMotion.labScreen.model.trajectoryGroup.prototype.dataPointsGroup.dataPoint_0": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
-    },
-    "projectileMotion.labScreen.model.trajectoryGroup.prototype.dataPointsGroup.prototype": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
     },
     "projectileMotion.labScreen.view.cannonNode": {
       "phetioDocumentation": "",
@@ -36802,7 +36685,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ReferenceIO>"
+      "phetioTypeName": "ObservableArrayIO<DataPointIO>"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype.dataPoints.lengthProperty": {
       "phetioDocumentation": "",
@@ -36816,45 +36699,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype.dataPointsGroup": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PhetioGroupIO<DataPointIO>"
-    },
-    "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype.dataPointsGroup.dataPoint_0": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
-    },
-    "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype.dataPointsGroup.prototype": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementPrototype": true,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "DataPointIO"
     },
     "projectileMotion.vectorsScreen.view.cannonNode": {
       "phetioDocumentation": "",

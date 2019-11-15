@@ -9,16 +9,10 @@ define( require => {
   'use strict';
 
   // modules
-  const DataPointIO = require( 'PROJECTILE_MOTION/common/model/DataPointIO' );
   const merge = require( 'PHET_CORE/merge' );
-  const PhetioGroup = require( 'TANDEM/PhetioGroup' );
-  const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
-  const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const Vector2 = require( 'DOT/Vector2' );
 
-  class DataPoint extends PhetioObject {
+  class DataPoint {
 
     /**
      * @param {number} time - total time since fire at this point on the trajectory, in s
@@ -36,12 +30,9 @@ define( require => {
       assert && assert( time !== 0 || position.x === 0, 'Time is ' + time + 'but x is ' + position.x );
 
       options = merge( {
-        tandem: Tandem.required,
-        phetioType: DataPointIO,
-        phetioDynamicElement: true
+        apex: false,
+        reachedGround: false
       }, options );
-
-      super( options );
 
       // @public (read-only) - set by DataPointIO
       this.time = time;
@@ -51,12 +42,8 @@ define( require => {
       this.acceleration = acceleration;
       this.dragForce = dragForce;
       this.forceGravity = forceGravity;
-
-      // @public - if this point is at the apex of a Trajectory, set by Trajectory.js
-      this.apex = false;
-
-      // @public - just the last datapoint collected for a trajectory, set by Trajectory.js
-      this.reachedGround = false;
+      this.apex = options.apex;
+      this.reachedGround = options.reachedGround;
     }
 
     /**
@@ -83,24 +70,6 @@ define( require => {
       this.velocity.freeToPool();
       this.acceleration.freeToPool();
       this.dragForce.freeToPool();
-      super.dispose();
-    }
-
-    /**
-     * Create a PhetioGroup for the trajectories
-     * @param {Tandem} tandem
-     */
-    static createGroup( tandem ) {
-      const scrap = new Vector2( 0, 0 );
-      return new PhetioGroup( 'dataPoint',
-        ( tandem, time, position, airDensity, velocity, acceleration, dragForce, forceGravity ) => {
-          return new DataPoint( time, position, airDensity, velocity, acceleration, dragForce, forceGravity, {
-            tandem: tandem
-          } );
-        }, [ 12, scrap, 2, scrap, scrap, scrap, 3 ], {
-          tandem: tandem,
-          phetioType: PhetioGroupIO( DataPointIO )
-        } );
     }
   }
 

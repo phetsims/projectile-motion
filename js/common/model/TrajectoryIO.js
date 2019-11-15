@@ -10,25 +10,24 @@ define( require => {
 
   // modules
   const BooleanIO = require( 'TANDEM/types/BooleanIO' );
+  const DataPointIO = require( 'PROJECTILE_MOTION/common/model/DataPointIO' );
   const NullableIO = require( 'TANDEM/types/NullableIO' );
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const validate = require( 'AXON/validate' );
-  const NullOrReferenceIO = NullableIO( ReferenceIO );
+  const NullOrDataPointIO = NullableIO( DataPointIO );
 
   // constants
   // Name the types needed to serialize each field on the Trajectory so that it can be used in
   // toStateObject, fromStateObject, and setValue.
-  // TODO: experimental pattern for creating setValue and to/fromStateObject
   const ioTypeSchema = {
     mass: { phetioType: NumberIO },
     diameter: { phetioType: NumberIO },
     dragCoefficient: { phetioType: NumberIO },
     changedInMidAir: { phetioType: BooleanIO },
     reachedGround: { phetioType: BooleanIO },
-    apexPoint: { phetioType: NullOrReferenceIO }
+    apexPoint: { phetioType: NullOrDataPointIO } // serialize as a data type, no reference type
   };
 
   class TrajectoryIO extends ObjectIO {

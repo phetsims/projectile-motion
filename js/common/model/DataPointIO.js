@@ -12,6 +12,7 @@ define( require => {
   const NumberIO = require( 'TANDEM/types/NumberIO' );
   const ObjectIO = require( 'TANDEM/types/ObjectIO' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   const validate = require( 'AXON/validate' );
   const Vector2IO = require( 'DOT/Vector2IO' );
 
@@ -43,51 +44,19 @@ define( require => {
      * @override
      */
     static fromStateObject( dataPoint ) {
-      return {
-        time: NumberIO.fromStateObject( dataPoint.time ),
-        position: Vector2IO.fromStateObject( dataPoint.position ),
-        airDensity: NumberIO.fromStateObject( dataPoint.airDensity ),
-        velocity: Vector2IO.fromStateObject( dataPoint.velocity ),
-        acceleration: Vector2IO.fromStateObject( dataPoint.acceleration ),
-        dragForce: Vector2IO.fromStateObject( dataPoint.dragForce ),
-        forceGravity: NumberIO.fromStateObject( dataPoint.forceGravity ),
-        apex: dataPoint.apex,
-        reachedGround: dataPoint.reachedGround
-      };
-    }
+      const newDataPoint = new DataPoint(
+        NumberIO.fromStateObject( dataPoint.time ),
+        Vector2IO.fromStateObject( dataPoint.position ),
+        NumberIO.fromStateObject( dataPoint.airDensity ),
+        Vector2IO.fromStateObject( dataPoint.velocity ),
+        Vector2IO.fromStateObject( dataPoint.acceleration ),
+        Vector2IO.fromStateObject( dataPoint.dragForce ),
+        NumberIO.fromStateObject( dataPoint.forceGravity )
+      );
 
-    /**
-     *
-     * @param state
-     * @returns {Array}
-     */
-    static stateToArgs( state ) {
-      return [
-        state.time,
-        state.position,
-        state.airDensity,
-        state.velocity,
-        state.acceleration,
-        state.dragForce,
-        state.forceGravity
-      ];
-    }
-
-    /**
-     * @param {DataPoint} dataPoint
-     * @param {Object} fromStateObject
-     */
-    static setValue( dataPoint, fromStateObject ) {
-      validate( dataPoint, this.validator );
-      dataPoint.time = fromStateObject.time;
-      dataPoint.position = fromStateObject.position;
-      dataPoint.airDensity = fromStateObject.airDensity;
-      dataPoint.velocity = fromStateObject.velocity;
-      dataPoint.acceleration = fromStateObject.acceleration;
-      dataPoint.dragForce = fromStateObject.dragForce;
-      dataPoint.forceGravity = fromStateObject.forceGravity;
-      dataPoint.apex = fromStateObject.apex;
-      dataPoint.reachedGround = fromStateObject.reachedGround;
+      newDataPoint.apex = dataPoint.apex;
+      newDataPoint.reachedGround = dataPoint.reachedGround;
+      return newDataPoint;
     }
   }
 
