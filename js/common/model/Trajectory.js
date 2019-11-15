@@ -15,6 +15,8 @@ define( require => {
   // modules
   const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   const DataPointIO = require( 'PROJECTILE_MOTION/common/model/DataPointIO' );
+  const ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
+  const ProjectileObjectIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectIO' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
@@ -23,7 +25,6 @@ define( require => {
   const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Property = require( 'AXON/Property' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TrajectoryIO = require( 'PROJECTILE_MOTION/common/model/TrajectoryIO' );
   const Util = require( 'DOT/Util' );
@@ -119,8 +120,11 @@ define( require => {
       // It is not gauranteed that the tracer exists
       model.tracer && model.tracer.updateDataIfWithinRange( initialPoint );
 
-      // @public {ObservableArray.<Object: { {number} index, {Property.<DataPoint>} dataPointProperty>}
-      this.projectileObjects = new ObservableArray();
+      // @public {ObservableArray.<ProjectileObject>}
+      this.projectileObjects = new ObservableArray( {
+        tandem: options.tandem.createTandem( 'projectileObjects' ),
+        phetioType: ObservableArrayIO( ProjectileObjectIO )
+      } );
 
       // add first projectile object
       this.addProjectileObject();
@@ -130,7 +134,7 @@ define( require => {
         this.apexPoint = null; // remove reference
 
         this.dataPoints.dispose();
-        this.projectileObjects.clear();
+        this.projectileObjects.dispose();
         model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
       };
 
@@ -269,24 +273,24 @@ define( require => {
 
       // increment position of projectile objects, unless it has reached the end
       for ( let i = 0; i < this.projectileObjects.length; i++ ) {
-        const object = this.projectileObjects.get( i );
-        if ( object.index < this.dataPoints.length - 1 ) {
-          object.index++;
-          const currentDataPoint = this.dataPoints.get( object.index );
-          object.dataPointProperty.set( currentDataPoint );
-          if ( object.dataPointProperty.get().apex ) { // if on apex, increment to the next point to maintain true time step
-            object.index++;
-            object.dataPointProperty.set( currentDataPoint );
+        const projectileObject = this.projectileObjects.get( i );
+        if ( projectileObject.index < this.dataPoints.length - 1 ) {
+          projectileObject.index++;
+          const currentDataPoint = this.dataPoints.get( projectileObject.index );
+          projectileObject.dataPointProperty.set( currentDataPoint );
+          if ( projectileObject.dataPointProperty.get().apex ) { // if on apex, increment to the next point to maintain true time step
+            projectileObject.index++;
+            projectileObject.dataPointProperty.set( currentDataPoint );
           }
         }
 
         // if it has just reached the end, check if landed on target and remove the last projectile
-        else if ( !object.checkedScore ) {
+        else if ( !projectileObject.checkedScore ) {
           this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
-          this.projectileMotionModel.score.scoreIfWithinTarget( object.dataPointProperty.get().position.x );
-          object.checkedScore = true;
+          this.projectileMotionModel.score.scoreIfWithinTarget( projectileObject.dataPointProperty.get().position.x );
+          projectileObject.checkedScore = true;
 
-          // to help with memory, if this object has just landed, remove the last one (if it exists)
+          // to help with memory, if this projectileObject has just landed, remove the last one (if it exists)
           if ( i !== 0 ) {
             projectileObjectsToRemove.push( this.projectileObjects.get( i - 1 ) );
           }
@@ -336,7 +340,7 @@ define( require => {
      */
     addProjectileObject() {
       assert && assert( this.dataPoints.length >= 1, 'at least one data point should be in this trajectory' );
-      this.projectileObjects.push( { index: 0, dataPointProperty: new Property( this.dataPoints.get( 0 ) ) } );
+      this.projectileObjects.push( new ProjectileObject( 0, this.dataPoints.get( 0 ) ) );
     }
 
     /**

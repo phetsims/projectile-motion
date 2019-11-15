@@ -112,15 +112,15 @@ define( require => {
 
     const comboBoxItems = [];
     for ( let i = 0; i < this.objectTypes.length; i++ ) {
-      const projectileObject = this.objectTypes[ i ];
+      const projectileType = this.objectTypes[ i ];
 
-      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileObject.name, itemNodeOptions ),
-        projectileObject, {
-          tandemName: projectileObject.benchmark
+      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        projectileType, {
+          tandemName: projectileType.benchmark
         } );
 
-      // Create the controls for tht objectType too.
-      this.objectTypeControls.push( this.createControlsForObjectType( projectileObject, tandem, tandem.createTandem( `${projectileObject.benchmark}Control` ) ) );
+      // Create the controls for the projectileType too.
+      this.objectTypeControls.push( this.createControlsForObjectType( projectileType, tandem, tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
     }
 
     // create view for the dropdown

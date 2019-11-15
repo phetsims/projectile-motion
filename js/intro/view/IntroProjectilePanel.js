@@ -96,12 +96,12 @@ define( require => {
     const comboBoxItems = [];
 
     for ( let i = 0; i < objectTypes.length; i++ ) {
-      const projectileObject = objectTypes[ i ];
-      assert && assert( projectileObject.benchmark, 'benchmark needed for tandemName' );
+      const projectileType = objectTypes[ i ];
+      assert && assert( projectileType.benchmark, 'benchmark needed for tandemName' );
 
-      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileObject.name, itemNodeOptions ),
-        projectileObject, {
-          tandemName: projectileObject.benchmark
+      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        projectileType, {
+          tandemName: projectileType.benchmark
         } );
     }
 
