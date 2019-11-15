@@ -555,17 +555,17 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(ObjectIO)=>VoidIO"
     },
-    "FunctionIO(ProjectileObjectDataIO)=>VoidIO": {
-      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ProjectileObjectDataIO<br><strong>Return Type:</strong> VoidIO",
+    "FunctionIO(ProjectileObjectIO)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> ProjectileObjectIO<br><strong>Return Type:</strong> VoidIO",
       "events": [],
       "methodOrder": [],
       "methods": {},
       "parameterTypes": [
-        "ProjectileObjectDataIO",
+        "ProjectileObjectIO",
         "VoidIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "FunctionIO(ProjectileObjectDataIO)=>VoidIO"
+      "typeName": "FunctionIO(ProjectileObjectIO)=>VoidIO"
     },
     "FunctionIO(RangeIO,NullableIO<RangeIO>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> RangeIO, NullableIO<RangeIO><br><strong>Return Type:</strong> VoidIO",
@@ -912,7 +912,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ObservableArrayIO<DataPointIO>"
     },
-    "ObservableArrayIO<ProjectileObjectDataIO>": {
+    "ObservableArrayIO<ProjectileObjectIO>": {
       "documentation": "An array that sends notifications when its values have changed.",
       "events": [
         "itemAdded",
@@ -923,14 +923,14 @@ window.phet.phetio.phetioTypes = assert &&
         "addItemAddedListener": {
           "documentation": "Add a listener that is called when an item is added to the observable array.",
           "parameterTypes": [
-            "FunctionIO(ProjectileObjectDataIO)=>VoidIO"
+            "FunctionIO(ProjectileObjectIO)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
         "addItemRemovedListener": {
           "documentation": "Add a listener that is called when an item is removed from the observable array.",
           "parameterTypes": [
-            "FunctionIO(ProjectileObjectDataIO)=>VoidIO"
+            "FunctionIO(ProjectileObjectIO)=>VoidIO"
           ],
           "returnType": "VoidIO"
         },
@@ -941,10 +941,10 @@ window.phet.phetio.phetioTypes = assert &&
         }
       },
       "parameterTypes": [
-        "ProjectileObjectDataIO"
+        "ProjectileObjectIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ObservableArrayIO<ProjectileObjectDataIO>"
+      "typeName": "ObservableArrayIO<ProjectileObjectIO>"
     },
     "PhetButtonIO": {
       "documentation": "The PhET Button in the bottom right of the screen",
@@ -1207,13 +1207,13 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "PhetioSingletonIO<DialogIO>"
     },
-    "ProjectileObjectDataIO": {
+    "ProjectileObjectIO": {
       "documentation": "A data type for a projectile object travelling on a projectile's trajectory",
       "events": [],
       "methodOrder": [],
       "methods": {},
       "supertype": "ObjectIO",
-      "typeName": "ProjectileObjectDataIO"
+      "typeName": "ProjectileObjectIO"
     },
     "PropertyIO<BooleanIO>": {
       "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",

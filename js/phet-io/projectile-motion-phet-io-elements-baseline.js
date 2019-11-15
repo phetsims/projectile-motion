@@ -389,7 +389,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ProjectileObjectDataIO>"
+      "phetioTypeName": "ObservableArrayIO<ProjectileObjectIO>"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup.prototype.projectileObjects.lengthProperty": {
       "phetioDocumentation": "",
@@ -10165,7 +10165,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ProjectileObjectDataIO>"
+      "phetioTypeName": "ObservableArrayIO<ProjectileObjectIO>"
     },
     "projectileMotion.introScreen.model.trajectoryGroup.prototype.projectileObjects.lengthProperty": {
       "phetioDocumentation": "",
@@ -15027,7 +15027,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ProjectileObjectDataIO>"
+      "phetioTypeName": "ObservableArrayIO<ProjectileObjectIO>"
     },
     "projectileMotion.labScreen.model.trajectoryGroup.prototype.projectileObjects.lengthProperty": {
       "phetioDocumentation": "",
@@ -36789,7 +36789,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObservableArrayIO<ProjectileObjectDataIO>"
+      "phetioTypeName": "ObservableArrayIO<ProjectileObjectIO>"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup.prototype.projectileObjects.lengthProperty": {
       "phetioDocumentation": "",
