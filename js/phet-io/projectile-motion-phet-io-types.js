@@ -668,7 +668,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "LinkedElementIO"
     },
     "ModelViewTransform2IO": {
-      "documentation": "A numerical object with x and y properties, like {x:3,y:4}",
+      "documentation": "Object type that supports 2 dimensional coordinate tranforms.",
       "events": [],
       "methodOrder": [],
       "methods": {},
