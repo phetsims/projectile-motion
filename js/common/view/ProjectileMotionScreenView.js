@@ -22,6 +22,7 @@ define( require => {
   const MeasuringTapeNode = require( 'SCENERY_PHET/MeasuringTapeNode' );
   const merge = require( 'PHET_CORE/merge' );
   const ModelViewTransform2 = require( 'PHETCOMMON/view/ModelViewTransform2' );
+  const ModelViewTransform2IO = require( 'PHETCOMMON/view/ModelViewTransform2IO' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const NumberProperty = require( 'AXON/NumberProperty' );
@@ -32,6 +33,7 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
@@ -106,7 +108,11 @@ define( require => {
     );
 
     // tracks changes to modelViewTransform
-    const transformProperty = new Property( modelViewTransform );
+    const transformProperty = new Property( modelViewTransform, {
+      tandem: tandem.createTandem( 'transformProperty' ),
+      phetioReadOnly: true,
+      phetioType: PropertyIO( ModelViewTransform2IO )
+    } );
 
     // target
     const targetNode = new TargetNode( model.score, transformProperty, this, {
