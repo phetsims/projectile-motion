@@ -13,7 +13,6 @@ define( require => {
   const ComboBox = require( 'SUN/ComboBox' );
   const ComboBoxItem = require( 'SUN/ComboBoxItem' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const DownUpListener = require( 'SCENERY/input/DownUpListener' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -25,6 +24,7 @@ define( require => {
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
   const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
+  const FireListener = require( 'SCENERY/listeners/FireListener' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
@@ -251,10 +251,11 @@ define( require => {
         numberMaxWidth: this.textDisplayWidth - 2 * this.options.readoutXMargin
       } );
 
+      const numberDisplayTandem = tandem.createTandem( 'numberDisplay' );
       const numberDisplay = new NumberDisplay(
         valueProperty,
         range,
-        merge( valueLabelOptions, { tandem: tandem.createTandem( 'numberDisplay' ), valuePattern: valuePattern } )
+        merge( valueLabelOptions, { tandem: numberDisplayTandem, valuePattern: valuePattern } )
       );
 
       const editValue = () => {
@@ -277,8 +278,11 @@ define( require => {
         tandem: tandem.createTandem( 'editButton' )
       } );
 
-      numberDisplay.addInputListener( new DownUpListener( { // no removeInputListener required
-        down: editValue
+      numberDisplay.addInputListener( new FireListener( { // no removeInputListener required
+        fire: editValue,
+        fireOnDown: true,
+        tandem: numberDisplayTandem.createTandem( 'fireListener' ),
+        phetioDocumentation: 'When fired, calls listener to open UI to edit the value for this NumberDisplay'
       } ) );
 
       const valueNode = new Node( { children: [ numberDisplay, editButton ] } );
