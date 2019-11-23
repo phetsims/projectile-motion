@@ -419,7 +419,8 @@ define( require => {
         } );
       }, [], {
         tandem: tandem,
-        phetioType: PhetioGroupIO( TrajectoryIO )
+        phetioType: PhetioGroupIO( TrajectoryIO ),
+        phetioDocumentation: 'The container for any trajectory that is created when a projectile is fired.'
       } );
     }
 

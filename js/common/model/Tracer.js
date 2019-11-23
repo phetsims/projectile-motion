@@ -11,10 +11,13 @@ define( require => {
 
   // modules
   const BooleanProperty = require( 'AXON/BooleanProperty' );
+  const DataPointIO = require( 'PROJECTILE_MOTION/common/model/DataPointIO' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const NullableIO = require( 'TANDEM/types/NullableIO' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Property = require( 'AXON/Property' );
+  const PropertyIO = require( 'AXON/PropertyIO' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
@@ -25,21 +28,31 @@ define( require => {
 
   /**
    * @param {PhetioGroup.<Trajectory>} trajectories
-   * @param {number} tracerX - x position of the tracer
-   * @param {number} tracerY - y position of the tracer
+   * @param {number} tracerX - x initial position of the tracer
+   * @param {number} tracerY - y initial position of the tracer
    * @param {Tandem} tandem
    * @constructor
    */
   function Tracer( trajectories, tracerX, tracerY, tandem ) {
 
-    // @public - position of the tracer
-    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), { tandem: tandem.createTandem( 'positionProperty' ) } );
+    // @public
+    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), {
+      tandem: tandem.createTandem( 'positionProperty' ),
+      phetioDocumentation: 'The position of the tracer in model coords'
+    } );
 
-    // @public {Property.<DataPoint|null>} point that the tracer is displaying information about, or null if no info displayed
-    this.dataPointProperty = new Property( null );
+    // @public {Property.<DataPoint|null>}
+    this.dataPointProperty = new Property( null, {
+      tandem: tandem.createTandem( 'dataPointProperty' ),
+      phetioDocumentation: 'Data point that the tracer is displaying information about, or null if no info displayed.',
+      phetioType: PropertyIO( NullableIO( DataPointIO ) )
+    } );
 
-    // @public whether the tracer is out in the play area (false when in toolbox)
-    this.isActiveProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'isActiveProperty' ) } );
+    // @public
+    this.isActiveProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isActiveProperty' ),
+      phetioDocumentation: 'Whether the tracer is out in the play area (false when in toolbox)'
+    } );
 
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
     this.trajectories = trajectories;

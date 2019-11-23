@@ -28,7 +28,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.airDensityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "air density, depends on altitude and whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -41,7 +41,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<NumberIO>"
     },
     "projectileMotion.dragScreen.model.airResistanceOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -54,7 +54,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.altitudeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Altitude of the environment",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -67,7 +67,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.cannonAngleProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Angle of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -80,7 +80,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.cannonHeightProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Height of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -93,7 +93,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -119,7 +119,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.dragScreen.model.gravityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Acceleration due to gravity",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -132,7 +132,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.initialSpeedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The speed on launch",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -145,7 +145,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.isPlayingProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether animation is playing (as opposed to paused)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -158,7 +158,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -171,7 +171,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the measuring tape is out in the play area (false when in the toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -184,7 +184,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -197,7 +197,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.dragScreen.model.numberOfMovingProjectilesProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "number of projectiles that are still moving",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -210,7 +210,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.projectileDiameterProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -223,7 +223,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.projectileDragCoefficientProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Drag coefficient of the projectile, unitless as it is a coefficient",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -236,7 +236,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.projectileMassProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -275,7 +275,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.dragScreen.model.selectedProjectileObjectTypeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The currently selected projectile object type",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -288,7 +288,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.dragScreen.model.speedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Speed of animation, can be normal or slow",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -300,8 +300,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
+    "projectileMotion.dragScreen.model.tracer.dataPointProperty": {
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<DataPointIO>>"
+    },
     "projectileMotion.dragScreen.model.tracer.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the tracer is out in the play area (false when in toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -314,7 +327,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The position of the tracer in model coords",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -327,7 +340,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The container for any trajectory that is created when a projectile is fired.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9843,7 +9856,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.airDensityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "air density, depends on altitude and whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9856,7 +9869,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<NumberIO>"
     },
     "projectileMotion.introScreen.model.airResistanceOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9869,7 +9882,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.altitudeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Altitude of the environment",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9882,7 +9895,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.cannonAngleProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Angle of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9895,7 +9908,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.cannonHeightProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Height of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9908,7 +9921,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9921,7 +9934,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.gravityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Acceleration due to gravity",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9934,7 +9947,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.initialSpeedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The speed on launch",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9947,7 +9960,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.isPlayingProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether animation is playing (as opposed to paused)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9960,7 +9973,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9973,7 +9986,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.introScreen.model.measuringTape.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the measuring tape is out in the play area (false when in the toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9986,7 +9999,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -9999,7 +10012,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.introScreen.model.numberOfMovingProjectilesProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "number of projectiles that are still moving",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10012,7 +10025,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.projectileDiameterProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10025,7 +10038,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.projectileDragCoefficientProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Drag coefficient of the projectile, unitless as it is a coefficient",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10038,7 +10051,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.projectileMassProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10077,7 +10090,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.introScreen.model.selectedProjectileObjectTypeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The currently selected projectile object type",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10090,7 +10103,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.introScreen.model.speedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Speed of animation, can be normal or slow",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10102,8 +10115,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
+    "projectileMotion.introScreen.model.tracer.dataPointProperty": {
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<DataPointIO>>"
+    },
     "projectileMotion.introScreen.model.tracer.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the tracer is out in the play area (false when in toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10116,7 +10142,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The position of the tracer in model coords",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10129,7 +10155,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.introScreen.model.trajectoryGroup": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The container for any trajectory that is created when a projectile is fired.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14731,7 +14757,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.airDensityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "air density, depends on altitude and whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14744,7 +14770,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<NumberIO>"
     },
     "projectileMotion.labScreen.model.airResistanceOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14757,7 +14783,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.altitudeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Altitude of the environment",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14770,7 +14796,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.cannonAngleProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Angle of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14783,7 +14809,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.cannonHeightProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Height of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14796,7 +14822,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14809,7 +14835,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.gravityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Acceleration due to gravity",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14822,7 +14848,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.initialSpeedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The speed on launch",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14835,7 +14861,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.isPlayingProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether animation is playing (as opposed to paused)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14848,7 +14874,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14861,7 +14887,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.labScreen.model.measuringTape.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the measuring tape is out in the play area (false when in the toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14874,7 +14900,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14887,7 +14913,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.labScreen.model.numberOfMovingProjectilesProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "number of projectiles that are still moving",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14900,7 +14926,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.projectileDiameterProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14913,7 +14939,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.projectileDragCoefficientProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Drag coefficient of the projectile, unitless as it is a coefficient",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14926,7 +14952,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.projectileMassProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14965,7 +14991,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.labScreen.model.selectedProjectileObjectTypeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The currently selected projectile object type",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14978,7 +15004,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.labScreen.model.speedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Speed of animation, can be normal or slow",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14990,8 +15016,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
+    "projectileMotion.labScreen.model.tracer.dataPointProperty": {
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<DataPointIO>>"
+    },
     "projectileMotion.labScreen.model.tracer.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the tracer is out in the play area (false when in toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15004,7 +15043,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The position of the tracer in model coords",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15017,7 +15056,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.labScreen.model.trajectoryGroup": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The container for any trajectory that is created when a projectile is fired.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36701,7 +36740,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.airDensityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "air density, depends on altitude and whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36714,7 +36753,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<NumberIO>"
     },
     "projectileMotion.vectorsScreen.model.airResistanceOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether air resistance is on",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36727,7 +36766,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.altitudeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Altitude of the environment",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36740,7 +36779,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.cannonAngleProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Angle of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36753,7 +36792,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.cannonHeightProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Height of the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36766,7 +36805,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36792,7 +36831,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.vectorsScreen.model.gravityProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Acceleration due to gravity",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36805,7 +36844,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.initialSpeedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The speed on launch",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36818,7 +36857,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.isPlayingProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether animation is playing (as opposed to paused)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36831,7 +36870,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36844,7 +36883,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the measuring tape is out in the play area (false when in the toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36857,7 +36896,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36870,7 +36909,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.vectorsScreen.model.numberOfMovingProjectilesProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "number of projectiles that are still moving",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36883,7 +36922,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.projectileDiameterProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36896,7 +36935,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.projectileDragCoefficientProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Drag coefficient of the projectile, unitless as it is a coefficient",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36909,7 +36948,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.projectileMassProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36948,7 +36987,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<RangeIO>"
     },
     "projectileMotion.vectorsScreen.model.selectedProjectileObjectTypeProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The currently selected projectile object type",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36961,7 +37000,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.vectorsScreen.model.speedProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Speed of animation, can be normal or slow",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36973,8 +37012,21 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
+    "projectileMotion.vectorsScreen.model.tracer.dataPointProperty": {
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<NullableIO<DataPointIO>>"
+    },
     "projectileMotion.vectorsScreen.model.tracer.isActiveProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether the tracer is out in the play area (false when in toolbox)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36987,7 +37039,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The position of the tracer in model coords",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -37000,7 +37052,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<Vector2IO>"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The container for any trajectory that is created when a projectile is fired.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",

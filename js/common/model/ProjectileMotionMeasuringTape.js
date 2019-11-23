@@ -21,16 +21,23 @@ define( require => {
    */
   function ProjectileMotionMeasuringTape( tandem ) {
 
-    // @public - Base (start of tape from the container) position
+    // @public
     this.basePositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
-      tandem: tandem.createTandem( 'basePositionProperty' )
+      tandem: tandem.createTandem( 'basePositionProperty' ),
+      phetioDocumentation: 'Base (start of tape from the container) position'
     } );
 
-    // @public - Tip (end of measuring tape) position
-    this.tipPositionProperty = new Vector2Property( new Vector2( 1, 0 ), { tandem: tandem.createTandem( 'tipPositionProperty' ) } );
+    // @public -
+    this.tipPositionProperty = new Vector2Property( new Vector2( 1, 0 ), {
+      tandem: tandem.createTandem( 'tipPositionProperty' ),
+      phetioDocumentation: 'Tip (end of measuring tape) position'
+    } );
 
-    // @public - Whether the measuring tape is out in the play area (false when in the toolbox)
-    this.isActiveProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'isActiveProperty' ) } );
+    // @public
+    this.isActiveProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isActiveProperty' ),
+      phetioDocumentation: 'Whether the measuring tape is out in the play area (false when in the toolbox)'
+    } );
   }
 
   projectileMotion.register( 'ProjectileMotionMeasuringTape', ProjectileMotionMeasuringTape );

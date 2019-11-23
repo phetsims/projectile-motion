@@ -63,102 +63,123 @@ define( require => {
 
     // --initial values
 
-    // @public {Property.<number>} height of the cannon, in meters
+    // @public {Property.<number>}
     this.cannonHeightProperty = new NumberProperty( options.defaultCannonHeight, {
       tandem: tandem.createTandem( 'cannonHeightProperty' ),
+      phetioDocumentation: 'Height of the cannon',
       units: 'm',
       range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     } );
 
-    // @public {Property.<number>} angle of the cannon, in degrees
+    // @public {Property.<number>}
     this.cannonAngleProperty = new NumberProperty( options.defaultCannonAngle, {
       tandem: tandem.createTandem( 'cannonAngleProperty' ),
-      units: '\u00B0',
+      phetioDocumentation: 'Angle of the cannon',
+      units: '\u00B0', // in degrees
       range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
     } );
 
-    // @public {Property.<number>} launch speed, in meters per second
+    // @public {Property.<number>}
     this.initialSpeedProperty = new NumberProperty( options.defaultInitialSpeed, {
       tandem: tandem.createTandem( 'initialSpeedProperty' ),
+      phetioDocumentation: 'The speed on launch',
       units: 'm/s',
       range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     } );
 
     // --parameters for next projectile fired
 
-    // @public {Property.<number>} mass of the projectile, in kilograms
+    // @public {Property.<number>}
     this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass, {
       tandem: tandem.createTandem( 'projectileMassProperty' ),
+      phetioDocumentation: 'Mass of the projectile',
       units: 'kg'
     } );
 
-    // @public {Property.<number>} diameter of the projectile, in meters
+    // @public {Property.<number>}
     this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter, {
       tandem: tandem.createTandem( 'projectileDiameterProperty' ),
+      phetioDocumentation: 'Diameter of the projectile',
       units: 'm'
     } );
 
-    // @public {Property.<number>} drag coefficient of the projectile, unitless as it is a coefficient
+    // @public {Property.<number>}
     this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient, {
-      tandem: tandem.createTandem( 'projectileDragCoefficientProperty' )
+      tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
+      phetioDocumentation: 'Drag coefficient of the projectile, unitless as it is a coefficient'
     } );
 
     // @public {Property.<ProjectileObjectType>}
     this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
       tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
+      phetioDocumentation: 'The currently selected projectile object type',
       phetioType: PropertyIO( ReferenceIO ),
       validValues: possibleObjectTypes
     } );
 
     // --Properties that change the environment and affect all projectiles, called global
 
-    // @public acceleration due to gravity, in meters per second squared
+    // @public
     this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
       tandem: tandem.createTandem( 'gravityProperty' ),
+      phetioDocumentation: 'Acceleration due to gravity',
       units: 'm/s^2'
     } );
 
-    // @public altitude of the environment, in meters
+    // @public
     this.altitudeProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'altitudeProperty' ),
+      phetioDocumentation: 'Altitude of the environment',
       units: 'm'
     } );
 
-    // @public whether air resistance is on
-    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance, { tandem: tandem.createTandem( 'airResistanceOnProperty' ) } );
+    // @public
+    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance, {
+      tandem: tandem.createTandem( 'airResistanceOnProperty' ),
+      phetioDocumentation: 'Whether air resistance is on'
+    } );
 
-    // @public {DerivedProperty.<number>} air density, in kg/cu m, depends on altitude and whether air resistance is on
+    // @public {DerivedProperty.<number>}
     this.airDensityProperty = new DerivedProperty( [
       this.altitudeProperty,
       this.airResistanceOnProperty
     ], calculateAirDensity, {
       tandem: tandem.createTandem( 'airDensityProperty' ),
+      units: 'kg/m^3',
+      phetioDocumentation: 'air density, depends on altitude and whether air resistance is on',
       phetioType: DerivedPropertyIO( NumberIO )
     } );
 
     // --animation controls
 
-    // @public {Property.<String>} speed of animation, normal/slow
+    // @public {Property.<String>}
     this.speedProperty = new EnumerationProperty( SpeedEnumeration, SpeedEnumeration.NORMAL, {
-      tandem: tandem.createTandem( 'speedProperty' )
+      tandem: tandem.createTandem( 'speedProperty' ),
+      phetioDocumentation: 'Speed of animation, can be normal or slow'
     } );
 
-    // @public whether animation is playing (as opposed to paused)
-    this.isPlayingProperty = new BooleanProperty( true, { tandem: tandem.createTandem( 'isPlayingProperty' ) } );
+    // @public
+    this.isPlayingProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'isPlayingProperty' ),
+      phetioDocumentation: 'whether animation is playing (as opposed to paused)'
+    } );
 
     // @public (read-only)
     this.davidHeight = 2; // meters
     this.davidPosition = new Vector2( 7, 0 ); // meters
 
-    // @public number of projectiles that are still moving
-    this.numberOfMovingProjectilesProperty = new NumberProperty( 0, { tandem: tandem.createTandem( 'numberOfMovingProjectilesProperty' ) } );
+    // @public
+    this.numberOfMovingProjectilesProperty = new NumberProperty( 0, {
+      tandem: tandem.createTandem( 'numberOfMovingProjectilesProperty' ),
+      phetioDocumentation: 'number of projectiles that are still moving'
+    } );
 
-    // @public {DerivedProperty.<boolean>} is the fire button enabled? Yes if there are less than the max projectiles
-    // in the air.
+    // @public {DerivedProperty.<boolean>}
     this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty ], function( number ) {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     }, {
       tandem: tandem.createTandem( 'fireEnabledProperty' ),
+      phetioDocumentation: 'Is the fire button enabled? Yes if there are less than the max projectiles in the air.',
       phetioType: DerivedPropertyIO( BooleanIO )
     } );
 

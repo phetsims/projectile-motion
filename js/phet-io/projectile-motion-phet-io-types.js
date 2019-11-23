@@ -261,7 +261,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "DOMEventIO"
     },
     "DataPointIO": {
-      "documentation": "A single data point on a projectile's trajectory",
+      "documentation": "A single data point on a projectile's trajectory, with the following data:<br><ul><li>time: The time of the data point</li><li>position: the position of the point in model coords</li><li>airDensity: the air density when the point was collected</li><li>velocity: the velocity of the projectile at the time when the point was collected</li><li>acceleration: the acceleration of the projectile at the time when the point was collected</li><li>dragForce: the acceleration of the projectile at the time when the point was collected</li><li>forceGravity: the acceleration of the projectile at the time when the point was collected</li><li>apex: if this data point was at the apex of a trajectory</li><li>reachedGround: if this data point was collected when the projectile was on the ground</li></ul>",
       "events": [],
       "methodOrder": [],
       "methods": {},
@@ -533,6 +533,19 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(NullableIO<BooleanIO>,NullableIO<NullableIO<BooleanIO>>)=>VoidIO"
     },
+    "FunctionIO(NullableIO<DataPointIO>,NullableIO<NullableIO<DataPointIO>>)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> NullableIO<DataPointIO>, NullableIO<NullableIO<DataPointIO>><br><strong>Return Type:</strong> VoidIO",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "NullableIO<DataPointIO>",
+        "NullableIO<NullableIO<DataPointIO>>",
+        "VoidIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "FunctionIO(NullableIO<DataPointIO>,NullableIO<NullableIO<DataPointIO>>)=>VoidIO"
+    },
     "FunctionIO(NullableIO<EventIO>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> NullableIO<EventIO><br><strong>Return Type:</strong> VoidIO",
       "events": [],
@@ -714,6 +727,17 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "NullableIO<BooleanIO>"
     },
+    "NullableIO<DataPointIO>": {
+      "documentation": "A wrapper to wrap another IOType, adding support for null.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "DataPointIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "NullableIO<DataPointIO>"
+    },
     "NullableIO<EnumerationIO(SLOW|NORMAL)>": {
       "documentation": "A wrapper to wrap another IOType, adding support for null.",
       "events": [],
@@ -768,6 +792,17 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "NullableIO<NullableIO<BooleanIO>>"
+    },
+    "NullableIO<NullableIO<DataPointIO>>": {
+      "documentation": "A wrapper to wrap another IOType, adding support for null.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "NullableIO<DataPointIO>"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "NullableIO<NullableIO<DataPointIO>>"
     },
     "NullableIO<NullableIO<FocusIO>>": {
       "documentation": "A wrapper to wrap another IOType, adding support for null.",
@@ -1431,6 +1466,50 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "PropertyIO<NullableIO<DataPointIO>>": {
+      "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",
+      "events": [
+        "changed"
+      ],
+      "methodOrder": [
+        "link",
+        "lazyLink"
+      ],
+      "methods": {
+        "getValue": {
+          "documentation": "Gets the current value.",
+          "parameterTypes": [],
+          "returnType": "NullableIO<DataPointIO>"
+        },
+        "lazyLink": {
+          "documentation": "Adds a listener which will be called when the value changes. This method is like \"link\", but without the current-value callback on registration. The listener takes two arguments, the new value and the previous value.",
+          "parameterTypes": [
+            "FunctionIO(NullableIO<DataPointIO>,NullableIO<NullableIO<DataPointIO>>)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "link": {
+          "documentation": "Adds a listener which will be called when the value changes. On registration, the listener is also called with the current value. The listener takes two arguments, the new value and the previous value.",
+          "parameterTypes": [
+            "FunctionIO(NullableIO<DataPointIO>,NullableIO<NullableIO<DataPointIO>>)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "setValue": {
+          "documentation": "Sets the value of the Property. If the value differs from the previous value, listeners are notified with the new value.",
+          "invocableForReadOnlyElements": false,
+          "parameterTypes": [
+            "NullableIO<DataPointIO>"
+          ],
+          "returnType": "VoidIO"
+        }
+      },
+      "parameterTypes": [
+        "NullableIO<DataPointIO>"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "PropertyIO<NullableIO<DataPointIO>>"
     },
     "PropertyIO<NullableIO<FocusIO>>": {
       "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",
