@@ -87,7 +87,8 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'diameterNumberControl' )
+        tandem: tandem.createTandem( 'diameterNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the diameter of the projectile'
       }
     );
 
@@ -100,7 +101,8 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'massNumberControl' )
+        tandem: tandem.createTandem( 'massNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the mass of the projectile'
       }
     );
 

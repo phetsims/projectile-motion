@@ -27,7 +27,11 @@ define( require => {
       0.8,
       ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
       null,
-      true, { tandem: tandem.createTandem( 'generalObjectType' ) }
+      true, {
+        tandem: tandem.createTandem( 'generalObjectType' ),
+        phetioDocumentation: 'On this screen there is only a single, general projectile object type. It cannot be ' +
+                             'changed to a different object type, but can be altered via Properties in the model.'
+      }
     );
     ProjectileMotionModel.call( this, defaultObjectType, true, [ defaultObjectType ], tandem );
 

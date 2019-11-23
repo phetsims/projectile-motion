@@ -133,7 +133,8 @@ define( require => {
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        tandem: tandem.createTandem( 'projectileChoiceComboBox' )
+        tandem: tandem.createTandem( 'projectileChoiceComboBox' ),
+        phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
       } );
 
     // @private make visible to methods
@@ -275,7 +276,8 @@ define( require => {
         content: pencilIcon,
         baseColor: PhetColorScheme.BUTTON_YELLOW,
         listener: editValue,
-        tandem: tandem.createTandem( 'editButton' )
+        tandem: tandem.createTandem( 'editButton' ),
+        phetioDocumentation: 'the button to open the keypad to adjust the value'
       } );
 
       numberDisplay.addInputListener( new FireListener( { // no removeInputListener required
@@ -434,7 +436,8 @@ define( require => {
                 label: new Text( objectType.massRange.max, LABEL_OPTIONS )
               } ]
             },
-            tandem: objectSpecificTandem.createTandem( 'massNumberControl' )
+            tandem: objectSpecificTandem.createTandem( 'massNumberControl' ),
+            phetioDocumentation: 'UI control to adjust the mass of the projectile'
           }, defaultNumberControlOptions ) );
 
         const diameterNumberControl = new NumberControl(
@@ -458,7 +461,8 @@ define( require => {
                 label: new Text( objectType.diameterRange.max, LABEL_OPTIONS )
               } ]
             },
-            tandem: objectSpecificTandem.createTandem( 'diameterNumberControl' )
+            tandem: objectSpecificTandem.createTandem( 'diameterNumberControl' ),
+            phetioDocumentation: 'UI control to adjust the diameter of the projectile'
           }, defaultNumberControlOptions ) );
 
         const gravityNumberControl = this.gravityNumberControl || new NumberControl(
@@ -480,7 +484,8 @@ define( require => {
             sliderOptions: {
               constrainValue: value => Util.roundSymmetric( value * 100 ) / 100
             },
-            tandem: generalComponentTandem.createTandem( 'gravityNumberControl' )
+            tandem: generalComponentTandem.createTandem( 'gravityNumberControl' ),
+            phetioDocumentation: 'UI control to adjust the force of gravity on the projectile'
           }, defaultNumberControlOptions )
         );
         this.gravityNumberControl = gravityNumberControl;
@@ -499,7 +504,8 @@ define( require => {
             sliderOptions: {
               constrainValue: value => Util.roundSymmetric( value / 100 ) * 100
             },
-            tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' )
+            tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' ),
+            phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
           }, defaultNumberControlOptions, )
         );
         this.altitudeNumberControl = altitudeNumberControl;

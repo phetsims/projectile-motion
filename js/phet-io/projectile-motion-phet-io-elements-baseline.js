@@ -106,7 +106,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.generalObjectType": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "On this screen there is only a single, general projectile object type. It cannot be changed to a different object type, but can be altered via Properties in the model.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -249,7 +249,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.score.targetXProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -327,7 +327,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coords",
+      "phetioDocumentation": "The position of the tracer in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -366,7 +366,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup.archetype.dataPoints": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "An ordered list of all data points taken on this trajectory. The earliest data point will be first",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -392,7 +392,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup.archetype.projectileObjects": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "A list of the current projectile objects on this trajectory. At most there can only be 3 projectiles flying on any trajectory at one time.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -418,7 +418,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.trajectoryGroup.archetype.rankProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The count of how old this projectile trajectory is. Older trajectories have more opacity until they are subsequently removed. The most recent trajectory fired has rank 0. The second most recent has rank 1. The oldest still on screen has rank 4",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -613,7 +613,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.eraserButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to erase all of the trajectories",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -717,7 +717,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.fireButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to launch a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -821,7 +821,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.initialSpeedNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the control for the initial speed as a projectile leaves the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -1588,7 +1588,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.measuringTapeNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the measuring tape",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -1770,7 +1770,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.normalMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a normal speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -1887,7 +1887,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.playPauseButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to control the animation in the simulation. This will also stop the model from stepping",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -2056,7 +2056,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.projectilePanel.altitudeNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the altitude of location where the projectile is being launched",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -2771,7 +2771,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.projectilePanel.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -3278,7 +3278,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.projectilePanel.dragCoefficientNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the drag coefficient of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -3993,7 +3993,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.projectilePanel.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -4500,7 +4500,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.resetAllButton": {
-      "phetioDocumentation": "The orange, round button that can be used to restore the initial state",
+      "phetioDocumentation": "button to reset the entire screen",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -4617,7 +4617,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.slowMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a slower speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -4734,7 +4734,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.stepButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Progress the simulation a single model step.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -4838,7 +4838,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.targetNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The target to aim for when firing a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -4890,7 +4890,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
     "projectileMotion.dragScreen.view.targetNode.numberDisplay": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The number display in model coordinates of how far the cannon is from the target",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5046,7 +5046,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.toolboxPanel": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the panel that holds the tools when not in the play area",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5137,7 +5137,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.dragScreen.view.toolboxPanel.tracerIconNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the icon for the TracerNode, this is not interactive",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5202,7 +5202,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.tracerNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the tracer tool",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5293,7 +5293,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.vectorVisibilityProperties.forceVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the force vectors in a free body diagram for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5306,7 +5306,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.vectorVisibilityProperties.vectorsDisplayProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Property for which type of vectors are displayed for flying projectiles: either component vectors or total vectors.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5319,7 +5319,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<EnumerationIO(TOTAL|COMPONENTS)>"
     },
     "projectileMotion.dragScreen.view.vectorVisibilityProperties.velocityVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display velocity vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5332,7 +5332,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.vectorsPanel.forceCheckbox": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether or not to display force vectors in a free body diagram with the flying projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
@@ -5423,7 +5423,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button group to select what type of vectors are displayed with a flying projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -5709,7 +5709,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.vectorsPanel.velocityCheckbox": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "whether or not to display velocity vectors with the flying projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
@@ -5800,7 +5800,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.zoomInButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom in on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -6008,7 +6008,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.view.zoomOutButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom out on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -8374,7 +8374,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ObjectIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.custom": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "A custom projectile type that can have its values edited by the user",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10064,7 +10064,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.score.targetXProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10142,7 +10142,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coords",
+      "phetioDocumentation": "The position of the tracer in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10181,7 +10181,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.introScreen.model.trajectoryGroup.archetype.dataPoints": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "An ordered list of all data points taken on this trajectory. The earliest data point will be first",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -10207,7 +10207,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.trajectoryGroup.archetype.projectileObjects": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "A list of the current projectile objects on this trajectory. At most there can only be 3 projectiles flying on any trajectory at one time.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -10233,7 +10233,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.trajectoryGroup.archetype.rankProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The count of how old this projectile trajectory is. Older trajectories have more opacity until they are subsequently removed. The most recent trajectory fired has rank 0. The second most recent has rank 1. The oldest still on screen has rank 4",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -10428,7 +10428,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.eraserButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to erase all of the trajectories",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10532,7 +10532,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.fireButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to launch a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -10636,7 +10636,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.initialSpeedNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the control for the initial speed as a projectile leaves the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -11403,7 +11403,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.measuringTapeNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the measuring tape",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -11585,7 +11585,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.normalMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a normal speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -11702,7 +11702,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.playPauseButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to control the animation in the simulation. This will also stop the model from stepping",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -12222,7 +12222,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.projectilePanel.projectileChoiceComboBox": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Combo box that selects what projectile type to launch from the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
@@ -12950,7 +12950,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.resetAllButton": {
-      "phetioDocumentation": "The orange, round button that can be used to restore the initial state",
+      "phetioDocumentation": "button to reset the entire screen",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13067,7 +13067,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.slowMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a slower speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13184,7 +13184,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.stepButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Progress the simulation a single model step.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13288,7 +13288,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.targetNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The target to aim for when firing a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13340,7 +13340,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
     "projectileMotion.introScreen.view.targetNode.numberDisplay": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The number display in model coordinates of how far the cannon is from the target",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13496,7 +13496,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.toolboxPanel": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the panel that holds the tools when not in the play area",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13587,7 +13587,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.introScreen.view.toolboxPanel.tracerIconNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the icon for the TracerNode, this is not interactive",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13652,7 +13652,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.tracerNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the tracer tool",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13743,7 +13743,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.vectorVisibilityProperties.componentsAccelerationVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the component acceleration vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13756,7 +13756,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.vectorVisibilityProperties.componentsVelocityVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the component velocity vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13769,7 +13769,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.vectorVisibilityProperties.totalAccelerationVectorOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the total acceleration vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -13782,7 +13782,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.vectorVisibilityProperties.totalVelocityVectorOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the total velocity vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14315,7 +14315,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.zoomInButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom in on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14523,7 +14523,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.view.zoomOutButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom out on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -14965,7 +14965,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.score.targetXProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15043,7 +15043,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coords",
+      "phetioDocumentation": "The position of the tracer in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15082,7 +15082,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.labScreen.model.trajectoryGroup.archetype.dataPoints": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "An ordered list of all data points taken on this trajectory. The earliest data point will be first",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -15108,7 +15108,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.trajectoryGroup.archetype.projectileObjects": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "A list of the current projectile objects on this trajectory. At most there can only be 3 projectiles flying on any trajectory at one time.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -15134,7 +15134,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.trajectoryGroup.archetype.rankProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The count of how old this projectile trajectory is. Older trajectories have more opacity until they are subsequently removed. The most recent trajectory fired has rank 0. The second most recent has rank 1. The oldest still on screen has rank 4",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -15329,7 +15329,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.eraserButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to erase all of the trajectories",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15433,7 +15433,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.fireButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to launch a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -15537,7 +15537,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.initialSpeedNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the control for the initial speed as a projectile leaves the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -16499,7 +16499,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.keypadLayer": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The container for the keypad, responsible displaying and laying out the keypad",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -16512,7 +16512,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.keypadLayer.enterButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The button to submit a custom number with the keypad",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -16616,7 +16616,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.keypadLayer.keypad": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The keypad UI component for user to enter in a custom number",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -17981,7 +17981,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.measuringTapeNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the measuring tape",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -18163,7 +18163,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.normalMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a normal speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -18280,7 +18280,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.playPauseButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to control the animation in the simulation. This will also stop the model from stepping",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -18540,7 +18540,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.altitudeNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the altitude of location where the projectile is being launched",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -19255,7 +19255,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.baseballControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -19970,7 +19970,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.baseballControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -20685,7 +20685,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.cannonballControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -21400,7 +21400,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.cannonballControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -22115,7 +22115,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.carControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -22830,7 +22830,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.carControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -23558,7 +23558,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.projectilePanel.customControl.altitudeControl.editButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to open the keypad to adjust the value",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -23935,7 +23935,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.projectilePanel.customControl.diameterControl.editButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to open the keypad to adjust the value",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -24312,7 +24312,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.projectilePanel.customControl.dragCoefficientControl.editButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to open the keypad to adjust the value",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -24689,7 +24689,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.projectilePanel.customControl.gravityControl.editButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to open the keypad to adjust the value",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -25066,7 +25066,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NodeIO"
     },
     "projectileMotion.labScreen.view.projectilePanel.customControl.massControl.editButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to open the keypad to adjust the value",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -25430,7 +25430,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.footballControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -26145,7 +26145,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.footballControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -26860,7 +26860,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.golfBallControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -27575,7 +27575,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.golfBallControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -28290,7 +28290,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.gravityNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the force of gravity on the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -29005,7 +29005,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.humanControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -29720,7 +29720,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.humanControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -30435,7 +30435,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.pianoControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -31150,7 +31150,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.pianoControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -31865,7 +31865,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.projectileChoiceComboBox": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Combo box that selects what projectile type to launch from the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "USER",
@@ -32645,7 +32645,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.pumpkinControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -33360,7 +33360,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.pumpkinControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -34075,7 +34075,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.tankShellControl.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -34790,7 +34790,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.projectilePanel.tankShellControl.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -35505,7 +35505,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.resetAllButton": {
-      "phetioDocumentation": "The orange, round button that can be used to restore the initial state",
+      "phetioDocumentation": "button to reset the entire screen",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -35622,7 +35622,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.slowMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a slower speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -35739,7 +35739,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.stepButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Progress the simulation a single model step.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -35843,7 +35843,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.targetNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The target to aim for when firing a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -35895,7 +35895,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
     "projectileMotion.labScreen.view.targetNode.numberDisplay": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The number display in model coordinates of how far the cannon is from the target",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36051,7 +36051,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.toolboxPanel": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the panel that holds the tools when not in the play area",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36142,7 +36142,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.labScreen.view.toolboxPanel.tracerIconNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the icon for the TracerNode, this is not interactive",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36207,7 +36207,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.tracerNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the tracer tool",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36298,7 +36298,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.zoomInButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom in on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36506,7 +36506,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.view.zoomOutButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom out on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36818,7 +36818,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.generalObjectType": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "On this screen there is only a single, general projectile object type. It cannot be changed to a different object type, but can be altered via Properties in the model.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36961,7 +36961,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.score.targetXProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -37039,7 +37039,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coords",
+      "phetioDocumentation": "The position of the tracer in model coordinates",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -37078,7 +37078,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "TrajectoryIO"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup.archetype.dataPoints": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "An ordered list of all data points taken on this trajectory. The earliest data point will be first",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -37104,7 +37104,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup.archetype.projectileObjects": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "A list of the current projectile objects on this trajectory. At most there can only be 3 projectiles flying on any trajectory at one time.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -37130,7 +37130,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.trajectoryGroup.archetype.rankProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The count of how old this projectile trajectory is. Older trajectories have more opacity until they are subsequently removed. The most recent trajectory fired has rank 0. The second most recent has rank 1. The oldest still on screen has rank 4",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": true,
       "phetioEventType": "MODEL",
@@ -37325,7 +37325,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.eraserButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to erase all of the trajectories",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -37429,7 +37429,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.fireButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to launch a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -37533,7 +37533,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.initialSpeedNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the control for the initial speed as a projectile leaves the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -38300,7 +38300,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.measuringTapeNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the measuring tape",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -38482,7 +38482,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.normalMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a normal speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -38599,7 +38599,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.playPauseButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "button to control the animation in the simulation. This will also stop the model from stepping",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -38924,7 +38924,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.projectilePanel.diameterNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the diameter of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -39496,7 +39496,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.projectilePanel.massNumberControl": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "UI control to adjust the mass of the projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40003,7 +40003,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.resetAllButton": {
-      "phetioDocumentation": "The orange, round button that can be used to restore the initial state",
+      "phetioDocumentation": "button to reset the entire screen",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40120,7 +40120,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.slowMotionRadioButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Radio button that controls the animation, playing at a slower speed",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40237,7 +40237,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.stepButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Progress the simulation a single model step.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40341,7 +40341,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.targetNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The target to aim for when firing a projectile",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40393,7 +40393,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
     "projectileMotion.vectorsScreen.view.targetNode.numberDisplay": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "The number display in model coordinates of how far the cannon is from the target",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40549,7 +40549,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.toolboxPanel": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the panel that holds the tools when not in the play area",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40640,7 +40640,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
     "projectileMotion.vectorsScreen.view.toolboxPanel.tracerIconNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the icon for the TracerNode, this is not interactive",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40705,7 +40705,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.tracerNode": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the Node for the tracer tool",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40796,7 +40796,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.vectorVisibilityProperties.accelerationVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the acceleration vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40809,7 +40809,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.vectorVisibilityProperties.forceVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display the force vectors in a free body diagram for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40822,7 +40822,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.vectorVisibilityProperties.vectorsDisplayProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Property for which type of vectors are displayed for flying projectiles: either component vectors or total vectors.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -40835,7 +40835,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<EnumerationIO(TOTAL|COMPONENTS)>"
     },
     "projectileMotion.vectorsScreen.view.vectorVisibilityProperties.velocityVectorsOnProperty": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "Whether or not to display velocity vectors for flying projectiles",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -41029,7 +41029,20 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup": {
+      "phetioDocumentation": "Radio button group to select what type of vectors are displayed with a flying projectile",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "NodeIO"
+    },
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41042,20 +41055,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementArchetype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.enabledProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.enabledProperty": {
       "phetioDocumentation": "Determines whether the AquaRadioButton is enabled (pressable) or disabled (grayed-out)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41068,7 +41068,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41081,7 +41081,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41094,7 +41094,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41107,7 +41107,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.opacityProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41120,7 +41120,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.pickableProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41133,7 +41133,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.property": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.property": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41146,7 +41146,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "LinkedElementIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.components.visibleProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41159,7 +41159,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.opacityProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41172,7 +41172,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.pickableProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41185,7 +41185,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41198,7 +41198,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.enabledProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.enabledProperty": {
       "phetioDocumentation": "Determines whether the AquaRadioButton is enabled (pressable) or disabled (grayed-out)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41211,7 +41211,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41224,7 +41224,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the Event. The arguments are:<br/><ol><li>event: EventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41237,7 +41237,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<EventIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<EventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41250,7 +41250,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<EventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.opacityProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41263,7 +41263,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.pickableProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41276,7 +41276,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.property": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.property": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41289,7 +41289,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "LinkedElementIO"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.total.visibleProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41302,7 +41302,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.totalOrComponentsRadioButtonGroup.visibleProperty": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
@@ -41407,7 +41407,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.zoomInButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom in on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -41615,7 +41615,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.view.zoomOutButton": {
-      "phetioDocumentation": "",
+      "phetioDocumentation": "the button to zoom out on the cannon",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",

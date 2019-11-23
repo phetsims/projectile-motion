@@ -36,7 +36,10 @@ define( require => {
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
-    const keypadLayer = new KeypadLayer( { tandem: tandem.createTandem( 'keypadLayer' ) } );
+    const keypadLayer = new KeypadLayer( {
+      tandem: tandem.createTandem( 'keypadLayer' ),
+      phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
+    } );
     const labProjectilePanel = new LabProjectilePanel(
       comboBoxListParent,
       keypadLayer,

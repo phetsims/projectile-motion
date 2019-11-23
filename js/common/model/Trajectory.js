@@ -15,8 +15,6 @@ define( require => {
   // modules
   const DataPoint = require( 'PROJECTILE_MOTION/common/model/DataPoint' );
   const DataPointIO = require( 'PROJECTILE_MOTION/common/model/DataPointIO' );
-  const ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
-  const ProjectileObjectIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectIO' );
   const merge = require( 'PHET_CORE/merge' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const ObservableArray = require( 'AXON/ObservableArray' );
@@ -25,10 +23,17 @@ define( require => {
   const PhetioGroupIO = require( 'TANDEM/PhetioGroupIO' );
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileObject = require( 'PROJECTILE_MOTION/common/model/ProjectileObject' );
+  const ProjectileObjectIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectIO' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TrajectoryIO = require( 'PROJECTILE_MOTION/common/model/TrajectoryIO' );
   const Util = require( 'DOT/Util' );
   const Vector2 = require( 'DOT/Vector2' );
+
+  // constants
+  const MAX_NUMBER_OF_TRAJECTORIES = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+  const MAX_NUMBER_OF_FLYING_PROJECTILES = ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
 
   class Trajectory extends PhetioObject {
 
@@ -60,11 +65,13 @@ define( require => {
       // @private {number} drag coefficient of the projectiles
       this.dragCoefficient = model.projectileDragCoefficientProperty.get();
 
-      // @public {Property.<number>} counts how old this projectile is, which is listened by its opacity in view
-      // The most recent trajectory fired has rank 0. The second recent has rank 1. The oldest still on screen has rank
-      // max - 1.
+      // @public {Property.<number>}
       this.rankProperty = new NumberProperty( 0, {
         tandem: options.tandem.createTandem( 'rankProperty' ),
+        phetioDocumentation: 'The count of how old this projectile trajectory is. Older trajectories have more ' +
+                             'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
+                             'The second most recent has rank 1. The oldest still on screen has rank ' +
+                             ( MAX_NUMBER_OF_TRAJECTORIES - 1 ),
         phetioReadOnly: true
       } );
 
@@ -74,7 +81,9 @@ define( require => {
       // @public (read-only) {ObservableArray.<DataPoint>} record points along the trajectory with critical information
       this.dataPoints = new ObservableArray( {
         phetioType: ObservableArrayIO( DataPointIO ),
-        tandem: options.tandem.createTandem( 'dataPoints' )
+        tandem: options.tandem.createTandem( 'dataPoints' ),
+        phetioDocumentation: 'An ordered list of all data points taken on this trajectory. The earliest data point ' +
+                             'will be first'
       } );
 
       // @public (read-only) set by TrajectoryIO.js
@@ -126,7 +135,9 @@ define( require => {
       // @public {ObservableArray.<ProjectileObject>}
       this.projectileObjects = new ObservableArray( {
         tandem: options.tandem.createTandem( 'projectileObjects' ),
-        phetioType: ObservableArrayIO( ProjectileObjectIO )
+        phetioType: ObservableArrayIO( ProjectileObjectIO ),
+        phetioDocumentation: 'A list of the current projectile objects on this trajectory. At most there can only be ' +
+                             MAX_NUMBER_OF_FLYING_PROJECTILES + ' projectiles flying on any trajectory at one time.'
       } );
 
       // add first projectile object

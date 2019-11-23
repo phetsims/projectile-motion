@@ -30,6 +30,7 @@ define( require => {
     // @public {Property.<number>} x position of target
     this.targetXProperty = new NumberProperty( initialTargetX, {
       tandem: tandem.createTandem( 'targetXProperty' ),
+      phetioDocumentation: 'The x position of the score target, in model coordinates',
       range: new Property( new Range( -100, 100 ), {
         tandem: tandem.createTandem( 'targetXRangeProperty' ),
         phetioDocumentation: 'The range for x position of the score. This changes based on the current zoom of the view. ' +
@@ -44,7 +45,6 @@ define( require => {
 
     // @public {number} number of stars
     this.numberOfStars = 0;
-
   }
 
   projectileMotion.register( 'Score', Score );

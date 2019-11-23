@@ -73,7 +73,8 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'diameterNumberControl' )
+        tandem: tandem.createTandem( 'diameterNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the diameter of the projectile'
       }
     );
 
@@ -86,7 +87,8 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'massNumberControl' )
+        tandem: tandem.createTandem( 'massNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the mass of the projectile'
       }
     );
 
@@ -149,7 +151,8 @@ define( require => {
 
         // TODO: does this need a custom layout function?
         layoutFunction: altitudeLayoutFunction,
-        tandem: tandem.createTandem( 'altitudeNumberControl' )
+        tandem: tandem.createTandem( 'altitudeNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
       } )
     );
 
@@ -190,7 +193,8 @@ define( require => {
 
         delta: 0.01,
         layoutFunction: dragLayoutFunction,
-        tandem: tandem.createTandem( 'dragCoefficientNumberControl' )
+        tandem: tandem.createTandem( 'dragCoefficientNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the drag coefficient of the projectile'
       } )
     );
 

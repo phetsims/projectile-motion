@@ -115,7 +115,8 @@ define( require => {
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        tandem: tandem.createTandem( 'projectileChoiceComboBox' )
+        tandem: tandem.createTandem( 'projectileChoiceComboBox' ),
+        phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
       }
     );
 

@@ -487,7 +487,8 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'barrelTopDragListener' )
+      tandem: tandem.createTandem( 'barrelTopDragListener' ),
+      phetioDocumentation: 'the drag listener for the barrel of the cannon to change the angle'
     } ) );
 
     // drag handler for controlling the height
@@ -522,7 +523,8 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'heightDragListener' )
+      tandem: tandem.createTandem( 'heightDragListener' ),
+      phetioDocumentation: 'the listener to change the height of the cannon, used on multiple Nodes'
     } );
 
     // multiple parts of the cannon can be dragged to change height

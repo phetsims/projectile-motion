@@ -38,7 +38,7 @@ define( require => {
     // @public
     this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioDocumentation: 'The position of the tracer in model coords'
+      phetioDocumentation: 'The position of the tracer in model coordinates'
     } );
 
     // @public {Property.<DataPoint|null>}

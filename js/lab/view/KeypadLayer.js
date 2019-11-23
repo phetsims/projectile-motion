@@ -91,7 +91,8 @@ define( require => {
     this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
       maxDigits: options.maxDigits,
       maxDigitsRightOfMantissa: options.maxDecimals,
-      tandem: options.tandem.createTandem( 'keypad' )
+      tandem: options.tandem.createTandem( 'keypad' ),
+      phetioDocumentation: 'The keypad UI component for user to enter in a custom number'
     } );
 
     const enterButton = new RectangularPushButton( {
@@ -102,7 +103,8 @@ define( require => {
         fill: 'black',
         maxWidth: this.keypadNode.width // i18n
       } ),
-      tandem: options.tandem.createTandem( 'enterButton' )
+      tandem: options.tandem.createTandem( 'enterButton' ),
+      phetioDocumentation: 'The button to submit a custom number with the keypad'
     } );
 
     const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );

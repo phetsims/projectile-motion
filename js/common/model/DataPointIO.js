@@ -61,7 +61,7 @@ define( require => {
 
   DataPointIO.documentation = 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
                               '<li>time: The time of the data point</li>' +
-                              '<li>position: the position of the point in model coords</li>' +
+                              '<li>position: the position of the point in model coordinates</li>' +
                               '<li>airDensity: the air density when the point was collected</li>' +
                               '<li>velocity: the velocity of the projectile at the time when the point was collected</li>' +
                               '<li>acceleration: the acceleration of the projectile at the time when the point was collected</li>' +

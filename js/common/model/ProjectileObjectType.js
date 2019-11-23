@@ -249,7 +249,8 @@ define( require => {
       diameterRound: 0.01,
       dragCoefficientRange: new Range( 0.04, 1 ),
       dragCoefficientRound: 0.01,
-      tandem: objectTypesTandem.createTandem( 'custom' )
+      tandem: objectTypesTandem.createTandem( 'custom' ),
+      phetioDocumentation: 'A custom projectile type that can have its values edited by the user'
     }
   );
 

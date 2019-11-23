@@ -120,7 +120,8 @@ define( require => {
       },
 
       allowTouchSnag: true,
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: options.tandem.createTandem( 'dragListener' ),
+      phetioDocumentation: 'The listener to drag the score, this can only drag in a horizontal angle'
     } );
 
     // drag target to change horizontal position
@@ -141,7 +142,8 @@ define( require => {
           yMargin: 2,
           decimalPlaces: 1,
           cursor: 'pointer',
-          tandem: options.tandem.createTandem( 'numberDisplay' )
+          tandem: options.tandem.createTandem( 'numberDisplay' ),
+          phetioDocumentation: 'The number display in model coordinates of how far the cannon is from the target'
         }
       )
     );

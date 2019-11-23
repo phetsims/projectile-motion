@@ -160,7 +160,8 @@ define( require => {
       applyOffset: false, // ignore where the pointer pressed in relation to the TracerNode origin
       start: () => self.isUserControlledProperty.set( true ),
       end: () => self.isUserControlledProperty.set( false ),
-      tandem: options.tandem.createTandem( 'dragListener' )
+      tandem: options.tandem.createTandem( 'dragListener' ),
+      phetioDocumentation: 'the listener for the tracer tool Node'
     } );
 
     // label and values readouts
@@ -434,7 +435,8 @@ define( require => {
           crosshair,
           textBox
         ],
-        tandem: tandem
+        tandem: tandem,
+        phetioDocumentation: 'the icon for the TracerNode, this is not interactive'
       } );
     }
   } );

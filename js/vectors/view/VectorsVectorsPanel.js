@@ -70,7 +70,8 @@ define( require => {
       spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5,
       maxWidth: checkboxOptions.maxWidth,
-      tandem: tandem.createTandem( 'totalOrComponentsRadioButtonGroup' )
+      tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' ),
+      phetioDocumentation: 'Radio button group to select what type of vectors are displayed with a flying projectile'
     } );
 
     const velocityLabel = new Text( velocityVectorsString, LABEL_OPTIONS );

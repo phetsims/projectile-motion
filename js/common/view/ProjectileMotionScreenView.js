@@ -110,7 +110,8 @@ define( require => {
 
     // target
     const targetNode = new TargetNode( model.score, transformProperty, this, {
-      tandem: tandem.createTandem( 'targetNode' )
+      tandem: tandem.createTandem( 'targetNode' ),
+      phetioDocumentation: 'The target to aim for when firing a projectile'
     } );
 
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
@@ -174,7 +175,8 @@ define( require => {
           touchAreaXDilation: 20,
           touchAreaYDilation: 20
         },
-        tandem: tandem.createTandem( 'initialSpeedNumberControl' )
+        tandem: tandem.createTandem( 'initialSpeedNumberControl' ),
+        phetioDocumentation: 'the control for the initial speed as a projectile leaves the cannon'
       },
     );
 
@@ -199,7 +201,8 @@ define( require => {
         textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
         significantFigures: 2,
         textFont: new PhetFont( { size: 16, weight: 'bold' } ),
-        tandem: tandem.createTandem( 'measuringTapeNode' )
+        tandem: tandem.createTandem( 'measuringTapeNode' ),
+        phetioDocumentation: 'the Node for the measuring tape'
       } );
 
     // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
@@ -232,7 +235,8 @@ define( require => {
 
     // add view for tracer
     const tracerNode = new TracerNode( model.tracer, transformProperty, this, {
-      tandem: tandem.createTandem( 'tracerNode' )
+      tandem: tandem.createTandem( 'tracerNode' ),
+      phetioDocumentation: 'the Node for the tracer tool'
     } );
 
     // zoom Property
@@ -256,7 +260,8 @@ define( require => {
       top: 0,
       touchAreaXDilation: 3,
       touchAreaYDilation: 6,
-      tandem: tandem.createTandem( 'zoomOutButton' )
+      tandem: tandem.createTandem( 'zoomOutButton' ),
+      phetioDocumentation: 'the button to zoom out on the cannon'
     } );
     zoomControl.addChild( zoomOutButton );
 
@@ -271,7 +276,8 @@ define( require => {
       top: zoomOutButton.top,
       touchAreaXDilation: 3,
       touchAreaYDilation: 6,
-      tandem: tandem.createTandem( 'zoomInButton' )
+      tandem: tandem.createTandem( 'zoomInButton' ),
+      phetioDocumentation: 'the button to zoom in on the cannon'
     } );
     zoomControl.addChild( zoomInButton );
 
@@ -300,7 +306,8 @@ define( require => {
 
     // toolbox panel contains measuring tape. lab screen will add a tracer tool
     const toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty, {
-      tandem: tandem.createTandem( 'toolboxPanel' )
+      tandem: tandem.createTandem( 'toolboxPanel' ),
+      phetioDocumentation: 'the panel that holds the tools when not in the play area'
     } );
 
     // reset all button, also a closure for zoomProperty and measuringTape
@@ -313,7 +320,8 @@ define( require => {
         cannonNode.reset();
       },
       centerY: initialSpeedPanel.centerY,
-      tandem: tandem.createTandem( 'resetAllButton' )
+      tandem: tandem.createTandem( 'resetAllButton' ),
+      phetioDocumentation: 'button to reset the entire screen'
     } );
 
     // eraser button
@@ -324,7 +332,8 @@ define( require => {
       listener: function() { model.eraseTrajectories(); },
       centerY: initialSpeedPanel.centerY,
       left: initialSpeedPanel.right + 30,
-      tandem: tandem.createTandem( 'eraserButton' )
+      tandem: tandem.createTandem( 'eraserButton' ),
+      phetioDocumentation: 'button to erase all of the trajectories'
     } );
 
     // fire button
@@ -338,7 +347,8 @@ define( require => {
       },
       bottom: eraserButton.bottom,
       left: eraserButton.right + X_MARGIN,
-      tandem: tandem.createTandem( 'fireButton' )
+      tandem: tandem.createTandem( 'fireButton' ),
+      phetioDocumentation: 'button to launch a projectile'
     } );
 
     model.fireEnabledProperty.link( function( enable ) {
@@ -351,7 +361,8 @@ define( require => {
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
       touchAreaDilation: 2,
-      tandem: tandem.createTandem( 'playPauseButton' )
+      tandem: tandem.createTandem( 'playPauseButton' ),
+      phetioDocumentation: 'button to control the animation in the simulation. This will also stop the model from stepping'
     } );
 
     // step button
@@ -364,7 +375,8 @@ define( require => {
       centerY: playPauseButton.centerY,
       left: playPauseButton.right + PLAY_CONTROLS_INSET,
       touchAreaDilation: 4,
-      tandem: tandem.createTandem( 'stepButton' )
+      tandem: tandem.createTandem( 'stepButton' ),
+      phetioDocumentation: 'Progress the simulation a single model step.'
     } );
 
     // make the play/pause button bigger when it is paused
@@ -382,7 +394,8 @@ define( require => {
     } );
     const normalMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.NORMAL, normalText, {
       radius: 8,
-      tandem: tandem.createTandem( 'normalMotionRadioButton' )
+      tandem: tandem.createTandem( 'normalMotionRadioButton' ),
+      phetioDocumentation: 'Radio button that controls the animation, playing at a normal speed'
     } );
 
     const slowText = new Text( slowString, {
@@ -393,7 +406,8 @@ define( require => {
     } );
     const slowMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.SLOW, slowText, {
       radius: 8,
-      tandem: tandem.createTandem( 'slowMotionRadioButton' )
+      tandem: tandem.createTandem( 'slowMotionRadioButton' ),
+      phetioDocumentation: 'Radio button that controls the animation, playing at a slower speed'
     } );
 
     // TODO: should use VerticalAquaRadioButtonGroup unless there is a good reason not to

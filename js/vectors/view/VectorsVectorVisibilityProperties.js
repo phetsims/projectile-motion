@@ -25,11 +25,22 @@ define( require => {
     VectorVisibilityProperties.call( this );
 
     // @public vectors visibility for velocity and force, total or component
-    this.velocityVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'velocityVectorsOnProperty' ) } );
-    this.accelerationVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'accelerationVectorsOnProperty' ) } );
-    this.forceVectorsOnProperty = new BooleanProperty( false, { tandem: tandem.createTandem( 'forceVectorsOnProperty' ) } );
+    this.velocityVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),
+      phetioDocumentation: 'Whether or not to display velocity vectors for flying projectiles'
+    } );
+    this.accelerationVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'accelerationVectorsOnProperty' ),
+      phetioDocumentation: 'Whether or not to display the acceleration vectors for flying projectiles'
+    } );
+    this.forceVectorsOnProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'forceVectorsOnProperty' ),
+      phetioDocumentation: 'Whether or not to display the force vectors in a free body diagram for flying projectiles'
+    } );
     this.vectorsDisplayProperty = new EnumerationProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
-      tandem: tandem.createTandem( 'vectorsDisplayProperty' )
+      tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
+      phetioDocumentation: 'Property for which type of vectors are displayed for flying projectiles: either component ' +
+                           'vectors or total vectors.'
     } );
 
     // update which vectors to show based on controls

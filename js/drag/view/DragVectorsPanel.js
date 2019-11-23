@@ -69,7 +69,8 @@ define( require => {
       spacing: 10,
       touchAreaXDilation: 5,
       maxWidth: titleOptions.maxWidth,
-      tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' )
+      tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' ),
+      phetioDocumentation: 'Radio button group to select what type of vectors are displayed with a flying projectile'
     } );
 
     const velocityLabel = new Text( velocityVectorsString, titleOptions );
@@ -81,7 +82,8 @@ define( require => {
       ]
     } );
     const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
-      tandem: tandem.createTandem( 'velocityCheckbox' )
+      tandem: tandem.createTandem( 'velocityCheckbox' ),
+      phetioDocumentation: 'whether or not to display velocity vectors with the flying projectile'
     }, checkboxOptions ) );
 
     const forceLabel = new Text( forceVectorsString, titleOptions );
@@ -93,7 +95,8 @@ define( require => {
       ]
     } );
     const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
-      tandem: tandem.createTandem( 'forceCheckbox' )
+      tandem: tandem.createTandem( 'forceCheckbox' ),
+      phetioDocumentation: 'whether or not to display force vectors in a free body diagram with the flying projectile'
     }, checkboxOptions ) );
 
     // The contents of the control panel
