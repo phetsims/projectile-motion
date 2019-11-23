@@ -248,6 +248,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
+    "projectileMotion.dragScreen.model.score.scoredEmitter": {
+      "phetioDocumentation": "Emits when a projectile hits the target, indicating a \"score.\" More stars are given depending on how close to the bullseye the projectile lands. The arguments are:<br/><ol><li>numberOfStars: NumberIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<NumberIO>"
+    },
     "projectileMotion.dragScreen.model.score.targetXProperty": {
       "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
@@ -10063,6 +10076,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
+    "projectileMotion.introScreen.model.score.scoredEmitter": {
+      "phetioDocumentation": "Emits when a projectile hits the target, indicating a \"score.\" More stars are given depending on how close to the bullseye the projectile lands. The arguments are:<br/><ol><li>numberOfStars: NumberIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<NumberIO>"
+    },
     "projectileMotion.introScreen.model.score.targetXProperty": {
       "phetioDocumentation": "The x position of the score target, in model coordinates",
       "phetioDynamicElement": false,
@@ -14963,6 +14989,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.model.score.scoredEmitter": {
+      "phetioDocumentation": "Emits when a projectile hits the target, indicating a \"score.\" More stars are given depending on how close to the bullseye the projectile lands. The arguments are:<br/><ol><li>numberOfStars: NumberIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<NumberIO>"
     },
     "projectileMotion.labScreen.model.score.targetXProperty": {
       "phetioDocumentation": "The x position of the score target, in model coordinates",
@@ -36959,6 +36998,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.vectorsScreen.model.score.scoredEmitter": {
+      "phetioDocumentation": "Emits when a projectile hits the target, indicating a \"score.\" More stars are given depending on how close to the bullseye the projectile lands. The arguments are:<br/><ol><li>numberOfStars: NumberIO</li></ol>",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": false,
+      "phetioStudioControl": true,
+      "phetioTypeName": "EmitterIO<NumberIO>"
     },
     "projectileMotion.vectorsScreen.model.score.targetXProperty": {
       "phetioDocumentation": "The x position of the score target, in model coordinates",

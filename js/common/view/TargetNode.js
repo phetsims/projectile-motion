@@ -157,16 +157,16 @@ define( require => {
     this.rewardNodes = [];
 
     // listen to model for whether score indicator should be shown
-    score.scoredEmitter.addListener( function() {
+    score.scoredEmitter.addListener( function( numberOfStars ) {
 
-      if ( score.numberOfStars === 1 ) {
+      if ( numberOfStars === 1 ) {
         var rewardNode = new Node( {
           children: [
             new StarNode( { x: 0, y: -30 } )
           ]
         } );
       }
-      else if ( score.numberOfStars === 2 ) {
+      else if ( numberOfStars === 2 ) {
         rewardNode = new Node( {
           children: [
             new StarNode( { x: -20, y: -20 } ),
@@ -174,7 +174,8 @@ define( require => {
           ]
         } );
       }
-      else { // 3
+      else {
+        assert && assert( numberOfStars === 3, '3 stars expected here' );
         rewardNode = new Node( {
           children: [
             new StarNode( { x: -30, y: -20 } ),

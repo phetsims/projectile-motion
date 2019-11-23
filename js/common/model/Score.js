@@ -12,6 +12,7 @@ define( require => {
   // modules
   const Emitter = require( 'AXON/Emitter' );
   const inherit = require( 'PHET_CORE/inherit' );
+  const NumberIO = require( 'TANDEM/types/NumberIO' );
   const NumberProperty = require( 'AXON/NumberProperty' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -41,10 +42,15 @@ define( require => {
     } );
 
     // @public {Emitter} if projectile has scored
-    this.scoredEmitter = new Emitter();
-
-    // @public {number} number of stars
-    this.numberOfStars = 0;
+    this.scoredEmitter = new Emitter( {
+      tandem: tandem.createTandem( 'scoredEmitter' ),
+      phetioDocumentation: 'Emits when a projectile hits the target, indicating a "score." More stars are given ' +
+                           'depending on how close to the bullseye the projectile lands.',
+      parameters: [ {
+        name: 'numberOfStars',
+        phetioType: NumberIO
+      } ]
+    } );
   }
 
   projectileMotion.register( 'Score', Score );
@@ -69,22 +75,15 @@ define( require => {
     scoreIfWithinTarget: function( projectileX ) {
       const distance = Math.abs( projectileX - this.targetXProperty.get() );
       if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 6 ) { // center circle
-        this.numberOfStars = 3;
-        this.scoredEmitter.emit();
+        this.scoredEmitter.emit( 3 );
       }
       else if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 3 ) { // middle circle
-        this.numberOfStars = 2;
-        this.scoredEmitter.emit();
+        this.scoredEmitter.emit( 2 );
       }
       else if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) { // just on the target
-        this.numberOfStars = 1;
-        this.scoredEmitter.emit();
-      }
-      else {
-        this.numberOfStars = 0;
+        this.scoredEmitter.emit( 1 );
       }
     }
-
   } );
 } );
 

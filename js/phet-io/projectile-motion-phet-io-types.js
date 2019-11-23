@@ -418,6 +418,35 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ActionIO<NullableIO<EventIO>>",
       "typeName": "EmitterIO<NullableIO<EventIO>>"
     },
+    "EmitterIO<NumberIO>": {
+      "documentation": "Emits when an event occurs and calls added listeners.",
+      "events": [
+        "emitted"
+      ],
+      "methodOrder": [],
+      "methods": {
+        "addListener": {
+          "documentation": "Adds a listener which will be called when the emitter emits.",
+          "parameterTypes": [
+            "FunctionIO(NumberIO)=>VoidIO"
+          ],
+          "returnType": "VoidIO"
+        },
+        "emit": {
+          "documentation": "Emits a single event to all listeners.",
+          "invocableForReadOnlyElements": false,
+          "parameterTypes": [
+            "NumberIO"
+          ],
+          "returnType": "VoidIO"
+        }
+      },
+      "parameterTypes": [
+        "NumberIO"
+      ],
+      "supertype": "ActionIO<NumberIO>",
+      "typeName": "EmitterIO<NumberIO>"
+    },
     "EnumerationIO(SLOW|NORMAL)": {
       "documentation": "Possible values: SLOW,NORMAL.",
       "events": [],
@@ -583,6 +612,18 @@ window.phet.phetio.phetioTypes = assert &&
       ],
       "supertype": "ObjectIO",
       "typeName": "FunctionIO(NullableIO<NumberIO>,NullableIO<NullableIO<NumberIO>>)=>VoidIO"
+    },
+    "FunctionIO(NumberIO)=>VoidIO": {
+      "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> NumberIO<br><strong>Return Type:</strong> VoidIO",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "parameterTypes": [
+        "NumberIO",
+        "VoidIO"
+      ],
+      "supertype": "ObjectIO",
+      "typeName": "FunctionIO(NumberIO)=>VoidIO"
     },
     "FunctionIO(NumberIO,NullableIO<NumberIO>)=>VoidIO": {
       "documentation": "Wrapper for the built-in JS function type.<br><strong>Arguments:</strong> NumberIO, NullableIO<NumberIO><br><strong>Return Type:</strong> VoidIO",
