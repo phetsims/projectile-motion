@@ -73,7 +73,7 @@ define( require => {
     }
   }
 
-  TrajectoryIO.documentation = 'A trajectory outlining the projectil\'s path';
+  TrajectoryIO.documentation = 'A trajectory outlining the projectile\'s path';
   TrajectoryIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.Trajectory };
   TrajectoryIO.typeName = 'TrajectoryIO';
   ObjectIO.validateSubtype( TrajectoryIO );
