@@ -36,7 +36,7 @@ define( require => {
     }
 
     /**
-     * @param {DataPoint} stateObject
+     * @param {Object} stateObject
      * @returns {Object}
      * @override
      */

@@ -47,7 +47,7 @@ define( require => {
     }
 
     /**
-     * @param {Trajectory} trajectory
+     * @param {Object} stateObject
      * @returns {Object}
      * @override
      */

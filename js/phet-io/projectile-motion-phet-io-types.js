@@ -1975,7 +1975,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "ToggleButtonIO"
     },
     "TrajectoryIO": {
-      "documentation": "A trajectory outlining the projectil's path",
+      "documentation": "A trajectory outlining the projectile's path",
       "events": [],
       "methodOrder": [],
       "methods": {},
