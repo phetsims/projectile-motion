@@ -12,8 +12,8 @@ define( require => {
   const Checkbox = require( 'SUN/Checkbox' );
   const ComboBox = require( 'SUN/ComboBox' );
   const ComboBoxItem = require( 'SUN/ComboBoxItem' );
+  const CustomProjectileObjectTypeControl = require( 'PROJECTILE_MOTION/lab/view/CustomProjectileObjectTypeControl' );
   const Dimension2 = require( 'DOT/Dimension2' );
-  const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
@@ -21,13 +21,10 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
-  const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
   const Panel = require( 'SUN/Panel' );
-  const PhetColorScheme = require( 'SCENERY_PHET/PhetColorScheme' );
-  const FireListener = require( 'SCENERY/listeners/FireListener' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+  const ProjectileObjectTypeControl = require( 'PROJECTILE_MOTION/lab/view/ProjectileObjectTypeControl' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  const RectangularPushButton = require( 'SUN/buttons/RectangularPushButton' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Util = require( 'DOT/Util' );
@@ -43,12 +40,10 @@ define( require => {
   const massString = require( 'string!PROJECTILE_MOTION/mass' );
   const metersPerSecondSquaredString = require( 'string!PROJECTILE_MOTION/metersPerSecondSquared' );
   const mString = require( 'string!PROJECTILE_MOTION/m' );
-  const pattern0Value1UnitsString = require( 'string!PROJECTILE_MOTION/pattern0Value1Units' );
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
 
   // constants
   const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  const NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
   const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   const READOUT_X_MARGIN = 4;
   const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
@@ -67,7 +62,7 @@ define( require => {
     // convenience variables as much of the logic in this type is in prototype functions only called on construction.
     // @private
     this.objectTypes = model.objectTypes;
-    this.objectTypeControls = []; // {Array.<ObjectTypeControls>} same size as objectTypes, holds a Node that is the controls;
+    this.objectTypeControls = []; // {Array.<ProjectileObjectTypeControl>} same size as objectTypes, holds a Node that is the controls;
     this.keypadLayer = keypadLayer;
     this.model = model; // @private
 
@@ -202,18 +197,6 @@ define( require => {
 
   projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
 
-  class ObjectTypeControls {
-    constructor( massControl, diameterControl, gravityControl, altitudeControl, dragCoefficientControl ) {
-
-      // @public (read-only) {Node}
-      this.massControl = massControl;
-      this.diameterControl = diameterControl;
-      this.gravityControl = gravityControl;
-      this.altitudeControl = altitudeControl;
-      this.dragCoefficientControl = dragCoefficientControl;
-    }
-  }
-
   return inherit( Panel, LabProjectilePanel, {
 
     // @public for use by screen view
@@ -222,151 +205,22 @@ define( require => {
     },
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and readouts
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Range} range - range for the valueProperty value
-     * @param {Tandem} tandem
-     * @returns {VBox}
-     */
-    createCustomControl: function( labelString, unitsString, valueProperty, range, tandem ) {
-
-      // label
-      const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, LABEL_OPTIONS ) );
-
-      // value text
-      const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        units: unitsString
-      } ) : StringUtils.fillIn( pattern0Value1UnitsString, {
-        units: ''
-      } );
-
-      const valueLabelOptions = merge( {}, NUMBER_DISPLAY_OPTIONS, {
-        cursor: 'pointer',
-        backgroundStroke: 'black',
-        decimalPlaces: null,
-        cornerRadius: 4,
-        xMargin: 4,
-        minBackgroundWidth: this.textDisplayWidth,
-        numberMaxWidth: this.textDisplayWidth - 2 * this.options.readoutXMargin
-      } );
-
-      const numberDisplayTandem = tandem.createTandem( 'numberDisplay' );
-      const numberDisplay = new NumberDisplay(
-        valueProperty,
-        range,
-        merge( valueLabelOptions, { tandem: numberDisplayTandem, valuePattern: valuePattern } )
-      );
-
-      const editValue = () => {
-        this.keypadLayer.beginEdit( valueProperty, range, unitsString, {
-          onBeginEdit: () => { numberDisplay.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
-          onEndEdit: () => { numberDisplay.backgroundFill = 'white'; }
-        } );
-      };
-
-      // edit button
-      const pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
-      const editButton = new RectangularPushButton( {
-        minWidth: 25,
-        minHeight: 20,
-        centerY: numberDisplay.centerY,
-        left: numberDisplay.right + this.options.xMargin,
-        content: pencilIcon,
-        baseColor: PhetColorScheme.BUTTON_YELLOW,
-        listener: editValue,
-        tandem: tandem.createTandem( 'editButton' ),
-        phetioDocumentation: 'the button to open the keypad to adjust the value'
-      } );
-
-      numberDisplay.addInputListener( new FireListener( { // no removeInputListener required
-        fire: editValue,
-        fireOnDown: true,
-        tandem: numberDisplayTandem.createTandem( 'fireListener' ),
-        phetioDocumentation: 'When fired, calls listener to open UI to edit the value for this NumberDisplay'
-      } ) );
-
-      const valueNode = new Node( { children: [ numberDisplay, editButton ] } );
-
-      parameterLabel.setMaxWidth( this.options.minWidth - 4 * this.options.xMargin - valueNode.width );
-
-      const xSpacing = this.options.minWidth - 2 * this.options.xMargin - parameterLabel.width - valueNode.width;
-
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ], tandem: tandem } );
-    },
-
-    /**
-     * Create the controls for the "custom" object type. This is involes a keypad to input custom numbers.
-     * @private
-     * @returns {ObjectTypeControls}
-     */
-    createControlsForCustomObjectType: function( objectType, tandem ) {
-
-      // mass
-      const massControl = this.createCustomControl(
-        massString,
-        kgString,
-        this.model.projectileMassProperty,
-        objectType.massRange,
-        tandem.createTandem( 'massControl' )
-      );
-
-      // diameter
-      const diameterControl = this.createCustomControl(
-        diameterString,
-        mString,
-        this.model.projectileDiameterProperty,
-        objectType.diameterRange,
-        tandem.createTandem( 'diameterControl' )
-      );
-
-      // gravity
-      const gravityControl = this.createCustomControl(
-        gravityString,
-        metersPerSecondSquaredString,
-        this.model.gravityProperty,
-        ProjectileMotionConstants.GRAVITY_RANGE,
-        tandem.createTandem( 'gravityControl' )
-      );
-
-      // altitude
-      const altitudeControl = this.createCustomControl(
-        altitudeString,
-        mString,
-        this.model.altitudeProperty,
-        ProjectileMotionConstants.ALTITUDE_RANGE,
-        tandem.createTandem( 'altitudeControl' )
-      );
-
-      // dragCoefficient
-      const dragCoefficientControl = this.createCustomControl(
-        dragCoefficientString,
-        null,
-        this.model.projectileDragCoefficientProperty,
-        objectType.dragCoefficientRange,
-        tandem.createTandem( 'dragCoefficientControl' )
-      );
-      return new ObjectTypeControls(
-        massControl,
-        diameterControl,
-        gravityControl,
-        altitudeControl,
-        dragCoefficientControl );
-    },
-
-    /**
      * Given an objectType, create the controls needed for that type.
      * @private
      * @param {ProjectileObjectType} objectType
      * @param {Tandem} generalComponentTandem - used for the elements that can be reused between all elements
      * @param {Tandem} objectSpecificTandem - used for the elements that change for each object type
-     * @returns {ObjectTypeControls}
+     * @returns {ProjectileObjectTypeControl}
      */
     createControlsForObjectType: function( objectType, generalComponentTandem, objectSpecificTandem ) {
 
       if ( objectType.benchmark === 'custom' ) {
-        return this.createControlsForCustomObjectType( objectType, objectSpecificTandem );
+        return new CustomProjectileObjectTypeControl( this.model, this.keypadLayer, objectType, objectSpecificTandem, {
+          xMargin: this.options.xMargin,
+          minWidth: this.options.minWidth,
+          readoutXMargin: this.options.readoutXMargin,
+          textDisplayWidth: this.textDisplayWidth
+        } );
       }
       else {
 
@@ -519,7 +373,7 @@ define( require => {
           dragCoefficientText.text = dragCoefficientString + ': ' + Util.toFixed( dragCoefficient, 2 );
         } );
 
-        return new ObjectTypeControls(
+        return new ProjectileObjectTypeControl(
           massNumberControl,
           diameterNumberControl,
           gravityNumberControl,
