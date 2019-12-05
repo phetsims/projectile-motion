@@ -118,6 +118,10 @@ define( require => {
       this.objectTypeControls.push( this.createControlsForObjectType( projectileType, tandem, tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
     }
 
+    // creating the controls for each object type changes these values because of enabledRangeProperty listeners in the
+    // NumberControls. Here reset back to the selectedProjectileObjectType to fix things. See https://github.com/phetsims/projectile-motion/issues/213
+    model.updateModelValuesFromCurrentObjectType();
+
     // create view for the dropdown
     const projectileChoiceComboBox = new ComboBox(
       comboBoxItems,

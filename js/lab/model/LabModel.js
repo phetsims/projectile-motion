@@ -65,6 +65,12 @@ define( require => {
     this.lastTypeProperty = new Property( initialObjectType );
 
     ProjectileMotionModel.call( this, initialObjectType, false, this.objectTypes, tandem );
+
+    // Once the state is set, set again values determined by the object type, as they may be out of sync from view
+    // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
+    if ( _.hasIn( window, 'phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter' ) ) {
+      phet.phetIo.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( () => this.updateModelValuesFromCurrentObjectType() );
+    }
   }
 
   projectileMotion.register( 'LabModel', LabModel );
@@ -87,6 +93,21 @@ define( require => {
     },
 
     /**
+     * @public
+     * Update model values that are editable in the sim that are based on the projectile object type. Only
+     * values from ProjectileObjectTypes need to be set here, since they change based on the selected projectile type.
+     * The gravity and altitude (etc), though editable on the Lab screen, are not updated based on the current projectile
+     * object type.
+     */
+    updateModelValuesFromCurrentObjectType: function() {
+
+      const currentProjectileObjectType = this.selectedProjectileObjectTypeProperty.value;
+      this.projectileMassProperty.set( currentProjectileObjectType.mass );
+      this.projectileDiameterProperty.set( currentProjectileObjectType.diameter );
+      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+    },
+
+    /**
      * Set mass, diameter, and drag coefficient when selected projectile object type changes from saved values
      * @protected
      * @override
@@ -104,9 +125,7 @@ define( require => {
       lastType.dragCoefficient = this.projectileDragCoefficientProperty.get();
 
       // then, apply saved values for this type
-      this.projectileMassProperty.set( selectedProjectileObjectType.mass );
-      this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
-      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+      this.updateModelValuesFromCurrentObjectType();
 
       // finally, save this type so we know what the last type was when type changes
       this.lastTypeProperty.value = selectedProjectileObjectType;
