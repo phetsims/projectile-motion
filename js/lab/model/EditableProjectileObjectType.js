@@ -43,7 +43,7 @@ define( require => {
       this.diameter = diameter;
       this.dragCoefficient = dragCoefficient;
 
-      // @private - these mutable values also store their initial values
+      // @public (IO type) - these mutable values also store their initial values
       this.initialMass = mass;
       this.initialDiameter = diameter;
       this.initialDragCoefficient = dragCoefficient;
