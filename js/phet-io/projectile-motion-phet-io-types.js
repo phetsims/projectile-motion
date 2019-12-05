@@ -364,6 +364,14 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "NodeIO",
       "typeName": "DialogIO"
     },
+    "EditableProjectileObjectTypeIO": {
+      "documentation": "A data type that stores the variables for a given object type.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ProjectileObjectTypeIO",
+      "typeName": "EditableProjectileObjectTypeIO"
+    },
     "EmitterIO<>": {
       "documentation": "Emits when an event occurs and calls added listeners.",
       "events": [

@@ -14962,7 +14962,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableCannonball": {
       "phetioDocumentation": "",
@@ -14975,7 +14975,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableCar": {
       "phetioDocumentation": "",
@@ -14988,7 +14988,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableCustom": {
       "phetioDocumentation": "A custom projectile type that can have its values edited by the user",
@@ -15001,7 +15001,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableFootball": {
       "phetioDocumentation": "",
@@ -15014,7 +15014,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableGolfBall": {
       "phetioDocumentation": "",
@@ -15027,7 +15027,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableHuman": {
       "phetioDocumentation": "",
@@ -15040,7 +15040,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editablePianp": {
       "phetioDocumentation": "",
@@ -15053,7 +15053,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editablePumpkin": {
       "phetioDocumentation": "",
@@ -15066,7 +15066,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.objectTypes.editableTankShell": {
       "phetioDocumentation": "",
@@ -15079,7 +15079,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
+      "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.projectileDiameterProperty": {
       "phetioDocumentation": "Diameter of the projectile",
