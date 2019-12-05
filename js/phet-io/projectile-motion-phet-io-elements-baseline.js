@@ -15042,7 +15042,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EditableProjectileObjectTypeIO"
     },
-    "projectileMotion.labScreen.model.objectTypes.editablePianp": {
+    "projectileMotion.labScreen.model.objectTypes.editablePiano": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,

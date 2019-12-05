@@ -3,7 +3,7 @@
 /**
  * Model for the 'Lab' screen.
  *
- * @author Andrea Lin(PhET Interactive Simulations)
+ * @author Andrea Lin (PhET Interactive Simulations)
  */
 define( require => {
   'use strict';
@@ -24,7 +24,7 @@ define( require => {
     const objectTypesTandem = tandem.createTandem( 'objectTypes' );
 
     // @public - wrap the object types in an editable case of sorts for clarity and ease. This is because
-    // the lab screen in the only screen where values of multiple objecty types can be customized.
+    // the lab screen in the only screen where values of multiple object types can be customized.
     this.objectTypes = [
       EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CUSTOM,
         objectTypesTandem.createTandem( 'editableCustom' ) ),
@@ -43,7 +43,7 @@ define( require => {
       EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.HUMAN,
         objectTypesTandem.createTandem( 'editableHuman' ) ),
       EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PIANO,
-        objectTypesTandem.createTandem( 'editablePianp' ) ),
+        objectTypesTandem.createTandem( 'editablePiano' ) ),
       EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CAR,
         objectTypesTandem.createTandem( 'editableCar' ) )
     ];
