@@ -12,7 +12,7 @@ define( require => {
   const merge = require( 'PHET_CORE/merge' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
-  const ProjectileObjectTypeIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectTypeIO' );
+  const EditableProjectileObjectTypeIO = require( 'PROJECTILE_MOTION/lab/model/EditableProjectileObjectTypeIO' );
   const Tandem = require( 'TANDEM/Tandem' );
 
   class EditableProjectileObjectType extends ProjectileObjectType {
@@ -33,7 +33,7 @@ define( require => {
       // defaults to those of custom objects for screens that don't have benchmarks
       options = merge( {
         tandem: Tandem.required,
-        phetioType: ProjectileObjectTypeIO
+        phetioType: EditableProjectileObjectTypeIO
       }, options );
 
       super( name, mass, diameter, dragCoefficient, benchmark, rotates, options );
@@ -62,10 +62,10 @@ define( require => {
     /**
      *
      * @param {ProjectileObjectType} projectileObjectType
-     * @param {Object} [options]
+     * @param {Tandem} tandem
      * @returns {EditableProjectileObjectType}
      */
-    static fromProjectileObjectType( projectileObjectType, options ) {
+    static fromProjectileObjectType( projectileObjectType, tandem ) {
       return new EditableProjectileObjectType(
         projectileObjectType.name,
         projectileObjectType.mass,
@@ -73,7 +73,10 @@ define( require => {
         projectileObjectType.dragCoefficient,
         projectileObjectType.benchmark,
         projectileObjectType.rotates,
-        merge( projectileObjectType.options, options ) );
+        merge( projectileObjectType.options, {
+          phetioType: EditableProjectileObjectTypeIO,
+          tandem: tandem
+        } ) );
     }
   }
 

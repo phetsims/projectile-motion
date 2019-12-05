@@ -120,7 +120,7 @@ define( require => {
 
     // creating the controls for each object type changes these values because of enabledRangeProperty listeners in the
     // NumberControls. Here reset back to the selectedProjectileObjectType to fix things. See https://github.com/phetsims/projectile-motion/issues/213
-    model.updateModelValuesFromCurrentObjectType();
+    model.resetModelValuesToInitial();
 
     // create view for the dropdown
     const projectileChoiceComboBox = new ComboBox(

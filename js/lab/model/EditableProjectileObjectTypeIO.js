@@ -16,6 +16,11 @@ define( require => {
 
   class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
 
+    /**
+     * @public
+     * @param {ProjectileObjectType} phetioObjectType
+     * @param {Object} fromStateObject
+     */
     static setValue( phetioObjectType, fromStateObject ) {
       ProjectileObjectTypeIO.setValue( phetioObjectType, fromStateObject );
       phetioObjectType.initialMass = fromStateObject.mass;
