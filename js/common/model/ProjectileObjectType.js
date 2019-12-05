@@ -257,6 +257,20 @@ define( require => {
     }
   );
 
+  // Meant to be used on screens that don't have object type selection, and only use a single object type
+  ProjectileObjectType.COMPANIONLESS = new ProjectileObjectType(
+    null,
+    5,
+    0.8,
+    ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
+    null,
+    true, {
+      tandem: objectTypesTandem.createTandem( 'companionlessObjectType' ),
+      phetioDocumentation: 'On some screens there are only a single, general projectile object type. It cannot be ' +
+                           'changed to a different object type, but can be altered via Properties in the model.'
+    }
+  );
+
   return ProjectileObjectType;
 } );
 

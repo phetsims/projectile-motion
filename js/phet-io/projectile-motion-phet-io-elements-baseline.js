@@ -105,19 +105,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.model.generalObjectType": {
-      "phetioDocumentation": "On this screen there is only a single, general projectile object type. It cannot be changed to a different object type, but can be altered via Properties in the model.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementArchetype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
-    },
     "projectileMotion.dragScreen.model.gravityProperty": {
       "phetioDocumentation": "Acceleration due to gravity",
       "phetioDynamicElement": false,
@@ -8375,6 +8362,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
     },
     "projectileMotion.global.model.projectileObjectTypes.car": {
       "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.global.model.projectileObjectTypes.companionlessObjectType": {
+      "phetioDocumentation": "On some screens there are only a single, general projectile object type. It cannot be changed to a different object type, but can be altered via Properties in the model.",
       "phetioDynamicElement": false,
       "phetioDynamicElementArchetype": false,
       "phetioEventType": "MODEL",
@@ -36985,19 +36985,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "DerivedPropertyIO<BooleanIO>"
-    },
-    "projectileMotion.vectorsScreen.model.generalObjectType": {
-      "phetioDocumentation": "On this screen there is only a single, general projectile object type. It cannot be changed to a different object type, but can be altered via Properties in the model.",
-      "phetioDynamicElement": false,
-      "phetioDynamicElementArchetype": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.vectorsScreen.model.gravityProperty": {
       "phetioDocumentation": "Acceleration due to gravity",

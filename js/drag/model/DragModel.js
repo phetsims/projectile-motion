@@ -11,7 +11,6 @@ define( require => {
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
 
@@ -20,21 +19,8 @@ define( require => {
    * @constructor
    */
   function DragModel( tandem ) {
-
-    const defaultObjectType = new ProjectileObjectType(
-      null,
-      5,
-      0.8,
-      ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
-      null,
-      true, {
-        tandem: tandem.createTandem( 'generalObjectType' ),
-        phetioDocumentation: 'On this screen there is only a single, general projectile object type. It cannot be ' +
-                             'changed to a different object type, but can be altered via Properties in the model.'
-      }
-    );
-    ProjectileMotionModel.call( this, defaultObjectType, true, [ defaultObjectType ], tandem );
-
+    ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
+      [ ProjectileObjectType.COMPANIONLESS ], tandem );
   }
 
   projectileMotion.register( 'DragModel', DragModel );
