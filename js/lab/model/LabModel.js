@@ -104,7 +104,7 @@ define( require => {
       const currentProjectileObjectType = this.selectedProjectileObjectTypeProperty.value;
       this.projectileMassProperty.set( currentProjectileObjectType.mass );
       this.projectileDiameterProperty.set( currentProjectileObjectType.diameter );
-      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
+      this.projectileDragCoefficientProperty.set( currentProjectileObjectType.dragCoefficient );
     },
 
     /**
