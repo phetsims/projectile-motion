@@ -9,11 +9,12 @@ define( require => {
   'use strict';
 
   // modules
+  const EditableProjectileObjectType = require( 'PROJECTILE_MOTION/lab/model/EditableProjectileObjectType' );
   const inherit = require( 'PHET_CORE/inherit' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
   const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
-  const StringProperty = require( 'AXON/StringProperty' );
+  const Property = require( 'AXON/Property' );
 
   /**
    * @param {Tandem} tandem
@@ -21,40 +22,47 @@ define( require => {
    */
   function LabModel( tandem ) {
 
-    // @public
+    const objectTypesTandem = tandem.createTandem( 'objectTypes' );
+
+    // @public - wrap the object types in an editable case of sorts for clarity and ease. This is because
+    // the lab screen in the only screen where values of multiple objecty types can be customized.
     this.objectTypes = [
-      ProjectileObjectType.CUSTOM,
-      ProjectileObjectType.CANNONBALL,
-      ProjectileObjectType.TANK_SHELL,
-      ProjectileObjectType.GOLF_BALL,
-      ProjectileObjectType.BASEBALL,
-      ProjectileObjectType.FOOTBALL,
-      ProjectileObjectType.PUMPKIN,
-      ProjectileObjectType.HUMAN,
-      ProjectileObjectType.PIANO,
-      ProjectileObjectType.CAR
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CUSTOM, {
+        tandem: objectTypesTandem.createTandem( 'editableCustom' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CANNONBALL, {
+        tandem: objectTypesTandem.createTandem( 'editableCannonball' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.TANK_SHELL, {
+        tandem: objectTypesTandem.createTandem( 'editableTankShell' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.GOLF_BALL, {
+        tandem: objectTypesTandem.createTandem( 'editableGolfBall' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.BASEBALL, {
+        tandem: objectTypesTandem.createTandem( 'editableBaseball' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.FOOTBALL, {
+        tandem: objectTypesTandem.createTandem( 'editableFootball' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PUMPKIN, {
+        tandem: objectTypesTandem.createTandem( 'editablePumpkin' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.HUMAN, {
+        tandem: objectTypesTandem.createTandem( 'editableHuman' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PIANO, {
+        tandem: objectTypesTandem.createTandem( 'editablePianp' )
+      } ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CAR, {
+        tandem: objectTypesTandem.createTandem( 'editableCar' )
+      } )
     ];
-
-    // @public {Object.<benchmark:string,{mass:number, diameter:number, dragCoefficient:number}} - keep track when the
-    // lab screen values changes for an objectType, so that we can cycle through different objectTypes without overwriting
-    // the constants in ProjectileObjectType.js
-    this.savedValues = {};
-
-    // populate the savedValues with default values for each benchmark
-    for ( let i = 0; i < this.objectTypes.length; i++ ) {
-      const objectType = this.objectTypes[ i ];
-      assert && assert( objectType.benchmark, 'all objectTypes need  benchmark' );
-      this.savedValues[ objectType.benchmark ] = {
-        mass: objectType.mass,
-        diameter: objectType.diameter,
-        dragCoefficient: objectType.dragCoefficient
-      };
-    }
 
     const initialObjectType = this.objectTypes[ 1 ];
 
-    // @private {Property.<string>} save the most recent benchmark (e.g. pumpkin, human, etc.) used
-    this.lastTypeProperty = new StringProperty( initialObjectType.benchmark );
+    // @private {Property.<ProjectileObjectType>} save the most recent type
+    this.lastTypeProperty = new Property( initialObjectType );
 
     ProjectileMotionModel.call( this, initialObjectType, false, this.objectTypes, tandem );
   }
@@ -73,38 +81,35 @@ define( require => {
 
       // reset saved values
       for ( let i = 0; i < this.objectTypes.length; i++ ) {
-        const objectType = this.objectTypes[ i ];
-        this.savedValues[ objectType.benchmark ].mass = objectType.mass;
-        this.savedValues[ objectType.benchmark ].diameter = objectType.diameter;
-        this.savedValues[ objectType.benchmark ].dragCoefficient = objectType.dragCoefficient;
+        this.objectTypes[ i ].reset();
       }
       this.lastTypeProperty.reset();
     },
 
     /**
      * Set mass, diameter, and drag coefficient when selected projectile object type changes from saved values
-     * @private
+     * @protected
      * @override
      *
      * @param {ProjectileObjectType} selectedProjectileObjectType - contains information such as mass, diameter, etc.
      */
     setProjectileParameters: function( selectedProjectileObjectType ) {
 
-      // {string}
+      // {ProjectileObjectType}
       const lastType = this.lastTypeProperty.value;
 
       // first, save values for last type
-      this.savedValues[ lastType ].mass = this.projectileMassProperty.get();
-      this.savedValues[ lastType ].diameter = this.projectileDiameterProperty.get();
-      this.savedValues[ lastType ].dragCoefficient = this.projectileDragCoefficientProperty.get();
+      lastType.mass = this.projectileMassProperty.get();
+      lastType.diameter = this.projectileDiameterProperty.get();
+      lastType.dragCoefficient = this.projectileDragCoefficientProperty.get();
 
       // then, apply saved values for this type
-      this.projectileMassProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].mass );
-      this.projectileDiameterProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].diameter );
-      this.projectileDragCoefficientProperty.set( this.savedValues[ selectedProjectileObjectType.benchmark ].dragCoefficient );
+      this.projectileMassProperty.set( selectedProjectileObjectType.mass );
+      this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
+      this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
 
       // finally, save this type so we know what the last type was when type changes
-      this.lastTypeProperty.value = selectedProjectileObjectType.benchmark;
+      this.lastTypeProperty.value = selectedProjectileObjectType;
     }
   } );
 } );

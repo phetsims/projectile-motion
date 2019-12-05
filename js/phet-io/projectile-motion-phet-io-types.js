@@ -1332,6 +1332,14 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ProjectileObjectIO"
     },
+    "ProjectileObjectTypeIO": {
+      "documentation": "A data type that stores the variables for a given object type.",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "ProjectileObjectTypeIO"
+    },
     "PropertyIO<BooleanIO>": {
       "documentation": "Observable values that send out notifications when the value changes. This differs from the traditional listener pattern in that added listeners also receive a callback with the current value when the listeners are registered. This is a widely-used pattern in PhET-iO simulations.",
       "events": [

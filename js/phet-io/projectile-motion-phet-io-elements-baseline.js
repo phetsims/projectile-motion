@@ -114,9 +114,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.dragScreen.model.gravityProperty": {
       "phetioDocumentation": "Acceleration due to gravity",
@@ -8356,9 +8356,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.cannonball": {
       "phetioDocumentation": "",
@@ -8369,9 +8369,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.car": {
       "phetioDocumentation": "",
@@ -8382,9 +8382,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.custom": {
       "phetioDocumentation": "A custom projectile type that can have its values edited by the user",
@@ -8395,9 +8395,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.football": {
       "phetioDocumentation": "",
@@ -8408,9 +8408,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.golfBall": {
       "phetioDocumentation": "",
@@ -8421,9 +8421,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.human": {
       "phetioDocumentation": "",
@@ -8434,9 +8434,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.piano": {
       "phetioDocumentation": "",
@@ -8447,9 +8447,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.pumpkin": {
       "phetioDocumentation": "",
@@ -8460,9 +8460,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.global.model.projectileObjectTypes.tankShell": {
       "phetioDocumentation": "",
@@ -8473,9 +8473,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.homeScreen.activeProperty": {
       "phetioDocumentation": "Indicates whether the screen is active.  For single-screen simulations, the screen is always active.",
@@ -14950,6 +14950,136 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableBaseball": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableCannonball": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableCar": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableCustom": {
+      "phetioDocumentation": "A custom projectile type that can have its values edited by the user",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableFootball": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableGolfBall": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableHuman": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editablePianp": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editablePumpkin": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
+    },
+    "projectileMotion.labScreen.model.objectTypes.editableTankShell": {
+      "phetioDocumentation": "",
+      "phetioDynamicElement": false,
+      "phetioDynamicElementArchetype": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.labScreen.model.projectileDiameterProperty": {
       "phetioDocumentation": "Diameter of the projectile",
@@ -36865,9 +36995,9 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioHighFrequency": false,
       "phetioPlayback": false,
       "phetioReadOnly": false,
-      "phetioState": false,
+      "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "ObjectIO"
+      "phetioTypeName": "ProjectileObjectTypeIO"
     },
     "projectileMotion.vectorsScreen.model.gravityProperty": {
       "phetioDocumentation": "Acceleration due to gravity",

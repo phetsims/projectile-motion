@@ -14,6 +14,7 @@ define( require => {
   const PhetioObject = require( 'TANDEM/PhetioObject' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileObjectTypeIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectTypeIO' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const Range = require( 'DOT/Range' );
   const Tandem = require( 'TANDEM/Tandem' );
@@ -44,28 +45,15 @@ define( require => {
      *                                      'name' for it like for Tandems. null for screens with only one object type
      * @param {boolean} rotates - whether the object rotates or just translates in air
      * @param {Object} [options]
-     * @constructor
      */
     constructor( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
 
+      // Options contains data about range and rounding for mass, diameter, drag coefficient.
+      // defaults to those of custom objects for screens that don't have benchmarks
       options = merge( {
-        phetioState: false,
-        tandem: Tandem.required
-      }, options );
+        tandem: Tandem.required,
+        phetioType: ProjectileObjectTypeIO,
 
-      super( options );
-
-      // @public (read-only)
-      this.name = name;
-      this.mass = mass;
-      this.diameter = diameter;
-      this.dragCoefficient = dragCoefficient;
-      this.benchmark = benchmark;
-      this.rotates = rotates;
-
-      // options contains data about range and rounding for mass, diameter, drag coefficient
-      // @public, defaults to those of custom objects for screens that don't have benchmarks
-      options = merge( {
         massRange: new Range( 1, 10 ),
         massRound: 1,
         diameterRange: new Range( 0.1, 1 ),
@@ -73,6 +61,24 @@ define( require => {
         dragCoefficientRange: new Range( 0.04, 1 ),
         viewCreationFunction: null
       }, options );
+
+      super( options );
+
+      // @public (read-only)
+      this.name = name;
+      this.benchmark = benchmark;
+      this.rotates = rotates;
+      this.options = options; // stored to support `this.prototype.copy`
+
+      // @public - writable on the lab screen
+      this.mass = mass;
+      this.diameter = diameter;
+      this.dragCoefficient = dragCoefficient;
+
+      // @private - these mutable values also store their initial values
+      this.initialMass = mass;
+      this.initialDiameter = diameter;
+      this.initialDragCoefficient = dragCoefficient;
 
       // @public (read-only)
       this.massRange = options.massRange;
