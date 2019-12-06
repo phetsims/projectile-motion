@@ -11,7 +11,7 @@ define( require => {
   const Enumeration = require( 'PHET_CORE/Enumeration' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
 
-  return projectileMotion.register( 'VectorsDisplayEnumeration', new Enumeration( [
+  return projectileMotion.register( 'VectorsDisplayEnumeration', Enumeration.byKeys( [
     'TOTAL',
     'COMPONENTS'
   ] ) );
