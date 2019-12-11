@@ -358,6 +358,7 @@ define( require => {
     // play/pause button
     const playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
+      playButtonScaleFactor: 1.25,
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
       touchAreaDilation: 2,
@@ -377,12 +378,6 @@ define( require => {
       touchAreaDilation: 4,
       tandem: tandem.createTandem( 'stepButton' ),
       phetioDocumentation: 'Progress the simulation a single model step.'
-    } );
-
-    // make the play/pause button bigger when it is paused
-    const pauseSizeIncreaseFactor = 1.25;
-    model.isPlayingProperty.lazyLink( function( isPlaying ) {
-      playPauseButton.scale( isPlaying ? ( 1 / pauseSizeIncreaseFactor ) : pauseSizeIncreaseFactor );
     } );
 
     // sim speed controls
