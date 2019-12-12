@@ -58,7 +58,9 @@ define( require => {
         massRound: 1,
         diameterRange: new Range( 0.1, 1 ),
         diameterRound: 0.1,
-        dragCoefficientRange: new Range( 0.04, 1 ),
+
+        // most objectTypes have a max of 1
+        dragCoefficientRange: new Range( ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE.min, 1 ),
         viewCreationFunction: null
       }, options );
 
@@ -196,13 +198,16 @@ define( require => {
     pianoString,
     400,
     2.2,
-    1.2,
+    ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE.max,
     'piano',
     false, {
       massRange: new Range( 50, 1000 ),
       massRound: 1,
       diameterRange: new Range( 0.5, 3 ),
       diameterRound: 0.1,
+
+      // the piano can accept all drag coefficient ranges
+      dragCoefficientRange: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE,
       viewCreationFunction: ProjectileObjectViewFactory.createPiano,
       tandem: objectTypesTandem.createTandem( 'piano' )
     }
