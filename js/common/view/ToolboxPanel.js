@@ -82,6 +82,7 @@ define( require => {
     // When pressed, forwards dragging to the actual tracer Node
     tracerIconNode.addInputListener( DragListener.createForwardingListener( event => {
       tracer.isActiveProperty.set( true );
+      tracer.positionProperty.value = transformProperty.value.viewToModelPosition( this.globalToParentPoint( event.pointer.point ) );
       tracerNode.dragListener.press( event, tracerNode );
     }, { allowTouchSnag: true } ) );
 
