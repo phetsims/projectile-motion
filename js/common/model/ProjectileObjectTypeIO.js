@@ -31,7 +31,8 @@ define( require => {
     massRange: { phetioType: RangeIO },
     massRound: { phetioType: NumberIO },
     diameterRange: { phetioType: RangeIO },
-    diameterRound: { phetioType: NumberIO }
+    diameterRound: { phetioType: NumberIO },
+    dragCoefficientRange: { phetioType: RangeIO }
   };
 
   class ProjectileObjectTypeIO extends ObjectIO {

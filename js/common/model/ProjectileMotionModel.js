@@ -108,8 +108,7 @@ define( require => {
     // @public {Property.<number>}
     this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient, {
       tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
-      phetioDocumentation: 'Drag coefficient of the projectile, unitless as it is a coefficient',
-      range: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
+      phetioDocumentation: 'Drag coefficient of the projectile, unitless as it is a coefficient'
     } );
 
     // @public {Property.<ProjectileObjectType>}
