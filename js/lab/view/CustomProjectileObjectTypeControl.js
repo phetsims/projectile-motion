@@ -109,7 +109,7 @@ define( require => {
         dragCoefficientString,
         null,
         model.projectileDragCoefficientProperty,
-        objectType.dragCoefficientRange,
+        model.projectileDragCoefficientProperty.range,
         tandem.createTandem( 'dragCoefficientControl' )
       );
     }

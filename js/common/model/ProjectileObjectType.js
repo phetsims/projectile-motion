@@ -58,7 +58,6 @@ define( require => {
         massRound: 1,
         diameterRange: new Range( 0.1, 1 ),
         diameterRound: 0.1,
-        dragCoefficientRange: new Range( 0.04, 1 ),
         viewCreationFunction: null
       }, options );
 
@@ -85,7 +84,6 @@ define( require => {
       this.massRound = options.massRound;
       this.diameterRange = options.diameterRange;
       this.diameterRound = options.diameterRound;
-      this.dragCoefficientRange = options.dragCoefficientRange;
       this.viewCreationFunction = options.viewCreationFunction;
     }
   }
@@ -251,7 +249,6 @@ define( require => {
       massRound: 0.01,
       diameterRange: new Range( 0.01, 3 ),
       diameterRound: 0.01,
-      dragCoefficientRange: new Range( 0.04, 1 ),
       tandem: objectTypesTandem.createTandem( 'custom' ),
       phetioDocumentation: 'A custom projectile type that can have its values edited by the user'
     }

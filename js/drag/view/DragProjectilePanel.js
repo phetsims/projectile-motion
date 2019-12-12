@@ -184,7 +184,7 @@ define( require => {
     // create drag coefficient control box
     const dragCoefficientBox = new NumberControl(
       dragCoefficientString, projectileDragCoefficientProperty,
-      selectedObjectTypeProperty.get().dragCoefficientRange,
+      projectileDragCoefficientProperty.range,
       merge( {}, defaultNumberControlOptions, {
         numberDisplayOptions: {
           constrainValue: value => Util.roundToInterval( value, 0.01 ),
