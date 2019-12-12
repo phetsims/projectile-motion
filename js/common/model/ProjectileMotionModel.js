@@ -93,14 +93,16 @@ define( require => {
     this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass, {
       tandem: tandem.createTandem( 'projectileMassProperty' ),
       phetioDocumentation: 'Mass of the projectile',
-      units: 'kg'
+      units: 'kg',
+      range: ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     } );
 
     // @public {Property.<number>}
     this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter, {
       tandem: tandem.createTandem( 'projectileDiameterProperty' ),
       phetioDocumentation: 'Diameter of the projectile',
-      units: 'm'
+      units: 'm',
+      range: ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     } );
 
     // @public {Property.<number>}
