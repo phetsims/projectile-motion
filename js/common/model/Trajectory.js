@@ -43,7 +43,7 @@ define( require => {
      */
     constructor( model, options ) {
       options = merge( {
-        tandem: Tandem.required,
+        tandem: Tandem.REQUIRED,
         phetioDynamicElement: true,
         phetioType: TrajectoryIO
       }, options );

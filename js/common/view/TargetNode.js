@@ -49,7 +49,7 @@ define( require => {
     const self = this;
 
     options = merge( {
-      tandem: Tandem.required
+      tandem: Tandem.REQUIRED
     }, options );
 
     Node.call( this, options );

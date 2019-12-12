@@ -46,7 +46,7 @@ define( require => {
     // The fourth object is options given at time of construction, which overrides all the others
     options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
       align: 'left',
-      tandem: Tandem.required
+      tandem: Tandem.REQUIRED
     }, options );
 
     const titleOptions = merge( {}, TITLE_OPTIONS, {

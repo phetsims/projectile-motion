@@ -22,7 +22,7 @@ define( require => {
   function VectorVisibilityProperties( options ) {
 
     options = merge( {
-      tandem: Tandem.optional,
+      tandem: Tandem.OPTIONAL,
       forceProperties: true,
       accelerationProperties: true
     }, options );

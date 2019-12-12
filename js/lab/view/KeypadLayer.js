@@ -56,7 +56,7 @@ define( require => {
       // supertype options
       visible: false,
       fill: 'rgba( 0, 0, 0, 0.2 )',
-      tandem: Tandem.required
+      tandem: Tandem.REQUIRED
     }, options );
 
     Plane.call( this, options );

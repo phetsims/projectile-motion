@@ -44,7 +44,7 @@ define( require => {
       yMargin: 18,
       fill: 'white',
       minWidth: 200,
-      tandem: Tandem.required
+      tandem: Tandem.REQUIRED
     }, options );
 
     // Create the icon Node for the tracer tool

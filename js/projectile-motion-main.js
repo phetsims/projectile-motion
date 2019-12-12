@@ -32,10 +32,10 @@ define( require => {
 
   SimLauncher.launch( function() {
     const sim = new Sim( projectileMotionTitleString, [
-      new IntroScreen( Tandem.rootTandem.createTandem( 'introScreen' ) ),
-      new VectorsScreen( Tandem.rootTandem.createTandem( 'vectorsScreen' ) ),
-      new DragScreen( Tandem.rootTandem.createTandem( 'dragScreen' ) ),
-      new LabScreen( Tandem.rootTandem.createTandem( 'labScreen' ) )
+      new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
+      new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),
+      new DragScreen( Tandem.ROOT.createTandem( 'dragScreen' ) ),
+      new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) )
     ], simOptions );
     sim.start();
   } );

@@ -32,7 +32,7 @@ define( require => {
       // Options contains data about range and rounding for mass, diameter, drag coefficient.
       // defaults to those of custom objects for screens that don't have benchmarks
       options = merge( {
-        tandem: Tandem.required,
+        tandem: Tandem.REQUIRED,
         phetioType: EditableProjectileObjectTypeIO
       }, options );
 

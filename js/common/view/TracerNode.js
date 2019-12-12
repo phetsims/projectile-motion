@@ -92,7 +92,7 @@ define( require => {
 
     options = merge( {
       cursor: 'pointer',
-      tandem: Tandem.required
+      tandem: Tandem.REQUIRED
     }, options );
 
     // @public is this being handled by user?
