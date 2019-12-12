@@ -154,10 +154,10 @@ define( require => {
     // @public so events can be forwarded to it by ToolboxPanel
     this.dragListener = new DragListener( {
       locationProperty: tracer.positionProperty,
-      modelViewTransform: transformProperty.get(),
+      transform: transformProperty.get(),
       dragBoundsProperty: dragBoundsProperty,
       offsetLocation: () => DRAG_OFFSET,
-      applyOffset: false, // ignore where the pointer pressed in relation to the TracerNode origin
+      useParentOffset: true,
       start: () => self.isUserControlledProperty.set( true ),
       end: () => self.isUserControlledProperty.set( false ),
       tandem: options.tandem.createTandem( 'dragListener' ),
