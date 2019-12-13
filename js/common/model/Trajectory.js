@@ -424,7 +424,7 @@ define( require => {
      * @param {Tandem} tandem
      */
     static createGroup( model, tandem ) {
-      return new PhetioGroup( 'trajectory', tandem => {
+      return new PhetioGroup( tandem => {
         return new Trajectory( model, {
           tandem: tandem
         } );
