@@ -77,9 +77,6 @@ define( require => {
   const RIGHT_SIDE_PADDING = 6;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
-  // coordinates empirically determined to shift tracer to mouse when pulled out of the toolbox
-  const DRAG_OFFSET = new Vector2( -180, 0 );
-
   /**
    * @param {Score} tracer - model of the tracer tool
    * @param {Property.<ModelViewTransform2>} transformProperty
