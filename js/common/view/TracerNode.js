@@ -156,7 +156,6 @@ define( require => {
       locationProperty: tracer.positionProperty,
       transform: transformProperty.get(),
       dragBoundsProperty: dragBoundsProperty,
-      offsetLocation: () => DRAG_OFFSET,
       useParentOffset: true,
       start: () => self.isUserControlledProperty.set( true ),
       end: () => self.isUserControlledProperty.set( false ),
