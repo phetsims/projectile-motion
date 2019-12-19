@@ -41,7 +41,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<BooleanIO>"
     },
-    "ActionIO<DOMEventIO>": {
+    "ActionIO<EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -52,16 +52,16 @@ window.phet.phetio.phetioTypes = assert &&
           "documentation": "Executes the function the Action is wrapping.",
           "invocableForReadOnlyElements": false,
           "parameterTypes": [
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
       },
       "parameterTypes": [
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<DOMEventIO>"
+      "typeName": "ActionIO<EventIO>"
     },
     "ActionIO<NullableIO<SceneryEventIO>>": {
       "documentation": "Executes when an event occurs.",
@@ -109,7 +109,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<NumberIO, NumberIO>"
     },
-    "ActionIO<NumberIO, Vector2IO, DOMEventIO>": {
+    "ActionIO<NumberIO, Vector2IO, EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -122,7 +122,7 @@ window.phet.phetio.phetioTypes = assert &&
           "parameterTypes": [
             "NumberIO",
             "Vector2IO",
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
@@ -130,10 +130,10 @@ window.phet.phetio.phetioTypes = assert &&
       "parameterTypes": [
         "NumberIO",
         "Vector2IO",
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<NumberIO, Vector2IO, DOMEventIO>"
+      "typeName": "ActionIO<NumberIO, Vector2IO, EventIO>"
     },
     "ActionIO<NumberIO>": {
       "documentation": "Executes when an event occurs.",
@@ -179,7 +179,7 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<SceneryEventIO>"
     },
-    "ActionIO<Vector2IO, DOMEventIO>": {
+    "ActionIO<Vector2IO, EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
         "emitted"
@@ -191,17 +191,17 @@ window.phet.phetio.phetioTypes = assert &&
           "invocableForReadOnlyElements": false,
           "parameterTypes": [
             "Vector2IO",
-            "DOMEventIO"
+            "EventIO"
           ],
           "returnType": "VoidIO"
         }
       },
       "parameterTypes": [
         "Vector2IO",
-        "DOMEventIO"
+        "EventIO"
       ],
       "supertype": "ObjectIO",
-      "typeName": "ActionIO<Vector2IO, DOMEventIO>"
+      "typeName": "ActionIO<Vector2IO, EventIO>"
     },
     "ActionIO<Vector2IO>": {
       "documentation": "Executes when an event occurs.",
@@ -251,14 +251,6 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "NodeIO",
       "typeName": "ComboBoxIO"
-    },
-    "DOMEventIO": {
-      "documentation": "A DOM Event",
-      "events": [],
-      "methodOrder": [],
-      "methods": {},
-      "supertype": "ObjectIO",
-      "typeName": "DOMEventIO"
     },
     "DataPointIO": {
       "documentation": "A single data point on a projectile's trajectory, with the following data:<br><ul><li>time: The time of the data point</li><li>position: the position of the point in model coordinates</li><li>airDensity: the air density when the point was collected</li><li>velocity: the velocity of the projectile at the time when the point was collected</li><li>acceleration: the acceleration of the projectile at the time when the point was collected</li><li>dragForce: the acceleration of the projectile at the time when the point was collected</li><li>forceGravity: the acceleration of the projectile at the time when the point was collected</li><li>apex: if this data point was at the apex of a trajectory</li><li>reachedGround: if this data point was collected when the projectile was on the ground</li></ul>",
@@ -470,6 +462,14 @@ window.phet.phetio.phetioTypes = assert &&
       "methods": {},
       "supertype": "ObjectIO",
       "typeName": "EnumerationIO(TOTAL|COMPONENTS)"
+    },
+    "EventIO": {
+      "documentation": "A DOM Event",
+      "events": [],
+      "methodOrder": [],
+      "methods": {},
+      "supertype": "ObjectIO",
+      "typeName": "EventIO"
     },
     "FocusIO": {
       "documentation": "A IO type for the instance in the simulation which currently has keyboard focus. FocusIO is serialized into and Object with key `focusedPhetioElement` that is a list of PhET-iO elements, from parent-most to child-most cooresponding to the PhET-iO element that was instrumented.",
