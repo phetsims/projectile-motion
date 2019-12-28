@@ -358,7 +358,7 @@ define( require => {
     // play/pause button
     const playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
       radius: 18,
-      playButtonScaleFactor: 1.25,
+      scaleFactorWhenPaused: 1.25,
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
       touchAreaDilation: 2,
