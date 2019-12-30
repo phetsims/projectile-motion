@@ -19,7 +19,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileNode = require( 'PROJECTILE_MOTION/common/view/ProjectileNode' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -83,8 +83,8 @@ define( require => {
     function handleDataPointAdded( addedPoint ) {
       const viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
-      viewAddedPosition.x = Util.roundSymmetric( viewAddedPosition.x * 10000 ) / 10000;
-      viewAddedPosition.y = Util.roundSymmetric( viewAddedPosition.y * 10000 ) / 10000;
+      viewAddedPosition.x = Utils.roundSymmetric( viewAddedPosition.x * 10000 ) / 10000;
+      viewAddedPosition.y = Utils.roundSymmetric( viewAddedPosition.y * 10000 ) / 10000;
 
       if ( viewLastPosition ) {
         const pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
@@ -101,7 +101,7 @@ define( require => {
       viewLastPosition = scratchVector2.set( viewAddedPosition );
 
       // draw dot if it is time for data point should be shown
-      const addedPointTimeInMs = Util.toFixedNumber( addedPoint.time * 1000, 0 );
+      const addedPointTimeInMs = Utils.toFixedNumber( addedPoint.time * 1000, 0 );
       if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ) {
         dotsShape
           .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )

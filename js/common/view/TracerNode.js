@@ -28,7 +28,7 @@ define( require => {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -188,15 +188,15 @@ define( require => {
     tracer.dataPointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Util.toFixedNumber( point.time, 2 ),
+          value: Utils.toFixedNumber( point.time, 2 ),
           units: sString
         } ) );
         rangeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Util.toFixedNumber( point.position.x, 2 ),
+          value: Utils.toFixedNumber( point.position.x, 2 ),
           units: mString
         } ) );
         heightReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Util.toFixedNumber( point.position.y, 2 ),
+          value: Utils.toFixedNumber( point.position.y, 2 ),
           units: mString
         } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
@@ -207,7 +207,7 @@ define( require => {
           haloNode.shape = smallHaloShape;
           haloNode.fill = GREEN_HALO_FILL;
         }
-        else if ( Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MAJOR_DOT === 0 ) {
+        else if ( Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MAJOR_DOT === 0 ) {
           haloNode.shape = largeHaloShape;
           haloNode.fill = YELLOW_HALO_FILL_LARGE;
         }

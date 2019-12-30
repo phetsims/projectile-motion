@@ -28,7 +28,7 @@ define( require => {
   const ProjectileObjectIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectIO' );
   const Tandem = require( 'TANDEM/Tandem' );
   const TrajectoryIO = require( 'PROJECTILE_MOTION/common/model/TrajectoryIO' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -196,13 +196,13 @@ define( require => {
         const newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
 
         if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
-          const dtToApex = Util.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
-          const apexX = Util.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
-          const apexY = Util.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
-          const apexVelocityX = Util.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
-          const apexVelocityY = Util.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
-          const apexDragX = Util.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
-          const apexDragY = Util.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
+          const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
+          const apexX = Utils.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
+          const apexY = Utils.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
+          const apexVelocityX = Utils.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
+          const apexVelocityY = Utils.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
+          const apexDragX = Utils.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
+          const apexDragY = Utils.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
 
           const apexPoint = new DataPoint(
             previousPoint.time + dtToApex,

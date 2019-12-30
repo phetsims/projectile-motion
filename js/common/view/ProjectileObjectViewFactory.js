@@ -17,7 +17,7 @@ define( require => {
   const Path = require( 'SCENERY/nodes/Path' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const Shape = require( 'KITE/Shape' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // image
   const baseballImage = require( 'image!PROJECTILE_MOTION/baseball.png' );
@@ -58,7 +58,7 @@ define( require => {
 
         // Algorithm from http://mathworld.wolfram.com/TeardropCurve.html
         // drag coefficient ranges from [ 0.04 , 0.47 ], and m ranges from 0 to 7
-        const m = Util.linear( 0.04, 0.47, 4, 0, dragCoefficient );
+        const m = Utils.linear( 0.04, 0.47, 4, 0, dragCoefficient );
         shape = new Shape();
         shape.moveTo( -radius, 0 );
         let t;
@@ -89,7 +89,7 @@ define( require => {
         shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
         shape.moveTo( 0, -radius );
 
-        angle = Util.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
+        angle = Utils.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
         newRadius = radius / Math.sin( angle );
         newCenterX = -radius / Math.tan( angle );
         shape.arc( newCenterX, 0, newRadius, -angle, angle, false );

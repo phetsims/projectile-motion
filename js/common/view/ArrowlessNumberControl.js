@@ -17,7 +17,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
 
   // strings
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
@@ -57,7 +57,7 @@ define( require => {
           maxWidth: options.numberDisplayMaxWidth
         } ),
         sliderOptions: {
-          constrainValue: value => Util.roundToInterval( value, round ), // two decimal place accuracy
+          constrainValue: value => Utils.roundToInterval( value, round ), // two decimal place accuracy
           majorTickLength: 12,
           minorTickLength: 5,
           minorTickSpacing: round,

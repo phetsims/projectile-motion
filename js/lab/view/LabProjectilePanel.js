@@ -27,7 +27,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -282,10 +282,10 @@ define( require => {
 
               // '{{value}} kg'
               valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
-              decimalPlaces: Math.ceil( -Util.log10( objectType.massRound ) )
+              decimalPlaces: Math.ceil( -Utils.log10( objectType.massRound ) )
             },
             sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value / objectType.massRound ) * objectType.massRound,
+              constrainValue: value => Utils.roundSymmetric( value / objectType.massRound ) * objectType.massRound,
               majorTicks: [ {
                 value: objectType.massRange.min,
                 label: new Text( objectType.massRange.min, LABEL_OPTIONS )
@@ -307,10 +307,10 @@ define( require => {
 
               // '{{value}} m'
               valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-              decimalPlaces: Math.ceil( -Util.log10( objectType.diameterRound ) )
+              decimalPlaces: Math.ceil( -Utils.log10( objectType.diameterRound ) )
             },
             sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
+              constrainValue: value => Utils.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
               majorTicks: [ {
                 value: objectType.diameterRange.min,
                 label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
@@ -340,7 +340,7 @@ define( require => {
               maxWidth: this.textDisplayWidth + GRAVITY_READOUT_X_MARGIN
             },
             sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value * 100 ) / 100
+              constrainValue: value => Utils.roundSymmetric( value * 100 ) / 100
             },
             tandem: generalComponentTandem.createTandem( 'gravityNumberControl' ),
             phetioDocumentation: 'UI control to adjust the force of gravity on the projectile'
@@ -360,7 +360,7 @@ define( require => {
               decimalPlaces: 0
             },
             sliderOptions: {
-              constrainValue: value => Util.roundSymmetric( value / 100 ) * 100
+              constrainValue: value => Utils.roundSymmetric( value / 100 ) * 100
             },
             tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' ),
             phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
@@ -374,7 +374,7 @@ define( require => {
 
         // exists for the lifetime of the simulation
         this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
-          dragCoefficientText.text = dragCoefficientString + ': ' + Util.toFixed( dragCoefficient, 2 );
+          dragCoefficientText.text = dragCoefficientString + ': ' + Utils.toFixed( dragCoefficient, 2 );
         } );
 
         return new ProjectileObjectTypeControl(

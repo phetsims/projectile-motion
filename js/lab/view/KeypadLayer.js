@@ -25,7 +25,7 @@ define( require => {
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -267,7 +267,7 @@ define( require => {
 
       // if the keypad contains a valid value ...
       if ( valueRange.contains( value ) ) {
-        this.valueProperty.set( Util.toFixedNumber( value, 2 ) );
+        this.valueProperty.set( Utils.toFixedNumber( value, 2 ) );
         this.endEdit();
       }
       else if ( value === 43110 ) {

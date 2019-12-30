@@ -18,7 +18,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -76,11 +76,11 @@ define( require => {
       valueProperty.link( function( value ) {
         const valueReadout = degreeString ?
                              StringUtils.fillIn( pattern0Value1UnitsString, {
-                               value: Util.toFixedNumber( value, 2 ),
+                               value: Utils.toFixedNumber( value, 2 ),
                                units: degreeString
                              } ) :
                              StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-                               value: Util.toFixedNumber( value, 2 ),
+                               value: Utils.toFixedNumber( value, 2 ),
                                units: unitsString
                              } );
         parameterLabel.setText( labelString + ': ' + valueReadout );

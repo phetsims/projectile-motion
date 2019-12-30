@@ -29,7 +29,7 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Text = require( 'SCENERY/nodes/Text' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // image
@@ -206,7 +206,7 @@ define( require => {
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     const heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      value: Util.toFixedNumber( heightProperty.get(), 2 ),
+      value: Utils.toFixedNumber( heightProperty.get(), 2 ),
       units: mString,
       tandem: tandem.createTandem( 'heightLabel' )
     } ), heightLabelOptions );
@@ -258,7 +258,7 @@ define( require => {
     const angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     angleIndicator.addChild( angleLabelBackground );
     const angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
-      value: Util.toFixedNumber( angleProperty.get(), 2 ),
+      value: Utils.toFixedNumber( angleProperty.get(), 2 ),
       units: DEGREES
     } ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
@@ -332,7 +332,7 @@ define( require => {
                        : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, {
-        value: Util.toFixedNumber( angleProperty.get(), 2 ),
+        value: Utils.toFixedNumber( angleProperty.get(), 2 ),
         units: DEGREES
       } );
       angleLabelBackground.setRectWidth( angleLabel.width + 2 );
@@ -388,7 +388,7 @@ define( require => {
       heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
       heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
       heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Util.toFixedNumber( height, 2 ),
+        value: Utils.toFixedNumber( height, 2 ),
         units: mString
       } );
       heightLabel.centerX = heightLeaderArrows.tipX;
@@ -471,7 +471,7 @@ define( require => {
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
           const delta = options.preciseCannonDelta ? 1 : 5;
-          angleProperty.set( Util.roundSymmetric( unboundedNewAngle / delta ) * delta );
+          angleProperty.set( Utils.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
 
         // the current, unchanged, angle is closer to max than min
@@ -506,7 +506,7 @@ define( require => {
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
-          heightProperty.set( Util.roundSymmetric( unboundedNewHeight ) );
+          heightProperty.set( Utils.roundSymmetric( unboundedNewHeight ) );
         }
         // the current, unchanged, height is closer to max than min
         else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {

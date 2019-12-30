@@ -22,7 +22,7 @@ define( require => {
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const Text = require( 'SCENERY/nodes/Text' );
   const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -135,7 +135,7 @@ define( require => {
 
     // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( value => {
-      dragCoefficientText.setText( dragCoefficientString + ': ' + Util.toFixed( value, 2 ) );
+      dragCoefficientText.setText( dragCoefficientString + ': ' + Utils.toFixed( value, 2 ) );
     } );
 
     // The contents of the control panel

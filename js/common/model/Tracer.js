@@ -18,7 +18,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Property = require( 'AXON/Property' );
   const PropertyIO = require( 'AXON/PropertyIO' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
   const Vector2Property = require( 'DOT/Vector2Property' );
 
@@ -88,7 +88,7 @@ define( require => {
         }
         const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
         const pointIsReadable = point &&
-                                ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                                ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
         if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
           this.dataPointProperty.set( point );
           return;
@@ -107,7 +107,7 @@ define( require => {
 
       // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
       const pointIsReadable = point &&
-                              ( point.apex || point.position.y === 0 || Util.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                              ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
         this.dataPointProperty.set( point );
       }

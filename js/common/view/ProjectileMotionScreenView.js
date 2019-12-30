@@ -43,7 +43,7 @@ define( require => {
   const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   const TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
   const ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
@@ -166,7 +166,7 @@ define( require => {
           maxWidth: 80 // empirically determined
         },
         sliderOptions: {
-          constrainValue: function( value ) { return Util.roundSymmetric( value ); },
+          constrainValue: function( value ) { return Utils.roundSymmetric( value ); },
           trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
           thumbSize: new Dimension2( 13, 22 )
         },

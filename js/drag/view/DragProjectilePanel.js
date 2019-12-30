@@ -23,7 +23,7 @@ define( require => {
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
@@ -145,7 +145,7 @@ define( require => {
           xMargin: 8
         },
         sliderOptions: {
-          constrainValue: value => Util.roundToInterval( value, 100 )
+          constrainValue: value => Utils.roundToInterval( value, 100 )
         },
         delta: 100,
 
@@ -187,7 +187,7 @@ define( require => {
       selectedObjectTypeProperty.get().dragCoefficientRange,
       merge( {}, defaultNumberControlOptions, {
         numberDisplayOptions: {
-          constrainValue: value => Util.roundToInterval( value, 0.01 ),
+          constrainValue: value => Utils.roundToInterval( value, 0.01 ),
           decimalPlaces: 2
         },
 

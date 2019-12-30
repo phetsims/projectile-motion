@@ -24,7 +24,7 @@ define( require => {
   const StarNode = require( 'SCENERY_PHET/StarNode' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const Tandem = require( 'TANDEM/Tandem' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // strings
@@ -115,8 +115,8 @@ define( require => {
         // change in x, view units
         const xChange = mousePoint.x - startPoint.x;
 
-        const newTargetX = Util.roundSymmetric( transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
-        this.targetXProperty.set( Util.clamp( newTargetX, this.targetXProperty.range.value.min, this.targetXProperty.range.value.max ) );
+        const newTargetX = Utils.roundSymmetric( transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
+        this.targetXProperty.set( Utils.clamp( newTargetX, this.targetXProperty.range.value.min, this.targetXProperty.range.value.max ) );
       },
 
       allowTouchSnag: true,
@@ -251,7 +251,7 @@ define( require => {
         transform.viewToModelX( this.screenView.layoutBounds.minX ),
         transform.viewToModelX( this.screenView.layoutBounds.maxX )
       );
-      this.targetXProperty.set( Util.clamp( this.targetXProperty.value, newRange.min, newRange.max ) );
+      this.targetXProperty.set( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ) );
       this.targetXProperty.range.value = newRange;
 
       if ( updateInitialValue ) {

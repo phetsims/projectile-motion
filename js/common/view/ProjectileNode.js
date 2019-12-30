@@ -22,7 +22,7 @@ define( require => {
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const FreeBodyDiagram = require( 'PROJECTILE_MOTION/common/view/FreeBodyDiagram' );
   const Property = require( 'AXON/Property' );
-  const Util = require( 'DOT/Util' );
+  const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
 
   // constants
@@ -96,8 +96,8 @@ define( require => {
       // @private {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
       this.viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
         const viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
-        viewPosition.x = Util.roundSymmetric( viewPosition.x * 10000 ) / 10000;
-        viewPosition.y = Util.roundSymmetric( viewPosition.y * 10000 ) / 10000;
+        viewPosition.x = Utils.roundSymmetric( viewPosition.x * 10000 ) / 10000;
+        viewPosition.y = Utils.roundSymmetric( viewPosition.y * 10000 ) / 10000;
         return {
           viewPosition: viewPosition,
           dataPoint: dataPoint
