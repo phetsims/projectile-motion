@@ -10,7 +10,7 @@ define( require => {
   'use strict';
 
   // modules
-  const DownUpListener = require( 'SCENERY/input/DownUpListener' );
+  const FireListener = require( 'SCENERY/listeners/FireListener' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Keypad = require( 'SCENERY_PHET/keypad/Keypad' );
   const merge = require( 'PHET_CORE/merge' );
@@ -61,13 +61,20 @@ define( require => {
 
     Plane.call( this, options );
 
-    // @private clicking outside the keypad cancels the edit
-    this.clickOutsideListener = new DownUpListener( {
-      down: function( event ) {
+    // @private - clicking outside the keypad cancels the edit
+    this.clickOutsideFireListener = new FireListener( {
+      fire: event => {
         if ( event.trail.lastNode() === self ) {
           self.cancelEdit();
+
+          // Because firing this involves hiding this Node, we need to clear the current over pointer in order make sure
+          // we don't get two enter events next time this listener is called. See https://github.com/phetsims/scenery/issues/1021
+          this.clickOutsideFireListener.clearOverPointers();
         }
-      }
+      },
+      fireOnDown: true,
+      tandem: options.tandem.createTandem( 'clickOutsideFireListener' ),
+      phetioDocumentation: 'Listener responsible for hiding the KeypadLayer when space outside of the keypad is pressed.'
     } );
 
     // @private these will be set when the client calls beginEdit
@@ -209,7 +216,7 @@ define( require => {
       this.visible = true;
 
       // keypadLayer lasts for the lifetime of the sim, so listeners don't need to be disposed
-      this.addInputListener( this.clickOutsideListener );
+      this.addInputListener( this.clickOutsideFireListener );
 
       // execute client-specific hook
       options.onBeginEdit && options.onBeginEdit();
@@ -226,7 +233,7 @@ define( require => {
 
       // hide the keypad
       this.visible = false;
-      this.removeInputListener( this.clickOutsideListener );
+      this.removeInputListener( this.clickOutsideFireListener );
 
       // execute client-specific hook
       this.onEndEdit && this.onEndEdit();
