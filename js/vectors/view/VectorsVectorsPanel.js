@@ -59,11 +59,11 @@ define( require => {
 
     const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.vectorsDisplayProperty, [ {
       node: totalLabel,
-      tandemName: _.camelCase( VectorsDisplayEnumeration.TOTAL.toString() ),
+      tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
     }, {
       node: componentsLabel,
-      tandemName: _.camelCase( VectorsDisplayEnumeration.COMPONENTS.toString() ),
+      tandemName: 'componentsRadioButton',
       value: VectorsDisplayEnumeration.COMPONENTS
     } ], {
       radioButtonOptions: { radius: 8 },
