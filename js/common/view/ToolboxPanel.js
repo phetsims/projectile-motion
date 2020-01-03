@@ -85,7 +85,7 @@ define( require => {
 
       // offset when pulling out of the toolbox so that the pointer isn't on top of the tool. Convert to parent point
       // because the TracerNode's DragListener is applying its pointer offset in the parent coordinate frame (see https://github.com/phetsims/scenery/issues/1014)
-      const parentPoint = this.globalToParentPoint( event.pointer.point.plusXY( -200, 0 ) );
+      const parentPoint = this.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
       tracer.positionProperty.value = transformProperty.value.viewToModelPosition( parentPoint );
       tracerNode.dragListener.press( event, tracerNode );
     }, { allowTouchSnag: true } ) );
