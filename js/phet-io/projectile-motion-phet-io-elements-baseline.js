@@ -1795,7 +1795,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.normalMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.normalMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -1808,7 +1808,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.dragScreen.view.normalMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.normalMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -1821,7 +1821,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.dragScreen.view.normalMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.normalMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4642,7 +4642,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.slowMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.slowMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4655,7 +4655,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.dragScreen.view.slowMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.slowMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -4668,7 +4668,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.dragScreen.view.slowMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.slowMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5461,7 +5461,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5474,7 +5474,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5487,7 +5487,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5604,7 +5604,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.firedEmitter": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5617,7 +5617,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.pressAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -5630,7 +5630,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.releaseAction": {
+    "projectileMotion.dragScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -11636,7 +11636,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.introScreen.view.normalMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.introScreen.view.normalMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -11649,7 +11649,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.introScreen.view.normalMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.introScreen.view.normalMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -11662,7 +11662,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.introScreen.view.normalMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.introScreen.view.normalMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -13118,7 +13118,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.introScreen.view.slowMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.introScreen.view.slowMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -13131,7 +13131,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.introScreen.view.slowMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.introScreen.view.slowMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -13144,7 +13144,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.introScreen.view.slowMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.introScreen.view.slowMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -18396,7 +18396,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.normalMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.labScreen.view.normalMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -18409,7 +18409,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.labScreen.view.normalMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.labScreen.view.normalMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -18422,7 +18422,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.labScreen.view.normalMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.labScreen.view.normalMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -35855,7 +35855,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.labScreen.view.slowMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.labScreen.view.slowMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -35868,7 +35868,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.labScreen.view.slowMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.labScreen.view.slowMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -35881,7 +35881,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.labScreen.view.slowMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.labScreen.view.slowMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -38715,7 +38715,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -38728,7 +38728,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -38741,7 +38741,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.normalMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -40353,7 +40353,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -40366,7 +40366,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -40379,7 +40379,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.slowMotionRadioButton.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41276,7 +41276,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41289,7 +41289,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41302,7 +41302,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.components.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41419,7 +41419,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.firedEmitter": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41432,7 +41432,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.pressAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -41445,7 +41445,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.inputListener.releaseAction": {
+    "projectileMotion.vectorsScreen.view.vectorsPanel.vectorsDisplayRadioButtonGroup.total.fireListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
