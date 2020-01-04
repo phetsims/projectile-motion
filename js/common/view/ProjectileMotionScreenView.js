@@ -28,7 +28,6 @@ define( require => {
   const Panel = require( 'SUN/Panel' );
   const PhetFont = require( 'SCENERY_PHET/PhetFont' );
   const platform = require( 'PHET_CORE/platform' );
-  const PlayPauseButton = require( 'SCENERY_PHET/buttons/PlayPauseButton' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const Property = require( 'AXON/Property' );
@@ -36,10 +35,10 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
   const SpeedEnumeration = require( 'PROJECTILE_MOTION/common/model/SpeedEnumeration' );
-  const StepForwardButton = require( 'SCENERY_PHET/buttons/StepForwardButton' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   const Text = require( 'SCENERY/nodes/Text' );
+  const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   const TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
@@ -355,29 +354,22 @@ define( require => {
       fireButton.setEnabled( enable );
     } );
 
-    // play/pause button
-    const playPauseButton = new PlayPauseButton( model.isPlayingProperty, {
-      radius: 18,
-      scaleFactorWhenPaused: 1.25,
+    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + 40, // empirically determined
-      touchAreaDilation: 2,
-      tandem: tandem.createTandem( 'playPauseButton' ),
-      phetioDocumentation: 'button to control the animation in the simulation. This will also stop the model from stepping'
-    } );
-
-    // step button
-    const stepButton = new StepForwardButton( {
-      isPlayingProperty: model.isPlayingProperty,
-      listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
-      radius: 12,
-      stroke: 'black',
-      fill: '#005566',
-      centerY: playPauseButton.centerY,
-      left: playPauseButton.right + PLAY_CONTROLS_INSET,
-      touchAreaDilation: 4,
-      tandem: tandem.createTandem( 'stepButton' ),
-      phetioDocumentation: 'Progress the simulation a single model step.'
+      playPauseOptions: {
+        radius: 18,
+        scaleFactorWhenPaused: 1.25,
+        touchAreaDilation: 2
+      },
+      stepForwardOptions: {
+        listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
+        radius: 12,
+        stroke: 'black',
+        fill: '#005566',
+        touchAreaDilation: 4
+      },
+      tandem: tandem.createTandem( 'timeControlNode' )
     } );
 
     // sim speed controls
@@ -410,7 +402,7 @@ define( require => {
       align: 'left',
       spacing: 4,
       centerY: initialSpeedPanel.centerY,
-      left: stepButton.right + 2 * PLAY_CONTROLS_INSET,
+      left: timeControlNode.right + 2 * PLAY_CONTROLS_INSET,
       children: [ normalMotionRadioButton, slowMotionRadioButton ]
     } );
 
@@ -441,8 +433,7 @@ define( require => {
       fireButton,
       eraserButton,
       speedControl,
-      stepButton,
-      playPauseButton,
+      timeControlNode,
       zoomControl,
       resetAllButton,
       measuringTapeNode,
