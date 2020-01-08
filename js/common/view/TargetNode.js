@@ -251,8 +251,7 @@ define( require => {
         transform.viewToModelX( this.screenView.layoutBounds.minX ),
         transform.viewToModelX( this.screenView.layoutBounds.maxX )
       );
-      this.targetXProperty.set( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ) );
-      this.targetXProperty.range.value = newRange;
+      this.targetXProperty.setValueAndRange( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ), newRange );
 
       if ( updateInitialValue ) {
         this.targetXProperty.range.setInitialValue( newRange );
