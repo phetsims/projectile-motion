@@ -150,7 +150,7 @@ define( require => {
 
     // @public so events can be forwarded to it by ToolboxPanel
     this.dragListener = new DragListener( {
-      locationProperty: tracer.positionProperty,
+      positionProperty: tracer.positionProperty,
       transform: transformProperty.get(),
       dragBoundsProperty: dragBoundsProperty,
       useParentOffset: true,
