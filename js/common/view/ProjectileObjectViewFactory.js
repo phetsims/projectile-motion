@@ -176,6 +176,4 @@ define( require => {
   projectileMotion.register( 'ProjectileObjectViewFactory', ProjectileObjectViewFactory );
 
   return ProjectileObjectViewFactory;
-
 } );
-

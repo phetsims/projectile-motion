@@ -181,6 +181,4 @@ define( require => {
   projectileMotion.register( 'ProjectileMotionConstants', ProjectileMotionConstants );
 
   return ProjectileMotionConstants;
-
 } );
-
