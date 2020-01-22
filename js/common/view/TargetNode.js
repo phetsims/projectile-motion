@@ -116,7 +116,7 @@ define( require => {
         const xChange = mousePoint.x - startPoint.x;
 
         const newTargetX = Utils.roundSymmetric( transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
-        this.targetXProperty.set( Utils.clamp( newTargetX, this.targetXProperty.range.value.min, this.targetXProperty.range.value.max ) );
+        this.targetXProperty.set( Utils.clamp( newTargetX, this.targetXProperty.range.min, this.targetXProperty.range.max ) );
       },
 
       allowTouchSnag: true,
@@ -134,7 +134,7 @@ define( require => {
     const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
     const distanceLabel = new NumberDisplay(
       this.targetXProperty,
-      this.targetXProperty.range.value,
+      this.targetXProperty.range,
       merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
           numberFill: 'black',
           valuePattern: distancePattern,
@@ -254,7 +254,7 @@ define( require => {
       this.targetXProperty.setValueAndRange( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ), newRange );
 
       if ( updateInitialValue ) {
-        this.targetXProperty.range.setInitialValue( newRange );
+        this.targetXProperty.rangeProperty.setInitialValue( newRange );
       }
     },
 
