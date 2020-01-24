@@ -253,6 +253,7 @@ define( require => {
       );
       this.targetXProperty.setValueAndRange( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ), newRange );
 
+      // TODO: remove this now that reset case is supported https://github.com/phetsims/studio/issues/35
       if ( updateInitialValue ) {
         this.targetXProperty.rangeProperty.setInitialValue( newRange );
       }
