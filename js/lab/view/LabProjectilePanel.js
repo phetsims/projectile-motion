@@ -364,7 +364,7 @@ define( require => {
             },
             tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' ),
             phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
-          }, defaultNumberControlOptions, )
+          }, defaultNumberControlOptions )
         );
         this.altitudeNumberControl = altitudeNumberControl;
 

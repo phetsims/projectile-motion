@@ -53,7 +53,7 @@ define( require => {
     tracerIconNode.scale( 0.4 );
 
     // Create the icon image for the measuringTape
-    const measuringTapeIconNode = MeasuringTapeNode.createIcon( {}, options.tandem.createTandem( 'measuringTapeIconNode' ), );
+    const measuringTapeIconNode = MeasuringTapeNode.createIcon( {}, options.tandem.createTandem( 'measuringTapeIconNode' ) );
     measuringTapeIconNode.cursor = 'pointer';
     measuringTapeIconNode.scale( 0.8 );
 

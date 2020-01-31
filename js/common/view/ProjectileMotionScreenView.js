@@ -176,7 +176,7 @@ define( require => {
         },
         tandem: tandem.createTandem( 'initialSpeedNumberControl' ),
         phetioDocumentation: 'the control for the initial speed as a projectile leaves the cannon'
-      },
+      }
     );
 
     // panel under the cannon, controls initial speed of projectiles
