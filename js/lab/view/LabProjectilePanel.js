@@ -228,28 +228,13 @@ define( require => {
       }
       else {
 
-        // layout function for the number controls
-        const layoutFunction = ( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) => {
-          titleNode.setMaxWidth( this.options.minWidth - 3 * this.options.xMargin - numberDisplay.width );
-          return new VBox( {
-            spacing: this.options.sliderLabelSpacing,
-            align: 'center',
-            children: [
-              new HBox( {
-                spacing: this.options.minWidth - 2 * this.options.xMargin - titleNode.width - numberDisplay.width - 3,
-                children: [ titleNode, numberDisplay ]
-              } ),
-              new HBox( {
-                spacing: ( this.options.minWidth - 2 * this.options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2 - 2,
-                resize: false, // prevent slider from causing a resize when thumb is at min or max
-                children: [ leftArrowButton, slider, rightArrowButton ]
-              } )
-            ]
-          } );
-        };
-
         const defaultNumberControlOptions = {
-          titleNodeOptions: { font: TEXT_FONT },
+          titleNodeOptions: {
+            font: TEXT_FONT,
+
+            // panel width - margins - numberDisplay margins and maxWidth
+            maxWidth: this.options.minWidth - 3 * this.options.xMargin - 2 * READOUT_X_MARGIN - this.textDisplayWidth
+          },
           numberDisplayOptions: {
             maxWidth: this.textDisplayWidth,
             align: 'right',
@@ -269,7 +254,9 @@ define( require => {
             touchAreaXDilation: 20,
             touchAreaYDilation: 20
           },
-          layoutFunction: layoutFunction
+          layoutFunction: NumberControl.createLayoutFunction4( {
+            arrowButtonSpacing: 10
+          } )
         };
 
         const massNumberControl = new NumberControl(
