@@ -37,6 +37,7 @@ define( require => {
 
   // constants
   const DRAG_OBJECT_DISPLAY_DIAMETER = 24;
+  const DRAG_OBJECT_MAX_WIDTH = 70; // empirically determined to account for the largest width of dragObjectDisplay
   const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
@@ -92,25 +93,6 @@ define( require => {
       }
     );
 
-    // layout function for altitude NumberControl
-    const altitudeLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - numberDisplay.width );
-      return new VBox( {
-        spacing: options.sliderLabelSpacing,
-        children: [
-          new HBox( {
-            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - numberDisplay.width,
-            children: [ titleNode, numberDisplay ]
-          } ),
-          new HBox( {
-            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
-            resize: false, // prevent slider from causing a resize when thumb is at min or max
-            children: [ leftArrowButton, slider, rightArrowButton ]
-          } )
-        ]
-      } );
-    };
-
     const defaultNumberControlOptions = {
       numberDisplayOptions: {
         align: 'right',
@@ -119,7 +101,10 @@ define( require => {
         yMargin: 4,
         font: TEXT_FONT
       },
-      titleNodeOptions: { font: TEXT_FONT },
+      titleNodeOptions: {
+        font: TEXT_FONT,
+        maxWidth: options.minWidth - options.numberDisplayMaxWidth - 3 * options.readoutXMargin - 2 * options.xMargin
+      },
       sliderOptions: {
         trackSize: new Dimension2( options.minWidth - 2 * options.xMargin - 80, 0.5 ),
         thumbSize: new Dimension2( 13, 22 ),
@@ -148,44 +133,40 @@ define( require => {
           constrainValue: value => Utils.roundToInterval( value, 100 )
         },
         delta: 100,
-
-        // TODO: does this need a custom layout function?
-        layoutFunction: altitudeLayoutFunction,
+        layoutFunction: NumberControl.createLayoutFunction4( {
+          arrowButtonSpacing: 10
+        } ),
         tandem: tandem.createTandem( 'altitudeNumberControl' ),
         phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
       } )
     );
 
     const dragObjectDisplay = new Node();
-    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) );
+    dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) ); // min size
 
-    // layout function for drag coefficient NumberControl
+    // layout function for drag coefficient NumberControl. This is needed to add the icon in
     const dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
-      const strut = new HStrut( 70 ); // empirically determined to account for the largest width of dragObjectDisplay
+
+      const strut = new HStrut( DRAG_OBJECT_MAX_WIDTH ); //
       const displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
       const displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
-      titleNode.setMaxWidth( options.minWidth - 2 * options.xMargin - displayAndValueBox.width );
-      return new VBox( {
-        spacing: options.sliderLabelSpacing,
-        children: [
-          new HBox( {
-            spacing: options.minWidth - 2 * options.xMargin - titleNode.width - displayAndValueBox.width,
-            children: [ titleNode, displayAndValueBox ]
-          } ),
-          new HBox( {
-            spacing: ( options.minWidth - 2 * options.xMargin - slider.width - leftArrowButton.width - rightArrowButton.width ) / 2,
-            resize: false, // prevent slider from causing a resize when thumb is at min or max
-            children: [ leftArrowButton, slider, rightArrowButton ]
-          } )
-        ]
-      } );
+      return new NumberControl.createLayoutFunction4( {
+        arrowButtonSpacing: 10
+      } )( titleNode, displayAndValueBox, slider, leftArrowButton, rightArrowButton );
     };
 
     // create drag coefficient control box
     const dragCoefficientBox = new NumberControl(
-      dragCoefficientString, projectileDragCoefficientProperty,
+      dragCoefficientString,
+      projectileDragCoefficientProperty,
       selectedObjectTypeProperty.get().dragCoefficientRange,
       merge( {}, defaultNumberControlOptions, {
+        titleNodeOptions: {
+
+          // whole panel, take away margins, take away numberDisplay, take away drag icon
+          maxWidth: options.minWidth - 2 * options.xMargin - options.numberDisplayMaxWidth - options.readoutXMargin -
+                    DRAG_OBJECT_MAX_WIDTH
+        },
         numberDisplayOptions: {
           constrainValue: value => Utils.roundToInterval( value, 0.01 ),
           decimalPlaces: 2
@@ -203,8 +184,7 @@ define( require => {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );
       }
-      const objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER
-        , dragCoefficient );
+      const objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER, dragCoefficient );
       objectView.center = dragObjectDisplay.center;
       dragObjectDisplay.addChild( objectView );
     } );
