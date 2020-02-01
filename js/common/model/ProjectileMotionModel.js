@@ -29,7 +29,6 @@ define( require => {
   const PropertyIO = require( 'AXON/PropertyIO' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
-  const SpeedEnumeration = require( 'PROJECTILE_MOTION/common/model/SpeedEnumeration' );
   const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -155,10 +154,10 @@ define( require => {
 
     // --animation controls
 
-    // @public {Property.<String>}
-    this.speedProperty = new EnumerationProperty( SpeedEnumeration, SpeedEnumeration.NORMAL, {
-      tandem: tandem.createTandem( 'speedProperty' ),
-      phetioDocumentation: 'Speed of animation, can be normal or slow'
+    // @public {Property.<boolean>}
+    this.isSlowMotionProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'isSlowMotionProperty' ),
+      phetioDocumentation: 'Speed of animation, when false animation will be normal instead of slow.'
     } );
 
     // @public
@@ -279,7 +278,7 @@ define( require => {
       this.gravityProperty.reset();
       this.altitudeProperty.reset();
       this.airResistanceOnProperty.reset();
-      this.speedProperty.reset();
+      this.isSlowMotionProperty.reset();
       this.isPlayingProperty.reset();
 
       this.muzzleFlashStepper.emit();
@@ -293,7 +292,7 @@ define( require => {
      */
     step: function( dt ) {
       if ( this.isPlayingProperty.value ) {
-        this.eventTimer.step( ( this.speedProperty.value === SpeedEnumeration.NORMAL ? 1 : 0.33 ) * dt );
+        this.eventTimer.step( ( this.isSlowMotionProperty.value ? 0.33 : 1 ) * dt );
       }
     },
 

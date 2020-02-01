@@ -144,6 +144,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.dragScreen.model.isSlowMotionProperty": {
+      "phetioDocumentation": "Speed of animation, when false animation will be normal instead of slow.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
     "projectileMotion.dragScreen.model.measuringTape.basePositionProperty": {
       "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
@@ -286,19 +299,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
-    },
-    "projectileMotion.dragScreen.model.speedProperty": {
-      "phetioDocumentation": "Speed of animation, can be normal or slow",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.dragScreen.model.tracer.dataPointProperty": {
       "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
@@ -10284,6 +10284,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.introScreen.model.isSlowMotionProperty": {
+      "phetioDocumentation": "Speed of animation, when false animation will be normal instead of slow.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
     "projectileMotion.introScreen.model.measuringTape.basePositionProperty": {
       "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
@@ -10426,19 +10439,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
-    },
-    "projectileMotion.introScreen.model.speedProperty": {
-      "phetioDocumentation": "Speed of animation, can be normal or slow",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.introScreen.model.tracer.dataPointProperty": {
       "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
@@ -15237,6 +15237,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.labScreen.model.isSlowMotionProperty": {
+      "phetioDocumentation": "Speed of animation, when false animation will be normal instead of slow.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
     "projectileMotion.labScreen.model.measuringTape.basePositionProperty": {
       "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
@@ -15509,19 +15522,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
-    },
-    "projectileMotion.labScreen.model.speedProperty": {
-      "phetioDocumentation": "Speed of animation, can be normal or slow",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.labScreen.model.tracer.dataPointProperty": {
       "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
@@ -37441,6 +37441,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.vectorsScreen.model.isSlowMotionProperty": {
+      "phetioDocumentation": "Speed of animation, when false animation will be normal instead of slow.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
     "projectileMotion.vectorsScreen.model.measuringTape.basePositionProperty": {
       "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
@@ -37583,19 +37596,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<ReferenceIO>"
-    },
-    "projectileMotion.vectorsScreen.model.speedProperty": {
-      "phetioDocumentation": "Speed of animation, can be normal or slow",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<EnumerationIO(SLOW|NORMAL)>"
     },
     "projectileMotion.vectorsScreen.model.tracer.dataPointProperty": {
       "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",

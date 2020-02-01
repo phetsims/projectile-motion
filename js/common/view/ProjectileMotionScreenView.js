@@ -34,7 +34,6 @@ define( require => {
   const ResetAllButton = require( 'SCENERY_PHET/buttons/ResetAllButton' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
-  const SpeedEnumeration = require( 'PROJECTILE_MOTION/common/model/SpeedEnumeration' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   const Text = require( 'SCENERY/nodes/Text' );
@@ -379,7 +378,7 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const normalMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.NORMAL, normalText, {
+    const normalMotionRadioButton = new AquaRadioButton( model.isSlowMotionProperty, false, normalText, {
       radius: 8,
       tandem: tandem.createTandem( 'normalMotionRadioButton' ),
       phetioDocumentation: 'Radio button that controls the animation, playing at a normal speed'
@@ -391,7 +390,7 @@ define( require => {
       stroke: 'rgb( 0, 173, 78 )',
       lineWidth: 0.3
     } );
-    const slowMotionRadioButton = new AquaRadioButton( model.speedProperty, SpeedEnumeration.SLOW, slowText, {
+    const slowMotionRadioButton = new AquaRadioButton( model.isSlowMotionProperty, true, slowText, {
       radius: 8,
       tandem: tandem.createTandem( 'slowMotionRadioButton' ),
       phetioDocumentation: 'Radio button that controls the animation, playing at a slower speed'
