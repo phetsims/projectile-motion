@@ -14,7 +14,6 @@ define( require => {
   const DerivedProperty = require( 'AXON/DerivedProperty' );
   const DerivedPropertyIO = require( 'AXON/DerivedPropertyIO' );
   const Emitter = require( 'AXON/Emitter' );
-  const EnumerationProperty = require( 'AXON/EnumerationProperty' );
   const EventTimer = require( 'PHET_CORE/EventTimer' );
   const inherit = require( 'PHET_CORE/inherit' );
   const merge = require( 'PHET_CORE/merge' );
