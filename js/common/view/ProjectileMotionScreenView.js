@@ -9,7 +9,6 @@ define( require => {
   'use strict';
 
   // modules
-  const AquaRadioButton = require( 'SUN/AquaRadioButton' );
   const BackgroundNode = require( 'PROJECTILE_MOTION/common/view/BackgroundNode' );
   const Bounds2 = require( 'DOT/Bounds2' );
   const CannonNode = require( 'PROJECTILE_MOTION/common/view/CannonNode' );
@@ -36,13 +35,11 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
-  const Text = require( 'SCENERY/nodes/Text' );
   const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
   const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
   const TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   const Utils = require( 'DOT/Utils' );
-  const VBox = require( 'SCENERY/nodes/VBox' );
   const Vector2 = require( 'DOT/Vector2' );
   const ZoomButton = require( 'SCENERY_PHET/buttons/ZoomButton' );
 
@@ -53,10 +50,8 @@ define( require => {
   const initialSpeedString = require( 'string!PROJECTILE_MOTION/initialSpeed' );
   const metersPerSecondString = require( 'string!PROJECTILE_MOTION/metersPerSecond' );
   const metersString = require( 'string!PROJECTILE_MOTION/meters' );
-  const normalString = require( 'string!PROJECTILE_MOTION/normal' );
   const pattern0Value1UnitsWithSpaceString = require( 'string!PROJECTILE_MOTION/pattern0Value1UnitsWithSpace' );
   const Range = require( 'DOT/Range' );
-  const slowString = require( 'string!PROJECTILE_MOTION/slow' );
 
   // constants
   const DEFAULT_SCALE = 30;
@@ -368,41 +363,18 @@ define( require => {
         fill: '#005566',
         touchAreaDilation: 4
       },
+      buttonsXSpacing: 2 * PLAY_CONTROLS_INSET,
+      isSlowMotionProperty: model.isSlowMotionProperty,
+      labelOptions: {
+        font: new PhetFont( 15 ),
+        maxWidth: TEXT_MAX_WIDTH,
+        stroke: 'rgb( 0, 173, 78 )',
+        lineWidth: 0.3
+      },
+      radioButtonOptions: {
+        radius: 8
+      },
       tandem: tandem.createTandem( 'timeControlNode' )
-    } );
-
-    // sim speed controls
-    const normalText = new Text( normalString, {
-      font: new PhetFont( 15 ),
-      maxWidth: TEXT_MAX_WIDTH,
-      stroke: 'rgb( 0, 173, 78 )',
-      lineWidth: 0.3
-    } );
-    const normalMotionRadioButton = new AquaRadioButton( model.isSlowMotionProperty, false, normalText, {
-      radius: 8,
-      tandem: tandem.createTandem( 'normalMotionRadioButton' ),
-      phetioDocumentation: 'Radio button that controls the animation, playing at a normal speed'
-    } );
-
-    const slowText = new Text( slowString, {
-      font: new PhetFont( 15 ),
-      maxWidth: TEXT_MAX_WIDTH,
-      stroke: 'rgb( 0, 173, 78 )',
-      lineWidth: 0.3
-    } );
-    const slowMotionRadioButton = new AquaRadioButton( model.isSlowMotionProperty, true, slowText, {
-      radius: 8,
-      tandem: tandem.createTandem( 'slowMotionRadioButton' ),
-      phetioDocumentation: 'Radio button that controls the animation, playing at a slower speed'
-    } );
-
-    // TODO: should use VerticalAquaRadioButtonGroup unless there is a good reason not to
-    const speedControl = new VBox( {
-      align: 'left',
-      spacing: 4,
-      centerY: initialSpeedPanel.centerY,
-      left: timeControlNode.right + 2 * PLAY_CONTROLS_INSET,
-      children: [ normalMotionRadioButton, slowMotionRadioButton ]
     } );
 
     // @private for layout convenience
@@ -431,7 +403,6 @@ define( require => {
       toolboxPanel,
       fireButton,
       eraserButton,
-      speedControl,
       timeControlNode,
       zoomControl,
       resetAllButton,

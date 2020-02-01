@@ -110,12 +110,6 @@
   "initialValues": {
     "value": "Initial Values"
   },
-  "normal": {
-    "value": "Normal"
-  },
-  "slow": {
-    "value": "Slow"
-  },
   "velocityVectors": {
     "value": "Velocity Vectors"
   },
