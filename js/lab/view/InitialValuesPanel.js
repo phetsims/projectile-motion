@@ -58,7 +58,7 @@ define( require => {
     const parameterLabelOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and slider
+     * Auxiliary function that creates VBox for a parameter label and slider
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to

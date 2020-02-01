@@ -1,7 +1,7 @@
 // Copyright 2019, University of Colorado Boulder
 
 /**
- * The controls for the "custom" projectil type. This is a special type because, unlike the others, for this type the
+ * The controls for the "custom" projectile type. This is a special type because, unlike the others, for this type the
  * projectile panel is populated with controls to adjust values via a Keypad (instead of just NumberControl).
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
@@ -10,9 +10,11 @@ define( require => {
   'use strict';
 
   // modules
+  const AlignBox = require( 'SCENERY/nodes/AlignBox' );
+  const AlignGroup = require( 'SCENERY/nodes/AlignGroup' );
   const FireListener = require( 'SCENERY/listeners/FireListener' );
   const FontAwesomeNode = require( 'SUN/FontAwesomeNode' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
+  const HStrut = require( 'SCENERY/nodes/HStrut' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const NumberDisplay = require( 'SCENERY_PHET/NumberDisplay' );
@@ -60,7 +62,7 @@ define( require => {
         textDisplayWidth: 50
       }, options );
 
-      // Instead of passing up parameters here, set them after the fact. After contruction all members will be set
+      // Instead of passing up parameters here, set them after the fact. After construction all members will be set
       // correctly
       super();
 
@@ -116,7 +118,7 @@ define( require => {
 
 
     /**
-     * Auxiliary function that creates vbox for a parameter label and readouts
+     * Auxiliary function that creates VBox for a parameter label and readouts
      * @param {string} labelString - label for the parameter
      * @param {string} unitsString - units
      * @param {Property.<number>} valueProperty - the Property that is set and linked to
@@ -185,9 +187,17 @@ define( require => {
 
       parameterLabel.setMaxWidth( this.options.minWidth - 4 * this.options.xMargin - valueNode.width );
 
-      const xSpacing = this.options.minWidth - 2 * this.options.xMargin - parameterLabel.width - valueNode.width;
+      // size the components to be left/right justified, respectively, with space in the middle.
+      const spacer = new HStrut( this.options.minWidth - 2 * this.options.xMargin );
+      const group = new AlignGroup( { matchHorizontal: false } );
 
-      return new HBox( { spacing: xSpacing, children: [ parameterLabel, valueNode ], tandem: tandem } );
+      const labelBox = new AlignBox( parameterLabel, { group: group } );
+      labelBox.left = spacer.left;
+
+      const valueBox = new AlignBox( valueNode, { group: group } );
+      valueBox.right = spacer.right;
+
+      return new Node( { children: [ spacer, labelBox, valueBox ], tandem: tandem } );
     }
   }
 
