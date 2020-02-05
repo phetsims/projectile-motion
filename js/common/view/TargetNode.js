@@ -42,7 +42,7 @@ define( require => {
    * @param {Score} score - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
-   * @param {Object} options
+   * @param {Object} [options]
    * @constructor
    */
   function TargetNode( score, transformProperty, screenView, options ) {

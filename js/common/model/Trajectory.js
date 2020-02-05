@@ -39,7 +39,7 @@ define( require => {
 
     /**
      * @param {ProjectileMotionModel} model
-     * @param {Object} options
+     * @param {Object} [options]
      */
     constructor( model, options ) {
       options = merge( {
