@@ -68,7 +68,7 @@ define( require => {
     } ], {
       radioButtonOptions: { radius: 8 },
       spacing: 10,     // vertical spacing between each radio button
-      touchAreaXDilation: 5,
+      touchAreaDilation: 5,
       maxWidth: checkboxOptions.maxWidth,
       tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' ),
       phetioDocumentation: 'Radio button group to select what type of vectors are displayed with a flying projectile'
