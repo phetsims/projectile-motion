@@ -67,6 +67,7 @@ define( require => {
     this.cannonHeightProperty = new NumberProperty( options.defaultCannonHeight, {
       tandem: tandem.createTandem( 'cannonHeightProperty' ),
       phetioDocumentation: 'Height of the cannon',
+      phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
       units: 'm',
       range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
     } );
@@ -75,6 +76,7 @@ define( require => {
     this.cannonAngleProperty = new NumberProperty( options.defaultCannonAngle, {
       tandem: tandem.createTandem( 'cannonAngleProperty' ),
       phetioDocumentation: 'Angle of the cannon',
+      phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
       units: '\u00B0', // in degrees
       range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
     } );
@@ -83,6 +85,7 @@ define( require => {
     this.initialSpeedProperty = new NumberProperty( options.defaultInitialSpeed, {
       tandem: tandem.createTandem( 'initialSpeedProperty' ),
       phetioDocumentation: 'The speed on launch',
+      phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
       units: 'm/s',
       range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
     } );
@@ -126,6 +129,7 @@ define( require => {
     this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
       tandem: tandem.createTandem( 'gravityProperty' ),
       phetioDocumentation: 'Acceleration due to gravity',
+      phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
       units: 'm/s^2'
     } );
 

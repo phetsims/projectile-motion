@@ -236,7 +236,8 @@ define( require => {
     const zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
       tandem: tandem.createTandem( 'zoomProperty' ),
       range: new Range( MIN_ZOOM, MAX_ZOOM ),
-      phetioDocumentation: 'Used to adjust to visual zoom for this screen'
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen',
+      phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
     } );
 
     // zoom control view
