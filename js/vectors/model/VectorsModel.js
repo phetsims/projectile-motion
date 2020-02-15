@@ -20,7 +20,9 @@ define( require => {
    */
   function VectorsModel( tandem ) {
     ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
-      [ ProjectileObjectType.COMPANIONLESS ], tandem );
+      [ ProjectileObjectType.COMPANIONLESS ], tandem, {
+        phetioInstrumentAltitudeProperty: false
+      } );
   }
 
   projectileMotion.register( 'VectorsModel', VectorsModel );

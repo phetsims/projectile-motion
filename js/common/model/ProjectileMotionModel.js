@@ -28,6 +28,7 @@ define( require => {
   const PropertyIO = require( 'AXON/PropertyIO' );
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
   const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -48,7 +49,8 @@ define( require => {
     options = merge( {
       defaultCannonHeight: 0,
       defaultCannonAngle: 80,
-      defaultInitialSpeed: 18
+      defaultInitialSpeed: 18,
+      phetioInstrumentAltitudeProperty: true
     }, options );
 
     assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType );
@@ -129,7 +131,7 @@ define( require => {
 
     // @public
     this.altitudeProperty = new NumberProperty( 0, {
-      tandem: tandem.createTandem( 'altitudeProperty' ),
+      tandem: options.phetioInstrumentAltitudeProperty ? tandem.createTandem( 'altitudeProperty' ) : Tandem.OPT_OUT,
       phetioDocumentation: 'Altitude of the environment',
       units: 'm'
     } );

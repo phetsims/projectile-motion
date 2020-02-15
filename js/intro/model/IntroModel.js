@@ -36,7 +36,8 @@ define( require => {
     ProjectileMotionModel.call( this, this.objectTypes[ 5 ], false, this.objectTypes, tandem, {
       defaultCannonHeight: 10,
       defaultCannonAngle: 0,
-      defaultInitialSpeed: 15
+      defaultInitialSpeed: 15,
+      phetioInstrumentAltitudeProperty: false
     } );
   }
 

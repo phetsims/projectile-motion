@@ -10089,19 +10089,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.introScreen.model.altitudeProperty": {
-      "phetioDocumentation": "Altitude of the environment",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
     "projectileMotion.introScreen.model.cannonAngleProperty": {
       "phetioDocumentation": "Angle of the cannon",
       "phetioDynamicElement": false,
@@ -36985,19 +36972,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.vectorsScreen.model.altitudeProperty": {
-      "phetioDocumentation": "Altitude of the environment",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.cannonAngleProperty": {
       "phetioDocumentation": "Angle of the cannon",
