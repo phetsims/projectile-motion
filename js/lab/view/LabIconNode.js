@@ -20,10 +20,10 @@ define( require => {
   const Shape = require( 'KITE/Shape' );
 
   // image
-  const cannonBarrelImage = require( 'image!PROJECTILE_MOTION/cannon_barrel.png' );
+  const cannonBarrelImage = require( 'mipmap!PROJECTILE_MOTION/cannon_barrel.png' );
   const cannonBarrelTopImage = require( 'image!PROJECTILE_MOTION/cannon_barrel_top.png' );
-  const cannonBaseBottomImage = require( 'image!PROJECTILE_MOTION/cannon_base_bottom.png' );
-  const cannonBaseTopImage = require( 'image!PROJECTILE_MOTION/cannon_base_top.png' );
+  const cannonBaseBottomImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_bottom.png' );
+  const cannonBaseTopImage = require( 'mipmap!PROJECTILE_MOTION/cannon_base_top.png' );
 
   // constants
   const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
