@@ -314,7 +314,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.dragScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data point value.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10324,7 +10324,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.introScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data point value.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15277,7 +15277,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.labScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data point value.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37208,7 +37208,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.vectorsScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data point value.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,

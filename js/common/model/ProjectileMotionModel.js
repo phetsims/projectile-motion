@@ -77,7 +77,7 @@ define( require => {
       tandem: tandem.createTandem( 'cannonAngleProperty' ),
       phetioDocumentation: 'Angle of the cannon',
       phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
-      units: '\u00B0', // in degrees
+      units: 'degrees', // in degrees
       range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
     } );
 
