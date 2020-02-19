@@ -38,13 +38,14 @@ define( require => {
     // @public
     this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioDocumentation: 'The position of the tracer in model coordinates'
+      phetioDocumentation: 'The position of the tracer in model coordinates, in meters.'
     } );
 
     // @public {Property.<DataPoint|null>}
     this.dataPointProperty = new Property( null, {
       tandem: tandem.createTandem( 'dataPointProperty' ),
-      phetioDocumentation: 'Data point that the tracer is displaying information about, or null if no info displayed.',
+      phetioDocumentation: 'Data point that the tracer is displaying information about, or null if no info displayed. ' +
+                           'See DataPointIO for more information about the data point value.',
       phetioType: PropertyIO( NullableIO( DataPointIO ) )
     } );
 

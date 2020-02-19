@@ -171,7 +171,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position",
+      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -197,7 +197,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position",
+      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -314,7 +314,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.dragScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -340,7 +340,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coordinates",
+      "phetioDocumentation": "The position of the tracer in model coordinates, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10181,7 +10181,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position",
+      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10207,7 +10207,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position",
+      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10324,7 +10324,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.introScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10350,7 +10350,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coordinates",
+      "phetioDocumentation": "The position of the tracer in model coordinates, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15004,7 +15004,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position",
+      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15030,7 +15030,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position",
+      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15277,7 +15277,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.labScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15303,7 +15303,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coordinates",
+      "phetioDocumentation": "The position of the tracer in model coordinates, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37065,7 +37065,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position",
+      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37091,7 +37091,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position",
+      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37208,7 +37208,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<ReferenceIO>"
     },
     "projectileMotion.vectorsScreen.model.tracer.dataPointProperty": {
-      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed.",
+      "phetioDocumentation": "Data point that the tracer is displaying information about, or null if no info displayed. See DataPointIO for more information about the data.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37234,7 +37234,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.tracer.positionProperty": {
-      "phetioDocumentation": "The position of the tracer in model coordinates",
+      "phetioDocumentation": "The position of the tracer in model coordinates, in meters.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
