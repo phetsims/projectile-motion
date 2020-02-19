@@ -96,6 +96,7 @@ define( require => {
     this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass, {
       tandem: tandem.createTandem( 'projectileMassProperty' ),
       phetioDocumentation: 'Mass of the projectile',
+      phetioReadOnly: true,
       units: 'kg',
       range: ProjectileMotionConstants.PROJECTILE_MASS_RANGE
     } );
@@ -104,6 +105,7 @@ define( require => {
     this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter, {
       tandem: tandem.createTandem( 'projectileDiameterProperty' ),
       phetioDocumentation: 'Diameter of the projectile',
+      phetioReadOnly: true,
       units: 'm',
       range: ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
     } );
@@ -111,6 +113,7 @@ define( require => {
     // @public {Property.<number>}
     this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient, {
       tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
+      phetioReadOnly: true,
       phetioDocumentation: 'Drag coefficient of the projectile, unitless as it is a coefficient',
       range: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
     } );
@@ -129,6 +132,7 @@ define( require => {
     this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
       tandem: tandem.createTandem( 'gravityProperty' ),
       phetioDocumentation: 'Acceleration due to gravity',
+      phetioReadOnly: true,
       phetioStudioControl: false, // see https://github.com/phetsims/projectile-motion/issues/219
       units: 'm/s^2'
     } );
@@ -178,6 +182,7 @@ define( require => {
     // @public
     this.numberOfMovingProjectilesProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'numberOfMovingProjectilesProperty' ),
+      phetioReadOnly: true,
       phetioDocumentation: 'number of projectiles that are still moving'
     } );
 
