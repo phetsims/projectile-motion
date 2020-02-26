@@ -8477,6 +8477,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.general.soundManager.enhancedSoundEnabledProperty": {
+      "phetioDocumentation": "If the sim contains sound, then this Property will toggle whether \"enhanced\" sound is enabled or disabled.",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": false,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "PropertyIO<BooleanIO>"
+    },
     "projectileMotion.general.stepSimulationAction": {
       "phetioDocumentation": "A function that steps time forward. The arguments are:<br/><ol><li>dt: NumberIO - The amount of time stepped in each call, in seconds.</li></ol>",
       "phetioDynamicElement": false,
