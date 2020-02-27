@@ -1,7 +1,7 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * Model for the tracer tool.
+ * Model for the dataProbe tool.
  * Knows about trajectories, which contain arrays of points on their paths
  *
  * @author Andrea Lin (PhET Interactive Simulations)
@@ -23,28 +23,28 @@ define( require => {
   const Vector2Property = require( 'DOT/Vector2Property' );
 
   // constants
-  const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the tracer needs to get to a datapoint
+  const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
   const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 
   /**
    * @param {PhetioGroup.<Trajectory>} trajectoryGroup
-   * @param {number} tracerX - x initial position of the tracer
-   * @param {number} tracerY - y initial position of the tracer
+   * @param {number} dataProbeX - x initial position of the dataProbe
+   * @param {number} dataProbeY - y initial position of the dataProbe
    * @param {Tandem} tandem
    * @constructor
    */
-  function Tracer( trajectoryGroup, tracerX, tracerY, tandem ) {
+  function DataProbe( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
 
     // @public
-    this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), {
+    this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {
       tandem: tandem.createTandem( 'positionProperty' ),
-      phetioDocumentation: 'The position of the tracer in model coordinates, in meters.'
+      phetioDocumentation: 'The position of the dataProbe in model coordinates, in meters.'
     } );
 
     // @public {Property.<DataPoint|null>}
     this.dataPointProperty = new Property( null, {
       tandem: tandem.createTandem( 'dataPointProperty' ),
-      phetioDocumentation: 'Data point that the tracer is displaying information about, or null if no info displayed. ' +
+      phetioDocumentation: 'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
                            'See DataPointIO for more information about the data point value.',
       phetioType: PropertyIO( NullableIO( DataPointIO ) )
     } );
@@ -52,7 +52,7 @@ define( require => {
     // @public
     this.isActiveProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'isActiveProperty' ),
-      phetioDocumentation: 'Whether the tracer is out in the play area (false when in toolbox)'
+      phetioDocumentation: 'Whether the dataProbe is out in the play area (false when in toolbox)'
     } );
 
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
@@ -61,9 +61,9 @@ define( require => {
     this.trajectoryGroup.addMemberDisposedListener( this.updateData.bind( this ) );
   }
 
-  projectileMotion.register( 'Tracer', Tracer );
+  projectileMotion.register( 'DataProbe', DataProbe );
 
-  return inherit( Object, Tracer, {
+  return inherit( Object, DataProbe, {
 
     /**
      * Reset these Properties
@@ -77,7 +77,7 @@ define( require => {
     },
 
     /**
-     * Checks for if there is a point the tracer is close to. If so, updates dataPointProperty
+     * Checks for if there is a point the dataProbe is close to. If so, updates dataPointProperty
      * @public
      */
     updateData: function() {
@@ -99,14 +99,14 @@ define( require => {
     },
 
     /**
-     * Checks if the given point is close enough to the tracer and updates information if so
+     * Checks if the given point is close enough to the dataProbe and updates information if so
      * @public
      *
      * @param {DataPoint} point
      */
     updateDataIfWithinRange: function( point ) {
 
-      // point can be read by tracer if it exists, it is on the ground, or it is the right timestep
+      // point can be read by dataProbe if it exists, it is on the ground, or it is the right timestep
       const pointIsReadable = point &&
                               ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {

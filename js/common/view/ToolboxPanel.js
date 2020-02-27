@@ -2,7 +2,7 @@
 
 /**
  * Toolbox from which the user can drag (or otherwise enable) tools.
- * The toolbox includes a measuring tape and a tracer tool.
+ * The toolbox includes a measuring tape and a dataProbe tool.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -20,19 +20,19 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ScreenView = require( 'JOIST/ScreenView' );
   const Tandem = require( 'TANDEM/Tandem' );
-  const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+  const DataProbeNode = require( 'PROJECTILE_MOTION/common/view/DataProbeNode' );
 
   /**
    * Toolbox constructor
    * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
-   * @param {Tracer} tracer - model for the tracer tool
+   * @param {DataProbe} dataProbe - model for the dataProbe tool
    * @param {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
-   * @param {TracerNode} tracerNode - view for the tracer tool
+   * @param {DataProbeNode} dataProbeNode - view for the dataProbe tool
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {Object} [options]
    * @constructor
    */
-  function ToolboxPanel( measuringTape, tracer, measuringTapeNode, tracerNode, transformProperty, options ) {
+  function ToolboxPanel( measuringTape, dataProbe, measuringTapeNode, dataProbeNode, transformProperty, options ) {
     const self = this;
 
     // The first object is an empty placeholder so none of the others get mutated
@@ -47,10 +47,10 @@ define( require => {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // Create the icon Node for the tracer tool
-    const tracerIconNode = TracerNode.createIcon( options.tandem.createTandem( 'tracerIconNode' ) );
-    tracerIconNode.cursor = 'pointer';
-    tracerIconNode.scale( 0.4 );
+    // Create the icon Node for the dataProbe tool
+    const dataProbeIconNode = DataProbeNode.createIcon( options.tandem.createTandem( 'dataProbeIconNode' ) );
+    dataProbeIconNode.cursor = 'pointer';
+    dataProbeIconNode.scale( 0.4 );
 
     // Create the icon image for the measuringTape
     const measuringTapeIconNode = MeasuringTapeNode.createIcon( {}, options.tandem.createTandem( 'measuringTapeIconNode' ) );
@@ -60,39 +60,39 @@ define( require => {
     // The content panel with the two icons
     const panelContent = new HBox( {
       spacing: 30,
-      children: [ tracerIconNode, measuringTapeIconNode ]
+      children: [ dataProbeIconNode, measuringTapeIconNode ]
     } );
 
     // add the panelContent
     Panel.call( this, panelContent, options );
 
-    // listens to the isUserControlled Property of the tracer tool
-    // return the tracer to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
-    tracerNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
-      assert && assert( tracerNode.parent instanceof ScreenView );
-      assert && assert( tracerNode.parent === self.parent );
+    // listens to the isUserControlled Property of the dataProbe tool
+    // return the dataProbe to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
+    dataProbeNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
+      assert && assert( dataProbeNode.parent instanceof ScreenView );
+      assert && assert( dataProbeNode.parent === self.parent );
 
-      const tracerNodeBounds = tracerNode.getJustTracerBounds(); //globalToParentBounds( tracerNode.getGlobalBounds() );
-      const toolboxBounds = tracerNode.globalToParentBounds( self.getGlobalBounds() );
-      if ( !isUserControlled && toolboxBounds.intersectsBounds( tracerNodeBounds.eroded( 5 ) ) ) {
-        tracer.isActiveProperty.set( false );
+      const dataProbeNodeBounds = dataProbeNode.getJustDataProbeBounds(); //globalToParentBounds( dataProbeNode.getGlobalBounds() );
+      const toolboxBounds = dataProbeNode.globalToParentBounds( self.getGlobalBounds() );
+      if ( !isUserControlled && toolboxBounds.intersectsBounds( dataProbeNodeBounds.eroded( 5 ) ) ) {
+        dataProbe.isActiveProperty.set( false );
       }
     } );
 
-    // When pressed, forwards dragging to the actual tracer Node
-    tracerIconNode.addInputListener( DragListener.createForwardingListener( event => {
-      tracer.isActiveProperty.set( true );
+    // When pressed, forwards dragging to the actual dataProbe Node
+    dataProbeIconNode.addInputListener( DragListener.createForwardingListener( event => {
+      dataProbe.isActiveProperty.set( true );
 
       // offset when pulling out of the toolbox so that the pointer isn't on top of the tool. Convert to parent point
-      // because the TracerNode's DragListener is applying its pointer offset in the parent coordinate frame (see https://github.com/phetsims/scenery/issues/1014)
+      // because the DataProbeNode's DragListener is applying its pointer offset in the parent coordinate frame (see https://github.com/phetsims/scenery/issues/1014)
       const parentPoint = this.globalToParentPoint( event.pointer.point ).plusXY( -180, 0 );
-      tracer.positionProperty.value = transformProperty.value.viewToModelPosition( parentPoint );
-      tracerNode.dragListener.press( event, tracerNode );
+      dataProbe.positionProperty.value = transformProperty.value.viewToModelPosition( parentPoint );
+      dataProbeNode.dragListener.press( event, dataProbeNode );
     }, { allowTouchSnag: true } ) );
 
-    // tracer visibility has the opposite visibility of the tracerIcon
-    tracer.isActiveProperty.link( function( active ) {
-      tracerIconNode.visible = !active;
+    // dataProbe visibility has the opposite visibility of the dataProbeIcon
+    dataProbe.isActiveProperty.link( function( active ) {
+      dataProbeIconNode.visible = !active;
     } );
 
     // listens to the isUserControlled Property of the measuring tape

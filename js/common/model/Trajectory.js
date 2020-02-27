@@ -129,8 +129,8 @@ define( require => {
       // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
       this.apexPoint = null;
 
-      // It is not gauranteed that the tracer exists
-      model.tracer && model.tracer.updateDataIfWithinRange( initialPoint );
+      // It is not gauranteed that the dataProbe exists
+      model.dataProbe && model.dataProbe.updateDataIfWithinRange( initialPoint );
 
       // @public {ObservableArray.<ProjectileObject>}
       this.projectileObjects = new ObservableArray( {
@@ -222,7 +222,7 @@ define( require => {
 
           this.apexPoint = apexPoint; // save apex point
 
-          this.projectileMotionModel.tracer.updateDataIfWithinRange( apexPoint );
+          this.projectileMotionModel.dataProbe.updateDataIfWithinRange( apexPoint );
         }
 
         // Has reached ground or below
@@ -269,8 +269,8 @@ define( require => {
           this.dataPoints.push( newPoint );
         }
 
-        // and update tracer tool and David
-        this.projectileMotionModel.tracer.updateDataIfWithinRange( newPoint );
+        // and update dataProbe tool and David
+        this.projectileMotionModel.dataProbe.updateDataIfWithinRange( newPoint );
       }
 
       // keep track of old objects that need to be removed

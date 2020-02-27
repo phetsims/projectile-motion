@@ -37,7 +37,7 @@ define( require => {
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
-  const TracerNode = require( 'PROJECTILE_MOTION/common/view/TracerNode' );
+  const DataProbeNode = require( 'PROJECTILE_MOTION/common/view/DataProbeNode' );
   const TrajectoryNode = require( 'PROJECTILE_MOTION/common/view/TrajectoryNode' );
   const Utils = require( 'DOT/Utils' );
   const Vector2 = require( 'DOT/Vector2' );
@@ -199,7 +199,7 @@ define( require => {
       } );
 
     // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
-    // so that it remains easily visible and grabbable. Unlike TracerNode, MeasuringTapeNode does
+    // so that it remains easily visible and grabbable. Unlike DataProbeNode, MeasuringTapeNode does
     // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
     // See https://github.com/phetsims/projectile-motion/issues/145.
     const measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
@@ -226,10 +226,10 @@ define( require => {
       backgroundNode.updateFlatironsPosition( transform );
     } );
 
-    // add view for tracer
-    const tracerNode = new TracerNode( model.tracer, transformProperty, this, {
-      tandem: tandem.createTandem( 'tracerNode' ),
-      phetioDocumentation: 'the Node for the tracer tool'
+    // add view for dataProbe
+    const dataProbeNode = new DataProbeNode( model.dataProbe, transformProperty, this, {
+      tandem: tandem.createTandem( 'dataProbeNode' ),
+      phetioDocumentation: 'the Node for the dataProbe tool'
     } );
 
     // zoom Property
@@ -298,8 +298,8 @@ define( require => {
     } );
 
 
-    // toolbox panel contains measuring tape. lab screen will add a tracer tool
-    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.tracer, measuringTapeNode, tracerNode, transformProperty, {
+    // toolbox panel contains measuring tape. lab screen will add a dataProbe tool
+    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.dataProbe, measuringTapeNode, dataProbeNode, transformProperty, {
       tandem: tandem.createTandem( 'toolboxPanel' ),
       phetioDocumentation: 'the panel that holds the tools when not in the play area'
     } );
@@ -408,7 +408,7 @@ define( require => {
       zoomControl,
       resetAllButton,
       measuringTapeNode,
-      tracerNode
+      dataProbeNode
     ] );
 
     // Links in this constructor last for the life time of the sim, so they don't need to be disposed

@@ -1,7 +1,7 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * View for the tracer, which can be dragged to change location.
+ * View for the dataProbe, which can be dragged to change location.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -73,18 +73,18 @@ define( require => {
     .addColorStop( 0.4, GREEN_HALO_COLOR )
     .addColorStop( 1, GREEN_HALO_EDGE_COLOR );
 
-  const TRACER_CONTENT_WIDTH = 155;
+  const DATA_PROBE_CONTENT_WIDTH = 155;
   const RIGHT_SIDE_PADDING = 6;
   const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
   /**
-   * @param {Score} tracer - model of the tracer tool
+   * @param {Score} dataProbe - model of the dataProbe tool
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {Object} [options]
    * @param {ScreenView} screenView
    * @constructor
    */
-  function TracerNode( tracer, transformProperty, screenView, options ) {
+  function DataProbeNode( dataProbe, transformProperty, screenView, options ) {
     const self = this;
 
     options = merge( {
@@ -96,14 +96,14 @@ define( require => {
     this.isUserControlledProperty = new BooleanProperty( false );
 
     // @private
-    this.tracer = tracer; // model
+    this.dataProbe = dataProbe; // model
     this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
 
     // draggable node
     const rectangle = new Rectangle(
       0,
       0,
-      TRACER_CONTENT_WIDTH + RIGHT_SIDE_PADDING,
+      DATA_PROBE_CONTENT_WIDTH + RIGHT_SIDE_PADDING,
       95, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
@@ -119,9 +119,9 @@ define( require => {
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
     rectangle.setTouchArea( rectangle.bounds.dilatedXY( 15, 6 ) );
 
-    // shift the tracer drag bounds so that it can only be dragged until the center reaches the left or right side
+    // shift the dataProbe drag bounds so that it can only be dragged until the center reaches the left or right side
     // of the screen
-    const dragBoundsShift = -TRACER_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
+    const dragBoundsShift = -DATA_PROBE_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
 
     // crosshair view
     const crosshairShape = new Shape()
@@ -150,14 +150,14 @@ define( require => {
 
     // @public so events can be forwarded to it by ToolboxPanel
     this.dragListener = new DragListener( {
-      positionProperty: tracer.positionProperty,
+      positionProperty: dataProbe.positionProperty,
       transform: transformProperty.get(),
       dragBoundsProperty: dragBoundsProperty,
       useParentOffset: true,
       start: () => self.isUserControlledProperty.set( true ),
       end: () => self.isUserControlledProperty.set( false ),
       tandem: options.tandem.createTandem( 'dragListener' ),
-      phetioDocumentation: 'the listener for the tracer tool Node'
+      phetioDocumentation: 'the listener for the dataProbe tool Node'
     } );
 
     // label and values readouts
@@ -165,9 +165,9 @@ define( require => {
     const rangeReadoutProperty = new Property( noValueString );
     const heightReadoutProperty = new Property( noValueString );
 
-    const timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, timeReadoutProperty );
-    const rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
-    const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, heightReadoutProperty );
+    const timeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, timeString, timeReadoutProperty );
+    const rangeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
+    const heightBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, heightString, heightReadoutProperty );
 
     const textBox = new VBox( {
       align: 'left',
@@ -179,13 +179,13 @@ define( require => {
       ]
     } );
 
-    // halo node for highlighting the dataPoint whose information is shown in the tracer tool
+    // halo node for highlighting the dataPoint whose information is shown in the dataProbe tool
     const smallHaloShape = Shape.circle( 0, 0, SMALL_HALO_RADIUS );
     const largeHaloShape = Shape.circle( 0, 0, LARGE_HALO_RADIUS );
     const haloNode = new Path( smallHaloShape, { pickable: false } );
 
     // Listen for when time, range, and height change, and update the readouts.
-    tracer.dataPointProperty.link( function( point ) {
+    dataProbe.dataPointProperty.link( function( point ) {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: Utils.toFixedNumber( point.time, 2 ),
@@ -237,9 +237,9 @@ define( require => {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      if ( tracer.dataPointProperty.get() ) {
-        haloNode.centerX = transformProperty.get().modelToViewX( tracer.dataPointProperty.get().position.x );
-        haloNode.centerY = transformProperty.get().modelToViewY( tracer.dataPointProperty.get().position.y );
+      if ( dataProbe.dataPointProperty.get() ) {
+        haloNode.centerX = transformProperty.get().modelToViewX( dataProbe.dataPointProperty.get().position.x );
+        haloNode.centerY = transformProperty.get().modelToViewY( dataProbe.dataPointProperty.get().position.y );
       }
     };
 
@@ -247,19 +247,19 @@ define( require => {
     transformProperty.link( function( transform ) {
       self.dragListener.transform = transform;
       dragBoundsProperty.value =  transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
-      updatePosition( tracer.positionProperty.get() );
+      updatePosition( dataProbe.positionProperty.get() );
     } );
 
     // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
     screenView.visibleBoundsProperty.link( function( bounds ) {
       dragBoundsProperty.value = transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
-      updatePosition( tracer.positionProperty.get() );
+      updatePosition( dataProbe.positionProperty.get() );
     } );
 
     // Listen for location changes, align locations, and update model.
-    tracer.positionProperty.link( function( position ) {
+    dataProbe.positionProperty.link( function( position ) {
       updatePosition( position );
-      self.tracer.updateData();
+      self.dataProbe.updateData();
     } );
 
     // Rendering order
@@ -275,18 +275,18 @@ define( require => {
 
     Node.call( this, options );
 
-    // When dragging, move the tracer tool
+    // When dragging, move the dataProbe tool
     this.addInputListener( this.dragListener );
 
-    // visibility of the tracer
-    tracer.isActiveProperty.link( function( active ) {
+    // visibility of the dataProbe
+    dataProbe.isActiveProperty.link( function( active ) {
       self.visible = active;
     } );
 
-    // TracerNode lasts for the lifetime of the sim, so links don't need to be disposed.
+    // DataProbeNode lasts for the lifetime of the sim, so links don't need to be disposed.
   }
 
-  projectileMotion.register( 'TracerNode', TracerNode );
+  projectileMotion.register( 'DataProbeNode', DataProbeNode );
 
 
   /**
@@ -341,25 +341,25 @@ define( require => {
     return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
   }
 
-  return inherit( Node, TracerNode, {
+  return inherit( Node, DataProbeNode, {
 
     /**
-     * Get the bounds of just the tracer, excluding the halo node
+     * Get the bounds of just the dataProbe, excluding the halo node
      * @public
      */
-    getJustTracerBounds: function() {
-      const tracerBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
+    getJustDataProbeBounds: function() {
+      const dataProbeBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
 
-      // include every child except for the halo in the calculations of tracer bounds
+      // include every child except for the halo in the calculations of dataProbe bounds
       for ( let i = 1; i < this.children.length; i++ ) {
-        tracerBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
+        dataProbeBounds.includeBounds( this.globalToParentBounds( this.children[ i ].getGlobalBounds() ) );
       }
-      return tracerBounds;
+      return dataProbeBounds;
     }
   }, {
 
     /**
-     * Create icon of Tracer node
+     * Create icon of DataProbe node
      * @public
      *
      * @param {Tandem} tandem
@@ -369,7 +369,7 @@ define( require => {
       const rectangle = new Rectangle(
         0,
         0,
-        TRACER_CONTENT_WIDTH,
+        DATA_PROBE_CONTENT_WIDTH,
         95, {
           cornerRadius: 8,
           fill: OPAQUE_BLUE,
@@ -396,9 +396,9 @@ define( require => {
 
       // Create the base of the crosshair
       const crosshairMount = new Rectangle( 0, 0, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, 0.4 * CIRCLE_AROUND_CROSSHAIR_RADIUS, { fill: 'gray' } );
-      const timeBox = createInformationBox( TRACER_CONTENT_WIDTH, timeString, new Property( noValueString ) );
-      const rangeBox = createInformationBox( TRACER_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
-      const heightBox = createInformationBox( TRACER_CONTENT_WIDTH, heightString, new Property( noValueString ) );
+      const timeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, timeString, new Property( noValueString ) );
+      const rangeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, rangeString, new Property( noValueString ) );
+      const heightBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, heightString, new Property( noValueString ) );
 
       const textBox = new VBox( {
         align: 'left',
@@ -432,7 +432,7 @@ define( require => {
           textBox
         ],
         tandem: tandem,
-        phetioDocumentation: 'the icon for the TracerNode, this is not interactive'
+        phetioDocumentation: 'the icon for the DataProbeNode, this is not interactive'
       } );
     }
   } );

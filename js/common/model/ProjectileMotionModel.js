@@ -29,7 +29,7 @@ define( require => {
   const ReferenceIO = require( 'TANDEM/types/ReferenceIO' );
   const Score = require( 'PROJECTILE_MOTION/common/model/Score' );
   const Tandem = require( 'TANDEM/Tandem' );
-  const Tracer = require( 'PROJECTILE_MOTION/common/model/Tracer' );
+  const DataProbe = require( 'PROJECTILE_MOTION/common/model/DataProbe' );
   const Trajectory = require( 'PROJECTILE_MOTION/common/model/Trajectory' );
   const Vector2 = require( 'DOT/Vector2' );
 
@@ -211,8 +211,8 @@ define( require => {
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
     this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
-    // @public {Tracer} model for the tracer probe
-    this.tracer = new Tracer( this.trajectoryGroup, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
+    // @public {DataProbe} model for the dataProbe probe
+    this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, tandem.createTandem( 'dataProbe' ) ); // location arbitrary
 
     // Links in this constructor last for the life time of the sim, so no need to dispose
 
@@ -276,7 +276,7 @@ define( require => {
 
       this.score.reset();
       this.measuringTape.reset();
-      this.tracer.reset();
+      this.dataProbe.reset();
 
       this.cannonHeightProperty.reset();
       this.cannonAngleProperty.reset();
