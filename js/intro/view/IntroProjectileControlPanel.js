@@ -1,4 +1,4 @@
-// Copyright 2016-2019, University of Colorado Boulder
+// Copyright 2016-2020, University of Colorado Boulder
 
 /**
  * Control panel that allows users to choose what kind of projectile to fire
