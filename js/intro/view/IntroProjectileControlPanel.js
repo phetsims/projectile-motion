@@ -11,15 +11,13 @@ define( require => {
   'use strict';
 
   // modules
-  const Checkbox = require( 'SUN/Checkbox' );
+  const AirResistanceControl = require( 'PROJECTILE_MOTION/common/view/AirResistanceControl' );
   const ComboBox = require( 'SUN/ComboBox' );
   const ComboBoxItem = require( 'SUN/ComboBoxItem' );
-  const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
   const inherit = require( 'PHET_CORE/inherit' );
   const Line = require( 'SCENERY/nodes/Line' );
   const merge = require( 'PHET_CORE/merge' );
-  const Node = require( 'SCENERY/nodes/Node' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
@@ -30,9 +28,7 @@ define( require => {
   const VBox = require( 'SCENERY/nodes/VBox' );
 
   // strings
-  const airResistanceString = require( 'string!PROJECTILE_MOTION/airResistance' );
   const diameterString = require( 'string!PROJECTILE_MOTION/diameter' );
-  const dragCoefficientString = require( 'string!PROJECTILE_MOTION/dragCoefficient' );
   const kgString = require( 'string!PROJECTILE_MOTION/kg' );
   const massString = require( 'string!PROJECTILE_MOTION/mass' );
   const mString = require( 'string!PROJECTILE_MOTION/m' );
@@ -40,7 +36,6 @@ define( require => {
 
   // constants
   const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-  const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
@@ -54,13 +49,13 @@ define( require => {
    * @constructor
    */
   function IntroProjectileControlPanel( objectTypes,
-                                 selectedProjectileObjectTypeProperty,
-                                 comboBoxListParent,
-                                 projectileMassProperty,
-                                 projectileDiameterProperty,
-                                 projectileDragCoefficientProperty,
-                                 airResistanceOnProperty,
-                                 options ) {
+                                        selectedProjectileObjectTypeProperty,
+                                        comboBoxListParent,
+                                        projectileMassProperty,
+                                        projectileDiameterProperty,
+                                        projectileDragCoefficientProperty,
+                                        airResistanceOnProperty,
+                                        options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -173,30 +168,6 @@ define( require => {
       options.tandem.createTandem( 'diameterReadout' )
     );
 
-    const dragCoefficientReadout = createReadout(
-      dragCoefficientString,
-      null,
-      projectileDragCoefficientProperty,
-      options.tandem.createTandem( 'dragCoefficientReadout' )
-    );
-
-    // air resistance
-    const airResistanceText = new Text( airResistanceString, merge( {}, LABEL_OPTIONS, {
-      tandem: options.tandem.createTandem( 'airResistanceText' )
-    } ) );
-    const airResistanceCheckboxContent = new HBox( {
-      spacing: options.xMargin,
-      children: [ airResistanceText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
-    } );
-    const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
-      maxWidth: parameterLabelOptions.maxWidth,
-      boxWidth: 18,
-      tandem: options.tandem.createTandem( 'airResistanceCheckbox' )
-    } );
-
-    // disabling and enabling drag and altitude controls depending on whether air resistance is on
-    airResistanceOnProperty.link( airResistanceOn => dragCoefficientReadout.setOpacity( airResistanceOn ? 1 : 0.5 ) );
-
     // The contents of the control panel
     const content = new VBox( {
       align: 'left',
@@ -206,8 +177,13 @@ define( require => {
         massReadout,
         diameterReadout,
         new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-        airResistanceCheckbox,
-        dragCoefficientReadout
+        new AirResistanceControl( airResistanceOnProperty, projectileDragCoefficientProperty, {
+          labelOptions: LABEL_OPTIONS,
+          minWidth: options.minWidth,
+          xMargin: options.xMargin,
+          spacing: options.controlsVerticalSpace,
+          tandem: options.tandem.createTandem( 'airResistanceControl' )
+        } )
       ]
     } );
 
