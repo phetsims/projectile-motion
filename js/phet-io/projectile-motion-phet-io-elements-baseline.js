@@ -326,8 +326,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.dragScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
+    "projectileMotion.dragScreen.model.score.targetXProperty.rangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view on startup.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -337,7 +337,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<RangeIO>"
+      "phetioTypeName": "PropertyIO<NullableIO<RangeIO>>"
     },
     "projectileMotion.dragScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "The currently selected projectile object type",
@@ -10453,8 +10453,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.introScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
+    "projectileMotion.introScreen.model.score.targetXProperty.rangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view on startup.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10464,7 +10464,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<RangeIO>"
+      "phetioTypeName": "PropertyIO<NullableIO<RangeIO>>"
     },
     "projectileMotion.introScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "The currently selected projectile object type",
@@ -15510,8 +15510,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.labScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
+    "projectileMotion.labScreen.model.score.targetXProperty.rangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view on startup.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -15521,7 +15521,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<RangeIO>"
+      "phetioTypeName": "PropertyIO<NullableIO<RangeIO>>"
     },
     "projectileMotion.labScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "The currently selected projectile object type",
@@ -37545,8 +37545,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.vectorsScreen.model.score.targetXRangeProperty": {
-      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view.",
+    "projectileMotion.vectorsScreen.model.score.targetXProperty.rangeProperty": {
+      "phetioDocumentation": "The range for x position of the score. This changes based on the current zoom of the view. The initial value is only temporary, and is overwritten in the view on startup.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37556,7 +37556,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": true,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<RangeIO>"
+      "phetioTypeName": "PropertyIO<NullableIO<RangeIO>>"
     },
     "projectileMotion.vectorsScreen.model.selectedProjectileObjectTypeProperty": {
       "phetioDocumentation": "The currently selected projectile object type",

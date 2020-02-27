@@ -16,10 +16,7 @@ define( require => {
   const NumberProperty = require( 'AXON/NumberProperty' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
-  const Property = require( 'AXON/Property' );
-  const PropertyIO = require( 'AXON/PropertyIO' );
   const Range = require( 'DOT/Range' );
-  const RangeIO = require( 'DOT/RangeIO' );
 
   /**
    * @param {number} initialTargetX - initial x position of the target
@@ -29,17 +26,17 @@ define( require => {
   function Score( initialTargetX, tandem ) {
 
     // @public {Property.<number>} x position of target
+    const targetXPropertyTandem = tandem.createTandem( 'targetXProperty' );
     this.targetXProperty = new NumberProperty( initialTargetX, {
-      tandem: tandem.createTandem( 'targetXProperty' ),
+      tandem: targetXPropertyTandem,
       phetioDocumentation: 'The x position of the score target, in model coordinates',
       phetioFeatured: true,
-      range: new Property( new Range( -100, 100 ), {
-        tandem: tandem.createTandem( 'targetXRangeProperty' ),
+      range: new Range( -100, 100 ),
+      rangePropertyOptions: {
+        tandem: targetXPropertyTandem.createTandem( 'rangeProperty' ),
         phetioDocumentation: 'The range for x position of the score. This changes based on the current zoom of the view. ' +
-                             'The initial value is only temporary, and is overwritten in the view.',
-        phetioReadOnly: true,
-        phetioType: PropertyIO( RangeIO )
-      } )
+                             'The initial value is only temporary, and is overwritten in the view on startup.'
+      }
     } );
 
     // @public {Emitter} if projectile has scored
