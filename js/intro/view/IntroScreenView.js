@@ -49,7 +49,7 @@ define( require => {
       this,
       model,
       this.projectilePanel,
-      new IntroVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsPanel' ) } ),
+      new IntroVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
       tandem,
       options
