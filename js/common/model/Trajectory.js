@@ -229,14 +229,28 @@ define( require => {
         if ( newY <= 0 ) {
           this.reachedGround = true; // store the information that it has reached the ground
 
+          // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
+          let fromIf = true;
+
           // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-          const timeToGround = ( previousPoint.acceleration.y === 0 ) ? -previousPoint.position.y / previousPoint.velocity.y : (
-                                                                                                                                 -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y - 2 * previousPoint.acceleration.y * previousPoint.position.y ) - previousPoint.velocity.y
-                                                                                                                               ) / previousPoint.acceleration.y;
+          let timeToGround = null;
+          if ( previousPoint.acceleration.y === 0 ) {
+            timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
+          }
+          else {
+            fromIf = false;
+            const squareRoot = -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y -
+                                           2 * previousPoint.acceleration.y * previousPoint.position.y );
+            timeToGround = ( squareRoot - previousPoint.velocity.y ) / previousPoint.acceleration.y;
+          }
 
-          assert && assert( !isNaN( timeToGround ), `timeToGround is ${timeToGround}` );
+          // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
+          assert && assert( !isNaN( timeToGround ),
+            `timeToGround: ${timeToGround}, previousPoint.velocity: ${previousPoint.velocity}, previousPoint.acceleration: ${previousPoint.acceleration}, fromIf: ${fromIf}` );
 
-          newX = previousPoint.position.x + previousPoint.velocity.x * timeToGround + 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
+          newX = previousPoint.position.x +
+                 previousPoint.velocity.x * timeToGround +
+                 0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
           newY = 0;
 
           var newPoint = new DataPoint(
