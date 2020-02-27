@@ -144,6 +144,8 @@ define( require => {
       units: metersPerSecondString
     } );
 
+    const initialSpeedPanelTandem = tandem.createTandem( 'initialSpeedPanel' );
+
     // initial speed readout, slider, and tweakers
     const initialSpeedNumberControl = new NumberControl(
       initialSpeedString, model.initialSpeedProperty,
@@ -168,7 +170,7 @@ define( require => {
           touchAreaXDilation: 20,
           touchAreaYDilation: 20
         },
-        tandem: tandem.createTandem( 'initialSpeedNumberControl' ),
+        tandem: initialSpeedPanelTandem.createTandem( 'numberControl' ),
         phetioDocumentation: 'the control for the initial speed as a projectile leaves the cannon'
       }
     );
@@ -179,7 +181,7 @@ define( require => {
       merge( {
         left: this.layoutBounds.left + X_MARGIN,
         bottom: this.layoutBounds.bottom - 10,
-        tandem: tandem.createTandem( 'initialSpeedPanel' )
+        tandem: initialSpeedPanelTandem
       }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
     );
 
