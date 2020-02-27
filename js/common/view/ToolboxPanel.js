@@ -68,13 +68,13 @@ define( require => {
 
     // listens to the isUserControlled Property of the dataProbe tool
     // return the dataProbe to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
-    dataProbeNode.isUserControlledProperty.lazyLink( function( isUserControlled ) {
+    dataProbeNode.isUserControlledProperty.lazyLink( isUserControlled => {
       assert && assert( dataProbeNode.parent instanceof ScreenView );
       assert && assert( dataProbeNode.parent === self.parent );
 
       const dataProbeNodeBounds = dataProbeNode.getJustDataProbeBounds(); //globalToParentBounds( dataProbeNode.getGlobalBounds() );
       const toolboxBounds = dataProbeNode.globalToParentBounds( self.getGlobalBounds() );
-      if ( !isUserControlled && toolboxBounds.intersectsBounds( dataProbeNodeBounds.eroded( 5 ) ) ) {
+      if ( !isUserControlled && this.visible && toolboxBounds.intersectsBounds( dataProbeNodeBounds.eroded( 5 ) ) ) {
         dataProbe.isActiveProperty.set( false );
       }
     } );
@@ -103,7 +103,7 @@ define( require => {
 
       const tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
       const toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
-      if ( !isUserControlled && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
+      if ( !isUserControlled && this.visible && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
       }
     } );
