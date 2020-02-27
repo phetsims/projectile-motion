@@ -27,13 +27,13 @@ define( require => {
   const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 
   /**
-   * @param {PhetioGroup.<Trajectory>} trajectories
+   * @param {PhetioGroup.<Trajectory>} trajectoryGroup
    * @param {number} tracerX - x initial position of the tracer
    * @param {number} tracerY - y initial position of the tracer
    * @param {Tandem} tandem
    * @constructor
    */
-  function Tracer( trajectories, tracerX, tracerY, tandem ) {
+  function Tracer( trajectoryGroup, tracerX, tracerY, tandem ) {
 
     // @public
     this.positionProperty = new Vector2Property( new Vector2( tracerX, tracerY ), {
@@ -56,9 +56,9 @@ define( require => {
     } );
 
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
-    this.trajectories = trajectories;
+    this.trajectoryGroup = trajectoryGroup;
 
-    this.trajectories.addMemberDisposedListener( this.updateData.bind( this ) );
+    this.trajectoryGroup.addMemberDisposedListener( this.updateData.bind( this ) );
   }
 
   projectileMotion.register( 'Tracer', Tracer );
@@ -81,8 +81,8 @@ define( require => {
      * @public
      */
     updateData: function() {
-      for ( let i = this.trajectories.length - 1; i >= 0; i-- ) {
-        const currentTrajectory = this.trajectories.get( i );
+      for ( let i = this.trajectoryGroup.length - 1; i >= 0; i-- ) {
+        const currentTrajectory = this.trajectoryGroup.get( i );
         if ( currentTrajectory.apexPoint && currentTrajectory.apexPoint.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) { // current point shown is apex and it is still within sensing radius
           this.dataPointProperty.set( currentTrajectory.apexPoint );
           return;

@@ -358,7 +358,7 @@ define( require => {
     copyFromProjectileObject( projectileObject ) {
 
       // create a brand new trajectory
-      const newTrajectory = this.projectileMotionModel.trajectories.createNextMember( this.projectileMotionModel );
+      const newTrajectory = this.projectileMotionModel.trajectoryGroup.createNextMember( this.projectileMotionModel );
 
       // clear all the data points and then add up to where the current flying projectile is
       newTrajectory.dataPoints.clear();

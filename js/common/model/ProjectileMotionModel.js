@@ -209,10 +209,10 @@ define( require => {
 
     // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
-    this.trajectories = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
+    this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
     // @public {Tracer} model for the tracer probe
-    this.tracer = new Tracer( this.trajectories, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
+    this.tracer = new Tracer( this.trajectoryGroup, 10, 10, tandem.createTandem( 'tracer' ) ); // location arbitrary
 
     // Links in this constructor last for the life time of the sim, so no need to dispose
 
@@ -313,8 +313,8 @@ define( require => {
      * @param {number} dt
      */
     stepModelElements: function( dt ) {
-      for ( let i = 0; i < this.trajectories.length; i++ ) {
-        this.trajectories.get( i ).step( dt );
+      for ( let i = 0; i < this.trajectoryGroup.length; i++ ) {
+        this.trajectoryGroup.get( i ).step( dt );
       }
       this.muzzleFlashStepper.emit();
     },
@@ -324,9 +324,9 @@ define( require => {
      * @private
      */
     limitTrajectories: function() {
-      const numberToRemove = this.trajectories.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+      const numberToRemove = this.trajectoryGroup.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
       for ( let i = 0; i < numberToRemove; i++ ) {
-        this.trajectories.disposeMember( this.trajectories.get( 0 ) );
+        this.trajectoryGroup.disposeMember( this.trajectoryGroup.get( 0 ) );
       }
     },
 
@@ -335,7 +335,7 @@ define( require => {
      * @public
      */
     eraseTrajectories: function() {
-      this.trajectories.clear();
+      this.trajectoryGroup.clear();
       this.numberOfMovingProjectilesProperty.reset();
     },
 
@@ -346,11 +346,11 @@ define( require => {
      * @public
      */
     cannonFired: function() {
-      const lastTrajectory = this.trajectories.get( this.trajectories.length - 1 );
-      const newTrajectory = this.trajectories.createNextMember( this );
+      const lastTrajectory = this.trajectoryGroup.get( this.trajectoryGroup.length - 1 );
+      const newTrajectory = this.trajectoryGroup.createNextMember( this );
       if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
         lastTrajectory.addProjectileObject();
-        this.trajectories.disposeMember( newTrajectory );
+        this.trajectoryGroup.disposeMember( newTrajectory );
       }
       else {
         this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
@@ -368,8 +368,8 @@ define( require => {
       let i;
       let trajectory;
 
-      for ( let j = 0; j < this.trajectories.length; j++ ) {
-        trajectory = this.trajectories.get( j );
+      for ( let j = 0; j < this.trajectoryGroup.length; j++ ) {
+        trajectory = this.trajectoryGroup.get( j );
 
         const removedProjectileObjects = [];
 
