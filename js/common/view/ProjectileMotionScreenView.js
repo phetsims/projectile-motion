@@ -35,7 +35,6 @@ define( require => {
   const ScreenView = require( 'JOIST/ScreenView' );
   const Shape = require( 'KITE/Shape' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const Tandem = require( 'TANDEM/Tandem' );
   const TargetNode = require( 'PROJECTILE_MOTION/common/view/TargetNode' );
   const TimeControlNode = require( 'SCENERY_PHET/TimeControlNode' );
   const ToolboxPanel = require( 'PROJECTILE_MOTION/common/view/ToolboxPanel' );
