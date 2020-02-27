@@ -106,7 +106,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.dragScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
+      "phetioDocumentation": "The fire button is only enabled if there are less than 3 projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -10129,7 +10129,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.introScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
+      "phetioDocumentation": "The fire button is only enabled if there are less than 3 projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -14952,7 +14952,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.labScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
+      "phetioDocumentation": "The fire button is only enabled if there are less than 3 projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -37013,7 +37013,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "NumberPropertyIO"
     },
     "projectileMotion.vectorsScreen.model.fireEnabledProperty": {
-      "phetioDocumentation": "Is the fire button enabled? Yes if there are less than the max projectiles in the air.",
+      "phetioDocumentation": "The fire button is only enabled if there are less than 3 projectiles in the air.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,

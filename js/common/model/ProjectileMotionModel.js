@@ -191,7 +191,7 @@ define( require => {
       return number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
     }, {
       tandem: tandem.createTandem( 'fireEnabledProperty' ),
-      phetioDocumentation: 'Is the fire button enabled? Yes if there are less than the max projectiles in the air.',
+      phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles in the air.`,
       phetioType: DerivedPropertyIO( BooleanIO )
     } );
 
