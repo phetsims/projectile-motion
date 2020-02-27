@@ -23,9 +23,10 @@ define( require => {
   const NumberControl = require( 'SCENERY_PHET/NumberControl' );
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileObjectTypeControl = require( 'PROJECTILE_MOTION/lab/view/ProjectileObjectTypeControl' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const ProjectileObjectTypeControl = require( 'PROJECTILE_MOTION/lab/view/ProjectileObjectTypeControl' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -54,10 +55,9 @@ define( require => {
    * @param {KeypadLayer} keypadLayer - for entering values
    * @param {LabModel} model
    * @param {Object} [options]
-   * @param {Tandem} tandem
    * @constructor
    */
-  function LabProjectilePanel( comboBoxListParent, keypadLayer, model, tandem, options ) {
+  function LabProjectilePanel( comboBoxListParent, keypadLayer, model, options ) {
 
     // convenience variables as much of the logic in this type is in prototype functions only called on construction.
     // @private
@@ -70,7 +70,9 @@ define( require => {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // @private save them for later
     this.options = options;
@@ -115,7 +117,7 @@ define( require => {
         } );
 
       // Create the controls for the projectileType too.
-      this.objectTypeControls.push( this.createControlsForObjectType( projectileType, tandem, tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
+      this.objectTypeControls.push( this.createControlsForObjectType( projectileType, options.tandem, options.tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
     }
 
     // creating the controls for each object type changes these values because of enabledRangeProperty listeners in the
@@ -132,7 +134,7 @@ define( require => {
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        tandem: tandem.createTandem( 'projectileChoiceComboBox' ),
+        tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
         phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
       } );
 
@@ -176,7 +178,7 @@ define( require => {
     const airResistanceCheckbox = new Checkbox( airResistanceLabelAndIcon, model.airResistanceOnProperty, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18,
-      tandem: tandem.createTandem( 'airResistanceCheckbox' )
+      tandem: options.tandem.createTandem( 'airResistanceCheckbox' )
     } );
 
     // The contents of the control panel

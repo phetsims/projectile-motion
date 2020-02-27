@@ -17,6 +17,7 @@ define( require => {
   const Panel = require( 'SUN/Panel' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
   const VBox = require( 'SCENERY/nodes/VBox' );
   const VectorsDisplayEnumeration = require( 'PROJECTILE_MOTION/common/view/VectorsDisplayEnumeration' );
@@ -37,17 +38,19 @@ define( require => {
 
   /**
    * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
-   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function VectorsVectorsPanel( vectorVisibilityProperties, tandem, options ) {
+  function VectorsVectorsPanel( vectorVisibilityProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { align: 'left' }, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      align: 'left',
+      tandem: Tandem.REQUIRED
+    }, options );
 
     const checkboxOptions = {
       maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width,
@@ -70,7 +73,7 @@ define( require => {
       spacing: 10,     // vertical spacing between each radio button
       touchAreaXDilation: 5,
       maxWidth: checkboxOptions.maxWidth,
-      tandem: tandem.createTandem( 'vectorsDisplayRadioButtonGroup' ),
+      tandem: options.tandem.createTandem( 'vectorsDisplayRadioButtonGroup' ),
       phetioDocumentation: 'Radio button group to select what type of vectors are displayed with a flying projectile'
     } );
 
@@ -83,7 +86,7 @@ define( require => {
       ]
     } );
     const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty,
-      merge( { tandem: tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
     );
 
     const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
@@ -96,7 +99,7 @@ define( require => {
     } );
     const accelerationCheckbox = new Checkbox( accelerationCheckboxContent,
       vectorVisibilityProperties.accelerationVectorsOnProperty,
-      merge( { tandem: tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
     );
 
     const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
@@ -108,7 +111,7 @@ define( require => {
       ]
     } );
     const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty,
-      merge( { tandem: tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
+      merge( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
     );
 
     // The contents of the control panel

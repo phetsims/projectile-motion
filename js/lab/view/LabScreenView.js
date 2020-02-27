@@ -16,6 +16,7 @@ define( require => {
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const VectorVisibilityProperties = require( 'PROJECTILE_MOTION/common/view/VectorVisibilityProperties' );
 
   // constants
@@ -44,7 +45,7 @@ define( require => {
       comboBoxListParent,
       keypadLayer,
       model,
-      tandem.createTandem( 'projectileControlPanel' )
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
     );
 
     ProjectileMotionScreenView.call(
@@ -54,7 +55,7 @@ define( require => {
         model.cannonHeightProperty,
         model.cannonAngleProperty,
         model.initialSpeedProperty,
-        tandem.createTandem( 'initialValuesPanel' )
+        { tandem: tandem.createTandem( 'initialValuesPanel' ) }
       ),
       labProjectilePanel,
       visibilityProperties,

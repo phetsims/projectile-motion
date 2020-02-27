@@ -17,6 +17,7 @@ define( require => {
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Text = require( 'SCENERY/nodes/Text' );
   const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
@@ -41,17 +42,19 @@ define( require => {
    * @param {Property.<number>} cannonHeightProperty - height of the cannon
    * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
    * @param {Property.<number>} initialSpeedProperty - velocity of next projectile to be fired
-   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
-  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, tandem, options ) {
+  function InitialValuesPanel( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, { yMargin: 5 }, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      yMargin: 5,
+      tandem: Tandem.REQUIRED
+    }, options );
 
     // local vars for layout and formatting
     const titleOptions = merge( {}, TITLE_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
@@ -97,7 +100,7 @@ define( require => {
       mString,
       cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE,
-      tandem.createTandem( 'heightReadout' )
+      options.tandem.createTandem( 'heightReadout' )
     );
 
     const angleReadout = createReadout(
@@ -105,7 +108,7 @@ define( require => {
       null,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE,
-      tandem.createTandem( 'angleReadout' ),
+      options.tandem.createTandem( 'angleReadout' ),
       DEGREES
     );
 
@@ -114,7 +117,7 @@ define( require => {
       metersPerSecondString,
       initialSpeedProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE,
-      tandem.createTandem( 'velocityReadout' )
+      options.tandem.createTandem( 'velocityReadout' )
     );
 
     // contents of the panel

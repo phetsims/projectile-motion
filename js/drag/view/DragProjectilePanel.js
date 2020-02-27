@@ -10,6 +10,7 @@ define( require => {
   'use strict';
 
   // modules
+  const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
   const Dimension2 = require( 'DOT/Dimension2' );
   const HBox = require( 'SCENERY/nodes/HBox' );
   const HStrut = require( 'SCENERY/nodes/HStrut' );
@@ -22,7 +23,7 @@ define( require => {
   const ProjectileMotionConstants = require( 'PROJECTILE_MOTION/common/ProjectileMotionConstants' );
   const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
   const StringUtils = require( 'PHETCOMMON/util/StringUtils' );
-  const ArrowlessNumberControl = require( 'PROJECTILE_MOTION/common/view/ArrowlessNumberControl' );
+  const Tandem = require( 'TANDEM/Tandem' );
   const Utils = require( 'DOT/Utils' );
   const VBox = require( 'SCENERY/nodes/VBox' );
 
@@ -47,7 +48,6 @@ define( require => {
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} altitudeProperty
-   * @param {Tandem} tandem
    * @param {Object} [options]
    * @constructor
    */
@@ -56,14 +56,15 @@ define( require => {
                                 projectileDiameterProperty,
                                 projectileMassProperty,
                                 altitudeProperty,
-                                tandem,
                                 options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {}, options );
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      tandem: Tandem.REQUIRED
+    }, options );
 
     const diameterNumberControl = new ArrowlessNumberControl(
       diameterString,
@@ -74,7 +75,7 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'diameterNumberControl' ),
+        tandem: options.tandem.createTandem( 'diameterNumberControl' ),
         phetioDocumentation: 'UI control to adjust the diameter of the projectile'
       }
     );
@@ -88,7 +89,7 @@ define( require => {
         containerWidth: options.minWidth,
         xMargin: options.xMargin,
         numberDisplayMaxWidth: options.numberDisplayMaxWidth,
-        tandem: tandem.createTandem( 'massNumberControl' ),
+        tandem: options.tandem.createTandem( 'massNumberControl' ),
         phetioDocumentation: 'UI control to adjust the mass of the projectile'
       }
     );
@@ -136,7 +137,7 @@ define( require => {
         layoutFunction: NumberControl.createLayoutFunction4( {
           arrowButtonSpacing: 10
         } ),
-        tandem: tandem.createTandem( 'altitudeNumberControl' ),
+        tandem: options.tandem.createTandem( 'altitudeNumberControl' ),
         phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
       } )
     );
@@ -174,7 +175,7 @@ define( require => {
 
         delta: 0.01,
         layoutFunction: dragLayoutFunction,
-        tandem: tandem.createTandem( 'dragCoefficientNumberControl' ),
+        tandem: options.tandem.createTandem( 'dragCoefficientNumberControl' ),
         phetioDocumentation: 'UI control to adjust the drag coefficient of the projectile'
       } )
     );
