@@ -4,15 +4,11 @@
  * Enumeration for the two ways to view vectors in the sim
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const Enumeration = require( 'PHET_CORE/Enumeration' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import projectileMotion from '../../projectileMotion.js';
 
-  return projectileMotion.register( 'VectorsDisplayEnumeration', Enumeration.byKeys( [
-    'TOTAL',
-    'COMPONENTS'
-  ] ) );
-} );
+export default projectileMotion.register( 'VectorsDisplayEnumeration', Enumeration.byKeys( [
+  'TOTAL',
+  'COMPONENTS'
+] ) );

@@ -5,28 +5,24 @@
  *
  * @author Andrea Lin(PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
-  const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
+import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import projectileMotion from '../../projectileMotion.js';
 
-  /**
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function VectorsModel( tandem ) {
-    ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
-      [ ProjectileObjectType.COMPANIONLESS ], tandem, {
-        phetioInstrumentAltitudeProperty: false
-      } );
-  }
+/**
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function VectorsModel( tandem ) {
+  ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
+    [ ProjectileObjectType.COMPANIONLESS ], tandem, {
+      phetioInstrumentAltitudeProperty: false
+    } );
+}
 
-  projectileMotion.register( 'VectorsModel', VectorsModel );
+projectileMotion.register( 'VectorsModel', VectorsModel );
 
-  return inherit( ProjectileMotionModel, VectorsModel );
-} );
-
+inherit( ProjectileMotionModel, VectorsModel );
+export default VectorsModel;

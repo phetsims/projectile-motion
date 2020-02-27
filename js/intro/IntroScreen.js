@@ -5,44 +5,40 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const IntroIconNode = require( 'PROJECTILE_MOTION/intro/view/IntroIconNode' );
-  const IntroModel = require( 'PROJECTILE_MOTION/intro/model/IntroModel' );
-  const IntroScreenView = require( 'PROJECTILE_MOTION/intro/view/IntroScreenView' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import projectileMotionStrings from '../projectile-motion-strings.js';
+import projectileMotion from '../projectileMotion.js';
+import IntroModel from './model/IntroModel.js';
+import IntroIconNode from './view/IntroIconNode.js';
+import IntroScreenView from './view/IntroScreenView.js';
 
-  // strings
-  const screenIntroString = require( 'string!PROJECTILE_MOTION/screen.intro' );
+const screenIntroString = projectileMotionStrings.screen.intro;
 
-  /**
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function IntroScreen( tandem ) {
+/**
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function IntroScreen( tandem ) {
 
-    const options = {
-      name: screenIntroString,
-      backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new IntroIconNode( 'screen' ),
-      navigationBarIcon: new IntroIconNode( 'nav' ),
-      tandem: tandem
-    };
+  const options = {
+    name: screenIntroString,
+    backgroundColorProperty: new Property( 'white' ),
+    homeScreenIcon: new IntroIconNode( 'screen' ),
+    navigationBarIcon: new IntroIconNode( 'nav' ),
+    tandem: tandem
+  };
 
-    Screen.call( this,
-      function() { return new IntroModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new IntroScreenView( model, tandem.createTandem( 'view' ) ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new IntroModel( tandem.createTandem( 'model' ) ); },
+    function( model ) { return new IntroScreenView( model, tandem.createTandem( 'view' ) ); },
+    options
+  );
+}
 
-  projectileMotion.register( 'IntroScreen', IntroScreen );
+projectileMotion.register( 'IntroScreen', IntroScreen );
 
-  return inherit( Screen, IntroScreen );
-} );
-
+inherit( Screen, IntroScreen );
+export default IntroScreen;

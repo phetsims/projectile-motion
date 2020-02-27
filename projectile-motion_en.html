@@ -17,6 +17,31 @@
 
 <script type="text/javascript">
 
+  window.phet = window.phet || {};
+  window.phet.chipper = window.phet.chipper || {};
+  window.phet.chipper.packageObject = {
+    "name": "projectile-motion",
+    "version": "1.1.0-dev.5",
+    "license": "GPL-3.0",
+    "repository": { "type": "git", "url": "https://github.com/phetsims/projectile-motion.git" },
+    "devDependencies": { "grunt": "~1.0.0" },
+    "phet": {
+      "requirejsNamespace": "PROJECTILE_MOTION",
+      "runnable": true,
+      "supportedBrands": [ "phet", "adapted-from-phet", "phet-io" ],
+      "phetLibs": [ "twixt" ],
+      "simulation": true
+    },
+    "eslintConfig": { "extends": "../chipper/eslint/sim_eslintrc.js" }
+  };
+  window.phet.chipper.stringRepos = [ { "repo": "joist", "requirejsNamespace": "JOIST" }, {
+    "repo": "projectile-motion",
+    "requirejsNamespace": "PROJECTILE_MOTION"
+  }, { "repo": "scenery-phet", "requirejsNamespace": "SCENERY_PHET" }, {
+    "repo": "sun",
+    "requirejsNamespace": "SUN"
+  }, { "repo": "tambo", "requirejsNamespace": "TAMBO" }, { "repo": "twixt", "requirejsNamespace": "TWIXT" } ];
+
   // Identify the brand (assume generated brand if not provided with query parameters)
   const brandMatch = location.search.match( /brand=([^&]+)/ );
   const brand = brandMatch ? decodeURIComponent( brandMatch[ 1 ] ) : 'adapted-from-phet';
@@ -28,6 +53,7 @@
   // Preloads, with more included for phet-io brand
   let preloads = [
     '../sherpa/lib/mdn-array-from-polyfill.js',
+    '../sherpa/lib/es6-promise-1e68dc.auto.min.js',
     '../joist/js/splash.js',
     '../sherpa/lib/jquery-2.1.0.js',
     '../sherpa/lib/lodash-4.17.4.js',
@@ -55,25 +81,28 @@
     ] );
   }
 
+  // TODO: es6 modules won't need a "main" param in this function
   // Loads a synchronously-executed asynchronously-downloaded script tag, with optional data-main parameter.
   // See http://www.html5rocks.com/en/tutorials/speed/script-loading/ for more about script loading. It helps to
   // load all of the scripts with this method, so they are treated the same (and placed in the correct execution
   // order).
-  const loadURL = ( preloadURL, main ) => {
+  const loadURL = ( preloadURL, type = 'text/javascript' ) => {
     const script = document.createElement( 'script' );
-    if ( typeof main === 'string' ) {
-      script.setAttribute( 'data-main', main );
-    }
-    script.type = 'text/javascript';
+    script.type = type;
     script.src = preloadURL + queryAppend;
     script.async = false;
     document.head.appendChild( script );
   };
 
-  // Queue all of the preloads to be loaded.
-  preloads.forEach( loadURL );
+  // Kick off string loading immediately
+  loadURL( '../chipper/js/load-runtime-strings.js' );
 
-  loadURL( '../sherpa/lib/require-2.3.6.js', 'js/projectile-motion-config.js' );
+  // Queue all of the preloads to be loaded.
+  preloads.forEach( preload => loadURL( preload ) );
+
+  // Module loading in compilation-free (development) mode will be kicked off once strings are loaded.
+  // This is done in load-runtime-strings.js
+  window.phet.chipper.loadModules = () => loadURL( 'js/projectile-motion-main.js', 'module' );
 </script>
 </body>
 </html>

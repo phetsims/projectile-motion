@@ -5,44 +5,40 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
-  const VectorsIconNode = require( 'PROJECTILE_MOTION/vectors/view/VectorsIconNode' );
-  const VectorsModel = require( 'PROJECTILE_MOTION/vectors/model/VectorsModel' );
-  const VectorsScreenView = require( 'PROJECTILE_MOTION/vectors/view/VectorsScreenView' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import projectileMotionStrings from '../projectile-motion-strings.js';
+import projectileMotion from '../projectileMotion.js';
+import VectorsModel from './model/VectorsModel.js';
+import VectorsIconNode from './view/VectorsIconNode.js';
+import VectorsScreenView from './view/VectorsScreenView.js';
 
-  // strings
-  const screenVectorsString = require( 'string!PROJECTILE_MOTION/screen.vectors' );
+const screenVectorsString = projectileMotionStrings.screen.vectors;
 
-  /**
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function VectorsScreen( tandem ) {
+/**
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function VectorsScreen( tandem ) {
 
-    const options = {
-      name: screenVectorsString,
-      backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new VectorsIconNode( 'screen' ),
-      navigationBarIcon: new VectorsIconNode( 'nav' ),
-      tandem: tandem
-    };
+  const options = {
+    name: screenVectorsString,
+    backgroundColorProperty: new Property( 'white' ),
+    homeScreenIcon: new VectorsIconNode( 'screen' ),
+    navigationBarIcon: new VectorsIconNode( 'nav' ),
+    tandem: tandem
+  };
 
-    Screen.call( this,
-      function() { return new VectorsModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new VectorsScreenView( model, tandem.createTandem( 'view' ) ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new VectorsModel( tandem.createTandem( 'model' ) ); },
+    function( model ) { return new VectorsScreenView( model, tandem.createTandem( 'view' ) ); },
+    options
+  );
+}
 
-  projectileMotion.register( 'VectorsScreen', VectorsScreen );
+projectileMotion.register( 'VectorsScreen', VectorsScreen );
 
-  return inherit( Screen, VectorsScreen );
-} );
-
+inherit( Screen, VectorsScreen );
+export default VectorsScreen;

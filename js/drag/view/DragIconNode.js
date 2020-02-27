@@ -4,52 +4,49 @@
  * icon node for the 'Drag' screen
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const LinearGradient = require( 'SCENERY/util/LinearGradient' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileObjectViewFactory = require( 'PROJECTILE_MOTION/common/view/ProjectileObjectViewFactory' );
-  const Rectangle = require( 'SCENERY/nodes/Rectangle' );
-  const Screen = require( 'JOIST/Screen' );
+import Screen from '../../../../joist/js/Screen.js';
+import inherit from '../../../../phet-core/js/inherit.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
+import projectileMotion from '../../projectileMotion.js';
 
-  // constants
-  const WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
-  const HEIGHT = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
+// constants
+const WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
+const HEIGHT = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
 
-  /**
-   * @constructor
-   */
-  function DragIconNode() {
+/**
+ * @constructor
+ */
+function DragIconNode() {
 
-    // create the background
-    const backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    Rectangle.call( this, 0, 0, WIDTH, HEIGHT, { fill: backgroundFill } );
+  // create the background
+  const backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
+  Rectangle.call( this, 0, 0, WIDTH, HEIGHT, { fill: backgroundFill } );
 
-    const diameter = HEIGHT / 4;
-    const inset = diameter * 0.7;
-    
-    // the three projectile object shapes
-    const teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
-    teardrop.left = 10; // empirically determined
-    teardrop.y = HEIGHT / 2;
-    this.addChild( teardrop );
+  const diameter = HEIGHT / 4;
+  const inset = diameter * 0.7;
 
-    const circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
-    circle.left = teardrop.children[ 0 ].right + inset; // gets the shape, without the strut
-    circle.y = teardrop.y;
-    this.addChild( circle );
-    
-    const almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
-    almostSemiCircle.left = circle.right + inset;
-    almostSemiCircle.y = teardrop.y;
-    this.addChild( almostSemiCircle );
+  // the three projectile object shapes
+  const teardrop = ProjectileObjectViewFactory.createCustom( diameter, 0.04 );
+  teardrop.left = 10; // empirically determined
+  teardrop.y = HEIGHT / 2;
+  this.addChild( teardrop );
 
-  }
+  const circle = ProjectileObjectViewFactory.createCustom( diameter, 0.47 );
+  circle.left = teardrop.children[ 0 ].right + inset; // gets the shape, without the strut
+  circle.y = teardrop.y;
+  this.addChild( circle );
 
-  projectileMotion.register( 'DragIconNode', DragIconNode );
+  const almostSemiCircle = ProjectileObjectViewFactory.createCustom( diameter, 1 );
+  almostSemiCircle.left = circle.right + inset;
+  almostSemiCircle.y = teardrop.y;
+  this.addChild( almostSemiCircle );
 
-  return inherit( Rectangle, DragIconNode );
-} );
+}
+
+projectileMotion.register( 'DragIconNode', DragIconNode );
+
+inherit( Rectangle, DragIconNode );
+export default DragIconNode;

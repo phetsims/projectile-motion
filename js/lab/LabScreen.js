@@ -5,43 +5,40 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const LabIconNode = require( 'PROJECTILE_MOTION/lab/view/LabIconNode' );
-  const LabModel = require( 'PROJECTILE_MOTION/lab/model/LabModel' );
-  const LabScreenView = require( 'PROJECTILE_MOTION/lab/view/LabScreenView' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import projectileMotionStrings from '../projectile-motion-strings.js';
+import projectileMotion from '../projectileMotion.js';
+import LabModel from './model/LabModel.js';
+import LabIconNode from './view/LabIconNode.js';
+import LabScreenView from './view/LabScreenView.js';
 
-  // strings
-  const screenLabString = require( 'string!PROJECTILE_MOTION/screen.lab' );
+const screenLabString = projectileMotionStrings.screen.lab;
 
-  /**
-   *  @param {Tandem} tandem
-   * @constructor
-   */
-  function LabScreen( tandem ) {
+/**
+ *  @param {Tandem} tandem
+ * @constructor
+ */
+function LabScreen( tandem ) {
 
-    const options = {
-      name: screenLabString,
-      backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new LabIconNode( 'screen' ),
-      navigationBarIcon: new LabIconNode( 'nav' ),
-      tandem: tandem
-    };
+  const options = {
+    name: screenLabString,
+    backgroundColorProperty: new Property( 'white' ),
+    homeScreenIcon: new LabIconNode( 'screen' ),
+    navigationBarIcon: new LabIconNode( 'nav' ),
+    tandem: tandem
+  };
 
-    Screen.call( this,
-      function() { return new LabModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new LabScreenView( model, tandem.createTandem( 'view' ) ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new LabModel( tandem.createTandem( 'model' ) ); },
+    function( model ) { return new LabScreenView( model, tandem.createTandem( 'view' ) ); },
+    options
+  );
+}
 
-  projectileMotion.register( 'LabScreen', LabScreen );
+projectileMotion.register( 'LabScreen', LabScreen );
 
-  return inherit( Screen, LabScreen );
-} );
+inherit( Screen, LabScreen );
+export default LabScreen;

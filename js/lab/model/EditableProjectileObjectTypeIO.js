@@ -5,34 +5,30 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const ObjectIO = require( 'TANDEM/types/ObjectIO' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileObjectTypeIO = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectTypeIO' );
+import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import ProjectileObjectTypeIO from '../../common/model/ProjectileObjectTypeIO.js';
+import projectileMotion from '../../projectileMotion.js';
 
+class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
 
-  class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
-
-    /**
-     * @public
-     * @param {ProjectileObjectType} phetioObjectType
-     * @param {Object} fromStateObject
-     */
-    static setValue( phetioObjectType, fromStateObject ) {
-      ProjectileObjectTypeIO.setValue( phetioObjectType, fromStateObject );
-      phetioObjectType.initialMass = fromStateObject.mass;
-      phetioObjectType.initialDiameter = fromStateObject.diameter;
-      phetioObjectType.initialDragCoefficient = fromStateObject.dragCoefficient;
-    }
+  /**
+   * @public
+   * @param {ProjectileObjectType} phetioObjectType
+   * @param {Object} fromStateObject
+   */
+  static setValue( phetioObjectType, fromStateObject ) {
+    ProjectileObjectTypeIO.setValue( phetioObjectType, fromStateObject );
+    phetioObjectType.initialMass = fromStateObject.mass;
+    phetioObjectType.initialDiameter = fromStateObject.diameter;
+    phetioObjectType.initialDragCoefficient = fromStateObject.dragCoefficient;
   }
+}
 
-  EditableProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
-  EditableProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
-  EditableProjectileObjectTypeIO.typeName = 'EditableProjectileObjectTypeIO';
-  ObjectIO.validateSubtype( EditableProjectileObjectTypeIO );
+EditableProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
+EditableProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
+EditableProjectileObjectTypeIO.typeName = 'EditableProjectileObjectTypeIO';
+ObjectIO.validateSubtype( EditableProjectileObjectTypeIO );
 
-  return projectileMotion.register( 'EditableProjectileObjectTypeIO', EditableProjectileObjectTypeIO );
-} );
+projectileMotion.register( 'EditableProjectileObjectTypeIO', EditableProjectileObjectTypeIO );
+export default EditableProjectileObjectTypeIO;

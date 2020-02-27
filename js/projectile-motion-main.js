@@ -5,39 +5,34 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const DragScreen = require( 'PROJECTILE_MOTION/drag/DragScreen' );
-  const IntroScreen = require( 'PROJECTILE_MOTION/intro/IntroScreen' );
-  const LabScreen = require( 'PROJECTILE_MOTION/lab/LabScreen' );
-  const Sim = require( 'JOIST/Sim' );
-  const SimLauncher = require( 'JOIST/SimLauncher' );
-  const Tandem = require( 'TANDEM/Tandem' );
-  const VectorsScreen = require( 'PROJECTILE_MOTION/vectors/VectorsScreen' );
+import Sim from '../../joist/js/Sim.js';
+import SimLauncher from '../../joist/js/SimLauncher.js';
+import Tandem from '../../tandem/js/Tandem.js';
+import DragScreen from './drag/DragScreen.js';
+import IntroScreen from './intro/IntroScreen.js';
+import LabScreen from './lab/LabScreen.js';
+import projectileMotionStrings from './projectile-motion-strings.js';
+import VectorsScreen from './vectors/VectorsScreen.js';
 
-  // strings
-  const projectileMotionTitleString = require( 'string!PROJECTILE_MOTION/projectile-motion.title' );
+const projectileMotionTitleString = projectileMotionStrings[ 'projectile-motion' ].title;
 
-  const simOptions = {
-    credits: {
-      leadDesign: 'Amy Rouinfar, Mike Dubson',
-      softwareDevelopment: 'Andrea Lin',
-      team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams, John Blanco',
-      qualityAssurance: 'Steele Dalton, Alex Dornan, Ethan Johnson, Liam Mulhall',
-      graphicArts: 'Mariah Hermsmeyer, Cheryl McCutchan'
-    }
-  };
+const simOptions = {
+  credits: {
+    leadDesign: 'Amy Rouinfar, Mike Dubson',
+    softwareDevelopment: 'Andrea Lin',
+    team: 'Ariel Paul, Kathy Perkins, Amanda McGarry, Wendy Adams, John Blanco',
+    qualityAssurance: 'Steele Dalton, Alex Dornan, Ethan Johnson, Liam Mulhall',
+    graphicArts: 'Mariah Hermsmeyer, Cheryl McCutchan'
+  }
+};
 
-  SimLauncher.launch( function() {
-    const sim = new Sim( projectileMotionTitleString, [
-      new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
-      new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),
-      new DragScreen( Tandem.ROOT.createTandem( 'dragScreen' ) ),
-      new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) )
-    ], simOptions );
-    sim.start();
-  } );
+SimLauncher.launch( function() {
+  const sim = new Sim( projectileMotionTitleString, [
+    new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
+    new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),
+    new DragScreen( Tandem.ROOT.createTandem( 'dragScreen' ) ),
+    new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) )
+  ], simOptions );
+  sim.start();
 } );
-

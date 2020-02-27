@@ -5,47 +5,43 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const DragProjectileControlPanel = require( 'PROJECTILE_MOTION/drag/view/DragProjectileControlPanel' );
-  const DragVectorsControlPanel = require( 'PROJECTILE_MOTION/drag/view/DragVectorsControlPanel' );
-  const DragVectorVisibilityProperties = require( 'PROJECTILE_MOTION/drag/view/DragVectorVisibilityProperties' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
+import projectileMotion from '../../projectileMotion.js';
+import DragProjectileControlPanel from './DragProjectileControlPanel.js';
+import DragVectorsControlPanel from './DragVectorsControlPanel.js';
+import DragVectorVisibilityProperties from './DragVectorVisibilityProperties.js';
 
-  /**
-   * @param {DragModel} model
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   * @constructor
-   */
-  function DragScreenView( model, tandem, options ) {
+/**
+ * @param {DragModel} model
+ * @param {Tandem} tandem
+ * @param {Object} [options]
+ * @constructor
+ */
+function DragScreenView( model, tandem, options ) {
 
-    // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new DragVectorVisibilityProperties( tandem.createTandem( 'vectorVisibilityProperties' ) );
+  // contains Properties about vector visibility, used in super class
+  const visibilityProperties = new DragVectorVisibilityProperties( tandem.createTandem( 'vectorVisibilityProperties' ) );
 
-    ProjectileMotionScreenView.call(
-      this,
-      model,
-      new DragProjectileControlPanel(
-        model.selectedProjectileObjectTypeProperty,
-        model.projectileDragCoefficientProperty,
-        model.projectileDiameterProperty,
-        model.projectileMassProperty,
-        model.altitudeProperty,
-        { tandem: tandem.createTandem( 'projectileControlPanel' ) }
-      ),
-      new DragVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
-      visibilityProperties,
-      tandem,
-      options );
-  }
+  ProjectileMotionScreenView.call(
+    this,
+    model,
+    new DragProjectileControlPanel(
+      model.selectedProjectileObjectTypeProperty,
+      model.projectileDragCoefficientProperty,
+      model.projectileDiameterProperty,
+      model.projectileMassProperty,
+      model.altitudeProperty,
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+    ),
+    new DragVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+    visibilityProperties,
+    tandem,
+    options );
+}
 
-  projectileMotion.register( 'DragScreenView', DragScreenView );
+projectileMotion.register( 'DragScreenView', DragScreenView );
 
-  return inherit( ProjectileMotionScreenView, DragScreenView );
-} );
-
+inherit( ProjectileMotionScreenView, DragScreenView );
+export default DragScreenView;

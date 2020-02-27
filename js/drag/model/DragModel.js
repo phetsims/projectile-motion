@@ -5,26 +5,22 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const inherit = require( 'PHET_CORE/inherit' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const ProjectileMotionModel = require( 'PROJECTILE_MOTION/common/model/ProjectileMotionModel' );
-  const ProjectileObjectType = require( 'PROJECTILE_MOTION/common/model/ProjectileObjectType' );
+import inherit from '../../../../phet-core/js/inherit.js';
+import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
+import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import projectileMotion from '../../projectileMotion.js';
 
-  /**
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function DragModel( tandem ) {
-    ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
-      [ ProjectileObjectType.COMPANIONLESS ], tandem );
-  }
+/**
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function DragModel( tandem ) {
+  ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
+    [ ProjectileObjectType.COMPANIONLESS ], tandem );
+}
 
-  projectileMotion.register( 'DragModel', DragModel );
+projectileMotion.register( 'DragModel', DragModel );
 
-  return inherit( ProjectileMotionModel, DragModel );
-} );
-
+inherit( ProjectileMotionModel, DragModel );
+export default DragModel;

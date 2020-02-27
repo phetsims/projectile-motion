@@ -5,43 +5,39 @@
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const DragIconNode = require( 'PROJECTILE_MOTION/drag/view/DragIconNode' );
-  const DragModel = require( 'PROJECTILE_MOTION/drag/model/DragModel' );
-  const DragScreenView = require( 'PROJECTILE_MOTION/drag/view/DragScreenView' );
-  const inherit = require( 'PHET_CORE/inherit' );
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
-  const Property = require( 'AXON/Property' );
-  const Screen = require( 'JOIST/Screen' );
+import Property from '../../../axon/js/Property.js';
+import Screen from '../../../joist/js/Screen.js';
+import inherit from '../../../phet-core/js/inherit.js';
+import projectileMotionStrings from '../projectile-motion-strings.js';
+import projectileMotion from '../projectileMotion.js';
+import DragModel from './model/DragModel.js';
+import DragIconNode from './view/DragIconNode.js';
+import DragScreenView from './view/DragScreenView.js';
 
-  // strings
-  const screenDragString = require( 'string!PROJECTILE_MOTION/screen.drag' );
+const screenDragString = projectileMotionStrings.screen.drag;
 
-  /**
-   * @param {Tandem} tandem
-   * @constructor
-   */
-  function DragScreen( tandem ) {
+/**
+ * @param {Tandem} tandem
+ * @constructor
+ */
+function DragScreen( tandem ) {
 
-    const options = {
-      name: screenDragString,
-      backgroundColorProperty: new Property( 'white' ),
-      homeScreenIcon: new DragIconNode(),
-      tandem: tandem
-    };
+  const options = {
+    name: screenDragString,
+    backgroundColorProperty: new Property( 'white' ),
+    homeScreenIcon: new DragIconNode(),
+    tandem: tandem
+  };
 
-    Screen.call( this,
-      function() { return new DragModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
-      options
-    );
-  }
+  Screen.call( this,
+    function() { return new DragModel( tandem.createTandem( 'model' ) ); },
+    function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
+    options
+  );
+}
 
-  projectileMotion.register( 'DragScreen', DragScreen );
+projectileMotion.register( 'DragScreen', DragScreen );
 
-  return inherit( Screen, DragScreen );
-} );
-
+inherit( Screen, DragScreen );
+export default DragScreen;

@@ -7,34 +7,29 @@
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
-define( require => {
-  'use strict';
 
-  // modules
-  const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
+import projectileMotion from '../../projectileMotion.js';
 
-  class ProjectileObjectTypeControl {
+class ProjectileObjectTypeControl {
 
-    /**
-     * @param {Node} massControl
-     * @param {Node} diameterControl
-     * @param {Node} gravityControl
-     * @param {Node} altitudeControl
-     * @param {Node} dragCoefficientControl
-     */
-    constructor( massControl, diameterControl, gravityControl, altitudeControl, dragCoefficientControl ) {
+  /**
+   * @param {Node} massControl
+   * @param {Node} diameterControl
+   * @param {Node} gravityControl
+   * @param {Node} altitudeControl
+   * @param {Node} dragCoefficientControl
+   */
+  constructor( massControl, diameterControl, gravityControl, altitudeControl, dragCoefficientControl ) {
 
-      // @public (read-only) {Node} - settable by subtypes
-      this.massControl = massControl;
-      this.diameterControl = diameterControl;
-      this.gravityControl = gravityControl;
-      this.altitudeControl = altitudeControl;
-      this.dragCoefficientControl = dragCoefficientControl;
-    }
+    // @public (read-only) {Node} - settable by subtypes
+    this.massControl = massControl;
+    this.diameterControl = diameterControl;
+    this.gravityControl = gravityControl;
+    this.altitudeControl = altitudeControl;
+    this.dragCoefficientControl = dragCoefficientControl;
   }
+}
 
-  projectileMotion.register( 'ProjectileObjectTypeControl', ProjectileObjectTypeControl );
+projectileMotion.register( 'ProjectileObjectTypeControl', ProjectileObjectTypeControl );
 
-  return ProjectileObjectTypeControl;
-} );
-
+export default ProjectileObjectTypeControl;
