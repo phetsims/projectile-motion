@@ -36,7 +36,7 @@ define( require => {
         model.projectileMassProperty,
         model.airResistanceOnProperty,
         model.projectileDragCoefficientProperty,
-        tandem.createTandem( 'projectilePanel' )
+        tandem.createTandem( 'projectileControlPanel' )
       ),
       new VectorsVectorsPanel( visibilityProperties, tandem.createTandem( 'vectorsPanel' ) ),
       visibilityProperties,

@@ -42,7 +42,7 @@ define( require => {
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
       model.airResistanceOnProperty,
-      tandem.createTandem( 'projectilePanel' )
+      tandem.createTandem( 'projectileControlPanel' )
     );
 
     ProjectileMotionScreenView.call(

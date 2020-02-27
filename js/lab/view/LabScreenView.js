@@ -44,7 +44,7 @@ define( require => {
       comboBoxListParent,
       keypadLayer,
       model,
-      tandem.createTandem( 'projectilePanel' )
+      tandem.createTandem( 'projectileControlPanel' )
     );
 
     ProjectileMotionScreenView.call(
