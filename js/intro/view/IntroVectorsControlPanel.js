@@ -38,7 +38,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function IntroVectorsPanel( vectorVisibilityProperties, options ) {
+  function IntroVectorsControlPanel( vectorVisibilityProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -118,8 +118,8 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'IntroVectorsPanel', IntroVectorsPanel );
+  projectileMotion.register( 'IntroVectorsControlPanel', IntroVectorsControlPanel );
 
-  return inherit( Panel, IntroVectorsPanel );
+  return inherit( Panel, IntroVectorsControlPanel );
 } );
 

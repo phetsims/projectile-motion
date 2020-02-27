@@ -12,8 +12,8 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
-  const VectorsProjectilePanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsProjectilePanel' );
-  const VectorsVectorsPanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorsPanel' );
+  const VectorsProjectileControlPanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsProjectileControlPanel' );
+  const VectorsVectorsControlPanel = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorsControlPanel' );
   const VectorsVectorVisibilityProperties = require( 'PROJECTILE_MOTION/vectors/view/VectorsVectorVisibilityProperties' );
 
   /**
@@ -30,7 +30,7 @@ define( require => {
     ProjectileMotionScreenView.call(
       this,
       model,
-      new VectorsProjectilePanel(
+      new VectorsProjectileControlPanel(
         model.selectedProjectileObjectTypeProperty,
         model.projectileDiameterProperty,
         model.projectileMassProperty,
@@ -38,7 +38,7 @@ define( require => {
         model.projectileDragCoefficientProperty,
         { tandem: tandem.createTandem( 'projectileControlPanel' ) }
       ),
-      new VectorsVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new VectorsVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
       tandem,
       options

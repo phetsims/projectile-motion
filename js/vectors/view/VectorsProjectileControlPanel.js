@@ -50,7 +50,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function VectorsProjectilePanel( selectedObjectTypeProperty,
+  function VectorsProjectileControlPanel( selectedObjectTypeProperty,
                                    projectileDiameterProperty,
                                    projectileMassProperty,
                                    airResistanceOnProperty,
@@ -157,8 +157,8 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'VectorsProjectilePanel', VectorsProjectilePanel );
+  projectileMotion.register( 'VectorsProjectileControlPanel', VectorsProjectileControlPanel );
 
-  return inherit( Panel, VectorsProjectilePanel );
+  return inherit( Panel, VectorsProjectileControlPanel );
 } );
 

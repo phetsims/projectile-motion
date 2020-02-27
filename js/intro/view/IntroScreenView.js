@@ -9,8 +9,8 @@ define( require => {
 
   // modules
   const inherit = require( 'PHET_CORE/inherit' );
-  const IntroProjectilePanel = require( 'PROJECTILE_MOTION/intro/view/IntroProjectilePanel' );
-  const IntroVectorsPanel = require( 'PROJECTILE_MOTION/intro/view/IntroVectorsPanel' );
+  const IntroProjectileControlPanel = require( 'PROJECTILE_MOTION/intro/view/IntroProjectileControlPanel' );
+  const IntroVectorsControlPanel = require( 'PROJECTILE_MOTION/intro/view/IntroVectorsControlPanel' );
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
   const ProjectileMotionScreenView = require( 'PROJECTILE_MOTION/common/view/ProjectileMotionScreenView' );
@@ -34,7 +34,7 @@ define( require => {
     const comboBoxListParent = new Node();
 
     // @private, for layout
-    this.projectilePanel = new IntroProjectilePanel(
+    this.projectilePanel = new IntroProjectileControlPanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
       comboBoxListParent,
@@ -49,7 +49,7 @@ define( require => {
       this,
       model,
       this.projectilePanel,
-      new IntroVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new IntroVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
       tandem,
       options

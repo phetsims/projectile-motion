@@ -51,7 +51,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function DragProjectilePanel( selectedObjectTypeProperty,
+  function DragProjectileControlPanel( selectedObjectTypeProperty,
                                 projectileDragCoefficientProperty,
                                 projectileDiameterProperty,
                                 projectileMassProperty,
@@ -205,8 +205,8 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'DragProjectilePanel', DragProjectilePanel );
+  projectileMotion.register( 'DragProjectileControlPanel', DragProjectileControlPanel );
 
-  return inherit( Panel, DragProjectilePanel );
+  return inherit( Panel, DragProjectileControlPanel );
 } );
 

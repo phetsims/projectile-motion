@@ -11,7 +11,7 @@ define( require => {
   const inherit = require( 'PHET_CORE/inherit' );
   const InitialValuesPanel = require( 'PROJECTILE_MOTION/lab/view/InitialValuesPanel' );
   const KeypadLayer = require( 'PROJECTILE_MOTION/lab/view/KeypadLayer' );
-  const LabProjectilePanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectilePanel' );
+  const LabProjectileControlPanel = require( 'PROJECTILE_MOTION/lab/view/LabProjectileControlPanel' );
   const merge = require( 'PHET_CORE/merge' );
   const Node = require( 'SCENERY/nodes/Node' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -40,7 +40,7 @@ define( require => {
       tandem: tandem.createTandem( 'keypadLayer' ),
       phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
     } );
-    const labProjectilePanel = new LabProjectilePanel(
+    const labProjectilePanel = new LabProjectileControlPanel(
       comboBoxListParent,
       keypadLayer,
       model,

@@ -57,7 +57,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function LabProjectilePanel( comboBoxListParent, keypadLayer, model, options ) {
+  function LabProjectileControlPanel( comboBoxListParent, keypadLayer, model, options ) {
 
     // convenience variables as much of the logic in this type is in prototype functions only called on construction.
     // @private
@@ -201,9 +201,9 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'LabProjectilePanel', LabProjectilePanel );
+  projectileMotion.register( 'LabProjectileControlPanel', LabProjectileControlPanel );
 
-  return inherit( Panel, LabProjectilePanel, {
+  return inherit( Panel, LabProjectileControlPanel, {
 
     // @public for use by screen view
     hideComboBoxList: function() {

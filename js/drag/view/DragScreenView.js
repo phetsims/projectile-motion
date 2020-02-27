@@ -9,8 +9,8 @@ define( require => {
   'use strict';
 
   // modules
-  const DragProjectilePanel = require( 'PROJECTILE_MOTION/drag/view/DragProjectilePanel' );
-  const DragVectorsPanel = require( 'PROJECTILE_MOTION/drag/view/DragVectorsPanel' );
+  const DragProjectileControlPanel = require( 'PROJECTILE_MOTION/drag/view/DragProjectileControlPanel' );
+  const DragVectorsControlPanel = require( 'PROJECTILE_MOTION/drag/view/DragVectorsControlPanel' );
   const DragVectorVisibilityProperties = require( 'PROJECTILE_MOTION/drag/view/DragVectorVisibilityProperties' );
   const inherit = require( 'PHET_CORE/inherit' );
   const projectileMotion = require( 'PROJECTILE_MOTION/projectileMotion' );
@@ -30,7 +30,7 @@ define( require => {
     ProjectileMotionScreenView.call(
       this,
       model,
-      new DragProjectilePanel(
+      new DragProjectileControlPanel(
         model.selectedProjectileObjectTypeProperty,
         model.projectileDragCoefficientProperty,
         model.projectileDiameterProperty,
@@ -38,7 +38,7 @@ define( require => {
         model.altitudeProperty,
         { tandem: tandem.createTandem( 'projectileControlPanel' ) }
       ),
-      new DragVectorsPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new DragVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
       tandem,
       options );

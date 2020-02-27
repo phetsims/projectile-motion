@@ -53,7 +53,7 @@ define( require => {
    * @param {Object} [options]
    * @constructor
    */
-  function IntroProjectilePanel( objectTypes,
+  function IntroProjectileControlPanel( objectTypes,
                                  selectedProjectileObjectTypeProperty,
                                  comboBoxListParent,
                                  projectileMassProperty,
@@ -214,9 +214,9 @@ define( require => {
     Panel.call( this, content, options );
   }
 
-  projectileMotion.register( 'IntroProjectilePanel', IntroProjectilePanel );
+  projectileMotion.register( 'IntroProjectileControlPanel', IntroProjectileControlPanel );
 
-  return inherit( Panel, IntroProjectilePanel, {
+  return inherit( Panel, IntroProjectileControlPanel, {
 
     // @public for use by screen view
     hideComboBoxList: function() {

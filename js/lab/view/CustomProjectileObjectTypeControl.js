@@ -54,7 +54,7 @@ define( require => {
      */
     constructor( model, keypadLayer, objectType, tandem, options ) {
 
-      // arbitrary values, as these should be provided by the LabProjectilePanel
+      // arbitrary values, as these should be provided by the LabProjectileControlPanel
       options = merge( {
         xMargin: 5,
         minWidth: 200,
