@@ -1,4 +1,3 @@
-
 /* eslint-disable */
 window.phet.phetio.phetioElementsBaseline = assert &&
   {
@@ -8803,8 +8802,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton": {
+      "phetioDocumentation": "A button on the home screen for choosing a simulation screen",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
@@ -8816,7 +8815,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.inputListener.firedEmitter": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -8829,7 +8828,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.inputListener.pressAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -8842,7 +8841,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.inputListener.releaseAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -8855,7 +8854,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8868,7 +8867,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8881,7 +8880,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.text": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.text": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8894,7 +8893,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.text.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.text.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8907,7 +8906,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.text.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.text.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8920,7 +8919,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.text.textProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.text.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8933,7 +8932,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.text.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.text.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8946,7 +8945,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenLargeButton.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.dragScreenButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -8959,8 +8958,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton": {
+      "phetioDocumentation": "A button on the home screen for choosing a simulation screen",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
@@ -8972,7 +8971,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.inputListener.firedEmitter": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -8985,7 +8984,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.inputListener.pressAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -8998,7 +8997,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.inputListener.releaseAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9011,7 +9010,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9024,7 +9023,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9037,7 +9036,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.text": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.text": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9050,7 +9049,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.text.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.text.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9063,7 +9062,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.text.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.text.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9076,7 +9075,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.text.textProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.text.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9089,7 +9088,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.text.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.text.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9102,7 +9101,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.dragScreenSmallButton.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.introScreenButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9115,8 +9114,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton": {
+      "phetioDocumentation": "A button on the home screen for choosing a simulation screen",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
@@ -9128,7 +9127,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.inputListener.firedEmitter": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9141,7 +9140,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.inputListener.pressAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9154,7 +9153,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.inputListener.releaseAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9167,7 +9166,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9180,7 +9179,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9193,7 +9192,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.text": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.text": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9206,7 +9205,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.text.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.text.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9219,7 +9218,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.text.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.text.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9232,7 +9231,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.text.textProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.text.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9245,7 +9244,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.text.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.text.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9258,7 +9257,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenLargeButton.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.labScreenButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9271,8 +9270,8 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton": {
+      "phetioDocumentation": "A button on the home screen for choosing a simulation screen",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
       "phetioFeatured": false,
@@ -9284,7 +9283,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NodeIO"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.inputListener.firedEmitter": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.inputListener.firedEmitter": {
       "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9297,7 +9296,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.inputListener.pressAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.inputListener.pressAction": {
       "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9310,7 +9309,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<SceneryEventIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.inputListener.releaseAction": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.inputListener.releaseAction": {
       "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
       "phetioDynamicElement": false,
       "phetioEventType": "USER",
@@ -9323,7 +9322,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9336,7 +9335,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9349,7 +9348,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.text": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.text": {
       "phetioDocumentation": "",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9362,7 +9361,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "TextIO"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.text.opacityProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.text.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9375,7 +9374,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "NumberPropertyIO"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.text.pickableProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.text.pickableProperty": {
       "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9388,7 +9387,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.text.textProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.text.textProperty": {
       "phetioDocumentation": "Property for the displayed text",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9401,7 +9400,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<StringIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.text.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.text.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9414,319 +9413,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
-    "projectileMotion.homeScreen.view.introScreenSmallButton.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.inputListener.firedEmitter": {
-      "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.inputListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<SceneryEventIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.inputListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.text": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "TextIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.text.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.text.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.text.textProperty": {
-      "phetioDocumentation": "Property for the displayed text",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<StringIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.text.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenLargeButton.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.inputListener.firedEmitter": {
-      "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.inputListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<SceneryEventIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.inputListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.text": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "TextIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.text.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.text.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.text.textProperty": {
-      "phetioDocumentation": "Property for the displayed text",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<StringIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.text.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.labScreenSmallButton.visibleProperty": {
+    "projectileMotion.homeScreen.view.buttonGroup.vectorsScreenButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
@@ -9818,318 +9505,6 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<StringIO>"
     },
     "projectileMotion.homeScreen.view.title.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.inputListener.firedEmitter": {
-      "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.inputListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<SceneryEventIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.inputListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.text": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "TextIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.text.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.text.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.text.textProperty": {
-      "phetioDocumentation": "Property for the displayed text",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<StringIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.text.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenLargeButton.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton": {
-      "phetioDocumentation": "A pressable button in the simulation, in the home screen",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NodeIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.inputListener.firedEmitter": {
-      "phetioDocumentation": "A function that executes. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "EmitterIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.inputListener.pressAction": {
-      "phetioDocumentation": "Executes whenever a press occurs. The first argument when executing can be used to convey info about the SceneryEvent. The arguments are:<br/><ol><li>event: SceneryEventIO</li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<SceneryEventIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.inputListener.releaseAction": {
-      "phetioDocumentation": "Executes whenever a release occurs. The arguments are:<br/><ol><li>event: NullableIO<SceneryEventIO></li></ol>",
-      "phetioDynamicElement": false,
-      "phetioEventType": "USER",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "ActionIO<NullableIO<SceneryEventIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.text": {
-      "phetioDocumentation": "",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": false,
-      "phetioStudioControl": true,
-      "phetioTypeName": "TextIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.text.opacityProperty": {
-      "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "NumberPropertyIO"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.text.pickableProperty": {
-      "phetioDocumentation": "Sets whether the node will be pickable (and hence interactive), see the NodeIO documentation for more details",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.text.textProperty": {
-      "phetioDocumentation": "Property for the displayed text",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<StringIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.text.visibleProperty": {
-      "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
-      "phetioDynamicElement": false,
-      "phetioEventType": "MODEL",
-      "phetioFeatured": false,
-      "phetioHighFrequency": false,
-      "phetioIsArchetype": false,
-      "phetioPlayback": false,
-      "phetioReadOnly": false,
-      "phetioState": true,
-      "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<BooleanIO>"
-    },
-    "projectileMotion.homeScreen.view.vectorsScreenSmallButton.visibleProperty": {
       "phetioDocumentation": "Controls whether the Node will be visible (and interactive), see the NodeIO documentation for more details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",

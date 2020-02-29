@@ -1,4 +1,3 @@
-
 /* eslint-disable */
 window.phet.phetio.phetioTypes = assert &&
   {
