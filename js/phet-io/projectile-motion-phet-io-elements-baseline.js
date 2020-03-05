@@ -6450,10 +6450,10 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.general.model.focusProperty": {
-      "phetioDocumentation": "Stores the current focus for the simulation, null if there is not focus. This is not updated based on mouse or touch input, only keyboard and other alternative inputs.",
+      "phetioDocumentation": "Stores the current focus in the simulation, null if there is nothing focused. This is not updated based on mouse or touch input, only keyboard and other alternative inputs. Note that this only applies to simulations that support alternative input.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
-      "phetioFeatured": false,
+      "phetioFeatured": true,
       "phetioHighFrequency": false,
       "phetioIsArchetype": false,
       "phetioPlayback": false,
