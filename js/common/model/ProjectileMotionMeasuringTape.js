@@ -21,13 +21,15 @@ function ProjectileMotionMeasuringTape( tandem ) {
   // @public
   this.basePositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
     tandem: tandem.createTandem( 'basePositionProperty' ),
-    phetioDocumentation: 'Base (start of tape from the container) position, in meters.'
+    units: 'm',
+    phetioDocumentation: 'Base (start of tape from the container) position'
   } );
 
   // @public -
   this.tipPositionProperty = new Vector2Property( new Vector2( 1, 0 ), {
     tandem: tandem.createTandem( 'tipPositionProperty' ),
-    phetioDocumentation: 'Tip (end of measuring tape) position, in meters.'
+    units: 'm',
+    phetioDocumentation: 'Tip (end of measuring tape) position'
   } );
 
   // @public

@@ -210,7 +210,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -236,7 +236,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.dragScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -1769,6 +1769,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.dragScreen.view.measuringTapeNode.measuredDistanceProperty": {
+      "phetioDocumentation": "The distance measured by the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<NumberIO>"
+    },
     "projectileMotion.dragScreen.view.measuringTapeNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
@@ -1794,6 +1807,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.dragScreen.view.measuringTapeNode.readoutTextProperty": {
+      "phetioDocumentation": "The text content of the readout on the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<StringIO>"
     },
     "projectileMotion.dragScreen.view.measuringTapeNode.tipDragHandler": {
       "phetioDocumentation": "",
@@ -9726,7 +9752,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -9752,7 +9778,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.introScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -11285,6 +11311,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.introScreen.view.measuringTapeNode.measuredDistanceProperty": {
+      "phetioDocumentation": "The distance measured by the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<NumberIO>"
+    },
     "projectileMotion.introScreen.view.measuringTapeNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
@@ -11310,6 +11349,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.introScreen.view.measuringTapeNode.readoutTextProperty": {
+      "phetioDocumentation": "The text content of the readout on the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<StringIO>"
     },
     "projectileMotion.introScreen.view.measuringTapeNode.tipDragHandler": {
       "phetioDocumentation": "",
@@ -14653,7 +14705,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -14679,7 +14731,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.labScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -18110,6 +18162,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.labScreen.view.measuringTapeNode.measuredDistanceProperty": {
+      "phetioDocumentation": "The distance measured by the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<NumberIO>"
+    },
     "projectileMotion.labScreen.view.measuringTapeNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
@@ -18135,6 +18200,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.labScreen.view.measuringTapeNode.readoutTextProperty": {
+      "phetioDocumentation": "The text content of the readout on the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<StringIO>"
     },
     "projectileMotion.labScreen.view.measuringTapeNode.tipDragHandler": {
       "phetioDocumentation": "",
@@ -36818,7 +36896,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.basePositionProperty": {
-      "phetioDocumentation": "Base (start of tape from the container) position, in meters.",
+      "phetioDocumentation": "Base (start of tape from the container) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -36844,7 +36922,7 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
     "projectileMotion.vectorsScreen.model.measuringTape.tipPositionProperty": {
-      "phetioDocumentation": "Tip (end of measuring tape) position, in meters.",
+      "phetioDocumentation": "Tip (end of measuring tape) position",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
@@ -38377,6 +38455,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<BooleanIO>"
     },
+    "projectileMotion.vectorsScreen.view.measuringTapeNode.measuredDistanceProperty": {
+      "phetioDocumentation": "The distance measured by the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<NumberIO>"
+    },
     "projectileMotion.vectorsScreen.view.measuringTapeNode.opacityProperty": {
       "phetioDocumentation": "Opacity of the parent NodeIO, between 0 (invisible) and 1 (fully visible)",
       "phetioDynamicElement": false,
@@ -38402,6 +38493,19 @@ window.phet.phetio.phetioElementsBaseline = assert &&
       "phetioState": true,
       "phetioStudioControl": true,
       "phetioTypeName": "PropertyIO<NullableIO<BooleanIO>>"
+    },
+    "projectileMotion.vectorsScreen.view.measuringTapeNode.readoutTextProperty": {
+      "phetioDocumentation": "The text content of the readout on the measuring tape",
+      "phetioDynamicElement": false,
+      "phetioEventType": "MODEL",
+      "phetioFeatured": false,
+      "phetioHighFrequency": false,
+      "phetioIsArchetype": false,
+      "phetioPlayback": false,
+      "phetioReadOnly": true,
+      "phetioState": true,
+      "phetioStudioControl": true,
+      "phetioTypeName": "DerivedPropertyIO<StringIO>"
     },
     "projectileMotion.vectorsScreen.view.measuringTapeNode.tipDragHandler": {
       "phetioDocumentation": "",
