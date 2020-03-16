@@ -2,7 +2,7 @@
 window.phet.phetio.phetioElementsBaseline = assert &&
   {
     "phetioEngine": {
-      "phetioDocumentation": "Central point for PhET-iO interoperability",
+      "phetioDocumentation": "Central point for PhET-iO interoperability. Please see the IO Type Documentation for API details.",
       "phetioDynamicElement": false,
       "phetioEventType": "MODEL",
       "phetioFeatured": false,
