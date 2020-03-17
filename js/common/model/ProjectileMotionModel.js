@@ -10,6 +10,7 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import DerivedPropertyIO from '../../../../axon/js/DerivedPropertyIO.js';
 import Emitter from '../../../../axon/js/Emitter.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import PropertyIO from '../../../../axon/js/PropertyIO.js';
@@ -18,6 +19,7 @@ import EventTimer from '../../../../phet-core/js/EventTimer.js';
 import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
+import TimeControlSpeed from '../../../../scenery-phet/js/TimeControlSpeed.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -161,9 +163,9 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   // --animation controls
 
   // @public {Property.<boolean>}
-  this.isSlowMotionProperty = new BooleanProperty( false, {
-    tandem: tandem.createTandem( 'isSlowMotionProperty' ),
-    phetioDocumentation: 'Speed of animation, when false animation will be normal instead of slow.'
+  this.timeControlSpeedProperty = new EnumerationProperty( TimeControlSpeed, TimeControlSpeed.NORMAL, {
+    tandem: tandem.createTandem( 'timeControlSpeedProperty' ),
+    phetioDocumentation: 'Speed of animation, either normal or slow.'
   } );
 
   // @public
@@ -285,7 +287,7 @@ export default inherit( Object, ProjectileMotionModel, {
     this.gravityProperty.reset();
     this.altitudeProperty.reset();
     this.airResistanceOnProperty.reset();
-    this.isSlowMotionProperty.reset();
+    this.timeControlSpeedProperty.reset();
     this.isPlayingProperty.reset();
 
     this.muzzleFlashStepper.emit();
@@ -299,7 +301,7 @@ export default inherit( Object, ProjectileMotionModel, {
    */
   step: function( dt ) {
     if ( this.isPlayingProperty.value ) {
-      this.eventTimer.step( ( this.isSlowMotionProperty.value ? 0.33 : 1 ) * dt );
+      this.eventTimer.step( ( this.timeControlSpeedProperty.value === TimeControlSpeed.SLOW ? 0.33 : 1 ) * dt );
     }
   },
 

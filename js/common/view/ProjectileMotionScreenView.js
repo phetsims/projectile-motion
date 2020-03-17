@@ -347,31 +347,36 @@ function ProjectileMotionScreenView( model,
   } );
 
   const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+    timeControlSpeedProperty: model.timeControlSpeedProperty,
+    playPauseStepButtonOptions: {
+      playPauseButtonOptions: {
+        radius: 18,
+        scaleFactorWhenPaused: 1.25,
+        touchAreaDilation: 2
+      },
+      stepForwardButtonOptions: {
+        listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
+        radius: 12,
+        stroke: 'black',
+        fill: '#005566',
+        touchAreaDilation: 4
+      }
+    },
+    speedRadioButtonGroupOptions: {
+      labelOptions: {
+        font: new PhetFont( 15 ),
+        maxWidth: TEXT_MAX_WIDTH,
+        stroke: 'rgb( 0, 173, 78 )',
+        lineWidth: 0.3
+      },
+      radioButtonOptions: {
+        radius: 8
+      }
+    },
+    buttonGroupXSpacing: 2 * PLAY_CONTROLS_INSET,
+
     centerY: initialSpeedPanel.centerY,
     left: fireButton.right + 40, // empirically determined
-    playPauseOptions: {
-      radius: 18,
-      scaleFactorWhenPaused: 1.25,
-      touchAreaDilation: 2
-    },
-    stepForwardOptions: {
-      listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
-      radius: 12,
-      stroke: 'black',
-      fill: '#005566',
-      touchAreaDilation: 4
-    },
-    buttonsXSpacing: 2 * PLAY_CONTROLS_INSET,
-    isSlowMotionProperty: model.isSlowMotionProperty,
-    labelOptions: {
-      font: new PhetFont( 15 ),
-      maxWidth: TEXT_MAX_WIDTH,
-      stroke: 'rgb( 0, 173, 78 )',
-      lineWidth: 0.3
-    },
-    radioButtonOptions: {
-      radius: 8
-    },
     tandem: tandem.createTandem( 'timeControlNode' )
   } );
 
