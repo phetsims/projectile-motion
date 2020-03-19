@@ -19,28 +19,6 @@ window.phet.phetio.phetioTypes = assert &&
       "supertype": "ObjectIO",
       "typeName": "ActionIO<>"
     },
-    "ActionIO<BooleanIO>": {
-      "documentation": "Executes when an event occurs.",
-      "events": [
-        "emitted"
-      ],
-      "methodOrder": [],
-      "methods": {
-        "execute": {
-          "documentation": "Executes the function the Action is wrapping.",
-          "invocableForReadOnlyElements": false,
-          "parameterTypes": [
-            "BooleanIO"
-          ],
-          "returnType": "VoidIO"
-        }
-      },
-      "parameterTypes": [
-        "BooleanIO"
-      ],
-      "supertype": "ObjectIO",
-      "typeName": "ActionIO<BooleanIO>"
-    },
     "ActionIO<EventIO>": {
       "documentation": "Executes when an event occurs.",
       "events": [
