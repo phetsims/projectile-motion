@@ -133,16 +133,17 @@ function TargetNode( score, transformProperty, screenView, options ) {
     this.targetXProperty,
     this.targetXProperty.range,
     merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
-        numberFill: 'black',
-        valuePattern: distancePattern,
-        xMargin: 10.5,
-        yMargin: 2,
-        decimalPlaces: 1,
-        cursor: 'pointer',
-        tandem: options.tandem.createTandem( 'numberDisplay' ),
-        phetioDocumentation: 'The number display in model coordinates of how far the cannon is from the target'
-      }
-    )
+      textOptions: {
+        fill: 'black'
+      },
+      valuePattern: distancePattern,
+      xMargin: 10.5,
+      yMargin: 2,
+      decimalPlaces: 1,
+      cursor: 'pointer',
+      tandem: options.tandem.createTandem( 'numberDisplay' ),
+      phetioDocumentation: 'The number display in model coordinates of how far the cannon is from the target'
+    } )
   );
 
   this.addChild( distanceLabel );

@@ -97,7 +97,9 @@ function DragProjectileControlPanel( selectedObjectTypeProperty,
       maxWidth: options.numberDisplayMaxWidth + options.readoutXMargin * 2,
       xMargin: READOUT_X_MARGIN,
       yMargin: 4,
-      font: TEXT_FONT
+      textOptions: {
+        font: TEXT_FONT
+      }
     },
     titleNodeOptions: {
       font: TEXT_FONT,
