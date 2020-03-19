@@ -142,7 +142,9 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       cornerRadius: 4,
       xMargin: 4,
       minBackgroundWidth: this.options.textDisplayWidth,
-      numberMaxWidth: this.options.textDisplayWidth - 2 * this.options.readoutXMargin
+      textOptions: {
+        maxWidth: this.options.textDisplayWidth - 2 * this.options.readoutXMargin
+      }
     } );
 
     const numberDisplayTandem = tandem.createTandem( 'numberDisplay' );

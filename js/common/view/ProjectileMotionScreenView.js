@@ -152,7 +152,9 @@ function ProjectileMotionScreenView( model,
       numberDisplayOptions: {
         valuePattern: valuePattern,
         align: 'right',
-        font: TEXT_FONT,
+        textOptions: {
+          font: TEXT_FONT
+        },
         maxWidth: 80 // empirically determined
       },
       sliderOptions: {

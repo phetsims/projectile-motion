@@ -239,7 +239,9 @@ export default inherit( Panel, LabProjectileControlPanel, {
           align: 'right',
           xMargin: READOUT_X_MARGIN,
           yMargin: 4,
-          font: TEXT_FONT
+          textOptions: {
+            font: TEXT_FONT
+          }
         },
         sliderOptions: {
           majorTickLength: 5,

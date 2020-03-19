@@ -144,7 +144,9 @@ const ProjectileMotionConstants = {
   PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
 
   NUMBER_DISPLAY_OPTIONS: {
-    font: new PhetFont( 14 ),
+    textOptions: {
+      font: new PhetFont( 14 )
+    },
     backgroundFill: 'white',
     backgroundStroke: 'lightGray',
     cursor: 'pointer',
