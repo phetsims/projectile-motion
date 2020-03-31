@@ -20,7 +20,7 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
 

@@ -30,7 +30,7 @@ import cannonBarrelTopImage from '../../../images/cannon_barrel_top_png.js';
 import cannonBarrelImage from '../../../mipmaps/cannon_barrel_png.js';
 import cannonBaseBottomImage from '../../../mipmaps/cannon_base_bottom_png.js';
 import cannonBaseTopImage from '../../../mipmaps/cannon_base_top_png.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 

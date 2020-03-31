@@ -11,7 +11,7 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileObjectViewFactory from '../view/ProjectileObjectViewFactory.js';

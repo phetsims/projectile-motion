@@ -32,7 +32,7 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import davidImage from '../../../images/david_png.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import BackgroundNode from './BackgroundNode.js';

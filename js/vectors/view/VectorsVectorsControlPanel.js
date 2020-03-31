@@ -18,7 +18,7 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 
 const accelerationVectorsString = projectileMotionStrings.accelerationVectors;

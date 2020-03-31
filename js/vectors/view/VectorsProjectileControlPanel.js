@@ -19,7 +19,7 @@ import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 
 const cannonballString = projectileMotionStrings.cannonball;

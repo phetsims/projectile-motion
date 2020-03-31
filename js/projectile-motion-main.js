@@ -12,7 +12,7 @@ import Tandem from '../../tandem/js/Tandem.js';
 import DragScreen from './drag/DragScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import projectileMotionStrings from './projectile-motion-strings.js';
+import projectileMotionStrings from './projectileMotionStrings.js';
 import VectorsScreen from './vectors/VectorsScreen.js';
 
 const projectileMotionTitleString = projectileMotionStrings[ 'projectile-motion' ].title;

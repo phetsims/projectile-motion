@@ -24,7 +24,7 @@ import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotionStrings from '../../projectile-motion-strings.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import CustomProjectileObjectTypeControl from './CustomProjectileObjectTypeControl.js';
 import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
