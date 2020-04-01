@@ -2114,7 +2114,7 @@ window.phet.phetio.phetioTypes = assert &&
       "typeName": "RangeIO"
     },
     "ReferenceIO": {
-      "documentation": "Uses reference identity for toStateObject/fromStateObject",
+      "documentation": "Uses reference identity for toStateObject/fromStateObject and validates based on its parameter IO Type.",
       "events": [],
       "methodOrder": [],
       "methods": {},
