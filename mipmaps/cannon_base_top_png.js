@@ -1,5 +1,5 @@
 /* eslint-disable */
-var mipmaps = [
+const mipmaps = [
   {
     "width": 160,
     "height": 39,
@@ -8,32 +8,32 @@ var mipmaps = [
   {
     "width": 80,
     "height": 20,
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAUCAYAAAAa2LrXAAAAAklEQVR4AewaftIAAANhSURBVM3BT2gcZRzH4c/3fWc3awLdDSKKpnlNutIYiwUlxKZqKfQggghFvfRSAupJKTQ3tRTMIeBBEFTwUFER9CCIBxWi9aDBIoK0/ishxAxY0TTd7FSbJtud+YmKeLCHZnc2yfOILSSEUIqkXTK7PTOqQA9/EXUHMXB6Lo7PsIWITRRCKHXBeAoHe1Dfnah6h+SriAjhxd9Sg1WMOYxvzRpnLJttinMOPliDE3Ecr7JJxCbYEcIBD0dvQ/c8Kl/ZIUdVwnNtGsCcGWct4z1L6wvYTBOmforjL9hgYgMNhrDXweQDuPsOusjvkmhXCnxvGe9nafox2ecZPDsfxzNsELEBQgilCF4awx163EXdQxKdcNaMl7Pmytdkbzfh6TiOV+kw0WGDIdzdBW9OKBp+0Hk8nZUCH2YpL1hztgHj83E8Qwd5OqgawpEB9NqLrhj2OIej8xywU4598td/Y9nDrlJu1JLkFB3i6ZDhECZGcJNTrljuk9hovRL75bvnzfatVMqlWpJ8Rgd4OmA4hIndaOq4KxZ7xaa5TnC/fOGC2diFSrmrliQnyZknZ9UQjozgJo+7YrEiNl1BMCLvZs1GG5XyylKSfEmOPDkaDGHvAHp1yhW39YotoyAYlY9Ome3JKuXvlpNklpx4chJCKJXQp6+4ws03SWw1JcGIXNe0Zff2VMrv1pLkD3LgyEkBvXNMfqBfYqvqk3hO0XbB6+TEk4OhEI4elH/qkIvEFrddUgOqP5e3FWpJcpI2RbQphNBbQROHFYkcrQFrJhpAA2gCKZABGf/wgAAPREAEFIECUJRR4OoOKeITy54khBNzcTxPGzxtuqHS+8ZxRaM7nWiHAZdMLCMWEXXEJWAVuAKkQAYY/zEgA1LgCrAGrAC/A3XEr4hFjDWEAQWBA7oEVan7I8uGa0nyFm3wtGFHCAfGcM+P+8g7WtMEaiZ+Q1wE1gAjHw6oYyxjLGKcw0iAK4hbEEtmty6Vyz8uJ8kPtMjRBsGxJ1xU9KxfCpw3sWBiGUjJn4AeHP8yIMFYIOM0GbvlvaRnaIOnRYP94bFHnD/6kPOs10UTvyAu03kRcBkw/q9bgNmNSaVyoZbUv6IFEa0Sd+2Xn2ad6ibOc21mLaMb0SfRKgFdiMsYVzMkx7Q1+2nRnzF6KT3MhcM6AAAAAElFTkSuQmCC"
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAUCAYAAAAa2LrXAAAAAklEQVR4AewaftIAAANmSURBVM3BT2gcZRzH4c/3fWc3awLdDSKKpnlNutIYiwUlxKZqKfQggghFvfRSAupJKTQ3tRTMIeBBEFTwUFER9CCIBxWi9aDBIoK0/ishxAxY0TTd7FSbJtud+YmKeLCHZnc2yfOILSSEUIqkXZjdbkYV6OEvoi6IBafn4vgMW4jYRCGEUheMp3CwB/Xdiap3SL6KiBBe/C01WMWYw/jWrHHGstmmOOfggzU4EcfxKptEbIIdIRzwcPQ2dM+j8pUdclQlPNemAcyZcdYy3rO0voDNNGHqpzj+gg0mNtBgCHsdTD6Au++gi/wuiXalwPeW8X6Wph+TfZ7Bs/NxPMMGERsghFCK4KUx3KHHXdQ9JNEJZ814OWuufE32dhOejuN4lQ4THTYYwt1d8OaEouEHncfTWSnwYZbygjVnGzA+H8czdJCng6ohHBlAr73oimGPczg6zwE75dgnf/03lj3sKuVGLUlO0SGeDhkOYWIENznliuU+iY3WK7FfvnvebN9KpVyqJclndICnA4ZDmNiNpo67YrFXbJrrBPfLFy6YjV2olLtqSXKSnHlyVg3hyAhu8rgrFiti0xUEI/Ju1my0USmvLCXJl+TIk6PBEPYOoFenXHFbr9gyCoJR+eiU2Z6sUv5uOUlmyYknJyGEUgl9+oor3HyTxFZTEozIdU1bdm9PpfxuLUn+IAeOnBTQO8fkB/oltqo+iecUbRe8Tk48ORgK4ehB+acOuUhscdslNaD6c3lboZYkJ2lTRJtCCL0VNHFYkcjRGrBmogE0gCaQIjIg4x8eEOAxIiACikABKMoocHWHFPGJZU8Swom5OJ6nDZ423VDpfeO4otGdTrTDgEsmlhGLOOqIS4hVxBVEisgA4z8GZECKuIJYQ6wgfkfUEb8CixhrCAMKAgd0CapS90eWDdeS5C3a4GnDjhAOjOGeH/eRd7SmCdRM/IbjImINYeTDIeoYyxiLGOcwEuAK4hbEktmtS+Xyj8tJ8gMtcrRBcOwJFxU965cC500smGMZkZI/AT04/mVAgrFAxmkydst7Sc/QBk+LBvvDY484f/Qh51mviyZ+wXEZ0WkR4jKG8X/dAsxuTCqVC7Wk/hUtiGiVuGu//DTrVDdxHnEtZi2lG9EnR6sEdCEuY1zNkBzT1uynRX8C2ugrT/GIr+kAAAAASUVORK5CYII="
   },
   {
     "width": 40,
     "height": 10,
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAYAAADGmhxQAAAAAklEQVR4AewaftIAAAGsSURBVK3BvWtTURjA4d/7nnsFtTmKZlAsJ6GttC5CFRQJQhfBjkVwc3DqoJMfFAURLFK0Q0HQ/hkO6qKbSMFBu1awgleRhoLNNRrhpjnHwaGIJrlJfR5hG5xzUQyXj6CVSdHibhELhG8h1J8FX13FL2XwKEmSTfok9GHIudJJdO6cmjMjosWDAsKfPPAlwPvQWn/s/YvX+JsfkuQjPRJ6NObc1VsaX6uIHtgl5NII8Cr4tVnfXHiXJPfpgaEHU668OKfx9ROqe2Iht1hgWGSggpnYsHZwJa09JSdDTlOuvDij0fRhFUOfiiJmHD1WtXZwJa09IQdDDqOudOOexldGVAzbZEVkDD26bAuspelLujB0Merc6VmNHxxXHeA/2S+iZWT8rS0sf03TVTqI6OK8mLsV0X10sBmEBtAAMqAJeH5TIAJ2ABFgCBSAU6J7L4i5cxue04Ghg+FS6dKMRtNFEeEfsiCsI1SBH0AGtIDAlgC0gAz4CXwGPhGoAQXk0BtrGxtpukQbER1cFHN2CElC4C91hGqAwJYmIEBEezsR6ni+AxEwKTrxEOZp4xe5o39PtARDAgAAAABJRU5ErkJggg=="
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAYAAADGmhxQAAAAAklEQVR4AewaftIAAAGzSURBVK3BvWsTcRzH8ffn97sT1OYUzaBYLsFUrItQBUWC0EWwYxFHB6cOOvlAURDBUoo6CIL2z3BQF91ECg7atYIVPEUaCjbXaoSkua9kcFDMY329xBbEcRyEcPkIrjwhl98pRYCtm208t6yyTLZQh8dJkmwyIDGAg3FcOImbO+f8mRG5/H4J8acM+GrGB2uuPsmyl2/Ibn5Mkk/0SfRpNI6v3nLhtbLcvh0SvaiZ8dqylZms8eB9ktyjD54+TMbF+TkXXj/h/K5QolehREluqIwbX4ui4aW0+oweeXo0GRfnp10wdcg5z4Dykh9DxypRNLyUVp/SA08PDseFG3ddeGXEOc8WRZJG0dHFKMdKmr6iC08Xo3F8esaFD487P8R/sldyRTT2LsotfkvTZToI6OK8/GxZfg8dbBrUgBqiDjSADNHiMAJgGxBgeIwc4pT87gvK7tyGF3Tg6aBUKFyadsFUXhL/UDdYRVRw/EDUEU2EIX4zRBNRR/xEfMH4TEYVyKEDb6OotpamC7QR0MFF+bMllGDG39YRFRNGi9HSAAQEtLcdsQF8xwiACbnxR3CfNn4BM66GWHIIw2oAAAAASUVORK5CYII="
   },
   {
     "width": 20,
     "height": 5,
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAAAklEQVR4AewaftIAAADeSURBVHXBsS5DYRgG4Pf9/v6TFA2hy98TZ7D2BgxsRhKX0bHdOtocicnsDrgIC4OE3RE5kRiEUz3Vr0nbj6FDHfU8xD/iEFY74o+b5M4SuY4fhdnbvU2vk+m4m2ZZjgWIBQ5DdNB2ldOYjB3xy8SAR7M0mYzbV9nzJUocSrZDY/fM+YtYGIT4QwiskbUmZe+2Wr17/ew9YY6g5Nz5k0i4iRkz4suI3Ih3I3IjCiPq5EbifIIShzmdaKu1L3JUARWgFqC+GPUD1AGoQ1AHoPZBTWE6Amp+eUUfevkNZr4BbhtPILxscOAAAAAASUVORK5CYII="
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAFCAYAAABFA8wzAAAAAklEQVR4AewaftIAAADeSURBVHXBvy4EURiH4fd3Tkbj74agGRNTaPcGFHRKEpeh3O2Uuh2JSu0OuAiNSCT0RmQiUQizdpcj7H4UW0wm63nEP9I4Xmi76KgptzktlvjTN15ubXiZjX4O86IomUBMsBcnuy0fHadS6iWqhmbcm+XZ8Lt1UTyeU+Op2YjXtk781FnqXOwk6pzEotRoym1fz87cPL93H6hw1Jz6qJM4t8KYGXwYlAavJkqDvsGqtNzxUUaNp6KdrB/sOL8fQQBCD4UnU3hDYYDCJ4QBCj0UckbhCxrR3Hy465ZXjP0CGhZPHGKQdiUAAAAASUVORK5CYII="
   },
   {
     "width": 10,
     "height": 3,
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAADCAYAAACqPZ51AAAAAklEQVR4AewaftIAAABwSURBVGNkgIJAGTmtBhbWibyMDEYMQPDpP8O5hj+/CzY8eXSVAQiYGKCgiYV1kSQTowsnA6MQMwOjkDAjo0sDC+siBihgZgCCEjlFS0dGJp0//xluPPjPeOPDf8YbH/4z3njB8P8jCx/fk0ufPj4GACQ9IjUSTlLmAAAAAElFTkSuQmCC"
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAADCAYAAACqPZ51AAAAAklEQVR4AewaftIAAABwSURBVGNkgIJAGTmtBha2ibyMjEYMQPDp//9zDX9+FWx48ugqAxAwMUBBEwvbIkkmJhdOBkYhZgZGIWFGJpcGFrZFDFDAzAAEJXKKlk5MTDp/GBhuPPjHeOPDf4YbH/8z3HjO8O8jCx/fk0ufPj4GAGpmIjjdp6JgAAAAAElFTkSuQmCC"
   }
 ];
-mipmaps.forEach( function( mipmap ) {
+mipmaps.forEach( mipmap => {
   mipmap.img = new Image();
   window.phetImages.push( mipmap.img ); // make sure it's loaded before the sim launches
   mipmap.img.src = mipmap.url; // trigger the loading of the image for its level
   mipmap.canvas = document.createElement( 'canvas' );
   mipmap.canvas.width = mipmap.width;
   mipmap.canvas.height = mipmap.height;
-  var context = mipmap.canvas.getContext( '2d' );
+  const context = mipmap.canvas.getContext( '2d' );
   mipmap.updateCanvas = function() {
     if ( mipmap.img.complete && ( typeof mipmap.img.naturalWidth === 'undefined' || mipmap.img.naturalWidth > 0 ) ) {
       context.drawImage( mipmap.img, 0, 0 );
