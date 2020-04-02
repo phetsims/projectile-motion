@@ -1,3 +1,3 @@
 
 /* eslint-disable */
-window.phet.phetio.phetioElementsOverrides = {};
+window.phet.phetio.preload.phetioElementsOverrides = {};

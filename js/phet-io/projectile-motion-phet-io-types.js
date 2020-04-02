@@ -1,5 +1,5 @@
 /* eslint-disable */
-window.phet.phetio.phetioTypes = assert &&
+window.phet.phetio.preload.phetioTypes = assert &&
   {
     "ActionIO<>": {
       "documentation": "Executes when an event occurs.",
