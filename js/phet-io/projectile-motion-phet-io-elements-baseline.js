@@ -1,5 +1,5 @@
 /* eslint-disable */
-window.phet.phetio.preload.phetioElementsBaseline = assert &&
+window.phet.preloads.phetio.phetioElementsBaseline = assert &&
   {
     "phetioEngine": {
       "phetioDocumentation": "Central point for PhET-iO interoperability. Please see the IO Type Documentation for API details.",
