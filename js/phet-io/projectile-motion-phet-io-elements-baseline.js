@@ -337,7 +337,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<ReferenceIO>"
+      "phetioTypeName": "PropertyIO<ReferenceIO<ProjectileObjectTypeIO>>"
     },
     "projectileMotion.dragScreen.model.timeControlSpeedProperty": {
       "phetioDocumentation": "Speed of animation, either normal or slow.",
@@ -9931,7 +9931,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<ReferenceIO>"
+      "phetioTypeName": "PropertyIO<ReferenceIO<ProjectileObjectTypeIO>>"
     },
     "projectileMotion.introScreen.model.timeControlSpeedProperty": {
       "phetioDocumentation": "Speed of animation, either normal or slow.",
@@ -15040,7 +15040,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<ReferenceIO>"
+      "phetioTypeName": "PropertyIO<ReferenceIO<ProjectileObjectTypeIO>>"
     },
     "projectileMotion.labScreen.model.timeControlSpeedProperty": {
       "phetioDocumentation": "Speed of animation, either normal or slow.",
@@ -37127,7 +37127,7 @@ window.phet.preloads.phetio.phetioElementsBaseline = assert &&
       "phetioReadOnly": false,
       "phetioState": true,
       "phetioStudioControl": true,
-      "phetioTypeName": "PropertyIO<ReferenceIO>"
+      "phetioTypeName": "PropertyIO<ReferenceIO<ProjectileObjectTypeIO>>"
     },
     "projectileMotion.vectorsScreen.model.timeControlSpeedProperty": {
       "phetioDocumentation": "Speed of animation, either normal or slow.",
