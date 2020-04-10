@@ -57,7 +57,8 @@ function ToolboxPanel( measuringTape, dataProbe, measuringTapeNode, dataProbeNod
   // The content panel with the two icons
   const panelContent = new HBox( {
     spacing: 30,
-    children: [ dataProbeIconNode, measuringTapeIconNode ]
+    children: [ dataProbeIconNode, measuringTapeIconNode ],
+    excludeInvisibleChildrenFromBounds: false
   } );
 
   // add the panelContent
