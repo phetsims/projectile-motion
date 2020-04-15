@@ -125,7 +125,7 @@ function TargetNode( score, transformProperty, screenView, options ) {
   target.addInputListener( horizontalDragHandler );
 
   // update the range based on the current transform
-  this.updateTargetXRange( transformProperty.get(), true ); // overwrite initial value this first time.
+  this.updateTargetXRange( transformProperty.get() );
 
   // text readout for horizontal distance from fire, which is origin, which is base of cannon
   const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
@@ -243,18 +243,13 @@ export default inherit( Node, TargetNode, {
    * @private
    * @param {ModelViewTransform2} transform
    */
-  updateTargetXRange: function( transform, updateInitialValue = false ) {
+  updateTargetXRange: function( transform ) {
 
     const newRange = new Range(
       transform.viewToModelX( this.screenView.layoutBounds.minX ),
       transform.viewToModelX( this.screenView.layoutBounds.maxX )
     );
     this.targetXProperty.setValueAndRange( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ), newRange );
-
-    // TODO: remove this now that reset case is supported https://github.com/phetsims/studio/issues/35
-    if ( updateInitialValue ) {
-      this.targetXProperty.rangeProperty.setInitialValue( newRange );
-    }
   },
 
   /**
