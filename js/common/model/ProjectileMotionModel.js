@@ -327,7 +327,7 @@ export default inherit( Object, ProjectileMotionModel, {
   limitTrajectories: function() {
     const numberToRemove = this.trajectoryGroup.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
     for ( let i = 0; i < numberToRemove; i++ ) {
-      this.trajectoryGroup.disposeMember( this.trajectoryGroup.get( 0 ) );
+      this.trajectoryGroup.disposeElement( this.trajectoryGroup.get( 0 ) );
     }
   },
 
@@ -348,10 +348,10 @@ export default inherit( Object, ProjectileMotionModel, {
    */
   cannonFired: function() {
     const lastTrajectory = this.trajectoryGroup.get( this.trajectoryGroup.length - 1 );
-    const newTrajectory = this.trajectoryGroup.createNextMember( this );
+    const newTrajectory = this.trajectoryGroup.createNextElement( this );
     if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
       lastTrajectory.addProjectileObject();
-      this.trajectoryGroup.disposeMember( newTrajectory );
+      this.trajectoryGroup.disposeElement( newTrajectory );
     }
     else {
       this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
