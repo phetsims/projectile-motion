@@ -55,7 +55,7 @@ function DataProbe( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
   // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
   this.trajectoryGroup = trajectoryGroup;
 
-  this.trajectoryGroup.addMemberDisposedListener( this.updateData.bind( this ) );
+  this.trajectoryGroup.elementDisposedEmitter.addListener( this.updateData.bind( this ) );
 }
 
 projectileMotion.register( 'DataProbe', DataProbe );

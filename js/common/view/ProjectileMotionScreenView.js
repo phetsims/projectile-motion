@@ -118,17 +118,17 @@ function ProjectileMotionScreenView( model,
     trajectoriesLayer.addChild( trajectoryNode );
 
     // Add the removal listener for if and when this trajectory is removed from the model.
-    model.trajectoryGroup.addMemberDisposedListener( function removalListener( removedTrajectory ) {
+    model.trajectoryGroup.elementDisposedEmitter.addListener( function removalListener( removedTrajectory ) {
       if ( removedTrajectory === addedTrajectory ) {
         trajectoryNode.dispose();
-        model.trajectoryGroup.removeMemberDisposedListener( removalListener );
+        model.trajectoryGroup.elementDisposedEmitter.removeListener( removalListener );
       }
     } );
   }
 
   // view listens to whether a trajectory has been added in the model
   model.trajectoryGroup.forEach( handleTrajectoryAdded );
-  model.trajectoryGroup.addMemberCreatedListener( handleTrajectoryAdded );
+  model.trajectoryGroup.elementCreatedEmitter.addListener( handleTrajectoryAdded );
 
   // cannon
   const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper,
