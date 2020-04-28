@@ -315,7 +315,7 @@ export default inherit( Object, ProjectileMotionModel, {
    */
   stepModelElements: function( dt ) {
     for ( let i = 0; i < this.trajectoryGroup.length; i++ ) {
-      this.trajectoryGroup.get( i ).step( dt );
+      this.trajectoryGroup.getElement( i ).step( dt );
     }
     this.muzzleFlashStepper.emit();
   },
@@ -327,7 +327,7 @@ export default inherit( Object, ProjectileMotionModel, {
   limitTrajectories: function() {
     const numberToRemove = this.trajectoryGroup.length - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
     for ( let i = 0; i < numberToRemove; i++ ) {
-      this.trajectoryGroup.disposeElement( this.trajectoryGroup.get( 0 ) );
+      this.trajectoryGroup.disposeElement( this.trajectoryGroup.getElement( 0 ) );
     }
   },
 
@@ -347,7 +347,7 @@ export default inherit( Object, ProjectileMotionModel, {
    * @public
    */
   cannonFired: function() {
-    const lastTrajectory = this.trajectoryGroup.get( this.trajectoryGroup.length - 1 );
+    const lastTrajectory = this.trajectoryGroup.getElement( this.trajectoryGroup.length - 1 );
     const newTrajectory = this.trajectoryGroup.createNextElement( this );
     if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
       lastTrajectory.addProjectileObject();
@@ -370,7 +370,7 @@ export default inherit( Object, ProjectileMotionModel, {
     let trajectory;
 
     for ( let j = 0; j < this.trajectoryGroup.length; j++ ) {
-      trajectory = this.trajectoryGroup.get( j );
+      trajectory = this.trajectoryGroup.getElement( j );
 
       const removedProjectileObjects = [];
 
