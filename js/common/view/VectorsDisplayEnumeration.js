@@ -8,7 +8,9 @@
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 import projectileMotion from '../../projectileMotion.js';
 
-export default projectileMotion.register( 'VectorsDisplayEnumeration', Enumeration.byKeys( [
+const VectorsDisplayEnumeration = Enumeration.byKeys( [
   'TOTAL',
   'COMPONENTS'
-] ) );
+] );
+projectileMotion.register( 'VectorsDisplayEnumeration', VectorsDisplayEnumeration );
+export default VectorsDisplayEnumeration;
