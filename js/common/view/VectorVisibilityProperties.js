@@ -74,7 +74,7 @@ function VectorVisibilityProperties( options ) {
 
 projectileMotion.register( 'VectorVisibilityProperties', VectorVisibilityProperties );
 
-export default inherit( Object, VectorVisibilityProperties, {
+inherit( Object, VectorVisibilityProperties, {
 
   /**
    * Reset these Properties
@@ -95,3 +95,5 @@ export default inherit( Object, VectorVisibilityProperties, {
     }
   }
 } );
+
+export default VectorVisibilityProperties;

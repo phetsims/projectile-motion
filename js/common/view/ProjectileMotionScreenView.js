@@ -421,7 +421,7 @@ function ProjectileMotionScreenView( model,
 
 projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 
-export default inherit( ScreenView, ProjectileMotionScreenView, {
+inherit( ScreenView, ProjectileMotionScreenView, {
 
   /**
    * Layout nodes part of the screen view
@@ -468,3 +468,5 @@ export default inherit( ScreenView, ProjectileMotionScreenView, {
   }
 
 } );
+
+export default ProjectileMotionScreenView;

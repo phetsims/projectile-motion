@@ -60,7 +60,7 @@ function DataProbe( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
 
 projectileMotion.register( 'DataProbe', DataProbe );
 
-export default inherit( Object, DataProbe, {
+inherit( Object, DataProbe, {
 
   /**
    * Reset these Properties
@@ -111,3 +111,5 @@ export default inherit( Object, DataProbe, {
     }
   }
 } );
+
+export default DataProbe;

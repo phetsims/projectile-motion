@@ -173,7 +173,7 @@ function KeypadLayer( options ) {
 
 projectileMotion.register( 'KeypadLayer', KeypadLayer );
 
-export default inherit( Plane, KeypadLayer, {
+inherit( Plane, KeypadLayer, {
 
   /**
    * Positions keypad
@@ -300,3 +300,5 @@ export default inherit( Plane, KeypadLayer, {
     this.addHelloText();
   }
 } );
+
+export default KeypadLayer;

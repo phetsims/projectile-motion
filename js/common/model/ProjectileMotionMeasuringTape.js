@@ -41,7 +41,7 @@ function ProjectileMotionMeasuringTape( tandem ) {
 
 projectileMotion.register( 'ProjectileMotionMeasuringTape', ProjectileMotionMeasuringTape );
 
-export default inherit( Object, ProjectileMotionMeasuringTape, {
+inherit( Object, ProjectileMotionMeasuringTape, {
 
   /**
    * Reset these Properties
@@ -54,3 +54,5 @@ export default inherit( Object, ProjectileMotionMeasuringTape, {
     this.isActiveProperty.reset();
   }
 } );
+
+export default ProjectileMotionMeasuringTape;

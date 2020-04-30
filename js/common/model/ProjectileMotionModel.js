@@ -263,7 +263,7 @@ function calculateAirDensity( altitude, airResistanceOn ) {
   }
 }
 
-export default inherit( Object, ProjectileMotionModel, {
+inherit( Object, ProjectileMotionModel, {
 
   /**
    * Reset these Properties
@@ -423,3 +423,5 @@ export default inherit( Object, ProjectileMotionModel, {
   }
 
 } );
+
+export default ProjectileMotionModel;

@@ -535,7 +535,7 @@ function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transfor
 
 projectileMotion.register( 'CannonNode', CannonNode );
 
-export default inherit( Node, CannonNode, {
+inherit( Node, CannonNode, {
 
   /**
    * Reset this cannon
@@ -555,3 +555,5 @@ export default inherit( Node, CannonNode, {
     this.muzzleFlashStage = MUZZLE_FLASH_START;
   }
 } );
+
+export default CannonNode;

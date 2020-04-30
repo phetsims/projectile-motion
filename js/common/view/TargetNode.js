@@ -237,7 +237,7 @@ function TargetNode( score, transformProperty, screenView, options ) {
 
 projectileMotion.register( 'TargetNode', TargetNode );
 
-export default inherit( Node, TargetNode, {
+inherit( Node, TargetNode, {
 
   /**
    * @private
@@ -268,3 +268,5 @@ export default inherit( Node, TargetNode, {
   }
 
 } );
+
+export default TargetNode;

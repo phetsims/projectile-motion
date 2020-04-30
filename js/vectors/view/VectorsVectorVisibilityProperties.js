@@ -53,7 +53,7 @@ function VectorsVectorVisibilityProperties( tandem ) {
 
 projectileMotion.register( 'VectorsVectorVisibilityProperties', VectorsVectorVisibilityProperties );
 
-export default inherit( VectorVisibilityProperties, VectorsVectorVisibilityProperties, {
+inherit( VectorVisibilityProperties, VectorsVectorVisibilityProperties, {
 
   /**
    * Reset these Properties
@@ -90,3 +90,5 @@ export default inherit( VectorVisibilityProperties, VectorsVectorVisibilityPrope
     this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
   }
 } );
+
+export default VectorsVectorVisibilityProperties;

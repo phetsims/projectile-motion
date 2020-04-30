@@ -50,7 +50,7 @@ function Score( initialTargetX, tandem ) {
 
 projectileMotion.register( 'Score', Score );
 
-export default inherit( Object, Score, {
+inherit( Object, Score, {
 
   /**
    * Reset these Properties
@@ -80,3 +80,5 @@ export default inherit( Object, Score, {
     }
   }
 } );
+
+export default Score;

@@ -58,7 +58,7 @@ function IntroScreenView( model, tandem, options ) {
 
 projectileMotion.register( 'IntroScreenView', IntroScreenView );
 
-export default inherit( ProjectileMotionScreenView, IntroScreenView, {
+inherit( ProjectileMotionScreenView, IntroScreenView, {
   /**
    * Layout
    * @param {number} width
@@ -71,3 +71,5 @@ export default inherit( ProjectileMotionScreenView, IntroScreenView, {
     ProjectileMotionScreenView.prototype.layout.call( this, width, height );
   }
 } );
+
+export default IntroScreenView;

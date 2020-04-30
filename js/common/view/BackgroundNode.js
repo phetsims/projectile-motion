@@ -56,7 +56,7 @@ function BackgroundNode( layoutBounds, options ) {
 
 projectileMotion.register( 'BackgroundNode', BackgroundNode );
 
-export default inherit( Node, BackgroundNode, {
+inherit( Node, BackgroundNode, {
 
   /**
    * Layout nodes part of the background
@@ -104,3 +104,5 @@ export default inherit( Node, BackgroundNode, {
   }
 
 } );
+
+export default BackgroundNode;

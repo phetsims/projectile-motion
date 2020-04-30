@@ -72,7 +72,7 @@ function LabScreenView( model, tandem, options ) {
 
 projectileMotion.register( 'LabScreenView', LabScreenView );
 
-export default inherit( ProjectileMotionScreenView, LabScreenView, {
+inherit( ProjectileMotionScreenView, LabScreenView, {
 
   /**
    * Layout according to screenview and layout the combo box
@@ -100,3 +100,5 @@ export default inherit( ProjectileMotionScreenView, LabScreenView, {
   }
 
 } );
+
+export default LabScreenView;

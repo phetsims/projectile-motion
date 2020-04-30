@@ -69,7 +69,7 @@ function LabModel( tandem ) {
 
 projectileMotion.register( 'LabModel', LabModel );
 
-export default inherit( ProjectileMotionModel, LabModel, {
+inherit( ProjectileMotionModel, LabModel, {
 
   /**
    * Reset these Properties
@@ -101,3 +101,5 @@ export default inherit( ProjectileMotionModel, LabModel, {
     this.projectileDragCoefficientProperty.set( currentProjectileObjectType.initialDragCoefficient );
   }
 } );
+
+export default LabModel;

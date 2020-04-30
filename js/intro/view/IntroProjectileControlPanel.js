@@ -189,10 +189,12 @@ function IntroProjectileControlPanel( objectTypes,
 
 projectileMotion.register( 'IntroProjectileControlPanel', IntroProjectileControlPanel );
 
-export default inherit( Panel, IntroProjectileControlPanel, {
+inherit( Panel, IntroProjectileControlPanel, {
 
   // @public for use by screen view
   hideComboBoxList: function() {
     this.projectileChoiceComboBox.hideListBox();
   }
 } );
+
+export default IntroProjectileControlPanel;

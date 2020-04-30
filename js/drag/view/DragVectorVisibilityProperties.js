@@ -50,7 +50,7 @@ function DragVectorVisibilityProperties( tandem ) {
 
 projectileMotion.register( 'DragVectorVisibilityProperties', DragVectorVisibilityProperties );
 
-export default inherit( VectorVisibilityProperties, DragVectorVisibilityProperties, {
+inherit( VectorVisibilityProperties, DragVectorVisibilityProperties, {
 
   /**
    * Reset these Properties
@@ -82,3 +82,5 @@ export default inherit( VectorVisibilityProperties, DragVectorVisibilityProperti
     this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
   }
 } );
+
+export default DragVectorVisibilityProperties;

@@ -200,7 +200,7 @@ function LabProjectileControlPanel( comboBoxListParent, keypadLayer, model, opti
 
 projectileMotion.register( 'LabProjectileControlPanel', LabProjectileControlPanel );
 
-export default inherit( Panel, LabProjectileControlPanel, {
+inherit( Panel, LabProjectileControlPanel, {
 
   // @public for use by screen view
   hideComboBoxList: function() {
@@ -374,3 +374,5 @@ export default inherit( Panel, LabProjectileControlPanel, {
     }
   }
 } );
+
+export default LabProjectileControlPanel;

@@ -338,7 +338,7 @@ function createInformationBox( maxWidth, labelString, readoutProperty ) {
   return new HBox( { spacing: spacing, children: [ labelText, readoutParent ] } );
 }
 
-export default inherit( Node, DataProbeNode, {
+inherit( Node, DataProbeNode, {
 
   /**
    * Get the bounds of just the dataProbe, excluding the halo node
@@ -433,3 +433,5 @@ export default inherit( Node, DataProbeNode, {
     } );
   }
 } );
+
+export default DataProbeNode;

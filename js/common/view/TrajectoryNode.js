@@ -203,7 +203,7 @@ function TrajectoryNode( vectorVisibilityProperties,
 
 projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
 
-export default inherit( Node, TrajectoryNode, {
+inherit( Node, TrajectoryNode, {
 
   /**
    * Dispose this trajectory for memory management
@@ -215,3 +215,5 @@ export default inherit( Node, TrajectoryNode, {
     Node.prototype.dispose.call( this );
   }
 } );
+
+export default TrajectoryNode;
