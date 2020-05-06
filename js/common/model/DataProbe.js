@@ -78,7 +78,7 @@ inherit( Object, DataProbe, {
    * @public
    */
   updateData: function() {
-    for ( let i = this.trajectoryGroup.length - 1; i >= 0; i-- ) {
+    for ( let i = this.trajectoryGroup.count - 1; i >= 0; i-- ) {
       const currentTrajectory = this.trajectoryGroup.getElement( i );
       if ( currentTrajectory.apexPoint && currentTrajectory.apexPoint.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) { // current point shown is apex and it is still within sensing radius
         this.dataPointProperty.set( currentTrajectory.apexPoint );
