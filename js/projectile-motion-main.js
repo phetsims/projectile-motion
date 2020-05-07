@@ -7,7 +7,7 @@
  */
 
 import Sim from '../../joist/js/Sim.js';
-import SimLauncher from '../../joist/js/SimLauncher.js';
+import simLauncher from '../../joist/js/simLauncher.js';
 import Tandem from '../../tandem/js/Tandem.js';
 import DragScreen from './drag/DragScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
@@ -27,7 +27,7 @@ const simOptions = {
   }
 };
 
-SimLauncher.launch( function() {
+simLauncher.launch( function() {
   const sim = new Sim( projectileMotionTitleString, [
     new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
     new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),
