@@ -32,8 +32,8 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import davidImage from '../../../images/david_png.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import BackgroundNode from './BackgroundNode.js';
 import CannonNode from './CannonNode.js';
@@ -349,7 +349,7 @@ function ProjectileMotionScreenView( model,
   } );
 
   const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
-    timeControlSpeedProperty: model.timeControlSpeedProperty,
+    timeSpeedProperty: model.timeSpeedProperty,
     playPauseStepButtonOptions: {
       playPauseButtonOptions: {
         radius: 18,
