@@ -94,7 +94,7 @@ inherit( ProjectileMotionScreenView, LabScreenView, {
    *
    * @param {KeypadPanel} keypad
    */
-  setKeypadPosition: function(keypadPanel ) {
+  setKeypadPosition: function( keypadPanel ) {
     keypadPanel.right = this.topRightPanel.left - X_MARGIN;
     keypadPanel.top = this.bottomRightPanel.top;
   }
