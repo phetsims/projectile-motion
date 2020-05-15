@@ -1,7 +1,7 @@
 // Copyright 2016-2020, University of Colorado Boulder
 
 /**
- * View for the dataProbe, which can be dragged to change location.
+ * View for the dataProbe, which can be dragged to change position.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */
@@ -221,7 +221,7 @@ function DataProbeNode( dataProbe, transformProperty, screenView, options ) {
     }
   } );
 
-  // function align locations, and update model.
+  // function align positions, and update model.
   const updatePosition = function( position ) {
     self.probeOrigin.set( transformProperty.get().modelToViewPosition( position ) );
 
@@ -253,7 +253,7 @@ function DataProbeNode( dataProbe, transformProperty, screenView, options ) {
     updatePosition( dataProbe.positionProperty.get() );
   } );
 
-  // Listen for location changes, align locations, and update model.
+  // Listen for position changes, align positions, and update model.
   dataProbe.positionProperty.link( function( position ) {
     updatePosition( position );
     self.dataProbe.updateData();

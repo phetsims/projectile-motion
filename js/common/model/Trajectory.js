@@ -384,7 +384,7 @@ class Trajectory extends PhetioObject {
       newTrajectory.addDataPointFromClone( this.dataPoints.get( i ) );
     }
 
-    // set the datapoint that indicates the location of the projectile object
+    // set the datapoint that indicates the position of the projectile object
     projectileObject.dataPointProperty.set( newTrajectory.dataPoints.get( projectileObject.index ) );
 
     // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one

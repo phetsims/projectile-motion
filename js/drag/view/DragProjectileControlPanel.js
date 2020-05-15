@@ -137,7 +137,7 @@ function DragProjectileControlPanel( selectedObjectTypeProperty,
         arrowButtonSpacing: 10
       } ),
       tandem: options.tandem.createTandem( 'altitudeNumberControl' ),
-      phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
+      phetioDocumentation: 'UI control to adjust the altitude of position where the projectile is being launched'
     } )
   );
 

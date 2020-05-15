@@ -351,7 +351,7 @@ inherit( Panel, LabProjectileControlPanel, {
             constrainValue: value => Utils.roundSymmetric( value / 100 ) * 100
           },
           tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' ),
-          phetioDocumentation: 'UI control to adjust the altitude of location where the projectile is being launched'
+          phetioDocumentation: 'UI control to adjust the altitude of position where the projectile is being launched'
         }, defaultNumberControlOptions )
       );
       this.altitudeNumberControl = altitudeNumberControl;

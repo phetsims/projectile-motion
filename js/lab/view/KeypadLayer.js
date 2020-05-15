@@ -177,10 +177,10 @@ inherit( Plane, KeypadLayer, {
 
   /**
    * Positions keypad
-   * @param {function:KeypadPanel} setKeypadLocation - function that lays out keypad, no return
+   * @param {function:KeypadPanel} setKeypadPosition - function that lays out keypad, no return
    */
-  positionKeypad: function( setKeypadLocation ) {
-    this.keypadPanel && setKeypadLocation( this.keypadPanel );
+  positionKeypad: function( setKeypadPosition ) {
+    this.keypadPanel && setKeypadPosition( this.keypadPanel );
   },
 
   /**

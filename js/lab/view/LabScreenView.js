@@ -85,7 +85,7 @@ inherit( ProjectileMotionScreenView, LabScreenView, {
   layout: function( width, height ) {
     this.labProjectilePanel.hideComboBoxList();
     ProjectileMotionScreenView.prototype.layout.call( this, width, height );
-    this.keypadLayer.positionKeypad( this.setKeypadLocation.bind( this ) );
+    this.keypadLayer.positionKeypad( this.setKeypadPosition.bind( this ) );
   },
 
   /**
@@ -94,7 +94,7 @@ inherit( ProjectileMotionScreenView, LabScreenView, {
    *
    * @param {KeypadPanel} keypad
    */
-  setKeypadLocation: function( keypadPanel ) {
+  setKeypadPosition: function(keypadPanel ) {
     keypadPanel.right = this.topRightPanel.left - X_MARGIN;
     keypadPanel.top = this.bottomRightPanel.top;
   }

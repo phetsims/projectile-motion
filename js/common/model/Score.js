@@ -2,7 +2,7 @@
 
 /**
  * The model for scoring algorithm.
- * Landed projectiles give their x location to this model.
+ * Landed projectiles give their x position to this model.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  */

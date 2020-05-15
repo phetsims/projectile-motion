@@ -226,7 +226,7 @@ function CannonNode( heightProperty, angleProperty, muzzleFlashStepper, transfor
 
   // angle indicator
   const angleIndicator = new Node();
-  angleIndicator.x = viewOrgin.x; // centered at the origin, independent of the cyndlider location
+  angleIndicator.x = viewOrgin.x; // centered at the origin, independent of the cyndlider position
 
   // crosshair view
   const crosshairShape = new Shape()

@@ -213,7 +213,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
   // @public {DataProbe} model for the dataProbe probe
-  this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, tandem.createTandem( 'dataProbe' ) ); // location arbitrary
+  this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, tandem.createTandem( 'dataProbe' ) ); // position arbitrary
 
   // Links in this constructor last for the life time of the sim, so no need to dispose
 
