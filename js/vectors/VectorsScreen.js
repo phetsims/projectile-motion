@@ -8,6 +8,7 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import projectileMotionStrings from '../projectileMotionStrings.js';
 import projectileMotion from '../projectileMotion.js';
@@ -26,7 +27,10 @@ function VectorsScreen( tandem ) {
   const options = {
     name: screenVectorsString,
     backgroundColorProperty: new Property( 'white' ),
-    homeScreenIcon: new VectorsIconNode( 'screen' ),
+    homeScreenIcon: new ScreenIcon( new VectorsIconNode( 'screen' ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     navigationBarIcon: new VectorsIconNode( 'nav' ),
     tandem: tandem
   };

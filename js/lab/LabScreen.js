@@ -8,6 +8,7 @@
 
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
+import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import inherit from '../../../phet-core/js/inherit.js';
 import projectileMotionStrings from '../projectileMotionStrings.js';
 import projectileMotion from '../projectileMotion.js';
@@ -26,7 +27,10 @@ function LabScreen( tandem ) {
   const options = {
     name: screenLabString,
     backgroundColorProperty: new Property( 'white' ),
-    homeScreenIcon: new LabIconNode( 'screen' ),
+    homeScreenIcon: new ScreenIcon( new LabIconNode( 'screen' ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     navigationBarIcon: new LabIconNode( 'nav' ),
     tandem: tandem
   };
