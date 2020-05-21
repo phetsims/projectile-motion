@@ -19,6 +19,7 @@ class DataPointIO extends ObjectIO {
    * @param {DataPoint} dataPoint
    * @returns {Object}
    * @override
+   * @public
    */
   static toStateObject( dataPoint ) {
     validate( dataPoint, this.validator );
@@ -39,6 +40,7 @@ class DataPointIO extends ObjectIO {
    * @param {DataPoint} dataPoint
    * @returns {DataPoint}
    * @override
+   * @public
    */
   static fromStateObject( dataPoint ) {
     return new DataPoint(

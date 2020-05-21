@@ -122,6 +122,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
    * @param {Range} range - range for the valueProperty value
    * @param {Tandem} tandem
    * @returns {VBox}
+   * @private
    */
   createCustomControl( labelString, unitsString, valueProperty, range, tandem ) {
 

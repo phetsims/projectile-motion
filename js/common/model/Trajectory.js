@@ -397,6 +397,7 @@ class Trajectory extends PhetioObject {
   /**
    * Given another DataPoint reference, create a new cloned data point in this Trajectory.
    * @param {DataPoint} dataPoint
+   * @public
    */
   addDataPointFromClone( dataPoint ) {
     this.dataPoints.push( new DataPoint(
@@ -433,6 +434,7 @@ class Trajectory extends PhetioObject {
    * Create a PhetioGroup for the trajectories
    * @param {ProjectileMotionModel} model
    * @param {Tandem} tandem
+   * @public
    */
   static createGroup( model, tandem ) {
     return new PhetioGroup( tandem => {

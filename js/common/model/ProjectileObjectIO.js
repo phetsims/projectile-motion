@@ -19,6 +19,7 @@ class ProjectileObjectIO extends ObjectIO {
    * @param {ProjectileObject} projectileObject
    * @returns {Object}
    * @override
+   * @public
    */
   static toStateObject( projectileObject ) {
     validate( projectileObject, this.validator );
@@ -36,6 +37,7 @@ class ProjectileObjectIO extends ObjectIO {
    * @param {Object} stateObject
    * @returns {Object}
    * @override
+   * @public
    */
   static fromStateObject( stateObject ) {
     return new ProjectileObject(

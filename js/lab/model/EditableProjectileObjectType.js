@@ -61,6 +61,7 @@ class EditableProjectileObjectType extends ProjectileObjectType {
    * @param {ProjectileObjectType} projectileObjectType
    * @param {Tandem} tandem
    * @returns {EditableProjectileObjectType}
+   * @public
    */
   static fromProjectileObjectType( projectileObjectType, tandem ) {
     return new EditableProjectileObjectType(

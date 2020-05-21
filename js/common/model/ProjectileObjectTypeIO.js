@@ -38,6 +38,7 @@ class ProjectileObjectTypeIO extends ObjectIO {
    * @param {ProjectileObjectType} projectileObjectType
    * @returns {Object}
    * @override
+   * @public
    */
   static toStateObject( projectileObjectType ) {
     validate( projectileObjectType, this.validator );
@@ -52,6 +53,7 @@ class ProjectileObjectTypeIO extends ObjectIO {
    * @param {Object} stateObject
    * @returns {Object}
    * @override
+   * @public
    */
   static fromStateObject( stateObject ) {
     const fromStateObject = {};
@@ -63,10 +65,16 @@ class ProjectileObjectTypeIO extends ObjectIO {
   }
 
 
-  static setValue( phetioObjectType, fromStateObject ) {
+  /**
+   *
+   * @param {ProjectileObjectType} projectileObjectType
+   * @param fromStateObject
+   * @public
+   */
+  static setValue( projectileObjectType, fromStateObject ) {
     _.keys( fromStateObject ).map( fieldName => {
-      assert && assert( phetioObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      phetioObjectType[ fieldName ] = fromStateObject[ fieldName ];
+      assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
+      projectileObjectType[ fieldName ] = fromStateObject[ fieldName ];
     } );
   }
 }

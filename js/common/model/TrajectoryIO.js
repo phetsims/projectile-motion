@@ -34,6 +34,7 @@ class TrajectoryIO extends ObjectIO {
    * @param {Trajectory} trajectory
    * @returns {Object}
    * @override
+   * @public
    */
   static toStateObject( trajectory ) {
     validate( trajectory, this.validator );
@@ -48,6 +49,7 @@ class TrajectoryIO extends ObjectIO {
    * @param {Object} stateObject
    * @returns {Object}
    * @override
+   * @public
    */
   static fromStateObject( stateObject ) {
     const fromStateObject = {};
@@ -62,6 +64,7 @@ class TrajectoryIO extends ObjectIO {
    * @param {Trajectory} trajectory
    * @param {Object} fromStateObject
    * @override
+   * @public
    */
   static setValue( trajectory, fromStateObject ) {
     _.keys( fromStateObject ).map( fieldName => {
