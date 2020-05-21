@@ -218,9 +218,21 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   // Links in this constructor last for the life time of the sim, so no need to dispose
 
   // if any of the global Properties change, update the status of moving projectiles
-  this.airDensityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
-  this.gravityProperty.link( this.updateTrajectoriesWithMovingProjectiles.bind( this ) );
-  this.selectedProjectileObjectTypeProperty.link( this.setProjectileParameters.bind( this ) );
+  this.airDensityProperty.link( () => {
+    if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      this.updateTrajectoriesWithMovingProjectiles();
+    }
+  } );
+  this.gravityProperty.link( () => {
+    if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      this.updateTrajectoriesWithMovingProjectiles();
+    }
+  } );
+  this.selectedProjectileObjectTypeProperty.link( selectedProjectileObjectType => {
+    if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      this.setProjectileParameters( selectedProjectileObjectType );
+    }
+  } );
 }
 
 projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
