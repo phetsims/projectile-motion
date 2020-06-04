@@ -7,6 +7,7 @@
  */
 
 import inherit from '../../../../phet-core/js/inherit.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -62,7 +63,7 @@ function LabModel( tandem ) {
 
   // Once the state is set, set again values determined by the object type, as they may be out of sync from view
   // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
-  if ( _.hasIn( window, 'phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter' ) ) {
+  if ( Tandem.PHET_IO_ENABLED ) {
     phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( () => this.resetModelValuesToInitial() );
   }
 }
