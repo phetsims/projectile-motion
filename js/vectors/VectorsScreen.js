@@ -31,7 +31,10 @@ function VectorsScreen( tandem ) {
       maxIconWidthProportion: 1,
       maxIconHeightProportion: 1
     } ),
-    navigationBarIcon: new VectorsIconNode( 'nav' ),
+    navigationBarIcon: new ScreenIcon( new VectorsIconNode( 'nav' ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     tandem: tandem
   };
 

@@ -31,7 +31,10 @@ function IntroScreen( tandem ) {
       maxIconWidthProportion: 1,
       maxIconHeightProportion: 1
     } ),
-    navigationBarIcon: new IntroIconNode( 'nav' ),
+    navigationBarIcon: new ScreenIcon( new IntroIconNode( 'nav' ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     tandem: tandem
   };
 

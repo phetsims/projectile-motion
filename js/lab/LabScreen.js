@@ -31,7 +31,10 @@ function LabScreen( tandem ) {
       maxIconWidthProportion: 1,
       maxIconHeightProportion: 1
     } ),
-    navigationBarIcon: new LabIconNode( 'nav' ),
+    navigationBarIcon: new ScreenIcon( new LabIconNode( 'nav' ), {
+      maxIconWidthProportion: 1,
+      maxIconHeightProportion: 1
+    } ),
     tandem: tandem
   };
 
