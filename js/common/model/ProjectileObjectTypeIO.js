@@ -17,7 +17,7 @@ import projectileMotion from '../../projectileMotion.js';
 
 // constants
 // Name the types needed to serialize each field on the ProjectileObjectType so that it can be used in
-// toStateObject, fromStateObject, and setValue.
+// toStateObject, fromStateObject, and applyState.
 const ioTypeSchema = {
   name: { phetioType: NullableIO( StringIO ) },
   mass: { phetioType: NumberIO },
@@ -71,7 +71,7 @@ class ProjectileObjectTypeIO extends ObjectIO {
    * @param fromStateObject
    * @public
    */
-  static setValue( projectileObjectType, fromStateObject ) {
+  static applyState( projectileObjectType, fromStateObject ) {
     _.keys( fromStateObject ).map( fieldName => {
       assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       projectileObjectType[ fieldName ] = fromStateObject[ fieldName ];

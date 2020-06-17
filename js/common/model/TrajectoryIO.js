@@ -18,7 +18,7 @@ const NullOrDataPointIO = NullableIO( DataPointIO );
 
 // constants
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
-// toStateObject, fromStateObject, and setValue.
+// toStateObject, fromStateObject, and applyState.
 const ioTypeSchema = {
   mass: { phetioType: NumberIO },
   diameter: { phetioType: NumberIO },
@@ -66,7 +66,7 @@ class TrajectoryIO extends ObjectIO {
    * @override
    * @public
    */
-  static setValue( trajectory, fromStateObject ) {
+  static applyState( trajectory, fromStateObject ) {
     _.keys( fromStateObject ).map( fieldName => {
       assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       trajectory[ fieldName ] = fromStateObject[ fieldName ];

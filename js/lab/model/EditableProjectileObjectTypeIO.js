@@ -17,8 +17,8 @@ class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
    * @param {ProjectileObjectType} phetioObjectType
    * @param {Object} fromStateObject
    */
-  static setValue( phetioObjectType, fromStateObject ) {
-    ProjectileObjectTypeIO.setValue( phetioObjectType, fromStateObject );
+  static applyState( phetioObjectType, fromStateObject ) {
+    ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
     phetioObjectType.initialMass = fromStateObject.mass;
     phetioObjectType.initialDiameter = fromStateObject.diameter;
     phetioObjectType.initialDragCoefficient = fromStateObject.dragCoefficient;
