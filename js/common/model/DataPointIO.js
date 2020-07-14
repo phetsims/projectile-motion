@@ -37,22 +37,22 @@ class DataPointIO extends ObjectIO {
   }
 
   /**
-   * @param {DataPoint} dataPoint
+   * @param {DataPoint} stateObject
    * @returns {DataPoint}
    * @override
    * @public
    */
-  static fromStateObject( dataPoint ) {
+  static fromStateObject( stateObject ) {
     return new DataPoint(
-      NumberIO.fromStateObject( dataPoint.time ),
-      Vector2IO.fromStateObject( dataPoint.position ),
-      NumberIO.fromStateObject( dataPoint.airDensity ),
-      Vector2IO.fromStateObject( dataPoint.velocity ),
-      Vector2IO.fromStateObject( dataPoint.acceleration ),
-      Vector2IO.fromStateObject( dataPoint.dragForce ),
-      NumberIO.fromStateObject( dataPoint.forceGravity ), {
-        apex: dataPoint.apex,
-        reachedGround: dataPoint.reachedGround
+      NumberIO.fromStateObject( stateObject.time ),
+      Vector2IO.fromStateObject( stateObject.position ),
+      NumberIO.fromStateObject( stateObject.airDensity ),
+      Vector2IO.fromStateObject( stateObject.velocity ),
+      Vector2IO.fromStateObject( stateObject.acceleration ),
+      Vector2IO.fromStateObject( stateObject.dragForce ),
+      NumberIO.fromStateObject( stateObject.forceGravity ), {
+        apex: stateObject.apex,
+        reachedGround: stateObject.reachedGround
       }
     );
   }
