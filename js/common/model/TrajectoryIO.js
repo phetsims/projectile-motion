@@ -46,30 +46,16 @@ class TrajectoryIO extends ObjectIO {
   }
 
   /**
+   * @param {Trajectory} trajectory
    * @param {Object} stateObject
-   * @returns {Object}
    * @override
    * @public
    */
-  static fromStateObject( stateObject ) {
-    const fromStateObject = {};
+  static applyState( trajectory, stateObject ) {
     _.keys( stateObject ).map( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      fromStateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
-    } );
-    return fromStateObject;
-  }
-
-  /**
-   * @param {Trajectory} trajectory
-   * @param {Object} fromStateObject
-   * @override
-   * @public
-   */
-  static applyState( trajectory, fromStateObject ) {
-    _.keys( fromStateObject ).map( fieldName => {
       assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      trajectory[ fieldName ] = fromStateObject[ fieldName ];
+      trajectory[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
     } );
   }
 }

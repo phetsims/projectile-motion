@@ -50,31 +50,16 @@ class ProjectileObjectTypeIO extends ObjectIO {
   }
 
   /**
+   * @param {ProjectileObjectType} projectileObjectType
    * @param {Object} stateObject
-   * @returns {Object}
-   * @override
    * @public
+   * @override
    */
-  static fromStateObject( stateObject ) {
-    const fromStateObject = {};
+  static applyState( projectileObjectType, stateObject ) {
     _.keys( stateObject ).map( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      fromStateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
-    } );
-    return fromStateObject;
-  }
-
-
-  /**
-   *
-   * @param {ProjectileObjectType} projectileObjectType
-   * @param fromStateObject
-   * @public
-   */
-  static applyState( projectileObjectType, fromStateObject ) {
-    _.keys( fromStateObject ).map( fieldName => {
       assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      projectileObjectType[ fieldName ] = fromStateObject[ fieldName ];
+      projectileObjectType[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
     } );
   }
 }

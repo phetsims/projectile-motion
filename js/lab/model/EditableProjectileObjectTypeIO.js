@@ -16,12 +16,15 @@ class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
    * @public
    * @param {ProjectileObjectType} phetioObjectType
    * @param {Object} fromStateObject
+   * @override
    */
   static applyState( phetioObjectType, fromStateObject ) {
     ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
-    phetioObjectType.initialMass = fromStateObject.mass;
-    phetioObjectType.initialDiameter = fromStateObject.diameter;
-    phetioObjectType.initialDragCoefficient = fromStateObject.dragCoefficient;
+
+    // These were just set on the phetioObjectType in the supertype applyState
+    phetioObjectType.initialMass = phetioObjectType.mass;
+    phetioObjectType.initialDiameter = phetioObjectType.diameter;
+    phetioObjectType.initialDragCoefficient = phetioObjectType.dragCoefficient;
   }
 }
 
