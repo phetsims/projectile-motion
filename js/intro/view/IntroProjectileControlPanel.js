@@ -22,8 +22,8 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 
 const diameterString = projectileMotionStrings.diameter;
 const kgString = projectileMotionStrings.kg;
@@ -94,7 +94,7 @@ function IntroProjectileControlPanel( objectTypes,
 
     comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
       projectileType, {
-        tandemName: projectileType.benchmark
+        tandemName: projectileType.benchmark + 'Item'
       } );
   }
 
