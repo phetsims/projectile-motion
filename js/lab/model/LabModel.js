@@ -63,9 +63,9 @@ function LabModel( tandem ) {
 
   // Once the state is set, set again values determined by the object type, as they may be out of sync from view
   // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
-  if ( Tandem.PHET_IO_ENABLED ) {
-    phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( () => this.resetModelValuesToInitial() );
-  }
+  Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( ( state, scopeTandem ) => {
+    tandem.hasAncestor( scopeTandem ) && this.resetModelValuesToInitial();
+  } );
 }
 
 projectileMotion.register( 'LabModel', LabModel );
