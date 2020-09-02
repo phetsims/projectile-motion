@@ -1,7 +1,7 @@
 // Copyright 2019-2020, University of Colorado Boulder
 
 /**
- * IO type for DataPoint
+ * IO Type for DataPoint
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */

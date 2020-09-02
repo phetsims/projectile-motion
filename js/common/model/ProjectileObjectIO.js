@@ -1,7 +1,7 @@
 // Copyright 2019-2020, University of Colorado Boulder
 
 /**
- * IO type for ProjectileObject
+ * IO Type for ProjectileObject
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
@@ -26,7 +26,7 @@ class ProjectileObjectIO extends ObjectIO {
     return {
       index: NumberIO.toStateObject( projectileObject.index ),
 
-      // Even though this is a Property, serialize it via this IO type so that ProjectileObject uses data type instead
+      // Even though this is a Property, serialize it via this IO Type so that ProjectileObject uses data type instead
       // of reference type serialization. This works because the list of ProjectileObjects is within a PhetioGroup of
       // dynamic Trajectories, so the Property doesn't need to be instrumented to still keep proper links
       dataPoint: DataPointIO.toStateObject( projectileObject.dataPointProperty.value )

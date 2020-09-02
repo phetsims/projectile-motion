@@ -1,7 +1,7 @@
 // Copyright 2019-2020, University of Colorado Boulder
 
 /**
- * IO type for Trajectory
+ * IO Type for Trajectory
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */

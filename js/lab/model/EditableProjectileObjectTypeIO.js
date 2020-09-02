@@ -1,7 +1,7 @@
 // Copyright 2019-2020, University of Colorado Boulder
 
 /**
- * IO type for ProjectileObjectType
+ * IO Type for ProjectileObjectType
  *
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
