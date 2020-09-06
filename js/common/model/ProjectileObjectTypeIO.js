@@ -67,7 +67,7 @@ class ProjectileObjectTypeIO extends ObjectIO {
 ProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
 ProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
 ProjectileObjectTypeIO.typeName = 'ProjectileObjectTypeIO';
-ObjectIO.validateSubtype( ProjectileObjectTypeIO );
+ObjectIO.validateIOType( ProjectileObjectTypeIO );
 
 projectileMotion.register( 'ProjectileObjectTypeIO', ProjectileObjectTypeIO );
 export default ProjectileObjectTypeIO;

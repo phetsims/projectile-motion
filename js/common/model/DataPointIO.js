@@ -70,7 +70,7 @@ DataPointIO.documentation = 'A single data point on a projectile\'s trajectory, 
                             '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>';
 DataPointIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.DataPoint };
 DataPointIO.typeName = 'DataPointIO';
-ObjectIO.validateSubtype( DataPointIO );
+ObjectIO.validateIOType( DataPointIO );
 
 projectileMotion.register( 'DataPointIO', DataPointIO );
 export default DataPointIO;

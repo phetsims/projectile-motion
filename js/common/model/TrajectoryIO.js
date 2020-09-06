@@ -63,7 +63,7 @@ class TrajectoryIO extends ObjectIO {
 TrajectoryIO.documentation = 'A trajectory outlining the projectile\'s path';
 TrajectoryIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.Trajectory };
 TrajectoryIO.typeName = 'TrajectoryIO';
-ObjectIO.validateSubtype( TrajectoryIO );
+ObjectIO.validateIOType( TrajectoryIO );
 
 projectileMotion.register( 'TrajectoryIO', TrajectoryIO );
 export default TrajectoryIO;

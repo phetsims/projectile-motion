@@ -31,7 +31,7 @@ class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
 EditableProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
 EditableProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
 EditableProjectileObjectTypeIO.typeName = 'EditableProjectileObjectTypeIO';
-ObjectIO.validateSubtype( EditableProjectileObjectTypeIO );
+ObjectIO.validateIOType( EditableProjectileObjectTypeIO );
 
 projectileMotion.register( 'EditableProjectileObjectTypeIO', EditableProjectileObjectTypeIO );
 export default EditableProjectileObjectTypeIO;

@@ -50,7 +50,7 @@ class ProjectileObjectIO extends ObjectIO {
 ProjectileObjectIO.documentation = 'A data type for a projectile object travelling on a projectile\'s trajectory';
 ProjectileObjectIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObject };
 ProjectileObjectIO.typeName = 'ProjectileObjectIO';
-ObjectIO.validateSubtype( ProjectileObjectIO );
+ObjectIO.validateIOType( ProjectileObjectIO );
 
 projectileMotion.register( 'ProjectileObjectIO', ProjectileObjectIO );
 export default ProjectileObjectIO;
