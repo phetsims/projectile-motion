@@ -6,11 +6,14 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import ProjectileObjectTypeIO from '../../common/model/ProjectileObjectTypeIO.js';
 import projectileMotion from '../../projectileMotion.js';
 
-class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
+const EditableProjectileObjectTypeIO = new IOType( 'EditableProjectileObjectTypeIO', {
+  isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType,
+  documentation: 'A data type that stores the variables for a given object type.',
+  supertype: ProjectileObjectTypeIO,
 
   /**
    * @public
@@ -18,7 +21,7 @@ class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
    * @param {Object} fromStateObject
    * @override
    */
-  static applyState( phetioObjectType, fromStateObject ) {
+  applyState( phetioObjectType, fromStateObject ) {
     ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
 
     // These were just set on the phetioObjectType in the supertype applyState
@@ -26,12 +29,7 @@ class EditableProjectileObjectTypeIO extends ProjectileObjectTypeIO {
     phetioObjectType.initialDiameter = phetioObjectType.diameter;
     phetioObjectType.initialDragCoefficient = phetioObjectType.dragCoefficient;
   }
-}
-
-EditableProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
-EditableProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
-EditableProjectileObjectTypeIO.typeName = 'EditableProjectileObjectTypeIO';
-ObjectIO.validateIOType( EditableProjectileObjectTypeIO );
+} );
 
 projectileMotion.register( 'EditableProjectileObjectTypeIO', EditableProjectileObjectTypeIO );
 export default EditableProjectileObjectTypeIO;

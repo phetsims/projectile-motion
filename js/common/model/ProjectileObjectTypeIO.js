@@ -6,12 +6,11 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import validate from '../../../../axon/js/validate.js';
 import RangeIO from '../../../../dot/js/RangeIO.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import projectileMotion from '../../projectileMotion.js';
 
@@ -32,7 +31,9 @@ const ioTypeSchema = {
   dragCoefficientRange: { phetioType: RangeIO }
 };
 
-class ProjectileObjectTypeIO extends ObjectIO {
+const ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
+  isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType,
+  documentation: 'A data type that stores the variables for a given object type.',
 
   /**
    * @param {ProjectileObjectType} projectileObjectType
@@ -40,14 +41,13 @@ class ProjectileObjectTypeIO extends ObjectIO {
    * @override
    * @public
    */
-  static toStateObject( projectileObjectType ) {
-    validate( projectileObjectType, this.validator );
+  toStateObject( projectileObjectType ) {
     const stateObject = {};
     _.keys( ioTypeSchema ).map( fieldName => {
       stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( projectileObjectType[ fieldName ] );
     } );
     return stateObject;
-  }
+  },
 
   /**
    * @param {ProjectileObjectType} projectileObjectType
@@ -55,19 +55,14 @@ class ProjectileObjectTypeIO extends ObjectIO {
    * @public
    * @override
    */
-  static applyState( projectileObjectType, stateObject ) {
+  applyState( projectileObjectType, stateObject ) {
     _.keys( stateObject ).map( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       projectileObjectType[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
     } );
   }
-}
-
-ProjectileObjectTypeIO.documentation = 'A data type that stores the variables for a given object type.';
-ProjectileObjectTypeIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType };
-ProjectileObjectTypeIO.typeName = 'ProjectileObjectTypeIO';
-ObjectIO.validateIOType( ProjectileObjectTypeIO );
+} );
 
 projectileMotion.register( 'ProjectileObjectTypeIO', ProjectileObjectTypeIO );
 export default ProjectileObjectTypeIO;

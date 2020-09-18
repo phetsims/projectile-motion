@@ -6,14 +6,24 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import validate from '../../../../axon/js/validate.js';
 import Vector2IO from '../../../../dot/js/Vector2IO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataPoint from './DataPoint.js';
 
-class DataPointIO extends ObjectIO {
+const DataPointIO = new IOType( 'DataPointIO', {
+  isValidValue: v => v instanceof phet.projectileMotion.DataPoint,
+  documentation: 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
+                 '<li>time (seconds): The time of the data point</li>' +
+                 '<li>position (meters): the position of the point in model coordinates</li>' +
+                 '<li>airDensity (kg/cu m): the air density when the point was collected</li>' +
+                 '<li>velocity (m/s): the velocity of the projectile at the time when the point was collected</li>' +
+                 '<li>acceleration (m/s^2): the acceleration of the projectile at the time when the point was collected</li>' +
+                 '<li>dragForce (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
+                 '<li>forceGravity (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
+                 '<li>apex (boolean): if this data point was at the apex of a trajectory</li>' +
+                 '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>',
 
   /**
    * @param {DataPoint} dataPoint
@@ -21,8 +31,7 @@ class DataPointIO extends ObjectIO {
    * @override
    * @public
    */
-  static toStateObject( dataPoint ) {
-    validate( dataPoint, this.validator );
+  toStateObject( dataPoint ) {
     return {
       time: NumberIO.toStateObject( dataPoint.time ),
       position: Vector2IO.toStateObject( dataPoint.position ),
@@ -34,7 +43,7 @@ class DataPointIO extends ObjectIO {
       apex: dataPoint.apex,
       reachedGround: dataPoint.reachedGround
     };
-  }
+  },
 
   /**
    * @param {DataPoint} stateObject
@@ -42,7 +51,7 @@ class DataPointIO extends ObjectIO {
    * @override
    * @public
    */
-  static fromStateObject( stateObject ) {
+  fromStateObject( stateObject ) {
     return new DataPoint(
       NumberIO.fromStateObject( stateObject.time ),
       Vector2IO.fromStateObject( stateObject.position ),
@@ -56,21 +65,7 @@ class DataPointIO extends ObjectIO {
       }
     );
   }
-}
-
-DataPointIO.documentation = 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
-                            '<li>time (seconds): The time of the data point</li>' +
-                            '<li>position (meters): the position of the point in model coordinates</li>' +
-                            '<li>airDensity (kg/cu m): the air density when the point was collected</li>' +
-                            '<li>velocity (m/s): the velocity of the projectile at the time when the point was collected</li>' +
-                            '<li>acceleration (m/s^2): the acceleration of the projectile at the time when the point was collected</li>' +
-                            '<li>dragForce (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
-                            '<li>forceGravity (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
-                            '<li>apex (boolean): if this data point was at the apex of a trajectory</li>' +
-                            '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>';
-DataPointIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.DataPoint };
-DataPointIO.typeName = 'DataPointIO';
-ObjectIO.validateIOType( DataPointIO );
+} );
 
 projectileMotion.register( 'DataPointIO', DataPointIO );
 export default DataPointIO;

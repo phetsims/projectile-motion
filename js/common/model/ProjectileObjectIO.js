@@ -6,14 +6,15 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import validate from '../../../../axon/js/validate.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import ObjectIO from '../../../../tandem/js/types/ObjectIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataPointIO from './DataPointIO.js';
 import ProjectileObject from './ProjectileObject.js';
 
-class ProjectileObjectIO extends ObjectIO {
+const ProjectileObjectIO = new IOType( 'ProjectileObjectIO', {
+  isValidValue: v => v instanceof phet.projectileMotion.ProjectileObject,
+  documentation: 'A data type for a projectile object travelling on a projectile\'s trajectory',
 
   /**
    * @param {ProjectileObject} projectileObject
@@ -21,8 +22,7 @@ class ProjectileObjectIO extends ObjectIO {
    * @override
    * @public
    */
-  static toStateObject( projectileObject ) {
-    validate( projectileObject, this.validator );
+  toStateObject( projectileObject ) {
     return {
       index: NumberIO.toStateObject( projectileObject.index ),
 
@@ -31,7 +31,7 @@ class ProjectileObjectIO extends ObjectIO {
       // dynamic Trajectories, so the Property doesn't need to be instrumented to still keep proper links
       dataPoint: DataPointIO.toStateObject( projectileObject.dataPointProperty.value )
     };
-  }
+  },
 
   /**
    * @param {Object} stateObject
@@ -39,18 +39,13 @@ class ProjectileObjectIO extends ObjectIO {
    * @override
    * @public
    */
-  static fromStateObject( stateObject ) {
+  fromStateObject( stateObject ) {
     return new ProjectileObject(
       NumberIO.fromStateObject( stateObject.index ),
       DataPointIO.fromStateObject( stateObject.dataPoint )
     );
   }
-}
-
-ProjectileObjectIO.documentation = 'A data type for a projectile object travelling on a projectile\'s trajectory';
-ProjectileObjectIO.validator = { isValidValue: v => v instanceof phet.projectileMotion.ProjectileObject };
-ProjectileObjectIO.typeName = 'ProjectileObjectIO';
-ObjectIO.validateIOType( ProjectileObjectIO );
+} );
 
 projectileMotion.register( 'ProjectileObjectIO', ProjectileObjectIO );
 export default ProjectileObjectIO;
