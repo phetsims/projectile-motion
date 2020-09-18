@@ -34,28 +34,14 @@ const ioTypeSchema = {
 const ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
   isValidValue: v => v instanceof phet.projectileMotion.ProjectileObjectType,
   documentation: 'A data type that stores the variables for a given object type.',
-
-  /**
-   * @param {ProjectileObjectType} projectileObjectType
-   * @returns {Object}
-   * @override
-   * @public
-   */
-  toStateObject( projectileObjectType ) {
+  toStateObject: projectileObjectType => {
     const stateObject = {};
     _.keys( ioTypeSchema ).map( fieldName => {
       stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( projectileObjectType[ fieldName ] );
     } );
     return stateObject;
   },
-
-  /**
-   * @param {ProjectileObjectType} projectileObjectType
-   * @param {Object} stateObject
-   * @public
-   * @override
-   */
-  applyState( projectileObjectType, stateObject ) {
+  applyState: ( projectileObjectType, stateObject ) => {
     _.keys( stateObject ).map( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );

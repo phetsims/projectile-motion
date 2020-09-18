@@ -29,28 +29,14 @@ const ioTypeSchema = {
 const TrajectoryIO = new IOType( 'TrajectoryIO', {
   isValidValue: v => v instanceof phet.projectileMotion.Trajectory,
   documentation: 'A trajectory outlining the projectile\'s path',
-
-  /**
-   * @param {Trajectory} trajectory
-   * @returns {Object}
-   * @override
-   * @public
-   */
-  toStateObject( trajectory ) {
+  toStateObject: trajectory => {
     const stateObject = {};
     _.keys( ioTypeSchema ).map( fieldName => {
       stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( trajectory[ fieldName ] );
     } );
     return stateObject;
   },
-
-  /**
-   * @param {Trajectory} trajectory
-   * @param {Object} stateObject
-   * @override
-   * @public
-   */
-  applyState( trajectory, stateObject ) {
+  applyState: ( trajectory, stateObject ) => {
     _.keys( stateObject ).map( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );

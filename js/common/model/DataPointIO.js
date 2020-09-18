@@ -25,25 +25,17 @@ const DataPointIO = new IOType( 'DataPointIO', {
                  '<li>apex (boolean): if this data point was at the apex of a trajectory</li>' +
                  '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>',
 
-  /**
-   * @param {DataPoint} dataPoint
-   * @returns {Object}
-   * @override
-   * @public
-   */
-  toStateObject( dataPoint ) {
-    return {
-      time: NumberIO.toStateObject( dataPoint.time ),
-      position: Vector2IO.toStateObject( dataPoint.position ),
-      airDensity: NumberIO.toStateObject( dataPoint.airDensity ),
-      velocity: Vector2IO.toStateObject( dataPoint.velocity ),
-      acceleration: Vector2IO.toStateObject( dataPoint.acceleration ),
-      dragForce: Vector2IO.toStateObject( dataPoint.dragForce ),
-      forceGravity: NumberIO.toStateObject( dataPoint.forceGravity ),
-      apex: dataPoint.apex,
-      reachedGround: dataPoint.reachedGround
-    };
-  },
+  toStateObject: dataPoint => ( {
+    time: NumberIO.toStateObject( dataPoint.time ),
+    position: Vector2IO.toStateObject( dataPoint.position ),
+    airDensity: NumberIO.toStateObject( dataPoint.airDensity ),
+    velocity: Vector2IO.toStateObject( dataPoint.velocity ),
+    acceleration: Vector2IO.toStateObject( dataPoint.acceleration ),
+    dragForce: Vector2IO.toStateObject( dataPoint.dragForce ),
+    forceGravity: NumberIO.toStateObject( dataPoint.forceGravity ),
+    apex: dataPoint.apex,
+    reachedGround: dataPoint.reachedGround
+  } ),
 
   /**
    * @param {DataPoint} stateObject

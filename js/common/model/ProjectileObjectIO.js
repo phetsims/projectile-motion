@@ -16,22 +16,14 @@ const ProjectileObjectIO = new IOType( 'ProjectileObjectIO', {
   isValidValue: v => v instanceof phet.projectileMotion.ProjectileObject,
   documentation: 'A data type for a projectile object travelling on a projectile\'s trajectory',
 
-  /**
-   * @param {ProjectileObject} projectileObject
-   * @returns {Object}
-   * @override
-   * @public
-   */
-  toStateObject( projectileObject ) {
-    return {
-      index: NumberIO.toStateObject( projectileObject.index ),
+  toStateObject: projectileObject => ( {
+    index: NumberIO.toStateObject( projectileObject.index ),
 
-      // Even though this is a Property, serialize it via this IO Type so that ProjectileObject uses data type instead
-      // of reference type serialization. This works because the list of ProjectileObjects is within a PhetioGroup of
-      // dynamic Trajectories, so the Property doesn't need to be instrumented to still keep proper links
-      dataPoint: DataPointIO.toStateObject( projectileObject.dataPointProperty.value )
-    };
-  },
+    // Even though this is a Property, serialize it via this IO Type so that ProjectileObject uses data type instead
+    // of reference type serialization. This works because the list of ProjectileObjects is within a PhetioGroup of
+    // dynamic Trajectories, so the Property doesn't need to be instrumented to still keep proper links
+    dataPoint: DataPointIO.toStateObject( projectileObject.dataPointProperty.value )
+  } ),
 
   /**
    * @param {Object} stateObject
