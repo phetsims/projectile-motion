@@ -12,7 +12,6 @@
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import ObservableArray from '../../../../axon/js/ObservableArray.js';
-import ObservableArrayIO from '../../../../axon/js/ObservableArrayIO.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -77,7 +76,7 @@ class Trajectory extends PhetioObject {
 
     // @public (read-only) {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray( {
-      phetioType: ObservableArrayIO( DataPointIO ),
+      phetioType: ObservableArray.ObservableArrayIO( DataPointIO ),
       tandem: options.tandem.createTandem( 'dataPoints' ),
       phetioDocumentation: 'An ordered list of all data points taken on this trajectory. The earliest data point ' +
                            'will be first'
@@ -132,7 +131,7 @@ class Trajectory extends PhetioObject {
     // @public {ObservableArray.<ProjectileObject>}
     this.projectileObjects = new ObservableArray( {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
-      phetioType: ObservableArrayIO( ProjectileObjectIO ),
+      phetioType: ObservableArray.ObservableArrayIO( ProjectileObjectIO ),
       phetioDocumentation: 'A list of the current projectile objects on this trajectory. At most there can only be ' +
                            MAX_NUMBER_OF_FLYING_PROJECTILES + ' projectiles flying on any trajectory at one time.'
     } );
