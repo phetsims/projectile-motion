@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import DerivedPropertyIO from '../../../../axon/js/DerivedPropertyIO.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
@@ -159,7 +158,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
     tandem: tandem.createTandem( 'airDensityProperty' ),
     units: 'kg/m^3',
     phetioDocumentation: 'air density, depends on altitude and whether air resistance is on',
-    phetioType: DerivedPropertyIO( NumberIO )
+    phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
   } );
 
   // --animation controls
@@ -193,7 +192,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   }, {
     tandem: tandem.createTandem( 'fireEnabledProperty' ),
     phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles in the air.`,
-    phetioType: DerivedPropertyIO( BooleanIO )
+    phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
   } );
 
   // @public {Emitter}
