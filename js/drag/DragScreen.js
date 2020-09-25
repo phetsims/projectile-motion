@@ -9,39 +9,36 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import inherit from '../../../phet-core/js/inherit.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
 import projectileMotion from '../projectileMotion.js';
+import projectileMotionStrings from '../projectileMotionStrings.js';
 import DragModel from './model/DragModel.js';
 import DragIconNode from './view/DragIconNode.js';
 import DragScreenView from './view/DragScreenView.js';
 
-const screenDragString = projectileMotionStrings.screen.drag;
+class DragScreen extends Screen {
 
-/**
- * @param {Tandem} tandem
- * @constructor
- */
-function DragScreen( tandem ) {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-  const options = {
-    name: screenDragString,
-    backgroundColorProperty: new Property( 'white' ),
-    homeScreenIcon: new ScreenIcon( new DragIconNode(), {
-      maxIconWidthProportion: 1,
-      maxIconHeightProportion: 1
-    } ),
-    tandem: tandem
-  };
+    const options = {
+      name: projectileMotionStrings.screen.drag,
+      backgroundColorProperty: new Property( 'white' ),
+      homeScreenIcon: new ScreenIcon( new DragIconNode(), {
+        maxIconWidthProportion: 1,
+        maxIconHeightProportion: 1
+      } ),
+      tandem: tandem
+    };
 
-  Screen.call( this,
-    function() { return new DragModel( tandem.createTandem( 'model' ) ); },
-    function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
-    options
-  );
+    super(
+      function() { return new DragModel( tandem.createTandem( 'model' ) ); },
+      function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
+      options
+    );
+  }
 }
 
 projectileMotion.register( 'DragScreen', DragScreen );
-
-inherit( Screen, DragScreen );
 export default DragScreen;
