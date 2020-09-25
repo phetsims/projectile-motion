@@ -165,6 +165,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
 
   // @public {Property.<boolean>}
   this.timeSpeedProperty = new EnumerationProperty( TimeSpeed, TimeSpeed.NORMAL, {
+    validValues: [ TimeSpeed.NORMAL, TimeSpeed.SLOW ],
     tandem: tandem.createTandem( 'timeSpeedProperty' ),
     phetioDocumentation: 'Speed of animation, either normal or slow.'
   } );
