@@ -6,7 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Vector2IO from '../../../../dot/js/Vector2IO.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -27,11 +27,11 @@ const DataPointIO = new IOType( 'DataPointIO', {
 
   toStateObject: dataPoint => ( {
     time: NumberIO.toStateObject( dataPoint.time ),
-    position: Vector2IO.toStateObject( dataPoint.position ),
+    position: Vector2.Vector2IO.toStateObject( dataPoint.position ),
     airDensity: NumberIO.toStateObject( dataPoint.airDensity ),
-    velocity: Vector2IO.toStateObject( dataPoint.velocity ),
-    acceleration: Vector2IO.toStateObject( dataPoint.acceleration ),
-    dragForce: Vector2IO.toStateObject( dataPoint.dragForce ),
+    velocity: Vector2.Vector2IO.toStateObject( dataPoint.velocity ),
+    acceleration: Vector2.Vector2IO.toStateObject( dataPoint.acceleration ),
+    dragForce: Vector2.Vector2IO.toStateObject( dataPoint.dragForce ),
     forceGravity: NumberIO.toStateObject( dataPoint.forceGravity ),
     apex: dataPoint.apex,
     reachedGround: dataPoint.reachedGround
@@ -46,11 +46,11 @@ const DataPointIO = new IOType( 'DataPointIO', {
   fromStateObject( stateObject ) {
     return new DataPoint(
       NumberIO.fromStateObject( stateObject.time ),
-      Vector2IO.fromStateObject( stateObject.position ),
+      Vector2.Vector2IO.fromStateObject( stateObject.position ),
       NumberIO.fromStateObject( stateObject.airDensity ),
-      Vector2IO.fromStateObject( stateObject.velocity ),
-      Vector2IO.fromStateObject( stateObject.acceleration ),
-      Vector2IO.fromStateObject( stateObject.dragForce ),
+      Vector2.Vector2IO.fromStateObject( stateObject.velocity ),
+      Vector2.Vector2IO.fromStateObject( stateObject.acceleration ),
+      Vector2.Vector2IO.fromStateObject( stateObject.dragForce ),
       NumberIO.fromStateObject( stateObject.forceGravity ), {
         apex: stateObject.apex,
         reachedGround: stateObject.reachedGround
