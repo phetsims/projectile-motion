@@ -6,7 +6,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import RangeIO from '../../../../dot/js/RangeIO.js';
+import Range from '../../../../dot/js/Range.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
@@ -24,11 +24,11 @@ const ioTypeSchema = {
   dragCoefficient: { phetioType: NumberIO },
   benchmark: { phetioType: NullableIO( StringIO ) },
   rotates: { phetioType: BooleanIO },
-  massRange: { phetioType: RangeIO },
+  massRange: { phetioType: Range.RangeIO },
   massRound: { phetioType: NumberIO },
-  diameterRange: { phetioType: RangeIO },
+  diameterRange: { phetioType: Range.RangeIO },
   diameterRound: { phetioType: NumberIO },
-  dragCoefficientRange: { phetioType: RangeIO }
+  dragCoefficientRange: { phetioType: Range.RangeIO }
 };
 
 const ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
