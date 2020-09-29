@@ -9,7 +9,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -43,7 +42,7 @@ function DataProbe( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
     tandem: tandem.createTandem( 'dataPointProperty' ),
     phetioDocumentation: 'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
                          'See DataPointIO for more information about the data point value.',
-    phetioType: PropertyIO( NullableIO( DataPointIO ) )
+    phetioType: Property.PropertyIO( NullableIO( DataPointIO ) )
   } );
 
   // @public

@@ -8,7 +8,6 @@
  */
 
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataPointIO from './DataPointIO.js';
 
@@ -27,7 +26,7 @@ class ProjectileObject {
     // should recognize that this data type is destroyed each time PhET-iO state is set for its Trajectory. see notes
     // in ProjectileObjectIO.toStateObject()
     this.dataPointProperty = new Property( currentDataPoint, {
-      phetioType: PropertyIO( DataPointIO )
+      phetioType: Property.PropertyIO( DataPointIO )
     } );
   }
 }

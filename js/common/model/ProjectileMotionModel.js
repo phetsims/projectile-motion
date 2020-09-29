@@ -12,7 +12,6 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import PropertyIO from '../../../../axon/js/PropertyIO.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import EventTimer from '../../../../phet-core/js/EventTimer.js';
 import inherit from '../../../../phet-core/js/inherit.js';
@@ -122,7 +121,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
     tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
     phetioDocumentation: 'The currently selected projectile object type',
-    phetioType: PropertyIO( ReferenceIO( ProjectileObjectTypeIO ) ),
+    phetioType: Property.PropertyIO( ReferenceIO( ProjectileObjectTypeIO ) ),
     validValues: possibleObjectTypes
   } );
 
