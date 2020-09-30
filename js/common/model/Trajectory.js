@@ -22,9 +22,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
-import DataPointIO from './DataPointIO.js';
 import ProjectileObject from './ProjectileObject.js';
-import ProjectileObjectIO from './ProjectileObjectIO.js';
 import TrajectoryIO from './TrajectoryIO.js';
 
 // constants
@@ -76,7 +74,7 @@ class Trajectory extends PhetioObject {
 
     // @public (read-only) {ObservableArray.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = new ObservableArray( {
-      phetioType: ObservableArray.ObservableArrayIO( DataPointIO ),
+      phetioType: ObservableArray.ObservableArrayIO( DataPoint.DataPointIO ),
       tandem: options.tandem.createTandem( 'dataPoints' ),
       phetioDocumentation: 'An ordered list of all data points taken on this trajectory. The earliest data point ' +
                            'will be first'
@@ -131,7 +129,7 @@ class Trajectory extends PhetioObject {
     // @public {ObservableArray.<ProjectileObject>}
     this.projectileObjects = new ObservableArray( {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
-      phetioType: ObservableArray.ObservableArrayIO( ProjectileObjectIO ),
+      phetioType: ObservableArray.ObservableArrayIO( ProjectileObject.ProjectileObjectIO ),
       phetioDocumentation: 'A list of the current projectile objects on this trajectory. At most there can only be ' +
                            MAX_NUMBER_OF_FLYING_PROJECTILES + ' projectiles flying on any trajectory at one time.'
     } );

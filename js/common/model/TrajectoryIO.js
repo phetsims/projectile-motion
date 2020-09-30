@@ -11,9 +11,9 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
-import DataPointIO from './DataPointIO.js';
+import DataPoint from './DataPoint.js';
 
-const NullOrDataPointIO = NullableIO( DataPointIO );
+const NullOrDataPointIO = NullableIO( DataPoint.DataPointIO );
 
 // constants
 // Name the types needed to serialize each field on the Trajectory so that it can be used in

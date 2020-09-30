@@ -16,7 +16,7 @@ import inherit from '../../../../phet-core/js/inherit.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
-import DataPointIO from './DataPointIO.js';
+import DataPoint from './DataPoint.js';
 
 // constants
 const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
@@ -42,7 +42,7 @@ function DataProbe( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
     tandem: tandem.createTandem( 'dataPointProperty' ),
     phetioDocumentation: 'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
                          'See DataPointIO for more information about the data point value.',
-    phetioType: Property.PropertyIO( NullableIO( DataPointIO ) )
+    phetioType: Property.PropertyIO( NullableIO( DataPoint.DataPointIO ) )
   } );
 
   // @public

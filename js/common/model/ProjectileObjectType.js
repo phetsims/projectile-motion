@@ -11,11 +11,15 @@ import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import StringIO from '../../../../tandem/js/types/StringIO.js';
 import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileObjectViewFactory from '../view/ProjectileObjectViewFactory.js';
-import ProjectileObjectTypeIO from './ProjectileObjectTypeIO.js';
 
 const baseballString = projectileMotionStrings.baseball;
 const cannonballString = projectileMotionStrings.cannonball;
@@ -49,7 +53,7 @@ class ProjectileObjectType extends PhetioObject {
     // defaults to those of custom objects for screens that don't have benchmarks
     options = merge( {
       tandem: Tandem.REQUIRED,
-      phetioType: ProjectileObjectTypeIO,
+      phetioType: ProjectileObjectType.ProjectileObjectTypeIO,
 
       massRange: new Range( 1, 10 ),
       massRound: 1,
@@ -88,6 +92,43 @@ class ProjectileObjectType extends PhetioObject {
     this.viewCreationFunction = options.viewCreationFunction;
   }
 }
+
+
+// constants
+// Name the types needed to serialize each field on the ProjectileObjectType so that it can be used in
+// toStateObject, fromStateObject, and applyState.
+const ioTypeSchema = {
+  name: { phetioType: NullableIO( StringIO ) },
+  mass: { phetioType: NumberIO },
+  diameter: { phetioType: NumberIO },
+  dragCoefficient: { phetioType: NumberIO },
+  benchmark: { phetioType: NullableIO( StringIO ) },
+  rotates: { phetioType: BooleanIO },
+  massRange: { phetioType: Range.RangeIO },
+  massRound: { phetioType: NumberIO },
+  diameterRange: { phetioType: Range.RangeIO },
+  diameterRound: { phetioType: NumberIO },
+  dragCoefficientRange: { phetioType: Range.RangeIO }
+};
+
+ProjectileObjectType.ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
+  valueType: ProjectileObjectType,
+  documentation: 'A data type that stores the variables for a given object type.',
+  toStateObject: projectileObjectType => {
+    const stateObject = {};
+    _.keys( ioTypeSchema ).map( fieldName => {
+      stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( projectileObjectType[ fieldName ] );
+    } );
+    return stateObject;
+  },
+  applyState: ( projectileObjectType, stateObject ) => {
+    _.keys( stateObject ).map( fieldName => {
+      assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
+      assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
+      projectileObjectType[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
+    } );
+  }
+} );
 
 projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
 

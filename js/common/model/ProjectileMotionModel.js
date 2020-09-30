@@ -27,7 +27,6 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataProbe from './DataProbe.js';
 import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
-import ProjectileObjectTypeIO from './ProjectileObjectTypeIO.js';
 import Score from './Score.js';
 import Trajectory from './Trajectory.js';
 
@@ -121,7 +120,7 @@ function ProjectileMotionModel( defaultProjectileObjectType, defaultAirResistanc
   this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
     tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
     phetioDocumentation: 'The currently selected projectile object type',
-    phetioType: Property.PropertyIO( ReferenceIO( ProjectileObjectTypeIO ) ),
+    phetioType: Property.PropertyIO( ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ) ),
     validValues: possibleObjectTypes
   } );
 

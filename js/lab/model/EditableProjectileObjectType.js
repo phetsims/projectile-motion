@@ -8,9 +8,9 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
-import EditableProjectileObjectTypeIO from './EditableProjectileObjectTypeIO.js';
 
 class EditableProjectileObjectType extends ProjectileObjectType {
 
@@ -30,7 +30,7 @@ class EditableProjectileObjectType extends ProjectileObjectType {
     // defaults to those of custom objects for screens that don't have benchmarks
     options = merge( {
       tandem: Tandem.REQUIRED,
-      phetioType: EditableProjectileObjectTypeIO
+      phetioType: EditableProjectileObjectType.EditableProjectileObjectTypeIO
     }, options );
 
     super( name, mass, diameter, dragCoefficient, benchmark, rotates, options );
@@ -72,11 +72,26 @@ class EditableProjectileObjectType extends ProjectileObjectType {
       projectileObjectType.benchmark,
       projectileObjectType.rotates,
       merge( projectileObjectType.options, {
-        phetioType: EditableProjectileObjectTypeIO,
+        phetioType: EditableProjectileObjectType.EditableProjectileObjectTypeIO,
         tandem: tandem
       } ) );
   }
 }
+
+EditableProjectileObjectType.EditableProjectileObjectTypeIO = new IOType( 'EditableProjectileObjectTypeIO', {
+  valueType: ProjectileObjectType,
+  documentation: 'A data type that stores the variables for a given object type.',
+  supertype: ProjectileObjectType.ProjectileObjectTypeIO,
+
+  applyState: ( phetioObjectType, fromStateObject ) => {
+    ProjectileObjectType.ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
+
+    // These were just set on the phetioObjectType in the supertype applyState
+    phetioObjectType.initialMass = phetioObjectType.mass;
+    phetioObjectType.initialDiameter = phetioObjectType.diameter;
+    phetioObjectType.initialDragCoefficient = phetioObjectType.dragCoefficient;
+  }
+} );
 
 projectileMotion.register( 'EditableProjectileObjectType', EditableProjectileObjectType );
 
