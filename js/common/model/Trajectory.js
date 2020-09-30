@@ -16,7 +16,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import PhetioGroupIO from '../../../../tandem/js/PhetioGroupIO.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -443,7 +442,7 @@ class Trajectory extends PhetioObject {
       } );
     }, [], {
       tandem: tandem,
-      phetioType: PhetioGroupIO( Trajectory.TrajectoryIO ),
+      phetioType: PhetioGroup.PhetioGroupIO( Trajectory.TrajectoryIO ),
       phetioDocumentation: 'The container for any trajectory that is created when a projectile is fired.'
     } );
   }
