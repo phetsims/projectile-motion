@@ -19,11 +19,14 @@ import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import PhetioGroupIO from '../../../../tandem/js/PhetioGroupIO.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
 import ProjectileObject from './ProjectileObject.js';
-import TrajectoryIO from './TrajectoryIO.js';
 
 // constants
 const MAX_NUMBER_OF_TRAJECTORIES = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
@@ -39,7 +42,7 @@ class Trajectory extends PhetioObject {
     options = merge( {
       tandem: Tandem.REQUIRED,
       phetioDynamicElement: true,
-      phetioType: TrajectoryIO
+      phetioType: Trajectory.TrajectoryIO
     }, options );
 
     super( options );
@@ -440,7 +443,7 @@ class Trajectory extends PhetioObject {
       } );
     }, [], {
       tandem: tandem,
-      phetioType: PhetioGroupIO( TrajectoryIO ),
+      phetioType: PhetioGroupIO( Trajectory.TrajectoryIO ),
       phetioDocumentation: 'The container for any trajectory that is created when a projectile is fired.'
     } );
   }
@@ -454,6 +457,37 @@ class Trajectory extends PhetioObject {
     super.dispose();
   }
 }
+
+const NullOrDataPointIO = NullableIO( DataPoint.DataPointIO );
+
+// Name the types needed to serialize each field on the Trajectory so that it can be used in
+// toStateObject, fromStateObject, and applyState.
+const ioTypeSchema = {
+  mass: { phetioType: NumberIO },
+  diameter: { phetioType: NumberIO },
+  dragCoefficient: { phetioType: NumberIO },
+  changedInMidAir: { phetioType: BooleanIO },
+  reachedGround: { phetioType: BooleanIO },
+  apexPoint: { phetioType: NullOrDataPointIO } // serialize as a data type, no reference type
+};
+Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
+  valueType: Trajectory,
+  documentation: 'A trajectory outlining the projectile\'s path',
+  toStateObject: trajectory => {
+    const stateObject = {};
+    _.keys( ioTypeSchema ).map( fieldName => {
+      stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( trajectory[ fieldName ] );
+    } );
+    return stateObject;
+  },
+  applyState: ( trajectory, stateObject ) => {
+    _.keys( stateObject ).map( fieldName => {
+      assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
+      assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
+      trajectory[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
+    } );
+  }
+} );
 
 projectileMotion.register( 'Trajectory', Trajectory );
 export default Trajectory;
