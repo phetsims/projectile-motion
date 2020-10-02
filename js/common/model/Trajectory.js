@@ -11,7 +11,7 @@
  */
 
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import ObservableArray from '../../../../axon/js/ObservableArray.js';
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -75,8 +75,8 @@ class Trajectory extends PhetioObject {
     this.changedInMidAir = false;
 
     // @public (read-only) {ObservableArray.<DataPoint>} record points along the trajectory with critical information
-    this.dataPoints = new ObservableArray( {
-      phetioType: ObservableArray.ObservableArrayIO( DataPoint.DataPointIO ),
+    this.dataPoints = createObservableArray( {
+      phetioType: createObservableArray.ObservableArrayIO( DataPoint.DataPointIO ),
       tandem: options.tandem.createTandem( 'dataPoints' ),
       phetioDocumentation: 'An ordered list of all data points taken on this trajectory. The earliest data point ' +
                            'will be first'
@@ -129,9 +129,9 @@ class Trajectory extends PhetioObject {
     model.dataProbe && model.dataProbe.updateDataIfWithinRange( initialPoint );
 
     // @public {ObservableArray.<ProjectileObject>}
-    this.projectileObjects = new ObservableArray( {
+    this.projectileObjects = createObservableArray( {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
-      phetioType: ObservableArray.ObservableArrayIO( ProjectileObject.ProjectileObjectIO ),
+      phetioType: createObservableArray.ObservableArrayIO( ProjectileObject.ProjectileObjectIO ),
       phetioDocumentation: 'A list of the current projectile objects on this trajectory. At most there can only be ' +
                            MAX_NUMBER_OF_FLYING_PROJECTILES + ' projectiles flying on any trajectory at one time.'
     } );
