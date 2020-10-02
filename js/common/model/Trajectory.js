@@ -74,7 +74,7 @@ class Trajectory extends PhetioObject {
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
 
-    // @public (read-only) {ObservableArray.<DataPoint>} record points along the trajectory with critical information
+    // @public (read-only) {ObservableArrayDef.<DataPoint>} record points along the trajectory with critical information
     this.dataPoints = createObservableArray( {
       phetioType: createObservableArray.ObservableArrayIO( DataPoint.DataPointIO ),
       tandem: options.tandem.createTandem( 'dataPoints' ),
@@ -128,7 +128,7 @@ class Trajectory extends PhetioObject {
     // It is not gauranteed that the dataProbe exists
     model.dataProbe && model.dataProbe.updateDataIfWithinRange( initialPoint );
 
-    // @public {ObservableArray.<ProjectileObject>}
+    // @public {ObservableArrayDef.<ProjectileObject>}
     this.projectileObjects = createObservableArray( {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
       phetioType: createObservableArray.ObservableArrayIO( ProjectileObject.ProjectileObjectIO ),
