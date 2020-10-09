@@ -8,7 +8,6 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -47,175 +46,178 @@ const READOUT_X_MARGIN = 4;
 const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 const GRAVITY_READOUT_X_MARGIN = 6;
 
-/**
- * @param {Node} comboBoxListParent - node for containing the combo box
- * @param {KeypadLayer} keypadLayer - for entering values
- * @param {LabModel} model
- * @param {Object} [options]
- * @constructor
- */
-function LabProjectileControlPanel( comboBoxListParent, keypadLayer, model, options ) {
+class LabProjectileControlPanel extends Node {
 
-  // convenience variables as much of the logic in this type is in prototype functions only called on construction.
-  // @private
-  this.objectTypes = model.objectTypes;
-  this.objectTypeControls = []; // {Array.<ProjectileObjectTypeControl>} same size as objectTypes, holds a Node that is the controls;
-  this.keypadLayer = keypadLayer;
-  this.model = model; // @private
+  /**
+   * @param {Node} comboBoxListParent - node for containing the combo box
+   * @param {KeypadLayer} keypadLayer - for entering values
+   * @param {LabModel} model
+   * @param {Object} [options]
+   */
+  constructor( comboBoxListParent, keypadLayer, model, options ) {
 
-  // The first object is a placeholder so none of the others get mutated
-  // The second object is the default, in the constants files
-  // The third object is options specific to this panel, which overrides the defaults
-  // The fourth object is options given at time of construction, which overrides all the others
-  options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
-    tandem: Tandem.REQUIRED
-  }, options );
+    super();
 
-  // @private save them for later
-  this.options = options;
+    // convenience variables as much of the logic in this type is in prototype functions only called on construction.
+    // @private
+    this.objectTypes = model.objectTypes;
+    this.objectTypeControls = []; // {Array.<ProjectileObjectTypeControl>} same size as objectTypes, holds a Node that is the controls;
+    this.keypadLayer = keypadLayer;
+    this.model = model; // @private
 
-  // @private - these number controls don't change between all "benchmarked" elements (not custom), so we can reuse them
-  this.gravityNumberControl = null;
-  this.altitudeNumberControl = null;
+    // The first object is a placeholder so none of the others get mutated
+    // The second object is the default, in the constants files
+    // The third object is options specific to this panel, which overrides the defaults
+    // The fourth object is options given at time of construction, which overrides all the others
+    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+      tandem: Tandem.REQUIRED
+    }, options );
 
-  // @private;
-  this.textDisplayWidth = options.textDisplayWidth * 1.4;
+    // @private save them for later
+    this.options = options;
 
-  // maxWidth empirically determined for labels in the dropdown
-  const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
+    // @private - these number controls don't change between all "benchmarked" elements (not custom), so we can reuse them
+    this.gravityNumberControl = null;
+    this.altitudeNumberControl = null;
 
-  const firstItemNode = new VBox( {
-    align: 'left',
-    children: [
-      new Text( this.objectTypes[ 0 ].name, itemNodeOptions )
-    ]
-  } );
+    // @private;
+    this.textDisplayWidth = options.textDisplayWidth * 1.4;
 
-  const comboBoxWidth = options.minWidth - 2 * options.xMargin;
-  const itemXMargin = 6;
-  const buttonXMargin = 10;
-  const comboBoxLineWidth = 1;
+    // maxWidth empirically determined for labels in the dropdown
+    const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
 
-  // first item contains horizontal strut that sets width of combo box
-  const firstItemNodeWidth = comboBoxWidth - itemXMargin -
-                             0.5 * firstItemNode.height -
-                             4 * buttonXMargin -
-                             2 * itemXMargin -
-                             2 * comboBoxLineWidth;
-  firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
-
-  const comboBoxItems = [];
-  for ( let i = 0; i < this.objectTypes.length; i++ ) {
-    const projectileType = this.objectTypes[ i ];
-
-    comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
-      projectileType, {
-        tandemName: projectileType.benchmark + 'Item'
-      } );
-
-    // Create the controls for the projectileType too.
-    this.objectTypeControls.push( this.createControlsForObjectType( projectileType, options.tandem, options.tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
-  }
-
-  // creating the controls for each object type changes these values because of enabledRangeProperty listeners in the
-  // NumberControls. Here reset back to the selectedProjectileObjectType to fix things. See https://github.com/phetsims/projectile-motion/issues/213
-  model.resetModelValuesToInitial();
-
-  // create view for the dropdown
-  const projectileChoiceComboBox = new ComboBox(
-    comboBoxItems,
-    model.selectedProjectileObjectTypeProperty,
-    comboBoxListParent, {
-      xMargin: 12,
-      yMargin: 8,
-      cornerRadius: 4,
-      buttonLineWidth: comboBoxLineWidth,
-      listLineWidth: comboBoxLineWidth,
-      tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
-      phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
+    const firstItemNode = new VBox( {
+      align: 'left',
+      children: [
+        new Text( this.objectTypes[ 0 ].name, itemNodeOptions )
+      ]
     } );
 
-  // @private make visible to methods
-  this.projectileChoiceComboBox = projectileChoiceComboBox;
+    const comboBoxWidth = options.minWidth - 2 * options.xMargin;
+    const itemXMargin = 6;
+    const buttonXMargin = 10;
+    const comboBoxLineWidth = 1;
 
-  // readout, slider, and tweakers
+    // first item contains horizontal strut that sets width of combo box
+    const firstItemNodeWidth = comboBoxWidth - itemXMargin -
+                               0.5 * firstItemNode.height -
+                               4 * buttonXMargin -
+                               2 * itemXMargin -
+                               2 * comboBoxLineWidth;
+    firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
-  // These containers are added into the Panel as desired, and their children are changed as the object type does.
-  const massBox = new Node();
-  const diameterBox = new Node();
-  const dragCoefficientBox = new Node();
-  const altitudeBox = new Node();
-  const gravityBox = new Node();
+    const comboBoxItems = [];
+    for ( let i = 0; i < this.objectTypes.length; i++ ) {
+      const projectileType = this.objectTypes[ i ];
 
-  // update the type of control based on the objectType
-  model.selectedProjectileObjectTypeProperty.link( objectType => {
-    const objectTypeControls = this.objectTypeControls[ this.objectTypes.indexOf( objectType ) ];
-    massBox.children = [ objectTypeControls.massControl ];
-    diameterBox.children = [ objectTypeControls.diameterControl ];
-    dragCoefficientBox.children = [ objectTypeControls.dragCoefficientControl ];
-    altitudeBox.children = [ objectTypeControls.altitudeControl ];
-    gravityBox.children = [ objectTypeControls.gravityControl ];
-  } );
+      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        projectileType, {
+          tandemName: projectileType.benchmark + 'Item'
+        } );
 
-  // disabling and enabling drag and altitude controls depending on whether air resistance is on
-  model.airResistanceOnProperty.link( airResistanceOn => {
-    const opacity = airResistanceOn ? 1 : 0.5;
-    altitudeBox.opacity = opacity;
-    dragCoefficientBox.opacity = opacity;
-    altitudeBox.setPickable( airResistanceOn );
-    dragCoefficientBox.setPickable( airResistanceOn );
-  } );
+      // Create the controls for the projectileType too.
+      this.objectTypeControls.push( this.createControlsForObjectType( projectileType, options.tandem, options.tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
+    }
 
-  // air resistance
-  const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
-  const airResistanceLabelAndIcon = new HBox( {
-    spacing: options.xMargin,
-    children: [ airResistanceLabel, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
-  } );
-  const airResistanceCheckbox = new Checkbox( airResistanceLabelAndIcon, model.airResistanceOnProperty, {
-    maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
-    boxWidth: 18,
-    tandem: options.tandem.createTandem( 'airResistanceCheckbox' )
-  } );
+    // creating the controls for each object type changes these values because of enabledRangeProperty listeners in the
+    // NumberControls. Here reset back to the selectedProjectileObjectType to fix things. See
+    // https://github.com/phetsims/projectile-motion/issues/213
+    model.resetModelValuesToInitial();
 
-  // The contents of the control panel
-  const content = new VBox( {
-    align: 'left',
-    spacing: options.controlsVerticalSpace,
-    children: [
-      projectileChoiceComboBox,
-      massBox,
-      diameterBox,
-      new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-      gravityBox,
-      new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
-      airResistanceCheckbox,
-      altitudeBox,
-      dragCoefficientBox
-    ]
-  } );
+    // create view for the dropdown
+    const projectileChoiceComboBox = new ComboBox(
+      comboBoxItems,
+      model.selectedProjectileObjectTypeProperty,
+      comboBoxListParent, {
+        xMargin: 12,
+        yMargin: 8,
+        cornerRadius: 4,
+        buttonLineWidth: comboBoxLineWidth,
+        listLineWidth: comboBoxLineWidth,
+        tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
+        phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
+      } );
 
-  Panel.call( this, content, options );
-}
+    // @private make visible to methods
+    this.projectileChoiceComboBox = projectileChoiceComboBox;
 
-projectileMotion.register( 'LabProjectileControlPanel', LabProjectileControlPanel );
+    // readout, slider, and tweakers
 
-inherit( Panel, LabProjectileControlPanel, {
+    // These containers are added into the Panel as desired, and their children are changed as the object type does.
+    const massBox = new Node();
+    const diameterBox = new Node();
+    const dragCoefficientBox = new Node();
+    const altitudeBox = new Node();
+    const gravityBox = new Node();
 
-  // @public for use by screen view
-  hideComboBoxList: function() {
+    // update the type of control based on the objectType
+    model.selectedProjectileObjectTypeProperty.link( objectType => {
+      const objectTypeControls = this.objectTypeControls[ this.objectTypes.indexOf( objectType ) ];
+      massBox.children = [ objectTypeControls.massControl ];
+      diameterBox.children = [ objectTypeControls.diameterControl ];
+      dragCoefficientBox.children = [ objectTypeControls.dragCoefficientControl ];
+      altitudeBox.children = [ objectTypeControls.altitudeControl ];
+      gravityBox.children = [ objectTypeControls.gravityControl ];
+    } );
+
+    // disabling and enabling drag and altitude controls depending on whether air resistance is on
+    model.airResistanceOnProperty.link( airResistanceOn => {
+      const opacity = airResistanceOn ? 1 : 0.5;
+      altitudeBox.opacity = opacity;
+      dragCoefficientBox.opacity = opacity;
+      altitudeBox.setPickable( airResistanceOn );
+      dragCoefficientBox.setPickable( airResistanceOn );
+    } );
+
+    // air resistance
+    const airResistanceLabel = new Text( airResistanceString, LABEL_OPTIONS );
+    const airResistanceLabelAndIcon = new HBox( {
+      spacing: options.xMargin,
+      children: [ airResistanceLabel, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
+    } );
+    const airResistanceCheckbox = new Checkbox( airResistanceLabelAndIcon, model.airResistanceOnProperty, {
+      maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
+      boxWidth: 18,
+      tandem: options.tandem.createTandem( 'airResistanceCheckbox' )
+    } );
+
+    // The contents of the control panel
+    const content = new VBox( {
+      align: 'left',
+      spacing: options.controlsVerticalSpace,
+      children: [
+        projectileChoiceComboBox,
+        massBox,
+        diameterBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
+        gravityBox,
+        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
+        airResistanceCheckbox,
+        altitudeBox,
+        dragCoefficientBox
+      ]
+    } );
+
+    this.addChild( new Panel( content, options ) );
+  }
+
+  /**
+   * for use by screen view
+   * @public
+   */
+  hideComboBoxList() {
     this.projectileChoiceComboBox.hideListBox();
-  },
+  }
 
   /**
    * Given an objectType, create the controls needed for that type.
-   * @private
    * @param {ProjectileObjectType} objectType
    * @param {Tandem} generalComponentTandem - used for the elements that can be reused between all elements
    * @param {Tandem} objectSpecificTandem - used for the elements that change for each object type
    * @returns {ProjectileObjectTypeControl}
+   * @private
    */
-  createControlsForObjectType: function( objectType, generalComponentTandem, objectSpecificTandem ) {
+  createControlsForObjectType( objectType, generalComponentTandem, objectSpecificTandem ) {
 
     if ( objectType.benchmark === 'custom' ) {
       return new CustomProjectileObjectTypeControl( this.model, this.keypadLayer, objectType, objectSpecificTandem, {
@@ -373,6 +375,7 @@ inherit( Panel, LabProjectileControlPanel, {
         dragCoefficientText );
     }
   }
-} );
+}
 
+projectileMotion.register( 'LabProjectileControlPanel', LabProjectileControlPanel );
 export default LabProjectileControlPanel;
