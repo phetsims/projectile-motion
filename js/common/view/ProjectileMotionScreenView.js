@@ -16,7 +16,6 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
@@ -60,377 +59,369 @@ const X_MARGIN = 10;
 const Y_MARGIN = 5;
 const FLATIRONS_RANGE = new Range( 1500, 1700 );
 
-/**
- * @param {ProjectileMotionModel} model
- * @param {Panel} topRightPanel - the projectile control panel at the top right
- * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
- * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function ProjectileMotionScreenView( model,
-                                     topRightPanel,
-                                     bottomRightPanel,
-                                     vectorVisibilityProperties,
-                                     tandem,
-                                     options ) {
-  const self = this;
+class ProjectileMotionScreenView extends ScreenView {
 
-  ScreenView.call( this, options );
+  /**
+   * @param {ProjectileMotionModel} model
+   * @param {Panel} topRightPanel - the projectile control panel at the top right
+   * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
+   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( model, topRightPanel, bottomRightPanel, vectorVisibilityProperties, tandem, options ) {
+    super( options );
 
-  // If on mobile device, don't draw things beyond boundary. For performance.
-  if ( platform.mobileSafari ) {
-    this.visibleBoundsProperty.link( function( bounds ) {
-      self.clipArea = Shape.bounds( bounds );
-    } );
-  }
+    const self = this;
 
-  // model view transform
-  const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-    Vector2.ZERO,
-    ProjectileMotionConstants.VIEW_ORIGIN,
-    DEFAULT_SCALE
-  );
-
-  // tracks changes to modelViewTransform
-  const transformProperty = new Property( modelViewTransform );
-
-  // target
-  const targetNode = new TargetNode( model.score, transformProperty, this, {
-    tandem: tandem.createTandem( 'targetNode' ),
-    phetioDocumentation: 'The target to aim for when firing a projectile'
-  } );
-
-  // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
-  const trajectoriesLayer = new Node();
-
-  function handleTrajectoryAdded( addedTrajectory ) {
-
-    // create the view representation for added trajectory
-    const trajectoryNode = new TrajectoryNode(
-      vectorVisibilityProperties,
-      addedTrajectory,
-      transformProperty
-    );
-
-    // add the view to scene graph
-    trajectoriesLayer.addChild( trajectoryNode );
-
-    // Add the removal listener for if and when this trajectory is removed from the model.
-    model.trajectoryGroup.elementDisposedEmitter.addListener( function removalListener( removedTrajectory ) {
-      if ( removedTrajectory === addedTrajectory ) {
-        trajectoryNode.dispose();
-        model.trajectoryGroup.elementDisposedEmitter.removeListener( removalListener );
-      }
-    } );
-  }
-
-  // view listens to whether a trajectory has been added in the model
-  model.trajectoryGroup.forEach( handleTrajectoryAdded );
-  model.trajectoryGroup.elementCreatedEmitter.addListener( handleTrajectoryAdded );
-
-  // cannon
-  const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper,
-    transformProperty, this, tandem.createTandem( 'cannonNode' ), _.omit( options, 'tandem' ) ); // TODO: don't pass all options in
-
-  // results in '{{value}} m/s'
-  const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-    units: metersPerSecondString
-  } );
-
-  const initialSpeedPanelTandem = tandem.createTandem( 'initialSpeedPanel' );
-
-  // initial speed readout, slider, and tweakers
-  const initialSpeedNumberControl = new NumberControl(
-    initialSpeedString, model.initialSpeedProperty,
-    ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
-      titleNodeOptions: {
-        font: TEXT_FONT,
-        maxWidth: 120 // empirically determined
-      },
-      numberDisplayOptions: {
-        valuePattern: valuePattern,
-        align: 'right',
-        textOptions: {
-          font: TEXT_FONT
-        },
-        maxWidth: 80 // empirically determined
-      },
-      sliderOptions: {
-        constrainValue: function( value ) { return Utils.roundSymmetric( value ); },
-        trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
-        thumbSize: new Dimension2( 13, 22 )
-      },
-      arrowButtonOptions: {
-        scale: 0.56,
-        touchAreaXDilation: 20,
-        touchAreaYDilation: 20
-      },
-      tandem: initialSpeedPanelTandem.createTandem( 'numberControl' ),
-      phetioDocumentation: 'the control for the initial speed as a projectile leaves the cannon'
+    // If on mobile device, don't draw things beyond boundary. For performance.
+    if ( platform.mobileSafari ) {
+      this.visibleBoundsProperty.link( function( bounds ) {
+        self.clipArea = Shape.bounds( bounds );
+      } );
     }
-  );
 
-  // panel under the cannon, controls initial speed of projectiles
-  const initialSpeedPanel = new Panel(
-    initialSpeedNumberControl,
-    merge( {
-      left: this.layoutBounds.left + X_MARGIN,
-      bottom: this.layoutBounds.bottom - 10,
-      tandem: initialSpeedPanelTandem
-    }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
-  );
-
-  // Create a measuring tape (set to invisible initially)
-  const measuringTapeNode = new MeasuringTapeNode(
-    new Property( { name: metersString, multiplier: 1 } ),
-    model.measuringTape.isActiveProperty, {
-      modelViewTransform: transformProperty.get(),
-      basePositionProperty: model.measuringTape.basePositionProperty,
-      tipPositionProperty: model.measuringTape.tipPositionProperty,
-      textColor: 'black',
-      textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
-      significantFigures: 2,
-      textFont: new PhetFont( { size: 16, weight: 'bold' } ),
-      tandem: tandem.createTandem( 'measuringTapeNode' ),
-      phetioDocumentation: 'the Node for the measuring tape'
-    } );
-
-  // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
-  // so that it remains easily visible and grabbable. Unlike DataProbeNode, MeasuringTapeNode does
-  // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
-  // See https://github.com/phetsims/projectile-motion/issues/145.
-  const measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
-    function( transform, visibleBounds ) {
-      return transform.viewToModelBounds( visibleBounds.eroded( 20 ) );
-    } );
-  // unlink unnecessary
-  measuringTapeDragBoundsProperty.link( function( bounds ) {
-    measuringTapeNode.setDragBounds( bounds );
-  } );
-
-  // David
-  const davidNode = new Image( davidImage, { tandem: tandem.createTandem( 'davidNode' ) } );
-
-  // background, including grass, road, sky, flatirons
-  const backgroundNode = new BackgroundNode( this.layoutBounds );
-
-  // listen to transform Property
-  transformProperty.link( function( transform ) {
-    measuringTapeNode.setModelViewTransform( transform );
-    davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
-    davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
-    davidNode.bottom = transformProperty.get().modelToViewY( model.davidPosition.y );
-    backgroundNode.updateFlatironsPosition( transform );
-  } );
-
-  // add view for dataProbe
-  const dataProbeNode = new DataProbeNode( model.dataProbe, transformProperty, this, {
-    tandem: tandem.createTandem( 'dataProbeNode' ),
-    phetioDocumentation: 'the Node for the dataProbe tool'
-  } );
-
-  // zoom Property
-  const zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
-    tandem: tandem.createTandem( 'zoomProperty' ),
-    range: new Range( MIN_ZOOM, MAX_ZOOM ),
-    phetioDocumentation: 'Used to adjust to visual zoom for this screen',
-    phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
-  } );
-
-  // zoom control view
-  const zoomControl = new Node();
-
-  const zoomOutButton = new ZoomButton( {
-    baseColor: '#E7E8E9',
-    radius: 8,
-    xMargin: 3,
-    yMargin: 3,
-    disabledBaseColor: '#EDEDED',
-    in: false,
-    left: 0,
-    top: 0,
-    touchAreaXDilation: 3,
-    touchAreaYDilation: 6,
-    tandem: tandem.createTandem( 'zoomOutButton' ),
-    phetioDocumentation: 'the button to zoom out on the cannon'
-  } );
-  zoomControl.addChild( zoomOutButton );
-
-  const zoomInButton = new ZoomButton( {
-    baseColor: '#E7E8E9',
-    radius: 8,
-    xMargin: 3,
-    yMargin: 3,
-    disabledBaseColor: '#EDEDED',
-    in: true,
-    left: zoomOutButton.right + X_MARGIN,
-    top: zoomOutButton.top,
-    touchAreaXDilation: 3,
-    touchAreaYDilation: 6,
-    tandem: tandem.createTandem( 'zoomInButton' ),
-    phetioDocumentation: 'the button to zoom in on the cannon'
-  } );
-  zoomControl.addChild( zoomInButton );
-
-  // Watch the zoom Property and update transform Property accordingly
-  zoomProperty.link( function( zoomFactor ) {
-    transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+    // model view transform
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping(
       Vector2.ZERO,
       ProjectileMotionConstants.VIEW_ORIGIN,
-      DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
-    ) );
+      DEFAULT_SCALE
+    );
 
-    zoomOutButton.setEnabled( zoomFactor > MIN_ZOOM );
-    zoomInButton.setEnabled( zoomFactor < MAX_ZOOM );
-  } );
+    // tracks changes to modelViewTransform
+    const transformProperty = new Property( modelViewTransform );
 
-  // Zooming out means bars and zoom level gets smaller.
-  zoomOutButton.addListener( function() {
-    zoomProperty.value *= 0.5;
-  } );
+    // target
+    const targetNode = new TargetNode( model.score, transformProperty, this, {
+      tandem: tandem.createTandem( 'targetNode' ),
+      phetioDocumentation: 'The target to aim for when firing a projectile'
+    } );
 
-  // Zooming in means bars and zoom level gets larger.
-  zoomInButton.addListener( function() {
-    zoomProperty.value *= 2;
-  } );
+    // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
+    const trajectoriesLayer = new Node();
 
+    function handleTrajectoryAdded( addedTrajectory ) {
 
-  // toolbox panel contains measuring tape. lab screen will add a dataProbe tool
-  const toolboxPanel = new ToolboxPanel( model.measuringTape, model.dataProbe, measuringTapeNode, dataProbeNode, transformProperty, {
-    tandem: tandem.createTandem( 'toolboxPanel' ),
-    phetioDocumentation: 'the panel that holds the tools when not in the play area'
-  } );
+      // create the view representation for added trajectory
+      const trajectoryNode = new TrajectoryNode(
+        vectorVisibilityProperties,
+        addedTrajectory,
+        transformProperty
+      );
 
-  // reset all button, also a closure for zoomProperty and measuringTape
-  const resetAllButton = new ResetAllButton( {
-    listener: function() {
-      model.reset();
-      vectorVisibilityProperties.reset();
-      targetNode.reset();
-      zoomProperty.reset();
-      cannonNode.reset();
-    },
-    centerY: initialSpeedPanel.centerY,
-    tandem: tandem.createTandem( 'resetAllButton' ),
-    phetioDocumentation: 'button to reset the entire screen'
-  } );
+      // add the view to scene graph
+      trajectoriesLayer.addChild( trajectoryNode );
 
-  // eraser button
-  const eraserButton = new EraserButton( {
-    minWidth: 50,
-    iconWidth: 30,
-    minHeight: 40,
-    listener: function() { model.eraseTrajectories(); },
-    centerY: initialSpeedPanel.centerY,
-    left: initialSpeedPanel.right + 30,
-    tandem: tandem.createTandem( 'eraserButton' ),
-    phetioDocumentation: 'button to erase all of the trajectories'
-  } );
+      // Add the removal listener for if and when this trajectory is removed from the model.
+      model.trajectoryGroup.elementDisposedEmitter.addListener( function removalListener( removedTrajectory ) {
+        if ( removedTrajectory === addedTrajectory ) {
+          trajectoryNode.dispose();
+          model.trajectoryGroup.elementDisposedEmitter.removeListener( removalListener );
+        }
+      } );
+    }
 
-  // fire button
-  const fireButton = new FireButton( {
-    minWidth: 50,
-    iconWidth: 30,
-    minHeight: 40,
-    listener: function() {
-      model.cannonFired();
-      cannonNode.flashMuzzle();
-    },
-    bottom: eraserButton.bottom,
-    left: eraserButton.right + X_MARGIN,
-    tandem: tandem.createTandem( 'fireButton' ),
-    phetioDocumentation: 'button to launch a projectile'
-  } );
+    // view listens to whether a trajectory has been added in the model
+    model.trajectoryGroup.forEach( handleTrajectoryAdded );
+    model.trajectoryGroup.elementCreatedEmitter.addListener( handleTrajectoryAdded );
 
-  model.fireEnabledProperty.link( function( enable ) {
-    fireButton.setEnabled( enable );
-  } );
+    // cannon
+    const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper,
+      transformProperty, this, tandem.createTandem( 'cannonNode' ), _.omit( options, 'tandem' ) ); // TODO: don't pass all options in
 
-  const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
-    timeSpeedProperty: model.timeSpeedProperty,
-    playPauseStepButtonOptions: {
-      playPauseButtonOptions: {
-        radius: 18,
-        scaleFactorWhenPaused: 1.25,
-        touchAreaDilation: 2
-      },
-      stepForwardButtonOptions: {
-        listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
-        radius: 12,
-        stroke: 'black',
-        fill: '#005566',
-        touchAreaDilation: 4
+    // results in '{{value}} m/s'
+    const valuePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      units: metersPerSecondString
+    } );
+
+    const initialSpeedPanelTandem = tandem.createTandem( 'initialSpeedPanel' );
+
+    // initial speed readout, slider, and tweakers
+    const initialSpeedNumberControl = new NumberControl(
+      initialSpeedString, model.initialSpeedProperty,
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
+        titleNodeOptions: {
+          font: TEXT_FONT,
+          maxWidth: 120 // empirically determined
+        },
+        numberDisplayOptions: {
+          valuePattern: valuePattern,
+          align: 'right',
+          textOptions: {
+            font: TEXT_FONT
+          },
+          maxWidth: 80 // empirically determined
+        },
+        sliderOptions: {
+          constrainValue: function( value ) { return Utils.roundSymmetric( value ); },
+          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
+          thumbSize: new Dimension2( 13, 22 )
+        },
+        arrowButtonOptions: {
+          scale: 0.56,
+          touchAreaXDilation: 20,
+          touchAreaYDilation: 20
+        },
+        tandem: initialSpeedPanelTandem.createTandem( 'numberControl' ),
+        phetioDocumentation: 'the control for the initial speed as a projectile leaves the cannon'
       }
-    },
-    speedRadioButtonGroupOptions: {
-      labelOptions: {
-        font: new PhetFont( 15 ),
-        maxWidth: TEXT_MAX_WIDTH,
-        stroke: 'rgb( 0, 173, 78 )',
-        lineWidth: 0.3
+    );
+
+    // panel under the cannon, controls initial speed of projectiles
+    const initialSpeedPanel = new Panel(
+      initialSpeedNumberControl,
+      merge( {
+        left: this.layoutBounds.left + X_MARGIN,
+        bottom: this.layoutBounds.bottom - 10,
+        tandem: initialSpeedPanelTandem
+      }, ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS )
+    );
+
+    // Create a measuring tape (set to invisible initially)
+    const measuringTapeNode = new MeasuringTapeNode(
+      new Property( { name: metersString, multiplier: 1 } ),
+      model.measuringTape.isActiveProperty, {
+        modelViewTransform: transformProperty.get(),
+        basePositionProperty: model.measuringTape.basePositionProperty,
+        tipPositionProperty: model.measuringTape.tipPositionProperty,
+        textColor: 'black',
+        textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
+        significantFigures: 2,
+        textFont: new PhetFont( { size: 16, weight: 'bold' } ),
+        tandem: tandem.createTandem( 'measuringTapeNode' ),
+        phetioDocumentation: 'the Node for the measuring tape'
+      } );
+
+    // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
+    // so that it remains easily visible and grabbable. Unlike DataProbeNode, MeasuringTapeNode does
+    // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
+    // See https://github.com/phetsims/projectile-motion/issues/145.
+    const measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
+      function( transform, visibleBounds ) {
+        return transform.viewToModelBounds( visibleBounds.eroded( 20 ) );
+      } );
+    // unlink unnecessary
+    measuringTapeDragBoundsProperty.link( function( bounds ) {
+      measuringTapeNode.setDragBounds( bounds );
+    } );
+
+    // David
+    const davidNode = new Image( davidImage, { tandem: tandem.createTandem( 'davidNode' ) } );
+
+    // background, including grass, road, sky, flatirons
+    const backgroundNode = new BackgroundNode( this.layoutBounds );
+
+    // listen to transform Property
+    transformProperty.link( function( transform ) {
+      measuringTapeNode.setModelViewTransform( transform );
+      davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
+      davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
+      davidNode.bottom = transformProperty.get().modelToViewY( model.davidPosition.y );
+      backgroundNode.updateFlatironsPosition( transform );
+    } );
+
+    // add view for dataProbe
+    const dataProbeNode = new DataProbeNode( model.dataProbe, transformProperty, this, {
+      tandem: tandem.createTandem( 'dataProbeNode' ),
+      phetioDocumentation: 'the Node for the dataProbe tool'
+    } );
+
+    // zoom Property
+    const zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
+      tandem: tandem.createTandem( 'zoomProperty' ),
+      range: new Range( MIN_ZOOM, MAX_ZOOM ),
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen',
+      phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
+    } );
+
+    // zoom control view
+    const zoomControl = new Node();
+
+    const zoomOutButton = new ZoomButton( {
+      baseColor: '#E7E8E9',
+      radius: 8,
+      xMargin: 3,
+      yMargin: 3,
+      disabledBaseColor: '#EDEDED',
+      in: false,
+      left: 0,
+      top: 0,
+      touchAreaXDilation: 3,
+      touchAreaYDilation: 6,
+      tandem: tandem.createTandem( 'zoomOutButton' ),
+      phetioDocumentation: 'the button to zoom out on the cannon'
+    } );
+    zoomControl.addChild( zoomOutButton );
+
+    const zoomInButton = new ZoomButton( {
+      baseColor: '#E7E8E9',
+      radius: 8,
+      xMargin: 3,
+      yMargin: 3,
+      disabledBaseColor: '#EDEDED',
+      in: true,
+      left: zoomOutButton.right + X_MARGIN,
+      top: zoomOutButton.top,
+      touchAreaXDilation: 3,
+      touchAreaYDilation: 6,
+      tandem: tandem.createTandem( 'zoomInButton' ),
+      phetioDocumentation: 'the button to zoom in on the cannon'
+    } );
+    zoomControl.addChild( zoomInButton );
+
+    // Watch the zoom Property and update transform Property accordingly
+    zoomProperty.link( function( zoomFactor ) {
+      transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
+        Vector2.ZERO,
+        ProjectileMotionConstants.VIEW_ORIGIN,
+        DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
+      ) );
+
+      zoomOutButton.setEnabled( zoomFactor > MIN_ZOOM );
+      zoomInButton.setEnabled( zoomFactor < MAX_ZOOM );
+    } );
+
+    // Zooming out means bars and zoom level gets smaller.
+    zoomOutButton.addListener( function() {
+      zoomProperty.value *= 0.5;
+    } );
+
+    // Zooming in means bars and zoom level gets larger.
+    zoomInButton.addListener( function() {
+      zoomProperty.value *= 2;
+    } );
+
+    // toolbox panel contains measuring tape. lab screen will add a dataProbe tool
+    const toolboxPanel = new ToolboxPanel( model.measuringTape, model.dataProbe, measuringTapeNode, dataProbeNode, transformProperty, {
+      tandem: tandem.createTandem( 'toolboxPanel' ),
+      phetioDocumentation: 'the panel that holds the tools when not in the play area'
+    } );
+
+    // reset all button, also a closure for zoomProperty and measuringTape
+    const resetAllButton = new ResetAllButton( {
+      listener: function() {
+        model.reset();
+        vectorVisibilityProperties.reset();
+        targetNode.reset();
+        zoomProperty.reset();
+        cannonNode.reset();
       },
-      radioButtonOptions: {
-        radius: 8
-      }
-    },
-    buttonGroupXSpacing: 2 * PLAY_CONTROLS_INSET,
+      centerY: initialSpeedPanel.centerY,
+      tandem: tandem.createTandem( 'resetAllButton' ),
+      phetioDocumentation: 'button to reset the entire screen'
+    } );
 
-    centerY: initialSpeedPanel.centerY,
-    left: fireButton.right + 40, // empirically determined
-    tandem: tandem.createTandem( 'timeControlNode' )
-  } );
+    // eraser button
+    const eraserButton = new EraserButton( {
+      minWidth: 50,
+      iconWidth: 30,
+      minHeight: 40,
+      listener: function() { model.eraseTrajectories(); },
+      centerY: initialSpeedPanel.centerY,
+      left: initialSpeedPanel.right + 30,
+      tandem: tandem.createTandem( 'eraserButton' ),
+      phetioDocumentation: 'button to erase all of the trajectories'
+    } );
 
-  // @private for layout convenience
-  this.topRightPanel = topRightPanel;
-  this.bottomRightPanel = bottomRightPanel;
-  this.toolboxPanel = toolboxPanel;
-  this.resetAllButton = resetAllButton;
-  this.backgroundNode = backgroundNode;
-  this.zoomControl = zoomControl;
+    // fire button
+    const fireButton = new FireButton( {
+      minWidth: 50,
+      iconWidth: 30,
+      minHeight: 40,
+      listener: function() {
+        model.cannonFired();
+        cannonNode.flashMuzzle();
+      },
+      bottom: eraserButton.bottom,
+      left: eraserButton.right + X_MARGIN,
+      tandem: tandem.createTandem( 'fireButton' ),
+      phetioDocumentation: 'button to launch a projectile'
+    } );
 
-  // flatirons
-  model.altitudeProperty.link( function( altitude ) {
-    backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
-  } );
+    model.fireEnabledProperty.link( function( enable ) {
+      fireButton.setEnabled( enable );
+    } );
 
-  // rendering order
-  this.setChildren( [
-    backgroundNode,
-    targetNode,
-    davidNode,
-    cannonNode,
-    trajectoriesLayer,
-    initialSpeedPanel,
-    bottomRightPanel,
-    topRightPanel,
-    toolboxPanel,
-    fireButton,
-    eraserButton,
-    timeControlNode,
-    zoomControl,
-    resetAllButton,
-    measuringTapeNode,
-    dataProbeNode
-  ] );
+    const timeControlNode = new TimeControlNode( model.isPlayingProperty, {
+      timeSpeedProperty: model.timeSpeedProperty,
+      playPauseStepButtonOptions: {
+        playPauseButtonOptions: {
+          radius: 18,
+          scaleFactorWhenPaused: 1.25,
+          touchAreaDilation: 2
+        },
+        stepForwardButtonOptions: {
+          listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
+          radius: 12,
+          stroke: 'black',
+          fill: '#005566',
+          touchAreaDilation: 4
+        }
+      },
+      speedRadioButtonGroupOptions: {
+        labelOptions: {
+          font: new PhetFont( 15 ),
+          maxWidth: TEXT_MAX_WIDTH,
+          stroke: 'rgb( 0, 173, 78 )',
+          lineWidth: 0.3
+        },
+        radioButtonOptions: {
+          radius: 8
+        }
+      },
+      buttonGroupXSpacing: 2 * PLAY_CONTROLS_INSET,
 
-  // Links in this constructor last for the life time of the sim, so they don't need to be disposed
-  // Panels last for the life time of the sim, so their links don't need to be disposed
-}
+      centerY: initialSpeedPanel.centerY,
+      left: fireButton.right + 40, // empirically determined
+      tandem: tandem.createTandem( 'timeControlNode' )
+    } );
 
-projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
+    // @private for layout convenience
+    this.topRightPanel = topRightPanel;
+    this.bottomRightPanel = bottomRightPanel;
+    this.toolboxPanel = toolboxPanel;
+    this.resetAllButton = resetAllButton;
+    this.backgroundNode = backgroundNode;
+    this.zoomControl = zoomControl;
 
-inherit( ScreenView, ProjectileMotionScreenView, {
+    // flatirons
+    model.altitudeProperty.link( function( altitude ) {
+      backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
+    } );
+
+    // rendering order
+    this.setChildren( [
+      backgroundNode,
+      targetNode,
+      davidNode,
+      cannonNode,
+      trajectoriesLayer,
+      initialSpeedPanel,
+      bottomRightPanel,
+      topRightPanel,
+      toolboxPanel,
+      fireButton,
+      eraserButton,
+      timeControlNode,
+      zoomControl,
+      resetAllButton,
+      measuringTapeNode,
+      dataProbeNode
+    ] );
+
+    // Links in this constructor last for the life time of the sim, so they don't need to be disposed
+    // Panels last for the life time of the sim, so their links don't need to be disposed
+  }
 
   /**
    * Layout nodes part of the screen view
    *
    * @param {number} width
    * @param {number} height
+   * @public (joist-internal)
    * @override
    */
-  layout: function( width, height ) {
+  layout( width, height ) {
     this.resetTransform();
 
     const scale = this.getLayoutScale( width, height );
@@ -466,7 +457,7 @@ inherit( ScreenView, ProjectileMotionScreenView, {
     this.visibleBoundsProperty.set( new Bounds2( -offsetX, -offsetY, width / scale - offsetX, height / scale - offsetY ) );
 
   }
+}
 
-} );
-
+projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 export default ProjectileMotionScreenView;

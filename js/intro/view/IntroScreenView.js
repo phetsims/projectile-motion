@@ -5,7 +5,6 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import VectorVisibilityProperties from '../../common/view/VectorVisibilityProperties.js';
@@ -13,63 +12,63 @@ import projectileMotion from '../../projectileMotion.js';
 import IntroProjectileControlPanel from './IntroProjectileControlPanel.js';
 import IntroVectorsControlPanel from './IntroVectorsControlPanel.js';
 
-/**
- * @param {IntroModel} model
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function IntroScreenView( model, tandem, options ) {
+class IntroScreenView extends ProjectileMotionScreenView {
 
-  // contains Properties about vector visibility, used in super class
-  const visibilityProperties = new VectorVisibilityProperties( {
-    tandem: tandem.createTandem( 'vectorVisibilityProperties' ),
-    forceProperties: false
-  } );
+  /**
+   * @param {IntroModel} model
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( model, tandem, options ) {
 
-  // acts as listParent for the projectile dropdown box
-  const comboBoxListParent = new Node();
+    // contains Properties about vector visibility, used in super class
+    const visibilityProperties = new VectorVisibilityProperties( {
+      tandem: tandem.createTandem( 'vectorVisibilityProperties' ),
+      forceProperties: false
+    } );
 
-  // @private, for layout
-  this.projectilePanel = new IntroProjectileControlPanel(
-    model.objectTypes,
-    model.selectedProjectileObjectTypeProperty,
-    comboBoxListParent,
-    model.projectileMassProperty,
-    model.projectileDiameterProperty,
-    model.projectileDragCoefficientProperty,
-    model.airResistanceOnProperty,
-    { tandem: tandem.createTandem( 'projectileControlPanel' ) }
-  );
+    // acts as listParent for the projectile dropdown box
+    const comboBoxListParent = new Node();
 
-  ProjectileMotionScreenView.call(
-    this,
-    model,
-    this.projectilePanel,
-    new IntroVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
-    visibilityProperties,
-    tandem,
-    options
-  );
+    const projectilePanel = new IntroProjectileControlPanel(
+      model.objectTypes,
+      model.selectedProjectileObjectTypeProperty,
+      comboBoxListParent,
+      model.projectileMassProperty,
+      model.projectileDiameterProperty,
+      model.projectileDragCoefficientProperty,
+      model.airResistanceOnProperty,
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+    );
 
-  // insert dropdown right on top of the rightside panels
-  this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
-}
+    super(
+      model,
+      projectilePanel,
+      new IntroVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      visibilityProperties,
+      tandem,
+      options
+    );
 
-projectileMotion.register( 'IntroScreenView', IntroScreenView );
+    // @private
+    this.projectilePanel = projectilePanel;
 
-inherit( ProjectileMotionScreenView, IntroScreenView, {
+    // insert dropdown right on top of the right-side panels
+    this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
+  }
+
   /**
    * Layout
    * @param {number} width
    * @param {number} height
-   *
+   * @public (joist-internal)
    * @override
    */
-  layout: function( width, height ) {
+  layout( width, height ) {
     this.projectilePanel.hideComboBoxList();
     ProjectileMotionScreenView.prototype.layout.call( this, width, height );
   }
-} );
+}
 
+projectileMotion.register( 'IntroScreenView', IntroScreenView );
 export default IntroScreenView;

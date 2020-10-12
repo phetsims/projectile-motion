@@ -5,7 +5,6 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
@@ -18,75 +17,71 @@ import LabProjectileControlPanel from './LabProjectileControlPanel.js';
 // constants
 const X_MARGIN = 10;
 
-/**
- * @param {LabModel} model
- * @param {Tandem} tandem
- * @param {Object} [options]
- * @constructor
- */
-function LabScreenView( model, tandem, options ) {
+class LabScreenView extends ProjectileMotionScreenView {
 
-  options = merge( { preciseCannonDelta: true }, options );
+  /**
+   * @param {LabModel} model
+   * @param {Tandem} tandem
+   * @param {Object} [options]
+   */
+  constructor( model, tandem, options ) {
 
-  // contains Properties about vector visibility, used in super class
-  const visibilityProperties = new VectorVisibilityProperties();
+    options = merge( { preciseCannonDelta: true }, options );
 
-  // acts as listParent for the projectile dropdown box
-  const comboBoxListParent = new Node();
-  const keypadLayer = new KeypadLayer( {
-    tandem: tandem.createTandem( 'keypadLayer' ),
-    phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
-  } );
-  const labProjectilePanel = new LabProjectileControlPanel(
-    comboBoxListParent,
-    keypadLayer,
-    model,
-    { tandem: tandem.createTandem( 'projectileControlPanel' ) }
-  );
+    // contains Properties about vector visibility, used in super class
+    const visibilityProperties = new VectorVisibilityProperties();
 
-  ProjectileMotionScreenView.call(
-    this,
-    model,
-    new InitialValuesPanel(
-      model.cannonHeightProperty,
-      model.cannonAngleProperty,
-      model.initialSpeedProperty,
-      { tandem: tandem.createTandem( 'initialValuesPanel' ) }
-    ),
-    labProjectilePanel,
-    visibilityProperties,
-    tandem,
-    options
-  );
+    // acts as listParent for the projectile dropdown box
+    const comboBoxListParent = new Node();
+    const keypadLayer = new KeypadLayer( {
+      tandem: tandem.createTandem( 'keypadLayer' ),
+      phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
+    } );
+    const labProjectilePanel = new LabProjectileControlPanel(
+      comboBoxListParent,
+      keypadLayer,
+      model,
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+    );
 
-  // insert dropdown right on top of the rightside panels
-  this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
+    super(
+      model,
+      new InitialValuesPanel(
+        model.cannonHeightProperty,
+        model.cannonAngleProperty,
+        model.initialSpeedProperty,
+        { tandem: tandem.createTandem( 'initialValuesPanel' ) }
+      ),
+      labProjectilePanel,
+      visibilityProperties,
+      tandem,
+      options
+    );
 
-  // add the keypad layer on top of everything
-  this.addChild( keypadLayer );
+    // insert dropdown right on top of the rightside panels
+    this.insertChild( this.indexOfChild( this.bottomRightPanel ) + 1, comboBoxListParent );
 
-  // @private, for layout
-  this.labProjectilePanel = labProjectilePanel;
-  this.keypadLayer = keypadLayer;
-}
+    // add the keypad layer on top of everything
+    this.addChild( keypadLayer );
 
-projectileMotion.register( 'LabScreenView', LabScreenView );
-
-inherit( ProjectileMotionScreenView, LabScreenView, {
+    // @private, for layout
+    this.labProjectilePanel = labProjectilePanel;
+    this.keypadLayer = keypadLayer;
+  }
 
   /**
    * Layout according to screenview and layout the combo box
-   * @public
+   * @public (joist internal)
    * @override
    *
    * @param {number} width
    * @param {number} height
    */
-  layout: function( width, height ) {
+  layout( width, height ) {
     this.labProjectilePanel.hideComboBoxList();
     ProjectileMotionScreenView.prototype.layout.call( this, width, height );
     this.keypadLayer.positionKeypad( this.setKeypadPosition.bind( this ) );
-  },
+  }
 
   /**
    * Lays out keypad
@@ -94,11 +89,11 @@ inherit( ProjectileMotionScreenView, LabScreenView, {
    *
    * @param {KeypadPanel} keypad
    */
-  setKeypadPosition: function( keypadPanel ) {
+  setKeypadPosition( keypadPanel ) {
     keypadPanel.right = this.topRightPanel.left - X_MARGIN;
     keypadPanel.top = this.bottomRightPanel.top;
   }
+}
 
-} );
-
+projectileMotion.register( 'LabScreenView', LabScreenView );
 export default LabScreenView;
