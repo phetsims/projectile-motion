@@ -66,7 +66,7 @@ class IntroScreenView extends ProjectileMotionScreenView {
    */
   layout( width, height ) {
     this.projectilePanel.hideComboBoxList();
-    ProjectileMotionScreenView.prototype.layout.call( this, width, height );
+    super.layout( width, height );
   }
 }
 
