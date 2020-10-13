@@ -79,7 +79,7 @@ class LabScreenView extends ProjectileMotionScreenView {
    */
   layout( width, height ) {
     this.labProjectilePanel.hideComboBoxList();
-    ProjectileMotionScreenView.prototype.layout.call( this, width, height );
+    super.layout( width, height );
     this.keypadLayer.positionKeypad( this.setKeypadPosition.bind( this ) );
   }
 
