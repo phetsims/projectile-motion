@@ -150,7 +150,7 @@ class DragProjectileControlPanel extends Panel {
       const strut = new HStrut( DRAG_OBJECT_MAX_WIDTH ); //
       const displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
       const displayAndValueBox = new HBox( { spacing: options.xMargin, children: [ displayBox, numberDisplay ] } );
-      return new NumberControl.createLayoutFunction4( {
+      return NumberControl.createLayoutFunction4( {
         arrowButtonSpacing: 10
       } )( titleNode, displayAndValueBox, slider, leftArrowButton, rightArrowButton );
     };
