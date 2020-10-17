@@ -44,7 +44,7 @@ class AirResistanceControl extends VBox {
     const dragCoefficientReadout = new Text( '', merge( {}, options.labelOptions, {
       maxWidth: options.minWidth - 2 * options.xMargin,
       tandem: options.tandem.createTandem( 'dragCoefficientReadout' ),
-      phetioComponentOptions: { textProperty: { phetioReadOnly: true } } // because this display shouldn't be edited
+      textPropertyOptions: { phetioReadOnly: true } // because this display shouldn't be edited
     } ) );
 
     dragCoefficientReadout.setBoundsMethod( 'accurate' );

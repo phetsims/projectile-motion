@@ -69,7 +69,7 @@ class InitialValuesPanel extends Panel {
     function createReadout( labelString, unitsString, valueProperty, range, tandem, degreeString ) {
       const parameterLabel = new Text( '', merge( {}, parameterLabelOptions, {
         tandem: tandem,
-        phetioComponentOptions: { textProperty: { phetioReadOnly: true } }
+        textPropertyOptions: { phetioReadOnly: true }
       } ) );
 
       valueProperty.link( function( value ) {

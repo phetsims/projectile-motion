@@ -129,7 +129,7 @@ class IntroProjectileControlPanel extends Panel {
     function createReadout( labelString, unitsString, valueProperty, tandem ) {
       const parameterLabel = new Text( '', merge( {
         tandem: tandem,
-        phetioComponentOptions: { textProperty: { phetioReadOnly: true } }
+        textPropertyOptions: { phetioReadOnly: true }
       }, parameterLabelOptions ) );
 
       parameterLabel.setBoundsMethod( 'accurate' );
