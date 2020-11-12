@@ -8,7 +8,6 @@
  */
 
 import Utils from '../../../../dot/js/Utils.js';
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
@@ -23,8 +22,8 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 
 const enterString = projectileMotionStrings.enter;
 const rangeMessageString = projectileMotionStrings.rangeMessage;
@@ -34,154 +33,152 @@ const TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
 const TEXT_FILL_DEFAULT = 'black';
 const TEXT_FILL_ERROR = 'red';
 
-/**
- * @param {Object} [options]
- * @constructor
- */
-function KeypadLayer( options ) {
+class KeypadLayer extends Plane {
 
-  const self = this;
+  /**
+   * @param {Object} [options]
+   */
+  constructor( options ) {
 
-  options = merge( {
 
-    valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
-    valueYMargin: 3, // {number} vertical margin inside the value box
-    valueFont: TEXT_FONT,
-    maxDigits: 8, // {number} maximum number of digits that can be entered on the keypad
-    maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypd
+    options = merge( {
 
-    // supertype options
-    visible: false,
-    fill: 'rgba( 0, 0, 0, 0.2 )',
-    tandem: Tandem.REQUIRED
-  }, options );
+      valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
+      valueYMargin: 3, // {number} vertical margin inside the value box
+      valueFont: TEXT_FONT,
+      maxDigits: 8, // {number} maximum number of digits that can be entered on the keypad
+      maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypd
 
-  Plane.call( this, options );
+      // supertype options
+      visible: false,
+      fill: 'rgba( 0, 0, 0, 0.2 )',
+      tandem: Tandem.REQUIRED
+    }, options );
 
-  // @private - clicking outside the keypad cancels the edit
-  this.clickOutsideFireListener = new FireListener( {
-    fire: event => {
-      if ( event.trail.lastNode() === self ) {
-        self.cancelEdit();
+    super( options );
 
-        // Because firing this involves hiding this Node, we need to clear the current over pointer in order make sure
-        // we don't get two enter events next time this listener is called. See https://github.com/phetsims/scenery/issues/1021
-        this.clickOutsideFireListener.clearOverPointers();
+    // @private - clicking outside the keypad cancels the edit
+    this.clickOutsideFireListener = new FireListener( {
+      fire: event => {
+        if ( event.trail.lastNode() === this ) {
+          this.cancelEdit();
+
+          // Because firing this involves hiding this Node, we need to clear the current over pointer in order make sure
+          // we don't get two enter events next time this listener is called. See https://github.com/phetsims/scenery/issues/1021
+          this.clickOutsideFireListener.clearOverPointers();
+        }
+      },
+      fireOnDown: true,
+      tandem: options.tandem.createTandem( 'clickOutsideFireListener' ),
+      phetioDocumentation: 'Listener responsible for hiding the KeypadLayer when space outside of the keypad is pressed.'
+    } );
+
+    // @private these will be set when the client calls beginEdit
+    this.valueProperty = null;
+    this.onEndEdit = null; // {function} called by endEdit
+
+    const valueNode = new Text( '', {
+      font: options.valueFont
+    } );
+
+    const valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
+      cornerRadius: 3,
+      fill: 'white',
+      stroke: 'black'
+    } );
+
+    const valueParent = new Node( {
+      children: [ valueBackgroundNode, valueNode ]
+    } );
+
+    this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
+      maxDigits: options.maxDigits,
+      maxDigitsRightOfMantissa: options.maxDecimals,
+      tandem: options.tandem.createTandem( 'keypad' ),
+      phetioDocumentation: 'The keypad UI component for user to enter in a custom number'
+    } );
+
+    const enterButton = new RectangularPushButton( {
+      listener: this.commitEdit.bind( this ),
+      baseColor: PhetColorScheme.BUTTON_YELLOW,
+      content: new Text( enterString, {
+        font: TEXT_FONT,
+        fill: 'black',
+        maxWidth: this.keypadNode.width // i18n
+      } ),
+      tandem: options.tandem.createTandem( 'enterButton' ),
+      phetioDocumentation: 'The button to submit a custom number with the keypad'
+    } );
+
+    const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
+
+    // @private for convenient access by methods
+    this.valueNode = valueNode;
+    this.rangeMessageText = rangeMessageText;
+
+    const valueAndRangeMessage = new VBox( {
+      spacing: 5,
+      align: 'center',
+      children: [ rangeMessageText, valueParent ]
+    } );
+
+    const contentNode = new VBox( {
+      spacing: 10,
+      align: 'center',
+      children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
+    } );
+
+    // @private
+    this.saidHello = false;
+    const helloText = new Text( 'Hello!', { font: TEXT_FONT } );
+
+    // @private
+
+    this.addHelloText = function() {
+      if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
+        contentNode.addChild( helloText );
+        this.saidHello = true;
       }
-    },
-    fireOnDown: true,
-    tandem: options.tandem.createTandem( 'clickOutsideFireListener' ),
-    phetioDocumentation: 'Listener responsible for hiding the KeypadLayer when space outside of the keypad is pressed.'
-  } );
+    };
 
-  // @private these will be set when the client calls beginEdit
-  this.valueProperty = null;
-  this.onEndEdit = null; // {function} called by endEdit
+    this.removeHelloText = () => {
+      if ( contentNode.hasChild( helloText ) ) {
+        contentNode.removeChild( helloText );
+      }
+    };
 
-  const valueNode = new Text( '', {
-    font: options.valueFont
-  } );
+    this.keypadPanel = new Panel( contentNode, {
+      fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
+      backgroundPickable: true, // {boolean} so that clicking in the keypad's background doesn't close the keypad
+      xMargin: 10,
+      yMargin: 10
+    } );
 
-  const valueBackgroundNode = new Rectangle( 0, 0, options.valueBoxWidth, valueNode.height + ( 2 * options.valueYMargin ), {
-    cornerRadius: 3,
-    fill: 'white',
-    stroke: 'black'
-  } );
+    this.addChild( this.keypadPanel );
 
-  const valueParent = new Node( {
-    children: [ valueBackgroundNode, valueNode ]
-  } );
+    // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
+    this.keypadNode.stringProperty.link( string => { // no unlink required
+      valueNode.text = string;
+      valueNode.center = valueBackgroundNode.center;
+    } );
 
-  this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
-    maxDigits: options.maxDigits,
-    maxDigitsRightOfMantissa: options.maxDecimals,
-    tandem: options.tandem.createTandem( 'keypad' ),
-    phetioDocumentation: 'The keypad UI component for user to enter in a custom number'
-  } );
+    // for resetting color of value to black when it has been red.
+    this.keypadNode.accumulatedKeysProperty.link( keys => {
+      valueNode.fill = TEXT_FILL_DEFAULT;
+      rangeMessageText.fill = TEXT_FILL_DEFAULT;
+    } );
 
-  const enterButton = new RectangularPushButton( {
-    listener: this.commitEdit.bind( this ),
-    baseColor: PhetColorScheme.BUTTON_YELLOW,
-    content: new Text( enterString, {
-      font: TEXT_FONT,
-      fill: 'black',
-      maxWidth: this.keypadNode.width // i18n
-    } ),
-    tandem: options.tandem.createTandem( 'enterButton' ),
-    phetioDocumentation: 'The button to submit a custom number with the keypad'
-  } );
+  }
 
-  const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
-
-  // @private for convenient access by methods
-  this.valueNode = valueNode;
-  this.rangeMessageText = rangeMessageText;
-
-  const valueAndRangeMessage = new VBox( {
-    spacing: 5,
-    align: 'center',
-    children: [ rangeMessageText, valueParent ]
-  } );
-
-  const contentNode = new VBox( {
-    spacing: 10,
-    align: 'center',
-    children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
-  } );
-
-  // @private
-  this.saidHello = false;
-  const helloText = new Text( 'Hello!', { font: TEXT_FONT } );
-
-  // @private
-
-  this.addHelloText = function() {
-    if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
-      contentNode.addChild( helloText );
-      this.saidHello = true;
-    }
-  };
-
-  this.removeHelloText = function() {
-    if ( contentNode.hasChild( helloText ) ) {
-      contentNode.removeChild( helloText );
-    }
-  };
-
-  this.keypadPanel = new Panel( contentNode, {
-    fill: 'rgb( 230, 230, 230 )', // {Color|string} the keypad's background color
-    backgroundPickable: true, // {boolean} so that clicking in the keypad's background doesn't close the keypad
-    xMargin: 10,
-    yMargin: 10
-  } );
-
-  this.addChild( this.keypadPanel );
-
-  // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
-  this.keypadNode.stringProperty.link( function( string ) { // no unlink required
-    valueNode.text = string;
-    valueNode.center = valueBackgroundNode.center;
-  } );
-
-  // for resetting color of value to black when it has been red.
-  this.keypadNode.accumulatedKeysProperty.link( function( keys ) {
-    valueNode.fill = TEXT_FILL_DEFAULT;
-    rangeMessageText.fill = TEXT_FILL_DEFAULT;
-  } );
-
-}
-
-projectileMotion.register( 'KeypadLayer', KeypadLayer );
-
-inherit( Plane, KeypadLayer, {
 
   /**
    * Positions keypad
    * @param {function:KeypadPanel} setKeypadPosition - function that lays out keypad, no return
+   * @public
    */
-  positionKeypad: function( setKeypadPosition ) {
+  positionKeypad( setKeypadPosition ) {
     this.keypadPanel && setKeypadPosition( this.keypadPanel );
-  },
+  }
 
   /**
    * Begins an edit, by opening a modal keypad.
@@ -191,7 +188,7 @@ inherit( Plane, KeypadLayer, {
    * @param {Range} valueRange
    * @param {Object} [options]
    */
-  beginEdit: function( valueProperty, valueRange, unitsString, options ) {
+  beginEdit( valueProperty, valueRange, unitsString, options ) {
 
     options = merge( {
       onBeginEdit: null, // {function} called by beginEdit
@@ -217,13 +214,13 @@ inherit( Plane, KeypadLayer, {
 
     // execute client-specific hook
     options.onBeginEdit && options.onBeginEdit();
-  },
+  }
 
   /**
    * Ends an edit, used by commitEdit and cancelEdit
    * @private
    */
-  endEdit: function() {
+  endEdit() {
 
     // clear the keypad
     this.keypadNode.clear();
@@ -240,23 +237,23 @@ inherit( Plane, KeypadLayer, {
 
     this.removeHelloText();
     this.valueNode.fill = TEXT_FILL_DEFAULT;
-  },
+  }
 
   /**
    * Warns the user that out of range
    * @private
    */
-  warnOutOfRange: function() {
+  warnOutOfRange() {
     this.valueNode.fill = TEXT_FILL_ERROR;
     this.rangeMessageText.fill = TEXT_FILL_ERROR;
     this.keypadNode.setClearOnNextKeyPress( true );
-  },
+  }
 
   /**
    * Commits an edit
    * @private
    */
-  commitEdit: function() {
+  commitEdit() {
 
     const valueRange = this.valueRange;
 
@@ -286,19 +283,24 @@ inherit( Plane, KeypadLayer, {
     else {
       this.warnOutOfRange();
     }
-  },
+  }
 
   /**
    * Cancels an edit
    * @private
    */
-  cancelEdit: function() {
+  cancelEdit() {
     this.endEdit();
-  },
+  }
 
-  sayHi: function() {
+  /**
+   * @private
+   */
+  sayHi() {
     this.addHelloText();
   }
-} );
+}
+
+projectileMotion.register( 'KeypadLayer', KeypadLayer );
 
 export default KeypadLayer;

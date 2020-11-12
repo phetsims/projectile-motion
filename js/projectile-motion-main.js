@@ -27,7 +27,7 @@ const simOptions = {
   }
 };
 
-simLauncher.launch( function() {
+simLauncher.launch( () => {
   const sim = new Sim( projectileMotionTitleString, [
     new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
     new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),

@@ -6,85 +6,82 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
 import EditableProjectileObjectType from './EditableProjectileObjectType.js';
 
-/**
- * @param {Tandem} tandem
- * @constructor
- */
-function LabModel( tandem ) {
+class LabModel extends ProjectileMotionModel {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
 
-  const objectTypesTandem = tandem.createTandem( 'objectTypes' );
+    const objectTypesTandem = tandem.createTandem( 'objectTypes' );
 
-  // @public - wrap the object types in an editable case of sorts for clarity and ease. This is because
-  // the lab screen in the only screen where values of multiple object types can be customized.
-  this.objectTypes = [
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CUSTOM,
-      objectTypesTandem.createTandem( 'editableCustom' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CANNONBALL,
-      objectTypesTandem.createTandem( 'editableCannonball' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.TANK_SHELL,
-      objectTypesTandem.createTandem( 'editableTankShell' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.GOLF_BALL,
-      objectTypesTandem.createTandem( 'editableGolfBall' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.BASEBALL,
-      objectTypesTandem.createTandem( 'editableBaseball' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.FOOTBALL,
-      objectTypesTandem.createTandem( 'editableFootball' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PUMPKIN,
-      objectTypesTandem.createTandem( 'editablePumpkin' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.HUMAN,
-      objectTypesTandem.createTandem( 'editableHuman' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PIANO,
-      objectTypesTandem.createTandem( 'editablePiano' ) ),
-    EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CAR,
-      objectTypesTandem.createTandem( 'editableCar' ) )
-  ];
+    // Wrap the object types in an editable case of sorts for clarity and ease. This is because
+    // the lab screen in the only screen where values of multiple object types can be customized.
+    const objectTypes = [
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CUSTOM,
+        objectTypesTandem.createTandem( 'editableCustom' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CANNONBALL,
+        objectTypesTandem.createTandem( 'editableCannonball' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.TANK_SHELL,
+        objectTypesTandem.createTandem( 'editableTankShell' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.GOLF_BALL,
+        objectTypesTandem.createTandem( 'editableGolfBall' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.BASEBALL,
+        objectTypesTandem.createTandem( 'editableBaseball' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.FOOTBALL,
+        objectTypesTandem.createTandem( 'editableFootball' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PUMPKIN,
+        objectTypesTandem.createTandem( 'editablePumpkin' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.HUMAN,
+        objectTypesTandem.createTandem( 'editableHuman' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.PIANO,
+        objectTypesTandem.createTandem( 'editablePiano' ) ),
+      EditableProjectileObjectType.fromProjectileObjectType( ProjectileObjectType.CAR,
+        objectTypesTandem.createTandem( 'editableCar' ) )
+    ];
 
-  const initialObjectType = this.objectTypes[ 1 ];
+    super( objectTypes[ 1 ], false, objectTypes, tandem );
 
-  ProjectileMotionModel.call( this, initialObjectType, false, this.objectTypes, tandem );
+    // @public
+    this.objectTypes = objectTypes;
 
-  // Dynamically save the current values onto the current, editable object type..
-  this.projectileMassProperty.lazyLink( currentValue => {
-    this.selectedProjectileObjectTypeProperty.value.mass = currentValue;
-  } );
-  this.projectileDiameterProperty.lazyLink( currentValue => {
-    this.selectedProjectileObjectTypeProperty.value.diameter = currentValue;
-  } );
-  this.projectileDragCoefficientProperty.lazyLink( currentValue => {
-    this.selectedProjectileObjectTypeProperty.value.dragCoefficient = currentValue;
-  } );
+    // Dynamically save the current values onto the current, editable object type..
+    this.projectileMassProperty.lazyLink( currentValue => {
+      this.selectedProjectileObjectTypeProperty.value.mass = currentValue;
+    } );
+    this.projectileDiameterProperty.lazyLink( currentValue => {
+      this.selectedProjectileObjectTypeProperty.value.diameter = currentValue;
+    } );
+    this.projectileDragCoefficientProperty.lazyLink( currentValue => {
+      this.selectedProjectileObjectTypeProperty.value.dragCoefficient = currentValue;
+    } );
 
-  // Once the state is set, set again values determined by the object type, as they may be out of sync from view
-  // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
-  Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( ( state, scopeTandem ) => {
-    tandem.hasAncestor( scopeTandem ) && this.resetModelValuesToInitial();
-  } );
-}
+    // Once the state is set, set again values determined by the object type, as they may be out of sync from view
+    // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
+    Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( ( state, scopeTandem ) => {
+      tandem.hasAncestor( scopeTandem ) && this.resetModelValuesToInitial();
+    } );
+  }
 
-projectileMotion.register( 'LabModel', LabModel );
-
-inherit( ProjectileMotionModel, LabModel, {
 
   /**
    * Reset these Properties
    * @public
    * @override
    */
-  reset: function() {
-    ProjectileMotionModel.prototype.reset.call( this );
+  reset() {
+    super.reset();
 
     // reset saved values
     for ( let i = 0; i < this.objectTypes.length; i++ ) {
       this.objectTypes[ i ].reset();
     }
-  },
+  }
 
   /**
    * @public
@@ -94,13 +91,15 @@ inherit( ProjectileMotionModel, LabModel, {
    * object type. Reset back to the initial value, not the current value. Note that setting PhET-iO state will set that
    * value as the initial state, just like PropertyIO.js
    */
-  resetModelValuesToInitial: function() {
+  resetModelValuesToInitial() {
 
     const currentProjectileObjectType = this.selectedProjectileObjectTypeProperty.value;
     this.projectileMassProperty.set( currentProjectileObjectType.initialMass );
     this.projectileDiameterProperty.set( currentProjectileObjectType.initialDiameter );
     this.projectileDragCoefficientProperty.set( currentProjectileObjectType.initialDragCoefficient );
   }
-} );
+}
+
+projectileMotion.register( 'LabModel', LabModel );
 
 export default LabModel;

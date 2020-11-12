@@ -72,7 +72,7 @@ class InitialValuesPanel extends Panel {
         textPropertyOptions: { phetioReadOnly: true }
       } ) );
 
-      valueProperty.link( function( value ) {
+      valueProperty.link( value => {
         const valueReadout = degreeString ?
                              StringUtils.fillIn( pattern0Value1UnitsString, {
                                value: Utils.toFixedNumber( value, 2 ),

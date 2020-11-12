@@ -6,21 +6,20 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
 
-/**
- * @param {Tandem} tandem
- * @constructor
- */
-function DragModel( tandem ) {
-  ProjectileMotionModel.call( this, ProjectileObjectType.COMPANIONLESS, true,
-    [ ProjectileObjectType.COMPANIONLESS ], tandem );
+class DragModel extends ProjectileMotionModel {
+  /**
+   * @param {Tandem} tandem
+   */
+  constructor( tandem ) {
+    super( ProjectileObjectType.COMPANIONLESS, true,
+      [ ProjectileObjectType.COMPANIONLESS ], tandem );
+  }
 }
 
 projectileMotion.register( 'DragModel', DragModel );
 
-inherit( ProjectileMotionModel, DragModel );
 export default DragModel;

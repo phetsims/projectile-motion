@@ -39,7 +39,7 @@ const ProjectileObjectViewFactory = {
    * @param {number} dragCoefficient
    * @returns {Circle}
    */
-  createCustom: function( diameter, dragCoefficient ) {
+  createCustom( diameter, dragCoefficient ) {
 
     // drag coefficients estimated from three sources:
     // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
@@ -104,12 +104,12 @@ const ProjectileObjectViewFactory = {
    * @returns {Circle|Image|Path}
    */
 
-  createCannonball: function( diameter, modelViewTransform, landed ) {
+  createCannonball( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Circle( transformedBallSize / 2, { fill: 'black' } );
   },
 
-  createPumpkin: function( diameter, modelViewTransform, landed ) {
+  createPumpkin( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
       return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.75 } );
@@ -119,12 +119,12 @@ const ProjectileObjectViewFactory = {
     }
   },
 
-  createBaseball: function( diameter, modelViewTransform, landed ) {
+  createBaseball( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Image( baseballImage, { maxWidth: transformedBallSize } );
   },
 
-  createCar: function( diameter, modelViewTransform, landed ) {
+  createCar( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
       return new Image( car2Image, { maxHeight: transformedBallSize * 1.7 } );
@@ -134,12 +134,12 @@ const ProjectileObjectViewFactory = {
     }
   },
 
-  createFootball: function( diameter, modelViewTransform, landed ) {
+  createFootball( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Image( footballImage, { maxHeight: transformedBallSize } );
   },
 
-  createHuman: function( diameter, modelViewTransform, landed ) {
+  createHuman( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
       return new Image( human2Image, { maxWidth: transformedBallSize * 1.35 } );
@@ -149,7 +149,7 @@ const ProjectileObjectViewFactory = {
     }
   },
 
-  createPiano: function( diameter, modelViewTransform, landed ) {
+  createPiano( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
       return new Image( piano2Image, { maxWidth: transformedBallSize * 1.3 } );
@@ -159,12 +159,12 @@ const ProjectileObjectViewFactory = {
     }
   },
 
-  createGolfBall: function( diameter, modelViewTransform, landed ) {
+  createGolfBall( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
   },
 
-  createTankShell: function( diameter, modelViewTransform, landed ) {
+  createTankShell( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Image( tankShellImage, { maxHeight: transformedBallSize } );
   }

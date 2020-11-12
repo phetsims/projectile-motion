@@ -145,7 +145,7 @@ class DragProjectileControlPanel extends Panel {
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) ); // min size
 
     // layout function for drag coefficient NumberControl. This is needed to add the icon in
-    const dragLayoutFunction = function( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) {
+    const dragLayoutFunction = ( titleNode, numberDisplay, slider, leftArrowButton, rightArrowButton ) => {
 
       const strut = new HStrut( DRAG_OBJECT_MAX_WIDTH ); //
       const displayBox = new VBox( { align: 'center', children: [ strut, dragObjectDisplay ] } );
@@ -180,7 +180,7 @@ class DragProjectileControlPanel extends Panel {
     );
 
     // Listen to changes in model drag coefficient and update the little projectile object display
-    projectileDragCoefficientProperty.link( function( dragCoefficient ) {
+    projectileDragCoefficientProperty.link( dragCoefficient => {
       if ( dragObjectDisplay.children.length > 1 ) {
         dragObjectDisplay.removeChildAt( 1 );
       }

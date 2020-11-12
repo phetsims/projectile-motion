@@ -37,8 +37,8 @@ class VectorsScreen extends Screen {
     };
 
     super(
-      function() { return new VectorsModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new VectorsScreenView( model, tandem.createTandem( 'view' ) ); },
+      () => new VectorsModel( tandem.createTandem( 'model' ) ),
+      model => new VectorsScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }

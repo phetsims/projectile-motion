@@ -72,12 +72,10 @@ class ProjectileMotionScreenView extends ScreenView {
   constructor( model, topRightPanel, bottomRightPanel, vectorVisibilityProperties, tandem, options ) {
     super( options );
 
-    const self = this;
-
     // If on mobile device, don't draw things beyond boundary. For performance.
     if ( platform.mobileSafari ) {
-      this.visibleBoundsProperty.link( function( bounds ) {
-        self.clipArea = Shape.bounds( bounds );
+      this.visibleBoundsProperty.link( bounds => {
+        this.clipArea = Shape.bounds( bounds );
       } );
     }
 
@@ -153,7 +151,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 80 // empirically determined
         },
         sliderOptions: {
-          constrainValue: function( value ) { return Utils.roundSymmetric( value ); },
+          constrainValue: value => Utils.roundSymmetric( value ),
           trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
           thumbSize: new Dimension2( 13, 22 )
         },
@@ -197,11 +195,9 @@ class ProjectileMotionScreenView extends ScreenView {
     // not have dynamic drag bounds, so we need to create out own DerivedProperty and associated listener here.
     // See https://github.com/phetsims/projectile-motion/issues/145.
     const measuringTapeDragBoundsProperty = new DerivedProperty( [ transformProperty, this.visibleBoundsProperty ],
-      function( transform, visibleBounds ) {
-        return transform.viewToModelBounds( visibleBounds.eroded( 20 ) );
-      } );
+      ( transform, visibleBounds ) => transform.viewToModelBounds( visibleBounds.eroded( 20 ) ) );
     // unlink unnecessary
-    measuringTapeDragBoundsProperty.link( function( bounds ) {
+    measuringTapeDragBoundsProperty.link( bounds => {
       measuringTapeNode.setDragBounds( bounds );
     } );
 
@@ -212,7 +208,7 @@ class ProjectileMotionScreenView extends ScreenView {
     const backgroundNode = new BackgroundNode( this.layoutBounds );
 
     // listen to transform Property
-    transformProperty.link( function( transform ) {
+    transformProperty.link( transform => {
       measuringTapeNode.setModelViewTransform( transform );
       davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
       davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
@@ -268,7 +264,7 @@ class ProjectileMotionScreenView extends ScreenView {
     zoomControl.addChild( zoomInButton );
 
     // Watch the zoom Property and update transform Property accordingly
-    zoomProperty.link( function( zoomFactor ) {
+    zoomProperty.link( zoomFactor => {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,
         ProjectileMotionConstants.VIEW_ORIGIN,
@@ -280,12 +276,12 @@ class ProjectileMotionScreenView extends ScreenView {
     } );
 
     // Zooming out means bars and zoom level gets smaller.
-    zoomOutButton.addListener( function() {
+    zoomOutButton.addListener( () => {
       zoomProperty.value *= 0.5;
     } );
 
     // Zooming in means bars and zoom level gets larger.
-    zoomInButton.addListener( function() {
+    zoomInButton.addListener( () => {
       zoomProperty.value *= 2;
     } );
 
@@ -297,7 +293,7 @@ class ProjectileMotionScreenView extends ScreenView {
 
     // reset all button, also a closure for zoomProperty and measuringTape
     const resetAllButton = new ResetAllButton( {
-      listener: function() {
+      listener: () => {
         model.reset();
         vectorVisibilityProperties.reset();
         targetNode.reset();
@@ -314,7 +310,7 @@ class ProjectileMotionScreenView extends ScreenView {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() { model.eraseTrajectories(); },
+      listener: () => { model.eraseTrajectories(); },
       centerY: initialSpeedPanel.centerY,
       left: initialSpeedPanel.right + 30,
       tandem: tandem.createTandem( 'eraserButton' ),
@@ -326,7 +322,7 @@ class ProjectileMotionScreenView extends ScreenView {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
-      listener: function() {
+      listener: () => {
         model.cannonFired();
         cannonNode.flashMuzzle();
       },
@@ -336,7 +332,7 @@ class ProjectileMotionScreenView extends ScreenView {
       phetioDocumentation: 'button to launch a projectile'
     } );
 
-    model.fireEnabledProperty.link( function( enable ) {
+    model.fireEnabledProperty.link( enable => {
       fireButton.setEnabled( enable );
     } );
 
@@ -349,7 +345,7 @@ class ProjectileMotionScreenView extends ScreenView {
           touchAreaDilation: 2
         },
         stepForwardButtonOptions: {
-          listener: function() { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
+          listener: () => { model.stepModelElements( ProjectileMotionConstants.TIME_PER_DATA_POINT / 1000 ); },
           radius: 12,
           stroke: 'black',
           fill: '#005566',
@@ -383,7 +379,7 @@ class ProjectileMotionScreenView extends ScreenView {
     this.zoomControl = zoomControl;
 
     // flatirons
-    model.altitudeProperty.link( function( altitude ) {
+    model.altitudeProperty.link( altitude => {
       backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
     } );
 

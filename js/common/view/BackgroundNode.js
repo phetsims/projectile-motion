@@ -6,7 +6,6 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import inherit from '../../../../phet-core/js/inherit.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -26,37 +25,36 @@ const YELLOW_LINE_WIDTH = 1.5;
 const FLATIRONS_WIDTH = 450;
 const FLATIRONS_LEFT = 8; // in meters
 
-/**
- * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
- * @param {Object} [options]
- * @constructor
- */
-function BackgroundNode( layoutBounds, options ) {
-  options = merge( {
-    pickable: false
-  }, options );
+class BackgroundNode extends Node {
+  /**
+   * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
+   * @param {Object} [options]
+   */
+  constructor( layoutBounds, options ) {
+    options = merge( {
+      pickable: false
+    }, options );
 
-  // @private
-  this.sky = new Rectangle( 0, 0, 0, 0 );
-  this.grass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
-  this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
-  this.roadDashedLine = new Line( 0, 0, 0, 0, {
-    stroke: 'rgb( 235, 234, 48 )',
-    lineDash: [ 10, 10 ],
-    lineWidth: YELLOW_LINE_WIDTH
-  } );
-  this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
-  this.flatirons.visible = false;
+    super();
 
-  assert && assert( !options.children, 'this type sets its own children' );
-  options.children = [ this.sky, this.flatirons, this.grass, this.road, this.roadDashedLine ];
+    // @private
+    this.sky = new Rectangle( 0, 0, 0, 0 );
+    this.grass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
+    this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
+    this.roadDashedLine = new Line( 0, 0, 0, 0, {
+      stroke: 'rgb( 235, 234, 48 )',
+      lineDash: [ 10, 10 ],
+      lineWidth: YELLOW_LINE_WIDTH
+    } );
+    this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
+    this.flatirons.visible = false;
 
-  Node.call( this, options );
-}
+    assert && assert( !options.children, 'this type sets its own children' );
+    options.children = [ this.sky, this.flatirons, this.grass, this.road, this.roadDashedLine ];
 
-projectileMotion.register( 'BackgroundNode', BackgroundNode );
+    this.mutate( options );
+  }
 
-inherit( Node, BackgroundNode, {
 
   /**
    * Layout nodes part of the background
@@ -68,7 +66,7 @@ inherit( Node, BackgroundNode, {
    * @param {number} height
    * @param {number} layoutScale
    */
-  layout: function( offsetX, offsetY, width, height, layoutScale ) {
+  layout( offsetX, offsetY, width, height, layoutScale ) {
     const dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
     this.sky.setRect( -offsetX, -offsetY, width / layoutScale, height / layoutScale );
@@ -81,7 +79,7 @@ inherit( Node, BackgroundNode, {
     this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
 
     this.flatirons.bottom = ProjectileMotionConstants.VIEW_ORIGIN.y;
-  },
+  }
 
   /**
    * Makes flatirons image visible or invisible
@@ -89,9 +87,9 @@ inherit( Node, BackgroundNode, {
    *
    * @param {boolean} visibility
    */
-  showOrHideFlatirons: function( visibility ) {
+  showOrHideFlatirons( visibility ) {
     this.flatirons.visible = visibility;
-  },
+  }
 
   /**
    * Update position of the mountains if transform changes
@@ -99,10 +97,11 @@ inherit( Node, BackgroundNode, {
    *
    * @param {ModelViewTransform2} transform
    */
-  updateFlatironsPosition: function( transform ) {
+  updateFlatironsPosition( transform ) {
     this.flatirons.left = transform.modelToViewX( FLATIRONS_LEFT );
   }
+}
 
-} );
+projectileMotion.register( 'BackgroundNode', BackgroundNode );
 
 export default BackgroundNode;

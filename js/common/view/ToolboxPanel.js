@@ -62,16 +62,14 @@ class ToolboxPanel extends Panel {
     // add the panelContent
     super( panelContent, options );
 
-    const self = this;
-
     // listens to the isUserControlled Property of the dataProbe tool
     // return the dataProbe to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     dataProbeNode.isUserControlledProperty.lazyLink( isUserControlled => {
       assert && assert( dataProbeNode.parent instanceof ScreenView );
-      assert && assert( dataProbeNode.parent === self.parent );
+      assert && assert( dataProbeNode.parent === this.parent );
 
       const dataProbeNodeBounds = dataProbeNode.getJustDataProbeBounds(); //globalToParentBounds( dataProbeNode.getGlobalBounds() );
-      const toolboxBounds = dataProbeNode.globalToParentBounds( self.getGlobalBounds() );
+      const toolboxBounds = dataProbeNode.globalToParentBounds( this.getGlobalBounds() );
       if ( !isUserControlled && this.visible && toolboxBounds.intersectsBounds( dataProbeNodeBounds.eroded( 5 ) ) ) {
         dataProbe.isActiveProperty.set( false );
       }
@@ -89,7 +87,7 @@ class ToolboxPanel extends Panel {
     }, { allowTouchSnag: true } ) );
 
     // dataProbe visibility has the opposite visibility of the dataProbeIcon
-    dataProbe.isActiveProperty.link( function( active ) {
+    dataProbe.isActiveProperty.link( active => {
       dataProbeIconNode.visible = !active;
     } );
 
@@ -97,10 +95,10 @@ class ToolboxPanel extends Panel {
     // return the measuring tape to the toolboxPanel if not user Controlled and its position is located within the toolbox panel
     measuringTapeNode.isBaseUserControlledProperty.lazyLink( isUserControlled => {
       assert && assert( measuringTapeNode.parent instanceof ScreenView );
-      assert && assert( measuringTapeNode.parent === self.parent );
+      assert && assert( measuringTapeNode.parent === this.parent );
 
       const tapeBaseBounds = measuringTapeNode.localToParentBounds( measuringTapeNode.getLocalBaseBounds() );
-      const toolboxBounds = measuringTapeNode.globalToParentBounds( self.getGlobalBounds() );
+      const toolboxBounds = measuringTapeNode.globalToParentBounds( this.getGlobalBounds() );
       if ( !isUserControlled && this.visible && toolboxBounds.intersectsBounds( tapeBaseBounds.eroded( 5 ) ) ) {
         measuringTape.isActiveProperty.set( false );
       }
@@ -124,7 +122,7 @@ class ToolboxPanel extends Panel {
     }, { allowTouchSnag: true } ) );
 
     // measuringTape visibility has the opposite visibility of the measuringTape Icon
-    measuringTape.isActiveProperty.link( function( active ) {
+    measuringTape.isActiveProperty.link( active => {
       measuringTapeIconNode.visible = !active;
     } );
 

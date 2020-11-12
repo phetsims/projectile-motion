@@ -33,8 +33,8 @@ class DragScreen extends Screen {
     };
 
     super(
-      function() { return new DragModel( tandem.createTandem( 'model' ) ); },
-      function( model ) { return new DragScreenView( model, tandem.createTandem( 'view' ) ); },
+      () => new DragModel( tandem.createTandem( 'model' ) ),
+      model => new DragScreenView( model, tandem.createTandem( 'view' ) ),
       options
     );
   }
