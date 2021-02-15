@@ -345,7 +345,7 @@ class ProjectileMotionScreenView extends ScreenView {
       playPauseStepButtonOptions: {
         playPauseButtonOptions: {
           radius: 18,
-          scaleFactorWhenPaused: 1.25,
+          scaleFactorWhenNotPlaying: 1.25,
           touchAreaDilation: 2
         },
         stepForwardButtonOptions: {
