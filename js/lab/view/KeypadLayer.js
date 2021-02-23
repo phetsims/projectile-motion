@@ -92,8 +92,10 @@ class KeypadLayer extends Plane {
     } );
 
     this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
-      maxDigits: options.maxDigits,
-      maxDigitsRightOfMantissa: options.maxDecimals,
+      accumulatorOptions: {
+        maxDigits: options.maxDigits,
+        maxDigitsRightOfMantissa: options.maxDecimals
+      },
       tandem: options.tandem.createTandem( 'keypad' ),
       phetioDocumentation: 'The keypad UI component for user to enter in a custom number'
     } );
