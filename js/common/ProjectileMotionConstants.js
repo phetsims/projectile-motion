@@ -149,7 +149,6 @@ const ProjectileMotionConstants = {
     },
     backgroundFill: 'white',
     backgroundStroke: 'lightGray',
-    cursor: 'pointer',
     align: 'right',
     yMargin: 4
   },
