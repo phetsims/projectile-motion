@@ -40,16 +40,16 @@ const ProjectileMotionConstants = {
   MAX_NUMBER_OF_TRAJECTORIES: 5,
   MAX_NUMBER_OF_FLYING_PROJECTILES: 3,
 
-  CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
-  CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
-  LAUNCH_VELOCITY_RANGE: new Range( 0, 30 ), // m/s
+  CANNON_HEIGHT_RANGE: new Range( -100, 100 ), // in m
+  CANNON_ANGLE_RANGE: new Range( -180, 180 ), // in degrees
+  LAUNCH_VELOCITY_RANGE: new Range( -100, 100 ), // m/s
 
   PROJECTILE_MASS_RANGE: new Range( .01, 5000 ), // in original, highest is 1000
-  PROJECTILE_DIAMETER_RANGE: new Range( 0.01, 3 ), // in original, smallest is 0.043
-  PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.2 ), // teardrop to almost hemisphere shape
+  PROJECTILE_DIAMETER_RANGE: new Range( 0.01, 50 ), // in original, smallest is 0.043
+  PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 5 ), // teardrop to almost hemisphere shape
 
-  ALTITUDE_RANGE: new Range( 0, 5000 ), // meters, max is arbitrary but in upper stratosphere
-  GRAVITY_RANGE: new Range( 5, 20 ), // in m/s/s
+  ALTITUDE_RANGE: new Range( -5000, 10000 ), // meters, max is arbitrary but in upper stratosphere
+  GRAVITY_RANGE: new Range( -50, 50 ), // in m/s/s
 
   // projectile and trajectory
   AIR_RESISTANCE_ON_PATH_COLOR: 'rgb( 252, 40, 252 )',
@@ -167,7 +167,7 @@ const ProjectileMotionConstants = {
   },
 
   // zooming
-  MIN_ZOOM: 0.25,
+  MIN_ZOOM: 0.01,
   MAX_ZOOM: 2,
   DEFAULT_ZOOM: 1.0,
 
