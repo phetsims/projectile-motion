@@ -40,7 +40,6 @@ class KeypadLayer extends Plane {
    */
   constructor( options ) {
 
-
     options = merge( {
 
       valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
@@ -211,7 +210,7 @@ class KeypadLayer extends Plane {
     // display the keypad
     this.visible = true;
 
-    // keypadLayer lasts for the lifetime of the sim, so listeners don't need to be disposed
+    // add listener for clicking outside of the keypad, will be removed on endEdit
     this.addInputListener( this.clickOutsideFireListener );
 
     // execute client-specific hook
