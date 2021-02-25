@@ -33,6 +33,7 @@ class DataProbe {
     // @public
     this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {
       tandem: tandem.createTandem( 'positionProperty' ),
+      units: 'm',
       phetioDocumentation: 'The position of the dataProbe in model coordinates, in meters.'
     } );
 
