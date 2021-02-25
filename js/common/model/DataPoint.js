@@ -78,7 +78,7 @@ DataPoint.DataPointIO = new IOType( 'DataPointIO', {
   documentation: 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
                  '<li>time (seconds): The time of the data point</li>' +
                  '<li>position (meters): the position of the point in model coordinates</li>' +
-                 '<li>airDensity (kg/cu m): the air density when the point was collected</li>' +
+                 '<li>airDensity (kg/m^3): the air density when the point was collected</li>' +
                  '<li>velocity (m/s): the velocity of the projectile at the time when the point was collected</li>' +
                  '<li>acceleration (m/s^2): the acceleration of the projectile at the time when the point was collected</li>' +
                  '<li>dragForce (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
