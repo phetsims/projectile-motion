@@ -235,8 +235,8 @@ class ProjectileMotionScreenView extends ScreenView {
 
     const zoomOutButton = new ZoomButton( {
       baseColor: '#E7E8E9',
-      magnifyingGlassOptions:{
-        glassRadius:8
+      magnifyingGlassOptions: {
+        glassRadius: 8
       },
       xMargin: 3,
       yMargin: 3,
@@ -252,8 +252,8 @@ class ProjectileMotionScreenView extends ScreenView {
 
     const zoomInButton = new ZoomButton( {
       baseColor: '#E7E8E9',
-      magnifyingGlassOptions:{
-        glassRadius:8
+      magnifyingGlassOptions: {
+        glassRadius: 8
       },
       xMargin: 3,
       yMargin: 3,
