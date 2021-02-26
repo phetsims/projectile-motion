@@ -229,6 +229,7 @@ class KeypadLayer extends Plane {
     // hide the keypad
     this.visible = false;
     this.removeInputListener( this.clickOutsideFireListener );
+    this.clickOutsideFireListener.clearOverPointers();
 
     // execute client-specific hook
     this.onEndEdit && this.onEndEdit();
