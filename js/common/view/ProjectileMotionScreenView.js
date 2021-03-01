@@ -70,6 +70,9 @@ class ProjectileMotionScreenView extends ScreenView {
    * @param {Object} [options]
    */
   constructor( model, topRightPanel, bottomRightPanel, vectorVisibilityProperties, tandem, options ) {
+
+    options = merge( { tandem: tandem }, options );
+
     super( options );
 
     // If on mobile device, don't draw things beyond boundary. For performance.
