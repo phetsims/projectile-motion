@@ -44,7 +44,7 @@ const ProjectileMotionConstants = {
   CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
   LAUNCH_VELOCITY_RANGE: new Range( 0, 30 ), // m/s
 
-  PROJECTILE_MASS_RANGE: new Range( .01, 5000 ), // in original, highest is 1000
+  PROJECTILE_MASS_RANGE: new Range( 0.01, 5000 ), // in original, highest is 1000
   PROJECTILE_DIAMETER_RANGE: new Range( 0.01, 3 ), // in original, smallest is 0.043
   PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.2 ), // teardrop to almost hemisphere shape
 
