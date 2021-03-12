@@ -39,14 +39,14 @@ class LabIconNode extends Rectangle {
     // nav bar icon has a bigger cannon than that of the home screen icon
 
     if ( type === 'nav' ) {
-      var width = NAV_ICON_SIZE.width;
-      var height = NAV_ICON_SIZE.height;
-      var cannonLength = width / 2;
-      var cannonX = width * 0.4;
-      var cannonY = height * 0.6;
+      var width = NAV_ICON_SIZE.width; // eslint-disable-line no-var
+      var height = NAV_ICON_SIZE.height; // eslint-disable-line no-var
+      var cannonLength = width / 2; // eslint-disable-line no-var
+      var cannonX = width * 0.4; // eslint-disable-line no-var
+      var cannonY = height * 0.6; // eslint-disable-line no-var
 
-      var scaledEllipseWidth = cannonLength * 1.2;
-      var scaledEllipseHeight = cannonLength * 0.15;
+      var scaledEllipseWidth = cannonLength * 1.2; // eslint-disable-line no-var
+      var scaledEllipseHeight = cannonLength * 0.15; // eslint-disable-line no-var
     }
     else {
       width = SCREEN_ICON_SIZE.width;

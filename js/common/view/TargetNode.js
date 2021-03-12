@@ -155,8 +155,9 @@ class TargetNode extends Node {
     // listen to model for whether score indicator should be shown
     score.scoredEmitter.addListener( numberOfStars => {
 
+      let rewardNode;
       if ( numberOfStars === 1 ) {
-        var rewardNode = new Node( {
+        rewardNode = new Node( {
           children: [
             new StarNode( { x: 0, y: -30 } )
           ]

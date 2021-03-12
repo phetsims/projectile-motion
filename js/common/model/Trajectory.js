@@ -249,7 +249,7 @@ class Trajectory extends PhetioObject {
                0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
         newY = 0;
 
-        var newPoint = new DataPoint(
+        const newPoint = new DataPoint(
           previousPoint.time + timeToGround,
           Vector2.createFromPool( newX, newY ),
           airDensity,
@@ -267,7 +267,7 @@ class Trajectory extends PhetioObject {
 
       // Still in the air
       else {
-        newPoint = new DataPoint(
+        var newPoint = new DataPoint( // eslint-disable-line no-var
           previousPoint.time + dt,
           Vector2.createFromPool( newX, newY ),
           airDensity,

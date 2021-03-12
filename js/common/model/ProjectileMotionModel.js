@@ -340,10 +340,10 @@ class ProjectileMotionModel {
       const removedProjectileObjects = [];
 
       const updateTrajectoryForProjectileObject = ( trajectory, projectileObjectIndex ) => {
-        var projectileObject = trajectory.projectileObjects.get( projectileObjectIndex );
+        const projectileObject = trajectory.projectileObjects.get( projectileObjectIndex );
         removedProjectileObjects.push( projectileObject );
         this.updateTrajectoryRanksEmitter.emit();
-        var newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
+        const newTrajectory = trajectory.copyFromProjectileObject( projectileObject );
         newTrajectory.changedInMidAir = true;
       };
 
