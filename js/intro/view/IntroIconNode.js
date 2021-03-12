@@ -28,7 +28,7 @@ class IntroIconNode extends Rectangle {
 
     super( 0, 0, 0, 0 );
 
-    assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
+    assert && assert( type === 'nav' || type === 'screen', `invalid value for type: ${type}` );
 
     // the nav bar icon has a larger PhET girl than that of the home screen icon
 

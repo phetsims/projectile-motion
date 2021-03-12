@@ -112,7 +112,7 @@ class LabProjectileControlPanel extends Node {
 
       comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
         projectileType, {
-          tandemName: projectileType.benchmark + 'Item'
+          tandemName: `${projectileType.benchmark}Item`
         } );
 
       // Create the controls for the projectileType too.
@@ -364,7 +364,7 @@ class LabProjectileControlPanel extends Node {
 
       // exists for the lifetime of the simulation
       this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
-        dragCoefficientText.text = dragCoefficientString + ': ' + Utils.toFixed( dragCoefficient, 2 );
+        dragCoefficientText.text = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
       } );
 
       return new ProjectileObjectTypeControl(

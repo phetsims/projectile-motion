@@ -72,7 +72,7 @@ class AirResistanceControl extends VBox {
 
     // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( value => {
-      dragCoefficientReadout.setText( dragCoefficientString + ': ' + Utils.toFixed( value, 2 ) );
+      dragCoefficientReadout.setText( `${dragCoefficientString}: ${Utils.toFixed( value, 2 )}` );
     } );
 
     assert && assert( !options.children, 'AirResistanceControl sets its own children' );

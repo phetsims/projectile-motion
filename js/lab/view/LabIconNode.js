@@ -34,7 +34,7 @@ class LabIconNode extends Rectangle {
    */
   constructor( type ) {
 
-    assert && assert( type === 'nav' || type === 'screen', 'invalid value for type: ' + type );
+    assert && assert( type === 'nav' || type === 'screen', `invalid value for type: ${type}` );
 
     // nav bar icon has a bigger cannon than that of the home screen icon
 

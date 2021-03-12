@@ -94,7 +94,7 @@ class IntroProjectileControlPanel extends Panel {
 
       comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
         projectileType, {
-          tandemName: projectileType.benchmark + 'Item'
+          tandemName: `${projectileType.benchmark}Item`
         } );
     }
 
@@ -139,7 +139,7 @@ class IntroProjectileControlPanel extends Panel {
           value: value,
           units: unitsString
         } ) : Utils.toFixed( value, 2 );
-        parameterLabel.setText( labelString + ': ' + valueReadout );
+        parameterLabel.setText( `${labelString}: ${valueReadout}` );
       } );
 
       return new VBox( {

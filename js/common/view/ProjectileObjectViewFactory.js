@@ -45,7 +45,7 @@ const ProjectileObjectViewFactory = {
     // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
     // https://www.grc.nasa.gov/www/k-12/airplane/shaped.html
     // http://www.aerospaceweb.org/question/aerodynamics/q0231.shtml
-    assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, 'drag coefficient ' + dragCoefficient + ' out of bounds' );
+    assert && assert( dragCoefficient >= 0.04 && dragCoefficient <= 1, `drag coefficient ${dragCoefficient} out of bounds` );
     const radius = diameter / 2;
     let shape;
     let angle;
