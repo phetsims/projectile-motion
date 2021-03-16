@@ -65,9 +65,9 @@ class Trajectory extends PhetioObject {
     this.rankProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'rankProperty' ),
       phetioDocumentation: `${'The count of how old this projectile trajectory is. Older trajectories have more ' +
-                           'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
-                           'The second most recent has rank 1. The oldest still on screen has rank '}${
-                            MAX_NUMBER_OF_TRAJECTORIES - 1}`,
+                              'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
+                              'The second most recent has rank 1. The oldest still on screen has rank '}${
+        MAX_NUMBER_OF_TRAJECTORIES - 1}`,
       phetioReadOnly: true
     } );
 
@@ -133,7 +133,7 @@ class Trajectory extends PhetioObject {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
       phetioType: createObservableArray.ObservableArrayIO( ProjectileObject.ProjectileObjectIO ),
       phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${
-                           MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
+        MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
     } );
 
     // add first projectile object
