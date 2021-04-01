@@ -32,15 +32,21 @@ class IntroIconNode extends Rectangle {
 
     // the nav bar icon has a larger PhET girl than that of the home screen icon
 
+    let width;
+    let height;
+    let trajectoryShape;
+    let trajectoryPath;
+    let phetGirl;
+
     if ( type === 'nav' ) {
-      var width = NAV_ICON_SIZE.width; // eslint-disable-line no-var
-      var height = NAV_ICON_SIZE.height; // eslint-disable-line no-var
-      var trajectoryShape = new Shape(); // eslint-disable-line no-var
+      width = NAV_ICON_SIZE.width;
+      height = NAV_ICON_SIZE.height;
+      trajectoryShape = new Shape();
       trajectoryShape.moveTo( 0 + PATH_WIDTH, height * 0.8 )
         .quadraticCurveTo( width * 0.2, height * 0.6, width / 2, height / 2 );
-      var trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 2, stroke: PATH_COLOR } ); // eslint-disable-line no-var
+      trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 2, stroke: PATH_COLOR } );
       this.addChild( trajectoryPath );
-      var phetGirl = new Image( humanImage, { maxWidth: width * 0.7, centerX: width * 0.55, centerY: height * 0.45 } ); // eslint-disable-line no-var
+      phetGirl = new Image( humanImage, { maxWidth: width * 0.7, centerX: width * 0.55, centerY: height * 0.45 } );
       phetGirl.setRotation( -Math.PI / 30 );
       this.addChild( phetGirl );
     }

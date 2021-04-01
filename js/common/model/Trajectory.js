@@ -10,8 +10,8 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -221,6 +221,8 @@ class Trajectory extends PhetioObject {
         this.projectileMotionModel.dataProbe.updateDataIfWithinRange( apexPoint );
       }
 
+      let newPoint;
+
       // Has reached ground or below
       if ( newY <= 0 ) {
         this.reachedGround = true; // store the information that it has reached the ground
@@ -249,7 +251,7 @@ class Trajectory extends PhetioObject {
                0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
         newY = 0;
 
-        const newPoint = new DataPoint(
+        newPoint = new DataPoint(
           previousPoint.time + timeToGround,
           Vector2.createFromPool( newX, newY ),
           airDensity,
@@ -264,10 +266,10 @@ class Trajectory extends PhetioObject {
         );
         this.dataPoints.push( newPoint );
       }
-
-      // Still in the air
       else {
-        var newPoint = new DataPoint( // eslint-disable-line no-var
+        // Still in the air
+
+        newPoint = new DataPoint(
           previousPoint.time + dt,
           Vector2.createFromPool( newX, newY ),
           airDensity,
@@ -278,6 +280,8 @@ class Trajectory extends PhetioObject {
         );
         this.dataPoints.push( newPoint );
       }
+
+      assert && assert( newPoint, 'should be defined' );
 
       // and update dataProbe tool and David
       this.projectileMotionModel.dataProbe.updateDataIfWithinRange( newPoint );

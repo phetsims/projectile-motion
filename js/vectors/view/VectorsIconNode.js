@@ -31,16 +31,25 @@ class VectorsIconNode extends Rectangle {
 
     assert && assert( type === 'nav' || type === 'screen', `invalid value for type: ${type}` );
 
+    let width;
+    let height;
+    let projectileX;
+    let projectileY;
+    let projectile;
+    let arrowScale;
+    let velocityArrow;
+    let accelerationArrow;
+
     // the nav bar icon has larger projectile object and vectors than those of the home screen icon
     if ( type === 'nav' ) {
-      var width = NAV_ICON_SIZE.width; // eslint-disable-line no-var
-      var height = NAV_ICON_SIZE.height; // eslint-disable-line no-var
-      var projectileX = width * 0.4; // eslint-disable-line no-var
-      var projectileY = height / 2;// eslint-disable-line no-var
-      var projectile = new Circle( height / 4, { x: projectileX, y: projectileY, fill: 'black' } ); // eslint-disable-line no-var
+      width = NAV_ICON_SIZE.width;
+      height = NAV_ICON_SIZE.height;
+      projectileX = width * 0.4;
+      projectileY = height / 2;
+      projectile = new Circle( height / 4, { x: projectileX, y: projectileY, fill: 'black' } );
       this.addChild( projectile );
-      var arrowScale = 1.5; // eslint-disable-line no-var
-      var velocityArrow = new ArrowNode( projectileX, projectileY, width * 0.7, height * 0.1, { // eslint-disable-line no-var
+      arrowScale = 1.5;
+      velocityArrow = new ArrowNode( projectileX, projectileY, width * 0.7, height * 0.1, {
         pickable: false,
         fill: VELOCITY_ARROW_FILL,
         tailWidth: ARROW_TAIL_WIDTH * arrowScale,
@@ -48,7 +57,7 @@ class VectorsIconNode extends Rectangle {
         headHeight: ARROW_HEAD_HEIGHT * arrowScale
       } );
       this.addChild( velocityArrow );
-      var accelerationArrow = new ArrowNode( projectileX, projectileY, projectileX, height * 0.9, { // eslint-disable-line no-var
+      accelerationArrow = new ArrowNode( projectileX, projectileY, projectileX, height * 0.9, {
         pickable: false,
         fill: ACCELERATION_ARROW_FILL,
         tailWidth: ARROW_TAIL_WIDTH * arrowScale,
