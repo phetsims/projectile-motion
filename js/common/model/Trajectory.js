@@ -478,13 +478,13 @@ Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
   documentation: 'A trajectory outlining the projectile\'s path',
   toStateObject: trajectory => {
     const stateObject = {};
-    _.keys( ioTypeSchema ).map( fieldName => {
+    _.keys( ioTypeSchema ).forEach( fieldName => {
       stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( trajectory[ fieldName ] );
     } );
     return stateObject;
   },
   applyState: ( trajectory, stateObject ) => {
-    _.keys( stateObject ).map( fieldName => {
+    _.keys( stateObject ).forEach( fieldName => {
       assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
       trajectory[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
