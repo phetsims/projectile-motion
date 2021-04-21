@@ -55,21 +55,24 @@ class TargetNode extends Node {
     // @private - local var to improve readability
     this.targetXProperty = score.targetXProperty;
 
+    // @private
+    this.transformProperty = transformProperty;
+
     // red and white circles of the target
     const outerCircle = new Circle( 1, {
       fill: 'red',
       stroke: 'black',
-      lineWidth: transformProperty.get().viewToModelDeltaX( 1 )
+      lineWidth: this.transformProperty.get().viewToModelDeltaX( 1 )
     } );
     const middleCircle = new Circle( 2 / 3, {
       fill: 'white',
       stroke: 'black',
-      lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
+      lineWidth: this.transformProperty.get().viewToModelDeltaX( 0.5 )
     } );
     const innerCircle = new Circle( 1 / 3, {
       fill: 'red',
       stroke: 'black',
-      lineWidth: transformProperty.get().viewToModelDeltaX( 0.5 )
+      lineWidth: this.transformProperty.get().viewToModelDeltaX( 0.5 )
     } );
 
     // target view
@@ -84,12 +87,12 @@ class TargetNode extends Node {
     } );
 
     // scaling the target to the right size
-    const viewRadius = transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
+    const viewRadius = this.transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
     const targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     target.setScaleMagnitude( viewRadius, targetHeightInView );
 
     // center on model's targetXProperty
-    target.center = transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
+    target.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
 
     // add target to scene graph
     this.addChild( target );
@@ -110,7 +113,7 @@ class TargetNode extends Node {
         // change in x, view units
         const xChange = mousePoint.x - startPoint.x;
 
-        const newTargetX = Utils.roundSymmetric( transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
+        const newTargetX = Utils.roundSymmetric( this.transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
         this.targetXProperty.set( Utils.clamp( newTargetX, this.targetXProperty.range.min, this.targetXProperty.range.max ) );
       },
 
@@ -123,7 +126,7 @@ class TargetNode extends Node {
     target.addInputListener( horizontalDragHandler );
 
     // update the range based on the current transform
-    this.updateTargetXRange( transformProperty.get() );
+    this.updateTargetXRange( this.transformProperty.get() );
 
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
     const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
@@ -212,7 +215,7 @@ class TargetNode extends Node {
 
     // Observe changes in the model horizontal position and update the view correspondingly
     const updateHorizontalPosition = targetX => {
-      target.centerX = transformProperty.get().modelToViewX( targetX );
+      target.centerX = this.transformProperty.get().modelToViewX( targetX );
       distanceLabel.centerX = target.centerX;
       distanceLabel.top = target.bottom + 2;
       this.rewardNodes.forEach( rewardNode => {
@@ -223,7 +226,7 @@ class TargetNode extends Node {
     this.targetXProperty.link( updateHorizontalPosition );
 
     // Observe changes in the modelViewTransform and update the view
-    transformProperty.link( transform => {
+    this.transformProperty.link( transform => {
       this.updateTargetXRange( transform );
       const viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       target.setScaleMagnitude( viewRadius, targetHeightInView );
@@ -260,6 +263,9 @@ class TargetNode extends Node {
       }
     } );
     this.rewardNodes = [];
+
+    // reset the range of the score
+    this.updateTargetXRange( this.transformProperty.value );
   }
 }
 

@@ -303,8 +303,10 @@ class ProjectileMotionScreenView extends ScreenView {
       listener: () => {
         model.reset();
         vectorVisibilityProperties.reset();
-        targetNode.reset();
+
+        // reset zoom before the target is reset, so that the transform is correct
         zoomProperty.reset();
+        targetNode.reset();
         cannonNode.reset();
       },
       centerY: initialSpeedPanel.centerY,
