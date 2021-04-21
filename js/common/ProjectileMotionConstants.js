@@ -54,8 +54,8 @@ const ProjectileMotionConstants = {
   // projectile and trajectory
   AIR_RESISTANCE_ON_PATH_COLOR: 'rgb( 252, 40, 252 )',
   AIR_RESISTANCE_OFF_PATH_COLOR: 'blue',
-  VELOCITY_ARROW_FILL: 'rgb( 50, 255, 50 )',
-  ACCELERATION_ARROW_FILL: 'rgb( 255, 255, 50 )',
+  VELOCITY_ARROW_FILL: PhetColorScheme.VELOCITY,
+  ACCELERATION_ARROW_FILL: PhetColorScheme.ACCELERATION,
   PATH_WIDTH: 2,
 
   // data point collection along the trajectory
