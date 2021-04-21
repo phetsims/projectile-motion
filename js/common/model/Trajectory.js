@@ -459,37 +459,42 @@ class Trajectory extends PhetioObject {
     this.disposeTrajectory();
     super.dispose();
   }
+
+  /**
+   * @public
+   * @returns {Object}
+   */
+  toStateObject() {
+    return {
+      mass: NumberIO.toStateObject( this.mass ),
+      diameter: NumberIO.toStateObject( this.diameter ),
+      dragCoefficient: NumberIO.toStateObject( this.dragCoefficient ),
+      changedInMidAir: BooleanIO.toStateObject( this.changedInMidAir ),
+      reachedGround: BooleanIO.toStateObject( this.reachedGround ),
+      apexPoint: NullOrDataPointIO.toStateObject( this.apexPoint )
+    };
+  }
+
+  /**
+   * @public
+   * @param {Object} stateObject - see this.toStateObject()
+   */
+  applyState( stateObject ) {
+    this.mass = NumberIO.fromStateObject( stateObject.mass );
+    this.diameter = NumberIO.fromStateObject( stateObject.diameter );
+    this.dragCoefficient = NumberIO.fromStateObject( stateObject.dragCoefficient );
+    this.changedInMidAir = BooleanIO.fromStateObject( stateObject.changedInMidAir );
+    this.reachedGround = BooleanIO.fromStateObject( stateObject.reachedGround );
+    this.apexPoint = NullOrDataPointIO.fromStateObject( stateObject.apexPoint );
+  }
 }
 
 const NullOrDataPointIO = NullableIO( DataPoint.DataPointIO );
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.
-const ioTypeSchema = {
-  mass: { phetioType: NumberIO },
-  diameter: { phetioType: NumberIO },
-  dragCoefficient: { phetioType: NumberIO },
-  changedInMidAir: { phetioType: BooleanIO },
-  reachedGround: { phetioType: BooleanIO },
-  apexPoint: { phetioType: NullOrDataPointIO } // serialize as a data type, no reference type
-};
-Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
-  valueType: Trajectory,
-  documentation: 'A trajectory outlining the projectile\'s path',
-  toStateObject: trajectory => {
-    const stateObject = {};
-    _.keys( ioTypeSchema ).forEach( fieldName => {
-      stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( trajectory[ fieldName ] );
-    } );
-    return stateObject;
-  },
-  applyState: ( trajectory, stateObject ) => {
-    _.keys( stateObject ).forEach( fieldName => {
-      assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      assert && assert( trajectory.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      trajectory[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
-    } );
-  }
+Trajectory.TrajectoryIO = IOType.fromCoreType( 'TrajectoryIO', Trajectory, {
+  documentation: 'A trajectory outlining the projectile\'s path'
 } );
 
 projectileMotion.register( 'Trajectory', Trajectory );

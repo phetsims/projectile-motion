@@ -16,8 +16,8 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileObjectViewFactory from '../view/ProjectileObjectViewFactory.js';
 
@@ -91,43 +91,48 @@ class ProjectileObjectType extends PhetioObject {
     this.dragCoefficientRange = options.dragCoefficientRange;
     this.viewCreationFunction = options.viewCreationFunction;
   }
+
+  /**
+   * @public
+   * @returns {Object}
+   */
+  toStateObject() {
+    return {
+      name: NullableIO( StringIO ).toStateObject( this.name ),
+      mass: NumberIO.toStateObject( this.mass ),
+      diameter: NumberIO.toStateObject( this.diameter ),
+      dragCoefficient: NumberIO.toStateObject( this.dragCoefficient ),
+      benchmark: NullableIO( StringIO ).toStateObject( this.benchmark ),
+      rotates: BooleanIO.toStateObject( this.rotates ),
+      massRange: Range.RangeIO.toStateObject( this.massRange ),
+      massRound: NumberIO.toStateObject( this.massRound ),
+      diameterRange: Range.RangeIO.toStateObject( this.diameterRange ),
+      diameterRound: NumberIO.toStateObject( this.diameterRound ),
+      dragCoefficientRange: Range.RangeIO.toStateObject( this.dragCoefficientRange )
+    };
+  }
+
+  /**
+   * @public
+   * @returns {Object}
+   */
+  applyState( stateObject ) {
+    this.name = NullableIO( StringIO ).fromStateObject( stateObject.name );
+    this.mass = NumberIO.fromStateObject( stateObject.mass );
+    this.diameter = NumberIO.fromStateObject( stateObject.diameter );
+    this.dragCoefficient = NumberIO.fromStateObject( stateObject.dragCoefficient );
+    this.benchmark = NullableIO( StringIO ).fromStateObject( stateObject.benchmark );
+    this.rotates = BooleanIO.fromStateObject( stateObject.rotates );
+    this.massRange = Range.RangeIO.fromStateObject( stateObject.massRange );
+    this.massRound = NumberIO.fromStateObject( stateObject.massRound );
+    this.diameterRange = Range.RangeIO.fromStateObject( stateObject.diameterRange );
+    this.diameterRound = NumberIO.fromStateObject( stateObject.diameterRound );
+    this.dragCoefficientRange = Range.RangeIO.fromStateObject( stateObject.dragCoefficientRange );
+  }
 }
 
-
-// constants
-// Name the types needed to serialize each field on the ProjectileObjectType so that it can be used in
-// toStateObject, fromStateObject, and applyState.
-const ioTypeSchema = {
-  name: { phetioType: NullableIO( StringIO ) },
-  mass: { phetioType: NumberIO },
-  diameter: { phetioType: NumberIO },
-  dragCoefficient: { phetioType: NumberIO },
-  benchmark: { phetioType: NullableIO( StringIO ) },
-  rotates: { phetioType: BooleanIO },
-  massRange: { phetioType: Range.RangeIO },
-  massRound: { phetioType: NumberIO },
-  diameterRange: { phetioType: Range.RangeIO },
-  diameterRound: { phetioType: NumberIO },
-  dragCoefficientRange: { phetioType: Range.RangeIO }
-};
-
-ProjectileObjectType.ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
-  valueType: ProjectileObjectType,
-  documentation: 'A data type that stores the variables for a given object type.',
-  toStateObject: projectileObjectType => {
-    const stateObject = {};
-    _.keys( ioTypeSchema ).forEach( fieldName => {
-      stateObject[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.toStateObject( projectileObjectType[ fieldName ] );
-    } );
-    return stateObject;
-  },
-  applyState: ( projectileObjectType, stateObject ) => {
-    _.keys( stateObject ).forEach( fieldName => {
-      assert && assert( stateObject.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      assert && assert( projectileObjectType.hasOwnProperty( fieldName ), `unexpected key: ${fieldName}` );
-      projectileObjectType[ fieldName ] = ioTypeSchema[ fieldName ].phetioType.fromStateObject( stateObject[ fieldName ] );
-    } );
-  }
+ProjectileObjectType.ProjectileObjectTypeIO = IOType.fromCoreType( 'ProjectileObjectTypeIO', ProjectileObjectType, {
+  documentation: 'A data type that stores the variables for a given object type.'
 } );
 
 projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
