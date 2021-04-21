@@ -136,6 +136,17 @@ class Trajectory extends PhetioObject {
         MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
     } );
 
+    // @private - added for PhET-iO support only
+    this.projectileCountProperty = new NumberProperty( 0, {
+      tandem: options.tandem.createTandem( 'projectileCountProperty' ),
+      numberType: 'Integer',
+      phetioDocumentation: 'The number of projectiles that have been launched on this Trajectory.'
+    } );
+
+    this.projectileObjects.elementAddedEmitter.addListener( () => {
+      this.projectileCountProperty.value++;
+    } );
+
     // add first projectile object
     this.addProjectileObject();
 
@@ -144,6 +155,7 @@ class Trajectory extends PhetioObject {
       this.apexPoint = null; // remove reference
 
       this.dataPoints.dispose();
+      this.projectileCountProperty.dispose();
       this.projectileObjects.dispose();
       this.rankProperty.dispose();
       model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
