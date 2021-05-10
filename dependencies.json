@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.16-rc.1 Mon May 10 2021 12:04:34 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# projectile-motion 1.0.16-rc.1 Mon May 10 2021 16:28:52 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -38,10 +38,10 @@
   },
   "phetmarks": {
     "sha": "a9ad33f2be05b094e134a189391baa52a6c860ab",
-    "branch": "projectile-motion-1.0"
+    "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "e9ce9c71075a7340246ce686bb1e980d9cfd1d16",
+    "sha": "942e7dec98e9a3f969d847554c923ba91206b746",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -49,8 +49,8 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "60ed510518395bddb2f0d8addc242778c9c62ec6",
-    "branch": "HEAD"
+    "sha": "8b697ea3f48298d02c13410ced15a626e5e4ad2b",
+    "branch": "projectile-motion-1.0"
   },
   "scenery-phet": {
     "sha": "0ff7de24b70adff4d62ea960e9cee7e81d0340ec",
