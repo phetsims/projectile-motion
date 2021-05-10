@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.16-rc.1 Fri Apr 23 2021 15:24:17 GMT-0600 (Mountain Daylight Time)",
+  "comment": "# projectile-motion 1.0.16-rc.1 Mon May 10 2021 12:04:34 GMT-0600 (Mountain Daylight Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -37,11 +37,11 @@
     "branch": "HEAD"
   },
   "phetmarks": {
-    "sha": "d2ceb4af52ddea03fe473ea3d3aec078aca57a42",
-    "branch": "HEAD"
+    "sha": "a9ad33f2be05b094e134a189391baa52a6c860ab",
+    "branch": "projectile-motion-1.0"
   },
   "projectile-motion": {
-    "sha": "d31d9124d121aba7b9d17808e8dcbc3d47ef8b50",
+    "sha": "e9ce9c71075a7340246ce686bb1e980d9cfd1d16",
     "branch": "1.0"
   },
   "query-string-machine": {
