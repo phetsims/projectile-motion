@@ -112,6 +112,27 @@ class ProjectileObjectType extends PhetioObject {
     };
   }
 
+
+  /**
+   * @public
+   * @returns {Object}
+   */
+  static get STATE_SCHEMA() {
+    return {
+      name: NullableIO( StringIO ),
+      mass: NumberIO,
+      diameter: NumberIO,
+      dragCoefficient: NumberIO,
+      benchmark: NullableIO( StringIO ),
+      rotates: BooleanIO,
+      massRange: Range.RangeIO,
+      massRound: NumberIO,
+      diameterRange: Range.RangeIO,
+      diameterRound: NumberIO,
+      dragCoefficientRange: Range.RangeIO
+    };
+  }
+
   /**
    * @public
    * @returns {Object}

@@ -503,6 +503,15 @@ class Trajectory extends PhetioObject {
 
 const NullOrDataPointIO = NullableIO( DataPoint.DataPointIO );
 
+Trajectory.STATE_SCHEMA = {
+  mass: NumberIO,
+  diameter: NumberIO,
+  dragCoefficient: NumberIO,
+  changedInMidAir: BooleanIO,
+  reachedGround: BooleanIO,
+  apexPoint: NullOrDataPointIO
+};
+
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.
 Trajectory.TrajectoryIO = IOType.fromCoreType( 'TrajectoryIO', Trajectory, {

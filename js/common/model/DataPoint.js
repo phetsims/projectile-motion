@@ -8,6 +8,7 @@
 
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -97,6 +98,17 @@ DataPoint.DataPointIO = new IOType( 'DataPointIO', {
     apex: dataPoint.apex,
     reachedGround: dataPoint.reachedGround
   } ),
+  stateSchema: {
+    time: NumberIO,
+    position: Vector2.Vector2IO,
+    airDensity: NumberIO,
+    velocity: Vector2.Vector2IO,
+    acceleration: Vector2.Vector2IO,
+    dragForce: Vector2.Vector2IO,
+    forceGravity: NumberIO,
+    apex: BooleanIO,
+    reachedGround: BooleanIO
+  },
   fromStateObject: stateObject => new DataPoint(
     NumberIO.fromStateObject( stateObject.time ),
     Vector2.Vector2IO.fromStateObject( stateObject.position ),

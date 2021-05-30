@@ -39,7 +39,10 @@ class ProjectileObject {
 ProjectileObject.ProjectileObjectIO = new IOType( 'ProjectileObjectIO', {
   valueType: ProjectileObject,
   documentation: 'A data type for a projectile object travelling on a projectile\'s trajectory',
-
+  stateSchema: {
+    index: NumberIO,
+    dataPoint: DataPoint.DataPointIO
+  },
   toStateObject: projectileObject => ( {
     index: NumberIO.toStateObject( projectileObject.index ),
 
