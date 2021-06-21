@@ -135,7 +135,7 @@ class KeypadLayer extends Plane {
 
     // @private
 
-    this.addHelloText = function() {
+    this.addHelloText = () => {
       if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
         contentNode.addChild( helloText );
         this.saidHello = true;
