@@ -419,15 +419,17 @@ class ProjectileMotionScreenView extends ScreenView {
   /**
    * Layout nodes part of the screen view
    *
-   * @param {number} width
-   * @param {number} height
+   * @param {Bounds2} viewBounds
    * @public (joist-internal)
    * @override
    */
-  layout( width, height ) {
+  layout( viewBounds ) {
     this.resetTransform();
 
-    const scale = this.getLayoutScale( width, height );
+    const scale = this.getLayoutScale( viewBounds );
+    const width = viewBounds.width;
+    const height = viewBounds.height;
+
     this.setScaleMagnitude( scale );
 
     let offsetX = 0;
@@ -442,7 +444,7 @@ class ProjectileMotionScreenView extends ScreenView {
     else if ( scale === height / this.layoutBounds.height ) {
       offsetX = ( width - this.layoutBounds.width * scale ) / 2 / scale;
     }
-    this.translate( offsetX, offsetY );
+    this.translate( offsetX + viewBounds.left / scale, offsetY + viewBounds.top / scale );
 
     // call on backgroundNode's function to lay it out
     this.backgroundNode.layout( offsetX, offsetY, width, height, scale );

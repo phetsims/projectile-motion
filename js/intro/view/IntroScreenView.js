@@ -59,14 +59,13 @@ class IntroScreenView extends ProjectileMotionScreenView {
 
   /**
    * Layout
-   * @param {number} width
-   * @param {number} height
+   * @param {Bounds2} viewBounds
    * @public (joist-internal)
    * @override
    */
-  layout( width, height ) {
+  layout( viewBounds ) {
     this.projectilePanel.hideComboBoxList();
-    super.layout( width, height );
+    super.layout( viewBounds );
   }
 }
 
