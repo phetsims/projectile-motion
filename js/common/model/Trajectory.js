@@ -256,7 +256,13 @@ class Trajectory extends PhetioObject {
 
         // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
         assert && assert( !isNaN( timeToGround ),
-          `timeToGround: ${timeToGround}, previousPoint.velocity: ${previousPoint.velocity}, previousPoint.acceleration: ${previousPoint.acceleration}, fromIf: ${fromIf}` );
+          `
+timeToGround: ${timeToGround}, 
+previousPoint.position: ${previousPoint.position}, 
+previousPoint.velocity: ${previousPoint.velocity}, 
+previousPoint.acceleration: ${previousPoint.acceleration}, 
+fromIf: ${fromIf}
+` );
 
         newX = previousPoint.position.x +
                previousPoint.velocity.x * timeToGround +
