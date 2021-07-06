@@ -261,7 +261,8 @@ timeToGround: ${timeToGround},
 previousPoint.position: ${previousPoint.position}, 
 previousPoint.velocity: ${previousPoint.velocity}, 
 previousPoint.acceleration: ${previousPoint.acceleration}, 
-fromIf: ${fromIf}
+fromIf: ${fromIf},
+number of dataPoints: ${this.dataPoints.length}
 ` );
 
         newX = previousPoint.position.x +
