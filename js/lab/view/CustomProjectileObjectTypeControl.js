@@ -16,12 +16,14 @@ import AlignBox from '../../../../scenery/js/nodes/AlignBox.js';
 import AlignGroup from '../../../../scenery/js/nodes/AlignGroup.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
+import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
+import Color from '../../../../scenery/js/util/Color.js';
+import editIconShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import FontAwesomeNode from '../../../../sun/js/FontAwesomeNode.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
 
 const altitudeString = projectileMotionStrings.altitude;
@@ -163,7 +165,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     };
 
     // edit button
-    const pencilIcon = new FontAwesomeNode( 'pencil_square_o', { scale: 0.35 } );
+    const pencilIcon = new Path( editIconShape, { scale: 0.025, fill: Color.BLACK } );
     const editButton = new RectangularPushButton( {
       minWidth: 25,
       minHeight: 20,
