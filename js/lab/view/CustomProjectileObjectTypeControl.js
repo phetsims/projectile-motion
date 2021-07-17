@@ -1,4 +1,4 @@
-// Copyright 2019-2020, University of Colorado Boulder
+// Copyright 2019-2021, University of Colorado Boulder
 
 /**
  * The controls for the "custom" projectile type. This is a special type because, unlike the others, for this type the
