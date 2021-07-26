@@ -9,9 +9,9 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/nodes/HBox.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
+import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -108,7 +108,7 @@ class VectorsProjectileControlPanel extends Panel {
         objectDisplay,
         diameterNumberControl,
         massNumberControl,
-        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
+        new HSeparator( options.minWidth - 2 * options.xMargin, { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
         new AirResistanceControl( airResistanceOnProperty, projectileDragCoefficientProperty, {
           labelOptions: LABEL_OPTIONS,
           minWidth: options.minWidth,

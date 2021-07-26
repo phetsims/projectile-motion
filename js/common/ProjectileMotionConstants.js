@@ -157,6 +157,7 @@ const ProjectileMotionConstants = {
 
   // Light gray, used as the 'disabled' color
   LIGHT_GRAY: 'rgb( 220, 220, 220 )',
+  SEPARATOR_COLOR: 'gray', // horizontal dividing line in the control panels
 
   YELLOW_BUTTON_OPTIONS: {
     font: new PhetFont( 14 ),

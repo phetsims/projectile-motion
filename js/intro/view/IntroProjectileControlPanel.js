@@ -12,11 +12,11 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
+import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -170,7 +170,7 @@ class IntroProjectileControlPanel extends Panel {
         projectileChoiceComboBox,
         massReadout,
         diameterReadout,
-        new Line( 0, 0, options.minWidth - 2 * options.xMargin, 0, { stroke: 'gray' } ),
+        new HSeparator( options.minWidth - 2 * options.xMargin, { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
         new AirResistanceControl( airResistanceOnProperty, projectileDragCoefficientProperty, {
           labelOptions: LABEL_OPTIONS,
           minWidth: options.minWidth,
