@@ -59,8 +59,7 @@ const CUEING_ARROW_OPTIONS = {
   lineWidth: 1,
   tailWidth: 8,
   headWidth: 14,
-  headHeight: 6,
-  cursor: 'pointer'
+  headHeight: 6
 };
 const MUZZLE_FLASH_SCALE = 2;
 const MUZZLE_FLASH_OPACITY_DELTA = 0.04;
@@ -94,8 +93,7 @@ class CannonNode extends Node {
     const clipContainer = new Node(); // no transform, just for clip area
 
     const cylinderNode = new Node( {
-      y: viewOrgin.y,
-      cursor: 'pointer'
+      y: viewOrgin.y
     } );
     clipContainer.addChild( cylinderNode );
 
@@ -128,8 +126,7 @@ class CannonNode extends Node {
     // cannon
     const cannonBarrel = new Node( {
       x: viewOrgin.x,
-      y: viewOrgin.y,
-      cursor: 'pointer'
+      y: viewOrgin.y
     } );
     clipContainer.addChild( cannonBarrel );
 
@@ -142,8 +139,7 @@ class CannonNode extends Node {
 
     const cannonBase = new Node( {
       x: viewOrgin.x,
-      y: viewOrgin.y,
-      cursor: 'pointer'
+      y: viewOrgin.y
     } );
     clipContainer.addChild( cannonBase );
 
@@ -197,7 +193,6 @@ class CannonNode extends Node {
     const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     const heightLabelOptions = merge( {
       pickable: true,
-      cursor: 'pointer',
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     const heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -478,7 +473,7 @@ class CannonNode extends Node {
         }
 
       },
-
+      useInputListenerCursor: true,
       allowTouchSnag: true,
       tandem: tandem.createTandem( 'barrelTopDragListener' ),
       phetioEnabledPropertyInstrumented: true,
@@ -515,7 +510,7 @@ class CannonNode extends Node {
       end: event => {
         heightCueingArrows.visible = false;
       },
-
+      useInputListenerCursor: true,
       allowTouchSnag: true,
       tandem: tandem.createTandem( 'heightDragListener' ),
       phetioEnabledPropertyInstrumented: true,
