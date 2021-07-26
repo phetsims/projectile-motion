@@ -334,7 +334,7 @@ ProjectileObjectType.COMPANIONLESS = new ProjectileObjectType(
   ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT,
   null,
   true, {
-    tandem: objectTypesTandem.createTandem( 'companionlessObjectType' ),
+    tandem: objectTypesTandem.createTandem( 'genericObjectType' ),
     phetioDocumentation: 'On some screens there are only a single, general projectile object type. It cannot be ' +
                          'changed to a different object type, but can be altered via Properties in the model.'
   }
