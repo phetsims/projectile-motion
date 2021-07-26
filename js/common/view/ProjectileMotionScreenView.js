@@ -22,7 +22,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
-import ZoomButton from '../../../../scenery-phet/js/buttons/ZoomButton.js';
+import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -229,46 +229,30 @@ class ProjectileMotionScreenView extends ScreenView {
     const zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
       tandem: tandem.createTandem( 'zoomProperty' ),
       range: new Range( MIN_ZOOM, MAX_ZOOM ),
-      phetioDocumentation: 'Used to adjust to visual zoom for this screen',
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
       phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
     } );
 
-    // zoom control view
-    const zoomControl = new Node();
-
-    const zoomOutButton = new ZoomButton( {
-      baseColor: '#E7E8E9',
-      magnifyingGlassOptions: {
-        glassRadius: 8
-      },
-      xMargin: 3,
-      yMargin: 3,
-      in: false,
-      left: 0,
-      top: 0,
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomProperty, {
+      applyZoomIn: currentZoom => currentZoom * 2,
+      applyZoomOut: currentZoom => currentZoom / 2,
+      spacing: X_MARGIN,
       touchAreaXDilation: 3,
       touchAreaYDilation: 6,
-      tandem: tandem.createTandem( 'zoomOutButton' ),
-      phetioDocumentation: 'the button to zoom out on the cannon'
-    } );
-    zoomControl.addChild( zoomOutButton );
 
-    const zoomInButton = new ZoomButton( {
-      baseColor: '#E7E8E9',
-      magnifyingGlassOptions: {
+      magnifyingGlassNodeOptions: {
         glassRadius: 8
       },
-      xMargin: 3,
-      yMargin: 3,
-      in: true,
-      left: zoomOutButton.right + X_MARGIN,
-      top: zoomOutButton.top,
-      touchAreaXDilation: 3,
-      touchAreaYDilation: 6,
-      tandem: tandem.createTandem( 'zoomInButton' ),
-      phetioDocumentation: 'the button to zoom in on the cannon'
+      buttonOptions: {
+        xMargin: 3,
+        yMargin: 3,
+        baseColor: '#E7E8E9'
+      },
+
+      // phet-io
+      tandem: tandem.createTandem( 'zoomButtonGroup' ),
+      phetioDocumentation: 'Container for the zoom in and out buttons'
     } );
-    zoomControl.addChild( zoomInButton );
 
     // Watch the zoom Property and update transform Property accordingly
     zoomProperty.link( zoomFactor => {
@@ -277,19 +261,6 @@ class ProjectileMotionScreenView extends ScreenView {
         ProjectileMotionConstants.VIEW_ORIGIN,
         DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
       ) );
-
-      zoomOutButton.setEnabled( zoomFactor > MIN_ZOOM );
-      zoomInButton.setEnabled( zoomFactor < MAX_ZOOM );
-    } );
-
-    // Zooming out means bars and zoom level gets smaller.
-    zoomOutButton.addListener( () => {
-      zoomProperty.value *= 0.5;
-    } );
-
-    // Zooming in means bars and zoom level gets larger.
-    zoomInButton.addListener( () => {
-      zoomProperty.value *= 2;
     } );
 
     // toolbox panel contains measuring tape. lab screen will add a dataProbe tool
@@ -385,7 +356,7 @@ class ProjectileMotionScreenView extends ScreenView {
     this.toolboxPanel = toolboxPanel;
     this.resetAllButton = resetAllButton;
     this.backgroundNode = backgroundNode;
-    this.zoomControl = zoomControl;
+    this.zoomButtonGroup = zoomButtonGroup;
 
     // flatirons
     model.altitudeProperty.link( altitude => {
@@ -406,7 +377,7 @@ class ProjectileMotionScreenView extends ScreenView {
       fireButton,
       eraserButton,
       timeControlNode,
-      zoomControl,
+      zoomButtonGroup,
       resetAllButton,
       measuringTapeNode,
       dataProbeNode
@@ -455,8 +426,8 @@ class ProjectileMotionScreenView extends ScreenView {
     this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
     this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
     this.resetAllButton.right = this.topRightPanel.right;
-    this.zoomControl.top = 2 * Y_MARGIN - offsetY;
-    this.zoomControl.left = this.layoutBounds.minX + X_MARGIN;
+    this.zoomButtonGroup.top = 2 * Y_MARGIN - offsetY;
+    this.zoomButtonGroup.left = this.layoutBounds.minX + X_MARGIN;
 
     // set visible bounds, which are different from layout bounds
     this.visibleBoundsProperty.set( new Bounds2( -offsetX, -offsetY, width / scale - offsetX, height / scale - offsetY ) );
