@@ -137,6 +137,7 @@ class ProjectileMotionModel {
     this.altitudeProperty = new NumberProperty( 0, {
       tandem: options.phetioInstrumentAltitudeProperty ? tandem.createTandem( 'altitudeProperty' ) : Tandem.OPT_OUT,
       phetioDocumentation: 'Altitude of the environment',
+      range: ProjectileMotionConstants.ALTITUDE_RANGE,
       units: 'm'
     } );
 
