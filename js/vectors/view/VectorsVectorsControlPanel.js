@@ -34,10 +34,10 @@ const FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 
 class VectorsVectorsControlPanel extends Panel {
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    */
-  constructor( vectorVisibilityProperties, options ) {
+  constructor( viewProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -56,7 +56,7 @@ class VectorsVectorsControlPanel extends Panel {
     const totalLabel = new Text( totalString, LABEL_OPTIONS );
     const componentsLabel = new Text( componentsString, LABEL_OPTIONS );
 
-    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.vectorsDisplayProperty, [ {
+    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
       node: totalLabel,
       tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
@@ -81,7 +81,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty,
+    const velocityCheckbox = new Checkbox( velocityCheckboxContent, viewProperties.velocityVectorsOnProperty,
       merge( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
     );
 
@@ -94,7 +94,7 @@ class VectorsVectorsControlPanel extends Panel {
       ]
     } );
     const accelerationCheckbox = new Checkbox( accelerationCheckboxContent,
-      vectorVisibilityProperties.accelerationVectorsOnProperty,
+      viewProperties.accelerationVectorsOnProperty,
       merge( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
     );
 
@@ -106,7 +106,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty,
+    const forceCheckbox = new Checkbox( forceCheckboxContent, viewProperties.forceVectorsOnProperty,
       merge( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
     );
 

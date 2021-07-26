@@ -10,7 +10,7 @@ import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreen
 import projectileMotion from '../../projectileMotion.js';
 import VectorsProjectileControlPanel from './VectorsProjectileControlPanel.js';
 import VectorsVectorsControlPanel from './VectorsVectorsControlPanel.js';
-import VectorsVectorVisibilityProperties from './VectorsVectorVisibilityProperties.js';
+import VectorsViewProperties from './VectorsViewProperties.js';
 
 class VectorsScreenView extends ProjectileMotionScreenView {
 
@@ -22,7 +22,7 @@ class VectorsScreenView extends ProjectileMotionScreenView {
   constructor( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorsVectorVisibilityProperties( tandem.createTandem( 'vectorVisibilityProperties' ) );
+    const visibilityProperties = new VectorsViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     super(
       model,

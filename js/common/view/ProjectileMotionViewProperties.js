@@ -11,7 +11,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 
-class VectorVisibilityProperties {
+class ProjectileMotionViewProperties {
   /**
    * @param {Object} [options]
    */
@@ -91,6 +91,6 @@ class VectorVisibilityProperties {
   }
 }
 
-projectileMotion.register( 'VectorVisibilityProperties', VectorVisibilityProperties );
+projectileMotion.register( 'ProjectileMotionViewProperties', ProjectileMotionViewProperties );
 
-export default VectorVisibilityProperties;
+export default ProjectileMotionViewProperties;

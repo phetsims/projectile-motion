@@ -10,7 +10,7 @@ import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreen
 import projectileMotion from '../../projectileMotion.js';
 import DragProjectileControlPanel from './DragProjectileControlPanel.js';
 import DragVectorsControlPanel from './DragVectorsControlPanel.js';
-import DragVectorVisibilityProperties from './DragVectorVisibilityProperties.js';
+import DragViewProperties from './DragViewProperties.js';
 
 class DragScreenView extends ProjectileMotionScreenView {
 
@@ -22,7 +22,7 @@ class DragScreenView extends ProjectileMotionScreenView {
   constructor( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new DragVectorVisibilityProperties( tandem.createTandem( 'vectorVisibilityProperties' ) );
+    const visibilityProperties = new DragViewProperties( tandem.createTandem( 'viewProperties' ) );
 
     super(
       model,

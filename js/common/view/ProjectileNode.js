@@ -3,7 +3,7 @@
 /**
  * View for a projectile including the flying object and the vectors.
  * Constructed based on many individually passed parameters about the projectile.
- * Listens to the vectorVisibilityProperties for vector visibility Properties.
+ * Listens to the viewProperties for vector visibility Properties.
  * Listens to a DataPoint Property to figure out when to move.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
@@ -48,7 +48,7 @@ const ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
 class ProjectileNode extends Node {
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
    * @param {ProjectileObjectType} objectType
    * @param {number} diameter - how big the object is, in meters
@@ -56,7 +56,7 @@ class ProjectileNode extends Node {
    * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
    * @param {Object} [options]
    */
-  constructor( vectorVisibilityProperties, dataPointProperty, objectType, diameter, dragCoefficient, modelViewTransform, options ) {
+  constructor( viewProperties, dataPointProperty, objectType, diameter, dragCoefficient, modelViewTransform, options ) {
 
     options = merge( {
       preventFit: true
@@ -102,25 +102,25 @@ class ProjectileNode extends Node {
     } );
 
     // Add support for velocity vectors
-    this.addComponentsVelocityVectors( vectorVisibilityProperties.componentsVelocityVectorsOnProperty );
-    this.addTotalVelocityVector( vectorVisibilityProperties.totalVelocityVectorOnProperty );
+    this.addComponentsVelocityVectors( viewProperties.componentsVelocityVectorsOnProperty );
+    this.addTotalVelocityVector( viewProperties.totalVelocityVectorOnProperty );
 
     // Add support for acceleration vectors if applicable
-    if ( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty ) {
-      this.addComponentsAccelerationVectors( vectorVisibilityProperties.componentsAccelerationVectorsOnProperty );
+    if ( viewProperties.componentsAccelerationVectorsOnProperty ) {
+      this.addComponentsAccelerationVectors( viewProperties.componentsAccelerationVectorsOnProperty );
     }
-    if ( vectorVisibilityProperties.totalAccelerationVectorOnProperty ) {
-      this.addTotalAccelerationVector( vectorVisibilityProperties.totalAccelerationVectorOnProperty );
+    if ( viewProperties.totalAccelerationVectorOnProperty ) {
+      this.addTotalAccelerationVector( viewProperties.totalAccelerationVectorOnProperty );
     }
 
 
     // Add support for force vectors via the FreeBodyDiagram if applicable
     let freeBodyDiagram = null;
-    const addFreeBodyDiagram = vectorVisibilityProperties.totalForceVectorOnProperty &&
-                               vectorVisibilityProperties.componentsForceVectorsOnProperty;
+    const addFreeBodyDiagram = viewProperties.totalForceVectorOnProperty &&
+                               viewProperties.componentsForceVectorsOnProperty;
     if ( addFreeBodyDiagram ) {
-      freeBodyDiagram = new FreeBodyDiagram( this.viewPointProperty, vectorVisibilityProperties.totalForceVectorOnProperty,
-        vectorVisibilityProperties.componentsForceVectorsOnProperty );
+      freeBodyDiagram = new FreeBodyDiagram( this.viewPointProperty, viewProperties.totalForceVectorOnProperty,
+        viewProperties.componentsForceVectorsOnProperty );
       this.addChild( freeBodyDiagram );
 
       // will be disposed if hits the ground, but cover the case where it is disposed mid-air

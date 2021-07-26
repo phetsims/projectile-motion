@@ -8,7 +8,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
-import VectorVisibilityProperties from '../../common/view/VectorVisibilityProperties.js';
+import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
 import InitialValuesPanel from './InitialValuesPanel.js';
 import KeypadLayer from './KeypadLayer.js';
@@ -29,7 +29,7 @@ class LabScreenView extends ProjectileMotionScreenView {
     options = merge( { preciseCannonDelta: true }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorVisibilityProperties();
+    const visibilityProperties = new ProjectileMotionViewProperties();
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();

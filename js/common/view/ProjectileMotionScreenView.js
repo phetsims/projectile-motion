@@ -65,11 +65,11 @@ class ProjectileMotionScreenView extends ScreenView {
    * @param {ProjectileMotionModel} model
    * @param {Panel} topRightPanel - the projectile control panel at the top right
    * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, topRightPanel, bottomRightPanel, vectorVisibilityProperties, tandem, options ) {
+  constructor( model, topRightPanel, bottomRightPanel, viewProperties, tandem, options ) {
 
     options = merge( { tandem: tandem }, options );
 
@@ -105,7 +105,7 @@ class ProjectileMotionScreenView extends ScreenView {
 
       // create the view representation for added trajectory
       const trajectoryNode = new TrajectoryNode(
-        vectorVisibilityProperties,
+        viewProperties,
         addedTrajectory,
         transformProperty
       );
@@ -302,7 +302,7 @@ class ProjectileMotionScreenView extends ScreenView {
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
-        vectorVisibilityProperties.reset();
+        viewProperties.reset();
 
         // reset zoom before the target is reset, so that the transform is correct
         zoomProperty.reset();

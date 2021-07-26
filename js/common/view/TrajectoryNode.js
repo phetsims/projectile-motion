@@ -38,12 +38,12 @@ const DOT_GREEN = 'rgb( 50, 255, 50 )';
 
 class TrajectoryNode extends Node {
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown,
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown,
    * only needed to pass down to ProjectileNode
    * @param {Trajectory} trajectory - model for the trajectory
    * @param {Property.<ModelViewTransform2>} transformProperty
    */
-  constructor( vectorVisibilityProperties, trajectory, transformProperty ) {
+  constructor( viewProperties, trajectory, transformProperty ) {
     super( { pickable: false, preventFit: true } );
 
     const scratchVector = new Vector2( 0, 0 );
@@ -127,7 +127,7 @@ class TrajectoryNode extends Node {
     // Update view based on new projectile objects added
     function handleProjectileObjectAdded( addedProjectileObject ) {
       const newProjectileNode = new ProjectileNode(
-        vectorVisibilityProperties,
+        viewProperties,
         addedProjectileObject.dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,

@@ -7,7 +7,7 @@
 
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
-import VectorVisibilityProperties from '../../common/view/VectorVisibilityProperties.js';
+import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
 import IntroProjectileControlPanel from './IntroProjectileControlPanel.js';
 import IntroVectorsControlPanel from './IntroVectorsControlPanel.js';
@@ -22,8 +22,8 @@ class IntroScreenView extends ProjectileMotionScreenView {
   constructor( model, tandem, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorVisibilityProperties( {
-      tandem: tandem.createTandem( 'vectorVisibilityProperties' ),
+    const visibilityProperties = new ProjectileMotionViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' ),
       forceProperties: false
     } );
 

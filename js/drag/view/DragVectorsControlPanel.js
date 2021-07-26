@@ -33,10 +33,10 @@ const FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 class DragVectorsControlPanel extends Panel {
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    */
-  constructor( vectorVisibilityProperties, options ) {
+  constructor( viewProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -56,7 +56,7 @@ class DragVectorsControlPanel extends Panel {
     const totalLabel = new Text( totalString, titleOptions );
     const componentsLabel = new Text( componentsString, titleOptions );
 
-    const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( vectorVisibilityProperties.vectorsDisplayProperty, [ {
+    const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
       node: totalLabel,
       tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
@@ -81,7 +81,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( velocityCheckboxContent, vectorVisibilityProperties.velocityVectorsOnProperty, merge( {
+    const velocityCheckbox = new Checkbox( velocityCheckboxContent, viewProperties.velocityVectorsOnProperty, merge( {
       tandem: options.tandem.createTandem( 'velocityCheckbox' ),
       phetioDocumentation: 'whether or not to display velocity vectors with the flying projectile'
     }, checkboxOptions ) );
@@ -94,7 +94,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( forceCheckboxContent, vectorVisibilityProperties.forceVectorsOnProperty, merge( {
+    const forceCheckbox = new Checkbox( forceCheckboxContent, viewProperties.forceVectorsOnProperty, merge( {
       tandem: options.tandem.createTandem( 'forceCheckbox' ),
       phetioDocumentation: 'whether or not to display force vectors in a free body diagram with the flying projectile'
     }, checkboxOptions ) );

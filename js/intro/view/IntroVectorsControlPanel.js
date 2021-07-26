@@ -32,10 +32,10 @@ const ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_I
 class IntroVectorsControlPanel extends Panel {
 
   /**
-   * @param {VectorVisibilityProperties} vectorVisibilityProperties - Properties that determine which vectors are shown
+   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Object} [options]
    */
-  constructor( vectorVisibilityProperties, options ) {
+  constructor( viewProperties, options ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -63,14 +63,14 @@ class IntroVectorsControlPanel extends Panel {
     const totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
     const totalVelocityCheckbox = new Checkbox(
       totalVelocityLabel,
-      vectorVisibilityProperties.totalVelocityVectorOnProperty,
+      viewProperties.totalVelocityVectorOnProperty,
       merge( { tandem: options.tandem.createTandem( 'totalVelocityCheckbox' ) }, checkboxOptions )
     );
 
     const componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsVelocityCheckbox = new Checkbox(
       componentsVelocityLabel,
-      vectorVisibilityProperties.componentsVelocityVectorsOnProperty,
+      viewProperties.componentsVelocityVectorsOnProperty,
       merge( { tandem: options.tandem.createTandem( 'componentsVelocityCheckbox' ) }, checkboxOptions )
     );
 
@@ -87,14 +87,14 @@ class IntroVectorsControlPanel extends Panel {
     const totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
     const totalAccelerationCheckbox = new Checkbox(
       totalAccelerationLabel,
-      vectorVisibilityProperties.totalAccelerationVectorOnProperty,
+      viewProperties.totalAccelerationVectorOnProperty,
       merge( { tandem: options.tandem.createTandem( 'totalAccelerationCheckbox' ) }, checkboxOptions )
     );
 
     const componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsAccelerationCheckbox = new Checkbox(
       componentsAccelerationLabel,
-      vectorVisibilityProperties.componentsAccelerationVectorsOnProperty,
+      viewProperties.componentsAccelerationVectorsOnProperty,
       merge( { tandem: options.tandem.createTandem( 'componentsAccelerationCheckbox' ) }, checkboxOptions )
     );
 

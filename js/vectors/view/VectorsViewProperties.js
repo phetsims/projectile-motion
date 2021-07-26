@@ -10,10 +10,10 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
-import VectorVisibilityProperties from '../../common/view/VectorVisibilityProperties.js';
+import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
 
-class VectorsVectorVisibilityProperties extends VectorVisibilityProperties {
+class VectorsViewProperties extends ProjectileMotionViewProperties {
   /**
    * @param {Tandem} tandem
    */
@@ -87,6 +87,6 @@ class VectorsVectorVisibilityProperties extends VectorVisibilityProperties {
   }
 }
 
-projectileMotion.register( 'VectorsVectorVisibilityProperties', VectorsVectorVisibilityProperties );
+projectileMotion.register( 'VectorsViewProperties', VectorsViewProperties );
 
-export default VectorsVectorVisibilityProperties;
+export default VectorsViewProperties;
