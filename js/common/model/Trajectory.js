@@ -22,10 +22,12 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
 import ProjectileObject from './ProjectileObject.js';
+import ProjectileObjectType from './ProjectileObjectType.js';
 
 // constants
 const MAX_NUMBER_OF_TRAJECTORIES = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
@@ -490,7 +492,8 @@ number of dataPoints: ${this.dataPoints.length}
       dragCoefficient: NumberIO.toStateObject( this.dragCoefficient ),
       changedInMidAir: BooleanIO.toStateObject( this.changedInMidAir ),
       reachedGround: BooleanIO.toStateObject( this.reachedGround ),
-      apexPoint: NullOrDataPointIO.toStateObject( this.apexPoint )
+      apexPoint: NullOrDataPointIO.toStateObject( this.apexPoint ),
+      projectileObjectType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).toStateObject( this.projectileObjectType )
     };
   }
 
@@ -505,6 +508,7 @@ number of dataPoints: ${this.dataPoints.length}
     this.changedInMidAir = BooleanIO.fromStateObject( stateObject.changedInMidAir );
     this.reachedGround = BooleanIO.fromStateObject( stateObject.reachedGround );
     this.apexPoint = NullOrDataPointIO.fromStateObject( stateObject.apexPoint );
+    this.projectileObjectType = ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType );
   }
 }
 
@@ -516,7 +520,8 @@ Trajectory.STATE_SCHEMA = {
   dragCoefficient: NumberIO,
   changedInMidAir: BooleanIO,
   reachedGround: BooleanIO,
-  apexPoint: NullOrDataPointIO
+  apexPoint: NullOrDataPointIO,
+  projectileObjectType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO )
 };
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
