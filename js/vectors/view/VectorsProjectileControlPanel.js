@@ -60,12 +60,18 @@ class VectorsProjectileControlPanel extends Panel {
 
     // drag coefficient object shape view
     const objectView = ProjectileObjectViewFactory.createCustom( DRAG_OBJECT_DISPLAY_DIAMETER, ProjectileMotionConstants.CANNONBALL_DRAG_COEFFICIENT );
+    const cannonBallText = new Text( cannonballString, merge( {}, LABEL_OPTIONS, {
+      maxWidth: options.minWidth - 3 * options.xMargin - objectView.width,
+      tandem: options.tandem.createTandem( 'titleNode' )
+    } ) );
+    cannonBallText.visibleProperty.link( visible => {
+      objectView.visible = visible;
+    } );
+
     const objectDisplay = new HBox( {
       spacing: options.xMargin,
       children: [
-        new Text( cannonballString, merge( {}, LABEL_OPTIONS, {
-          maxWidth: options.minWidth - 3 * options.xMargin - objectView.width
-        } ) ),
+        cannonBallText,
         objectView
       ]
     } );
