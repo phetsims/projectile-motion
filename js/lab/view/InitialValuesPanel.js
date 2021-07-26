@@ -52,9 +52,8 @@ class InitialValuesPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
-    // local vars for layout and formatting
-    const titleOptions = merge( {}, TITLE_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
-    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    // Max width for all components in this panel
+    const maxWidth = options.minWidth - 2 * options.xMargin;
 
     /**
      * Auxiliary function that creates VBox for a parameter label and slider
@@ -67,7 +66,10 @@ class InitialValuesPanel extends Panel {
      * @returns {VBox}
      */
     function createReadout( labelString, unitsString, valueProperty, range, tandem, degreeString ) {
-      const parameterLabel = new Text( '', merge( {}, parameterLabelOptions, {
+      const parameterLabel = new Text( '', merge( {}, LABEL_OPTIONS, {
+        maxWidth: maxWidth,
+
+        // phet-io
         tandem: tandem,
         textPropertyOptions: { phetioReadOnly: true }
       } ) );
@@ -87,7 +89,7 @@ class InitialValuesPanel extends Panel {
 
       return new VBox( {
         align: 'left',
-        children: [ parameterLabel, new HStrut( options.minWidth - 2 * options.xMargin ) ]
+        children: [ parameterLabel, new HStrut( maxWidth ) ]
       } );
     }
 
@@ -127,7 +129,10 @@ class InitialValuesPanel extends Panel {
       ]
     } );
 
-    const initialValuesTitle = new Text( initialValuesString, titleOptions );
+    const initialValuesTitle = new Text( initialValuesString, _.merge( {}, TITLE_OPTIONS, {
+      maxWidth: maxWidth,
+      tandem: options.tandem.createTandem( 'titleNode' )
+    } ) );
 
     const initialValuesVBox = new VBox( {
       align: 'center',
