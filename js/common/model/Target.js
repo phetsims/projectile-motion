@@ -14,7 +14,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
-class Score {
+class Target {
 
   /**
    * @param {number} initialTargetX - initial x position of the target
@@ -26,12 +26,12 @@ class Score {
     const targetXPropertyTandem = tandem.createTandem( 'targetXProperty' );
     this.targetXProperty = new NumberProperty( initialTargetX, {
       tandem: targetXPropertyTandem,
-      phetioDocumentation: 'The x position of the score target, in model coordinates',
+      phetioDocumentation: 'The x position of the target, in model coordinates',
       phetioFeatured: true,
       range: new Range( -100, 100 ),
       rangePropertyOptions: {
         tandem: targetXPropertyTandem.createTandem( 'rangeProperty' ),
-        phetioDocumentation: 'The range for x position of the score. This changes based on the current zoom of the view. ' +
+        phetioDocumentation: 'The range for x position of the target. This changes based on the current zoom of the view. ' +
                              'The initial value is only temporary, and is overwritten in the view on startup.'
       }
     } );
@@ -78,6 +78,6 @@ class Score {
   }
 }
 
-projectileMotion.register( 'Score', Score );
+projectileMotion.register( 'Target', Target );
 
-export default Score;
+export default Target;

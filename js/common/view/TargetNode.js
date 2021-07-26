@@ -36,12 +36,12 @@ const REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
 
 class TargetNode extends Node {
   /**
-   * @param {Score} score - model of the target and scoring algorithms
+   * @param {Target} target - model of the target and scoring algorithms
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
    * @param {Object} [options]
    */
-  constructor( score, transformProperty, screenView, options ) {
+  constructor( target, transformProperty, screenView, options ) {
 
     options = merge( {
       tandem: Tandem.REQUIRED
@@ -53,7 +53,7 @@ class TargetNode extends Node {
     this.screenView = screenView;
 
     // @private - local var to improve readability
-    this.targetXProperty = score.targetXProperty;
+    this.targetXProperty = target.targetXProperty;
 
     // @private
     this.transformProperty = transformProperty;
@@ -76,7 +76,7 @@ class TargetNode extends Node {
     } );
 
     // target view
-    const target = new Node( {
+    const targetView = new Node( {
       pickable: true,
       cursor: 'pointer',
       children: [
@@ -89,13 +89,13 @@ class TargetNode extends Node {
     // scaling the target to the right size
     const viewRadius = this.transformProperty.get().modelToViewDeltaX( TARGET_DIAMETER ) / 2;
     const targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
-    target.setScaleMagnitude( viewRadius, targetHeightInView );
+    targetView.setScaleMagnitude( viewRadius, targetHeightInView );
 
     // center on model's targetXProperty
-    target.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
+    targetView.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
 
     // add target to scene graph
-    this.addChild( target );
+    this.addChild( targetView );
 
     // @private variables used in drag handler
     let startPoint;
@@ -104,7 +104,7 @@ class TargetNode extends Node {
     const horizontalDragHandler = new DragListener( {
       start: event => {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
-        startX = target.centerX; // view units
+        startX = targetView.centerX; // view units
       },
 
       drag: event => {
@@ -119,11 +119,11 @@ class TargetNode extends Node {
 
       allowTouchSnag: true,
       tandem: options.tandem.createTandem( 'dragListener' ),
-      phetioDocumentation: 'The listener to drag the score, this can only drag in a horizontal angle'
+      phetioDocumentation: 'The listener to drag the target, this can only drag in a horizontal angle'
     } );
 
     // drag target to change horizontal position
-    target.addInputListener( horizontalDragHandler );
+    targetView.addInputListener( horizontalDragHandler );
 
     // update the range based on the current transform
     this.updateTargetXRange( this.transformProperty.get() );
@@ -155,8 +155,8 @@ class TargetNode extends Node {
     // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
     this.rewardNodes = [];
 
-    // listen to model for whether score indicator should be shown
-    score.scoredEmitter.addListener( numberOfStars => {
+    // listen to model for whether target indicator should be shown
+    target.scoredEmitter.addListener( numberOfStars => {
 
       let rewardNode;
       if ( numberOfStars === 1 ) {
@@ -184,7 +184,7 @@ class TargetNode extends Node {
           ]
         } );
       }
-      const rewardNodeStartPosition = new Vector2( target.centerX, target.centerY + REWARD_NODE_INITIAL_Y_OFFSET );
+      const rewardNodeStartPosition = new Vector2( targetView.centerX, targetView.centerY + REWARD_NODE_INITIAL_Y_OFFSET );
       rewardNode.center = rewardNodeStartPosition;
       screenView.addChild( rewardNode );
       this.rewardNodes.push( rewardNode );
@@ -215,11 +215,11 @@ class TargetNode extends Node {
 
     // Observe changes in the model horizontal position and update the view correspondingly
     const updateHorizontalPosition = targetX => {
-      target.centerX = this.transformProperty.get().modelToViewX( targetX );
-      distanceLabel.centerX = target.centerX;
-      distanceLabel.top = target.bottom + 2;
+      targetView.centerX = this.transformProperty.get().modelToViewX( targetX );
+      distanceLabel.centerX = targetView.centerX;
+      distanceLabel.top = targetView.bottom + 2;
       this.rewardNodes.forEach( rewardNode => {
-        rewardNode.x = target.centerX;
+        rewardNode.x = targetView.centerX;
       } );
     };
 
@@ -229,7 +229,7 @@ class TargetNode extends Node {
     this.transformProperty.link( transform => {
       this.updateTargetXRange( transform );
       const viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
-      target.setScaleMagnitude( viewRadius, targetHeightInView );
+      targetView.setScaleMagnitude( viewRadius, targetHeightInView );
       updateHorizontalPosition( this.targetXProperty.get() );
     } );
 
@@ -264,7 +264,7 @@ class TargetNode extends Node {
     } );
     this.rewardNodes = [];
 
-    // reset the range of the score
+    // reset the range of the target
     this.updateTargetXRange( this.transformProperty.value );
   }
 }

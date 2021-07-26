@@ -327,7 +327,7 @@ number of dataPoints: ${this.dataPoints.length}
       // if it has just reached the end, check if landed on target and remove the last projectile
       else if ( !projectileObject.checkedScore ) {
         this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
-        this.projectileMotionModel.score.scoreIfWithinTarget( projectileObject.dataPointProperty.get().position.x );
+        this.projectileMotionModel.target.scoreIfWithinTarget( projectileObject.dataPointProperty.get().position.x );
         projectileObject.checkedScore = true;
 
         // to help with memory, if this projectileObject has just landed, remove the last one (if it exists)

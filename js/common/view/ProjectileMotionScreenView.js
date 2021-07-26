@@ -94,7 +94,7 @@ class ProjectileMotionScreenView extends ScreenView {
     const transformProperty = new Property( modelViewTransform );
 
     // target
-    const targetNode = new TargetNode( model.score, transformProperty, this, {
+    const targetNode = new TargetNode( model.target, transformProperty, this, {
       tandem: tandem.createTandem( 'targetNode' ),
       phetioDocumentation: 'The target to aim for when firing a projectile'
     } );

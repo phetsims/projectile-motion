@@ -26,7 +26,7 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataProbe from './DataProbe.js';
 import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
-import Score from './Score.js';
+import Target from './Target.js';
 import Trajectory from './Trajectory.js';
 
 // constants
@@ -51,8 +51,8 @@ class ProjectileMotionModel {
 
     assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType );
 
-    // @public {Score} model for handling scoring ( if/when projectile hits target )
-    this.score = new Score( ProjectileMotionConstants.TARGET_X_DEFAULT, tandem.createTandem( 'score' ) );
+    // @public {Target} model for handling scoring ( if/when projectile hits target )
+    this.target = new Target( ProjectileMotionConstants.TARGET_X_DEFAULT, tandem.createTandem( 'target' ) );
 
     // @public {ProjectileMotionMeasuringTape} model for measuring tape
     this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
@@ -239,7 +239,7 @@ class ProjectileMotionModel {
     // disposes all trajectories and resets number of moving projectiles Property
     this.eraseTrajectories();
 
-    this.score.reset();
+    this.target.reset();
     this.measuringTape.reset();
     this.dataProbe.reset();
 
