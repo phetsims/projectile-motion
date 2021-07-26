@@ -6,6 +6,7 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -358,9 +359,15 @@ class ProjectileMotionScreenView extends ScreenView {
     this.backgroundNode = backgroundNode;
     this.zoomButtonGroup = zoomButtonGroup;
 
+    // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.
+    const flatIronsVisibleProperty = new BooleanProperty( true, {
+      tandem: tandem.createTandem( 'flatIronsVisibleProperty' ),
+      phetioDocumentation: 'when false, the flat irons "easter egg" will not display when at the appropriate altitude.'
+    } );
+
     // flatirons
-    model.altitudeProperty.link( altitude => {
-      backgroundNode.showOrHideFlatirons( altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
+    Property.multilink( [ model.altitudeProperty, flatIronsVisibleProperty ], altitude => {
+      backgroundNode.showOrHideFlatirons( flatIronsVisibleProperty.value && altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
     } );
 
     // rendering order
