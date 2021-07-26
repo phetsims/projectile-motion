@@ -44,6 +44,7 @@ class TargetNode extends Node {
   constructor( target, transformProperty, screenView, options ) {
 
     options = merge( {
+      phetioInputEnabledPropertyInstrumented: true,
       tandem: Tandem.REQUIRED
     }, options );
 
