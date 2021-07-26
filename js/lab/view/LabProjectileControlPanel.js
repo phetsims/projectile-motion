@@ -189,9 +189,15 @@ class LabProjectileControlPanel extends Node {
         projectileChoiceComboBox,
         massBox,
         diameterBox,
-        new HSeparator( options.minWidth - 2 * options.xMargin, { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
+        new HSeparator( options.minWidth - 2 * options.xMargin, {
+          stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
+          tandem: options.tandem.createTandem( 'separator1' )
+        } ),
         gravityBox,
-        new HSeparator( options.minWidth - 2 * options.xMargin, { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
+        new HSeparator( options.minWidth - 2 * options.xMargin, {
+          stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
+          tandem: options.tandem.createTandem( 'separator2' )
+        } ),
         airResistanceCheckbox,
         altitudeBox,
         dragCoefficientBox

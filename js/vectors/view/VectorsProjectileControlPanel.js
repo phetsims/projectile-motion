@@ -108,7 +108,10 @@ class VectorsProjectileControlPanel extends Panel {
         objectDisplay,
         diameterNumberControl,
         massNumberControl,
-        new HSeparator( options.minWidth - 2 * options.xMargin, { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
+        new HSeparator( options.minWidth - 2 * options.xMargin, {
+          stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
+          tandem: options.tandem.createTandem( 'separator' )
+        } ),
         new AirResistanceControl( airResistanceOnProperty, projectileDragCoefficientProperty, {
           labelOptions: LABEL_OPTIONS,
           minWidth: options.minWidth,
