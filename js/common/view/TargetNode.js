@@ -53,7 +53,7 @@ class TargetNode extends Node {
     this.screenView = screenView;
 
     // @private - local var to improve readability
-    this.targetXProperty = target.targetXProperty;
+    this.positionProperty = target.positionProperty;
 
     // @private
     this.transformProperty = transformProperty;
@@ -91,8 +91,8 @@ class TargetNode extends Node {
     const targetHeightInView = TARGET_HEIGHT / TARGET_DIAMETER * viewRadius;
     targetView.setScaleMagnitude( viewRadius, targetHeightInView );
 
-    // center on model's targetXProperty
-    targetView.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.targetXProperty.get(), 0 ) );
+    // center on model's positionProperty
+    targetView.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.positionProperty.get(), 0 ) );
 
     // add target to scene graph
     this.addChild( targetView );
@@ -114,7 +114,7 @@ class TargetNode extends Node {
         const xChange = mousePoint.x - startPoint.x;
 
         const newTargetX = Utils.roundSymmetric( this.transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
-        this.targetXProperty.set( Utils.clamp( newTargetX, this.targetXProperty.range.min, this.targetXProperty.range.max ) );
+        this.positionProperty.set( Utils.clamp( newTargetX, this.positionProperty.range.min, this.positionProperty.range.max ) );
       },
 
       allowTouchSnag: true,
@@ -131,8 +131,8 @@ class TargetNode extends Node {
     // text readout for horizontal distance from fire, which is origin, which is base of cannon
     const distancePattern = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } );
     const distanceLabel = new NumberDisplay(
-      this.targetXProperty,
-      this.targetXProperty.range,
+      this.positionProperty,
+      this.positionProperty.range,
       merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
         textOptions: {
           fill: 'black'
@@ -223,14 +223,14 @@ class TargetNode extends Node {
       } );
     };
 
-    this.targetXProperty.link( updateHorizontalPosition );
+    this.positionProperty.link( updateHorizontalPosition );
 
     // Observe changes in the modelViewTransform and update the view
     this.transformProperty.link( transform => {
       this.updateTargetXRange( transform );
       const viewRadius = transform.modelToViewDeltaX( TARGET_DIAMETER ) / 2;
       targetView.setScaleMagnitude( viewRadius, targetHeightInView );
-      updateHorizontalPosition( this.targetXProperty.get() );
+      updateHorizontalPosition( this.positionProperty.get() );
     } );
 
     // The node lasts for the lifetime of the sim, so its links/references don't need to be disposed
@@ -248,7 +248,7 @@ class TargetNode extends Node {
       transform.viewToModelX( this.screenView.layoutBounds.minX ),
       transform.viewToModelX( this.screenView.layoutBounds.maxX )
     );
-    this.targetXProperty.setValueAndRange( Utils.clamp( this.targetXProperty.value, newRange.min, newRange.max ), newRange );
+    this.positionProperty.setValueAndRange( Utils.clamp( this.positionProperty.value, newRange.min, newRange.max ), newRange );
   }
 
   /**

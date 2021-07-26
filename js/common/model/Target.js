@@ -17,17 +17,19 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 class Target {
 
   /**
-   * @param {number} initialTargetX - initial x position of the target
+   * @param {number} initialXPosition - initial x position of the target
    * @param {Tandem} tandem
    */
-  constructor( initialTargetX, tandem ) {
+  constructor( initialXPosition, tandem ) {
+
+    const targetXPropertyTandem = tandem.createTandem( 'positionProperty' );
 
     // @public {Property.<number>} x position of target
-    const targetXPropertyTandem = tandem.createTandem( 'targetXProperty' );
-    this.targetXProperty = new NumberProperty( initialTargetX, {
+    this.positionProperty = new NumberProperty( initialXPosition, {
       tandem: targetXPropertyTandem,
       phetioDocumentation: 'The x position of the target, in model coordinates',
       phetioFeatured: true,
+      units: 'm',
       range: new Range( -100, 100 ),
       rangePropertyOptions: {
         tandem: targetXPropertyTandem.createTandem( 'rangeProperty' ),
@@ -55,7 +57,7 @@ class Target {
    * @override
    */
   reset() {
-    this.targetXProperty.reset();
+    this.positionProperty.reset();
   }
 
   /**
@@ -65,7 +67,7 @@ class Target {
    * @param {number} projectileX - x coordinate in model coordinates
    */
   scoreIfWithinTarget( projectileX ) {
-    const distance = Math.abs( projectileX - this.targetXProperty.get() );
+    const distance = Math.abs( projectileX - this.positionProperty.get() );
     if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 6 ) { // center circle
       this.scoredEmitter.emit( 3 );
     }
