@@ -481,6 +481,7 @@ class CannonNode extends Node {
 
       allowTouchSnag: true,
       tandem: tandem.createTandem( 'barrelTopDragListener' ),
+      phetioEnabledPropertyInstrumented: true,
       phetioDocumentation: 'the drag listener for the barrel of the cannon to change the angle'
     } ) );
 
@@ -517,6 +518,7 @@ class CannonNode extends Node {
 
       allowTouchSnag: true,
       tandem: tandem.createTandem( 'heightDragListener' ),
+      phetioEnabledPropertyInstrumented: true,
       phetioDocumentation: 'the listener to change the height of the cannon, used on multiple Nodes'
     } );
 
