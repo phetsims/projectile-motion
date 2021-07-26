@@ -46,6 +46,9 @@ class IntroVectorsControlPanel extends Panel {
       tandem: Tandem.REQUIRED
     }, options );
 
+    const velocityVectorsTandem = options.tandem.createTandem( 'velocityVectors' );
+    const accelerationVectorsTandem = options.tandem.createTandem( 'accelerationVectors' );
+
     const titleOptions = merge( {}, TITLE_OPTIONS, {
       maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width
     } );
@@ -56,7 +59,7 @@ class IntroVectorsControlPanel extends Panel {
         velocityVectorsTitle,
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } )
       ],
-      tandem: options.tandem.createTandem( 'velocityVectorsTitleNode' )
+      tandem: velocityVectorsTandem.createTandem( 'titleNode' )
     } );
 
     const checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
@@ -64,14 +67,14 @@ class IntroVectorsControlPanel extends Panel {
     const totalVelocityCheckbox = new Checkbox(
       totalVelocityLabel,
       viewProperties.totalVelocityVectorOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'totalVelocityCheckbox' ) }, checkboxOptions )
+      merge( { tandem: velocityVectorsTandem.createTandem( 'totalCheckbox' ) }, checkboxOptions )
     );
 
     const componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsVelocityCheckbox = new Checkbox(
       componentsVelocityLabel,
       viewProperties.componentsVelocityVectorsOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'componentsVelocityCheckbox' ) }, checkboxOptions )
+      merge( { tandem: velocityVectorsTandem.createTandem( 'componentsCheckbox' ) }, checkboxOptions )
     );
 
     const accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
@@ -81,21 +84,21 @@ class IntroVectorsControlPanel extends Panel {
         accelerationVectorsTitle,
         new Node( { children: [ ACCELERATION_VECTOR_ICON ] } )
       ],
-      tandem: options.tandem.createTandem( 'accelerationVectorsTitleNode' )
+      tandem: accelerationVectorsTandem.createTandem( 'titleNode' )
     } );
 
     const totalAccelerationLabel = new Text( totalString, LABEL_OPTIONS );
     const totalAccelerationCheckbox = new Checkbox(
       totalAccelerationLabel,
       viewProperties.totalAccelerationVectorOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'totalAccelerationCheckbox' ) }, checkboxOptions )
+      merge( { tandem: accelerationVectorsTandem.createTandem( 'totalCheckbox' ) }, checkboxOptions )
     );
 
     const componentsAccelerationLabel = new Text( componentsString, LABEL_OPTIONS );
     const componentsAccelerationCheckbox = new Checkbox(
       componentsAccelerationLabel,
       viewProperties.componentsAccelerationVectorsOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'componentsAccelerationCheckbox' ) }, checkboxOptions )
+      merge( { tandem: accelerationVectorsTandem.createTandem( 'componentsCheckbox' ) }, checkboxOptions )
     );
 
     // The contents of the control panel
@@ -103,12 +106,26 @@ class IntroVectorsControlPanel extends Panel {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        velocityTitleBox,
-        totalVelocityCheckbox,
-        componentsVelocityCheckbox,
-        accelerationTitleBox,
-        totalAccelerationCheckbox,
-        componentsAccelerationCheckbox
+        new VBox( {
+          spacing: options.controlsVerticalSpace,
+          align: 'left',
+          tandem: velocityVectorsTandem,
+          children: [
+            velocityTitleBox,
+            totalVelocityCheckbox,
+            componentsVelocityCheckbox
+          ]
+        } ),
+        new VBox( {
+          align: 'left',
+          spacing: options.controlsVerticalSpace,
+          tandem: accelerationVectorsTandem,
+          children: [
+            accelerationTitleBox,
+            totalAccelerationCheckbox,
+            componentsAccelerationCheckbox
+          ]
+        } )
       ]
     } );
 
