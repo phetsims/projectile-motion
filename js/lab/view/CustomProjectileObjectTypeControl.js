@@ -7,6 +7,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
@@ -139,7 +140,6 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     } );
 
     const valueLabelOptions = merge( {}, NUMBER_DISPLAY_OPTIONS, {
-      cursor: 'pointer',
       backgroundStroke: 'black',
       decimalPlaces: null,
       cornerRadius: 4,
@@ -164,6 +164,8 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       } );
     };
 
+    const editEnabledProperty = new BooleanProperty( true, { tandem: tandem.createTandem( 'editEnabledProperty' ) } );
+
     // edit button
     const pencilIcon = new Path( editIconShape, { scale: 0.025, fill: Color.BLACK } );
     const editButton = new RectangularPushButton( {
@@ -174,6 +176,9 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       content: pencilIcon,
       baseColor: PhetColorScheme.BUTTON_YELLOW,
       listener: editValue,
+      enabledProperty: editEnabledProperty,
+
+      // phet-io
       tandem: tandem.createTandem( 'editButton' ),
       phetioDocumentation: 'the button to open the keypad to adjust the value'
     } );
@@ -181,6 +186,10 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     numberDisplay.addInputListener( new FireListener( { // no removeInputListener required
       fire: editValue,
       fireOnDown: true,
+      useInputListenerCursor: true,
+      enabledProperty: editEnabledProperty,
+
+      // phet-io
       tandem: numberDisplayTandem.createTandem( 'fireListener' ),
       phetioDocumentation: 'When fired, calls listener to open UI to edit the value for this NumberDisplay'
     } ) );
