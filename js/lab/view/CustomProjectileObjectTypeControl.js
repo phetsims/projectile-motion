@@ -20,7 +20,7 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
-import editIconShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
+import editSolidShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -167,7 +167,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     const editEnabledProperty = new BooleanProperty( true, { tandem: tandem.createTandem( 'editEnabledProperty' ) } );
 
     // edit button
-    const pencilIcon = new Path( editIconShape, { scale: 0.025, fill: Color.BLACK } );
+    const pencilIcon = new Path( editSolidShape, { scale: 0.025, fill: Color.BLACK } );
     const editButton = new RectangularPushButton( {
       minWidth: 25,
       minHeight: 20,
