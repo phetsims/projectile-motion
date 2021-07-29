@@ -423,7 +423,7 @@ class CannonNode extends Node {
 
     // Links in CannonNode last for the lifetime of the sim, so they don't need to be disposed
 
-    // @private variables used for drag handlers
+    // @private variables used for drag listeners
     let startPoint;
     let startAngle;
     let startPointAngle;
@@ -480,8 +480,8 @@ class CannonNode extends Node {
       phetioDocumentation: 'the drag listener for the barrel of the cannon to change the angle'
     } ) );
 
-    // drag handler for controlling the height
-    const heightDragHandler = new DragListener( {
+    // drag listener for controlling the height
+    const heightDragListener = new DragListener( {
       start: event => {
         startPoint = this.globalToLocalPoint( event.pointer.point );
         startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
@@ -518,12 +518,14 @@ class CannonNode extends Node {
     } );
 
     // multiple parts of the cannon can be dragged to change height
-    cannonBase.addInputListener( heightDragHandler );
-    cylinderSide.addInputListener( heightDragHandler );
-    cylinderTop.addInputListener( heightDragHandler );
-    cannonBarrelBase.addInputListener( heightDragHandler );
-    heightLabel.addInputListener( heightDragHandler );
-    heightCueingArrows.addInputListener( heightDragHandler );
+    cannonBase.addInputListener( heightDragListener );
+    cylinderSide.addInputListener( heightDragListener );
+    cylinderTop.addInputListener( heightDragListener );
+    cannonBarrelBase.addInputListener( heightDragListener );
+    heightLabel.addInputListener( heightDragListener );
+    heightCueingArrows.addInputListener( heightDragListener );
+
+    heightDragListener.enabledProperty.linkAttribute( heightCueingArrows, 'visible' );
   }
 
   /**
