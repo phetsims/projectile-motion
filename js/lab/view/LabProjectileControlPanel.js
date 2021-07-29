@@ -6,6 +6,7 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -82,6 +83,18 @@ class LabProjectileControlPanel extends Node {
 
     // @private;
     this.textDisplayWidth = options.textDisplayWidth * 1.4;
+
+    // @private - toggle the visibility of all ProjectileObjectType mass NumberControls with a single Property. Created
+    // for PhET-iO.
+    this.massNumberControlsVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'massNumberControlsVisibleProperty' )
+    } );
+
+    // @private - toggle the visibility of all ProjectileObjectType diameter NumberControls with a single Property. Created
+    // for PhET-iO.
+    this.diameterNumberControlsVisibleProperty = new BooleanProperty( true, {
+      tandem: options.tandem.createTandem( 'diameterNumberControlsVisibleProperty' )
+    } );
 
     // maxWidth empirically determined for labels in the dropdown
     const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
@@ -371,6 +384,16 @@ class LabProjectileControlPanel extends Node {
       // exists for the lifetime of the simulation
       this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
         dragCoefficientText.text = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
+      } );
+
+
+      // One direction of control. Instead of linking both to each other. This allows a single, global control to switch
+      // all types' visibility at once, while also allowing a single numberControl the flexibility to hide itself.
+      this.massNumberControlsVisibleProperty.link( visible => {
+        massNumberControl.visibleProperty.value = visible;
+      } );
+      this.diameterNumberControlsVisibleProperty.link( visible => {
+        diameterNumberControl.visibleProperty.value = visible;
       } );
 
       return new ProjectileObjectTypeControl(
