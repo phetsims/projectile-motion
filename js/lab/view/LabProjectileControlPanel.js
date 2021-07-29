@@ -157,11 +157,11 @@ class LabProjectileControlPanel extends Node {
     // readout, slider, and tweakers
 
     // These containers are added into the Panel as desired, and their children are changed as the object type does.
-    const massBox = new Node();
-    const diameterBox = new Node();
-    const dragCoefficientBox = new Node();
-    const altitudeBox = new Node();
-    const gravityBox = new Node();
+    const massBox = new Node( { excludeInvisibleChildrenFromBounds: true } );
+    const diameterBox = new Node( { excludeInvisibleChildrenFromBounds: true } );
+    const dragCoefficientBox = new Node( { excludeInvisibleChildrenFromBounds: true } );
+    const altitudeBox = new Node( { excludeInvisibleChildrenFromBounds: true } );
+    const gravityBox = new Node( { excludeInvisibleChildrenFromBounds: true } );
 
     // update the type of control based on the objectType
     model.selectedProjectileObjectTypeProperty.link( objectType => {
