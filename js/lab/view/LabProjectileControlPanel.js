@@ -90,10 +90,22 @@ class LabProjectileControlPanel extends Node {
       tandem: options.tandem.createTandem( 'massNumberControlsVisibleProperty' )
     } );
 
+    // @private - toggle the display-only of all ProjectileObjectType mass NumberControls with a single Property. Created
+    // for PhET-iO.
+    this.massNumberControlsDisplayOnlyProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'massNumberControlsDisplayOnlyProperty' )
+    } );
+
     // @private - toggle the visibility of all ProjectileObjectType diameter NumberControls with a single Property. Created
     // for PhET-iO.
     this.diameterNumberControlsVisibleProperty = new BooleanProperty( true, {
       tandem: options.tandem.createTandem( 'diameterNumberControlsVisibleProperty' )
+    } );
+
+    // @private - toggle the display-only of all ProjectileObjectType diameter NumberControls with a single Property. Created
+    // for PhET-iO.
+    this.diameterNumberControlsDisplayOnlyProperty = new BooleanProperty( false, {
+      tandem: options.tandem.createTandem( 'diameterNumberControlsDisplayOnlyProperty' )
     } );
 
     // maxWidth empirically determined for labels in the dropdown
@@ -386,7 +398,6 @@ class LabProjectileControlPanel extends Node {
         dragCoefficientText.text = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
       } );
 
-
       // One direction of control. Instead of linking both to each other. This allows a single, global control to switch
       // all types' visibility at once, while also allowing a single numberControl the flexibility to hide itself.
       this.massNumberControlsVisibleProperty.link( visible => {
@@ -394,6 +405,15 @@ class LabProjectileControlPanel extends Node {
       } );
       this.diameterNumberControlsVisibleProperty.link( visible => {
         diameterNumberControl.visibleProperty.value = visible;
+      } );
+
+      // One direction of control. Instead of linking both to each other. This allows a single, global control to switch
+      // all types' display-only at once, while also allowing a single numberControl the flexibility to set itself display-only.
+      this.massNumberControlsDisplayOnlyProperty.link( displayOnly => {
+        massNumberControl.displayOnlyProperty.value = displayOnly;
+      } );
+      this.diameterNumberControlsDisplayOnlyProperty.link( displayOnly => {
+        diameterNumberControl.displayOnlyProperty.value = displayOnly;
       } );
 
       return new ProjectileObjectTypeControl(
