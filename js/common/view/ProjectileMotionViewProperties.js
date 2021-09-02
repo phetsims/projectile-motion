@@ -7,9 +7,16 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import merge from '../../../../phet-core/js/merge.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+
+const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+const MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
 
 class ProjectileMotionViewProperties {
   /**
@@ -69,6 +76,14 @@ class ProjectileMotionViewProperties {
 
     }
 
+    // zoom Property
+    this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
+      tandem: options.tandem.createTandem( 'zoomProperty' ),
+      range: new Range( MIN_ZOOM, MAX_ZOOM ),
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
+      phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
+    } );
+
   }
 
   /**
@@ -88,6 +103,7 @@ class ProjectileMotionViewProperties {
       this.totalForceVectorOnProperty.reset();
       this.componentsForceVectorsOnProperty.reset();
     }
+    this.zoomProperty.reset();
   }
 }
 

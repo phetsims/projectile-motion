@@ -8,7 +8,6 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -50,9 +49,6 @@ const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value
 
 // constants
 const DEFAULT_SCALE = 30;
-const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
-const MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
-const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
 const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
 const PLAY_CONTROLS_INSET = ProjectileMotionConstants.PLAY_CONTROLS_HORIZONTAL_INSET;
 const TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
@@ -229,15 +225,7 @@ class ProjectileMotionScreenView extends ScreenView {
       phetioDocumentation: 'the Node for the dataProbe tool'
     } );
 
-    // zoom Property
-    const zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
-      tandem: tandem.createTandem( 'zoomProperty' ),
-      range: new Range( MIN_ZOOM, MAX_ZOOM ),
-      phetioDocumentation: 'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
-      phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
-    } );
-
-    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( zoomProperty, {
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( viewProperties.zoomProperty, {
       applyZoomIn: currentZoom => currentZoom * 2,
       applyZoomOut: currentZoom => currentZoom / 2,
       spacing: X_MARGIN,
@@ -259,7 +247,7 @@ class ProjectileMotionScreenView extends ScreenView {
     } );
 
     // Watch the zoom Property and update transform Property accordingly
-    zoomProperty.link( zoomFactor => {
+    viewProperties.zoomProperty.link( zoomFactor => {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,
         ProjectileMotionConstants.VIEW_ORIGIN,
@@ -277,10 +265,10 @@ class ProjectileMotionScreenView extends ScreenView {
     const resetAllButton = new ResetAllButton( {
       listener: () => {
         model.reset();
+
+        // reset zoom (in viewProperties) before the target is reset, so that the transform is correct
         viewProperties.reset();
 
-        // reset zoom before the target is reset, so that the transform is correct
-        zoomProperty.reset();
         targetNode.reset();
         cannonNode.reset();
       },
