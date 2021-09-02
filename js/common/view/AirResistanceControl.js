@@ -14,8 +14,8 @@ import Text from '../../../../scenery/js/nodes/Text.js';
 import VBox from '../../../../scenery/js/nodes/VBox.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 const airResistanceString = projectileMotionStrings.airResistance;
@@ -50,12 +50,12 @@ class AirResistanceControl extends VBox {
     dragCoefficientReadout.setBoundsMethod( 'accurate' );
 
     // air resistance
-    const airResistanceText = new Text( airResistanceString, merge( {}, options.labelOptions, {
-      tandem: options.tandem.createTandem( 'text' )
+    const titleText = new Text( airResistanceString, merge( {}, options.labelOptions, {
+      tandem: options.tandem.createTandem( 'titleText' )
     } ) );
     const airResistanceCheckboxContent = new HBox( {
       spacing: options.xMargin,
-      children: [ airResistanceText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
+      children: [ titleText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
     } );
 
     const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
