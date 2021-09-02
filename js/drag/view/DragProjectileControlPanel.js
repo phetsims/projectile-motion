@@ -141,7 +141,10 @@ class DragProjectileControlPanel extends Panel {
       } )
     );
 
-    const dragObjectDisplay = new Node();
+    const dragObjectDisplay = new Node( {
+      tandem: options.tandem.createTandem( 'dragObjectDisplay' ),
+      phetioDocumentation: 'the icon that changes shape as the drag coefficient changes value'
+    } );
     dragObjectDisplay.addChild( new HStrut( DRAG_OBJECT_DISPLAY_DIAMETER ) ); // min size
 
     // layout function for drag coefficient NumberControl. This is needed to add the icon in
