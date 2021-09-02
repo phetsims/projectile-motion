@@ -72,7 +72,10 @@ class ProjectileMotionScreenView extends ScreenView {
    */
   constructor( model, topRightPanel, bottomRightPanel, viewProperties, tandem, options ) {
 
-    options = merge( { tandem: tandem }, options );
+    options = merge( {
+      tandem: tandem,
+      addFlatirons: true // if false, then flatirons easteregg will never be shown
+    }, options );
 
     super( options );
 
@@ -359,16 +362,19 @@ class ProjectileMotionScreenView extends ScreenView {
     this.backgroundNode = backgroundNode;
     this.zoomButtonGroup = zoomButtonGroup;
 
-    // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.
-    const flatIronsVisibleProperty = new BooleanProperty( true, {
-      tandem: tandem.createTandem( 'flatIronsVisibleProperty' ),
-      phetioDocumentation: 'when false, the flat irons "easter egg" will not display when at the appropriate altitude.'
-    } );
+    if ( options.addFlatirons ) {
 
-    // flatirons
-    Property.multilink( [ model.altitudeProperty, flatIronsVisibleProperty ], altitude => {
-      backgroundNode.showOrHideFlatirons( flatIronsVisibleProperty.value && altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
-    } );
+      // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.
+      const flatironsVisibleProperty = new BooleanProperty( true, {
+        tandem: tandem.createTandem( 'flatironsVisibleProperty' ),
+        phetioDocumentation: 'when false, the flat irons "easter egg" will not display when at the appropriate altitude.'
+      } );
+
+      // flatirons
+      Property.multilink( [ model.altitudeProperty, flatironsVisibleProperty ], altitude => {
+        backgroundNode.showOrHideFlatirons( flatironsVisibleProperty.value && altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
+      } );
+    }
 
     // rendering order
     this.setChildren( [

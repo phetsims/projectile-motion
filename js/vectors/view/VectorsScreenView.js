@@ -6,6 +6,7 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import merge from '../../../../phet-core/js/merge.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import projectileMotion from '../../projectileMotion.js';
 import VectorsProjectileControlPanel from './VectorsProjectileControlPanel.js';
@@ -20,6 +21,10 @@ class VectorsScreenView extends ProjectileMotionScreenView {
    * @param {Object} [options]
    */
   constructor( model, tandem, options ) {
+
+    options = merge( {
+      addFlatirons: false
+    }, options );
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new VectorsViewProperties( tandem.createTandem( 'viewProperties' ) );
