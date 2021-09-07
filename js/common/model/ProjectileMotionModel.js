@@ -12,6 +12,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import EventTimer from '../../../../phet-core/js/EventTimer.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -30,6 +31,10 @@ import Target from './Target.js';
 import Trajectory from './Trajectory.js';
 
 // constants
+const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
+const MAX_ZOOM = ProjectileMotionConstants.MAX_ZOOM;
+const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
+
 const TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
 class ProjectileMotionModel {
@@ -203,12 +208,20 @@ class ProjectileMotionModel {
     // @public {Emitter} emits when cannon needs to update its muzzle flash animation
     this.muzzleFlashStepper = new Emitter();
 
+    // zoom Property
+    this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
+      tandem: tandem.createTandem( 'zoomProperty' ),
+      range: new Range( MIN_ZOOM, MAX_ZOOM ),
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
+      phetioStudioControl: false // see https://github.com/phetsims/projectile-motion/issues/219
+    } );
+
     // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
     this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
     // @public {DataProbe} model for the dataProbe probe
-    this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, tandem.createTandem( 'dataProbe' ) ); // position arbitrary
+    this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, this.zoomProperty, tandem.createTandem( 'dataProbe' ) ); // position arbitrary
 
     // Links in this constructor last for the life time of the sim, so no need to dispose
 
@@ -243,6 +256,7 @@ class ProjectileMotionModel {
     this.target.reset();
     this.measuringTape.reset();
     this.dataProbe.reset();
+    this.zoomProperty.reset();
 
     this.cannonHeightProperty.reset();
     this.cannonAngleProperty.reset();

@@ -168,9 +168,9 @@ const ProjectileMotionConstants = {
   },
 
   // zooming
-  MIN_ZOOM: 0.25,
+  MIN_ZOOM: 1 / 32,
   MAX_ZOOM: 2,
-  DEFAULT_ZOOM: 1.0,
+  DEFAULT_ZOOM: 1,
 
   // normal/slow/play/pause/step
   PLAY_CONTROLS_HORIZONTAL_INSET: 10,

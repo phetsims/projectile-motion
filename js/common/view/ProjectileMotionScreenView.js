@@ -225,7 +225,7 @@ class ProjectileMotionScreenView extends ScreenView {
       phetioDocumentation: 'the Node for the dataProbe tool'
     } );
 
-    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( viewProperties.zoomProperty, {
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( model.zoomProperty, {
       applyZoomIn: currentZoom => currentZoom * 2,
       applyZoomOut: currentZoom => currentZoom / 2,
       spacing: X_MARGIN,
@@ -246,8 +246,8 @@ class ProjectileMotionScreenView extends ScreenView {
       phetioDocumentation: 'Container for the zoom in and out buttons'
     } );
 
-    // Watch the zoom Property and update transform Property accordingly
-    viewProperties.zoomProperty.link( zoomFactor => {
+    // Watch the zoomProperty and update transform Property accordingly
+    model.zoomProperty.link( zoomFactor => {
       transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping(
         Vector2.ZERO,
         ProjectileMotionConstants.VIEW_ORIGIN,
@@ -261,14 +261,14 @@ class ProjectileMotionScreenView extends ScreenView {
       phetioDocumentation: 'the panel that holds the tools when not in the play area'
     } );
 
-    // reset all button, also a closure for zoomProperty and measuringTape
+    // reset all button, also a closure for and measuringTape
     const resetAllButton = new ResetAllButton( {
       listener: () => {
+
+        // reset zoom (in model) before the target is reset, so that the transform is correct
         model.reset();
 
-        // reset zoom (in viewProperties) before the target is reset, so that the transform is correct
         viewProperties.reset();
-
         targetNode.reset();
         cannonNode.reset();
       },

@@ -26,9 +26,10 @@ class DataProbe {
    * @param {PhetioGroup.<Trajectory>} trajectoryGroup
    * @param {number} dataProbeX - x initial position of the dataProbe
    * @param {number} dataProbeY - y initial position of the dataProbe
+   * @param {NumberProperty} zoomProperty - current zoom of the play area
    * @param {Tandem} tandem
    */
-  constructor( trajectoryGroup, dataProbeX, dataProbeY, tandem ) {
+  constructor( trajectoryGroup, dataProbeX, dataProbeY, zoomProperty, tandem ) {
 
     // @public
     this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {
@@ -51,6 +52,9 @@ class DataProbe {
       phetioDocumentation: 'Whether the dataProbe is out in the play area (false when in toolbox)'
     } );
 
+    // @private - used to adjust the tolerance of the sensing radius when detecting data points on trajectories.
+    this.zoomProperty = zoomProperty;
+
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
     this.trajectoryGroup = trajectoryGroup;
 
@@ -70,20 +74,29 @@ class DataProbe {
   }
 
   /**
+   * @private
+   * @param {Vector2} dataPointPosition
+   * @returns {boolean} - if the position provided is close enough to the dataProbe position to be sensed.
+   */
+  pointWithinTolerance( dataPointPosition ) {
+    return dataPointPosition.distance( this.positionProperty.get() ) <= ( SENSING_RADIUS / this.zoomProperty.value );
+  }
+
+  /**
    * Checks for if there is a point the dataProbe is close to. If so, updates dataPointProperty
    * @public
    */
   updateData() {
     for ( let i = this.trajectoryGroup.count - 1; i >= 0; i-- ) {
       const currentTrajectory = this.trajectoryGroup.getElement( i );
-      if ( currentTrajectory.apexPoint && currentTrajectory.apexPoint.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) { // current point shown is apex and it is still within sensing radius
+      if ( currentTrajectory.apexPoint && this.pointWithinTolerance( currentTrajectory.apexPoint.position ) ) { // current point shown is apex and it is still within sensing radius
         this.dataPointProperty.set( currentTrajectory.apexPoint );
         return;
       }
       const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
       const pointIsReadable = point &&
                               ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
-      if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+      if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
         this.dataPointProperty.set( point );
         return;
       }
@@ -102,7 +115,7 @@ class DataProbe {
     // point can be read by dataProbe if it exists, it is on the ground, or it is the right timestep
     const pointIsReadable = point &&
                             ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
-    if ( pointIsReadable && point.position.distance( this.positionProperty.get() ) <= SENSING_RADIUS ) {
+    if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
       this.dataPointProperty.set( point );
     }
   }
