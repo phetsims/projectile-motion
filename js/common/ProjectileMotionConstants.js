@@ -49,7 +49,7 @@ const ProjectileMotionConstants = {
   PROJECTILE_DRAG_COEFFICIENT_RANGE: new Range( 0.04, 1.2 ), // teardrop to almost hemisphere shape
 
   ALTITUDE_RANGE: new Range( 0, 5000 ), // meters, max is arbitrary but in upper stratosphere
-  GRAVITY_RANGE: new Range( 5, 20 ), // in m/s/s
+  GRAVITY_RANGE: new Range( 1, 20 ), // in m/s/s
 
   // projectile and trajectory
   AIR_RESISTANCE_ON_PATH_COLOR: 'rgb( 252, 40, 252 )',
