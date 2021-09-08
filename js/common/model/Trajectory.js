@@ -482,47 +482,22 @@ number of dataPoints: ${this.dataPoints.length}
   }
 
   /**
+   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
+   * @returns {Object.<string,IOType>}
    * @public
-   * @returns {Object}
    */
-  toStateObject() {
+  static get STATE_SCHEMA() {
     return {
-      mass: NumberIO.toStateObject( this.mass ),
-      diameter: NumberIO.toStateObject( this.diameter ),
-      dragCoefficient: NumberIO.toStateObject( this.dragCoefficient ),
-      changedInMidAir: BooleanIO.toStateObject( this.changedInMidAir ),
-      reachedGround: BooleanIO.toStateObject( this.reachedGround ),
-      apexPoint: NullOrDataPointIO.toStateObject( this.apexPoint ),
-      projectileObjectType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).toStateObject( this.projectileObjectType )
+      mass: NumberIO,
+      diameter: NumberIO,
+      dragCoefficient: NumberIO,
+      changedInMidAir: BooleanIO,
+      reachedGround: BooleanIO,
+      apexPoint: NullableIO( DataPoint.DataPointIO ),
+      projectileObjectType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO )
     };
   }
-
-  /**
-   * @public
-   * @param {Object} stateObject - see this.toStateObject()
-   */
-  applyState( stateObject ) {
-    this.mass = NumberIO.fromStateObject( stateObject.mass );
-    this.diameter = NumberIO.fromStateObject( stateObject.diameter );
-    this.dragCoefficient = NumberIO.fromStateObject( stateObject.dragCoefficient );
-    this.changedInMidAir = BooleanIO.fromStateObject( stateObject.changedInMidAir );
-    this.reachedGround = BooleanIO.fromStateObject( stateObject.reachedGround );
-    this.apexPoint = NullOrDataPointIO.fromStateObject( stateObject.apexPoint );
-    this.projectileObjectType = ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType );
-  }
 }
-
-const NullOrDataPointIO = NullableIO( DataPoint.DataPointIO );
-
-Trajectory.STATE_SCHEMA = {
-  mass: NumberIO,
-  diameter: NumberIO,
-  dragCoefficient: NumberIO,
-  changedInMidAir: BooleanIO,
-  reachedGround: BooleanIO,
-  apexPoint: NullOrDataPointIO,
-  projectileObjectType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO )
-};
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.

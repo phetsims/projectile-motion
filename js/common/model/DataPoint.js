@@ -72,10 +72,48 @@ class DataPoint {
     this.acceleration.freeToPool();
     this.dragForce.freeToPool();
   }
+
+  /**
+   * Returns a map of state keys and their associated IOTypes, see IOType.fromCoreType for details.
+   * @returns {Object.<string,IOType>}
+   * @public
+   */
+  static get STATE_SCHEMA() {
+    return {
+      time: NumberIO,
+      position: Vector2.Vector2IO,
+      airDensity: NumberIO,
+      velocity: Vector2.Vector2IO,
+      acceleration: Vector2.Vector2IO,
+      dragForce: Vector2.Vector2IO,
+      forceGravity: NumberIO,
+      apex: BooleanIO,
+      reachedGround: BooleanIO
+    };
+  }
+
+  /**
+   * Deserializes a DataPoint instance.
+   * @param {Object} stateObject - return value from toStateObject
+   * @returns {DataPoint}
+   * @public
+   */
+  static fromStateObject( stateObject ) {
+    return new DataPoint(
+      NumberIO.fromStateObject( stateObject.time ),
+      Vector2.Vector2IO.fromStateObject( stateObject.position ),
+      NumberIO.fromStateObject( stateObject.airDensity ),
+      Vector2.Vector2IO.fromStateObject( stateObject.velocity ),
+      Vector2.Vector2IO.fromStateObject( stateObject.acceleration ),
+      Vector2.Vector2IO.fromStateObject( stateObject.dragForce ),
+      NumberIO.fromStateObject( stateObject.forceGravity ), {
+        apex: stateObject.apex,
+        reachedGround: stateObject.reachedGround
+      } );
+  }
 }
 
-DataPoint.DataPointIO = new IOType( 'DataPointIO', {
-  valueType: DataPoint,
+DataPoint.DataPointIO = IOType.fromCoreType( 'DataPointIO', DataPoint, {
   documentation: 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
                  '<li>time (seconds): The time of the data point</li>' +
                  '<li>position (meters): the position of the point in model coordinates</li>' +
@@ -85,42 +123,7 @@ DataPoint.DataPointIO = new IOType( 'DataPointIO', {
                  '<li>dragForce (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
                  '<li>forceGravity (newtons): the acceleration of the projectile at the time when the point was collected</li>' +
                  '<li>apex (boolean): if this data point was at the apex of a trajectory</li>' +
-                 '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>',
-
-  toStateObject: dataPoint => ( {
-    time: NumberIO.toStateObject( dataPoint.time ),
-    position: Vector2.Vector2IO.toStateObject( dataPoint.position ),
-    airDensity: NumberIO.toStateObject( dataPoint.airDensity ),
-    velocity: Vector2.Vector2IO.toStateObject( dataPoint.velocity ),
-    acceleration: Vector2.Vector2IO.toStateObject( dataPoint.acceleration ),
-    dragForce: Vector2.Vector2IO.toStateObject( dataPoint.dragForce ),
-    forceGravity: NumberIO.toStateObject( dataPoint.forceGravity ),
-    apex: dataPoint.apex,
-    reachedGround: dataPoint.reachedGround
-  } ),
-  stateSchema: {
-    time: NumberIO,
-    position: Vector2.Vector2IO,
-    airDensity: NumberIO,
-    velocity: Vector2.Vector2IO,
-    acceleration: Vector2.Vector2IO,
-    dragForce: Vector2.Vector2IO,
-    forceGravity: NumberIO,
-    apex: BooleanIO,
-    reachedGround: BooleanIO
-  },
-  fromStateObject: stateObject => new DataPoint(
-    NumberIO.fromStateObject( stateObject.time ),
-    Vector2.Vector2IO.fromStateObject( stateObject.position ),
-    NumberIO.fromStateObject( stateObject.airDensity ),
-    Vector2.Vector2IO.fromStateObject( stateObject.velocity ),
-    Vector2.Vector2IO.fromStateObject( stateObject.acceleration ),
-    Vector2.Vector2IO.fromStateObject( stateObject.dragForce ),
-    NumberIO.fromStateObject( stateObject.forceGravity ), {
-      apex: stateObject.apex,
-      reachedGround: stateObject.reachedGround
-    }
-  )
+                 '<li>reachedGround (boolean): if this data point was collected when the projectile was on the ground</li></ul>'
 } );
 
 projectileMotion.register( 'DataPoint', DataPoint );
