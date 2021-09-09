@@ -13,7 +13,7 @@
     "branch": "HEAD"
   },
   "chipper": {
-    "sha": "32560254e6932d11737e3c1d847f4477778cf8f9",
+    "sha": "c32f9e31667a9276ac7bfefb5d95d32eff3b62cd",
     "branch": "HEAD"
   },
   "dot": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "7c3332ab5d6a63252a263afd30d45176b6f13a11",
+    "sha": "f40b70bf6fdae9e54ca6a9defa4b9866dc7b0034",
     "branch": "1.0"
   },
   "query-string-machine": {
