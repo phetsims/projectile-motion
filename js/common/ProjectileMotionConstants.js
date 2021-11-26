@@ -12,9 +12,9 @@ import Shape from '../../../kite/js/Shape.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import Circle from '../../../scenery/js/nodes/Circle.js';
-import Node from '../../../scenery/js/nodes/Node.js';
-import Path from '../../../scenery/js/nodes/Path.js';
+import { Circle } from '../../../scenery/js/imports.js';
+import { Node } from '../../../scenery/js/imports.js';
+import { Path } from '../../../scenery/js/imports.js';
 import projectileMotion from '../projectileMotion.js';
 
 // constants

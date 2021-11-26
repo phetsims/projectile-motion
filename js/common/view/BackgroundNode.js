@@ -7,11 +7,11 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../scenery/js/imports.js';
 import flatironsImage from '../../../images/flatirons_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';

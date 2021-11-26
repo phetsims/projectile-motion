@@ -6,8 +6,8 @@
  */
 
 import Screen from '../../../../joist/js/Screen.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../scenery/js/imports.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
 import projectileMotion from '../../projectileMotion.js';
 

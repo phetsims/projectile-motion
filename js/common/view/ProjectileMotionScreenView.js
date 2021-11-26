@@ -27,8 +27,8 @@ import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js'
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import davidImage from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';

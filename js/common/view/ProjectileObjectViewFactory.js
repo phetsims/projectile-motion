@@ -9,11 +9,11 @@
 import Matrix3 from '../../../../dot/js/Matrix3.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Circle from '../../../../scenery/js/nodes/Circle.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Line from '../../../../scenery/js/nodes/Line.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
+import { Circle } from '../../../../scenery/js/imports.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Line } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
 import baseballImage from '../../../images/baseball_png.js';
 import car1Image from '../../../images/car_1_png.js';
 import car2Image from '../../../images/car_2_png.js';

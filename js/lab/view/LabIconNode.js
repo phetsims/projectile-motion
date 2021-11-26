@@ -7,12 +7,12 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Color from '../../../../scenery/js/util/Color.js';
-import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { Color } from '../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../scenery/js/imports.js';
 import cannonBarrelTopImage from '../../../images/cannon_barrel_top_png.js';
 import cannonBarrelImage from '../../../mipmaps/cannon_barrel_png.js';
 import cannonBaseBottomImage from '../../../mipmaps/cannon_base_bottom_png.js';

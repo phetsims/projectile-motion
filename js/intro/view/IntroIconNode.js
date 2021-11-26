@@ -7,10 +7,10 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import Shape from '../../../../kite/js/Shape.js';
-import Image from '../../../../scenery/js/nodes/Image.js';
-import Path from '../../../../scenery/js/nodes/Path.js';
-import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
+import { Image } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../scenery/js/imports.js';
 import humanImage from '../../../images/uncentered_human_1_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
