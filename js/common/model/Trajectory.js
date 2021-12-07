@@ -247,7 +247,17 @@ class Trajectory extends PhetioObject {
         // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
         let timeToGround = null;
         if ( previousPoint.acceleration.y === 0 ) {
-          timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
+          if ( previousPoint.position.y === 0 ) {
+
+            // We are already on the ground.
+            timeToGround = 0;
+          }
+          else if ( previousPoint.velocity.y === 0 ) {
+            assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
+          }
+          else {
+            timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
+          }
         }
         else {
           fromIf = false;
