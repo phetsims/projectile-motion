@@ -5,10 +5,10 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Enumeration from '../../../../phet-core/js/Enumeration.js';
+import EnumerationDeprecated from '../../../../phet-core/js/EnumerationDeprecated.js';
 import projectileMotion from '../../projectileMotion.js';
 
-const VectorsDisplayEnumeration = Enumeration.byKeys( [
+const VectorsDisplayEnumeration = EnumerationDeprecated.byKeys( [
   'TOTAL',
   'COMPONENTS'
 ] );
