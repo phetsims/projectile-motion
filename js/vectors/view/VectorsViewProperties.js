@@ -7,7 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
@@ -33,7 +33,7 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
       tandem: tandem.createTandem( 'forceVectorsOnProperty' ),
       phetioDocumentation: 'Whether or not to display the force vectors in a free body diagram for flying projectiles'
     } );
-    this.vectorsDisplayProperty = new EnumerationProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
+    this.vectorsDisplayProperty = new EnumerationDeprecatedProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
       tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
       phetioDocumentation: 'Property for which type of vectors are displayed for flying projectiles: either component ' +
                            'vectors or total vectors.'
