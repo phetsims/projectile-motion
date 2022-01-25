@@ -30,7 +30,7 @@ import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
-import davidImage from '../../../images/david_png.js';
+import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -205,7 +205,7 @@ class ProjectileMotionScreenView extends ScreenView {
     } );
 
     // David
-    const davidNode = new Image( davidImage, { tandem: tandem.createTandem( 'davidNode' ) } );
+    const davidNode = new Image( david_png, { tandem: tandem.createTandem( 'davidNode' ) } );
 
     // background, including grass, road, sky, flatirons
     const backgroundNode = new BackgroundNode( this.layoutBounds );

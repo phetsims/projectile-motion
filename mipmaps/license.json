@@ -1,5 +1,5 @@
 {
-  "cannon_barrel.png": {
+  "cannonBarrel.png": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
@@ -7,7 +7,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Amy Rouinfar"
   },
-  "cannon_base_bottom.png": {
+  "cannonBaseBottom.png": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
@@ -15,7 +15,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Amy Rouinfar"
   },
-  "cannon_base_top.png": {
+  "cannonBaseTop.png": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],
@@ -23,7 +23,7 @@
     "license": "contact phethelp@colorado.edu",
     "notes": "created by Amy Rouinfar"
   },
-  "fire_button.png": {
+  "fireButton.png": {
     "text": [
       "Copyright 2002-2016 University of Colorado Boulder"
     ],

@@ -12,7 +12,7 @@ import { Line } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
-import flatironsImage from '../../../images/flatirons_png.js';
+import flatirons_png from '../../../images/flatirons_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
@@ -46,7 +46,7 @@ class BackgroundNode extends Node {
       lineDash: [ 10, 10 ],
       lineWidth: YELLOW_LINE_WIDTH
     } );
-    this.flatirons = new Image( flatironsImage, { maxWidth: FLATIRONS_WIDTH } );
+    this.flatirons = new Image( flatirons_png, { maxWidth: FLATIRONS_WIDTH } );
     this.flatirons.visible = false;
 
     assert && assert( !options.children, 'this type sets its own children' );

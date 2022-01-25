@@ -11,7 +11,7 @@ import { Image } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
-import humanImage from '../../../images/uncentered_human_1_png.js';
+import uncenteredHuman1_png from '../../../images/uncenteredHuman1_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
 // constants
@@ -46,7 +46,7 @@ class IntroIconNode extends Rectangle {
         .quadraticCurveTo( width * 0.2, height * 0.6, width / 2, height / 2 );
       trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 2, stroke: PATH_COLOR } );
       this.addChild( trajectoryPath );
-      phetGirl = new Image( humanImage, { maxWidth: width * 0.7, centerX: width * 0.55, centerY: height * 0.45 } );
+      phetGirl = new Image( uncenteredHuman1_png, { maxWidth: width * 0.7, centerX: width * 0.55, centerY: height * 0.45 } );
       phetGirl.setRotation( -Math.PI / 30 );
       this.addChild( phetGirl );
     }
@@ -58,7 +58,7 @@ class IntroIconNode extends Rectangle {
         .quadraticCurveTo( width * 0.2, height * 0.6, width / 2, height / 2 );
       trajectoryPath = new Path( trajectoryShape, { lineWidth: PATH_WIDTH * 4, stroke: PATH_COLOR } );
       this.addChild( trajectoryPath );
-      phetGirl = new Image( humanImage, { centerX: width * 0.55, centerY: height * 0.4 } );
+      phetGirl = new Image( uncenteredHuman1_png, { centerX: width * 0.55, centerY: height * 0.4 } );
       phetGirl.scale( width * 0.6 / phetGirl.width );
       phetGirl.setRotation( -Math.PI / 30 );
       this.addChild( phetGirl );

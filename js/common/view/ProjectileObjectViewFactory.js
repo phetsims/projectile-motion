@@ -14,17 +14,17 @@ import { Image } from '../../../../scenery/js/imports.js';
 import { Line } from '../../../../scenery/js/imports.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import { Path } from '../../../../scenery/js/imports.js';
-import baseballImage from '../../../images/baseball_png.js';
-import car1Image from '../../../images/car_1_png.js';
-import car2Image from '../../../images/car_2_png.js';
-import footballImage from '../../../images/football_png.js';
-import human1Image from '../../../images/human_1_png.js';
-import human2Image from '../../../images/human_2_png.js';
-import piano1Image from '../../../images/piano_1_png.js';
-import piano2Image from '../../../images/piano_2_png.js';
-import pumpkin1Image from '../../../images/pumpkin_1_png.js';
-import pumpkin2Image from '../../../images/pumpkin_2_png.js';
-import tankShellImage from '../../../images/tank_shell_png.js';
+import baseball_png from '../../../images/baseball_png.js';
+import car1_png from '../../../images/car1_png.js';
+import car2_png from '../../../images/car2_png.js';
+import football_png from '../../../images/football_png.js';
+import human1_png from '../../../images/human1_png.js';
+import human2_png from '../../../images/human2_png.js';
+import piano1_png from '../../../images/piano1_png.js';
+import piano2_png from '../../../images/piano2_png.js';
+import pumpkin1_png from '../../../images/pumpkin1_png.js';
+import pumpkin2_png from '../../../images/pumpkin2_png.js';
+import tankShell_png from '../../../images/tankShell_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
 // image
@@ -112,50 +112,50 @@ const ProjectileObjectViewFactory = {
   createPumpkin( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
-      return new Image( pumpkin2Image, { maxHeight: transformedBallSize * 0.75 } );
+      return new Image( pumpkin2_png, { maxHeight: transformedBallSize * 0.75 } );
     }
     else {
-      return new Image( pumpkin1Image, { maxHeight: transformedBallSize * 0.95 } );
+      return new Image( pumpkin1_png, { maxHeight: transformedBallSize * 0.95 } );
     }
   },
 
   createBaseball( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( baseballImage, { maxWidth: transformedBallSize } );
+    return new Image( baseball_png, { maxWidth: transformedBallSize } );
   },
 
   createCar( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
-      return new Image( car2Image, { maxHeight: transformedBallSize * 1.7 } );
+      return new Image( car2_png, { maxHeight: transformedBallSize * 1.7 } );
     }
     else {
-      return new Image( car1Image, { maxHeight: transformedBallSize * 0.75 } );
+      return new Image( car1_png, { maxHeight: transformedBallSize * 0.75 } );
     }
   },
 
   createFootball( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( footballImage, { maxHeight: transformedBallSize } );
+    return new Image( football_png, { maxHeight: transformedBallSize } );
   },
 
   createHuman( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
-      return new Image( human2Image, { maxWidth: transformedBallSize * 1.35 } );
+      return new Image( human2_png, { maxWidth: transformedBallSize * 1.35 } );
     }
     else {
-      return new Image( human1Image, { maxHeight: transformedBallSize * 1.9 } );
+      return new Image( human1_png, { maxHeight: transformedBallSize * 1.9 } );
     }
   },
 
   createPiano( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( landed ) {
-      return new Image( piano2Image, { maxWidth: transformedBallSize * 1.3 } );
+      return new Image( piano2_png, { maxWidth: transformedBallSize * 1.3 } );
     }
     else {
-      return new Image( piano1Image, { maxWidth: transformedBallSize * 1.1 } );
+      return new Image( piano1_png, { maxWidth: transformedBallSize * 1.1 } );
     }
   },
 
@@ -166,7 +166,7 @@ const ProjectileObjectViewFactory = {
 
   createTankShell( diameter, modelViewTransform, landed ) {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( tankShellImage, { maxHeight: transformedBallSize } );
+    return new Image( tankShell_png, { maxHeight: transformedBallSize } );
   }
 };
 

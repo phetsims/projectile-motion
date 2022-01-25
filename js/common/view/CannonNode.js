@@ -25,10 +25,10 @@ import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
-import cannonBarrelTopImage from '../../../images/cannon_barrel_top_png.js';
-import cannonBarrelImage from '../../../mipmaps/cannon_barrel_png.js';
-import cannonBaseBottomImage from '../../../mipmaps/cannon_base_bottom_png.js';
-import cannonBaseTopImage from '../../../mipmaps/cannon_base_top_png.js';
+import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
+import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
+import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
+import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -131,8 +131,8 @@ class CannonNode extends Node {
     clipContainer.addChild( cannonBarrel );
 
     // A copy of the top part of the cannon barrel to 1) grab and change angle and 2) layout the cannonBarrel
-    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0, opacity: 0 } );
-    const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
+    const cannonBarrelTop = new Image( cannonBarrelTop_png, { centerY: 0, opacity: 0 } );
+    const cannonBarrelBase = new Image( cannonBarrel_png, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
@@ -143,9 +143,9 @@ class CannonNode extends Node {
     } );
     clipContainer.addChild( cannonBase );
 
-    const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    const cannonBaseBottom = new Image( cannonBaseBottom_png, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
-    const cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
+    const cannonBaseTop = new Image( cannonBaseTop_png, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
     const viewHeightLeaderLineX = transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_X );

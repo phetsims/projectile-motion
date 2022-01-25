@@ -13,13 +13,11 @@ import { Path } from '../../../../scenery/js/imports.js';
 import { Rectangle } from '../../../../scenery/js/imports.js';
 import { Color } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
-import cannonBarrelTopImage from '../../../images/cannon_barrel_top_png.js';
-import cannonBarrelImage from '../../../mipmaps/cannon_barrel_png.js';
-import cannonBaseBottomImage from '../../../mipmaps/cannon_base_bottom_png.js';
-import cannonBaseTopImage from '../../../mipmaps/cannon_base_top_png.js';
+import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
+import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
+import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
+import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
 import projectileMotion from '../../projectileMotion.js';
-
-// image
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -74,8 +72,8 @@ class LabIconNode extends Rectangle {
     const cannonBarrel = new Node( { rotation: -CANNON_ANGLE * Math.PI / 180 } );
     scalableNode.addChild( cannonBarrel );
 
-    const cannonBarrelTop = new Image( cannonBarrelTopImage, { centerY: 0 } );
-    const cannonBarrelBase = new Image( cannonBarrelImage, { centerY: 0, right: cannonBarrelTop.right } );
+    const cannonBarrelTop = new Image( cannonBarrelTop_png, { centerY: 0 } );
+    const cannonBarrelBase = new Image( cannonBarrel_png, { centerY: 0, right: cannonBarrelTop.right } );
 
     cannonBarrel.addChild( cannonBarrelBase );
     cannonBarrel.addChild( cannonBarrelTop );
@@ -83,9 +81,9 @@ class LabIconNode extends Rectangle {
     const cannonBase = new Node( { pickable: true, cursor: 'pointer' } );
     scalableNode.addChild( cannonBase );
 
-    const cannonBaseBottom = new Image( cannonBaseBottomImage, { top: 0, centerX: 0 } );
+    const cannonBaseBottom = new Image( cannonBaseBottom_png, { top: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseBottom );
-    const cannonBaseTop = new Image( cannonBaseTopImage, { bottom: 0, centerX: 0 } );
+    const cannonBaseTop = new Image( cannonBaseTop_png, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
