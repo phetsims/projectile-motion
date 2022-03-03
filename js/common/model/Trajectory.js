@@ -95,7 +95,7 @@ class Trajectory extends PhetioObject {
     // Listen to whether this rank should be incremented
     model.updateTrajectoryRanksEmitter.addListener( incrementRank );
 
-    const velocity = Vector2.dirtyFromPool().setPolar(
+    const velocity = Vector2.pool.fetch().setPolar(
       model.initialSpeedProperty.value,
       model.cannonAngleProperty.value * Math.PI / 180
     );
@@ -110,15 +110,15 @@ class Trajectory extends PhetioObject {
     const airDensity = this.projectileMotionModel.airDensityProperty.get();
     const gravity = this.projectileMotionModel.gravityProperty.get();
 
-    const dragForce = Vector2.dirtyFromPool().set( velocity )
+    const dragForce = Vector2.pool.fetch().set( velocity )
       .multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude );
 
     const initialPoint = new DataPoint(
       0, // total time elapsed
-      Vector2.createFromPool( 0, model.cannonHeightProperty.get() ), // position
+      Vector2.pool.create( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
       velocity,
-      Vector2.createFromPool( -dragForce.x / this.mass, -gravity - dragForce.y / this.mass ), // acceleration
+      Vector2.pool.create( -dragForce.x / this.mass, -gravity - dragForce.y / this.mass ), // acceleration
       dragForce, // drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
@@ -181,7 +181,7 @@ class Trajectory extends PhetioObject {
       let newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
       let newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
 
-      const newVelocity = Vector2.dirtyFromPool().setXY(
+      const newVelocity = Vector2.pool.fetch().setXY(
         previousPoint.velocity.x + previousPoint.acceleration.x * dt,
         previousPoint.velocity.y + previousPoint.acceleration.y * dt
       );
@@ -203,7 +203,7 @@ class Trajectory extends PhetioObject {
       const airDensity = this.projectileMotionModel.airDensityProperty.get();
       const gravity = this.projectileMotionModel.gravityProperty.get();
 
-      const newDragForce = Vector2.dirtyFromPool().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
+      const newDragForce = Vector2.pool.fetch().set( newVelocity ).multiplyScalar( 0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude );
 
       if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) { // passed apex
         const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
@@ -216,11 +216,11 @@ class Trajectory extends PhetioObject {
 
         const apexPoint = new DataPoint(
           previousPoint.time + dtToApex,
-          Vector2.createFromPool( apexX, apexY ),
+          Vector2.pool.create( apexX, apexY ),
           airDensity,
-          Vector2.createFromPool( apexVelocityX, apexVelocityY ), // velocity
-          Vector2.createFromPool( -apexDragX / this.mass, -gravity - apexDragY / this.mass ), // acceleration
-          Vector2.createFromPool( apexDragX, apexDragY ), // drag force
+          Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
+          Vector2.pool.create( -apexDragX / this.mass, -gravity - apexDragY / this.mass ), // acceleration
+          Vector2.pool.create( apexDragX, apexDragY ), // drag force
           -gravity * this.mass, {
             apex: true
           }
@@ -284,11 +284,11 @@ number of dataPoints: ${this.dataPoints.length}
 
         newPoint = new DataPoint(
           previousPoint.time + timeToGround,
-          Vector2.createFromPool( newX, newY ),
+          Vector2.pool.create( newX, newY ),
           airDensity,
-          Vector2.createFromPool( 0, 0 ), // velocity
-          Vector2.createFromPool( 0, 0 ), // acceleration
-          Vector2.createFromPool( 0, 0 ), // drag force
+          Vector2.pool.create( 0, 0 ), // velocity
+          Vector2.pool.create( 0, 0 ), // acceleration
+          Vector2.pool.create( 0, 0 ), // drag force
           -gravity * this.mass, {
 
             // add this special property to just the last datapoint collected for a trajectory
@@ -302,10 +302,10 @@ number of dataPoints: ${this.dataPoints.length}
 
         newPoint = new DataPoint(
           previousPoint.time + dt,
-          Vector2.createFromPool( newX, newY ),
+          Vector2.pool.create( newX, newY ),
           airDensity,
           newVelocity,
-          Vector2.createFromPool( -newDragForce.x / this.mass, -gravity - newDragForce.y / this.mass ), // acceleration
+          Vector2.pool.create( -newDragForce.x / this.mass, -gravity - newDragForce.y / this.mass ), // acceleration
           newDragForce,
           -gravity * this.mass
         );

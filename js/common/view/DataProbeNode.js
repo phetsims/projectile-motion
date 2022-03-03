@@ -95,7 +95,7 @@ class DataProbeNode extends Node {
 
     // @private
     this.dataProbe = dataProbe; // model
-    this.probeOrigin = Vector2.createFromPool( 0, 0 ); // where the crosshairs cross
+    this.probeOrigin = Vector2.pool.create( 0, 0 ); // where the crosshairs cross
 
     // draggable node
     const rectangle = new Rectangle(
@@ -352,7 +352,7 @@ class DataProbeNode extends Node {
       ]
     } );
 
-    const probeOrigin = Vector2.createFromPool( 0, 0 );
+    const probeOrigin = Vector2.pool.create( 0, 0 );
 
     crosshair.center = probeOrigin;
     circle.center = probeOrigin;

@@ -93,7 +93,7 @@ class TargetNode extends Node {
     targetView.setScaleMagnitude( viewRadius, targetHeightInView );
 
     // center on model's positionProperty
-    targetView.center = this.transformProperty.get().modelToViewPosition( Vector2.createFromPool( this.positionProperty.get(), 0 ) );
+    targetView.center = this.transformProperty.get().modelToViewPosition( Vector2.pool.create( this.positionProperty.get(), 0 ) );
 
     // add target to scene graph
     this.addChild( targetView );

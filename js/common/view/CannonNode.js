@@ -333,7 +333,7 @@ class CannonNode extends Node {
 
     // Function to transform everything to the right height
     const updateHeight = height => {
-      const viewHeightPoint = Vector2.createFromPool( 0, transformProperty.get().modelToViewY( height ) );
+      const viewHeightPoint = Vector2.pool.create( 0, transformProperty.get().modelToViewY( height ) );
       const heightInClipCoordinates = this.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
 
       cannonBarrel.y = heightInClipCoordinates;
@@ -437,7 +437,7 @@ class CannonNode extends Node {
         startAngle = angleProperty.get(); // degrees
 
         // find vector angles between mouse drag start and current points, to the base of the cannon
-        startPointAngle = Vector2.createFromPool(
+        startPointAngle = Vector2.pool.create(
           startPoint.x - cannonBase.x,
           startPoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
@@ -445,7 +445,7 @@ class CannonNode extends Node {
       drag: event => {
         mousePoint = this.globalToLocalPoint( event.pointer.point );
 
-        const mousePointAngle = Vector2.createFromPool(
+        const mousePointAngle = Vector2.pool.create(
           mousePoint.x - cannonBase.x,
           mousePoint.y - transformProperty.get().modelToViewY( heightProperty.get() )
         ).angle;
