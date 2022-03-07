@@ -507,7 +507,7 @@ class CannonNode extends Node {
         }
       },
 
-      end: event => {
+      end: () => {
         heightCueingArrows.visible = false;
       },
       useInputListenerCursor: true,
