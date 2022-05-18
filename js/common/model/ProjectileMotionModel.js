@@ -319,7 +319,7 @@ class ProjectileMotionModel {
    * @public
    */
   cannonFired() {
-    const lastTrajectory = this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 );
+    const lastTrajectory = this.trajectoryGroup.count > 0 ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 ) : null;
     const newTrajectory = this.trajectoryGroup.createNextElement( this );
     if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
       lastTrajectory.addProjectileObject();
