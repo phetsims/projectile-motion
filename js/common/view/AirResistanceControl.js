@@ -78,7 +78,8 @@ class AirResistanceControl extends VBox {
     assert && assert( !options.children, 'AirResistanceControl sets its own children' );
     options.children = [ airResistanceCheckbox, dragCoefficientReadout ];
 
-    super( options );
+    // xMargin is used for FlowBox
+    super( _.omit( options, 'xMargin' ) );
   }
 }
 
