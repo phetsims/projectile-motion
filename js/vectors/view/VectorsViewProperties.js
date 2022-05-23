@@ -8,7 +8,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -41,7 +41,7 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
 
     // update which vectors to show based on controls
     // Doesn't need to be disposed because it lasts for the lifetime of the sim
-    Property.multilink( [
+    Multilink.multilink( [
       this.velocityVectorsOnProperty,
       this.accelerationVectorsOnProperty,
       this.forceVectorsOnProperty,

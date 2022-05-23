@@ -11,7 +11,7 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -198,7 +198,7 @@ class ProjectileNode extends Node {
 
 
     // Update component-wise velocity vectors.
-    const multilink = Property.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
+    const multilink = Multilink.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
       xVelocityArrow.visible = visible;
       yVelocityArrow.visible = visible;
 
@@ -234,7 +234,7 @@ class ProjectileNode extends Node {
     } );
     this.addChild( totalVelocityArrow );
 
-    const multilink = Property.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
+    const multilink = Multilink.multilink( [ property, this.viewPointProperty ], ( visible, viewPoint ) => {
       totalVelocityArrow.visible = visible;
 
       if ( visible ) {
@@ -268,7 +268,7 @@ class ProjectileNode extends Node {
     const yAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
     this.addChild( yAccelerationArrow );
 
-    const multilink = Property.multilink( [
+    const multilink = Multilink.multilink( [
       property,
       this.viewPointProperty
     ], ( visible, viewPoint ) => {
@@ -318,7 +318,7 @@ class ProjectileNode extends Node {
     } );
     this.addChild( totalAccelerationArrow );
 
-    const totalAccelerationVectorMultilink = Property.multilink( [
+    const totalAccelerationVectorMultilink = Multilink.multilink( [
       property,
       this.viewPointProperty
     ], ( visible, viewPoint ) => {

@@ -7,6 +7,7 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
@@ -359,7 +360,7 @@ class ProjectileMotionScreenView extends ScreenView {
       } );
 
       // flatirons
-      Property.multilink( [ model.altitudeProperty, flatironsVisibleProperty ], altitude => {
+      Multilink.multilink( [ model.altitudeProperty, flatironsVisibleProperty ], altitude => {
         backgroundNode.showOrHideFlatirons( flatironsVisibleProperty.value && altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max );
       } );
     }

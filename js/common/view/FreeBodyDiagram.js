@@ -9,7 +9,7 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import Property from '../../../../axon/js/Property.js';
+import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Circle } from '../../../../scenery/js/imports.js';
@@ -97,7 +97,7 @@ class FreeBodyDiagram extends Node {
     freeBodyTotals.addChild( totalDragForceLabel );
 
     // Update the free body diagram
-    const multilink = Property.multilink( [
+    const multilink = Multilink.multilink( [
       componentsForceProperty,
       totalForceProperty,
       viewPointProperty
