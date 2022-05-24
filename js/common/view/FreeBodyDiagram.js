@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * The free body force diagram attached to the ProjectileNode when displaying force vectors. Takes two Properties to
