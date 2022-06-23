@@ -188,7 +188,7 @@ class LabProjectileControlPanel extends Node {
       spacing: options.xMargin,
       children: [ airResistanceLabel, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
     } );
-    const airResistanceCheckbox = new Checkbox( airResistanceLabelAndIcon, model.airResistanceOnProperty, {
+    const airResistanceCheckbox = new Checkbox( model.airResistanceOnProperty, airResistanceLabelAndIcon, {
       maxWidth: options.minWidth - AIR_RESISTANCE_ICON.width - 3 * options.xMargin,
       boxWidth: 18,
       tandem: options.tandem.createTandem( 'airResistanceCheckbox' )

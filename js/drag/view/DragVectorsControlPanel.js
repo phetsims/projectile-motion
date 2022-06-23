@@ -81,7 +81,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( velocityCheckboxContent, viewProperties.velocityVectorsOnProperty, merge( {
+    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, merge( {
       tandem: options.tandem.createTandem( 'velocityCheckbox' ),
       phetioDocumentation: 'whether or not to display velocity vectors with the flying projectile'
     }, checkboxOptions ) );
@@ -94,7 +94,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( forceCheckboxContent, viewProperties.forceVectorsOnProperty, merge( {
+    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, merge( {
       tandem: options.tandem.createTandem( 'forceCheckbox' ),
       phetioDocumentation: 'whether or not to display force vectors in a free body diagram with the flying projectile'
     }, checkboxOptions ) );

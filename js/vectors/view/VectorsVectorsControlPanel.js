@@ -81,9 +81,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( velocityCheckboxContent, viewProperties.velocityVectorsOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions )
-    );
+    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, merge( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions ) );
 
     const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     const accelerationCheckboxContent = new HBox( {
@@ -93,10 +91,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ ACCELERATION_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const accelerationCheckbox = new Checkbox( accelerationCheckboxContent,
-      viewProperties.accelerationVectorsOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions )
-    );
+    const accelerationCheckbox = new Checkbox( viewProperties.accelerationVectorsOnProperty, accelerationCheckboxContent, merge( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions ) );
 
     const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     const forceCheckboxContent = new HBox( {
@@ -106,9 +101,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( forceCheckboxContent, viewProperties.forceVectorsOnProperty,
-      merge( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions )
-    );
+    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, merge( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions ) );
 
     // The contents of the control panel
     const content = new VBox( {

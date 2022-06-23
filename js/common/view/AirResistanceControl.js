@@ -58,7 +58,7 @@ class AirResistanceControl extends VBox {
       children: [ titleText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
     } );
 
-    const airResistanceCheckbox = new Checkbox( airResistanceCheckboxContent, airResistanceOnProperty, {
+    const airResistanceCheckbox = new Checkbox( airResistanceOnProperty, airResistanceCheckboxContent, {
       maxWidth: options.minWidth - 3 * options.xMargin, // left, right, and spacing between text and icon
       boxWidth: 18,
       tandem: options.tandem.createTandem( 'checkbox' )
