@@ -138,18 +138,15 @@ class LabProjectileControlPanel extends Node {
     model.resetModelValuesToInitial();
 
     // create view for the dropdown
-    const projectileChoiceComboBox = new ComboBox(
-      comboBoxItems,
-      model.selectedProjectileObjectTypeProperty,
-      comboBoxListParent, {
-        xMargin: 12,
-        yMargin: 8,
-        cornerRadius: 4,
-        buttonLineWidth: comboBoxLineWidth,
-        listLineWidth: comboBoxLineWidth,
-        tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
-        phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
-      } );
+    const projectileChoiceComboBox = new ComboBox( model.selectedProjectileObjectTypeProperty, comboBoxItems, comboBoxListParent, {
+      xMargin: 12,
+      yMargin: 8,
+      cornerRadius: 4,
+      buttonLineWidth: comboBoxLineWidth,
+      listLineWidth: comboBoxLineWidth,
+      tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
+      phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
+    } );
 
     // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;

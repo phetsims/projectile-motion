@@ -99,19 +99,15 @@ class IntroProjectileControlPanel extends Panel {
     }
 
     // create view for dropdown
-    const projectileChoiceComboBox = new ComboBox(
-      comboBoxItems,
-      selectedProjectileObjectTypeProperty,
-      comboBoxListParent, {
-        xMargin: 12,
-        yMargin: 7,
-        cornerRadius: 4,
-        buttonLineWidth: comboBoxLineWidth,
-        listLineWidth: comboBoxLineWidth,
-        tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
-        phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
-      }
-    );
+    const projectileChoiceComboBox = new ComboBox( selectedProjectileObjectTypeProperty, comboBoxItems, comboBoxListParent, {
+      xMargin: 12,
+      yMargin: 7,
+      cornerRadius: 4,
+      buttonLineWidth: comboBoxLineWidth,
+      listLineWidth: comboBoxLineWidth,
+      tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
+      phetioDocumentation: 'Combo box that selects what projectile type to launch from the cannon'
+    } );
 
     // local var for layout and formatting
     const parameterLabelOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
