@@ -11,11 +11,8 @@
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { HStrut } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -92,10 +89,11 @@ class IntroProjectileControlPanel extends Panel {
       const projectileType = objectTypes[ i ];
       assert && assert( projectileType.benchmark, 'benchmark needed for tandemName' );
 
-      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
-        projectileType, {
-          tandemName: `${projectileType.benchmark}Item`
-        } );
+      comboBoxItems[ i ] = {
+        value: projectileType,
+        node: ( i === 0 ) ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+      };
     }
 
     // create view for dropdown

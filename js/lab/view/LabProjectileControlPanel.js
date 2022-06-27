@@ -12,14 +12,9 @@ import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
-import { HBox } from '../../../../scenery/js/imports.js';
-import { HStrut } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { HBox, HStrut, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import ComboBoxItem from '../../../../sun/js/ComboBoxItem.js';
 import HSeparator from '../../../../sun/js/HSeparator.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -123,10 +118,11 @@ class LabProjectileControlPanel extends Node {
     for ( let i = 0; i < this.objectTypes.length; i++ ) {
       const projectileType = this.objectTypes[ i ];
 
-      comboBoxItems[ i ] = new ComboBoxItem( i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
-        projectileType, {
-          tandemName: `${projectileType.benchmark}Item`
-        } );
+      comboBoxItems[ i ] = {
+        value: projectileType,
+        node: ( i === 0 ) ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
+      };
 
       // Create the controls for the projectileType too.
       this.objectTypeControls.push( this.createControlsForObjectType( projectileType, options.tandem, options.tandem.createTandem( `${projectileType.benchmark}Control` ) ) );
