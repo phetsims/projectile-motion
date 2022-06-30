@@ -180,19 +180,18 @@ class ProjectileMotionScreenView extends ScreenView {
     );
 
     // Create a measuring tape (set to invisible initially)
-    const measuringTapeNode = new MeasuringTapeNode(
-      new Property( { name: metersString, multiplier: 1 } ),
-      model.measuringTape.isActiveProperty, {
-        modelViewTransform: transformProperty.get(),
-        basePositionProperty: model.measuringTape.basePositionProperty,
-        tipPositionProperty: model.measuringTape.tipPositionProperty,
-        textColor: 'black',
-        textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
-        significantFigures: 2,
-        textFont: new PhetFont( { size: 16, weight: 'bold' } ),
-        tandem: tandem.createTandem( 'measuringTapeNode' ),
-        phetioDocumentation: 'the Node for the measuring tape'
-      } );
+    const measuringTapeNode = new MeasuringTapeNode( new Property( { name: metersString, multiplier: 1 } ), {
+      visibleProperty: model.measuringTape.isActiveProperty,
+      modelViewTransform: transformProperty.get(),
+      basePositionProperty: model.measuringTape.basePositionProperty,
+      tipPositionProperty: model.measuringTape.tipPositionProperty,
+      textColor: 'black',
+      textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
+      significantFigures: 2,
+      textFont: new PhetFont( { size: 16, weight: 'bold' } ),
+      tandem: tandem.createTandem( 'measuringTapeNode' ),
+      phetioDocumentation: 'the Node for the measuring tape'
+    } );
 
     // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
     // so that it remains easily visible and grabbable. Unlike DataProbeNode, MeasuringTapeNode does
@@ -213,7 +212,7 @@ class ProjectileMotionScreenView extends ScreenView {
 
     // listen to transform Property
     transformProperty.link( transform => {
-      measuringTapeNode.setModelViewTransform( transform );
+      measuringTapeNode.modelViewTransformProperty.value = transform;
       davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
       davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
       davidNode.bottom = transformProperty.get().modelToViewY( model.davidPosition.y );
