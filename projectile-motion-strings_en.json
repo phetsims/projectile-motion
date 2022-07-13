@@ -14,8 +14,11 @@
   "screen.vectors": {
     "value": "Vectors"
   },
+  "screen.stats": {
+    "value": "Stats"
+  },
   "pattern0Value1Units": {
-     "value": "{{value}}{{units}}"
+    "value": "{{value}}{{units}}"
   },
   "pattern0Value1UnitsWithSpace": {
     "value": "{{value}} {{units}}"
@@ -57,7 +60,7 @@
     "value": "Altitude"
   },
   "speed": {
-     "value": "Speed"
+    "value": "Speed"
   },
   "metersPerSecond": {
     "value": "m/s"

@@ -6,16 +6,15 @@
  * @author Andrea Lin(PhET Interactive Simulations)
  */
 
-import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
-import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
-import projectileMotion from '../../projectileMotion.js';
+import ProjectileMotionModel from "../../common/model/ProjectileMotionModel.js";
+import ProjectileObjectType from "../../common/model/ProjectileObjectType.js";
+import projectileMotion from "../../projectileMotion.js";
 
 class IntroModel extends ProjectileMotionModel {
   /**
    * @param {Tandem} tandem
    */
-  constructor( tandem ) {
-
+  constructor(tandem) {
     // @public
     const objectTypes = [
       ProjectileObjectType.CANNONBALL,
@@ -26,20 +25,20 @@ class IntroModel extends ProjectileMotionModel {
       ProjectileObjectType.PUMPKIN,
       ProjectileObjectType.HUMAN,
       ProjectileObjectType.PIANO,
-      ProjectileObjectType.CAR
+      ProjectileObjectType.CAR,
     ];
 
-    super( objectTypes[ 5 ], false, objectTypes, tandem, {
+    super(objectTypes[5], false, objectTypes, tandem, {
       defaultCannonHeight: 10,
       defaultCannonAngle: 0,
       defaultInitialSpeed: 15,
-      phetioInstrumentAltitudeProperty: false
-    } );
+      phetioInstrumentAltitudeProperty: false,
+    });
 
     this.objectTypes = objectTypes;
   }
 }
 
-projectileMotion.register( 'IntroModel', IntroModel );
+projectileMotion.register("IntroModel", IntroModel);
 
 export default IntroModel;

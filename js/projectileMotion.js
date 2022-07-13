@@ -6,6 +6,6 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import Namespace from '../../phet-core/js/Namespace.js';
+import Namespace from "../../phet-core/js/Namespace.js";
 
-export default new Namespace( 'projectileMotion' );
+export default new Namespace("projectileMotion");

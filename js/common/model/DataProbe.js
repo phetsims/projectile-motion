@@ -7,15 +7,15 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
-import Vector2 from '../../../../dot/js/Vector2.js';
-import Vector2Property from '../../../../dot/js/Vector2Property.js';
-import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import projectileMotion from '../../projectileMotion.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
-import DataPoint from './DataPoint.js';
+import BooleanProperty from "../../../../axon/js/BooleanProperty.js";
+import Property from "../../../../axon/js/Property.js";
+import Utils from "../../../../dot/js/Utils.js";
+import Vector2 from "../../../../dot/js/Vector2.js";
+import Vector2Property from "../../../../dot/js/Vector2Property.js";
+import NullableIO from "../../../../tandem/js/types/NullableIO.js";
+import projectileMotion from "../../projectileMotion.js";
+import ProjectileMotionConstants from "../ProjectileMotionConstants.js";
+import DataPoint from "./DataPoint.js";
 
 // constants
 const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
@@ -29,28 +29,33 @@ class DataProbe {
    * @param {NumberProperty} zoomProperty - current zoom of the play area
    * @param {Tandem} tandem
    */
-  constructor( trajectoryGroup, dataProbeX, dataProbeY, zoomProperty, tandem ) {
-
+  constructor(trajectoryGroup, dataProbeX, dataProbeY, zoomProperty, tandem) {
     // @public
-    this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {
-      tandem: tandem.createTandem( 'positionProperty' ),
-      units: 'm',
-      phetioDocumentation: 'The position of the dataProbe in model coordinates, in meters.'
-    } );
+    this.positionProperty = new Vector2Property(
+      new Vector2(dataProbeX, dataProbeY),
+      {
+        tandem: tandem.createTandem("positionProperty"),
+        units: "m",
+        phetioDocumentation:
+          "The position of the dataProbe in model coordinates, in meters.",
+      }
+    );
 
     // @public {Property.<DataPoint|null>}
-    this.dataPointProperty = new Property( null, {
-      tandem: tandem.createTandem( 'dataPointProperty' ),
-      phetioDocumentation: 'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
-                           'See DataPointIO for more information about the data point value.',
-      phetioType: Property.PropertyIO( NullableIO( DataPoint.DataPointIO ) )
-    } );
+    this.dataPointProperty = new Property(null, {
+      tandem: tandem.createTandem("dataPointProperty"),
+      phetioDocumentation:
+        "Data point that the dataProbe is displaying information about, or null if no info displayed. " +
+        "See DataPointIO for more information about the data point value.",
+      phetioType: Property.PropertyIO(NullableIO(DataPoint.DataPointIO)),
+    });
 
     // @public
-    this.isActiveProperty = new BooleanProperty( false, {
-      tandem: tandem.createTandem( 'isActiveProperty' ),
-      phetioDocumentation: 'Whether the dataProbe is out in the play area (false when in toolbox)'
-    } );
+    this.isActiveProperty = new BooleanProperty(false, {
+      tandem: tandem.createTandem("isActiveProperty"),
+      phetioDocumentation:
+        "Whether the dataProbe is out in the play area (false when in toolbox)",
+    });
 
     // @private - used to adjust the tolerance of the sensing radius when detecting data points on trajectories.
     this.zoomProperty = zoomProperty;
@@ -58,9 +63,10 @@ class DataProbe {
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
     this.trajectoryGroup = trajectoryGroup;
 
-    this.trajectoryGroup.elementDisposedEmitter.addListener( this.updateData.bind( this ) );
+    this.trajectoryGroup.elementDisposedEmitter.addListener(
+      this.updateData.bind(this)
+    );
   }
-
 
   /**
    * Reset these Properties
@@ -78,8 +84,11 @@ class DataProbe {
    * @param {Vector2} dataPointPosition
    * @returns {boolean} - if the position provided is close enough to the dataProbe position to be sensed.
    */
-  pointWithinTolerance( dataPointPosition ) {
-    return dataPointPosition.distance( this.positionProperty.get() ) <= ( SENSING_RADIUS / this.zoomProperty.value );
+  pointWithinTolerance(dataPointPosition) {
+    return (
+      dataPointPosition.distance(this.positionProperty.get()) <=
+      SENSING_RADIUS / this.zoomProperty.value
+    );
   }
 
   /**
@@ -87,21 +96,31 @@ class DataProbe {
    * @public
    */
   updateData() {
-    for ( let i = this.trajectoryGroup.count - 1; i >= 0; i-- ) {
-      const currentTrajectory = this.trajectoryGroup.getElement( i );
-      if ( currentTrajectory.apexPoint && this.pointWithinTolerance( currentTrajectory.apexPoint.position ) ) { // current point shown is apex and it is still within sensing radius
-        this.dataPointProperty.set( currentTrajectory.apexPoint );
+    for (let i = this.trajectoryGroup.count - 1; i >= 0; i--) {
+      const currentTrajectory = this.trajectoryGroup.getElement(i);
+      if (
+        currentTrajectory.apexPoint &&
+        this.pointWithinTolerance(currentTrajectory.apexPoint.position)
+      ) {
+        // current point shown is apex and it is still within sensing radius
+        this.dataPointProperty.set(currentTrajectory.apexPoint);
         return;
       }
-      const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
-      const pointIsReadable = point &&
-                              ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
-      if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
-        this.dataPointProperty.set( point );
+      const point = currentTrajectory.getNearestPoint(
+        this.positionProperty.get().x,
+        this.positionProperty.get().y
+      );
+      const pointIsReadable =
+        point &&
+        (point.apex ||
+          point.position.y === 0 ||
+          Utils.toFixedNumber(point.time * 1000, 0) % TIME_PER_MINOR_DOT === 0);
+      if (pointIsReadable && this.pointWithinTolerance(point.position)) {
+        this.dataPointProperty.set(point);
         return;
       }
     }
-    this.dataPointProperty.set( null );
+    this.dataPointProperty.set(null);
   }
 
   /**
@@ -110,17 +129,19 @@ class DataProbe {
    *
    * @param {DataPoint} point
    */
-  updateDataIfWithinRange( point ) {
-
+  updateDataIfWithinRange(point) {
     // point can be read by dataProbe if it exists, it is on the ground, or it is the right timestep
-    const pointIsReadable = point &&
-                            ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
-    if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
-      this.dataPointProperty.set( point );
+    const pointIsReadable =
+      point &&
+      (point.apex ||
+        point.position.y === 0 ||
+        Utils.toFixedNumber(point.time * 1000, 0) % TIME_PER_MINOR_DOT === 0);
+    if (pointIsReadable && this.pointWithinTolerance(point.position)) {
+      this.dataPointProperty.set(point);
     }
   }
 }
 
-projectileMotion.register( 'DataProbe', DataProbe );
+projectileMotion.register("DataProbe", DataProbe);
 
 export default DataProbe;
