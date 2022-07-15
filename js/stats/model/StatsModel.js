@@ -44,11 +44,19 @@ class StatsModel extends ProjectileMotionModel {
     this.timeSinceLastProjectile = 0;
   }
 
+  /**
+   *
+   * @param {number} numTimesToFire - the number of consecutive projectiles that the cannon will fire
+   * @private
+   */
   startFiringMultiple(numTimesToFire) {
     this.projectilesLeftToFire = numTimesToFire;
     this.fireNextOfMultiple();
   }
 
+  /**
+   * @private
+   */
   fireNextOfMultiple() {
     this.projectilesLeftToFire--;
     this.timeSinceLastProjectile = 0;
@@ -79,9 +87,7 @@ class StatsModel extends ProjectileMotionModel {
    * Override superclass for unlimited trajectories
    * @private
    */
-  limitTrajectories() {
-    return;
-  }
+  limitTrajectories() {}
 }
 
 projectileMotion.register("StatsModel", StatsModel);

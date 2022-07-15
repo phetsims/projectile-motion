@@ -8,15 +8,15 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import Utils from "../../../../dot/js/Utils.js";
-import Vector2 from "../../../../dot/js/Vector2.js";
-import { Shape } from "../../../../kite/js/imports.js";
-import { Circle } from "../../../../scenery/js/imports.js";
-import { Node } from "../../../../scenery/js/imports.js";
-import { Path } from "../../../../scenery/js/imports.js";
-import projectileMotion from "../../projectileMotion.js";
-import ProjectileMotionConstants from "../ProjectileMotionConstants.js";
-import ProjectileNode from "./ProjectileNode.js";
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import { Shape } from '../../../../kite/js/imports.js';
+import { Circle } from '../../../../scenery/js/imports.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import { Path } from '../../../../scenery/js/imports.js';
+import projectileMotion from '../../projectileMotion.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import ProjectileNode from './ProjectileNode.js';
 
 const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
 const PATH_MIN_OPACITY = 0;
@@ -33,7 +33,7 @@ const DOTS_MAX_OPACITY = 0.5;
 const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT; // milliseconds
 const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT; // milliseconds
 
-const DOT_GREEN = "rgb( 50, 255, 50 )";
+const DOT_GREEN = 'rgb( 50, 255, 50 )';
 
 class TrajectoryNode extends Node {
   /**
@@ -49,10 +49,10 @@ class TrajectoryNode extends Node {
     maxNumberOfTrajectories = ProjectileMotionConstants.MAX_TRAJECTORY_COUNT,
     constantTrajectoryOpacity = false
   ) {
-    super({ pickable: false, preventFit: true });
+    super( { pickable: false, preventFit: true } );
 
-    const scratchVector = new Vector2(0, 0);
-    const scratchVector2 = new Vector2(0, 0);
+    const scratchVector = new Vector2( 0, 0 );
+    const scratchVector2 = new Vector2( 0, 0 );
 
     let currentPathShape = null;
     let currentPathStroke = null;
@@ -62,84 +62,85 @@ class TrajectoryNode extends Node {
     const projectileObjectViewsLayer = new Node();
 
     let dotsShape = new Shape();
-    const dotsPath = new Path(dotsShape, {
-      stroke: "black",
-    });
+    const dotsPath = new Path( dotsShape, {
+      stroke: 'black'
+    } );
 
-    this.addChild(projectileObjectViewsLayer);
-    this.addChild(pathsLayer);
+    this.addChild( projectileObjectViewsLayer );
+    this.addChild( pathsLayer );
 
     const dotsLayer = new Node();
-    dotsLayer.addChild(dotsPath);
-    this.addChild(dotsLayer);
-    this.addChild(projectileNodesLayer);
+    dotsLayer.addChild( dotsPath );
+    this.addChild( dotsLayer );
+    this.addChild( projectileNodesLayer );
 
     let apexDot = null;
 
     let viewLastPosition = null;
 
     // add view nodes based on new dataPoints added
-    function handleDataPointAdded(addedPoint) {
-      const viewAddedPosition = scratchVector.set(addedPoint.position);
-      transformProperty.get().getMatrix().multiplyVector2(viewAddedPosition);
+    function handleDataPointAdded( addedPoint ) {
+      const viewAddedPosition = scratchVector.set( addedPoint.position );
+      transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
       viewAddedPosition.x =
-        Utils.roundSymmetric(viewAddedPosition.x * 10000) / 10000;
+        Utils.roundSymmetric( viewAddedPosition.x * 10000 ) / 10000;
       viewAddedPosition.y =
-        Utils.roundSymmetric(viewAddedPosition.y * 10000) / 10000;
+        Utils.roundSymmetric( viewAddedPosition.y * 10000 ) / 10000;
 
-      if (viewLastPosition) {
+      if ( viewLastPosition ) {
         const pathStroke =
           addedPoint.airDensity > 0
             ? AIR_RESISTANCE_ON_COLOR
             : AIR_RESISTANCE_OFF_PATH_COLOR;
-        if (!currentPathShape || currentPathStroke !== pathStroke) {
+        if ( !currentPathShape || currentPathStroke !== pathStroke ) {
           currentPathShape = new Shape().moveTo(
             viewLastPosition.x,
             viewLastPosition.y
           );
           currentPathStroke = pathStroke;
           pathsLayer.addChild(
-            new Path(currentPathShape, {
+            new Path( currentPathShape, {
               lineWidth: PATH_WIDTH,
-              stroke: pathStroke,
-            })
+              stroke: pathStroke
+            } )
           );
         }
-        currentPathShape.lineTo(viewAddedPosition.x, viewAddedPosition.y);
+        currentPathShape.lineTo( viewAddedPosition.x, viewAddedPosition.y );
       }
-      viewLastPosition = scratchVector2.set(viewAddedPosition);
+      viewLastPosition = scratchVector2.set( viewAddedPosition );
 
       // draw dot if it is time for data point should be shown
-      const addedPointTimeInMs = Utils.toFixedNumber(addedPoint.time * 1000, 0);
-      if (addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0) {
+      const addedPointTimeInMs = Utils.toFixedNumber( addedPoint.time * 1000, 0 );
+      if ( addedPointTimeInMs % TIME_PER_MAJOR_DOT === 0 ) {
         dotsShape
-          .moveTo(viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y)
-          .circle(viewAddedPosition.x, viewAddedPosition.y, LARGE_DOT_RADIUS);
-      } else if (addedPointTimeInMs % TIME_PER_MINOR_DOT === 0) {
+          .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )
+          .circle( viewAddedPosition.x, viewAddedPosition.y, LARGE_DOT_RADIUS );
+      }
+ else if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
         dotsShape
-          .moveTo(viewAddedPosition.x + SMALL_DOT_RADIUS, viewAddedPosition.y)
-          .circle(viewAddedPosition.x, viewAddedPosition.y, SMALL_DOT_RADIUS);
+          .moveTo( viewAddedPosition.x + SMALL_DOT_RADIUS, viewAddedPosition.y )
+          .circle( viewAddedPosition.x, viewAddedPosition.y, SMALL_DOT_RADIUS );
       }
 
       // draw green dot if apex
-      if (addedPoint.apex) {
-        apexDot = new Circle(SMALL_DOT_RADIUS + 0.3, {
+      if ( addedPoint.apex ) {
+        apexDot = new Circle( SMALL_DOT_RADIUS + 0.3, {
           x: viewAddedPosition.x,
           y: viewAddedPosition.y,
           fill: DOT_GREEN,
-          stroke: "black",
-          lineWidth: 0.3,
-        });
-        dotsLayer.addChild(apexDot);
+          stroke: 'black',
+          lineWidth: 0.3
+        } );
+        dotsLayer.addChild( apexDot );
       }
     }
 
     // view listens to whether a datapoint has been added in the model
-    trajectory.dataPoints.forEach(handleDataPointAdded);
-    trajectory.dataPoints.addItemAddedListener(handleDataPointAdded);
+    trajectory.dataPoints.forEach( handleDataPointAdded );
+    trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
     // Update view based on new projectile objects added
-    function handleProjectileObjectAdded(addedProjectileObject) {
+    function handleProjectileObjectAdded( addedProjectileObject ) {
       const newProjectileNode = new ProjectileNode(
         viewProperties,
         addedProjectileObject.dataPointProperty,
@@ -148,15 +149,15 @@ class TrajectoryNode extends Node {
         trajectory.dragCoefficient,
         transformProperty.get()
       );
-      projectileNodesLayer.addChild(newProjectileNode);
+      projectileNodesLayer.addChild( newProjectileNode );
       projectileObjectViewsLayer.addChild(
         newProjectileNode.projectileViewLayer
       );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       trajectory.projectileObjects.addItemRemovedListener(
-        function removalListener(removedProjectileObject) {
-          if (removedProjectileObject === addedProjectileObject) {
+        function removalListener( removedProjectileObject ) {
+          if ( removedProjectileObject === addedProjectileObject ) {
             newProjectileNode.dispose(); // this also removes it as a child from projectileNodesLayer
             trajectory.projectileObjects.removeItemRemovedListener(
               removalListener
@@ -167,12 +168,12 @@ class TrajectoryNode extends Node {
     }
 
     // view adds projectile object if another one is created in the model
-    trajectory.projectileObjects.forEach(handleProjectileObjectAdded);
+    trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     trajectory.projectileObjects.addItemAddedListener(
       handleProjectileObjectAdded
     );
 
-    function updateTransform(transform) {
+    function updateTransform( transform ) {
       pathsLayer.removeAllChildren();
 
       currentPathShape = null;
@@ -180,7 +181,7 @@ class TrajectoryNode extends Node {
 
       dotsShape = new Shape();
       dotsPath.shape = dotsShape;
-      if (apexDot) {
+      if ( apexDot ) {
         apexDot.dispose();
       }
 
@@ -188,46 +189,47 @@ class TrajectoryNode extends Node {
 
       assert &&
         assert(
-          trajectory.dataPoints.get(0).position.x === 0,
+          trajectory.dataPoints.get( 0 ).position.x === 0,
           `Initial point x is not zero but ${
-            trajectory.dataPoints.get(0).position.x
+            trajectory.dataPoints.get( 0 ).position.x
           }`
         );
 
-      trajectory.dataPoints.forEach(handleDataPointAdded);
+      trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
       projectileObjectViewsLayer.removeAllChildren();
-      trajectory.projectileObjects.forEach(handleProjectileObjectAdded);
+      trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
     }
 
     // update if model view transform changes
-    transformProperty.lazyLink(updateTransform);
+    transformProperty.lazyLink( updateTransform );
 
-    function updateOpacity(rank) {
+    function updateOpacity( rank ) {
       //if projectile opacity is set as constant (as in 'stats' screen)
-      if (constantTrajectoryOpacity) {
+      if ( constantTrajectoryOpacity ) {
         pathsLayer.opacity = 0.1; //MOVE TO CONSTANTS
-      } else {
+      }
+ else {
         const strength =
-          (maxNumberOfTrajectories - rank) / maxNumberOfTrajectories;
+          ( maxNumberOfTrajectories - rank ) / maxNumberOfTrajectories;
         pathsLayer.opacity =
-          PATH_MIN_OPACITY + strength * (PATH_MAX_OPACITY - PATH_MIN_OPACITY);
+          PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
         projectileNodesLayer.opacity = pathsLayer.opacity;
         dotsPath.opacity =
-          DOTS_MIN_OPACITY + strength * (DOTS_MAX_OPACITY - DOTS_MIN_OPACITY);
+          DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );
       }
     }
 
     // change decrease in opacity with each successive projectiled fired
-    trajectory.rankProperty.link(updateOpacity);
+    trajectory.rankProperty.link( updateOpacity );
 
     this.disposeTrajectoryNode = () => {
-      while (pathsLayer.children.length) {
+      while ( pathsLayer.children.length ) {
         pathsLayer.children.pop().dispose();
       }
       dotsPath.dispose();
-      transformProperty.unlink(updateTransform);
-      trajectory.rankProperty.unlink(updateOpacity);
+      transformProperty.unlink( updateTransform );
+      trajectory.rankProperty.unlink( updateOpacity );
     };
   }
 
@@ -242,6 +244,6 @@ class TrajectoryNode extends Node {
   }
 }
 
-projectileMotion.register("TrajectoryNode", TrajectoryNode);
+projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
 
 export default TrajectoryNode;

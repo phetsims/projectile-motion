@@ -6,16 +6,16 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from "../../../../phet-core/js/merge.js";
-import { Node } from "../../../../scenery/js/imports.js";
-import ProjectileMotionScreenView from "../../common/view/ProjectileMotionScreenView.js";
-import ProjectileMotionViewProperties from "../../common/view/ProjectileMotionViewProperties.js";
-import projectileMotion from "../../projectileMotion.js";
-import StatsProjectileControlPanel from "./StatsProjectileControlPanel.js";
-import StatsControlPanel from "./StatsControlPanel.js";
-import FireHundredButton from "./FireHundredButton.js";
-import StatsModel from "../model/StatsModel.js";
-import ProjectileMotionConstants from "../../common/ProjectileMotionConstants.js";
+import merge from '../../../../phet-core/js/merge.js';
+import { Node } from '../../../../scenery/js/imports.js';
+import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
+import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
+import projectileMotion from '../../projectileMotion.js';
+import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
+import StatsControlPanel from './StatsControlPanel.js';
+import FireHundredButton from './FireHundredButton.js';
+import StatsModel from '../model/StatsModel.js';
+import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 
 const X_MARGIN = 10; //refactor into common view
 
@@ -25,19 +25,19 @@ class StatsScreenView extends ProjectileMotionScreenView {
    * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor(model, tandem, options) {
+  constructor( model, tandem, options ) {
     options = merge(
       {
-        addFlatirons: false,
+        addFlatirons: false
       },
       options
     );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new ProjectileMotionViewProperties({
-      tandem: tandem.createTandem("viewProperties"),
-      forceProperties: false,
-    });
+    const visibilityProperties = new ProjectileMotionViewProperties( {
+      tandem: tandem.createTandem( 'viewProperties' ),
+      forceProperties: false
+    } );
 
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
@@ -50,29 +50,29 @@ class StatsScreenView extends ProjectileMotionScreenView {
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
       model.airResistanceOnProperty,
-      { tandem: tandem.createTandem("projectileControlPanel") }
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
     );
 
     // fire 100 button
-    const fireHundredButton = new FireHundredButton({
+    const fireHundredButton = new FireHundredButton( {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
       listener: () => {
-        model.startFiringMultiple(100);
+        model.startFiringMultiple( 100 );
       },
       bottom: 0,
       left: 0,
-      tandem: tandem.createTandem("fireHundredButton"),
-      phetioDocumentation: "button to launch 100 projectiles",
-    });
+      tandem: tandem.createTandem( 'fireHundredButton' ),
+      phetioDocumentation: 'button to launch 100 projectiles'
+    } );
 
     super(
       model,
       projectilePanel,
-      new StatsControlPanel(visibilityProperties, {
-        tandem: tandem.createTandem("vectorsControlPanel"),
-      }),
+      new StatsControlPanel( visibilityProperties, {
+        tandem: tandem.createTandem( 'vectorsControlPanel' )
+      } ),
       visibilityProperties,
       tandem,
       options,
@@ -85,12 +85,12 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     // insert dropdown right on top of the right-side panels
     this.insertChild(
-      this.indexOfChild(this.topRightPanel) + 1,
+      this.indexOfChild( this.topRightPanel ) + 1,
       comboBoxListParent
     );
 
     this.fireHundredButton = fireHundredButton;
-    this.addChild(this.fireHundredButton);
+    this.addChild( this.fireHundredButton );
 
     // model.fireEnabledProperty.link((enable) => {
     //   this.fireHundredButton.setEnabled(enable);
@@ -107,11 +107,11 @@ class StatsScreenView extends ProjectileMotionScreenView {
    * @public (joist-internal)
    * @override
    */
-  layout(viewBounds) {
+  layout( viewBounds ) {
     this.projectilePanel.hideComboBoxList();
-    super.layout(viewBounds);
+    super.layout( viewBounds );
   }
 }
 
-projectileMotion.register("StatsScreenView", StatsScreenView);
+projectileMotion.register( 'StatsScreenView', StatsScreenView );
 export default StatsScreenView;

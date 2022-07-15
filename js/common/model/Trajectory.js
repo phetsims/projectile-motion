@@ -105,8 +105,13 @@ class Trajectory extends PhetioObject {
     // Listen to whether this rank should be incremented
     model.updateTrajectoryRanksEmitter.addListener(incrementRank);
 
+    debugger;
+
     const launchSpeed = options.statsScreen
-      ? StatUtils.randomFromNormal(model.initialSpeedProperty.value, 0.1)
+      ? StatUtils.randomFromNormal(
+          model.initialSpeedProperty.value,
+          model.initialSpeedStandardDeviationProperty.value
+        )
       : model.initialSpeedProperty.value;
 
     const velocity = Vector2.pool

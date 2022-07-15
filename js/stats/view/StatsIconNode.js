@@ -6,10 +6,10 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Screen from "../../../../joist/js/Screen.js";
-import { Rectangle } from "../../../../scenery/js/imports.js";
-import { LinearGradient } from "../../../../scenery/js/imports.js";
-import projectileMotion from "../../projectileMotion.js";
+import Screen from '../../../../joist/js/Screen.js';
+import { Rectangle } from '../../../../scenery/js/imports.js';
+import { LinearGradient } from '../../../../scenery/js/imports.js';
+import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -19,12 +19,12 @@ class StatsIconNode extends Rectangle {
   /**
    * @param {string} type - 'nav' or 'screen'
    */
-  constructor(type) {
-    super(0, 0, 0, 0);
+  constructor( type ) {
+    super( 0, 0, 0, 0 );
 
     assert &&
       assert(
-        type === "nav" || type === "screen",
+        type === 'nav' || type === 'screen',
         `invalid value for type: ${type}`
       );
 
@@ -32,58 +32,59 @@ class StatsIconNode extends Rectangle {
     let height;
 
     const rectWidthFactor = 0.2;
-    const rectHeights = [0.45, 0.65, 0.3];
-    const gradientColor1 = "#990000";
-    const gradientColor2 = "#ff0000";
+    const rectHeights = [ 0.45, 0.65, 0.3 ];
+    const gradientColor1 = '#990000';
+    const gradientColor2 = '#ff0000';
 
-    if (type === "nav") {
+    if ( type === 'nav' ) {
       width = NAV_ICON_SIZE.width;
       height = NAV_ICON_SIZE.height;
-      for (let i = 0; i < rectHeights.length; i++) {
-        const rectHeight = rectHeights[i] * height;
-        let statBar = new Rectangle(
-          (0.5 - (i - 0.5) * rectWidthFactor) * width,
+      for ( let i = 0; i < rectHeights.length; i++ ) {
+        const rectHeight = rectHeights[ i ] * height;
+        const statBar = new Rectangle(
+          ( 0.5 - ( i - 0.5 ) * rectWidthFactor ) * width,
           height - rectHeight,
           rectWidthFactor * width,
           rectHeight,
           {
-            fill: new LinearGradient(0, height, 0, height - rectHeight)
-              .addColorStop(0, gradientColor1)
-              .addColorStop(1, gradientColor2),
+            fill: new LinearGradient( 0, height, 0, height - rectHeight )
+              .addColorStop( 0, gradientColor1 )
+              .addColorStop( 1, gradientColor2 )
           }
         );
-        this.addChild(statBar);
+        this.addChild( statBar );
       }
-    } else {
+    }
+ else {
       width = SCREEN_ICON_SIZE.width;
       height = SCREEN_ICON_SIZE.height;
-      for (let i = 0; i < rectHeights.length; i++) {
-        const rectHeight = rectHeights[i] * height;
-        let statBar = new Rectangle(
-          (0.5 - (i - 0.5) * rectWidthFactor) * width,
+      for ( let i = 0; i < rectHeights.length; i++ ) {
+        const rectHeight = rectHeights[ i ] * height;
+        const statBar = new Rectangle(
+          ( 0.5 - ( i - 0.5 ) * rectWidthFactor ) * width,
           height - rectHeight,
           rectWidthFactor * width,
           rectHeight,
           {
-            fill: new LinearGradient(0, height, 0, height - rectHeight)
-              .addColorStop(0, gradientColor1)
-              .addColorStop(1, gradientColor2),
+            fill: new LinearGradient( 0, height, 0, height - rectHeight )
+              .addColorStop( 0, gradientColor1 )
+              .addColorStop( 1, gradientColor2 )
           }
         );
-        this.addChild(statBar);
+        this.addChild( statBar );
       }
     }
 
     // create the background
-    const backgroundFill = new LinearGradient(0, 0, 0, height)
-      .addColorStop(0, "#02ace4")
-      .addColorStop(1, "#cfecfc");
-    this.mutate({ fill: backgroundFill });
-    this.setRectWidth(width);
-    this.setRectHeight(height);
+    const backgroundFill = new LinearGradient( 0, 0, 0, height )
+      .addColorStop( 0, '#02ace4' )
+      .addColorStop( 1, '#cfecfc' );
+    this.mutate( { fill: backgroundFill } );
+    this.setRectWidth( width );
+    this.setRectHeight( height );
   }
 }
 
-projectileMotion.register("StatsIconNode", StatsIconNode);
+projectileMotion.register( 'StatsIconNode', StatsIconNode );
 
 export default StatsIconNode;

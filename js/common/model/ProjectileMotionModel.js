@@ -109,6 +109,16 @@ class ProjectileMotionModel {
       }
     );
 
+    if (options.statsScreen) {
+      // @public {Property.<number>}
+      this.initialSpeedStandardDeviationProperty = new NumberProperty(0.1, {
+        tandem: tandem.createTandem("initialSpeedStandardDeviationProperty"),
+        phetioDocumentation: "The standard deviation of the launch speed",
+        units: "m/s",
+        range: new Range(0, 10),
+      });
+    }
+
     // --parameters for next projectile fired
 
     // @public {Property.<number>}

@@ -9,18 +9,18 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Utils from "../../../../dot/js/Utils.js";
-import merge from "../../../../phet-core/js/merge.js";
-import StringUtils from "../../../../phetcommon/js/util/StringUtils.js";
-import { HStrut, Text, VBox } from "../../../../scenery/js/imports.js";
-import ComboBox from "../../../../sun/js/ComboBox.js";
-import HSeparator from "../../../../sun/js/HSeparator.js";
-import Panel from "../../../../sun/js/Panel.js";
-import Tandem from "../../../../tandem/js/Tandem.js";
-import ProjectileMotionConstants from "../../common/ProjectileMotionConstants.js";
-import AirResistanceControl from "../../common/view/AirResistanceControl.js";
-import projectileMotion from "../../projectileMotion.js";
-import projectileMotionStrings from "../../projectileMotionStrings.js";
+import Utils from '../../../../dot/js/Utils.js';
+import merge from '../../../../phet-core/js/merge.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import { HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
+import ComboBox from '../../../../sun/js/ComboBox.js';
+import HSeparator from '../../../../sun/js/HSeparator.js';
+import Panel from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import AirResistanceControl from '../../common/view/AirResistanceControl.js';
+import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 
 const diameterString = projectileMotionStrings.diameter;
 const kgString = projectileMotionStrings.kg;
@@ -61,18 +61,18 @@ class StatsProjectileControlPanel extends Panel {
       {},
       ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS,
       {
-        tandem: Tandem.REQUIRED,
+        tandem: Tandem.REQUIRED
       },
       options
     );
 
     // maxWidth of the labels within the dropdown empirically determined
-    const itemNodeOptions = merge({}, LABEL_OPTIONS, { maxWidth: 170 });
+    const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
 
-    const firstItemNode = new VBox({
-      align: "left",
-      children: [new Text(objectTypes[0].name, itemNodeOptions)],
-    });
+    const firstItemNode = new VBox( {
+      align: 'left',
+      children: [ new Text( objectTypes[ 0 ].name, itemNodeOptions ) ]
+    } );
 
     const comboBoxWidth = options.minWidth - 2 * options.xMargin;
     const itemXMargin = 6;
@@ -87,22 +87,22 @@ class StatsProjectileControlPanel extends Panel {
       4 * buttonXMargin -
       2 * itemXMargin -
       2 * comboBoxLineWidth;
-    firstItemNode.addChild(new HStrut(firstItemNodeWidth));
+    firstItemNode.addChild( new HStrut( firstItemNodeWidth ) );
 
     const comboBoxItems = [];
 
-    for (let i = 0; i < objectTypes.length; i++) {
-      const projectileType = objectTypes[i];
+    for ( let i = 0; i < objectTypes.length; i++ ) {
+      const projectileType = objectTypes[ i ];
       assert &&
-        assert(projectileType.benchmark, "benchmark needed for tandemName");
+        assert( projectileType.benchmark, 'benchmark needed for tandemName' );
 
-      comboBoxItems[i] = {
+      comboBoxItems[ i ] = {
         value: projectileType,
         node:
           i === 0
             ? firstItemNode
-            : new Text(projectileType.name, itemNodeOptions),
-        tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`,
+            : new Text( projectileType.name, itemNodeOptions ),
+        tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
       };
     }
 
@@ -117,16 +117,16 @@ class StatsProjectileControlPanel extends Panel {
         cornerRadius: 4,
         buttonLineWidth: comboBoxLineWidth,
         listLineWidth: comboBoxLineWidth,
-        tandem: options.tandem.createTandem("projectileChoiceComboBox"),
+        tandem: options.tandem.createTandem( 'projectileChoiceComboBox' ),
         phetioDocumentation:
-          "Combo box that selects what projectile type to launch from the cannon",
+          'Combo box that selects what projectile type to launch from the cannon'
       }
     );
 
     // local var for layout and formatting
-    const parameterLabelOptions = merge({}, LABEL_OPTIONS, {
-      maxWidth: options.minWidth - 2 * options.xMargin,
-    });
+    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
+      maxWidth: options.minWidth - 2 * options.xMargin
+    } );
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
@@ -138,62 +138,62 @@ class StatsProjectileControlPanel extends Panel {
      * @param {Tandem} tandem
      * @returns {VBox}
      */
-    function createReadout(labelString, unitsString, valueProperty, tandem) {
+    function createReadout( labelString, unitsString, valueProperty, tandem ) {
       const parameterLabel = new Text(
-        "",
+        '',
         merge(
           {
             tandem: tandem,
-            textPropertyOptions: { phetioReadOnly: true },
+            textPropertyOptions: { phetioReadOnly: true }
           },
           parameterLabelOptions
         )
       );
 
-      parameterLabel.setBoundsMethod("accurate");
+      parameterLabel.setBoundsMethod( 'accurate' );
 
-      valueProperty.link((value) => {
+      valueProperty.link( value => {
         const valueReadout = unitsString
-          ? StringUtils.fillIn(pattern0Value1UnitsWithSpaceString, {
+          ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
               value: value,
-              units: unitsString,
-            })
-          : Utils.toFixed(value, 2);
-        parameterLabel.setText(`${labelString}: ${valueReadout}`);
-      });
+              units: unitsString
+            } )
+          : Utils.toFixed( value, 2 );
+        parameterLabel.setText( `${labelString}: ${valueReadout}` );
+      } );
 
-      return new VBox({
-        align: "left",
-        children: [parameterLabel, new HStrut(parameterLabelOptions.maxWidth)],
-      });
+      return new VBox( {
+        align: 'left',
+        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ]
+      } );
     }
 
     const massReadout = createReadout(
       massString,
       kgString,
       projectileMassProperty,
-      options.tandem.createTandem("massReadout")
+      options.tandem.createTandem( 'massReadout' )
     );
 
     const diameterReadout = createReadout(
       diameterString,
       mString,
       projectileDiameterProperty,
-      options.tandem.createTandem("diameterReadout")
+      options.tandem.createTandem( 'diameterReadout' )
     );
 
     // The contents of the control panel
-    const content = new VBox({
-      align: "left",
+    const content = new VBox( {
+      align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
         projectileChoiceComboBox,
         massReadout,
         diameterReadout,
-        new HSeparator(options.minWidth - 2 * options.xMargin, {
+        new HSeparator( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
-          tandem: options.tandem.createTandem("separator"),
-        }),
+          tandem: options.tandem.createTandem( 'separator' )
+        } ),
         new AirResistanceControl(
           airResistanceOnProperty,
           projectileDragCoefficientProperty,
@@ -202,13 +202,13 @@ class StatsProjectileControlPanel extends Panel {
             minWidth: options.minWidth,
             xMargin: options.xMargin,
             spacing: options.controlsVerticalSpace,
-            tandem: options.tandem.createTandem("airResistanceControl"),
+            tandem: options.tandem.createTandem( 'airResistanceControl' )
           }
-        ),
-      ],
-    });
+        )
+      ]
+    } );
 
-    super(content, options);
+    super( content, options );
 
     // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
@@ -221,7 +221,7 @@ class StatsProjectileControlPanel extends Panel {
 }
 
 projectileMotion.register(
-  "StatsProjectileControlPanel",
+  'StatsProjectileControlPanel',
   StatsProjectileControlPanel
 );
 export default StatsProjectileControlPanel;
