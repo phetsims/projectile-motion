@@ -14,7 +14,6 @@ import projectileMotion from '../../projectileMotion.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
 import StatsControlPanel from './StatsControlPanel.js';
 import FireHundredButton from './FireHundredButton.js';
-import StatsModel from '../model/StatsModel.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 
 const X_MARGIN = 10; //refactor into common view

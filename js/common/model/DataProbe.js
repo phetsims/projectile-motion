@@ -28,6 +28,7 @@ class DataProbe {
    * @param {number} dataProbeY - y initial position of the dataProbe
    * @param {NumberProperty} zoomProperty - current zoom of the play area
    * @param {Tandem} tandem
+   * @re
    */
   constructor( trajectoryGroup, dataProbeX, dataProbeY, zoomProperty, tandem ) {
     // @public

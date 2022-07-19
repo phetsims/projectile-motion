@@ -14,13 +14,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
 
-// constants
-const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
-const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
-const VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
-const ACCELERATION_VECTOR_ICON =
-  ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
-
 class StatsControlPanel extends Panel {
   /**
    * @param {Object} [options]

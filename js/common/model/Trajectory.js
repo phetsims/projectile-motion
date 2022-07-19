@@ -10,25 +10,25 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import createObservableArray from "../../../../axon/js/createObservableArray.js";
-import NumberProperty from "../../../../axon/js/NumberProperty.js";
-import Utils from "../../../../dot/js/Utils.js";
-import Vector2 from "../../../../dot/js/Vector2.js";
-import merge from "../../../../phet-core/js/merge.js";
-import PhetioGroup from "../../../../tandem/js/PhetioGroup.js";
-import PhetioObject from "../../../../tandem/js/PhetioObject.js";
-import Tandem from "../../../../tandem/js/Tandem.js";
-import BooleanIO from "../../../../tandem/js/types/BooleanIO.js";
-import IOType from "../../../../tandem/js/types/IOType.js";
-import NullableIO from "../../../../tandem/js/types/NullableIO.js";
-import NumberIO from "../../../../tandem/js/types/NumberIO.js";
-import ReferenceIO from "../../../../tandem/js/types/ReferenceIO.js";
-import projectileMotion from "../../projectileMotion.js";
-import ProjectileMotionConstants from "../ProjectileMotionConstants.js";
-import StatUtils from "../StatUtils.js";
-import DataPoint from "./DataPoint.js";
-import ProjectileObject from "./ProjectileObject.js";
-import ProjectileObjectType from "./ProjectileObjectType.js";
+import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Utils from '../../../../dot/js/Utils.js';
+import Vector2 from '../../../../dot/js/Vector2.js';
+import merge from '../../../../phet-core/js/merge.js';
+import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
+import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import NullableIO from '../../../../tandem/js/types/NullableIO.js';
+import NumberIO from '../../../../tandem/js/types/NumberIO.js';
+import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
+import projectileMotion from '../../projectileMotion.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import StatUtils from '../StatUtils.js';
+import DataPoint from './DataPoint.js';
+import ProjectileObject from './ProjectileObject.js';
+import ProjectileObjectType from './ProjectileObjectType.js';
 
 // constants
 const MAX_NUMBER_OF_TRAJECTORIES =
@@ -41,17 +41,17 @@ class Trajectory extends PhetioObject {
    * @param {ProjectileMotionModel} model
    * @param {Object} [options]
    */
-  constructor(model, options) {
+  constructor( model, options ) {
     options = merge(
       {
         tandem: Tandem.REQUIRED,
         phetioDynamicElement: true,
-        phetioType: Trajectory.TrajectoryIO,
+        phetioType: Trajectory.TrajectoryIO
       },
       options
     );
 
-    super(options);
+    super( options );
 
     // @private
     this.projectileMotionModel = model;
@@ -70,29 +70,29 @@ class Trajectory extends PhetioObject {
     this.dragCoefficient = model.projectileDragCoefficientProperty.get();
 
     // @public {Property.<number>}
-    this.rankProperty = new NumberProperty(0, {
-      tandem: options.tandem.createTandem("rankProperty"),
+    this.rankProperty = new NumberProperty( 0, {
+      tandem: options.tandem.createTandem( 'rankProperty' ),
       phetioDocumentation: `${
-        "The count of how old this projectile trajectory is. Older trajectories have more " +
-        "opacity until they are subsequently removed. The most recent trajectory fired has rank 0. " +
-        "The second most recent has rank 1. The oldest still on screen has rank "
+        'The count of how old this projectile trajectory is. Older trajectories have more ' +
+        'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
+        'The second most recent has rank 1. The oldest still on screen has rank '
       }${MAX_NUMBER_OF_TRAJECTORIES - 1}`,
-      phetioReadOnly: true,
-    });
+      phetioReadOnly: true
+    } );
 
     // @public did the trajectory path change in mid air due to air density change
     this.changedInMidAir = false;
 
     // @public (read-only) {ObservableArrayDef.<DataPoint>} record points along the trajectory with critical information
-    this.dataPoints = createObservableArray({
+    this.dataPoints = createObservableArray( {
       phetioType: createObservableArray.ObservableArrayIO(
         DataPoint.DataPointIO
       ),
-      tandem: options.tandem.createTandem("dataPoints"),
+      tandem: options.tandem.createTandem( 'dataPoints' ),
       phetioDocumentation:
-        "An ordered list of all data points taken on this trajectory. The earliest data point " +
-        "will be first",
-    });
+        'An ordered list of all data points taken on this trajectory. The earliest data point ' +
+        'will be first'
+    } );
 
     // @public (read-only) set by TrajectoryIO.js
     this.reachedGround = false;
@@ -103,9 +103,7 @@ class Trajectory extends PhetioObject {
     };
 
     // Listen to whether this rank should be incremented
-    model.updateTrajectoryRanksEmitter.addListener(incrementRank);
-
-    debugger;
+    model.updateTrajectoryRanksEmitter.addListener( incrementRank );
 
     const launchSpeed = options.statsScreen
       ? StatUtils.randomFromNormal(
@@ -116,28 +114,28 @@ class Trajectory extends PhetioObject {
 
     const velocity = Vector2.pool
       .fetch()
-      .setPolar(launchSpeed, (model.cannonAngleProperty.value * Math.PI) / 180);
+      .setPolar( launchSpeed, ( model.cannonAngleProperty.value * Math.PI ) / 180 );
 
     // fix large drag errors
-    if (velocity.x < 0) {
-      velocity.setXY(0, 0);
+    if ( velocity.x < 0 ) {
+      velocity.setXY( 0, 0 );
     }
 
     // cross sectional area of the projectile
-    const area = (Math.PI * this.diameter * this.diameter) / 4;
+    const area = ( Math.PI * this.diameter * this.diameter ) / 4;
     const airDensity = model.airDensityProperty.value;
     const gravity = model.gravityProperty.value;
 
     const dragForce = Vector2.pool
       .fetch()
-      .set(velocity)
+      .set( velocity )
       .multiplyScalar(
         0.5 * airDensity * area * this.dragCoefficient * velocity.magnitude
       );
 
     const initialPoint = new DataPoint(
       0, // total time elapsed
-      Vector2.pool.create(0, model.cannonHeightProperty.get()), // position
+      Vector2.pool.create( 0, model.cannonHeightProperty.get() ), // position
       model.airDensityProperty.get(), // air density
       velocity,
       Vector2.pool.create(
@@ -147,34 +145,34 @@ class Trajectory extends PhetioObject {
       dragForce, // drag force
       -model.gravityProperty.get() * this.mass // force gravity
     );
-    this.dataPoints.push(initialPoint);
+    this.dataPoints.push( initialPoint );
 
     // @public {DataPoint||null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
 
     // It is not gauranteed that the dataProbe exists
-    model.dataProbe && model.dataProbe.updateDataIfWithinRange(initialPoint);
+    model.dataProbe && model.dataProbe.updateDataIfWithinRange( initialPoint );
 
     // @public {ObservableArrayDef.<ProjectileObject>}
-    this.projectileObjects = createObservableArray({
-      tandem: options.tandem.createTandem("projectileObjects"),
+    this.projectileObjects = createObservableArray( {
+      tandem: options.tandem.createTandem( 'projectileObjects' ),
       phetioType: createObservableArray.ObservableArrayIO(
         ProjectileObject.ProjectileObjectIO
       ),
-      phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`,
-    });
+      phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
+    } );
 
     // @private - added for PhET-iO support only
-    this.projectileCountProperty = new NumberProperty(0, {
-      tandem: options.tandem.createTandem("projectileCountProperty"),
-      numberType: "Integer",
+    this.projectileCountProperty = new NumberProperty( 0, {
+      tandem: options.tandem.createTandem( 'projectileCountProperty' ),
+      numberType: 'Integer',
       phetioDocumentation:
-        "The number of projectiles that have been launched on this Trajectory.",
-    });
+        'The number of projectiles that have been launched on this Trajectory.'
+    } );
 
-    this.projectileObjects.elementAddedEmitter.addListener(() => {
+    this.projectileObjects.elementAddedEmitter.addListener( () => {
       this.projectileCountProperty.value++;
-    });
+    } );
 
     // add first projectile object
     this.addProjectileObject();
@@ -187,7 +185,7 @@ class Trajectory extends PhetioObject {
       this.projectileCountProperty.dispose();
       this.projectileObjects.dispose();
       this.rankProperty.dispose();
-      model.updateTrajectoryRanksEmitter.removeListener(incrementRank);
+      model.updateTrajectoryRanksEmitter.removeListener( incrementRank );
     };
   }
 
@@ -197,11 +195,11 @@ class Trajectory extends PhetioObject {
    *
    * @param {number} dt
    */
-  step(dt) {
-    const previousPoint = this.dataPoints.get(this.dataPoints.length - 1);
+  step( dt ) {
+    const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
     // Haven't reached ground, so continue collecting datapoints
-    if (!this.reachedGround) {
+    if ( !this.reachedGround ) {
       let apexExists = true;
 
       let newX =
@@ -221,30 +219,30 @@ class Trajectory extends PhetioObject {
         );
 
       // fix large drag errors by making it free fall
-      if (newVelocity.x < 0) {
-        newVelocity.setXY(0, 0);
+      if ( newVelocity.x < 0 ) {
+        newVelocity.setXY( 0, 0 );
         apexExists = false;
       }
 
-      if (newX < previousPoint.position.x) {
+      if ( newX < previousPoint.position.x ) {
         newX = previousPoint.position.x;
         newY = previousPoint.position.y;
         apexExists = false;
       }
 
       // cross sectional area of the projectile
-      const area = (Math.PI * this.diameter * this.diameter) / 4;
+      const area = ( Math.PI * this.diameter * this.diameter ) / 4;
       const airDensity = this.projectileMotionModel.airDensityProperty.get();
       const gravity = this.projectileMotionModel.gravityProperty.get();
 
       const newDragForce = Vector2.pool
         .fetch()
-        .set(newVelocity)
+        .set( newVelocity )
         .multiplyScalar(
           0.5 * airDensity * area * this.dragCoefficient * newVelocity.magnitude
         );
 
-      if (previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists) {
+      if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) {
         // passed apex
         const dtToApex = Utils.linear(
           previousPoint.velocity.y,
@@ -298,33 +296,33 @@ class Trajectory extends PhetioObject {
 
         const apexPoint = new DataPoint(
           previousPoint.time + dtToApex,
-          Vector2.pool.create(apexX, apexY),
+          Vector2.pool.create( apexX, apexY ),
           airDensity,
-          Vector2.pool.create(apexVelocityX, apexVelocityY), // velocity
+          Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
           Vector2.pool.create(
             -apexDragX / this.mass,
             -gravity - apexDragY / this.mass
           ), // acceleration
-          Vector2.pool.create(apexDragX, apexDragY), // drag force
+          Vector2.pool.create( apexDragX, apexDragY ), // drag force
           -gravity * this.mass,
           {
-            apex: true,
+            apex: true
           }
         );
 
-        this.dataPoints.push(apexPoint);
+        this.dataPoints.push( apexPoint );
 
-        assert && assert(this.apexPoint === null, "already have an apex point");
+        assert && assert( this.apexPoint === null, 'already have an apex point' );
 
         this.apexPoint = apexPoint; // save apex point
 
-        this.projectileMotionModel.dataProbe.updateDataIfWithinRange(apexPoint);
+        this.projectileMotionModel.dataProbe.updateDataIfWithinRange( apexPoint );
       }
 
       let newPoint;
 
       // Has reached ground or below
-      if (newY <= 0) {
+      if ( newY <= 0 ) {
         this.reachedGround = true; // store the information that it has reached the ground
 
         // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
@@ -332,34 +330,37 @@ class Trajectory extends PhetioObject {
 
         // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
         let timeToGround = null;
-        if (previousPoint.acceleration.y === 0) {
-          if (previousPoint.position.y === 0) {
+        if ( previousPoint.acceleration.y === 0 ) {
+          if ( previousPoint.position.y === 0 ) {
             // We are already on the ground.
             timeToGround = 0;
-          } else if (previousPoint.velocity.y === 0) {
+          }
+ else if ( previousPoint.velocity.y === 0 ) {
             assert &&
               assert(
                 false,
-                "How did newY reach <=0 if there was no velocity.y?"
+                'How did newY reach <=0 if there was no velocity.y?'
               );
-          } else {
+          }
+ else {
             timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
           }
-        } else {
+        }
+ else {
           fromIf = false;
           const squareRoot = -Math.sqrt(
             previousPoint.velocity.y * previousPoint.velocity.y -
               2 * previousPoint.acceleration.y * previousPoint.position.y
           );
           timeToGround =
-            (squareRoot - previousPoint.velocity.y) /
+            ( squareRoot - previousPoint.velocity.y ) /
             previousPoint.acceleration.y;
         }
 
         // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
         assert &&
           assert(
-            !isNaN(timeToGround),
+            !isNaN( timeToGround ),
             `
 timeToGround: ${timeToGround}, 
 previousPoint.position: ${previousPoint.position}, 
@@ -378,23 +379,24 @@ number of dataPoints: ${this.dataPoints.length}
 
         newPoint = new DataPoint(
           previousPoint.time + timeToGround,
-          Vector2.pool.create(newX, newY),
+          Vector2.pool.create( newX, newY ),
           airDensity,
-          Vector2.pool.create(0, 0), // velocity
-          Vector2.pool.create(0, 0), // acceleration
-          Vector2.pool.create(0, 0), // drag force
+          Vector2.pool.create( 0, 0 ), // velocity
+          Vector2.pool.create( 0, 0 ), // acceleration
+          Vector2.pool.create( 0, 0 ), // drag force
           -gravity * this.mass,
           {
             // add this special property to just the last datapoint collected for a trajectory
-            reachedGround: true,
+            reachedGround: true
           }
         );
-        this.dataPoints.push(newPoint);
-      } else {
+        this.dataPoints.push( newPoint );
+      }
+ else {
         // Still in the air
         newPoint = new DataPoint(
           previousPoint.time + dt,
-          Vector2.pool.create(newX, newY),
+          Vector2.pool.create( newX, newY ),
           airDensity,
           newVelocity,
           Vector2.pool.create(
@@ -404,34 +406,34 @@ number of dataPoints: ${this.dataPoints.length}
           newDragForce,
           -gravity * this.mass
         );
-        this.dataPoints.push(newPoint);
+        this.dataPoints.push( newPoint );
       }
 
-      assert && assert(newPoint, "should be defined");
+      assert && assert( newPoint, 'should be defined' );
 
       // and update dataProbe tool and David
-      this.projectileMotionModel.dataProbe.updateDataIfWithinRange(newPoint);
+      this.projectileMotionModel.dataProbe.updateDataIfWithinRange( newPoint );
     }
 
     // keep track of old objects that need to be removed
     const projectileObjectsToRemove = [];
 
     // increment position of projectile objects, unless it has reached the end
-    for (let i = 0; i < this.projectileObjects.length; i++) {
-      const projectileObject = this.projectileObjects.get(i);
-      if (projectileObject.index < this.dataPoints.length - 1) {
+    for ( let i = 0; i < this.projectileObjects.length; i++ ) {
+      const projectileObject = this.projectileObjects.get( i );
+      if ( projectileObject.index < this.dataPoints.length - 1 ) {
         projectileObject.index++;
-        const currentDataPoint = this.dataPoints.get(projectileObject.index);
-        projectileObject.dataPointProperty.set(currentDataPoint);
-        if (projectileObject.dataPointProperty.get().apex) {
+        const currentDataPoint = this.dataPoints.get( projectileObject.index );
+        projectileObject.dataPointProperty.set( currentDataPoint );
+        if ( projectileObject.dataPointProperty.get().apex ) {
           // if on apex, increment to the next point to maintain true time step
           projectileObject.index++;
-          projectileObject.dataPointProperty.set(currentDataPoint);
+          projectileObject.dataPointProperty.set( currentDataPoint );
         }
       }
 
       // if it has just reached the end, check if landed on target and remove the last projectile
-      else if (!projectileObject.checkedScore) {
+      else if ( !projectileObject.checkedScore ) {
         this.projectileMotionModel.numberOfMovingProjectilesProperty.value--;
         this.projectileMotionModel.target.scoreIfWithinTarget(
           projectileObject.dataPointProperty.get().position.x
@@ -439,14 +441,14 @@ number of dataPoints: ${this.dataPoints.length}
         projectileObject.checkedScore = true;
 
         // to help with memory, if this projectileObject has just landed, remove the last one (if it exists)
-        if (i !== 0) {
-          projectileObjectsToRemove.push(this.projectileObjects.get(i - 1));
+        if ( i !== 0 ) {
+          projectileObjectsToRemove.push( this.projectileObjects.get( i - 1 ) );
         }
       }
     }
 
     // remove the objects that need to be removed
-    this.projectileObjects.removeAll(projectileObjectsToRemove);
+    this.projectileObjects.removeAll( projectileObjectsToRemove );
   }
 
   /**
@@ -458,22 +460,22 @@ number of dataPoints: ${this.dataPoints.length}
    * @param {number} y - coordinate in model
    * @returns {DataPoint|null}
    */
-  getNearestPoint(x, y) {
-    if (this.dataPoints.length === 0) {
+  getNearestPoint( x, y ) {
+    if ( this.dataPoints.length === 0 ) {
       return null;
     }
 
     // First, set nearest point and corresponding distance to the first datapoint.
-    let nearestPoint = this.dataPoints.get(0);
-    let minDistance = nearestPoint.position.distanceXY(x, y);
+    let nearestPoint = this.dataPoints.get( 0 );
+    let minDistance = nearestPoint.position.distanceXY( x, y );
 
     // Search through datapoints for the smallest distance. If there are two datapoints with equal distance, the one
     // with more time is chosen.
-    for (let i = 0; i < this.dataPoints.length; i++) {
-      const currentPoint = this.dataPoints.get(i);
-      const currentDistance = currentPoint.position.distanceXY(x, y);
+    for ( let i = 0; i < this.dataPoints.length; i++ ) {
+      const currentPoint = this.dataPoints.get( i );
+      const currentDistance = currentPoint.position.distanceXY( x, y );
 
-      if (currentDistance <= minDistance) {
+      if ( currentDistance <= minDistance ) {
         nearestPoint = currentPoint;
         minDistance = currentDistance;
       }
@@ -489,10 +491,10 @@ number of dataPoints: ${this.dataPoints.length}
     assert &&
       assert(
         this.dataPoints.length >= 1,
-        "at least one data point should be in this trajectory"
+        'at least one data point should be in this trajectory'
       );
     this.projectileObjects.push(
-      new ProjectileObject(0, this.dataPoints.get(0))
+      new ProjectileObject( 0, this.dataPoints.get( 0 ) )
     );
   }
 
@@ -503,7 +505,7 @@ number of dataPoints: ${this.dataPoints.length}
    * @param {ProjectileObjectType} projectileObject - provides the index and data points.
    * @returns {Trajectory}
    */
-  copyFromProjectileObject(projectileObject) {
+  copyFromProjectileObject( projectileObject ) {
     // create a brand new trajectory
     const newTrajectory =
       this.projectileMotionModel.trajectoryGroup.createNextElement(
@@ -512,25 +514,25 @@ number of dataPoints: ${this.dataPoints.length}
 
     // clear all the data points and then add up to where the current flying projectile is
     newTrajectory.dataPoints.clear();
-    for (let i = 0; i <= projectileObject.index; i++) {
+    for ( let i = 0; i <= projectileObject.index; i++ ) {
       assert &&
         assert(
-          this.dataPoints.get(0).position.x === 0,
-          `Initial point x is not zero but ${this.dataPoints.get(0).position.x}`
+          this.dataPoints.get( 0 ).position.x === 0,
+          `Initial point x is not zero but ${this.dataPoints.get( 0 ).position.x}`
         );
 
       // add one to the number of trajectories using this datapoint
-      newTrajectory.addDataPointFromClone(this.dataPoints.get(i));
+      newTrajectory.addDataPointFromClone( this.dataPoints.get( i ) );
     }
 
     // set the datapoint that indicates the position of the projectile object
     projectileObject.dataPointProperty.set(
-      newTrajectory.dataPoints.get(projectileObject.index)
+      newTrajectory.dataPoints.get( projectileObject.index )
     );
 
     // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one
     newTrajectory.projectileObjects.clear();
-    newTrajectory.projectileObjects.push(projectileObject);
+    newTrajectory.projectileObjects.push( projectileObject );
 
     return newTrajectory;
   }
@@ -540,7 +542,7 @@ number of dataPoints: ${this.dataPoints.length}
    * @param {DataPoint} dataPoint
    * @public
    */
-  addDataPointFromClone(dataPoint) {
+  addDataPointFromClone( dataPoint ) {
     this.dataPoints.push(
       new DataPoint(
         dataPoint.time,
@@ -561,9 +563,9 @@ number of dataPoints: ${this.dataPoints.length}
    * @param {Trajectory} trajectory
    * @returns {boolean}
    */
-  equals(trajectory) {
-    const thisInitialPoint = this.dataPoints.get(0);
-    const trajectoryInitialPoint = trajectory.dataPoints.get(0);
+  equals( trajectory ) {
+    const thisInitialPoint = this.dataPoints.get( 0 );
+    const trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
     return (
       !this.changedInMidAir &&
       !trajectory.changedInMidAir &&
@@ -571,7 +573,7 @@ number of dataPoints: ${this.dataPoints.length}
       this.diameter === trajectory.diameter &&
       this.mass === trajectory.mass &&
       this.dragCoefficient === trajectory.dragCoefficient &&
-      thisInitialPoint.equals(trajectoryInitialPoint)
+      thisInitialPoint.equals( trajectoryInitialPoint )
     );
   }
 
@@ -581,20 +583,20 @@ number of dataPoints: ${this.dataPoints.length}
    * @param {Tandem} tandem
    * @public
    */
-  static createGroup(model, tandem, statsScreen) {
+  static createGroup( model, tandem, statsScreen ) {
     return new PhetioGroup(
-      (tandem) => {
-        return new Trajectory(model, {
+      tandem => {
+        return new Trajectory( model, {
           tandem: tandem,
-          statsScreen: statsScreen,
-        });
+          statsScreen: statsScreen
+        } );
       },
       [],
       {
         tandem: tandem,
-        phetioType: PhetioGroup.PhetioGroupIO(Trajectory.TrajectoryIO),
+        phetioType: PhetioGroup.PhetioGroupIO( Trajectory.TrajectoryIO ),
         phetioDocumentation:
-          "The container for any trajectory that is created when a projectile is fired.",
+          'The container for any trajectory that is created when a projectile is fired.'
       }
     );
   }
@@ -620,19 +622,19 @@ number of dataPoints: ${this.dataPoints.length}
       dragCoefficient: NumberIO,
       changedInMidAir: BooleanIO,
       reachedGround: BooleanIO,
-      apexPoint: NullableIO(DataPoint.DataPointIO),
+      apexPoint: NullableIO( DataPoint.DataPointIO ),
       projectileObjectType: ReferenceIO(
         ProjectileObjectType.ProjectileObjectTypeIO
-      ),
+      )
     };
   }
 }
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.
-Trajectory.TrajectoryIO = IOType.fromCoreType("TrajectoryIO", Trajectory, {
-  documentation: "A trajectory outlining the projectile's path",
-});
+Trajectory.TrajectoryIO = IOType.fromCoreType( 'TrajectoryIO', Trajectory, {
+  documentation: 'A trajectory outlining the projectile\'s path'
+} );
 
-projectileMotion.register("Trajectory", Trajectory);
+projectileMotion.register( 'Trajectory', Trajectory );
 export default Trajectory;

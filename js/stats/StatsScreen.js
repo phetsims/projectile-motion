@@ -9,7 +9,6 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import Tandem from '../../../tandem/js/Tandem.js';
 import projectileMotion from '../projectileMotion.js';
 import projectileMotionStrings from '../projectileMotionStrings.js';
 import StatsModel from './model/StatsModel.js';
