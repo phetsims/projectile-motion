@@ -4,6 +4,7 @@
  * Common model (base type) for Projectile Motion.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
@@ -24,6 +25,7 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import StatUtils from '../StatUtils.js';
 import DataProbe from './DataProbe.js';
 import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
@@ -63,8 +65,8 @@ class ProjectileMotionModel {
       options
     );
 
-    assert &&
-      assert( defaultProjectileObjectType instanceof ProjectileObjectType );
+    assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType,
+      'defaultProjectileObjectType should be a ProjectileObjectType' );
 
     // @public {Target} model for handling scoring ( if/when projectile hits target )
     this.target = new Target(
@@ -109,15 +111,15 @@ class ProjectileMotionModel {
       }
     );
 
-    if ( options.statsScreen ) {
-      // @public {Property.<number>}
-      this.initialSpeedStandardDeviationProperty = new NumberProperty( 0.1, {
-        tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
-        phetioDocumentation: 'The standard deviation of the launch speed',
-        units: 'm/s',
-        range: new Range( 0, 10 )
-      } );
-    }
+    const initialStandardDeviation = options.statsScreen ? 0.15 : 0;
+
+    // @public {Property.<number>}
+    this.initialSpeedStandardDeviationProperty = new NumberProperty( initialStandardDeviation, {
+      tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
+      phetioDocumentation: 'The standard deviation of the launch speed',
+      units: 'm/s',
+      range: new Range( 0, 10 )
+    } );
 
     // --parameters for next projectile fired
 
@@ -182,9 +184,7 @@ class ProjectileMotionModel {
 
     // @public
     this.altitudeProperty = new NumberProperty( 0, {
-      tandem: options.phetioInstrumentAltitudeProperty
-        ? tandem.createTandem( 'altitudeProperty' )
-        : Tandem.OPT_OUT,
+      tandem: options.phetioInstrumentAltitudeProperty ? tandem.createTandem( 'altitudeProperty' ) : Tandem.OPT_OUT,
       phetioDocumentation: 'Altitude of the environment',
       range: ProjectileMotionConstants.ALTITUDE_RANGE,
       units: 'm'
@@ -271,11 +271,7 @@ class ProjectileMotionModel {
 
     // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
-    this.trajectoryGroup = Trajectory.createGroup(
-      this,
-      tandem.createTandem( 'trajectoryGroup' ),
-      options.statsScreen
-    );
+    this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
     // @public {DataProbe} model for the dataProbe probe
     this.dataProbe = new DataProbe(
@@ -286,7 +282,7 @@ class ProjectileMotionModel {
       tandem.createTandem( 'dataProbe' )
     ); // position arbitrary
 
-    // Links in this constructor last for the life time of the sim, so no need to dispose
+    // Links in this constructor last for the lifetime of the sim, so no need to dispose
 
     // if any of the global Properties change, update the status of moving projectiles
     this.airDensityProperty.link( () => {
@@ -394,16 +390,21 @@ class ProjectileMotionModel {
    * @public
    */
   cannonFired() {
+    const initialSpeed = StatUtils.randomFromNormal( this.initialSpeedProperty.value,
+      this.initialSpeedStandardDeviationProperty.value );
+
     const lastTrajectory =
       this.trajectoryGroup.count > 0
-        ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 )
-        : null;
-    const newTrajectory = this.trajectoryGroup.createNextElement( this );
+      ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 )
+      : null;
+    const newTrajectory = this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
+      this.projectileMassProperty.value, this.projectileDiameterProperty.value,
+      this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, this.cannonAngleProperty.value );
     if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
       lastTrajectory.addProjectileObject();
       this.trajectoryGroup.disposeElement( newTrajectory );
     }
- else {
+    else {
       this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
       newTrajectory.rankProperty.reset(); // make the new Trajectory's rank go back to zero
     }
@@ -434,7 +435,7 @@ class ProjectileMotionModel {
         removedProjectileObjects.push( projectileObject );
         this.updateTrajectoryRanksEmitter.emit();
         const newTrajectory =
-          trajectory.copyFromProjectileObject( projectileObject );
+          trajectory.copyFromProjectileObject( this.trajectoryGroup, projectileObject );
         newTrajectory.changedInMidAir = true;
       };
 
@@ -503,12 +504,12 @@ function calculateAirDensity( altitude, airResistanceOn ) {
       temperature = 15.04 - 0.00649 * altitude;
       pressure = 101.29 * Math.pow( ( temperature + 273.1 ) / 288.08, 5.256 );
     }
- else if ( altitude < 25000 ) {
+    else if ( altitude < 25000 ) {
       // lower stratosphere
       temperature = -56.46;
       pressure = 22.65 * Math.exp( 1.73 - 0.000157 * altitude );
     }
- else {
+    else {
       // upper stratosphere (altitude >= 25000 meters)
       temperature = -131.21 + 0.00299 * altitude;
       pressure = 2.488 * Math.pow( ( temperature + 273.1 ) / 216.6, -11.388 );
@@ -516,7 +517,7 @@ function calculateAirDensity( altitude, airResistanceOn ) {
 
     return pressure / ( 0.2869 * ( temperature + 273.1 ) );
   }
- else {
+  else {
     return 0;
   }
 }
