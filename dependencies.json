@@ -1,95 +1,103 @@
 {
-  "comment": "# projectile-motion 1.1.0-dev.6 Thu Feb 27 2020 12:05:15 GMT-0900 (Alaskan Standard Time)",
+  "comment": "# projectile-motion 1.1.0-dev.7 Wed Jul 13 2022 11:44:42 GMT-0600 (Mountain Daylight Time)",
   "assert": {
-    "sha": "a99a9ce9ee0774bf3ef509bf3e31ca7383f67478",
+    "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
   },
   "axon": {
-    "sha": "ac530d0779c759ae4dd636965ca139fa42303bbe",
+    "sha": "97beb2d8bf02897633d0d62cfd905d0aded19f93",
     "branch": "master"
   },
   "brand": {
-    "sha": "bbf2210d952959af2f4ddc2d261c880cd7175524",
+    "sha": "eef7239381f6dfac75435fc90ddfb04f84549c54",
     "branch": "master"
   },
   "chipper": {
-    "sha": "0c015c92224318ecf5bcf6fa055398aa8638a792",
+    "sha": "ae39de723fea3e2c62679af11d6ad0a3194a9cd5",
     "branch": "master"
   },
   "dot": {
-    "sha": "2089337ad08879ebbc2c9b23dd6dff8329b80ddb",
+    "sha": "0b0a3cad02b9bf54fd58a4ca6614b453809ab397",
     "branch": "master"
   },
   "joist": {
-    "sha": "412fe5631f2204428b321a4859ca6e41223a1acb",
+    "sha": "8a498ccbaf0f2ff26c19bdf427c11728a39d9bba",
     "branch": "master"
   },
   "kite": {
-    "sha": "512391e09242bc8f801f0d8108ca592208d049fd",
+    "sha": "464f8f70f2fff0f67230a633785c1aec8d42ad79",
+    "branch": "master"
+  },
+  "perennial-alias": {
+    "sha": "c963845d0e0e9cf7320bcbc959a0eba5ddf8ec96",
     "branch": "master"
   },
   "phet-core": {
-    "sha": "d4bdf6c02468eda3872fa153b736f19d40a597b8",
+    "sha": "cec9ecd60db1fcfdcdd40b08d868c329abf23b7b",
     "branch": "master"
   },
   "phet-io": {
-    "sha": "ec19828c3894ef0df6fccc663b0916a1ff89a638",
+    "sha": "3ab9410ff8bb8fe3ba3d931327e727609a7abccd",
+    "branch": "master"
+  },
+  "phet-io-sim-specific": {
+    "sha": "a022152b519dd0141df8a80c7befff554a2f21ec",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "633c1bee83189991244506213b6ad804d8827b87",
+    "sha": "afb6e2ab3af42eea53b16eb79e4cb02b01bae798",
     "branch": "master"
   },
   "phetcommon": {
-    "sha": "2b5b4cf6041d95c2fc73525893fc3f1603d24c07",
+    "sha": "cc0f1e38e7e88559dd758483e15d91ea2c24a83b",
     "branch": "master"
   },
   "phetmarks": {
-    "sha": "d60d8874f1a04270d21ee8ed0a25a52cdf596c4c",
+    "sha": "2d18a81336441f6036089947cdf45dd1dcf72d50",
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "f205a3db6487959c4fe1010524f61db4e8609c47",
+    "sha": "c46d21c058265d5cda7f285935e93fc5dd108141",
     "branch": "master"
   },
   "query-string-machine": {
-    "sha": "d0435aa45cc13c17aa1c8c9c21882539123249db",
+    "sha": "fd607aa3060252e9b5161807840f76be1c2789ad",
     "branch": "master"
   },
   "scenery": {
-    "sha": "c455433652d805a12036b2d8fc125afac1bd5fd8",
+    "sha": "f249dddf4b898c30de7b0132fa1cdac0a17a37e5",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "71887e57f3ca210c6e9a55d036d63c488b570a63",
+    "sha": "b5ea3441ce7090af442b6bdbeeb017ce36a2dd12",
     "branch": "master"
   },
   "sherpa": {
-    "sha": "3e733a56f96762482e2360c692c5ac7ff43eb283",
+    "sha": "57576da0f330b63c730956a57fe736bc61c91bb1",
     "branch": "master"
   },
   "studio": {
-    "sha": "6ef88cd75603c350a5010611acfe7fa5a3fb4fe6",
+    "sha": "09568bce47777cf6279e7075e38a8cb4eae49979",
     "branch": "master"
   },
   "sun": {
-    "sha": "6d8b6e18b55a54d88e20954f9cf46750b82f6219",
+    "sha": "97b95b3a4ea5261034edea1b9358165797271607",
     "branch": "master"
   },
   "tambo": {
-    "sha": "6985126b51349c08e3e02aaef9dbd99f9a678c61",
+    "sha": "99e920e353f9774616008952c4e83e67f14fb6da",
     "branch": "master"
   },
   "tandem": {
-    "sha": "f41c3be5fc52e5b1e733167f46ee91ac1e28b053",
+    "sha": "368ab1281641b718269eeb96af0d74e172402151",
     "branch": "master"
   },
   "twixt": {
-    "sha": "389c7b47cc3c7626f30d06d5eb97a59c2d055c45",
+    "sha": "2a8b0ffe9fd1636541c0fa15a7dbf6fda441e3de",
     "branch": "master"
   },
   "utterance-queue": {
-    "sha": "bee7158b797c21e15c1faf4309be9f942ae9de53",
+    "sha": "787a047b2ce276c84ac4b9374dbf2ac54daaf89b",
     "branch": "master"
   }
 }

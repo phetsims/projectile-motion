@@ -7,12 +7,7 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Image } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { Color, Image, LinearGradient, Node, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';

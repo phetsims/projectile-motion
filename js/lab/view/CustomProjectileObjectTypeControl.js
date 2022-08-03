@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * The controls for the "custom" projectile type. This is a special type because, unlike the others, for this type the
@@ -12,14 +12,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
-import { FireListener } from '../../../../scenery/js/imports.js';
-import { AlignBox } from '../../../../scenery/js/imports.js';
-import { AlignGroup } from '../../../../scenery/js/imports.js';
-import { HStrut } from '../../../../scenery/js/imports.js';
-import { Node } from '../../../../scenery/js/imports.js';
-import { Path } from '../../../../scenery/js/imports.js';
-import { Text } from '../../../../scenery/js/imports.js';
-import { Color } from '../../../../scenery/js/imports.js';
+import { AlignBox, AlignGroup, Color, FireListener, HStrut, Node, Path, Text } from '../../../../scenery/js/imports.js';
 import editSolidShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';

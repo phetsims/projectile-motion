@@ -1,4 +1,4 @@
-// Copyright 2019-2021, University of Colorado Boulder
+// Copyright 2019-2022, University of Colorado Boulder
 
 /**
  * A specific NumberControl for this sim that doesn't have tweaker buttons.
@@ -13,8 +13,8 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import { Text } from '../../../../scenery/js/imports.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
 import projectileMotion from '../../projectileMotion.js';
+import projectileMotionStrings from '../../projectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;

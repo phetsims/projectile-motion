@@ -1,4 +1,4 @@
-// Copyright 2017-2021, University of Colorado Boulder
+// Copyright 2017-2022, University of Colorado Boulder
 
 /**
  * icon node for the 'Vectors' screen
@@ -7,9 +7,7 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle } from '../../../../scenery/js/imports.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { Circle, LinearGradient, Rectangle } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 
 // constants

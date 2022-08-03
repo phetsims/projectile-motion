@@ -1,4 +1,4 @@
-// Copyright 2017-2021, University of Colorado Boulder
+// Copyright 2017-2022, University of Colorado Boulder
 
 /**
  * icon node for the 'Drag' screen
@@ -6,8 +6,7 @@
  */
 
 import Screen from '../../../../joist/js/Screen.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
-import { LinearGradient } from '../../../../scenery/js/imports.js';
+import { LinearGradient, Rectangle } from '../../../../scenery/js/imports.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
 import projectileMotion from '../../projectileMotion.js';
 

@@ -9,8 +9,8 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
-import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
+import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class DragViewProperties extends ProjectileMotionViewProperties {
