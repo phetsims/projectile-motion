@@ -28,7 +28,7 @@ class ProjectileObject {
     // should recognize that this data type is destroyed each time PhET-iO state is set for its Trajectory. see notes
     // in ProjectileObjectIO.toStateObject()
     this.dataPointProperty = new Property( currentDataPoint, {
-      phetioType: Property.PropertyIO( DataPoint.DataPointIO ),
+      phetioValueType: DataPoint.DataPointIO,
       phetioDocumentation: 'Data point that the ProjectileObject is currently at. ' +
                            'See DataPointIO for more information about the data point value.'
 

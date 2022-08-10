@@ -48,7 +48,7 @@ class DataProbe {
       phetioDocumentation:
         'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
         'See DataPointIO for more information about the data point value.',
-      phetioType: Property.PropertyIO( NullableIO( DataPoint.DataPointIO ) )
+      phetioValueType: NullableIO( DataPoint.DataPointIO )
     } );
 
     // @public

@@ -163,9 +163,7 @@ class ProjectileMotionModel {
       {
         tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
         phetioDocumentation: 'The currently selected projectile object type',
-        phetioType: Property.PropertyIO(
-          ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO )
-        ),
+        phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
         validValues: possibleObjectTypes
       }
     );
@@ -205,7 +203,7 @@ class ProjectileMotionModel {
         units: 'kg/m^3',
         phetioDocumentation:
           'air density, depends on altitude and whether air resistance is on',
-        phetioType: DerivedProperty.DerivedPropertyIO( NumberIO )
+        phetioValueType: NumberIO
       }
     );
 
@@ -244,7 +242,7 @@ class ProjectileMotionModel {
       {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
         phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles in the air.`,
-        phetioType: DerivedProperty.DerivedPropertyIO( BooleanIO )
+        phetioValueType: BooleanIO
       }
     );
 
