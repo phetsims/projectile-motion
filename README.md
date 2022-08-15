@@ -66,7 +66,8 @@ that will automatically transpile new or changed files.
 
 (1) Change directory to the simulation directory: `cd ../projectile-motion`
 
-(2) Build the sim: `grunt --brands=adapted-from-phet`
+(2) Build the sim: `grunt --brands=adapted-from-phet`. It is safe to ignore warnings like `>> WARNING404: Skipping potentially non-public dependency`,
+which indicate that non-public PhET-iO code is not being included in the build.
 
 (3) Open in the browser: `http://localhost/projectile-motion/build/adapted-from-phet/projectile-motion_en_adapted-from-phet.html` (You will probably need to modify this URL based on your HTTP port and relative path.)
 
