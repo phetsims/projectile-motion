@@ -336,8 +336,7 @@ class Trajectory extends PhetioObject {
             -this.gravityProperty.value - apexDragY / this.mass
           ), // acceleration
           Vector2.pool.create( apexDragX, apexDragY ), // drag force
-          -this.gravityProperty.value * this.mass,
-          {
+          -this.gravityProperty.value * this.mass, {
             apex: true
           }
         );
@@ -446,14 +445,11 @@ number of dataPoints: ${this.dataPoints.length}
     for ( let i = 0; i < this.projectileObjects.length; i++ ) {
       const projectileObject = this.projectileObjects.get( i );
       if ( projectileObject.index < this.dataPoints.length - 1 ) {
-        projectileObject.index++;
+        // if the next point in front of the projectile is the apex, increment an additional data point
+        projectileObject.index += this.dataPoints.get( projectileObject.index + 1 ).apex ? 2 : 1;
         const currentDataPoint = this.dataPoints.get( projectileObject.index );
+        assert && assert( currentDataPoint, 'Data point is out of array bounds' );
         projectileObject.dataPointProperty.set( currentDataPoint );
-        if ( projectileObject.dataPointProperty.get().apex ) {
-          // if on apex, increment to the next point to maintain true time step
-          projectileObject.index++;
-          projectileObject.dataPointProperty.set( currentDataPoint );
-        }
       }
 
       // if it has just reached the end, check if landed on target and remove the last projectile

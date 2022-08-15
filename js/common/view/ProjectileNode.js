@@ -92,6 +92,7 @@ class ProjectileNode extends Node {
 
     // @private {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     this.viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
+      assert && assert( !dataPoint.apex, 'Projectile current data point should never be the apex' );
       const viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
       viewPosition.x = Utils.roundSymmetric( viewPosition.x * 10000 ) / 10000;
       viewPosition.y = Utils.roundSymmetric( viewPosition.y * 10000 ) / 10000;
