@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.1.0-dev.10 Mon Aug 22 2022 16:29:16 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# projectile-motion 1.1.0-dev.13 Mon Aug 22 2022 16:46:27 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
@@ -21,7 +21,7 @@
     "branch": "master"
   },
   "joist": {
-    "sha": "74060a3b4f7d78d1b755f392ae219b58ab0c6cc0",
+    "sha": "7191c7f225770a52d66ac6efaaf8aa938e04c50b",
     "branch": "master"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "master"
   },
   "phet-io-sim-specific": {
-    "sha": "ca0d29a0da9b09e8b9979a2f9b9ecb22076a95d3",
+    "sha": "4e44d79bb0567c77210ed0416631a608ef87a8e8",
     "branch": "master"
   },
   "phet-io-wrappers": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "58c14688861559cdffea34e7d6400a526d0e2e91",
+    "sha": "04c2ea08693353d8165bfaca53a2daf12cb4fdd9",
     "branch": "master"
   },
   "query-string-machine": {
