@@ -3,7 +3,7 @@
 /**
  * Model for the 'Stats' Screen.
  *
- * @author Andrea Lin(PhET Interactive Simulations)
+ * @author Matthew Blackman(PhET Interactive Simulations)
  */
 
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
@@ -88,6 +88,16 @@ class StatsModel extends ProjectileMotionModel {
    * @private
    */
   limitTrajectories() {}
+
+  /**
+   * Reset these Properties
+   * @public
+   */
+  reset() {
+    this.projectilesLeftToFire = 0;
+    this.timeSinceLastProjectile = 0;
+    super.reset();
+  }
 }
 
 projectileMotion.register( 'StatsModel', StatsModel );

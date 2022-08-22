@@ -35,6 +35,8 @@ type StringsType = {
   'enterProperty': TReadOnlyProperty<string>;
   'angle': string;
   'angleProperty': TReadOnlyProperty<string>;
+  'angleStandardDeviation': string;
+  'angleStandardDeviationProperty': TReadOnlyProperty<string>;
   'height': string;
   'heightProperty': TReadOnlyProperty<string>;
   'gravity': string;

@@ -12,6 +12,7 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -92,17 +93,44 @@ class ProjectileMotionModel {
       }
     );
 
+    const initialAngleStandardDeviation = options.statsScreen ? 2 : 0;
+
     // @public {Property.<number>}
-    this.cannonAngleProperty = new NumberProperty( options.defaultCannonAngle, {
-      tandem: tandem.createTandem( 'cannonAngleProperty' ),
-      phetioDocumentation: 'Angle of the cannon',
+    this.initialAngleStandardDeviationProperty = new NumberProperty( initialAngleStandardDeviation, {
+      tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
+      phetioDocumentation: 'The standard deviation of the launch angle',
       units: '\u00B0', // degrees
-      range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
+      range: new Range( 0, 30 )
     } );
 
     // @public {Property.<number>}
-    this.initialSpeedProperty = new NumberProperty(
-      options.defaultInitialSpeed,
+    this.cannonAngleProperty = new VarianceNumberProperty(
+      options.defaultCannonAngle, value => {
+        return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
+      },
+      {
+        tandem: tandem.createTandem( 'cannonAngleProperty' ),
+        phetioDocumentation: 'Angle of the cannon',
+        units: '\u00B0', // degrees
+        range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
+      }
+    );
+
+    const initialSpeedStandardDeviation = options.statsScreen ? 0 : 0;
+
+    // @public {Property.<number>}
+    this.initialSpeedStandardDeviationProperty = new NumberProperty( initialSpeedStandardDeviation, {
+      tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
+      phetioDocumentation: 'The standard deviation of the launch speed',
+      units: 'm/s',
+      range: new Range( 0, 10 )
+    } );
+
+    // @public {Property.<number>}
+    this.initialSpeedProperty = new VarianceNumberProperty(
+      options.defaultInitialSpeed, value => {
+        return StatUtils.randomFromNormal( value, this.initialSpeedStandardDeviationProperty.value );
+      },
       {
         tandem: tandem.createTandem( 'initialSpeedProperty' ),
         phetioDocumentation: 'The speed on launch',
@@ -110,16 +138,6 @@ class ProjectileMotionModel {
         range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
       }
     );
-
-    const initialStandardDeviation = options.statsScreen ? 0.15 : 0;
-
-    // @public {Property.<number>}
-    this.initialSpeedStandardDeviationProperty = new NumberProperty( initialStandardDeviation, {
-      tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
-      phetioDocumentation: 'The standard deviation of the launch speed',
-      units: 'm/s',
-      range: new Range( 0, 10 )
-    } );
 
     // --parameters for next projectile fired
 
@@ -318,6 +336,7 @@ class ProjectileMotionModel {
 
     this.cannonHeightProperty.reset();
     this.cannonAngleProperty.reset();
+    this.initialAngleStandardDeviationProperty.reset();
     this.initialSpeedProperty.reset();
     this.selectedProjectileObjectTypeProperty.reset();
     this.projectileMassProperty.reset();
@@ -388,8 +407,8 @@ class ProjectileMotionModel {
    * @public
    */
   cannonFired() {
-    const initialSpeed = StatUtils.randomFromNormal( this.initialSpeedProperty.value,
-      this.initialSpeedStandardDeviationProperty.value );
+    const initialSpeed = this.initialSpeedProperty.getRandomizedValue();
+    const initialAngle = this.cannonAngleProperty.getRandomizedValue();
 
     const lastTrajectory =
       this.trajectoryGroup.count > 0
@@ -397,7 +416,7 @@ class ProjectileMotionModel {
       : null;
     const newTrajectory = this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
       this.projectileMassProperty.value, this.projectileDiameterProperty.value,
-      this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, this.cannonAngleProperty.value );
+      this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
     if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
       lastTrajectory.addProjectileObject();
       this.trajectoryGroup.disposeElement( newTrajectory );

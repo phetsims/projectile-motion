@@ -39,13 +39,17 @@ class TrajectoryNode extends Node {
    * only needed to pass down to ProjectileNode
    * @param {Trajectory} trajectory - model for the trajectory
    * @param {Property.<ModelViewTransform2>} transformProperty
+   * @param {int} maxNumberOfTrajectories
+   * @param {boolean} constantTrajectoryOpacity
+   * @param {boolean} showPath - draw the trajectory path
    */
   constructor(
     viewProperties,
     trajectory,
     transformProperty,
     maxNumberOfTrajectories = ProjectileMotionConstants.MAX_TRAJECTORY_COUNT,
-    constantTrajectoryOpacity = false
+    constantTrajectoryOpacity = false,
+    showPath = true
   ) {
     super( { pickable: false, preventFit: true } );
 
@@ -78,6 +82,10 @@ class TrajectoryNode extends Node {
 
     // add view nodes based on new dataPoints added
     function handleDataPointAdded( addedPoint ) {
+      if ( !showPath ) {
+        return; //do not draw the path if showPath is false
+      }
+
       const viewAddedPosition = scratchVector.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( viewAddedPosition );
       viewAddedPosition.x =
@@ -88,8 +96,8 @@ class TrajectoryNode extends Node {
       if ( viewLastPosition ) {
         const pathStroke =
           addedPoint.airDensity > 0
-            ? AIR_RESISTANCE_ON_COLOR
-            : AIR_RESISTANCE_OFF_PATH_COLOR;
+          ? AIR_RESISTANCE_ON_COLOR
+          : AIR_RESISTANCE_OFF_PATH_COLOR;
         if ( !currentPathShape || currentPathStroke !== pathStroke ) {
           currentPathShape = new Shape().moveTo(
             viewLastPosition.x,
@@ -114,7 +122,7 @@ class TrajectoryNode extends Node {
           .moveTo( viewAddedPosition.x + LARGE_DOT_RADIUS, viewAddedPosition.y )
           .circle( viewAddedPosition.x, viewAddedPosition.y, LARGE_DOT_RADIUS );
       }
- else if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
+      else if ( addedPointTimeInMs % TIME_PER_MINOR_DOT === 0 ) {
         dotsShape
           .moveTo( viewAddedPosition.x + SMALL_DOT_RADIUS, viewAddedPosition.y )
           .circle( viewAddedPosition.x, viewAddedPosition.y, SMALL_DOT_RADIUS );
@@ -186,12 +194,12 @@ class TrajectoryNode extends Node {
       viewLastPosition = null;
 
       assert &&
-        assert(
-          trajectory.dataPoints.get( 0 ).position.x === 0,
-          `Initial point x is not zero but ${
-            trajectory.dataPoints.get( 0 ).position.x
-          }`
-        );
+      assert(
+        trajectory.dataPoints.get( 0 ).position.x === 0,
+        `Initial point x is not zero but ${
+          trajectory.dataPoints.get( 0 ).position.x
+        }`
+      );
 
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
@@ -207,7 +215,7 @@ class TrajectoryNode extends Node {
       if ( constantTrajectoryOpacity ) {
         pathsLayer.opacity = 0.1; //MOVE TO CONSTANTS
       }
- else {
+      else {
         const strength =
           ( maxNumberOfTrajectories - rank ) / maxNumberOfTrajectories;
         pathsLayer.opacity =

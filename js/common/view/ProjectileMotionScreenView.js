@@ -66,6 +66,7 @@ class ProjectileMotionScreenView extends ScreenView {
    * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Tandem} tandem
    * @param {Object} [options]
+   * @param {boolean} showPaths - show the trajectory paths
    */
   constructor(
     model,
@@ -75,7 +76,8 @@ class ProjectileMotionScreenView extends ScreenView {
     tandem,
     options,
     maxNumberOfTrajectories = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
-    constantTrajectoryOpacity = false
+    constantTrajectoryOpacity = false,
+    showPaths = true
   ) {
     options = merge(
       {
@@ -121,7 +123,8 @@ class ProjectileMotionScreenView extends ScreenView {
         addedTrajectory,
         transformProperty,
         maxNumberOfTrajectories,
-        constantTrajectoryOpacity
+        constantTrajectoryOpacity,
+        showPaths
       );
 
       // add the view to scene graph
@@ -422,6 +425,7 @@ class ProjectileMotionScreenView extends ScreenView {
     this.eraserButton = eraserButton;
     this.fireButton = fireButton;
     this.timeControlNode = timeControlNode;
+    this.initialSpeedPanel = initialSpeedPanel;
 
     if ( options.addFlatirons ) {
       // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.

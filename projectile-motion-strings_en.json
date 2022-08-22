@@ -32,6 +32,9 @@
   "angle": {
     "value": "Angle"
   },
+  "angleStandardDeviation": {
+    "value": "Launch Angle Variation"
+  },
   "height": {
     "value": "Height"
   },
