@@ -116,7 +116,7 @@ class ProjectileMotionModel {
       }
     );
 
-    const initialSpeedStandardDeviation = options.statsScreen ? 0 : 0;
+    const initialSpeedStandardDeviation = options.statsScreen ? 2 : 0;
 
     // @public {Property.<number>}
     this.initialSpeedStandardDeviationProperty = new NumberProperty( initialSpeedStandardDeviation, {

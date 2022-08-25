@@ -45,6 +45,7 @@ const ProjectileMotionConstants = {
   CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
   CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
   LAUNCH_VELOCITY_RANGE: new Range( 0, 30 ), // m/s
+  SPEED_STANDARD_DEVIATION_RANGE: new Range( 0, 4 ), // m/s
   ANGLE_STANDARD_DEVIATION_RANGE: new Range( 0, 10 ), // in degrees
 
   PROJECTILE_MASS_RANGE: new Range( 0.01, 5000 ), // in original, highest is 1000

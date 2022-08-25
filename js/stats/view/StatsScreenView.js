@@ -27,6 +27,7 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 const X_MARGIN = 10; //refactor into common view
 const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
 const angleStandardDeviationString = projectileMotionStrings.angleStandardDeviation;
+const speedStandardDeviationString = projectileMotionStrings.speedStandardDeviation;
 
 class StatsScreenView extends ProjectileMotionScreenView {
   /**
@@ -107,20 +108,81 @@ class StatsScreenView extends ProjectileMotionScreenView {
     //creating the launch angle standard deviation panel
 
     const degreesString = MathSymbols.DEGREES;
-    const pattern0Value1UnitsWithSpaceString =
+    const metersPerSecondString = projectileMotionStrings.metersPerSecond;
+
+    const pattern0Value1UnitsString =
       projectileMotionStrings.pattern0Value1Units;
+    const pattern0Value1UnitsWithSpaceString =
+      projectileMotionStrings.pattern0Value1UnitsWithSpace;
 
     // results in '{{value}} m/s'
-    const valuePattern = StringUtils.fillIn(
+    const valuePatternSpeed = StringUtils.fillIn(
       pattern0Value1UnitsWithSpaceString,
+      {
+        units: metersPerSecondString
+      }
+    );
+
+    // results in '{{value}} degrees'
+    const valuePatternAngle = StringUtils.fillIn(
+      pattern0Value1UnitsString,
       {
         units: degreesString
       }
     );
 
+    //initial speed standard deviation slider
+    const speedStandardDeviationPanelTandem = tandem.createTandem( 'speedStandardDeviationPanel' );
+
+    const speedStandardDeviationNumberControl = new NumberControl(
+      speedStandardDeviationString,
+      model.initialSpeedStandardDeviationProperty,
+      ProjectileMotionConstants.SPEED_STANDARD_DEVIATION_RANGE,
+      {
+        titleNodeOptions: {
+          font: TEXT_FONT,
+          maxWidth: 120 // empirically determined
+        },
+        numberDisplayOptions: {
+          valuePattern: valuePatternSpeed,
+          align: 'right',
+          textOptions: {
+            font: TEXT_FONT
+          },
+          maxWidth: 80 // empirically determined
+        },
+        sliderOptions: {
+          constrainValue: value => Utils.roundToInterval( value, 0.1 ),
+          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
+          thumbSize: new Dimension2( 13, 22 )
+        },
+        arrowButtonOptions: {
+          scale: 0.56,
+          touchAreaXDilation: 20,
+          touchAreaYDilation: 20
+        },
+        tandem: speedStandardDeviationPanelTandem.createTandem( 'numberControl' ),
+        phetioDocumentation:
+          'the control for the standard deviation of the initial speed'
+      }
+    );
+
+    // panel under the cannon, controls initial speed of projectiles
+    const speedStandardDeviationPanel = new Panel(
+      speedStandardDeviationNumberControl,
+      merge(
+        {
+          left: this.layoutBounds.left + X_MARGIN,
+          bottom: this.layoutBounds.bottom - 10,
+          tandem: speedStandardDeviationPanelTandem
+        },
+        ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS
+      )
+    );
+
+    //initial angle standard deviation slider
     const angleStandardDeviationPanelTandem = tandem.createTandem( 'angleStandardDeviationPanel' );
 
-    // initial speed readout, slider, and tweakers
     const angleStandardDeviationNumberControl = new NumberControl(
       angleStandardDeviationString,
       model.initialAngleStandardDeviationProperty,
@@ -131,7 +193,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
           maxWidth: 120 // empirically determined
         },
         numberDisplayOptions: {
-          valuePattern: valuePattern,
+          valuePattern: valuePatternAngle,
           align: 'right',
           textOptions: {
             font: TEXT_FONT
@@ -139,7 +201,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
           maxWidth: 80 // empirically determined
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundSymmetric( 100 * value ) / 100,
+          constrainValue: value => Utils.roundSymmetric( value ),
           trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
           thumbSize: new Dimension2( 13, 22 )
         },
@@ -168,15 +230,18 @@ class StatsScreenView extends ProjectileMotionScreenView {
     );
 
     this.addChild( this.fireHundredButton );
+    this.addChild( speedStandardDeviationPanel );
     this.addChild( angleStandardDeviationPanel );
 
-    angleStandardDeviationPanel.left = this.initialSpeedPanel.right + X_MARGIN;
+    angleStandardDeviationPanel.left = speedStandardDeviationPanel.right + X_MARGIN;
 
     this.eraserButton.left = angleStandardDeviationPanel.right + 30;
     this.fireButton.left = this.eraserButton.right + X_MARGIN;
     this.fireHundredButton.bottom = this.eraserButton.bottom;
     this.fireHundredButton.left = this.fireButton.right + X_MARGIN;
     this.timeControlNode.left = this.fireHundredButton.right + 40;
+
+    this.removeChild( this.initialSpeedPanel );
   }
 
   /**

@@ -57,6 +57,8 @@ type StringsType = {
   'altitudeProperty': TReadOnlyProperty<string>;
   'speed': string;
   'speedProperty': TReadOnlyProperty<string>;
+  'speedStandardDeviation': string;
+  'speedStandardDeviationProperty': TReadOnlyProperty<string>;
   'metersPerSecond': string;
   'metersPerSecondProperty': TReadOnlyProperty<string>;
   'metersPerSecondSquared': string;
