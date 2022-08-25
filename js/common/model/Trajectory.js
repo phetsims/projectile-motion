@@ -157,7 +157,7 @@ class Trajectory extends PhetioObject {
 
     // fix large drag errors
     if ( velocity.x < 0 ) {
-      velocity.setXY( 0, 0 );
+      // velocity.setXY( 0, 0 );
     }
 
     // cross sectional area of the projectile
@@ -254,13 +254,13 @@ class Trajectory extends PhetioObject {
 
       // fix large drag errors by making it free fall
       if ( newVelocity.x < 0 ) {
-        newVelocity.setXY( 0, 0 );
+        // newVelocity.setXY( 0, 0 );
         apexExists = false;
       }
 
       if ( newX < previousPoint.position.x ) {
-        newX = previousPoint.position.x;
-        newY = previousPoint.position.y;
+        // newX = previousPoint.position.x;
+        // newY = previousPoint.position.y;
         apexExists = false;
       }
 
