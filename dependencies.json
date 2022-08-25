@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.1.0-dev.14 Thu Aug 25 2022 12:10:00 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# projectile-motion 1.1.0-dev.15 Thu Aug 25 2022 12:30:26 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "75d5d08a92c027e7004f0e3627ac675c32942ce3",
+    "sha": "a6540899dc81c0df77707ce7974db14904c5b595",
     "branch": "master"
   },
   "query-string-machine": {
