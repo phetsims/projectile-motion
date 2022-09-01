@@ -252,19 +252,22 @@ class Trajectory extends PhetioObject {
           previousPoint.velocity.y + previousPoint.acceleration.y * dt
         );
 
-      // fix large drag errors by making it free fall
-      if ( newVelocity.x < 0 ) {
-        // newVelocity.setXY( 0, 0 );
+      // if the drag force is large enough to reverse the sign of vx, set vx to zero
+      const vxChangedSign = ( previousPoint.velocity.x >= 0 && newVelocity.x < 0 ) ||
+                                   ( previousPoint.velocity.x <= 0 && newVelocity.x > 0 );
+
+      if ( vxChangedSign ) {
+        newVelocity.setXY( 0, 0 );
+
+        if ( newX < previousPoint.position.x ) {
+          newX = previousPoint.position.x;
+          newY = previousPoint.position.y;
+        }
+
         apexExists = false;
       }
 
-      if ( newX < previousPoint.position.x ) {
-        // newX = previousPoint.position.x;
-        // newY = previousPoint.position.y;
-        apexExists = false;
-      }
-
-      // cross sectional area of the projectile
+      // cross-sectional area of the projectile
       const area = ( Math.PI * this.diameter * this.diameter ) / 4;
 
       const newDragForce = Vector2.pool
