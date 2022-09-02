@@ -17,7 +17,7 @@ import projectileMotionStrings from './projectileMotionStrings.js';
 import VectorsScreen from './vectors/VectorsScreen.js';
 
 const projectileMotionTitleString =
-  projectileMotionStrings[ 'projectile-motion' ].title;
+  projectileMotionStrings[ 'projectile-motion' ].titleStringProperty;
 
 const simOptions = {
   credits: {
