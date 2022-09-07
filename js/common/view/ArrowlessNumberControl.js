@@ -14,10 +14,10 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import { Text } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 class ArrowlessNumberControl extends NumberControl {
 

@@ -32,7 +32,7 @@ import { Image, Node } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import BackgroundNode from './BackgroundNode.js';
 import CannonNode from './CannonNode.js';
@@ -42,11 +42,11 @@ import TargetNode from './TargetNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
 
-const initialSpeedString = projectileMotionStrings.initialSpeed;
-const metersPerSecondString = projectileMotionStrings.metersPerSecond;
-const metersString = projectileMotionStrings.meters;
+const initialSpeedString = ProjectileMotionStrings.initialSpeed;
+const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
+const metersString = ProjectileMotionStrings.meters;
 const pattern0Value1UnitsWithSpaceString =
-  projectileMotionStrings.pattern0Value1UnitsWithSpace;
+  ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 // constants
 const DEFAULT_SCALE = 30;

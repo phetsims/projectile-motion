@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import projectileMotion from '../projectileMotion.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import DragModel from './model/DragModel.js';
 import DragIconNode from './view/DragIconNode.js';
 import DragScreenView from './view/DragScreenView.js';
@@ -23,7 +23,7 @@ class DragScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: projectileMotionStrings.screen.drag,
+      name: ProjectileMotionStrings.screen.drag,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new DragIconNode(), {
         maxIconWidthProportion: 1,

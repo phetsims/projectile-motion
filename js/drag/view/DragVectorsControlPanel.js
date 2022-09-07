@@ -15,12 +15,12 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
-const componentsString = projectileMotionStrings.components;
-const forceVectorsString = projectileMotionStrings.forceVectors;
-const totalString = projectileMotionStrings.total;
-const velocityVectorsString = projectileMotionStrings.velocityVectors;
+const componentsString = ProjectileMotionStrings.components;
+const forceVectorsString = ProjectileMotionStrings.forceVectors;
+const totalString = ProjectileMotionStrings.total;
+const velocityVectorsString = ProjectileMotionStrings.velocityVectors;
 
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

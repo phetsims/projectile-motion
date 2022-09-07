@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import projectileMotion from '../projectileMotion.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import VectorsModel from './model/VectorsModel.js';
 import VectorsIconNode from './view/VectorsIconNode.js';
 import VectorsScreenView from './view/VectorsScreenView.js';
@@ -23,7 +23,7 @@ class VectorsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: projectileMotionStrings.screen.vectors,
+      name: ProjectileMotionStrings.screen.vectors,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new VectorsIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

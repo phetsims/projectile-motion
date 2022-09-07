@@ -15,16 +15,16 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
-const angleString = projectileMotionStrings.angle;
-const heightString = projectileMotionStrings.height;
-const initialValuesString = projectileMotionStrings.initialValues;
-const metersPerSecondString = projectileMotionStrings.metersPerSecond;
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsString = projectileMotionStrings.pattern0Value1Units;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
-const speedString = projectileMotionStrings.speed;
+const angleString = ProjectileMotionStrings.angle;
+const heightString = ProjectileMotionStrings.height;
+const initialValuesString = ProjectileMotionStrings.initialValues;
+const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsString = ProjectileMotionStrings.pattern0Value1Units;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
+const speedString = ProjectileMotionStrings.speed;
 
 // constants
 const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;

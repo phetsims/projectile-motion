@@ -22,14 +22,14 @@ import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
 import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 // image
 
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsString = projectileMotionStrings.pattern0Value1Units;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsString = ProjectileMotionStrings.pattern0Value1Units;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 // constants
 const CANNON_LENGTH = 4; // empirically determined in model coords

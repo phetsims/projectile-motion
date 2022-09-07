@@ -19,13 +19,13 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
-const diameterString = projectileMotionStrings.diameter;
-const kgString = projectileMotionStrings.kg;
-const massString = projectileMotionStrings.mass;
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
+const diameterString = ProjectileMotionStrings.diameter;
+const kgString = ProjectileMotionStrings.kg;
+const massString = ProjectileMotionStrings.mass;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

@@ -18,10 +18,10 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
-const enterString = projectileMotionStrings.enter;
-const rangeMessageString = projectileMotionStrings.rangeMessage;
+const enterString = ProjectileMotionStrings.enter;
+const rangeMessageString = ProjectileMotionStrings.rangeMessage;
 
 // constants
 const TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;

@@ -17,19 +17,19 @@ import editSolidShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.j
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
 
-const altitudeString = projectileMotionStrings.altitude;
-const diameterString = projectileMotionStrings.diameter;
-const dragCoefficientString = projectileMotionStrings.dragCoefficient;
-const gravityString = projectileMotionStrings.gravity;
-const kgString = projectileMotionStrings.kg;
-const massString = projectileMotionStrings.mass;
-const metersPerSecondSquaredString = projectileMotionStrings.metersPerSecondSquared;
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsString = projectileMotionStrings.pattern0Value1Units;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
+const altitudeString = ProjectileMotionStrings.altitude;
+const diameterString = ProjectileMotionStrings.diameter;
+const dragCoefficientString = ProjectileMotionStrings.dragCoefficient;
+const gravityString = ProjectileMotionStrings.gravity;
+const kgString = ProjectileMotionStrings.kg;
+const massString = ProjectileMotionStrings.mass;
+const metersPerSecondSquaredString = ProjectileMotionStrings.metersPerSecondSquared;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsString = ProjectileMotionStrings.pattern0Value1Units;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;

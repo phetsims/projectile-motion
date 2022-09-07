@@ -11,7 +11,7 @@ import { Node } from '../../../../scenery/js/imports.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
 import StatsControlPanel from './StatsControlPanel.js';
 import FireHundredButton from './FireHundredButton.js';
@@ -26,8 +26,8 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 // constants
 const X_MARGIN = 10; //refactor into common view
 const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-const angleStandardDeviationString = projectileMotionStrings.angleStandardDeviation;
-const speedStandardDeviationString = projectileMotionStrings.speedStandardDeviation;
+const angleStandardDeviationString = ProjectileMotionStrings.angleStandardDeviation;
+const speedStandardDeviationString = ProjectileMotionStrings.speedStandardDeviation;
 
 class StatsScreenView extends ProjectileMotionScreenView {
   /**
@@ -108,12 +108,12 @@ class StatsScreenView extends ProjectileMotionScreenView {
     //creating the launch angle standard deviation panel
 
     const degreesString = MathSymbols.DEGREES;
-    const metersPerSecondString = projectileMotionStrings.metersPerSecond;
+    const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
 
     const pattern0Value1UnitsString =
-      projectileMotionStrings.pattern0Value1Units;
+      ProjectileMotionStrings.pattern0Value1Units;
     const pattern0Value1UnitsWithSpaceString =
-      projectileMotionStrings.pattern0Value1UnitsWithSpace;
+      ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
     // results in '{{value}} m/s'
     const valuePatternSpeed = StringUtils.fillIn(

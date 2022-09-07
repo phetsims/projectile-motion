@@ -19,15 +19,15 @@ import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
-const altitudeString = projectileMotionStrings.altitude;
-const diameterString = projectileMotionStrings.diameter;
-const dragCoefficientString = projectileMotionStrings.dragCoefficient;
-const kgString = projectileMotionStrings.kg;
-const massString = projectileMotionStrings.mass;
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
+const altitudeString = ProjectileMotionStrings.altitude;
+const diameterString = ProjectileMotionStrings.diameter;
+const dragCoefficientString = ProjectileMotionStrings.dragCoefficient;
+const kgString = ProjectileMotionStrings.kg;
+const massString = ProjectileMotionStrings.mass;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
 // constants
 const DRAG_OBJECT_DISPLAY_DIAMETER = 24;

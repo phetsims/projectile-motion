@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import projectileMotion from '../projectileMotion.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabIconNode from './view/LabIconNode.js';
 import LabScreenView from './view/LabScreenView.js';
@@ -23,7 +23,7 @@ class LabScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: projectileMotionStrings.screen.lab,
+      name: ProjectileMotionStrings.screen.lab,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new LabIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

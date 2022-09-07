@@ -13,11 +13,11 @@ import DragScreen from './drag/DragScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
 import StatsScreen from './stats/StatsScreen.js';
-import projectileMotionStrings from './projectileMotionStrings.js';
+import ProjectileMotionStrings from './ProjectileMotionStrings.js';
 import VectorsScreen from './vectors/VectorsScreen.js';
 
 const projectileMotionTitleString =
-  projectileMotionStrings[ 'projectile-motion' ].titleStringProperty;
+  ProjectileMotionStrings[ 'projectile-motion' ].titleStringProperty;
 
 const simOptions = {
   credits: {

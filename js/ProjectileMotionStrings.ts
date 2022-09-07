@@ -107,8 +107,8 @@ type StringsType = {
   'rangeMessageStringProperty': TReadOnlyProperty<string>;
 };
 
-const projectileMotionStrings = getStringModule( 'PROJECTILE_MOTION' ) as StringsType;
+const ProjectileMotionStrings = getStringModule( 'PROJECTILE_MOTION' ) as StringsType;
 
-projectileMotion.register( 'projectileMotionStrings', projectileMotionStrings );
+projectileMotion.register( 'ProjectileMotionStrings', ProjectileMotionStrings );
 
-export default projectileMotionStrings;
+export default ProjectileMotionStrings;

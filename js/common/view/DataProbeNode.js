@@ -18,15 +18,15 @@ import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Circle, DragListener, HBox, Node, Path, RadialGradient, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
-const heightString = projectileMotionStrings.height;
-const mString = projectileMotionStrings.m;
-const pattern0Value1UnitsWithSpaceString = projectileMotionStrings.pattern0Value1UnitsWithSpace;
-const rangeString = projectileMotionStrings.range;
-const sString = projectileMotionStrings.s;
-const timeString = projectileMotionStrings.time;
+const heightString = ProjectileMotionStrings.height;
+const mString = ProjectileMotionStrings.m;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
+const rangeString = ProjectileMotionStrings.range;
+const sString = ProjectileMotionStrings.s;
+const timeString = ProjectileMotionStrings.time;
 const noValueString = MathSymbols.NO_VALUE;
 
 // constants

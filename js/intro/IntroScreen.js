@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import projectileMotion from '../projectileMotion.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroIconNode from './view/IntroIconNode.js';
 import IntroScreenView from './view/IntroScreenView.js';
@@ -23,7 +23,7 @@ class IntroScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: projectileMotionStrings.screen.intro,
+      name: ProjectileMotionStrings.screen.intro,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new IntroIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

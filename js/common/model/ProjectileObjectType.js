@@ -17,20 +17,20 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileObjectViewFactory from '../view/ProjectileObjectViewFactory.js';
 
-const baseballString = projectileMotionStrings.baseball;
-const cannonballString = projectileMotionStrings.cannonball;
-const carString = projectileMotionStrings.car;
-const customString = projectileMotionStrings.custom;
-const footballString = projectileMotionStrings.football;
-const golfBallString = projectileMotionStrings.golfBall;
-const humanString = projectileMotionStrings.human;
-const pianoString = projectileMotionStrings.piano;
-const pumpkinString = projectileMotionStrings.pumpkin;
-const tankShellString = projectileMotionStrings.tankShell;
+const baseballString = ProjectileMotionStrings.baseball;
+const cannonballString = ProjectileMotionStrings.cannonball;
+const carString = ProjectileMotionStrings.car;
+const customString = ProjectileMotionStrings.custom;
+const footballString = ProjectileMotionStrings.football;
+const golfBallString = ProjectileMotionStrings.golfBall;
+const humanString = ProjectileMotionStrings.human;
+const pianoString = ProjectileMotionStrings.piano;
+const pumpkinString = ProjectileMotionStrings.pumpkin;
+const tankShellString = ProjectileMotionStrings.tankShell;
 
 // constants
 const objectTypesTandem = Tandem.GLOBAL_MODEL.createTandem( 'projectileObjectTypes' );

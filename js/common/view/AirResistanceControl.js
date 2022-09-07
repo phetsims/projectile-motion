@@ -12,11 +12,11 @@ import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
-import projectileMotionStrings from '../../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
-const airResistanceString = projectileMotionStrings.airResistance;
-const dragCoefficientString = projectileMotionStrings.dragCoefficient;
+const airResistanceString = ProjectileMotionStrings.airResistance;
+const dragCoefficientString = ProjectileMotionStrings.dragCoefficient;
 
 // constants
 const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;

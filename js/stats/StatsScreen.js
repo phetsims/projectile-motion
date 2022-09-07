@@ -10,7 +10,7 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import projectileMotion from '../projectileMotion.js';
-import projectileMotionStrings from '../projectileMotionStrings.js';
+import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import StatsModel from './model/StatsModel.js';
 import StatsIconNode from './view/StatsIconNode.js';
 import StatsScreenView from './view/StatsScreenView.js';
@@ -21,7 +21,7 @@ class StatsScreen extends Screen {
    */
   constructor( tandem ) {
     const options = {
-      name: projectileMotionStrings.screen.stats,
+      name: ProjectileMotionStrings.screen.stats,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new StatsIconNode( 'screen' ), {
         maxIconWidthProportion: 1,
