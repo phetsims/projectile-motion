@@ -415,7 +415,7 @@ class ProjectileMotionModel {
       ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 )
       : null;
 
-    const newProjectileEqualToLast = this.isNewTrajectoryEqualToLast( lastTrajectory, this.selectedProjectileObjectTypeProperty.value,
+    const newProjectileEqualToLast = this.isNewProjectileEqualToLast( lastTrajectory, this.selectedProjectileObjectTypeProperty.value,
       this.projectileMassProperty.value, this.projectileDiameterProperty.value,
       this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
 
@@ -447,7 +447,7 @@ class ProjectileMotionModel {
    * @param {number} initialAngle - the launch angle of the projectile
    * @returns {boolean}
    */
-  newProjectileEqualToLast( lastTrajectory, objectType, projectileMass, projectileDiameter,
+  isNewProjectileEqualToLast( lastTrajectory, objectType, projectileMass, projectileDiameter,
                             projectileDragCoefficient, initialSpeed, cannonHeight,
                             initialAngle ) {
     return (
