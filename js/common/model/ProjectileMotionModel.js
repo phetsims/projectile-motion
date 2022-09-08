@@ -415,17 +415,23 @@ class ProjectileMotionModel {
       ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 )
       : null;
 
-    const newProjectileEqualToLast = this.isNewProjectileEqualToLast( lastTrajectory, this.selectedProjectileObjectTypeProperty.value,
-      this.projectileMassProperty.value, this.projectileDiameterProperty.value,
-      this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
+    const newProjectileParams = [
+      this.selectedProjectileObjectTypeProperty.value,
+      this.projectileMassProperty.value,
+      this.projectileDiameterProperty.value,
+      this.projectileDragCoefficientProperty.value,
+      initialSpeed,
+      this.cannonHeightProperty.value,
+      initialAngle
+    ];
+
+    const newProjectileEqualToLast = this.isNewProjectileEqualToLast( lastTrajectory, ...newProjectileParams );
 
     if ( newProjectileEqualToLast ) {
       lastTrajectory.addProjectileObject();
     }
     else {
-      const newTrajectory = this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
-        this.projectileMassProperty.value, this.projectileDiameterProperty.value,
-        this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
+      const newTrajectory = this.trajectoryGroup.createNextElement( ...newProjectileParams );
 
       this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
       newTrajectory.rankProperty.reset(); // make the new Trajectory's rank go back to zero
@@ -448,8 +454,8 @@ class ProjectileMotionModel {
    * @returns {boolean}
    */
   isNewProjectileEqualToLast( lastTrajectory, objectType, projectileMass, projectileDiameter,
-                            projectileDragCoefficient, initialSpeed, cannonHeight,
-                            initialAngle ) {
+                              projectileDragCoefficient, initialSpeed, cannonHeight,
+                              initialAngle ) {
     return (
       lastTrajectory !== null &&
       !lastTrajectory.changedInMidAir &&
