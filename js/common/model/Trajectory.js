@@ -254,7 +254,7 @@ class Trajectory extends PhetioObject {
 
       // if the drag force is large enough to reverse the sign of vx, set vx to zero
       const vxChangedSign = ( previousPoint.velocity.x >= 0 && newVelocity.x < 0 ) ||
-                                   ( previousPoint.velocity.x <= 0 && newVelocity.x > 0 );
+                            ( previousPoint.velocity.x <= 0 && newVelocity.x > 0 );
 
       if ( vxChangedSign ) {
         newVelocity.setXY( 0, 0 );
@@ -569,27 +569,6 @@ number of dataPoints: ${this.dataPoints.length}
         dataPoint.dragForce,
         dataPoint.forceGravity
       )
-    );
-  }
-
-  /**
-   * Whether this trajectory is equal to the one given
-   * @public
-   *
-   * @param {Trajectory} trajectory
-   * @returns {boolean}
-   */
-  equals( trajectory ) {
-    const thisInitialPoint = this.dataPoints.get( 0 );
-    const trajectoryInitialPoint = trajectory.dataPoints.get( 0 );
-    return (
-      !this.changedInMidAir &&
-      !trajectory.changedInMidAir &&
-      this.projectileObjectType === trajectory.projectileObjectType &&
-      this.diameter === trajectory.diameter &&
-      this.mass === trajectory.mass &&
-      this.dragCoefficient === trajectory.dragCoefficient &&
-      thisInitialPoint.equals( trajectoryInitialPoint )
     );
   }
 

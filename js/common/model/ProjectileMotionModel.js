@@ -414,19 +414,53 @@ class ProjectileMotionModel {
       this.trajectoryGroup.count > 0
       ? this.trajectoryGroup.getElement( this.trajectoryGroup.count - 1 )
       : null;
-    const newTrajectory = this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
+
+    const newProjectileEqualToLast = this.isNewTrajectoryEqualToLast( lastTrajectory, this.selectedProjectileObjectTypeProperty.value,
       this.projectileMassProperty.value, this.projectileDiameterProperty.value,
       this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
-    if ( lastTrajectory && newTrajectory.equals( lastTrajectory ) ) {
+
+    if ( newProjectileEqualToLast ) {
       lastTrajectory.addProjectileObject();
-      this.trajectoryGroup.disposeElement( newTrajectory );
     }
     else {
+      const newTrajectory = this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
+        this.projectileMassProperty.value, this.projectileDiameterProperty.value,
+        this.projectileDragCoefficientProperty.value, initialSpeed, this.cannonHeightProperty.value, initialAngle );
+
       this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
       newTrajectory.rankProperty.reset(); // make the new Trajectory's rank go back to zero
     }
     this.numberOfMovingProjectilesProperty.value++;
     this.limitTrajectories();
+  }
+
+  /**
+   * Check if new trajectory to be added is identical to the most recent trajectory
+   * @private
+   * @param {Trajectory} lastTrajectory - the most recent trajectory created
+   * @param {ProjectileObjectType} objectType - the type of object being launched
+   * @param {number} projectileMass - the mass of the object being launched
+   * @param {number} projectileDiameter - the diameter of the projectile
+   * @param {number} projectileDragCoefficient - the drag coefficient
+   * @param {number} initialSpeed - the launch speed of the projectile
+   * @param {number} cannonHeight - the initial height of the projectile
+   * @param {number} initialAngle - the launch angle of the projectile
+   * @returns {boolean}
+   */
+  newProjectileEqualToLast( lastTrajectory, objectType, projectileMass, projectileDiameter,
+                            projectileDragCoefficient, initialSpeed, cannonHeight,
+                            initialAngle ) {
+    return (
+      lastTrajectory !== null &&
+      !lastTrajectory.changedInMidAir &&
+      objectType === lastTrajectory.projectileObjectType &&
+      projectileMass === lastTrajectory.mass &&
+      projectileDiameter === lastTrajectory.diameter &&
+      projectileDragCoefficient === lastTrajectory.dragCoefficient &&
+      initialSpeed === lastTrajectory.initialSpeed &&
+      cannonHeight === lastTrajectory.initialHeight &&
+      initialAngle === lastTrajectory.initialAngle
+    );
   }
 
   /**
@@ -505,7 +539,9 @@ class ProjectileMotionModel {
  * @param {boolean} airResistanceOn - if off, zero air density
  * @returns {number} - air density
  */
-function calculateAirDensity( altitude, airResistanceOn ) {
+function
+
+calculateAirDensity( altitude, airResistanceOn ) {
   // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
   // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
 
