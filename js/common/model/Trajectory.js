@@ -13,6 +13,7 @@
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Emitter from '../../../../axon/js/Emitter.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -196,6 +197,36 @@ class Trajectory extends PhetioObject {
       phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
     } );
 
+    //TODO: Have LandedEmitter fire when new DataPoint with landed:true is added to dataPoints - DONE
+    //TODO: Remove LandedEmitter from step function (having trouble) - DONE
+    //TODO: Add launchedEmitter - DONE
+
+    this.projectileLaunchedEmitter = new Emitter( {
+      tandem: options.tandem.createTandem( 'projectileLaunchedEmitter' ),
+      parameters: [
+        { name: 'projectileObject', phetioType: ProjectileObject.ProjectileObjectIO }
+      ]
+    } );
+
+    this.projectileLaunchedEmitter.addListener( () => console.log( ' Projectile launched emitter fired ' + this.projectileCountProperty.value ) );
+
+    this.projectileObjects.elementAddedEmitter.addListener( addedProjectile => {
+      this.projectileLaunchedEmitter.emit( addedProjectile );
+    } );
+
+    this.projectileLandedEmitter = new Emitter( {
+      tandem: options.tandem.createTandem( 'projectileLandedEmitter' ),
+      parameters: [
+        { name: 'projectileObject', phetioType: ProjectileObject.ProjectileObjectIO }
+      ]
+    } );
+
+    this.projectileLandedEmitter.addListener( () => console.log( ' Projectile landed emitter fired ' ) );
+
+    this.projectileObjects.elementRemovedEmitter.addListener( removedProjectile => {
+      this.projectileLandedEmitter.emit( removedProjectile );
+    } );
+
     // @private - added for PhET-iO support only
     this.projectileCountProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'projectileCountProperty' ),
@@ -217,6 +248,8 @@ class Trajectory extends PhetioObject {
 
       this.dataPoints.dispose();
       this.projectileCountProperty.dispose();
+      this.projectileLaunchedEmitter.dispose();
+      this.projectileLandedEmitter.dispose();
       this.projectileObjects.dispose();
       this.rankProperty.dispose();
       this.updateTrajectoryRanksEmitter.removeListener( incrementRank );
@@ -259,6 +292,7 @@ class Trajectory extends PhetioObject {
       if ( vxChangedSign ) {
         newVelocity.setXY( 0, 0 );
 
+        //TODO: Figure out what this is doing and modify for both signs of velocity_x
         if ( newX < previousPoint.position.x ) {
           newX = previousPoint.position.x;
           newY = previousPoint.position.y;
@@ -417,6 +451,9 @@ number of dataPoints: ${this.dataPoints.length}
           }
         );
         this.dataPoints.push( newPoint );
+
+        const landedProjectile = this.projectileObjects.get( this.projectileObjects.length - 1 );
+        this.projectileLandedEmitter.emit( landedProjectile );
       }
       else {
         // Still in the air
