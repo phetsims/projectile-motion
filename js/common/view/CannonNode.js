@@ -187,14 +187,14 @@ class CannonNode extends Node {
       pickable: true,
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
-    const heightLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+    const heightLabelText = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       value: Utils.toFixedNumber( heightProperty.get(), 2 ),
       units: mString,
-      tandem: tandem.createTandem( 'heightLabel' )
+      tandem: tandem.createTandem( 'heightLabelText' )
     } ), heightLabelOptions );
-    heightLabel.setMouseArea( heightLabel.bounds.dilatedXY( 8, 10 ) );
-    heightLabel.setTouchArea( heightLabel.bounds.dilatedXY( 10, 12 ) );
-    heightLabel.centerX = heightLeaderArrows.tipX;
+    heightLabelText.setMouseArea( heightLabelText.bounds.dilatedXY( 8, 10 ) );
+    heightLabelText.setTouchArea( heightLabelText.bounds.dilatedXY( 10, 12 ) );
+    heightLabelText.centerX = heightLeaderArrows.tipX;
 
     // cueing arrow for dragging height
     const heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
@@ -299,7 +299,7 @@ class CannonNode extends Node {
       heightLeaderLineTopCap,
       heightLeaderLineBottomCap,
       heightLabelBackground,
-      heightLabel,
+      heightLabelText,
       heightCueingArrows,
       angleIndicator
     ] );
@@ -367,16 +367,16 @@ class CannonNode extends Node {
       heightLeaderLine.setLine( heightLeaderArrows.tailX, heightLeaderArrows.tailY, heightLeaderArrows.tipX, heightLeaderArrows.tipY );
       heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
       heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
-      heightLabel.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      heightLabelText.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         value: Utils.toFixedNumber( height, 2 ),
         units: mString
       } );
-      heightLabel.centerX = heightLeaderArrows.tipX;
-      heightLabel.y = heightLeaderArrows.tipY - 5;
-      heightLabelBackground.setRectWidth( heightLabel.width + 2 );
-      heightLabelBackground.setRectHeight( heightLabel.height );
-      heightLabelBackground.center = heightLabel.center;
-      heightCueingArrows.y = heightLabel.centerY;
+      heightLabelText.centerX = heightLeaderArrows.tipX;
+      heightLabelText.y = heightLeaderArrows.tipY - 5;
+      heightLabelBackground.setRectWidth( heightLabelText.width + 2 );
+      heightLabelBackground.setRectHeight( heightLabelText.height );
+      heightLabelBackground.center = heightLabelText.center;
+      heightCueingArrows.y = heightLabelText.centerY;
 
       angleIndicator.y = transformProperty.get().modelToViewY( height );
     };
@@ -514,7 +514,7 @@ class CannonNode extends Node {
     cylinderSide.addInputListener( heightDragListener );
     cylinderTop.addInputListener( heightDragListener );
     cannonBarrelBase.addInputListener( heightDragListener );
-    heightLabel.addInputListener( heightDragListener );
+    heightLabelText.addInputListener( heightDragListener );
     heightCueingArrows.addInputListener( heightDragListener );
 
     heightDragListener.enabledProperty.linkAttribute( heightCueingArrows, 'visible' );

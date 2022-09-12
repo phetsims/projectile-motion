@@ -142,18 +142,18 @@ class IntroProjectileControlPanel extends Panel {
       } );
     }
 
-    const massReadout = createReadout(
+    const massText = createReadout(
       massString,
       kgString,
       projectileMassProperty,
-      options.tandem.createTandem( 'massReadout' )
+      options.tandem.createTandem( 'massText' )
     );
 
-    const diameterReadout = createReadout(
+    const diameterText = createReadout(
       diameterString,
       mString,
       projectileDiameterProperty,
-      options.tandem.createTandem( 'diameterReadout' )
+      options.tandem.createTandem( 'diameterText' )
     );
 
     // The contents of the control panel
@@ -162,8 +162,8 @@ class IntroProjectileControlPanel extends Panel {
       spacing: options.controlsVerticalSpace,
       children: [
         projectileChoiceComboBox,
-        massReadout,
-        diameterReadout,
+        massText,
+        diameterText,
         new HSeparator( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
           tandem: options.tandem.createTandem( 'separator' )

@@ -123,7 +123,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
   createCustomControl( labelString, unitsString, valueProperty, range, tandem ) {
 
     // label
-    const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'label' ) }, LABEL_OPTIONS ) );
+    const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'labelText' ) }, LABEL_OPTIONS ) );
 
     // value text
     const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {

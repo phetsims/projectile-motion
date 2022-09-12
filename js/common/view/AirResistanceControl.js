@@ -38,13 +38,13 @@ class AirResistanceControl extends VBox {
       tandem: Tandem.REQUIRED
     }, options );
 
-    const dragCoefficientReadout = new Text( '', merge( {}, options.labelOptions, {
+    const dragCoefficientText = new Text( '', merge( {}, options.labelOptions, {
       maxWidth: options.minWidth - 2 * options.xMargin,
-      tandem: options.tandem.createTandem( 'dragCoefficientReadout' ),
+      tandem: options.tandem.createTandem( 'dragCoefficientText' ),
       textPropertyOptions: { phetioReadOnly: true } // because this display shouldn't be edited
     } ) );
 
-    dragCoefficientReadout.setBoundsMethod( 'accurate' );
+    dragCoefficientText.setBoundsMethod( 'accurate' );
 
     // air resistance
     const titleText = new Text( airResistanceString, merge( {}, options.labelOptions, {
@@ -64,16 +64,16 @@ class AirResistanceControl extends VBox {
     // disabling and enabling drag and altitude controls depending on whether air resistance is on
     airResistanceOnProperty.link( airResistanceOn => {
       const opacity = airResistanceOn ? 1 : 0.5;
-      dragCoefficientReadout.setOpacity( opacity );
+      dragCoefficientText.setOpacity( opacity );
     } );
 
     // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( value => {
-      dragCoefficientReadout.setText( `${dragCoefficientString}: ${Utils.toFixed( value, 2 )}` );
+      dragCoefficientText.setText( `${dragCoefficientString}: ${Utils.toFixed( value, 2 )}` );
     } );
 
     assert && assert( !options.children, 'AirResistanceControl sets its own children' );
-    options.children = [ airResistanceCheckbox, dragCoefficientReadout ];
+    options.children = [ airResistanceCheckbox, dragCoefficientText ];
 
     // xMargin is used for FlowBox
     super( _.omit( options, 'xMargin' ) );

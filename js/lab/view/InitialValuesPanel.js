@@ -91,29 +91,29 @@ class InitialValuesPanel extends Panel {
       } );
     }
 
-    const heightReadout = createReadout(
+    const heightText = createReadout(
       heightString,
       mString,
       cannonHeightProperty,
       ProjectileMotionConstants.CANNON_HEIGHT_RANGE,
-      options.tandem.createTandem( 'heightReadout' )
+      options.tandem.createTandem( 'heightText' )
     );
 
-    const angleReadout = createReadout(
+    const angleText = createReadout(
       angleString,
       null,
       cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE,
-      options.tandem.createTandem( 'angleReadout' ),
+      options.tandem.createTandem( 'angleText' ),
       DEGREES
     );
 
-    const velocityReadout = createReadout(
+    const velocityText = createReadout(
       speedString,
       metersPerSecondString,
       initialSpeedProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE,
-      options.tandem.createTandem( 'velocityReadout' )
+      options.tandem.createTandem( 'velocityText' )
     );
 
     // contents of the panel
@@ -121,22 +121,22 @@ class InitialValuesPanel extends Panel {
       align: 'left',
       spacing: options.controlsVerticalSpace / 3,
       children: [
-        heightReadout,
-        angleReadout,
-        velocityReadout
+        heightText,
+        angleText,
+        velocityText
       ]
     } );
 
-    const initialValuesTitle = new Text( initialValuesString, _.merge( {}, TITLE_OPTIONS, {
+    const titleText = new Text( initialValuesString, _.merge( {}, TITLE_OPTIONS, {
       maxWidth: maxWidth,
-      tandem: options.tandem.createTandem( 'titleNode' )
+      tandem: options.tandem.createTandem( 'titleText' )
     } ) );
 
     const initialValuesVBox = new VBox( {
       align: 'center',
       spacing: 0,
       children: [
-        initialValuesTitle,
+        titleText,
         content
       ]
     } );
