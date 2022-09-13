@@ -15,7 +15,7 @@ import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import { HBox, HStrut, Node, Text, VBox } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -195,12 +195,12 @@ class LabProjectileControlPanel extends Node {
         projectileChoiceComboBox,
         massBox,
         diameterBox,
-        new HSeparator( options.minWidth - 2 * options.xMargin, {
+        new HSeparatorDeprecated( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
           tandem: options.tandem.createTandem( 'separator1' )
         } ),
         gravityBox,
-        new HSeparator( options.minWidth - 2 * options.xMargin, {
+        new HSeparatorDeprecated( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
           tandem: options.tandem.createTandem( 'separator2' )
         } ),

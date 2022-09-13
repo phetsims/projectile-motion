@@ -13,7 +13,7 @@ import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import { HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -164,7 +164,7 @@ class IntroProjectileControlPanel extends Panel {
         projectileChoiceComboBox,
         massText,
         diameterText,
-        new HSeparator( options.minWidth - 2 * options.xMargin, {
+        new HSeparatorDeprecated( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
           tandem: options.tandem.createTandem( 'separator' )
         } ),

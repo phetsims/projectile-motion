@@ -9,7 +9,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import { HBox, Text, VBox } from '../../../../scenery/js/imports.js';
-import HSeparator from '../../../../sun/js/HSeparator.js';
+import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -112,7 +112,7 @@ class VectorsProjectileControlPanel extends Panel {
         objectDisplay,
         diameterNumberControl,
         massNumberControl,
-        new HSeparator( options.minWidth - 2 * options.xMargin, {
+        new HSeparatorDeprecated( options.minWidth - 2 * options.xMargin, {
           stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
           tandem: options.tandem.createTandem( 'separator' )
         } ),
