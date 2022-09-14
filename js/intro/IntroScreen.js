@@ -23,7 +23,7 @@ class IntroScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: ProjectileMotionStrings.screen.intro,
+      name: ProjectileMotionStrings.screen.introStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new IntroIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

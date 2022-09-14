@@ -21,7 +21,7 @@ class StatsScreen extends Screen {
    */
   constructor( tandem ) {
     const options = {
-      name: ProjectileMotionStrings.screen.stats,
+      name: ProjectileMotionStrings.screen.statsStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new StatsIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

@@ -23,7 +23,7 @@ class DragScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: ProjectileMotionStrings.screen.drag,
+      name: ProjectileMotionStrings.screen.dragStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new DragIconNode(), {
         maxIconWidthProportion: 1,

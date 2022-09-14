@@ -23,7 +23,7 @@ class LabScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: ProjectileMotionStrings.screen.lab,
+      name: ProjectileMotionStrings.screen.labStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new LabIconNode( 'screen' ), {
         maxIconWidthProportion: 1,

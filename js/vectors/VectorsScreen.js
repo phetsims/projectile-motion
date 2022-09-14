@@ -23,7 +23,7 @@ class VectorsScreen extends Screen {
   constructor( tandem ) {
 
     const options = {
-      name: ProjectileMotionStrings.screen.vectors,
+      name: ProjectileMotionStrings.screen.vectorsStringProperty,
       backgroundColorProperty: new Property( 'white' ),
       homeScreenIcon: new ScreenIcon( new VectorsIconNode( 'screen' ), {
         maxIconWidthProportion: 1,
