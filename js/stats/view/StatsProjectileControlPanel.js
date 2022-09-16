@@ -144,7 +144,7 @@ class StatsProjectileControlPanel extends Panel {
         merge(
           {
             tandem: tandem,
-            textPropertyOptions: { phetioReadOnly: true }
+            stringPropertyOptions: { phetioReadOnly: true }
           },
           parameterLabelOptions
         )

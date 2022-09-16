@@ -69,7 +69,7 @@ class InitialValuesPanel extends Panel {
 
         // phet-io
         tandem: tandem,
-        textPropertyOptions: { phetioReadOnly: true }
+        stringPropertyOptions: { phetioReadOnly: true }
       } ) );
 
       valueProperty.link( value => {
