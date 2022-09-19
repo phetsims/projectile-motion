@@ -197,10 +197,6 @@ class Trajectory extends PhetioObject {
       phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
     } );
 
-    //TODO: Have LandedEmitter fire when new DataPoint with landed:true is added to dataPoints - DONE
-    //TODO: Remove LandedEmitter from step function (having trouble) - DONE
-    //TODO: Add launchedEmitter - DONE
-
     this.projectileLaunchedEmitter = new Emitter( {
       tandem: options.tandem.createTandem( 'projectileLaunchedEmitter' ),
       parameters: [
@@ -208,7 +204,6 @@ class Trajectory extends PhetioObject {
       ]
     } );
 
-    this.projectileLaunchedEmitter.addListener( () => console.log( ' Projectile launched emitter fired ' + this.projectileCountProperty.value ) );
 
     this.projectileObjects.elementAddedEmitter.addListener( addedProjectile => {
       this.projectileLaunchedEmitter.emit( addedProjectile );
@@ -221,11 +216,34 @@ class Trajectory extends PhetioObject {
       ]
     } );
 
-    this.projectileLandedEmitter.addListener( () => console.log( ' Projectile landed emitter fired ' ) );
+    // There will always be at least one projectile on the Trajectory, so this doesn't cover the very first projectile
+    // launched.
+    this.projectileObjects.elementRemovedEmitter.addListener( removedProjectileObject => {
 
-    this.projectileObjects.elementRemovedEmitter.addListener( removedProjectile => {
-      this.projectileLandedEmitter.emit( removedProjectile );
+      // TODO: Is this removed projectileObject actually the landed one or is it the previous one? Perhaps we should emit the landed of the last item in the projectileObjects list instead.
+      // TODO: this should be called only after our last dataPoint (dataPoint.reachedGround:true) occurs, otherwise life is harder in the wrapper.
+      this.projectileLandedEmitter.emit( removedProjectileObject );
+      console.log( 'Projectile removed' );
     } );
+
+    // The first ProjectileObject launched on this trajectory will cause data points to be created as it moves. Future
+    // Projectiles will reuse these data points.
+    this.dataPoints.elementAddedEmitter.addListener( addedDataPoint => {
+      // 1
+      if ( addedDataPoint.reachedGround ) {
+        console.log( 'Data point added' );
+      }
+      if ( addedDataPoint.reachedGround ) {
+        assert && assert( this.projectileObjects.length > 0, 'there must be a projectile object' );
+
+        // We know it is the first one landed because otherwise DataPoints wouldn't be created for this ProjectileObject
+        // TODO: is it really the first element in the projectileObjects? Always?!?!?
+        this.projectileLandedEmitter.emit( this.projectileObjects.get( 0 ) );
+      }
+    } );
+
+    this.projectileLaunchedEmitter.addListener( projectileObject => console.log( ' launched ', projectileObject ) );
+    this.projectileLandedEmitter.addListener( projectileObject => console.log( 'landed', projectileObject ) );
 
     // @private - added for PhET-iO support only
     this.projectileCountProperty = new NumberProperty( 0, {
@@ -292,11 +310,10 @@ class Trajectory extends PhetioObject {
       if ( vxChangedSign ) {
         newVelocity.setXY( 0, 0 );
 
-        //TODO: Figure out what this is doing and modify for both signs of velocity_x
-        if ( newX < previousPoint.position.x ) {
-          newX = previousPoint.position.x;
-          newY = previousPoint.position.y;
-        }
+        //TODO: DOCUMENT
+        const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
+        newX = previousPoint.position.x + previousPoint.velocity.x * newDt + 0.5 * previousPoint.acceleration.x * newDt * newDt;
+        newY = previousPoint.position.y;
 
         apexExists = false;
       }
@@ -451,9 +468,6 @@ number of dataPoints: ${this.dataPoints.length}
           }
         );
         this.dataPoints.push( newPoint );
-
-        const landedProjectile = this.projectileObjects.get( this.projectileObjects.length - 1 );
-        this.projectileLandedEmitter.emit( landedProjectile );
       }
       else {
         // Still in the air
