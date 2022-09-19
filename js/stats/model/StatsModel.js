@@ -11,7 +11,7 @@ import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
 
-const MULTI_LAUNCH_DELTA_TIME = 0.1;
+// const MULTI_LAUNCH_DELTA_TIME = 0.01;
 
 class StatsModel extends ProjectileMotionModel {
   /**
@@ -51,7 +51,9 @@ class StatsModel extends ProjectileMotionModel {
    */
   startFiringMultiple( numTimesToFire ) {
     this.projectilesLeftToFire = numTimesToFire;
-    this.fireNextOfMultiple();
+    while ( this.projectilesLeftToFire > 0 ) {
+      this.fireNextOfMultiple();
+    }
   }
 
   /**
@@ -77,9 +79,9 @@ class StatsModel extends ProjectileMotionModel {
         this.timeSpeedProperty.value === TimeSpeed.SLOW ? 0.33 : 1;
       this.timeSinceLastProjectile += timeFactor * dt;
 
-      if ( this.timeSinceLastProjectile >= MULTI_LAUNCH_DELTA_TIME ) {
-        this.fireNextOfMultiple();
-      }
+      // if ( this.timeSinceLastProjectile >= MULTI_LAUNCH_DELTA_TIME ) {
+      //   this.fireNextOfMultiple();
+      // }
     }
   }
 
