@@ -69,7 +69,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
       iconWidth: 30,
       minHeight: 40,
       listener: () => {
-        model.startFiringMultiple( 100 );
+        model.startFiringMultiple( 20 );
       },
       bottom: 0,
       left: 0,
