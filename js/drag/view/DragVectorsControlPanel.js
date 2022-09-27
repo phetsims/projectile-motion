@@ -50,15 +50,12 @@ class DragVectorsControlPanel extends Panel {
       boxWidth: 18
     };
 
-    const totalLabel = new Text( totalString, titleOptions );
-    const componentsLabel = new Text( componentsString, titleOptions );
-
     const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
-      node: totalLabel,
+      createNode: tandem => new Text( totalString, titleOptions ),
       tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
     }, {
-      node: componentsLabel,
+      createNode: tandem => new Text( componentsString, titleOptions ),
       tandemName: 'componentsRadioButton',
       value: VectorsDisplayEnumeration.COMPONENTS
     } ], {
