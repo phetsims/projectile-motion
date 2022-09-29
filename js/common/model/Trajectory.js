@@ -705,8 +705,11 @@ number of dataPoints: ${this.dataPoints.length}
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.
-Trajectory.TrajectoryIO = IOType.fromCoreType( 'TrajectoryIO', Trajectory, {
-  documentation: 'A trajectory outlining the projectile\'s path'
+Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
+  valueType: Trajectory,
+  documentation: 'A trajectory outlining the projectile\'s path',
+  stateSchema: Trajectory.STATE_SCHEMA,
+  stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
 } );
 
 projectileMotion.register( 'Trajectory', Trajectory );

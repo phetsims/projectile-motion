@@ -152,7 +152,11 @@ class ProjectileObjectType extends PhetioObject {
   }
 }
 
-ProjectileObjectType.ProjectileObjectTypeIO = IOType.fromCoreType( 'ProjectileObjectTypeIO', ProjectileObjectType, {
+ProjectileObjectType.ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
+  valueType: ProjectileObjectType,
+  toStateObject: t => t.toStateObject(),
+  applyState: ( t, s ) => t.applyState( s ),
+  stateSchema: ProjectileObjectType.STATE_SCHEMA,
   documentation: 'A data type that stores the variables for a given object type.'
 } );
 
