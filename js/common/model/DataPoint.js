@@ -116,7 +116,7 @@ class DataPoint {
 DataPoint.DataPointIO = new IOType( 'DataPointIO', {
   valueType: DataPoint,
   stateSchema: DataPoint.STATE_SCHEMA,
-  fromStateObject: s => DataPoint.fromStateObject( s ),
+  fromStateObject: stateObject => DataPoint.fromStateObject( stateObject ),
   documentation: 'A single data point on a projectile\'s trajectory, with the following data:<br><ul>' +
                  '<li>time (seconds): The time of the data point</li>' +
                  '<li>position (meters): the position of the point in model coordinates</li>' +
