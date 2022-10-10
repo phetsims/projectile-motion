@@ -73,6 +73,7 @@ class CannonNode extends Node {
 
     options = merge( {
       renderer: platform.mobileSafari ? 'canvas' : null,
+      preciseCannonDelta: false,
       tandem: Tandem.REQUIRED
     }, options );
 

@@ -79,13 +79,11 @@ class ProjectileMotionScreenView extends ScreenView {
     constantTrajectoryOpacity = false,
     showPaths = true
   ) {
-    options = merge(
-      {
+    options = merge( {
         tandem: tandem,
+        cannonNodeOptions: {},
         addFlatirons: true // if false, then flatirons easteregg will never be shown
-      },
-      options
-    );
+      }, options );
 
     super( options );
 
@@ -156,8 +154,8 @@ class ProjectileMotionScreenView extends ScreenView {
       model.muzzleFlashStepper,
       transformProperty,
       this,
-      merge( {}, options, { tandem: tandem.createTandem( 'cannonNode' ) } )
-    ); // TODO: don't pass all options in
+      merge( options.cannonNodeOptions, { tandem: tandem.createTandem( 'cannonNode' ) } )
+    );
 
     // results in '{{value}} m/s'
     const valuePattern = StringUtils.fillIn(

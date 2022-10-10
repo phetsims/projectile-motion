@@ -26,7 +26,7 @@ class LabScreenView extends ProjectileMotionScreenView {
    */
   constructor( model, tandem, options ) {
 
-    options = merge( { preciseCannonDelta: true }, options );
+    options = merge( { cannonNodeOptions: { preciseCannonDelta: true } }, options );
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new ProjectileMotionViewProperties();
