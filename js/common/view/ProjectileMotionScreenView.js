@@ -156,8 +156,7 @@ class ProjectileMotionScreenView extends ScreenView {
       model.muzzleFlashStepper,
       transformProperty,
       this,
-      tandem.createTandem( 'cannonNode' ),
-      _.omit( options, 'tandem' )
+      merge( {}, options, { tandem: tandem.createTandem( 'cannonNode' ) } )
     ); // TODO: don't pass all options in
 
     // results in '{{value}} m/s'

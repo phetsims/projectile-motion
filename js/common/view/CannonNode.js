@@ -17,6 +17,7 @@ import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Color, DragListener, Image, Line, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
@@ -66,14 +67,13 @@ class CannonNode extends Node {
    * @param {Emitter} muzzleFlashStepper - emits whenever model steps
    * @param {Property.<ModelViewTransform2>} transformProperty
    * @param {ScreenView} screenView
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, tandem, options ) {
+  constructor( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, options ) {
 
     options = merge( {
       renderer: platform.mobileSafari ? 'canvas' : null,
-      tandem: tandem
+      tandem: Tandem.REQUIRED
     }, options );
 
     super( options );
@@ -190,7 +190,7 @@ class CannonNode extends Node {
     const heightLabelText = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
       value: Utils.toFixedNumber( heightProperty.get(), 2 ),
       units: mString,
-      tandem: tandem.createTandem( 'heightLabelText' )
+      tandem: options.tandem.createTandem( 'heightLabelText' )
     } ), heightLabelOptions );
     heightLabelText.setMouseArea( heightLabelText.bounds.dilatedXY( 8, 10 ) );
     heightLabelText.setTouchArea( heightLabelText.bounds.dilatedXY( 10, 12 ) );
@@ -467,7 +467,7 @@ class CannonNode extends Node {
       },
       useInputListenerCursor: true,
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'barrelTopDragListener' ),
+      tandem: options.tandem.createTandem( 'barrelTopDragListener' ),
       phetioEnabledPropertyInstrumented: true,
       phetioDocumentation: 'the drag listener for the barrel of the cannon to change the angle'
     } ) );
@@ -504,7 +504,7 @@ class CannonNode extends Node {
       },
       useInputListenerCursor: true,
       allowTouchSnag: true,
-      tandem: tandem.createTandem( 'heightDragListener' ),
+      tandem: options.tandem.createTandem( 'heightDragListener' ),
       phetioEnabledPropertyInstrumented: true,
       phetioDocumentation: 'the listener to change the height of the cannon, used on multiple Nodes'
     } );
