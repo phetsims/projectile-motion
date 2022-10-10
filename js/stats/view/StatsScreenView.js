@@ -36,12 +36,10 @@ class StatsScreenView extends ProjectileMotionScreenView {
    * @param {Object} [options]
    */
   constructor( model, tandem, options ) {
-    options = merge(
-      {
-        addFlatirons: false
-      },
-      options
-    );
+    options = merge( {
+      addFlatirons: false,
+      cannonNodeOptions: { preciseCannonDelta: true }
+    }, options );
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new ProjectileMotionViewProperties( {
