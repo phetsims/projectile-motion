@@ -86,12 +86,6 @@ class StatsModel extends ProjectileMotionModel {
   }
 
   /**
-   * Override superclass for unlimited trajectories
-   * @private
-   */
-  limitTrajectories() {}
-
-  /**
    * Reset these Properties
    * @public
    */
