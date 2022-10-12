@@ -34,6 +34,8 @@ import ProjectileObjectType from './ProjectileObjectType.js';
 // constants
 const MAX_NUMBER_OF_TRAJECTORIES =
   ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+
+// TODO: This constant does not need to exist if there is always one projectile per trajectory, https://github.com/phetsims/projectile-motion/issues/291
 const MAX_NUMBER_OF_FLYING_PROJECTILES =
   ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
 
@@ -108,6 +110,11 @@ class Trajectory extends PhetioObject {
 
     // @public {DataPoint|null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
+
+    // TODO: Add comments https://github.com/phetsims/projectile-motion/issues/291
+    this.maxHeight = this.initialHeight;
+    this.horizontalDisplacement = 0;
+    this.flightTime = 0;
 
     // @private {function():DataProbe|null} accessor for DataProbe component
     this.getDataProbe = getDataProbe;
@@ -188,6 +195,7 @@ class Trajectory extends PhetioObject {
     // It is not guaranteed that the dataProbe exists
     dataProbe && dataProbe.updateDataIfWithinRange( initialPoint );
 
+    // TODO: Do we need this if there is only one projectile per trajectory? https://github.com/phetsims/projectile-motion/issues/291
     // @public {ObservableArrayDef.<ProjectileObject>}
     this.projectileObjects = createObservableArray( {
       tandem: options.tandem.createTandem( 'projectileObjects' ),
@@ -197,77 +205,44 @@ class Trajectory extends PhetioObject {
       phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
     } );
 
-    this.projectileLaunchedEmitter = new Emitter( {
-      tandem: options.tandem.createTandem( 'projectileLaunchedEmitter' ),
+    assert && this.projectileObjects.elementAddedEmitter.addListener( () => {
+      assert( this.projectileObjects.length === 1, 'Cannot have more than one projectile per trajectory' );
+    } );
+
+    this.trajectoryLandedEmitter = new Emitter( {
+      tandem: options.tandem.createTandem( 'trajectoryLandedEmitter' ),
       parameters: [
-        { name: 'projectileObject', phetioType: ProjectileObject.ProjectileObjectIO }
+        { name: 'trajectory', phetioType: Trajectory.TrajectoryIO }
       ]
     } );
 
-
-    this.projectileObjects.elementAddedEmitter.addListener( addedProjectile => {
-      this.projectileLaunchedEmitter.emit( addedProjectile );
-    } );
-
-    this.projectileLandedEmitter = new Emitter( {
-      tandem: options.tandem.createTandem( 'projectileLandedEmitter' ),
-      parameters: [
-        { name: 'projectileObject', phetioType: ProjectileObject.ProjectileObjectIO }
-      ]
-    } );
-
-    // There will always be at least one projectile on the Trajectory, so this doesn't cover the very first projectile
-    // launched.
-    this.projectileObjects.elementRemovedEmitter.addListener( removedProjectileObject => {
-
-      // TODO: Is this removed projectileObject actually the landed one or is it the previous one? Perhaps we should emit the landed of the last item in the projectileObjects list instead.
-      // TODO: this should be called only after our last dataPoint (dataPoint.reachedGround:true) occurs, otherwise life is harder in the wrapper.
-      this.projectileLandedEmitter.emit( removedProjectileObject );
-      console.log( 'Projectile removed' );
-    } );
+    let landed = false;
 
     // The first ProjectileObject launched on this trajectory will cause data points to be created as it moves. Future
     // Projectiles will reuse these data points.
     this.dataPoints.elementAddedEmitter.addListener( addedDataPoint => {
-      // 1
-      if ( addedDataPoint.reachedGround ) {
-        console.log( 'Data point added' );
-      }
+      this.maxHeight = Math.max( addedDataPoint.position.y, this.maxHeight );
+      this.horizontalDisplacement = addedDataPoint.position.x;
+      this.flightTime = addedDataPoint.time;
+
       if ( addedDataPoint.reachedGround ) {
         assert && assert( this.projectileObjects.length > 0, 'there must be a projectile object' );
+        assert && assert( !landed, 'a projectile should only land once!' );
 
-        // We know it is the first one landed because otherwise DataPoints wouldn't be created for this ProjectileObject
-        // TODO: is it really the first element in the projectileObjects? Always?!?!?
-        this.projectileLandedEmitter.emit( this.projectileObjects.get( 0 ) );
+        // TODO: Inline this listener into the right spot (when projectile has landed), https://github.com/phetsims/projectile-motion/issues/291
+        this.trajectoryLandedEmitter.emit( this );
+        landed = true;
       }
     } );
 
-    this.projectileLaunchedEmitter.addListener( projectileObject => console.log( ' launched ', projectileObject ) );
-    this.projectileLandedEmitter.addListener( projectileObject => console.log( 'landed', projectileObject ) );
-
-    // @private - added for PhET-iO support only
-    this.projectileCountProperty = new NumberProperty( 0, {
-      tandem: options.tandem.createTandem( 'projectileCountProperty' ),
-      numberType: 'Integer',
-      phetioDocumentation:
-        'The number of projectiles that have been launched on this Trajectory.'
-    } );
-
-    this.projectileObjects.elementAddedEmitter.addListener( () => {
-      this.projectileCountProperty.value++;
-    } );
-
-    // add first projectile object
+    // add projectile object
     this.addProjectileObject();
 
     // @private
     this.disposeTrajectory = () => {
       this.apexPoint = null; // remove reference
-
       this.dataPoints.dispose();
-      this.projectileCountProperty.dispose();
-      this.projectileLaunchedEmitter.dispose();
-      this.projectileLandedEmitter.dispose();
+      this.trajectoryLandedEmitter.dispose();
       this.projectileObjects.dispose();
       this.rankProperty.dispose();
       this.updateTrajectoryRanksEmitter.removeListener( incrementRank );
@@ -310,7 +285,7 @@ class Trajectory extends PhetioObject {
       if ( vxChangedSign ) {
         newVelocity.setXY( 0, 0 );
 
-        //TODO: DOCUMENT
+        //TODO: Examine this and add comments, https://github.com/phetsims/projectile-motion/issues/286
         const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
         newX = previousPoint.position.x + previousPoint.velocity.x * newDt + 0.5 * previousPoint.acceleration.x * newDt * newDt;
         newY = previousPoint.position.y;
@@ -677,6 +652,9 @@ number of dataPoints: ${this.dataPoints.length}
       changedInMidAir: BooleanIO,
       reachedGround: BooleanIO,
       apexPoint: NullableIO( DataPoint.DataPointIO ),
+      maxHeight: NumberIO,
+      horizontalDisplacement: NumberIO,
+      flightTime: NumberIO,
       projectileObjectType: ReferenceIO(
         ProjectileObjectType.ProjectileObjectTypeIO
       ),
@@ -707,6 +685,8 @@ number of dataPoints: ${this.dataPoints.length}
 // toStateObject, fromStateObject, and applyState.
 Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
   valueType: Trajectory,
+
+  // TODO: Add explanation about every state key in STATE_SCHEMA (can be html ul), https://github.com/phetsims/phet-io-sim-specific/issues/7
   documentation: 'A trajectory outlining the projectile\'s path',
   stateSchema: Trajectory.STATE_SCHEMA,
   stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
