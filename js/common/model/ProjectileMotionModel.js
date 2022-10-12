@@ -175,7 +175,6 @@ class ProjectileMotionModel {
     );
 
     // @public {Property.<ProjectileObjectType>}
-    // TODO: does this need to be ReferenceIO?
     this.selectedProjectileObjectTypeProperty = new Property(
       defaultProjectileObjectType,
       {
