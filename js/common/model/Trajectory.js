@@ -230,7 +230,7 @@ class Trajectory extends PhetioObject {
         assert && assert( this.projectileObjects.length > 0, 'there must be a projectile object' );
         assert && assert( !landed, 'a projectile should only land once!' );
 
-        this.hasHitTarget = Math.abs( addedDataPoint.position.x - this.target.positionProperty.value ) <= ProjectileMotionConstants.TARGET_WIDTH / 2;
+        this.hasHitTarget = this.target.isWithinTarget( this.horizontalDisplacement );
 
         // TODO: Inline this listener into the right spot (when projectile has landed), https://github.com/phetsims/projectile-motion/issues/291
         this.trajectoryLandedEmitter.emit( this );
