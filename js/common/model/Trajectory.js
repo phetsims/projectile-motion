@@ -35,10 +35,6 @@ import ProjectileObjectType from './ProjectileObjectType.js';
 const MAX_NUMBER_OF_TRAJECTORIES =
   ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
 
-// TODO: This constant does not need to exist if there is always one projectile per trajectory, https://github.com/phetsims/projectile-motion/issues/291
-const MAX_NUMBER_OF_FLYING_PROJECTILES =
-  ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES;
-
 class Trajectory extends PhetioObject {
 
   /**
@@ -111,10 +107,16 @@ class Trajectory extends PhetioObject {
     // @public {DataPoint|null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
 
-    // TODO: Add comments https://github.com/phetsims/projectile-motion/issues/291
+    // @public {number} the maximum height reached by the projectile
     this.maxHeight = this.initialHeight;
+
+    // @public {number} the horizontal displacement of the projectile from its launch point
     this.horizontalDisplacement = 0;
+
+    // @public {number} the horizontal displacement of the projectile from its launch point
     this.flightTime = 0;
+
+    // @public {boolean} whether the projectile has hit the target
     this.hasHitTarget = false;
 
     // @private {function():DataProbe|null} accessor for DataProbe component
@@ -203,7 +205,7 @@ class Trajectory extends PhetioObject {
       phetioType: createObservableArray.ObservableArrayIO(
         ProjectileObject.ProjectileObjectIO
       ),
-      phetioDocumentation: `A list of the current projectile objects on this trajectory. At most there can only be ${MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles flying on any trajectory at one time.`
+      phetioDocumentation: 'A list of the current projectile objects on this trajectory.'
     } );
 
     assert && this.projectileObjects.elementAddedEmitter.addListener( () => {
@@ -388,9 +390,6 @@ class Trajectory extends PhetioObject {
       if ( newY <= 0 ) {
         this.reachedGround = true; // store the information that it has reached the ground
 
-        // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
-        let fromIf = true;
-
         // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
         let timeToGround = null;
         if ( previousPoint.acceleration.y === 0 ) {
@@ -406,7 +405,6 @@ class Trajectory extends PhetioObject {
           }
         }
         else {
-          fromIf = false;
           const squareRoot = -Math.sqrt(
             previousPoint.velocity.y * previousPoint.velocity.y -
             2 * previousPoint.acceleration.y * previousPoint.position.y
@@ -415,16 +413,6 @@ class Trajectory extends PhetioObject {
             ( squareRoot - previousPoint.velocity.y ) /
             previousPoint.acceleration.y;
         }
-
-        // TODO: just a debug tool to help me catch https://github.com/phetsims/projectile-motion/issues/215
-        assert && assert( !isNaN( timeToGround ), `
-timeToGround: ${timeToGround}, 
-previousPoint.position: ${previousPoint.position}, 
-previousPoint.velocity: ${previousPoint.velocity}, 
-previousPoint.acceleration: ${previousPoint.acceleration}, 
-fromIf: ${fromIf},
-number of dataPoints: ${this.dataPoints.length}
-` );
 
         newX =
           previousPoint.position.x +

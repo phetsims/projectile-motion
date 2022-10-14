@@ -62,6 +62,7 @@ class Target {
 
   /**
    * @public
+   *
    * @returns {bool} is projectileX within the target
    * @param {number} projectileX - x coordinate of projectile in model coordinates
    */
@@ -72,6 +73,7 @@ class Target {
   /**
    * Scores if projectile has scored based on {number} x position of the landed projectile
    * @public
+   *
    * @param {number} projectileX - x coordinate in model coordinates
    */
   scoreIfWithinTarget( projectileX ) {
