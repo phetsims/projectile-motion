@@ -115,6 +115,7 @@ class Trajectory extends PhetioObject {
     this.maxHeight = this.initialHeight;
     this.horizontalDisplacement = 0;
     this.flightTime = 0;
+    this.hasHitTarget = false;
 
     // @private {function():DataProbe|null} accessor for DataProbe component
     this.getDataProbe = getDataProbe;
@@ -228,6 +229,8 @@ class Trajectory extends PhetioObject {
       if ( addedDataPoint.reachedGround ) {
         assert && assert( this.projectileObjects.length > 0, 'there must be a projectile object' );
         assert && assert( !landed, 'a projectile should only land once!' );
+
+        this.hasHitTarget = Math.abs( addedDataPoint.position.x - this.target.positionProperty.value ) <= ProjectileMotionConstants.TARGET_WIDTH / 2;
 
         // TODO: Inline this listener into the right spot (when projectile has landed), https://github.com/phetsims/projectile-motion/issues/291
         this.trajectoryLandedEmitter.emit( this );
@@ -655,6 +658,7 @@ number of dataPoints: ${this.dataPoints.length}
       maxHeight: NumberIO,
       horizontalDisplacement: NumberIO,
       flightTime: NumberIO,
+      hasHitTarget: BooleanIO,
       projectileObjectType: ReferenceIO(
         ProjectileObjectType.ProjectileObjectTypeIO
       ),
