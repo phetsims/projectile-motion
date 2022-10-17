@@ -64,9 +64,9 @@ class DataProbe {
     // @public {PhetioGroup.<Trajectory>} group of trajectories in the model
     this.trajectoryGroup = trajectoryGroup;
 
-    this.trajectoryGroup.elementDisposedEmitter.addListener(
-      this.updateData.bind( this )
-    );
+    this.trajectoryGroup.elementDisposedEmitter.addListener( () => {
+      this.isActiveProperty.value && this.updateData();
+    } );
   }
 
   /**
