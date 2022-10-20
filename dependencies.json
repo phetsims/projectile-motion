@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.1.0-dev.21 Thu Oct 20 2022 13:12:39 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# projectile-motion 1.1.0-dev.24 Thu Oct 20 2022 15:08:08 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
@@ -17,7 +17,7 @@
     "branch": "master"
   },
   "dot": {
-    "sha": "c9e37ca633f5c40663a437df879ce56d1100a0e4",
+    "sha": "5d6f46659f3b1d77b1a073d245d9c80ee6287465",
     "branch": "master"
   },
   "joist": {
@@ -29,7 +29,7 @@
     "branch": "master"
   },
   "perennial-alias": {
-    "sha": "4799e375c5b76ec18aed0513aa633f5c8e06389d",
+    "sha": "143a299dba226ef4c9abd8dcd77f983302ae14da",
     "branch": "master"
   },
   "phet-core": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "dcefb15dd555d254eb92940e1fdccc9e848623be",
+    "sha": "ed9047010888d178676d3790351d300d78b54aab",
     "branch": "master"
   },
   "query-string-machine": {
@@ -81,7 +81,7 @@
     "branch": "master"
   },
   "sun": {
-    "sha": "b60bb7f5efd8a4b8b1f8a0cb3dcea32722d3c42d",
+    "sha": "94dcfd18d68b908c9c878f9d87d7fd4e3d053155",
     "branch": "master"
   },
   "tambo": {
