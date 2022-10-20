@@ -59,7 +59,7 @@ class StatsModel extends ProjectileMotionModel {
    *
    * @private
    */
-  startFiringMultiple( ) {
+  startFiringMultiple() {
     this.projectilesLeftToFire = this.clusterSizeProperty.value;
     while ( this.projectilesLeftToFire > 0 ) {
       this.fireNextOfMultiple();
@@ -92,6 +92,19 @@ class StatsModel extends ProjectileMotionModel {
       // if ( this.timeSinceLastProjectile >= MULTI_LAUNCH_DELTA_TIME ) {
       //   this.fireNextOfMultiple();
       // }
+    }
+  }
+
+  /**
+   * Remove and dispose landed trajectories
+   * @private
+   */
+  limitTrajectories() {
+    for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
+      const trajectory = this.trajectoryGroup.getElement( i );
+      if ( trajectory.reachedGround ) {
+        this.trajectoryGroup.disposeElement( trajectory );
+      }
     }
   }
 
