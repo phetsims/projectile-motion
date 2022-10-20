@@ -8,17 +8,21 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { VBox } from '../../../../scenery/js/imports.js';
+import { Text, VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
+import ClusterSizeSpinner from './ClusterSizeSpinner.js';
+
+const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
 class StatsControlPanel extends Panel {
   /**
+   * @param {NumberProperty} clusterSizeProperty - the property for the number of simultaneously launched projectiles
    * @param {Object} [options]
    */
-  constructor( viewProperties, options ) {
+  constructor( clusterSizeProperty, viewProperties, options ) {
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
@@ -33,6 +37,28 @@ class StatsControlPanel extends Panel {
       options
     );
 
+    // local var for layout and formatting
+    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
+      maxWidth: options.minWidth - 2 * options.xMargin
+    } );
+
+    const clusterSizeText = new Text(
+      'Cluster size:',
+      merge(
+        {
+          tandem: options.tandem.createTandem( 'clusterSizeText' ),
+          stringPropertyOptions: { phetioReadOnly: true }
+        },
+        parameterLabelOptions
+      )
+    );
+
+    const clusterSizeSpinner = new ClusterSizeSpinner( clusterSizeProperty, {
+      tandem: options.tandem.createTandem( 'projectileClusterSizeSpinner' ),
+      phetioDocumentation:
+        'Number spinner that selects how many projectiles are launched at the same time'
+    } );
+
     // The contents of the control panel
     const content = new VBox( {
       align: 'left',
@@ -42,7 +68,10 @@ class StatsControlPanel extends Panel {
           spacing: options.controlsVerticalSpace,
           align: 'left',
           tandem: null,
-          children: []
+          children: [
+            clusterSizeText,
+            clusterSizeSpinner
+          ]
         } )
       ]
     } );

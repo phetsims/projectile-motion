@@ -61,13 +61,19 @@ class StatsScreenView extends ProjectileMotionScreenView {
       { tandem: tandem.createTandem( 'projectileControlPanel' ) }
     );
 
+    const statsPanel = new StatsControlPanel(
+      model.clusterSizeProperty,
+      visibilityProperties,
+      { tandem: tandem.createTandem( 'statsControlPanel' ) }
+    );
+
     // fire 100 button
     const fireHundredButton = new FireHundredButton( {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
       listener: () => {
-        model.startFiringMultiple( 20 );
+        model.startFiringMultiple();
       },
       bottom: 0,
       left: 0,
@@ -78,13 +84,11 @@ class StatsScreenView extends ProjectileMotionScreenView {
     super(
       model,
       projectilePanel,
-      new StatsControlPanel( visibilityProperties, {
-        tandem: tandem.createTandem( 'vectorsControlPanel' )
-      } ),
+      statsPanel,
       visibilityProperties,
       tandem,
       options,
-      ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
+      ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
       true, //constantTrajectoryOpacity
       false //showPaths
     );
