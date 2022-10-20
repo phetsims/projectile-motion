@@ -13,7 +13,7 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import fireButton_png from '../../../mipmaps/fireButton_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
-class FireHundredButton extends RectangularPushButton {
+class FireMultipleButton extends RectangularPushButton {
   /**
    * @param {Object} [options]
    */
@@ -35,5 +35,5 @@ class FireHundredButton extends RectangularPushButton {
   }
 }
 
-projectileMotion.register( 'FireHundredButton', FireHundredButton );
-export default FireHundredButton;
+projectileMotion.register( 'FireMultipleButton', FireMultipleButton );
+export default FireMultipleButton;

@@ -14,7 +14,7 @@ import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
 import StatsControlPanel from './StatsControlPanel.js';
-import FireHundredButton from './FireHundredButton.js';
+import FireMultipleButton from './FireMultipleButton.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
@@ -68,7 +68,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     );
 
     // fire 100 button
-    const fireHundredButton = new FireHundredButton( {
+    const fireMultipleButton = new FireMultipleButton( {
       minWidth: 50,
       iconWidth: 30,
       minHeight: 40,
@@ -77,7 +77,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
       },
       bottom: 0,
       left: 0,
-      tandem: tandem.createTandem( 'fireHundredButton' ),
+      tandem: tandem.createTandem( 'fireMultipleButton' ),
       phetioDocumentation: 'button to launch 100 projectiles'
     } );
 
@@ -95,7 +95,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     // @private
     this.projectilePanel = projectilePanel;
-    this.fireHundredButton = fireHundredButton;
+    this.fireMultipleButton = fireMultipleButton;
 
     // insert dropdown right on top of the right-side panels
     this.insertChild(
@@ -104,7 +104,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     );
 
     model.fireEnabledProperty.link( enable => {
-      this.fireHundredButton.setEnabled( enable );
+      this.fireMultipleButton.setEnabled( enable );
     } );
 
     //creating the launch angle standard deviation panel
@@ -231,7 +231,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
       )
     );
 
-    this.addChild( this.fireHundredButton );
+    this.addChild( this.fireMultipleButton );
     this.addChild( speedStandardDeviationPanel );
     this.addChild( angleStandardDeviationPanel );
 
@@ -239,9 +239,9 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     this.eraserButton.left = angleStandardDeviationPanel.right + 30;
     this.fireButton.left = this.eraserButton.right + X_MARGIN;
-    this.fireHundredButton.bottom = this.eraserButton.bottom;
-    this.fireHundredButton.left = this.fireButton.right + X_MARGIN;
-    this.timeControlNode.left = this.fireHundredButton.right + 40;
+    this.fireMultipleButton.bottom = this.eraserButton.bottom;
+    this.fireMultipleButton.left = this.fireButton.right + X_MARGIN;
+    this.timeControlNode.left = this.fireMultipleButton.right + 40;
 
     this.removeChild( this.initialSpeedPanel );
   }
