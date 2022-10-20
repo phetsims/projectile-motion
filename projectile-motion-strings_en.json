@@ -33,10 +33,10 @@
     "value": "Angle"
   },
   "angleStandardDeviation": {
-    "value": "Launch Angle Variation"
+    "value": "Angle Standard Deviation"
   },
   "speedStandardDeviation": {
-    "value": "Launch Speed Variation"
+    "value": "Speed Standard Deviation"
   },
   "height": {
     "value": "Height"
