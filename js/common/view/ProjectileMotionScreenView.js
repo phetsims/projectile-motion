@@ -361,7 +361,7 @@ class ProjectileMotionScreenView extends ScreenView {
       iconWidth: 30,
       minHeight: 40,
       listener: () => {
-        model.cannonFired();
+        model.fireNumProjectiles( 1 );
         cannonNode.flashMuzzle();
       },
       bottom: eraserButton.bottom,
@@ -413,6 +413,7 @@ class ProjectileMotionScreenView extends ScreenView {
     } );
 
     // @private for layout convenience
+    this.cannonNode = cannonNode;
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
     this.toolboxPanel = toolboxPanel;

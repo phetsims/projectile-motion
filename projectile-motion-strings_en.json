@@ -110,6 +110,9 @@
   "piano": {
     "value": "Piano"
   },
+  "projectileGroupSize": {
+    "value": "Projectile group size"
+  },
   "golfBall": {
     "value": "Golf ball"
   },

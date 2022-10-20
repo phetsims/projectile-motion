@@ -38,6 +38,11 @@ const ProjectileMotionConstants = {
 
   // productive constraints
   MAX_NUMBER_OF_TRAJECTORIES: 100,
+  RAPID_FIRE_DELTA_TIME: 0.1,
+
+  //group size
+  GROUP_SIZE_DEFAULT: 20,
+  GROUP_SIZE_INCREMENT: 5,
 
   CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
   CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees

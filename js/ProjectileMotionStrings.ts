@@ -89,6 +89,7 @@ type StringsType = {
   'pianoStringProperty': LinkableProperty<string>;
   'golfBall': string;
   'golfBallStringProperty': LinkableProperty<string>;
+  'projectileGroupSize': string;
   'tankShell': string;
   'tankShellStringProperty': LinkableProperty<string>;
   'initialValues': string;

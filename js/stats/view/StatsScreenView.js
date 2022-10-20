@@ -63,6 +63,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     const statsPanel = new StatsControlPanel(
       model.groupSizeProperty,
+      model.rapidFireModeProperty,
       visibilityProperties,
       { tandem: tandem.createTandem( 'statsControlPanel' ) }
     );
@@ -73,12 +74,13 @@ class StatsScreenView extends ProjectileMotionScreenView {
       iconWidth: 30,
       minHeight: 40,
       listener: () => {
-        model.startFiringMultiple();
+        model.fireMultipleProjectiles();
+        this.cannonNode.flashMuzzle();
       },
       bottom: 0,
       left: 0,
       tandem: tandem.createTandem( 'fireMultipleButton' ),
-      phetioDocumentation: 'button to launch 100 projectiles'
+      phetioDocumentation: 'button to launch multiple simultaneous projectiles'
     } );
 
     super(
@@ -98,15 +100,15 @@ class StatsScreenView extends ProjectileMotionScreenView {
     this.statsPanel = statsPanel;
     this.fireMultipleButton = fireMultipleButton;
 
+    model.fireMultipleEnabledProperty.link( enable => {
+      this.fireMultipleButton.setEnabled( enable );
+    } );
+
     // insert dropdowns on top of the right-side panels
     this.insertChild(
       this.indexOfChild( this.topRightPanel ) + 1,
       comboBoxListParent
     );
-
-    model.fireEnabledProperty.link( enable => {
-      this.fireMultipleButton.setEnabled( enable );
-    } );
 
     //creating the launch angle standard deviation panel
 

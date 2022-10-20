@@ -379,15 +379,21 @@ class ProjectileMotionModel {
 
   /**
    * Remove and dispose old trajectories that are over the limit from the observable array
-   * @private
+   * @public
    */
   limitTrajectories() {
-    const numberToRemove =
-      this.trajectoryGroup.count -
-      ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
-    for ( let i = 0; i < numberToRemove; i++ ) {
-      this.trajectoryGroup.disposeElement( this.trajectoryGroup.getElement( 0 ) );
+    const trajectoriesToDispose = [];
+    const numTrajectoriesToDispose = this.trajectoryGroup.count - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+    for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
+      const trajectory = this.trajectoryGroup.getElement( i );
+      if ( trajectory.reachedGround ) {
+        trajectoriesToDispose.push( trajectory );
+        if ( trajectoriesToDispose.length >= numTrajectoriesToDispose ) {
+          break;
+        }
+      }
     }
+    trajectoriesToDispose.forEach( t => this.trajectoryGroup.disposeElement( t ) );
   }
 
   /**
@@ -400,26 +406,27 @@ class ProjectileMotionModel {
   }
 
   /**
-   * Fires cannon, called on by fire button
-   * Adds a new trajectory, unless the same exact trajectory as the last one is being fired, in which case it just
-   * adds a projectile to the last trajectory.
    * @public
+   *
+   * @param {number} numProjectiles - the number of simultaneous projectiles to fire
    */
-  cannonFired() {
-    const initialSpeed = this.initialSpeedProperty.getRandomizedValue();
-    const initialAngle = this.cannonAngleProperty.getRandomizedValue();
+  fireNumProjectiles( numProjectiles ) {
+    for ( let i = 0; i < numProjectiles; i++ ) {
+      const initialSpeed = this.initialSpeedProperty.getRandomizedValue();
+      const initialAngle = this.cannonAngleProperty.getRandomizedValue();
 
-    this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
-      this.projectileMassProperty.value,
-      this.projectileDiameterProperty.value,
-      this.projectileDragCoefficientProperty.value,
-      initialSpeed,
-      this.cannonHeightProperty.value,
-      initialAngle );
-    this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
+      this.trajectoryGroup.createNextElement( this.selectedProjectileObjectTypeProperty.value,
+        this.projectileMassProperty.value,
+        this.projectileDiameterProperty.value,
+        this.projectileDragCoefficientProperty.value,
+        initialSpeed,
+        this.cannonHeightProperty.value,
+        initialAngle );
+      this.numberOfMovingProjectilesProperty.value++;
+    }
 
-    this.numberOfMovingProjectilesProperty.value++;
     this.limitTrajectories();
+    this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
   }
 
   /**

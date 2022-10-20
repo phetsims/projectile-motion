@@ -3,15 +3,18 @@
 /**
  * Model for the 'Stats' Screen.
  *
- * @author Matthew Blackman(PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Range from '../../../../dot/js/Range.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class StatsModel extends ProjectileMotionModel {
@@ -41,39 +44,46 @@ class StatsModel extends ProjectileMotionModel {
     } );
 
     this.objectTypes = objectTypes;
-    this.projectilesLeftToFire = 0;
     this.timeSinceLastProjectile = 0;
 
     // @public {Property.<number>}
     this.groupSizeProperty = new NumberProperty(
-      20,
+      ProjectileMotionConstants.GROUP_SIZE_DEFAULT,
       {
         tandem: tandem.createTandem( 'groupSizeProperty' ),
         phetioDocumentation: 'Number of simultaneous projectiles launched',
         units: '',
-        range: new Range( 1, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES )
+        range: new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES )
+      }
+    );
+
+    // @private {Property.<boolean>}
+    this.rapidFireModeProperty = new BooleanProperty(
+      false,
+      {
+        tandem: tandem.createTandem( 'rapidFireModeProperty' ),
+        phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
+      }
+    );
+
+    // @public {DerivedProperty.<boolean>}
+    this.fireMultipleEnabledProperty = new DerivedProperty(
+      [ this.numberOfMovingProjectilesProperty, this.groupSizeProperty, this.rapidFireModeProperty ],
+      ( numMoving, groupSize, rapidFireMode ) =>
+        rapidFireMode ? false : numMoving + groupSize <= ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+      {
+        tandem: tandem.createTandem( 'fireMultipleEnabledProperty' ),
+        phetioDocumentation: `The fire-multi button is only enabled if the number of moving projectiles would not exceed ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES}.`,
+        phetioValueType: BooleanIO
       }
     );
   }
 
   /**
-   *
-   * @private
+   * @public
    */
-  startFiringMultiple() {
-    this.projectilesLeftToFire = this.groupSizeProperty.value;
-    while ( this.projectilesLeftToFire > 0 ) {
-      this.fireNextOfMultiple();
-    }
-  }
-
-  /**
-   * @private
-   */
-  fireNextOfMultiple() {
-    this.projectilesLeftToFire--;
-    this.timeSinceLastProjectile = 0;
-    super.cannonFired();
+  fireMultipleProjectiles() {
+    super.fireNumProjectiles( this.groupSizeProperty.value );
   }
 
   /**
@@ -85,26 +95,14 @@ class StatsModel extends ProjectileMotionModel {
   step( dt ) {
     super.step( dt );
 
-    if ( this.projectilesLeftToFire > 0 && this.isPlayingProperty.value ) {
+    if ( this.isPlayingProperty.value && this.rapidFireModeProperty.value ) {
       const timeFactor =
         this.timeSpeedProperty.value === TimeSpeed.SLOW ? 0.33 : 1;
       this.timeSinceLastProjectile += timeFactor * dt;
 
-      // if ( this.timeSinceLastProjectile >= MULTI_LAUNCH_DELTA_TIME ) {
-      //   this.fireNextOfMultiple();
-      // }
-    }
-  }
-
-  /**
-   * Remove and dispose landed trajectories
-   * @private
-   */
-  limitTrajectories() {
-    for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
-      const trajectory = this.trajectoryGroup.getElement( i );
-      if ( trajectory.reachedGround ) {
-        this.trajectoryGroup.disposeElement( trajectory );
+      if ( this.timeSinceLastProjectile >= ProjectileMotionConstants.RAPID_FIRE_DELTA_TIME ) {
+        super.fireNumProjectiles( 1 );
+        this.timeSinceLastProjectile = 0;
       }
     }
   }
@@ -114,9 +112,10 @@ class StatsModel extends ProjectileMotionModel {
    * @public
    */
   reset() {
-    this.projectilesLeftToFire = 0;
     this.timeSinceLastProjectile = 0;
     this.groupSizeProperty.reset();
+    this.rapidFireModeProperty.reset();
+    this.fireMultipleEnabledProperty.reset();
     super.reset();
   }
 }
