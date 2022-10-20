@@ -44,10 +44,10 @@ class StatsModel extends ProjectileMotionModel {
     this.timeSinceLastProjectile = 0;
 
     // @public {Property.<number>}
-    this.clusterSizeProperty = new NumberProperty(
+    this.groupSizeProperty = new NumberProperty(
       20,
       {
-        tandem: tandem.createTandem( 'clusterSizeProperty' ),
+        tandem: tandem.createTandem( 'groupSizeProperty' ),
         phetioDocumentation: 'Number of simultaneous projectiles launched',
         units: '',
         range: new Range( 1, 50 )
@@ -60,7 +60,7 @@ class StatsModel extends ProjectileMotionModel {
    * @private
    */
   startFiringMultiple() {
-    this.projectilesLeftToFire = this.clusterSizeProperty.value;
+    this.projectilesLeftToFire = this.groupSizeProperty.value;
     while ( this.projectilesLeftToFire > 0 ) {
       this.fireNextOfMultiple();
     }
@@ -115,7 +115,7 @@ class StatsModel extends ProjectileMotionModel {
   reset() {
     this.projectilesLeftToFire = 0;
     this.timeSinceLastProjectile = 0;
-    this.clusterSizeProperty.reset();
+    this.groupSizeProperty.reset();
     super.reset();
   }
 }
