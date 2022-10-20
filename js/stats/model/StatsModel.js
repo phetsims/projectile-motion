@@ -9,9 +9,9 @@
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import projectileMotion from '../../projectileMotion.js';
-
-// const MULTI_LAUNCH_DELTA_TIME = 0.01;
 
 class StatsModel extends ProjectileMotionModel {
   /**
@@ -42,15 +42,25 @@ class StatsModel extends ProjectileMotionModel {
     this.objectTypes = objectTypes;
     this.projectilesLeftToFire = 0;
     this.timeSinceLastProjectile = 0;
+
+    // @public {Property.<number>}
+    this.clusterSizeProperty = new NumberProperty(
+      20,
+      {
+        tandem: tandem.createTandem( 'clusterSizeProperty' ),
+        phetioDocumentation: 'Number of simultaneous projectiles launched',
+        units: '',
+        range: new Range( 1, 50 )
+      }
+    );
   }
 
   /**
    *
-   * @param {number} numTimesToFire - the number of consecutive projectiles that the cannon will fire
    * @private
    */
-  startFiringMultiple( numTimesToFire ) {
-    this.projectilesLeftToFire = numTimesToFire;
+  startFiringMultiple( ) {
+    this.projectilesLeftToFire = this.clusterSizeProperty.value;
     while ( this.projectilesLeftToFire > 0 ) {
       this.fireNextOfMultiple();
     }
@@ -92,6 +102,7 @@ class StatsModel extends ProjectileMotionModel {
   reset() {
     this.projectilesLeftToFire = 0;
     this.timeSinceLastProjectile = 0;
+    this.clusterSizeProperty.reset();
     super.reset();
   }
 }
