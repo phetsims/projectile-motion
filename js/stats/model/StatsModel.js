@@ -9,6 +9,7 @@
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -50,7 +51,7 @@ class StatsModel extends ProjectileMotionModel {
         tandem: tandem.createTandem( 'groupSizeProperty' ),
         phetioDocumentation: 'Number of simultaneous projectiles launched',
         units: '',
-        range: new Range( 1, 50 )
+        range: new Range( 1, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES )
       }
     );
   }

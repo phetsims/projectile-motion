@@ -255,10 +255,10 @@ class ProjectileMotionModel {
     this.fireEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty ],
       number =>
-        number < ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES,
+        number < ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
       {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
-        phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_FLYING_PROJECTILES} projectiles in the air.`,
+        phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES} projectiles in the air.`,
         phetioValueType: BooleanIO
       }
     );

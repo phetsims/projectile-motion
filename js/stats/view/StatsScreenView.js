@@ -48,12 +48,12 @@ class StatsScreenView extends ProjectileMotionScreenView {
     } );
 
     // acts as listParent for the projectile dropdown box
-    const objectSelectComboBoxListParent = new Node();
+    const comboBoxListParent = new Node();
 
     const projectilePanel = new StatsProjectileControlPanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
-      objectSelectComboBoxListParent,
+      comboBoxListParent,
       model.projectileMassProperty,
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
@@ -61,12 +61,8 @@ class StatsScreenView extends ProjectileMotionScreenView {
       { tandem: tandem.createTandem( 'projectileControlPanel' ) }
     );
 
-    // acts as listParent for the group size dropdown box
-    const groupSizeComboBoxListParent = new Node();
-
     const statsPanel = new StatsControlPanel(
       model.groupSizeProperty,
-      groupSizeComboBoxListParent,
       visibilityProperties,
       { tandem: tandem.createTandem( 'statsControlPanel' ) }
     );
@@ -105,12 +101,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     // insert dropdowns on top of the right-side panels
     this.insertChild(
       this.indexOfChild( this.topRightPanel ) + 1,
-      objectSelectComboBoxListParent
-    );
-
-    this.insertChild(
-      this.indexOfChild( this.bottomRightPanel ) + 1,
-      groupSizeComboBoxListParent
+      comboBoxListParent
     );
 
     model.fireEnabledProperty.link( enable => {
@@ -264,7 +255,6 @@ class StatsScreenView extends ProjectileMotionScreenView {
    */
   layout( viewBounds ) {
     this.projectilePanel.hideComboBoxList();
-    this.statsPanel.hideComboBoxList();
     super.layout( viewBounds );
   }
 }

@@ -8,22 +8,20 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Text, VBox } from '../../../../scenery/js/imports.js';
+import { VBox } from '../../../../scenery/js/imports.js';
 import Panel from '../../../../sun/js/Panel.js';
-import ComboBox from '../../../../sun/js/ComboBox.js';
+import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import projectileMotion from '../../projectileMotion.js';
-
-const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
 class StatsControlPanel extends Panel {
   /**
    * @param {NumberProperty} groupSizeProperty - the property for the number of simultaneously launched projectiles
-   * @param {Node} comboBoxListParent - node for containing the combo box
    * @param {Object} [options]
    */
-  constructor( groupSizeProperty, comboBoxListParent, viewProperties, options ) {
+  constructor( groupSizeProperty, viewProperties, options ) {
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
@@ -38,57 +36,19 @@ class StatsControlPanel extends Panel {
       options
     );
 
-    // local var for layout and formatting
-    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
-      maxWidth: options.minWidth - 2 * options.xMargin
-    } );
+    const groupSizeIncrement = 5;
 
-    const groupSizeText = new Text(
-      'Projectile group size:',
-      merge(
-        {
-          tandem: options.tandem.createTandem( 'groupSizeText' ),
-          stringPropertyOptions: { phetioReadOnly: true }
-        },
-        parameterLabelOptions
-      )
-    );
-
-    const comboBoxLineWidth = 1;
-    const comboBoxItems = [];
-    const groupSizes = [ 5, 10, 20, 30, 40, 50 ];
-    for ( let i = 0; i < groupSizes.length; i++ ) {
-      const groupSize = groupSizes[ i ];
-      comboBoxItems[ i ] = {
-        value: groupSize,
-        node:
-          new Text( groupSize.toString(),
-            merge(
-              {
-                tandem: options.tandem.createTandem( `groupSize${groupSize}BoxTextItem` ),
-                stringPropertyOptions: { phetioReadOnly: true }
-              },
-              parameterLabelOptions
-            )
-          ),
-        tandemName: `groupSize${groupSize}BoxItem`
-      };
-    }
-
-    // create view for dropdown
-    const groupSizeComboBox = new ComboBox(
-      groupSizeProperty,
-      comboBoxItems,
-      comboBoxListParent,
+    // create group size number control
+    const groupSizeNumberControl = new ArrowlessNumberControl(
+      'Projectile group size:', '', groupSizeProperty,
+      new Range( groupSizeIncrement, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES ),
+      groupSizeIncrement,
       {
-        xMargin: 12,
-        yMargin: 7,
-        cornerRadius: 4,
-        buttonLineWidth: comboBoxLineWidth,
-        listLineWidth: comboBoxLineWidth,
-        tandem: options.tandem.createTandem( 'groupSizeComboBox' ),
-        phetioDocumentation:
-          'Combo box that selects number of simultaneously launched projectiles'
+        containerWidth: options.minWidth,
+        xMargin: options.xMargin,
+        numberDisplayMaxWidth: options.numberDisplayMaxWidth,
+        tandem: options.tandem.createTandem( 'groupSizeNumberControl' ),
+        phetioDocumentation: 'UI control to adjust the number of simultaneously launched projectiles'
       }
     );
 
@@ -98,25 +58,16 @@ class StatsControlPanel extends Panel {
       spacing: options.controlsVerticalSpace,
       children: [
         new VBox( {
+          align: 'center',
           spacing: options.controlsVerticalSpace,
-          align: 'left',
-          tandem: null,
           children: [
-            groupSizeText,
-            groupSizeComboBox
+            groupSizeNumberControl
           ]
         } )
       ]
     } );
 
     super( content, options );
-
-    this.groupSizeComboBox = groupSizeComboBox;
-  }
-
-  // @public for use by screen view
-  hideComboBoxList() {
-    this.groupSizeComboBox.hideListBox();
   }
 }
 

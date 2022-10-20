@@ -37,8 +37,7 @@ const ProjectileMotionConstants = {
   CANNONBALL_DRAG_COEFFICIENT: 0.47,
 
   // productive constraints
-  MAX_NUMBER_OF_TRAJECTORIES: 50,
-  MAX_NUMBER_OF_FLYING_PROJECTILES: 50,
+  MAX_NUMBER_OF_TRAJECTORIES: 100,
 
   CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
   CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
