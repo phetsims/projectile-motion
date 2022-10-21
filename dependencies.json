@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.1.0-dev.27 Thu Oct 20 2022 18:10:07 GMT-0400 (Eastern Daylight Time)",
+  "comment": "# projectile-motion 1.1.0-dev.28 Fri Oct 21 2022 10:13:01 GMT-0400 (Eastern Daylight Time)",
   "assert": {
     "sha": "c13a8c7741d95fbd8e37619c66ebcca8686dffe7",
     "branch": "master"
@@ -41,11 +41,11 @@
     "branch": "master"
   },
   "phet-io-sim-specific": {
-    "sha": "96627cdfb00ec6ab74aba6bff16f93d125b57273",
+    "sha": "60bdd911ed5f35c97f2e12ee5cc2ed33c6c77df6",
     "branch": "master"
   },
   "phet-io-wrappers": {
-    "sha": "0c2bdb9536328c662e626aebbed96fbbd6323651",
+    "sha": "9bb4c6b2a5afdbe0a57557a05b5534e9ecb7f51c",
     "branch": "master"
   },
   "phetcommon": {
@@ -57,7 +57,7 @@
     "branch": "master"
   },
   "projectile-motion": {
-    "sha": "64bcd5caf5df0cb8093c5bd0a71e9643dffdeaec",
+    "sha": "beff54c461e3df699f48d59a0becc0e08f24b609",
     "branch": "master"
   },
   "query-string-machine": {
@@ -65,11 +65,11 @@
     "branch": "master"
   },
   "scenery": {
-    "sha": "e2d013762d302538009a4c6f2a042c9ca4873257",
+    "sha": "58950d8c2f567c72d509febe43bbefc95fc40bc2",
     "branch": "master"
   },
   "scenery-phet": {
-    "sha": "7d330829d496ffb6ce91b1e123981ea6d0f66d1e",
+    "sha": "3de8066bd9f1563ac64bc1fc5fefdd16dd31f834",
     "branch": "master"
   },
   "sherpa": {
@@ -77,11 +77,11 @@
     "branch": "master"
   },
   "studio": {
-    "sha": "b5a9d42f09aa009c0c494aba468c728964166026",
+    "sha": "b48c1ec220faf322387d1f6cb0c4affb83029117",
     "branch": "master"
   },
   "sun": {
-    "sha": "fd17e25ee2b192d57122212aa5d984670ebc5f77",
+    "sha": "15ea99e52e7bf94a4ae0849314199bc020ff42bc",
     "branch": "master"
   },
   "tambo": {
