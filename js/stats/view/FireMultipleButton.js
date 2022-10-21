@@ -10,7 +10,7 @@
 import merge from '../../../../phet-core/js/merge.js';
 import { Image } from '../../../../scenery/js/imports.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import fireButton_png from '../../../mipmaps/fireButton_png.js';
+import fireMultipleButton_png from '../../../mipmaps/fireMultipleButton_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class FireMultipleButton extends RectangularPushButton {
@@ -20,7 +20,7 @@ class FireMultipleButton extends RectangularPushButton {
   constructor( options ) {
     options = merge(
       {
-        baseColor: 'rgb( 0, 40, 255 )', // blue
+        baseColor: 'rgb( 60, 110, 240 )', // blue
         iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
       },
       options
@@ -28,7 +28,7 @@ class FireMultipleButton extends RectangularPushButton {
 
     // fire button icon
     assert && assert( !options.content, 'this type sets its own content' );
-    options.content = new Image( fireButton_png );
+    options.content = new Image( fireMultipleButton_png );
     options.content.scale( options.iconWidth / options.content.width );
 
     super( options );

@@ -1,7 +1,7 @@
 {
   "cannonBarrel.png": {
     "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
+      "Copyright 2002-2023 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
@@ -9,7 +9,7 @@
   },
   "cannonBaseBottom.png": {
     "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
+      "Copyright 2002-2023 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
@@ -17,7 +17,7 @@
   },
   "cannonBaseTop.png": {
     "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
+      "Copyright 2002-2023 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
@@ -25,11 +25,19 @@
   },
   "fireButton.png": {
     "text": [
-      "Copyright 2002-2016 University of Colorado Boulder"
+      "Copyright 2002-2023 University of Colorado Boulder"
     ],
     "projectURL": "https://phet.colorado.edu",
     "license": "contact phethelp@colorado.edu",
-    "notes": "created by Amy Rouinfar"
+    "notes": "created by Amy Rouinfar and Matthew Blackman"
+  },
+  "fireMultipleButton.png": {
+    "text": [
+      "Copyright 2002-2023 University of Colorado Boulder"
+    ],
+    "projectURL": "https://phet.colorado.edu",
+    "license": "contact phethelp@colorado.edu",
+    "notes": "created by Matthew Blackman"
   }
 }
 

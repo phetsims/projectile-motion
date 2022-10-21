@@ -20,7 +20,7 @@ class FireButton extends RectangularPushButton {
   constructor( options ) {
 
     options = merge( {
-      baseColor: 'rgb( 255, 0, 0 )', // red
+      baseColor: 'rgb( 234,33,38 )', // cannon red
       iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
     }, options );
 

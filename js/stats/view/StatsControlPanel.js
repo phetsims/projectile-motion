@@ -58,7 +58,7 @@ class StatsControlPanel extends Panel {
     // create group size number control
     const groupSizeNumberControl = new ArrowlessNumberControl(
       ProjectileMotionStrings.projectileGroupSize, '', groupSizeProperty,
-      new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES ),
+      new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.GROUP_SIZE_MAX ),
       ProjectileMotionConstants.GROUP_SIZE_INCREMENT,
       {
         containerWidth: options.minWidth,

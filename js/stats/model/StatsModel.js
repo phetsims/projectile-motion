@@ -12,7 +12,6 @@ import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -53,16 +52,7 @@ class StatsModel extends ProjectileMotionModel {
         tandem: tandem.createTandem( 'groupSizeProperty' ),
         phetioDocumentation: 'Number of simultaneous projectiles launched',
         units: '',
-        range: new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES )
-      }
-    );
-
-    // @private {Property.<boolean>}
-    this.rapidFireModeProperty = new BooleanProperty(
-      false,
-      {
-        tandem: tandem.createTandem( 'rapidFireModeProperty' ),
-        phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
+        range: new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.GROUP_SIZE_MAX )
       }
     );
 
@@ -114,7 +104,6 @@ class StatsModel extends ProjectileMotionModel {
   reset() {
     this.timeSinceLastProjectile = 0;
     this.groupSizeProperty.reset();
-    this.rapidFireModeProperty.reset();
     super.reset();
   }
 }

@@ -251,11 +251,20 @@ class ProjectileMotionModel {
       phetioDocumentation: 'number of projectiles that are still moving'
     } );
 
+    // @private {Property.<boolean>}
+    this.rapidFireModeProperty = new BooleanProperty(
+      false,
+      {
+        tandem: tandem.createTandem( 'rapidFireModeProperty' ),
+        phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
+      }
+    );
+
     // @public {DerivedProperty.<boolean>}
     this.fireEnabledProperty = new DerivedProperty(
-      [ this.numberOfMovingProjectilesProperty ],
-      number =>
-        number < ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+      [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
+      ( numMoving, rapidFireMode ) =>
+        !rapidFireMode && numMoving < ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
       {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
         phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES} projectiles in the air.`,
@@ -346,6 +355,7 @@ class ProjectileMotionModel {
     this.airResistanceOnProperty.reset();
     this.timeSpeedProperty.reset();
     this.isPlayingProperty.reset();
+    this.rapidFireModeProperty.reset();
 
     this.muzzleFlashStepper.emit();
   }
