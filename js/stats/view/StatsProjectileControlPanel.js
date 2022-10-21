@@ -12,9 +12,8 @@
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
+import { HSeparator, HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import HSeparatorDeprecated from '../../../../sun/js/HSeparatorDeprecated.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
@@ -190,10 +189,7 @@ class StatsProjectileControlPanel extends Panel {
         projectileChoiceComboBox,
         massText,
         diameterText,
-        new HSeparatorDeprecated( options.minWidth - 2 * options.xMargin, {
-          stroke: ProjectileMotionConstants.SEPARATOR_COLOR,
-          tandem: options.tandem.createTandem( 'separator' )
-        } ),
+        new HSeparator( { stroke: ProjectileMotionConstants.SEPARATOR_COLOR } ),
         new AirResistanceControl(
           airResistanceOnProperty,
           projectileDragCoefficientProperty,
