@@ -70,7 +70,7 @@ class StatsModel extends ProjectileMotionModel {
     this.fireMultipleEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.groupSizeProperty, this.rapidFireModeProperty ],
       ( numMoving, groupSize, rapidFireMode ) =>
-        rapidFireMode ? false : numMoving + groupSize <= ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+        !rapidFireMode && numMoving + groupSize <= ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
       {
         tandem: tandem.createTandem( 'fireMultipleEnabledProperty' ),
         phetioDocumentation: `The fire-multi button is only enabled if the number of moving projectiles would not exceed ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES}.`,
@@ -115,7 +115,6 @@ class StatsModel extends ProjectileMotionModel {
     this.timeSinceLastProjectile = 0;
     this.groupSizeProperty.reset();
     this.rapidFireModeProperty.reset();
-    this.fireMultipleEnabledProperty.reset();
     super.reset();
   }
 }

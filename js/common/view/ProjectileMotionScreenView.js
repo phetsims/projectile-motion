@@ -14,6 +14,7 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -43,10 +44,12 @@ import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
 
 const initialSpeedString = ProjectileMotionStrings.initialSpeed;
+const initialAngleString = ProjectileMotionStrings.angle;
 const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
 const metersString = ProjectileMotionStrings.meters;
-const pattern0Value1UnitsWithSpaceString =
-  ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
+const degreesString = MathSymbols.DEGREES;
+const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
+const pattern0Value1UnitsString = ProjectileMotionStrings.pattern0Value1Units;
 
 // constants
 const DEFAULT_SCALE = 30;
@@ -56,6 +59,7 @@ const PLAY_CONTROLS_INSET =
 const TEXT_MAX_WIDTH = ProjectileMotionConstants.PLAY_CONTROLS_TEXT_MAX_WIDTH;
 const X_MARGIN = 10;
 const Y_MARGIN = 5;
+const FIRE_BUTTON_MARGIN_X = 40;
 const FLATIRONS_RANGE = new Range( 1500, 1700 );
 
 class ProjectileMotionScreenView extends ScreenView {
@@ -80,10 +84,10 @@ class ProjectileMotionScreenView extends ScreenView {
     showPaths = true
   ) {
     options = merge( {
-        tandem: tandem,
-        cannonNodeOptions: {},
-        addFlatirons: true // if false, then flatirons easteregg will never be shown
-      }, options );
+      tandem: tandem,
+      cannonNodeOptions: {},
+      addFlatirons: true // if false, then flatirons easteregg will never be shown
+    }, options );
 
     super( options );
 
@@ -158,14 +162,25 @@ class ProjectileMotionScreenView extends ScreenView {
     );
 
     // results in '{{value}} m/s'
-    const valuePattern = StringUtils.fillIn(
+    const valuePatternSpeed = StringUtils.fillIn(
       pattern0Value1UnitsWithSpaceString,
       {
         units: metersPerSecondString
       }
     );
 
+    // results in '{{value}} degrees'
+    const valuePatternAngle = StringUtils.fillIn(
+      pattern0Value1UnitsString,
+      {
+        units: degreesString
+      }
+    );
+
+    const angleIncrement = options.cannonNodeOptions.preciseCannonDelta ? 1 : 5;
+
     const initialSpeedPanelTandem = tandem.createTandem( 'initialSpeedPanel' );
+    const initialAnglePanelTandem = tandem.createTandem( 'initialAnglePanel' );
 
     // initial speed readout, slider, and tweakers
     const initialSpeedNumberControl = new NumberControl(
@@ -178,7 +193,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 120 // empirically determined
         },
         numberDisplayOptions: {
-          valuePattern: valuePattern,
+          valuePattern: valuePatternSpeed,
           align: 'right',
           textOptions: {
             font: TEXT_FONT
@@ -201,6 +216,41 @@ class ProjectileMotionScreenView extends ScreenView {
       }
     );
 
+    // initial angle readout, slider, and tweakers
+    const initialAngleNumberControl = new NumberControl(
+      initialAngleString,
+      model.cannonAngleProperty,
+      ProjectileMotionConstants.CANNON_ANGLE_RANGE,
+      {
+        titleNodeOptions: {
+          font: TEXT_FONT,
+          maxWidth: 120 // empirically determined
+        },
+        numberDisplayOptions: {
+          valuePattern: valuePatternAngle,
+          align: 'right',
+          textOptions: {
+            font: TEXT_FONT
+          },
+          maxWidth: 80 // empirically determined
+        },
+        sliderOptions: {
+          constrainValue: value => Utils.roundToInterval( value, angleIncrement ),
+          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
+          thumbSize: new Dimension2( 13, 22 )
+        },
+        delta: angleIncrement,
+        arrowButtonOptions: {
+          scale: 0.56,
+          touchAreaXDilation: 20,
+          touchAreaYDilation: 20
+        },
+        tandem: initialAnglePanelTandem.createTandem( 'numberControl' ),
+        phetioDocumentation:
+          'the control for the initial angle as a projectile leaves the cannon'
+      }
+    );
+
     // panel under the cannon, controls initial speed of projectiles
     const initialSpeedPanel = new Panel(
       initialSpeedNumberControl,
@@ -210,7 +260,20 @@ class ProjectileMotionScreenView extends ScreenView {
           bottom: this.layoutBounds.bottom - 10,
           tandem: initialSpeedPanelTandem
         },
-        ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS
+        ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
+      )
+    );
+
+    // panel under the cannon, controls initial speed of projectiles
+    const initialAnglePanel = new Panel(
+      initialAngleNumberControl,
+      merge(
+        {
+          left: initialSpeedPanel.right + X_MARGIN,
+          bottom: initialSpeedPanel.bottom,
+          tandem: initialAnglePanelTandem
+        },
+        ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
       )
     );
 
@@ -243,27 +306,6 @@ class ProjectileMotionScreenView extends ScreenView {
     // unlink unnecessary
     measuringTapeDragBoundsProperty.link( bounds => {
       measuringTapeNode.setDragBounds( bounds );
-    } );
-
-    // David
-    const davidNode = new Image( david_png, {
-      tandem: tandem.createTandem( 'davidNode' )
-    } );
-
-    // background, including grass, road, sky, flatirons
-    const backgroundNode = new BackgroundNode( this.layoutBounds );
-
-    // listen to transform Property
-    transformProperty.link( transform => {
-      measuringTapeNode.modelViewTransformProperty.value = transform;
-      davidNode.maxHeight = Math.abs(
-        transform.modelToViewDeltaY( model.davidHeight )
-      );
-      davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
-      davidNode.bottom = transformProperty
-        .get()
-        .modelToViewY( model.davidPosition.y );
-      backgroundNode.updateFlatironsPosition( transform );
     } );
 
     // add view for dataProbe
@@ -350,22 +392,21 @@ class ProjectileMotionScreenView extends ScreenView {
         model.eraseTrajectories();
       },
       centerY: initialSpeedPanel.centerY,
-      left: initialSpeedPanel.right + 30,
       tandem: tandem.createTandem( 'eraserButton' ),
       phetioDocumentation: 'button to erase all of the trajectories'
     } );
 
     // fire button
     const fireButton = new FireButton( {
-      minWidth: 50,
-      iconWidth: 30,
-      minHeight: 40,
+      minWidth: 75,
+      iconWidth: 35,
+      minHeight: 42,
       listener: () => {
         model.fireNumProjectiles( 1 );
         cannonNode.flashMuzzle();
       },
-      bottom: eraserButton.bottom,
-      left: eraserButton.right + X_MARGIN,
+      left: initialAnglePanel.right + FIRE_BUTTON_MARGIN_X,
+      centerY: initialSpeedPanel.centerY,
       tandem: tandem.createTandem( 'fireButton' ),
       phetioDocumentation: 'button to launch a projectile'
     } );
@@ -408,8 +449,29 @@ class ProjectileMotionScreenView extends ScreenView {
       buttonGroupXSpacing: 2 * PLAY_CONTROLS_INSET,
 
       centerY: initialSpeedPanel.centerY,
-      left: fireButton.right + 40, // empirically determined
+      left: fireButton.right + FIRE_BUTTON_MARGIN_X, // empirically determined
       tandem: tandem.createTandem( 'timeControlNode' )
+    } );
+
+    // David
+    const davidNode = new Image( david_png, {
+      tandem: tandem.createTandem( 'davidNode' )
+    } );
+
+    // background, including grass, road, sky, flatirons
+    const backgroundNode = new BackgroundNode( this.layoutBounds );
+
+    // listen to transform Property
+    transformProperty.link( transform => {
+      measuringTapeNode.modelViewTransformProperty.value = transform;
+      davidNode.maxHeight = Math.abs(
+        transform.modelToViewDeltaY( model.davidHeight )
+      );
+      davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
+      davidNode.bottom = transformProperty
+        .get()
+        .modelToViewY( model.davidPosition.y );
+      backgroundNode.updateFlatironsPosition( transform );
     } );
 
     // @private for layout convenience
@@ -424,6 +486,7 @@ class ProjectileMotionScreenView extends ScreenView {
     this.fireButton = fireButton;
     this.timeControlNode = timeControlNode;
     this.initialSpeedPanel = initialSpeedPanel;
+    this.initialAnglePanel = initialAnglePanel;
 
     if ( options.addFlatirons ) {
       // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.
@@ -439,8 +502,8 @@ class ProjectileMotionScreenView extends ScreenView {
         altitude => {
           backgroundNode.showOrHideFlatirons(
             flatironsVisibleProperty.value &&
-              altitude >= FLATIRONS_RANGE.min &&
-              altitude <= FLATIRONS_RANGE.max
+            altitude >= FLATIRONS_RANGE.min &&
+            altitude <= FLATIRONS_RANGE.max
           );
         }
       );
@@ -454,6 +517,7 @@ class ProjectileMotionScreenView extends ScreenView {
       cannonNode,
       trajectoriesLayer,
       initialSpeedPanel,
+      initialAnglePanel,
       bottomRightPanel,
       topRightPanel,
       toolboxPanel,
@@ -516,6 +580,7 @@ class ProjectileMotionScreenView extends ScreenView {
       this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 )
     );
     this.resetAllButton.right = this.topRightPanel.right;
+    this.eraserButton.right = this.resetAllButton.left - X_MARGIN;
     this.zoomButtonGroup.top = 2 * Y_MARGIN - offsetY;
     this.zoomButtonGroup.left = this.layoutBounds.minX + X_MARGIN;
 

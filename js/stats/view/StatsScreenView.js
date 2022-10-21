@@ -11,23 +11,14 @@ import { Node } from '../../../../scenery/js/imports.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
-import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
 import StatsControlPanel from './StatsControlPanel.js';
 import FireMultipleButton from './FireMultipleButton.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
-import Panel from '../../../../sun/js/Panel.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 
 // constants
-const X_MARGIN = 10; //refactor into common view
-const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
-const angleStandardDeviationString = ProjectileMotionStrings.angleStandardDeviation;
-const speedStandardDeviationString = ProjectileMotionStrings.speedStandardDeviation;
+const X_MARGIN = 10;
+const FIRE_BUTTON_MARGIN_X = 40;
 
 class StatsScreenView extends ProjectileMotionScreenView {
   /**
@@ -63,6 +54,8 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     const statsPanel = new StatsControlPanel(
       model.groupSizeProperty,
+      model.initialSpeedStandardDeviationProperty,
+      model.initialAngleStandardDeviationProperty,
       model.rapidFireModeProperty,
       visibilityProperties,
       { tandem: tandem.createTandem( 'statsControlPanel' ) }
@@ -70,15 +63,13 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     // fire 100 button
     const fireMultipleButton = new FireMultipleButton( {
-      minWidth: 50,
-      iconWidth: 30,
-      minHeight: 40,
+      minWidth: 75,
+      iconWidth: 35,
+      minHeight: 42,
       listener: () => {
         model.fireMultipleProjectiles();
         this.cannonNode.flashMuzzle();
       },
-      bottom: 0,
-      left: 0,
       tandem: tandem.createTandem( 'fireMultipleButton' ),
       phetioDocumentation: 'button to launch multiple simultaneous projectiles'
     } );
@@ -110,143 +101,12 @@ class StatsScreenView extends ProjectileMotionScreenView {
       comboBoxListParent
     );
 
-    //creating the launch angle standard deviation panel
-
-    const degreesString = MathSymbols.DEGREES;
-    const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
-
-    const pattern0Value1UnitsString =
-      ProjectileMotionStrings.pattern0Value1Units;
-    const pattern0Value1UnitsWithSpaceString =
-      ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
-
-    // results in '{{value}} m/s'
-    const valuePatternSpeed = StringUtils.fillIn(
-      pattern0Value1UnitsWithSpaceString,
-      {
-        units: metersPerSecondString
-      }
-    );
-
-    // results in '{{value}} degrees'
-    const valuePatternAngle = StringUtils.fillIn(
-      pattern0Value1UnitsString,
-      {
-        units: degreesString
-      }
-    );
-
-    //initial speed standard deviation slider
-    const speedStandardDeviationPanelTandem = tandem.createTandem( 'speedStandardDeviationPanel' );
-
-    const speedStandardDeviationNumberControl = new NumberControl(
-      speedStandardDeviationString,
-      model.initialSpeedStandardDeviationProperty,
-      ProjectileMotionConstants.SPEED_STANDARD_DEVIATION_RANGE,
-      {
-        titleNodeOptions: {
-          font: TEXT_FONT,
-          maxWidth: 120 // empirically determined
-        },
-        numberDisplayOptions: {
-          valuePattern: valuePatternSpeed,
-          align: 'right',
-          textOptions: {
-            font: TEXT_FONT
-          },
-          maxWidth: 80 // empirically determined
-        },
-        sliderOptions: {
-          constrainValue: value => Utils.roundToInterval( value, 0.1 ),
-          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
-          thumbSize: new Dimension2( 13, 22 )
-        },
-        arrowButtonOptions: {
-          scale: 0.56,
-          touchAreaXDilation: 20,
-          touchAreaYDilation: 20
-        },
-        tandem: speedStandardDeviationPanelTandem.createTandem( 'numberControl' ),
-        phetioDocumentation:
-          'the control for the standard deviation of the initial speed'
-      }
-    );
-
-    // panel under the cannon, controls initial speed of projectiles
-    const speedStandardDeviationPanel = new Panel(
-      speedStandardDeviationNumberControl,
-      merge(
-        {
-          left: this.layoutBounds.left + X_MARGIN,
-          bottom: this.layoutBounds.bottom - 10,
-          tandem: speedStandardDeviationPanelTandem
-        },
-        ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS
-      )
-    );
-
-    //initial angle standard deviation slider
-    const angleStandardDeviationPanelTandem = tandem.createTandem( 'angleStandardDeviationPanel' );
-
-    const angleStandardDeviationNumberControl = new NumberControl(
-      angleStandardDeviationString,
-      model.initialAngleStandardDeviationProperty,
-      ProjectileMotionConstants.ANGLE_STANDARD_DEVIATION_RANGE,
-      {
-        titleNodeOptions: {
-          font: TEXT_FONT,
-          maxWidth: 120 // empirically determined
-        },
-        numberDisplayOptions: {
-          valuePattern: valuePatternAngle,
-          align: 'right',
-          textOptions: {
-            font: TEXT_FONT
-          },
-          maxWidth: 80 // empirically determined
-        },
-        sliderOptions: {
-          constrainValue: value => Utils.roundSymmetric( value ),
-          trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
-          thumbSize: new Dimension2( 13, 22 )
-        },
-        arrowButtonOptions: {
-          scale: 0.56,
-          touchAreaXDilation: 20,
-          touchAreaYDilation: 20
-        },
-        tandem: angleStandardDeviationPanelTandem.createTandem( 'numberControl' ),
-        phetioDocumentation:
-          'the control for the standard deviation of the launch angle'
-      }
-    );
-
-    // panel under the cannon, controls initial speed of projectiles
-    const angleStandardDeviationPanel = new Panel(
-      angleStandardDeviationNumberControl,
-      merge(
-        {
-          left: this.layoutBounds.left + X_MARGIN,
-          bottom: this.layoutBounds.bottom - 10,
-          tandem: angleStandardDeviationPanelTandem
-        },
-        ProjectileMotionConstants.INITIAL_SPEED_PANEL_OPTIONS
-      )
-    );
-
     this.addChild( this.fireMultipleButton );
-    this.addChild( speedStandardDeviationPanel );
-    this.addChild( angleStandardDeviationPanel );
 
-    angleStandardDeviationPanel.left = speedStandardDeviationPanel.right + X_MARGIN;
-
-    this.eraserButton.left = angleStandardDeviationPanel.right + 30;
-    this.fireButton.left = this.eraserButton.right + X_MARGIN;
-    this.fireMultipleButton.bottom = this.eraserButton.bottom;
+    this.fireButton.left = this.initialAnglePanel.right + FIRE_BUTTON_MARGIN_X;
     this.fireMultipleButton.left = this.fireButton.right + X_MARGIN;
-    this.timeControlNode.left = this.fireMultipleButton.right + 40;
-
-    this.removeChild( this.initialSpeedPanel );
+    this.fireMultipleButton.centerY = this.fireButton.centerY;
+    this.timeControlNode.left = this.fireMultipleButton.right + FIRE_BUTTON_MARGIN_X;
   }
 
   /**
