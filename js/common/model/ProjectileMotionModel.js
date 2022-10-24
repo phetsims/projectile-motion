@@ -394,16 +394,18 @@ class ProjectileMotionModel {
   limitTrajectories() {
     const trajectoriesToDispose = [];
     const numTrajectoriesToDispose = this.trajectoryGroup.count - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
-    for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
-      const trajectory = this.trajectoryGroup.getElement( i );
-      if ( trajectory.reachedGround ) {
-        trajectoriesToDispose.push( trajectory );
-        if ( trajectoriesToDispose.length >= numTrajectoriesToDispose ) {
-          break;
+    if ( numTrajectoriesToDispose > 0 ) {
+      for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
+        const trajectory = this.trajectoryGroup.getElement( i );
+        if ( trajectory.reachedGround ) {
+          trajectoriesToDispose.push( trajectory );
+          if ( trajectoriesToDispose.length >= numTrajectoriesToDispose ) {
+            break;
+          }
         }
       }
+      trajectoriesToDispose.forEach( t => this.trajectoryGroup.disposeElement( t ) );
     }
-    trajectoriesToDispose.forEach( t => this.trajectoryGroup.disposeElement( t ) );
   }
 
   /**
