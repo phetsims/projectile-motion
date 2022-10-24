@@ -227,10 +227,10 @@ class TrajectoryNode extends Node {
         const strength =
           ( maxNumberOfTrajectories - rank ) / maxNumberOfTrajectories;
         pathsLayer.opacity =
-          Math.max( PATH_MIN_OPACITY, PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY ) );
+          PATH_MIN_OPACITY + strength * ( PATH_MAX_OPACITY - PATH_MIN_OPACITY );
         projectileNodesLayer.opacity = pathsLayer.opacity;
         dotsPath.opacity =
-          Math.max( DOTS_MIN_OPACITY, DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY ) );
+          DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY );
       }
     }
 
