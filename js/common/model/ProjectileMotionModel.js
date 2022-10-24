@@ -60,6 +60,8 @@ class ProjectileMotionModel {
         defaultCannonHeight: 0,
         defaultCannonAngle: 80,
         defaultInitialSpeed: 18,
+        defaultSpeedStandardDeviation: 1,
+        defaultAngleStandardDeviation: 2,
         phetioInstrumentAltitudeProperty: true,
         statsScreen: false
       },
@@ -93,33 +95,11 @@ class ProjectileMotionModel {
       }
     );
 
-    const initialAngleStandardDeviation = options.statsScreen ? 2 : 0;
+    const speedInitialSD = options.statsScreen ? options.defaultSpeedStandardDeviation : 0;
+    const angleInitialSD = options.statsScreen ? options.defaultAngleStandardDeviation : 0;
 
     // @public {Property.<number>}
-    this.initialAngleStandardDeviationProperty = new NumberProperty( initialAngleStandardDeviation, {
-      tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
-      phetioDocumentation: 'The standard deviation of the launch angle',
-      units: '\u00B0', // degrees
-      range: new Range( 0, 30 )
-    } );
-
-    // @public {Property.<number>}
-    this.cannonAngleProperty = new VarianceNumberProperty(
-      options.defaultCannonAngle, value => {
-        return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
-      },
-      {
-        tandem: tandem.createTandem( 'cannonAngleProperty' ),
-        phetioDocumentation: 'Angle of the cannon',
-        units: '\u00B0', // degrees
-        range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
-      }
-    );
-
-    const initialSpeedStandardDeviation = options.statsScreen ? 2 : 0;
-
-    // @public {Property.<number>}
-    this.initialSpeedStandardDeviationProperty = new NumberProperty( initialSpeedStandardDeviation, {
+    this.initialSpeedStandardDeviationProperty = new NumberProperty( speedInitialSD, {
       tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
       phetioDocumentation: 'The standard deviation of the launch speed',
       units: 'm/s',
@@ -136,6 +116,27 @@ class ProjectileMotionModel {
         phetioDocumentation: 'The speed on launch',
         units: 'm/s',
         range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
+      }
+    );
+
+    // @public {Property.<number>}
+    this.initialAngleStandardDeviationProperty = new NumberProperty( angleInitialSD, {
+      tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
+      phetioDocumentation: 'The standard deviation of the launch angle',
+      units: '\u00B0', // degrees
+      range: new Range( 0, 30 )
+    } );
+
+    // @public {Property.<number>}
+    this.cannonAngleProperty = new VarianceNumberProperty(
+      options.defaultCannonAngle, value => {
+        return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
+      },
+      {
+        tandem: tandem.createTandem( 'cannonAngleProperty' ),
+        phetioDocumentation: 'Angle of the cannon',
+        units: '\u00B0', // degrees
+        range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
       }
     );
 
