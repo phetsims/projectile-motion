@@ -59,32 +59,25 @@ class TrajectoryNode extends Node {
     let currentPathShape = null;
     let currentPathStroke = null;
 
-    let pathsLayer;
-    let projectileNodesLayer;
-    let projectileObjectViewsLayer;
-    let dotsShape;
-    let dotsPath;
-    let dotsLayer;
+    const pathsLayer = new Node();
+    const projectileNodesLayer = new Node();
+    const projectileObjectViewsLayer = new Node();
 
-    if ( showPath ) {
-      pathsLayer = new Node();
-      projectileNodesLayer = new Node();
-      projectileObjectViewsLayer = new Node();
-      dotsShape = new Shape();
-      dotsPath = new Path( dotsShape, {
-        stroke: 'black'
-      } );
+    let dotsShape = new Shape();
+    const dotsPath = new Path( dotsShape, {
+      stroke: 'black'
+    } );
 
-      this.addChild( projectileObjectViewsLayer );
-      this.addChild( pathsLayer );
+    this.addChild( projectileObjectViewsLayer );
+    this.addChild( pathsLayer );
 
-      dotsLayer = new Node();
-      dotsLayer.addChild( dotsPath );
-      this.addChild( dotsLayer );
-      this.addChild( projectileNodesLayer );
-    }
+    const dotsLayer = new Node();
+    dotsLayer.addChild( dotsPath );
+    this.addChild( dotsLayer );
+    this.addChild( projectileNodesLayer );
 
     let apexDot = null;
+
     let viewLastPosition = null;
 
     // add view nodes based on new dataPoints added
@@ -153,7 +146,7 @@ class TrajectoryNode extends Node {
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
     // Update view based on new projectile objects added
-    const handleProjectileObjectAdded = addedProjectileObject => {
+    function handleProjectileObjectAdded( addedProjectileObject ) {
       const newProjectileNode = new ProjectileNode(
         viewProperties,
         addedProjectileObject.dataPointProperty,
@@ -162,8 +155,10 @@ class TrajectoryNode extends Node {
         trajectory.dragCoefficient,
         transformProperty.get()
       );
-      this.addChild( newProjectileNode );
-      this.addChild( newProjectileNode.projectileViewLayer );
+      projectileNodesLayer.addChild( newProjectileNode );
+      projectileObjectViewsLayer.addChild(
+        newProjectileNode.projectileViewLayer
+      );
 
       // Add the removal listener for if and when this trajectory is removed from the model.
       trajectory.projectileObjects.addItemRemovedListener(
@@ -176,7 +171,7 @@ class TrajectoryNode extends Node {
           }
         }
       );
-    };
+    }
 
     // view adds projectile object if another one is created in the model
     trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
@@ -216,9 +211,6 @@ class TrajectoryNode extends Node {
     transformProperty.lazyLink( updateTransform );
 
     function updateOpacity( rank ) {
-      if ( !showPath ) {
-        return;
-      }
       //if projectile opacity is set as constant (as in 'stats' screen)
       if ( constantTrajectoryOpacity ) {
         pathsLayer.opacity = 0.1; //MOVE TO CONSTANTS
