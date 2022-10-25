@@ -100,13 +100,13 @@ class DataPoint {
    */
   static fromStateObject( stateObject ) {
     return new DataPoint(
-      NumberIO.fromStateObject( stateObject.time ),
+      stateObject.time,
       Vector2.Vector2IO.fromStateObject( stateObject.position ),
-      NumberIO.fromStateObject( stateObject.airDensity ),
+      stateObject.airDensity,
       Vector2.Vector2IO.fromStateObject( stateObject.velocity ),
       Vector2.Vector2IO.fromStateObject( stateObject.acceleration ),
       Vector2.Vector2IO.fromStateObject( stateObject.dragForce ),
-      NumberIO.fromStateObject( stateObject.forceGravity ), {
+      stateObject.forceGravity, {
         apex: stateObject.apex,
         reachedGround: stateObject.reachedGround
       } );

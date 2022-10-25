@@ -99,15 +99,15 @@ class ProjectileObjectType extends PhetioObject {
   toStateObject() {
     return {
       name: NullableIO( StringIO ).toStateObject( this.name ),
-      mass: NumberIO.toStateObject( this.mass ),
-      diameter: NumberIO.toStateObject( this.diameter ),
-      dragCoefficient: NumberIO.toStateObject( this.dragCoefficient ),
+      mass: this.mass,
+      diameter: this.diameter,
+      dragCoefficient: this.dragCoefficient,
       benchmark: NullableIO( StringIO ).toStateObject( this.benchmark ),
-      rotates: BooleanIO.toStateObject( this.rotates ),
+      rotates: this.rotates,
       massRange: Range.RangeIO.toStateObject( this.massRange ),
-      massRound: NumberIO.toStateObject( this.massRound ),
+      massRound: this.massRound,
       diameterRange: Range.RangeIO.toStateObject( this.diameterRange ),
-      diameterRound: NumberIO.toStateObject( this.diameterRound ),
+      diameterRound: this.diameterRound,
       dragCoefficientRange: Range.RangeIO.toStateObject( this.dragCoefficientRange )
     };
   }
@@ -139,15 +139,15 @@ class ProjectileObjectType extends PhetioObject {
    */
   applyState( stateObject ) {
     this.name = NullableIO( StringIO ).fromStateObject( stateObject.name );
-    this.mass = NumberIO.fromStateObject( stateObject.mass );
-    this.diameter = NumberIO.fromStateObject( stateObject.diameter );
-    this.dragCoefficient = NumberIO.fromStateObject( stateObject.dragCoefficient );
+    this.mass = stateObject.mass;
+    this.diameter = stateObject.diameter;
+    this.dragCoefficient = stateObject.dragCoefficient;
     this.benchmark = NullableIO( StringIO ).fromStateObject( stateObject.benchmark );
-    this.rotates = BooleanIO.fromStateObject( stateObject.rotates );
+    this.rotates = stateObject.rotates;
     this.massRange = Range.RangeIO.fromStateObject( stateObject.massRange );
-    this.massRound = NumberIO.fromStateObject( stateObject.massRound );
+    this.massRound = stateObject.massRound;
     this.diameterRange = Range.RangeIO.fromStateObject( stateObject.diameterRange );
-    this.diameterRound = NumberIO.fromStateObject( stateObject.diameterRound );
+    this.diameterRound = stateObject.diameterRound;
     this.dragCoefficientRange = Range.RangeIO.fromStateObject( stateObject.dragCoefficientRange );
   }
 }

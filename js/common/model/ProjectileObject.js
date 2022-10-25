@@ -44,7 +44,7 @@ ProjectileObject.ProjectileObjectIO = new IOType( 'ProjectileObjectIO', {
     dataPoint: DataPoint.DataPointIO
   },
   toStateObject: projectileObject => ( {
-    index: NumberIO.toStateObject( projectileObject.index ),
+    index: projectileObject.index,
 
     // Even though this is a Property, serialize it via this IO Type so that ProjectileObject uses data type instead
     // of reference type serialization. This works because the list of ProjectileObjects is within a PhetioGroup of
@@ -52,7 +52,7 @@ ProjectileObject.ProjectileObjectIO = new IOType( 'ProjectileObjectIO', {
     dataPoint: DataPoint.DataPointIO.toStateObject( projectileObject.dataPointProperty.value )
   } ),
   fromStateObject: stateObject => new ProjectileObject(
-    NumberIO.fromStateObject( stateObject.index ),
+    stateObject.index,
     DataPoint.DataPointIO.fromStateObject( stateObject.dataPoint )
   )
 } );
