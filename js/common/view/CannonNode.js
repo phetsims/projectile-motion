@@ -54,10 +54,13 @@ const CUEING_ARROW_OPTIONS = {
   headWidth: 14,
   headHeight: 6
 };
-const MUZZLE_FLASH_SCALE = 2;
-const MUZZLE_FLASH_OPACITY_DELTA = 0.04;
-const MUZZLE_FLASH_DURATION_OF_FRAMES = 16;
-const MUZZLE_FLASH_START = 1 - MUZZLE_FLASH_DURATION_OF_FRAMES * MUZZLE_FLASH_OPACITY_DELTA;
+
+const MUZZLE_FLASH_SCALE_INITIAL = 0.4;
+const MUZZLE_FLASH_SCALE_FINAL = 1.5;
+const MUZZLE_FLASH_OPACITY_INITIAL = 1;
+const MUZZLE_FLASH_OPACITY_FINAL = 0;
+const MUZZLE_FLASH_DURATION = 0.4; //seconds
+
 const DEGREES = MathSymbols.DEGREES;
 
 class CannonNode extends Node {
@@ -277,17 +280,25 @@ class CannonNode extends Node {
     } );
     cannonBarrel.addChild( muzzleFlash );
 
-    this.muzzleFlashStage = 1; // 0 means animation starting, 1 means animation ended.
+    this.muzzleFlashPlaying = false;
+    this.muzzleFlashStage = 0; // 0 means animation starting, 1 means animation ended.
 
     // Listen to the muzzleFlashStepper to step the muzzle flash animation
-    muzzleFlashStepper.addListener( () => {
-      if ( self.muzzleFlashStage < 1 ) {
-        muzzleFlash.opacity = self.muzzleFlashStage;
-        muzzleFlash.setScaleMagnitude( self.muzzleFlashStage * self.muzzleFlashStage * MUZZLE_FLASH_SCALE );
-        self.muzzleFlashStage = self.muzzleFlashStage + MUZZLE_FLASH_OPACITY_DELTA;
-      }
-      else {
-        muzzleFlash.opacity = 0;
+    muzzleFlashStepper.addListener( arg => {
+      console.log( arg );
+      if ( this.muzzleFlashPlaying ) {
+        if ( this.muzzleFlashStage < 1 ) {
+          muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_INITIAL +
+                                ( MUZZLE_FLASH_OPACITY_FINAL - MUZZLE_FLASH_OPACITY_INITIAL ) * this.flashMuzzleTimeToPercentComplete( this.muzzleFlashStage );
+          muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_INITIAL +
+                                         ( MUZZLE_FLASH_SCALE_FINAL - MUZZLE_FLASH_SCALE_INITIAL ) * this.flashMuzzleTimeToPercentComplete( this.muzzleFlashStage ) );
+          this.muzzleFlashStage += ( 0.016 / MUZZLE_FLASH_DURATION );
+        }
+        else {
+          muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
+          muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_FINAL );
+          this.muzzleFlashPlaying = false;
+        }
       }
     } );
 
@@ -536,7 +547,17 @@ class CannonNode extends Node {
    * @public
    */
   flashMuzzle() {
-    this.muzzleFlashStage = MUZZLE_FLASH_START;
+    this.muzzleFlashPlaying = true;
+    this.muzzleFlashStage = 0;
+  }
+
+  /**
+   *@private
+   * @param time - the time that muzzle flash has been playing
+   * @returns {number} - the percent progress of the muzzle flash animation
+   */
+  flashMuzzleTimeToPercentComplete( time ) {
+    return -Math.pow( 2, -10 * time ) + 1;
   }
 }
 
