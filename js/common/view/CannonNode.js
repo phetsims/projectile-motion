@@ -289,9 +289,9 @@ class CannonNode extends Node {
       if ( this.muzzleFlashPlaying ) {
         if ( this.muzzleFlashStage < 1 ) {
           muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_INITIAL +
-                                ( MUZZLE_FLASH_OPACITY_FINAL - MUZZLE_FLASH_OPACITY_INITIAL ) * this.flashMuzzleTimeToPercentComplete( this.muzzleFlashStage );
+                                ( MUZZLE_FLASH_OPACITY_FINAL - MUZZLE_FLASH_OPACITY_INITIAL ) * this.muzzleFlashTimeToPercentComplete( this.muzzleFlashStage );
           muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_INITIAL +
-                                         ( MUZZLE_FLASH_SCALE_FINAL - MUZZLE_FLASH_SCALE_INITIAL ) * this.flashMuzzleTimeToPercentComplete( this.muzzleFlashStage ) );
+                                         ( MUZZLE_FLASH_SCALE_FINAL - MUZZLE_FLASH_SCALE_INITIAL ) * this.muzzleFlashTimeToPercentComplete( this.muzzleFlashStage ) );
           this.muzzleFlashStage += ( 0.016 / MUZZLE_FLASH_DURATION );
         }
         else {
@@ -556,7 +556,7 @@ class CannonNode extends Node {
    * @param time - the time that muzzle flash has been playing
    * @returns {number} - the percent progress of the muzzle flash animation
    */
-  flashMuzzleTimeToPercentComplete( time ) {
+  muzzleFlashTimeToPercentComplete( time ) {
     return -Math.pow( 2, -10 * time ) + 1;
   }
 }
