@@ -7,7 +7,7 @@
  */
 
 import Screen from '../../../../joist/js/Screen.js';
-import { Rectangle } from '../../../../scenery/js/imports.js';
+import { NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import { LinearGradient } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 
@@ -16,17 +16,9 @@ const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
 const NAV_ICON_SIZE = Screen.MINIMUM_NAVBAR_ICON_SIZE;
 
 class StatsIconNode extends Rectangle {
-  /**
-   * @param {string} type - 'nav' or 'screen'
-   */
-  constructor( type ) {
-    super( 0, 0, 0, 0 );
 
-    assert &&
-      assert(
-        type === 'nav' || type === 'screen',
-        `invalid value for type: ${type}`
-      );
+  public constructor( type: 'nav' | 'screen' ) {
+    super( 0, 0, 0, 0 );
 
     let width;
     let height;
@@ -55,7 +47,7 @@ class StatsIconNode extends Rectangle {
         this.addChild( statBar );
       }
     }
- else {
+    else {
       width = SCREEN_ICON_SIZE.width;
       height = SCREEN_ICON_SIZE.height;
       for ( let i = 0; i < rectHeights.length; i++ ) {
@@ -79,7 +71,7 @@ class StatsIconNode extends Rectangle {
     const backgroundFill = new LinearGradient( 0, 0, 0, height )
       .addColorStop( 0, '#02ace4' )
       .addColorStop( 1, '#cfecfc' );
-    this.mutate( { fill: backgroundFill } );
+    this.mutate( { fill: backgroundFill } as NodeOptions );
     this.setRectWidth( width );
     this.setRectHeight( height );
   }
