@@ -283,7 +283,7 @@ class ProjectileMotionModel {
     );
 
     // @public {Emitter} emits when cannon needs to update its muzzle flash animation
-    this.muzzleFlashStepper = new Emitter();
+    this.muzzleFlashStepper = new Emitter( { parameters: [ { valueType: 'number' } ] } );
 
     // zoom Property
     this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
@@ -358,7 +358,7 @@ class ProjectileMotionModel {
     this.isPlayingProperty.reset();
     this.rapidFireModeProperty.reset();
 
-    this.muzzleFlashStepper.emit();
+    this.muzzleFlashStepper.emit( 0 );
   }
 
   /**
@@ -385,7 +385,7 @@ class ProjectileMotionModel {
     for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
       this.trajectoryGroup.getElement( i ).step( dt );
     }
-    this.muzzleFlashStepper.emit();
+    this.muzzleFlashStepper.emit( dt );
   }
 
   /**

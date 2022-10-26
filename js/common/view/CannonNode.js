@@ -10,6 +10,7 @@
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import platform from '../../../../phet-core/js/platform.js';
@@ -62,6 +63,9 @@ const MUZZLE_FLASH_OPACITY_FINAL = 0;
 const MUZZLE_FLASH_DURATION = 0.4; //seconds
 
 const DEGREES = MathSymbols.DEGREES;
+
+const opacityLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_OPACITY_INITIAL, MUZZLE_FLASH_OPACITY_FINAL );
+const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL, MUZZLE_FLASH_SCALE_FINAL );
 
 class CannonNode extends Node {
   /**
@@ -284,15 +288,13 @@ class CannonNode extends Node {
     this.muzzleFlashStage = 0; // 0 means animation starting, 1 means animation ended.
 
     // Listen to the muzzleFlashStepper to step the muzzle flash animation
-    muzzleFlashStepper.addListener( arg => {
-      console.log( arg );
+    muzzleFlashStepper.addListener( dt => {
       if ( this.muzzleFlashPlaying ) {
         if ( this.muzzleFlashStage < 1 ) {
-          muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_INITIAL +
-                                ( MUZZLE_FLASH_OPACITY_FINAL - MUZZLE_FLASH_OPACITY_INITIAL ) * this.muzzleFlashTimeToPercentComplete( this.muzzleFlashStage );
-          muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_INITIAL +
-                                         ( MUZZLE_FLASH_SCALE_FINAL - MUZZLE_FLASH_SCALE_INITIAL ) * this.muzzleFlashTimeToPercentComplete( this.muzzleFlashStage ) );
-          this.muzzleFlashStage += ( 0.016 / MUZZLE_FLASH_DURATION );
+          const animationPercentComplete = muzzleFlashDurationCompleteToAnimationPercentComplete( this.muzzleFlashStage );
+          muzzleFlash.opacity = opacityLinearFunction.evaluate( animationPercentComplete );
+          muzzleFlash.setScaleMagnitude( scaleLinearFunction.evaluate( animationPercentComplete ) );
+          this.muzzleFlashStage += ( dt / MUZZLE_FLASH_DURATION );
         }
         else {
           muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
@@ -550,15 +552,10 @@ class CannonNode extends Node {
     this.muzzleFlashPlaying = true;
     this.muzzleFlashStage = 0;
   }
+}
 
-  /**
-   *@private
-   * @param time - the time that muzzle flash has been playing
-   * @returns {number} - the percent progress of the muzzle flash animation
-   */
-  muzzleFlashTimeToPercentComplete( time ) {
-    return -Math.pow( 2, -10 * time ) + 1;
-  }
+function muzzleFlashDurationCompleteToAnimationPercentComplete( timePercentComplete ) {
+  return -Math.pow( 2, -10 * timePercentComplete ) + 1; //easing out function
 }
 
 projectileMotion.register( 'CannonNode', CannonNode );
