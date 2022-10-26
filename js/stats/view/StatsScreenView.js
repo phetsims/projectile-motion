@@ -8,6 +8,7 @@
 
 import merge from '../../../../phet-core/js/merge.js';
 import { Node } from '../../../../scenery/js/imports.js';
+import '../../common/ProjectileMotionQueryParameters.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -61,7 +62,6 @@ class StatsScreenView extends ProjectileMotionScreenView {
       { tandem: tandem.createTandem( 'statsControlPanel' ) }
     );
 
-    // fire 100 button
     const fireMultipleButton = new FireMultipleButton( {
       minWidth: 75,
       iconWidth: 35,
