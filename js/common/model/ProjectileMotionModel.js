@@ -393,6 +393,7 @@ class ProjectileMotionModel {
    * @public
    */
   limitTrajectories() {
+    // create a temporary array to hold all trajectories to be disposed, to avoid array mutation of trajectoryGroup while looping
     const trajectoriesToDispose = [];
     const numTrajectoriesToDispose = this.trajectoryGroup.count - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
     if ( numTrajectoriesToDispose > 0 ) {
