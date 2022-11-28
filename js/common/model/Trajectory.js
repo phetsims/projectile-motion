@@ -198,19 +198,9 @@ class Trajectory extends PhetioObject {
     // It is not guaranteed that the dataProbe exists
     dataProbe && dataProbe.updateDataIfWithinRange( initialPoint );
 
-    // TODO: Do we need this if there is only one projectile per trajectory? https://github.com/phetsims/projectile-motion/issues/291
-    // @public {ObservableArrayDef.<ProjectileObject>}
-    this.projectileObjects = createObservableArray( {
-      tandem: options.tandem.createTandem( 'projectileObjects' ),
-      phetioType: createObservableArray.ObservableArrayIO(
-        ProjectileObject.ProjectileObjectIO
-      ),
-      phetioDocumentation: 'A list of the current projectile objects on this trajectory.'
-    } );
-
-    assert && this.projectileObjects.elementAddedEmitter.addListener( () => {
-      assert( this.projectileObjects.length === 1, 'Cannot have more than one projectile per trajectory' );
-    } );
+    // add projectile object
+    assert && assert( this.dataPoints.length >= 1, 'at least one data point should be in this trajectory' );
+    this.projectileObject = new ProjectileObject( 0, this.dataPoints.get( 0 ) );
 
     this.trajectoryLandedEmitter = new Emitter( {
       tandem: options.tandem.createTandem( 'trajectoryLandedEmitter' ),
@@ -229,7 +219,7 @@ class Trajectory extends PhetioObject {
       this.flightTime = addedDataPoint.time;
 
       if ( addedDataPoint.reachedGround ) {
-        assert && assert( this.projectileObjects.length > 0, 'there must be a projectile object' );
+        assert && assert( this.projectileObject, 'there must be a projectile object' );
         assert && assert( !landed, 'a projectile should only land once!' );
 
         this.hasHitTarget = this.target.isWithinTarget( this.horizontalDisplacement );
@@ -240,15 +230,11 @@ class Trajectory extends PhetioObject {
       }
     } );
 
-    // add projectile object
-    this.addProjectileObject();
-
     // @private
     this.disposeTrajectory = () => {
       this.apexPoint = null; // remove reference
       this.dataPoints.dispose();
       this.trajectoryLandedEmitter.dispose();
-      this.projectileObjects.dispose();
       this.rankProperty.dispose();
       this.updateTrajectoryRanksEmitter.removeListener( incrementRank );
     };
@@ -458,37 +444,24 @@ class Trajectory extends PhetioObject {
       this.getDataProbe().updateDataIfWithinRange( newPoint );
     }
 
-    // keep track of old objects that need to be removed
-    const projectileObjectsToRemove = [];
-
-    // increment position of projectile objects, unless it has reached the end
-    for ( let i = 0; i < this.projectileObjects.length; i++ ) {
-      const projectileObject = this.projectileObjects.get( i );
-      if ( projectileObject.index < this.dataPoints.length - 1 ) {
-        // if the next point in front of the projectile is the apex, increment an additional data point
-        projectileObject.index += this.dataPoints.get( projectileObject.index + 1 ).apex ? 2 : 1;
-        const currentDataPoint = this.dataPoints.get( projectileObject.index );
-        assert && assert( currentDataPoint, 'Data point is out of array bounds' );
-        projectileObject.dataPointProperty.set( currentDataPoint );
-      }
-
-      // if it has just reached the end, check if landed on target and remove the last projectile
-      else if ( !projectileObject.checkedScore ) {
-        this.numberOfMovingProjectilesProperty.value--;
-        this.target.scoreIfWithinTarget(
-          projectileObject.dataPointProperty.get().position.x
-        );
-        projectileObject.checkedScore = true;
-
-        // to help with memory, if this projectileObject has just landed, remove the last one (if it exists)
-        if ( i !== 0 ) {
-          projectileObjectsToRemove.push( this.projectileObjects.get( i - 1 ) );
-        }
-      }
+    // increment position of projectile object, unless it has reached the end
+    if ( this.projectileObject.index < this.dataPoints.length - 1 ) {
+      // if the next point in front of the projectile is the apex, increment an additional data point
+      this.projectileObject.index += this.dataPoints.get( this.projectileObject.index + 1 ).apex ? 2 : 1;
+      const currentDataPoint = this.dataPoints.get( this.projectileObject.index );
+      assert && assert( currentDataPoint, 'Data point is out of array bounds' );
+      this.projectileObject.dataPointProperty.set( currentDataPoint );
     }
 
-    // remove the objects that need to be removed
-    this.projectileObjects.removeAll( projectileObjectsToRemove );
+    // if it has just reached the end, check if landed on target and remove the last projectile
+    // TODO: Add checkedScore to ProjectileObject and initialize to false - https://github.com/phetsims/projectile-motion/issues/291
+    else if ( !this.projectileObject.checkedScore ) {
+      this.numberOfMovingProjectilesProperty.value--;
+      this.target.scoreIfWithinTarget(
+        this.projectileObject.dataPointProperty.get().position.x
+      );
+      this.projectileObject.checkedScore = true;
+    }
   }
 
   /**

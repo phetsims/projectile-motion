@@ -150,11 +150,9 @@ class TrajectoryNode extends Node {
     const addProjectileNode = () => {
       projectileNode && projectileNode.dispose();
 
-      assert && assert( trajectory.projectileObjects.length === 1, 'Each trajectory must have only one projectile.' );
-
       projectileNode = new ProjectileNode(
         viewProperties,
-        trajectory.projectileObjects[ 0 ].dataPointProperty,
+        trajectory.projectileObject.dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,

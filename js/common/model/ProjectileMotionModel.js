@@ -453,11 +453,8 @@ class ProjectileMotionModel {
     for ( let j = 0; j < this.trajectoryGroup.count; j++ ) {
       trajectory = this.trajectoryGroup.getElement( j );
 
-      // Furthest projectile on trajectory has not reached ground
+      // Trajectory has not reached ground
       if ( !trajectory.changedInMidAir && !trajectory.reachedGround ) {
-        assert && assert( trajectory.projectileObjects.length === 1, 'Each trajectory must have only one projectile.' );
-
-        // make note that this trajectory has changed in midair
         trajectory.changedInMidAir = true;
       }
     }
