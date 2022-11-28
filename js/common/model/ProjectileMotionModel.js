@@ -312,12 +312,12 @@ class ProjectileMotionModel {
     // if any of the global Properties change, update the status of moving projectiles
     this.airDensityProperty.link( () => {
       if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
-        this.updateTrajectoriesWithMovingProjectiles();
+        this.markMovingTrajectoriesChangedMidAir();
       }
     } );
     this.gravityProperty.link( () => {
       if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
-        this.updateTrajectoriesWithMovingProjectiles();
+        this.markMovingTrajectoriesChangedMidAir();
       }
     } );
     this.selectedProjectileObjectTypeProperty.link(
@@ -444,59 +444,23 @@ class ProjectileMotionModel {
   }
 
   /**
-   * Update trajectories that have moving projectiles
+   * Set changedInMidAir to true for trajectories with currently moving projectiles
    * @private
    */
-  updateTrajectoriesWithMovingProjectiles() {
-    let i;
+  markMovingTrajectoriesChangedMidAir() {
     let trajectory;
 
     for ( let j = 0; j < this.trajectoryGroup.count; j++ ) {
       trajectory = this.trajectoryGroup.getElement( j );
 
-      const removedProjectileObjects = [];
-
-      const updateTrajectoryForProjectileObject = (
-        trajectory,
-        projectileObjectIndex
-      ) => {
-        const projectileObject = trajectory.projectileObjects.get(
-          projectileObjectIndex
-        );
-        removedProjectileObjects.push( projectileObject );
-        this.updateTrajectoryRanksEmitter.emit();
-        const newTrajectory =
-          trajectory.copyFromProjectileObject( this.trajectoryGroup, projectileObject );
-        newTrajectory.changedInMidAir = true;
-      };
-
       // Furthest projectile on trajectory has not reached ground
-      if ( !trajectory.reachedGround ) {
-        // make note that this trajectory has changed in mid air, so it will not be the same as another trajectory
+      if ( !trajectory.changedInMidAir && !trajectory.reachedGround ) {
+        assert && assert( trajectory.projectileObjects.length === 1, 'Each trajectory must have only one projectile.' );
+
+        // make note that this trajectory has changed in midair
         trajectory.changedInMidAir = true;
-
-        // For each projectile except for the one furthest along the path, create a new trajectory
-        for ( i = 1; i < trajectory.projectileObjects.length; i++ ) {
-          updateTrajectoryForProjectileObject( trajectory, i );
-        }
       }
-
-      // Furthest object on trajectory has reached ground
-      else {
-        // For each projectile still in the air, create a new trajectory
-        for ( i = 0; i < trajectory.projectileObjects.length; i++ ) {
-          if (
-            !trajectory.projectileObjects.get( i ).dataPointProperty.get()
-              .reachedGround
-          ) {
-            updateTrajectoryForProjectileObject( trajectory, i );
-          }
-        }
-      }
-
-      trajectory.projectileObjects.removeAll( removedProjectileObjects );
     }
-    this.limitTrajectories();
   }
 
   /**
