@@ -524,53 +524,6 @@ class Trajectory extends PhetioObject {
   }
 
   /**
-   * Add a projectile object that starts at the first data point
-   * @public
-   */
-  addProjectileObject() {
-    assert && assert( this.dataPoints.length >= 1, 'at least one data point should be in this trajectory' );
-    this.projectileObjects.push( new ProjectileObject( 0, this.dataPoints.get( 0 ) ) );
-  }
-
-  /**
-   * Creates a new trajectory that is a copy of this one, but with one projectile object
-   * @public
-   *
-   * @param {PhetioGroup} trajectoryGroup - the group that is creating the trajectories
-   * @param {ProjectileObjectType} projectileObject - provides the index and data points.
-   * @returns {Trajectory}
-   */
-  copyFromProjectileObject( trajectoryGroup, projectileObject ) {
-    // create a brand new trajectory
-    const newTrajectory =
-      trajectoryGroup.createNextElement(
-        this.projectileObjectType, this.mass, this.diameter, this.dragCoefficient,
-        this.initialSpeed, this.initialHeight, this.initialAngle
-      );
-
-    // clear all the data points and then add up to where the current flying projectile is
-    newTrajectory.dataPoints.clear();
-    for ( let i = 0; i <= projectileObject.index; i++ ) {
-      assert && assert( this.dataPoints.get( 0 ).position.x === 0,
-        `Initial point x is not zero but ${this.dataPoints.get( 0 ).position.x}` );
-
-      // add one to the number of trajectories using this datapoint
-      newTrajectory.addDataPointFromClone( this.dataPoints.get( i ) );
-    }
-
-    // set the datapoint that indicates the position of the projectile object
-    projectileObject.dataPointProperty.set(
-      newTrajectory.dataPoints.get( projectileObject.index )
-    );
-
-    // remove object from this trajectory, clear all the projectile objects in new trajectory and add just one
-    newTrajectory.projectileObjects.clear();
-    newTrajectory.projectileObjects.push( projectileObject );
-
-    return newTrajectory;
-  }
-
-  /**
    * Given another DataPoint reference, create a new cloned data point in this Trajectory.
    * @param {DataPoint} dataPoint
    * @public
