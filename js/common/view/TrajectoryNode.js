@@ -145,39 +145,26 @@ class TrajectoryNode extends Node {
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
-    // Update view based on new projectile objects added
-    function handleProjectileObjectAdded( addedProjectileObject ) {
-      const newProjectileNode = new ProjectileNode(
+    let projectileNode;
+
+    const addProjectileNode = () => {
+      projectileNode && projectileNode.dispose();
+
+      assert && assert( trajectory.projectileObjects.length === 1, 'Each trajectory must have only one projectile.' );
+
+      projectileNode = new ProjectileNode(
         viewProperties,
-        addedProjectileObject.dataPointProperty,
+        trajectory.projectileObjects[ 0 ].dataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,
         transformProperty.get()
       );
-      projectileNodesLayer.addChild( newProjectileNode );
-      projectileObjectViewsLayer.addChild(
-        newProjectileNode.projectileViewLayer
-      );
+      projectileNodesLayer.addChild( projectileNode );
+      projectileObjectViewsLayer.addChild( projectileNode.projectileViewLayer );
+    };
 
-      // Add the removal listener for if and when this trajectory is removed from the model.
-      trajectory.projectileObjects.addItemRemovedListener(
-        function removalListener( removedProjectileObject ) {
-          if ( removedProjectileObject === addedProjectileObject ) {
-            newProjectileNode.dispose(); // this also removes it as a child from projectileNodesLayer
-            trajectory.projectileObjects.removeItemRemovedListener(
-              removalListener
-            );
-          }
-        }
-      );
-    }
-
-    // view adds projectile object if another one is created in the model
-    trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
-    trajectory.projectileObjects.addItemAddedListener(
-      handleProjectileObjectAdded
-    );
+    addProjectileNode();
 
     function updateTransform( transform ) {
       pathsLayer.removeAllChildren();
@@ -204,7 +191,7 @@ class TrajectoryNode extends Node {
       trajectory.dataPoints.forEach( handleDataPointAdded );
       projectileNodesLayer.removeAllChildren();
       projectileObjectViewsLayer.removeAllChildren();
-      trajectory.projectileObjects.forEach( handleProjectileObjectAdded );
+      addProjectileNode();
     }
 
     // update if model view transform changes
@@ -234,6 +221,7 @@ class TrajectoryNode extends Node {
         pathsLayer.children.pop().dispose();
       }
       dotsPath.dispose();
+      projectileNode.dispose();
       transformProperty.unlink( updateTransform );
       trajectory.rankProperty.unlink( updateOpacity );
     };
