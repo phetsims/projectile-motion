@@ -453,8 +453,7 @@ class Trajectory extends PhetioObject {
       this.projectileObject.dataPointProperty.set( currentDataPoint );
     }
 
-    // if it has just reached the end, check if landed on target and remove the last projectile
-    // TODO: Add checkedScore to ProjectileObject and initialize to false - https://github.com/phetsims/projectile-motion/issues/291
+    // if it has just reached the end, check if landed on target
     else if ( !this.projectileObject.checkedScore ) {
       this.numberOfMovingProjectilesProperty.value--;
       this.target.scoreIfWithinTarget(

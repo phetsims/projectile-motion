@@ -22,6 +22,9 @@ class ProjectileObject {
     // @public
     this.index = index;
 
+    // @public {boolean} Has this projectile been checked to see if it has hit the target after landing?
+    this.checkedScore = false;
+
     // Doesn't need PhET-iO instrumentation because it is redundant with Trajectory.dataPoints.
     this.dataPointProperty = new Property( currentDataPoint, {
       phetioValueType: DataPoint.DataPointIO
