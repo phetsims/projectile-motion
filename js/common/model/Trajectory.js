@@ -49,14 +49,15 @@ class Trajectory extends PhetioObject {
    * @param {NumberProperty} gravityProperty
    * @param {Emitter<[]>} updateTrajectoryRanksEmitter
    * @param {NumberProperty} numberOfMovingProjectilesProperty
-   * @param {Target} target
+   * @param {function(number):boolean} checkIfHitTarget
    * @param {function():DataProbe|null} getDataProbe
    * @param {Object} [options]
    */
   constructor( projectileObjectType, projectileMass, projectileDiameter,
                projectileDragCoefficient, initialSpeed, initialHeight, initialAngle,
                airDensityProperty, gravityProperty,
-               updateTrajectoryRanksEmitter, numberOfMovingProjectilesProperty, target, getDataProbe, options ) {
+               updateTrajectoryRanksEmitter, numberOfMovingProjectilesProperty,
+               checkIfHitTarget, getDataProbe, options ) {
     options = merge(
       {
         tandem: Tandem.REQUIRED,
@@ -101,9 +102,6 @@ class Trajectory extends PhetioObject {
     // @private {Emitter} emitter to update the ranks of the trajectories
     this.updateTrajectoryRanksEmitter = updateTrajectoryRanksEmitter;
 
-    // @private {Target} the Target component
-    this.target = target;
-
     // @public {DataPoint|null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
 
@@ -115,6 +113,9 @@ class Trajectory extends PhetioObject {
 
     // @public {number} the horizontal displacement of the projectile from its launch point
     this.flightTime = 0;
+
+    // @private {boolean} the callback from the common Target to check and return if the projectile hit the target
+    this.checkIfHitTarget = checkIfHitTarget;
 
     // @public {boolean} whether the projectile has hit the target
     this.hasHitTarget = false;
@@ -221,8 +222,6 @@ class Trajectory extends PhetioObject {
       if ( addedDataPoint.reachedGround ) {
         assert && assert( this.projectileObject, 'there must be a projectile object' );
         assert && assert( !landed, 'a projectile should only land once!' );
-
-        this.hasHitTarget = this.target.isWithinTarget( this.horizontalDisplacement );
 
         // TODO: Inline this listener into the right spot (when projectile has landed), https://github.com/phetsims/projectile-motion/issues/291
         this.trajectoryLandedEmitter.emit( this );
@@ -453,12 +452,13 @@ class Trajectory extends PhetioObject {
       this.projectileObject.dataPointProperty.set( currentDataPoint );
     }
 
-    // if it has just reached the end, check if landed on target
+    // if it has just reached the ground, check if landed on target
     else if ( !this.projectileObject.checkedScore ) {
       this.numberOfMovingProjectilesProperty.value--;
-      this.target.scoreIfWithinTarget(
-        this.projectileObject.dataPointProperty.get().position.x
-      );
+      const displacement = this.projectileObject.dataPointProperty.get().position.x;
+
+      // checkIfHitTarget calls back to the target in the common model, where the checking takes place
+      this.hasHitTarget = this.checkIfHitTarget( displacement );
       this.projectileObject.checkedScore = true;
     }
   }
@@ -521,12 +521,14 @@ class Trajectory extends PhetioObject {
    * @public
    */
   static createGroup( model, tandem ) {
+    const checkIfHitTarget = model.target.checkIfHitTarget.bind( model.target );
     return new PhetioGroup(
       ( tandem, projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
         initialSpeed, initialHeight, initialAngle ) => {
         return new Trajectory( projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
           initialSpeed, initialHeight, initialAngle, model.airDensityProperty, model.gravityProperty,
-          model.updateTrajectoryRanksEmitter, model.numberOfMovingProjectilesProperty, model.target, () => {
+          model.updateTrajectoryRanksEmitter, model.numberOfMovingProjectilesProperty, checkIfHitTarget,
+          () => {
             return model.dataProbe;
           },
           {

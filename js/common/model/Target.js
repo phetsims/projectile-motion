@@ -62,22 +62,13 @@ class Target {
 
   /**
    * @public
-   *
    * @returns {bool} is projectileX within the target
    * @param {number} projectileX - x coordinate of projectile in model coordinates
    */
-  isWithinTarget( projectileX ) {
-    return Math.abs( projectileX - this.positionProperty.get() ) <= ProjectileMotionConstants.TARGET_WIDTH / 2;
-  }
-
-  /**
-   * Scores if projectile has scored based on {number} x position of the landed projectile
-   * @public
-   *
-   * @param {number} projectileX - x coordinate in model coordinates
-   */
-  scoreIfWithinTarget( projectileX ) {
+  checkIfHitTarget( projectileX ) {
     const distance = Math.abs( projectileX - this.positionProperty.get() );
+    const hasHitTarget = distance <= ProjectileMotionConstants.TARGET_WIDTH / 2;
+
     if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 6 ) { // center circle
       this.scoredEmitter.emit( 3 );
     }
@@ -87,6 +78,7 @@ class Target {
     else if ( distance <= ProjectileMotionConstants.TARGET_WIDTH / 2 ) { // just on the target
       this.scoredEmitter.emit( 1 );
     }
+    return hasHitTarget;
   }
 }
 
