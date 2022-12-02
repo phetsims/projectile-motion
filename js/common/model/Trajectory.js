@@ -238,27 +238,15 @@ class Trajectory extends PhetioObject {
     let newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
     let newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
 
-      const newVelocity = Vector2.pool
-        .fetch()
-        .setXY(
-          previousPoint.velocity.x + previousPoint.acceleration.x * dt,
-          previousPoint.velocity.y + previousPoint.acceleration.y * dt
-        );
+    let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * dt;
+    const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * dt;
 
-      // if the drag force is large enough to reverse the sign of vx, set vx to zero
-      const vxChangedSign = ( previousPoint.velocity.x >= 0 && newVelocity.x < 0 ) ||
-                            ( previousPoint.velocity.x <= 0 && newVelocity.x > 0 );
+    //if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
+    if ( Math.sign( newVx ) !== Math.sign( previousPoint.velocity.x ) ) {
+      newVx = 0;
+    }
 
-      if ( vxChangedSign ) {
-        newVelocity.setXY( 0, 0 );
-
-        //TODO: Examine this and add comments, https://github.com/phetsims/projectile-motion/issues/286
-        const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
-        newX = previousPoint.position.x + previousPoint.velocity.x * newDt + 0.5 * previousPoint.acceleration.x * newDt * newDt;
-        newY = previousPoint.position.y;
-
-        apexExists = false;
-      }
+    const newVelocity = Vector2.pool.fetch().setXY( newVx, newVy );
 
     // cross-sectional area of the projectile
     const area = ( Math.PI * this.diameter * this.diameter ) / 4;
