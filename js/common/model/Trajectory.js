@@ -259,56 +259,13 @@ class Trajectory extends PhetioObject {
 
     //if the apex has been reached
     if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 ) {
-      // addApex
-      const dtToApex = Utils.linear(
-        previousPoint.velocity.y,
-        newVelocity.y,
-        0,
-        dt,
-        0
-      );
-      const apexX = Utils.linear(
-        0,
-        dt,
-        previousPoint.position.x,
-        newX,
-        dtToApex
-      );
-      const apexY = Utils.linear(
-        0,
-        dt,
-        previousPoint.position.y,
-        newY,
-        dtToApex
-      );
-      const apexVelocityX = Utils.linear(
-        0,
-        dt,
-        previousPoint.velocity.x,
-        newVelocity.x,
-        dtToApex
-      );
-      const apexVelocityY = Utils.linear(
-        0,
-        dt,
-        previousPoint.velocity.y,
-        newVelocity.y,
-        dtToApex
-      );
-      const apexDragX = Utils.linear(
-        0,
-        dt,
-        previousPoint.dragForce.x,
-        newDragForce.x,
-        dtToApex
-      );
-      const apexDragY = Utils.linear(
-        0,
-        dt,
-        previousPoint.dragForce.y,
-        newDragForce.y,
-        dtToApex
-      );
+      const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
+      const apexX = Utils.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
+      const apexY = Utils.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
+      const apexVelocityX = Utils.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
+      const apexVelocityY = Utils.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
+      const apexDragX = Utils.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
+      const apexDragY = Utils.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
 
       const apexPoint = new DataPoint(
         previousPoint.time + dtToApex,
@@ -333,8 +290,24 @@ class Trajectory extends PhetioObject {
 
     let newPoint;
 
+    // Still in flight
+    if ( newY > 0 ) {
+      newPoint = new DataPoint(
+        previousPoint.time + dt,
+        Vector2.pool.create( newX, newY ),
+        this.airDensityProperty.value,
+        newVelocity,
+        Vector2.pool.create(
+          -newDragForce.x / this.mass,
+          -this.gravityProperty.value - newDragForce.y / this.mass
+        ), // acceleration
+        newDragForce,
+        -this.gravityProperty.value * this.mass
+      );
+      this.dataPoints.push( newPoint );
+    }
     // Has reached ground or below
-    if ( newY <= 0 ) {
+    else {
       this.reachedGround = true; // store the information that it has reached the ground
 
       // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
@@ -388,24 +361,8 @@ class Trajectory extends PhetioObject {
       // checkIfHitTarget calls back to the target in the common model, where the checking takes place
       this.hasHitTarget = this.checkIfHitTarget( displacement );
     }
-    else {
-      // Still in the air
-      newPoint = new DataPoint(
-        previousPoint.time + dt,
-        Vector2.pool.create( newX, newY ),
-        this.airDensityProperty.value,
-        newVelocity,
-        Vector2.pool.create(
-          -newDragForce.x / this.mass,
-          -this.gravityProperty.value - newDragForce.y / this.mass
-        ), // acceleration
-        newDragForce,
-        -this.gravityProperty.value * this.mass
-      );
-      this.dataPoints.push( newPoint );
-    }
 
-    assert && assert( newPoint, 'should be defined' );
+    assert && assert( newPoint, 'new data point should be defined' );
 
     // and update dataProbe tool
     this.getDataProbe().updateDataIfWithinRange( newPoint );
