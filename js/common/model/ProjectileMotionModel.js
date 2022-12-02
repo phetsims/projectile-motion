@@ -383,7 +383,10 @@ class ProjectileMotionModel {
    */
   stepModelElements( dt ) {
     for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
-      this.trajectoryGroup.getElement( i ).step( dt );
+      const trajectory = this.trajectoryGroup.getElement( i );
+      if ( !trajectory.reachedGround ) {
+        trajectory.step( dt );
+      }
     }
     this.muzzleFlashStepper.emit( dt );
   }
