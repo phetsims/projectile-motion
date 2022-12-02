@@ -12,9 +12,9 @@
  */
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
-import Property from '../../../../axon/js/Property.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import merge from '../../../../phet-core/js/merge.js';
@@ -32,8 +32,7 @@ import DataPoint from './DataPoint.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 
 // constants
-const MAX_NUMBER_OF_TRAJECTORIES =
-  ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+const MAX_NUMBER_OF_TRAJECTORIES = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
 
 class Trajectory extends PhetioObject {
 
@@ -239,20 +238,24 @@ class Trajectory extends PhetioObject {
    * @param {number} dt
    */
   step( dt ) {
+    assert && assert( !this.reachedGround, 'Trajectories should not step after reaching ground' );
+
     const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
-    let newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
-    let newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
+    let newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, dt );
+    let newY = nextPosition( previousPoint.position.y, previousPoint.velocity.y, previousPoint.acceleration.y, dt );
 
     let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * dt;
     const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * dt;
 
     //if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
+    // We do not need to do this adjustment for the y direction because gravity is already resulting in a change in
+    // direction, and because our air-resistance model cuts corners already (via linear interpolation).
     if ( Math.sign( newVx ) !== Math.sign( previousPoint.velocity.x ) ) {
       newVx = 0;
 
       const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
-      newX = previousPoint.position.x + previousPoint.velocity.x * newDt + 0.5 * previousPoint.acceleration.x * newDt * newDt;
+      newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, newDt );
     }
 
     const newVelocity = Vector2.pool.fetch().setXY( newVx, newVy );
@@ -509,6 +512,11 @@ class Trajectory extends PhetioObject {
     ];
   }
 }
+
+// Calculate the next 1-d position using the basic kinematic function.
+const nextPosition = ( position, velocity, acceleration, time ) => {
+  return position + velocity * time + 0.5 * acceleration * time * time;
+};
 
 // Name the types needed to serialize each field on the Trajectory so that it can be used in
 // toStateObject, fromStateObject, and applyState.
