@@ -152,7 +152,7 @@ class TrajectoryNode extends Node {
 
       projectileNode = new ProjectileNode(
         viewProperties,
-        trajectory.projectileObject.dataPointProperty,
+        trajectory.projectileDataPointProperty,
         trajectory.projectileObjectType,
         trajectory.diameter,
         trajectory.dragCoefficient,

@@ -12,6 +12,7 @@
  */
 
 import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import Property from '../../../../axon/js/Property.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
@@ -28,7 +29,6 @@ import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
-import ProjectileObject from './ProjectileObject.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 
 // constants
@@ -186,8 +186,10 @@ class Trajectory extends PhetioObject {
     // It is not guaranteed that the dataProbe exists
     dataProbe && dataProbe.updateDataIfWithinRange( initialPoint );
 
-    // add projectile object
-    this.projectileObject = new ProjectileObject( initialPoint );
+    // The "projectile object" is really just what data point the projectile is currently at.
+    this.projectileDataPointProperty = new Property( initialPoint, {
+      phetioValueType: DataPoint.DataPointIO
+    } );
 
     this.trajectoryLandedEmitter = new Emitter( {
       tandem: options.tandem.createTandem( 'trajectoryLandedEmitter' ),
@@ -196,8 +198,7 @@ class Trajectory extends PhetioObject {
       ]
     } );
 
-    // The first ProjectileObject launched on this trajectory will cause data points to be created as it moves. Future
-    // Projectiles will reuse these data points.
+    // TODO: move this logic into the step(), https://github.com/phetsims/projectile-motion/issues/308
     this.dataPoints.elementAddedEmitter.addListener( addedDataPoint => {
       this.maxHeight = Math.max( addedDataPoint.position.y, this.maxHeight );
       this.horizontalDisplacement = addedDataPoint.position.x;
@@ -355,8 +356,10 @@ class Trajectory extends PhetioObject {
       );
       this.dataPoints.push( newPoint );
 
+      this.trajectoryLandedEmitter.emit( this );
+
       this.numberOfMovingProjectilesProperty.value--;
-      const displacement = this.projectileObject.dataPointProperty.get().position.x;
+      const displacement = this.projectileDataPointProperty.get().position.x;
 
       // checkIfHitTarget calls back to the target in the common model, where the checking takes place
       this.hasHitTarget = this.checkIfHitTarget( displacement );
@@ -367,7 +370,7 @@ class Trajectory extends PhetioObject {
     // and update dataProbe tool
     this.getDataProbe().updateDataIfWithinRange( newPoint );
 
-    this.projectileObject.dataPointProperty.set( newPoint );
+    this.projectileDataPointProperty.set( newPoint );
   }
 
   /**
