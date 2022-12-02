@@ -167,15 +167,7 @@ class Trajectory extends PhetioObject {
       .fetch()
       .setPolar( this.initialSpeed, ( this.initialAngle * Math.PI ) / 180 );
 
-    // cross-sectional area of the projectile
-    const area = ( Math.PI * this.diameter * this.diameter ) / 4;
-
-    const dragForce = Vector2.pool
-      .fetch()
-      .set( velocity )
-      .multiplyScalar(
-        0.5 * this.airDensityProperty.value * area * this.dragCoefficient * velocity.magnitude
-      );
+    const dragForce = this.dragForceForVelocity( velocity );
 
     const initialPoint = new DataPoint(
       0, // total time elapsed
@@ -227,6 +219,19 @@ class Trajectory extends PhetioObject {
   }
 
   /**
+   * @private
+   * @param {Vector2} velocity - the velocity of the projectile
+   * @returns {Vector2} - the drag force on the projectile
+   */
+  dragForceForVelocity( velocity ) {
+    // cross-sectional area of the projectile
+    const area = ( Math.PI * this.diameter * this.diameter ) / 4;
+    return Vector2.pool.fetch().set( velocity ).multiplyScalar(
+      0.5 * this.airDensityProperty.value * area * this.dragCoefficient * velocity.magnitude
+    );
+  }
+
+  /**
    * Does calculations and steps the trajectory elements forward given a time step
    * @public
    *
@@ -247,14 +252,9 @@ class Trajectory extends PhetioObject {
     }
 
     const newVelocity = Vector2.pool.fetch().setXY( newVx, newVy );
+    const newDragForce = this.dragForceForVelocity( newVelocity );
 
-    // cross-sectional area of the projectile
-    const area = ( Math.PI * this.diameter * this.diameter ) / 4;
-
-    const newDragForce = Vector2.pool.fetch().set( newVelocity ).multiplyScalar(
-      0.5 * this.airDensityProperty.value * area * this.dragCoefficient * newVelocity.magnitude
-    );
-
+    //if the apex has been reached
     if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 ) {
       // addApex
       const dtToApex = Utils.linear(
