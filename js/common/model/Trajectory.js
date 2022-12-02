@@ -235,18 +235,8 @@ class Trajectory extends PhetioObject {
   step( dt ) {
     const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
-    // Haven't reached ground, so continue collecting datapoints
-    if ( !this.reachedGround ) {
-      let apexExists = true;
-
-      let newX =
-        previousPoint.position.x +
-        previousPoint.velocity.x * dt +
-        0.5 * previousPoint.acceleration.x * dt * dt;
-      let newY =
-        previousPoint.position.y +
-        previousPoint.velocity.y * dt +
-        0.5 * previousPoint.acceleration.y * dt * dt;
+    let newX = previousPoint.position.x + previousPoint.velocity.x * dt + 0.5 * previousPoint.acceleration.x * dt * dt;
+    let newY = previousPoint.position.y + previousPoint.velocity.y * dt + 0.5 * previousPoint.acceleration.y * dt * dt;
 
       const newVelocity = Vector2.pool
         .fetch()
@@ -277,57 +267,57 @@ class Trajectory extends PhetioObject {
       0.5 * this.airDensityProperty.value * area * this.dragCoefficient * newVelocity.magnitude
     );
 
-      if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) {
-        // passed apex
-        const dtToApex = Utils.linear(
-          previousPoint.velocity.y,
-          newVelocity.y,
-          0,
-          dt,
-          0
-        );
-        const apexX = Utils.linear(
-          0,
-          dt,
-          previousPoint.position.x,
-          newX,
-          dtToApex
-        );
-        const apexY = Utils.linear(
-          0,
-          dt,
-          previousPoint.position.y,
-          newY,
-          dtToApex
-        );
-        const apexVelocityX = Utils.linear(
-          0,
-          dt,
-          previousPoint.velocity.x,
-          newVelocity.x,
-          dtToApex
-        );
-        const apexVelocityY = Utils.linear(
-          0,
-          dt,
-          previousPoint.velocity.y,
-          newVelocity.y,
-          dtToApex
-        );
-        const apexDragX = Utils.linear(
-          0,
-          dt,
-          previousPoint.dragForce.x,
-          newDragForce.x,
-          dtToApex
-        );
-        const apexDragY = Utils.linear(
-          0,
-          dt,
-          previousPoint.dragForce.y,
-          newDragForce.y,
-          dtToApex
-        );
+    if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 ) {
+      // addApex
+      const dtToApex = Utils.linear(
+        previousPoint.velocity.y,
+        newVelocity.y,
+        0,
+        dt,
+        0
+      );
+      const apexX = Utils.linear(
+        0,
+        dt,
+        previousPoint.position.x,
+        newX,
+        dtToApex
+      );
+      const apexY = Utils.linear(
+        0,
+        dt,
+        previousPoint.position.y,
+        newY,
+        dtToApex
+      );
+      const apexVelocityX = Utils.linear(
+        0,
+        dt,
+        previousPoint.velocity.x,
+        newVelocity.x,
+        dtToApex
+      );
+      const apexVelocityY = Utils.linear(
+        0,
+        dt,
+        previousPoint.velocity.y,
+        newVelocity.y,
+        dtToApex
+      );
+      const apexDragX = Utils.linear(
+        0,
+        dt,
+        previousPoint.dragForce.x,
+        newDragForce.x,
+        dtToApex
+      );
+      const apexDragY = Utils.linear(
+        0,
+        dt,
+        previousPoint.dragForce.y,
+        newDragForce.y,
+        dtToApex
+      );
 
       const apexPoint = new DataPoint(
         previousPoint.time + dtToApex,
