@@ -137,7 +137,7 @@ class Trajectory extends PhetioObject {
       phetioReadOnly: true
     } );
 
-    // @public did the trajectory path change in mid air due to air density change
+    // @public did the trajectory path change in midair due to air density change
     this.changedInMidAir = false;
 
     // @public (read-only) {ObservableArrayDef.<DataPoint>} record points along the trajectory with critical information
@@ -167,12 +167,7 @@ class Trajectory extends PhetioObject {
       .fetch()
       .setPolar( this.initialSpeed, ( this.initialAngle * Math.PI ) / 180 );
 
-    // fix large drag errors
-    if ( velocity.x < 0 ) {
-      // velocity.setXY( 0, 0 );
-    }
-
-    // cross sectional area of the projectile
+    // cross-sectional area of the projectile
     const area = ( Math.PI * this.diameter * this.diameter ) / 4;
 
     const dragForce = Vector2.pool
@@ -200,8 +195,7 @@ class Trajectory extends PhetioObject {
     dataProbe && dataProbe.updateDataIfWithinRange( initialPoint );
 
     // add projectile object
-    assert && assert( this.dataPoints.length >= 1, 'at least one data point should be in this trajectory' );
-    this.projectileObject = new ProjectileObject( 0, this.dataPoints.get( 0 ) );
+    this.projectileObject = new ProjectileObject( initialPoint );
 
     this.trajectoryLandedEmitter = new Emitter( {
       tandem: options.tandem.createTandem( 'trajectoryLandedEmitter' ),
@@ -209,8 +203,6 @@ class Trajectory extends PhetioObject {
         { name: 'trajectory', phetioType: Trajectory.TrajectoryIO }
       ]
     } );
-
-    let landed = false;
 
     // The first ProjectileObject launched on this trajectory will cause data points to be created as it moves. Future
     // Projectiles will reuse these data points.
@@ -220,12 +212,7 @@ class Trajectory extends PhetioObject {
       this.flightTime = addedDataPoint.time;
 
       if ( addedDataPoint.reachedGround ) {
-        assert && assert( this.projectileObject, 'there must be a projectile object' );
-        assert && assert( !landed, 'a projectile should only land once!' );
-
-        // TODO: Inline this listener into the right spot (when projectile has landed), https://github.com/phetsims/projectile-motion/issues/291
         this.trajectoryLandedEmitter.emit( this );
-        landed = true;
       }
     } );
 
@@ -283,15 +270,12 @@ class Trajectory extends PhetioObject {
         apexExists = false;
       }
 
-      // cross-sectional area of the projectile
-      const area = ( Math.PI * this.diameter * this.diameter ) / 4;
+    // cross-sectional area of the projectile
+    const area = ( Math.PI * this.diameter * this.diameter ) / 4;
 
-      const newDragForce = Vector2.pool
-        .fetch()
-        .set( newVelocity )
-        .multiplyScalar(
-          0.5 * this.airDensityProperty.value * area * this.dragCoefficient * newVelocity.magnitude
-        );
+    const newDragForce = Vector2.pool.fetch().set( newVelocity ).multiplyScalar(
+      0.5 * this.airDensityProperty.value * area * this.dragCoefficient * newVelocity.magnitude
+    );
 
       if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 && apexExists ) {
         // passed apex
@@ -345,122 +329,110 @@ class Trajectory extends PhetioObject {
           dtToApex
         );
 
-        const apexPoint = new DataPoint(
-          previousPoint.time + dtToApex,
-          Vector2.pool.create( apexX, apexY ),
-          this.airDensityProperty.value,
-          Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
-          Vector2.pool.create(
-            -apexDragX / this.mass,
-            -this.gravityProperty.value - apexDragY / this.mass
-          ), // acceleration
-          Vector2.pool.create( apexDragX, apexDragY ), // drag force
-          -this.gravityProperty.value * this.mass, {
-            apex: true
-          }
-        );
+      const apexPoint = new DataPoint(
+        previousPoint.time + dtToApex,
+        Vector2.pool.create( apexX, apexY ),
+        this.airDensityProperty.value,
+        Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
+        Vector2.pool.create(
+          -apexDragX / this.mass,
+          -this.gravityProperty.value - apexDragY / this.mass
+        ), // acceleration
+        Vector2.pool.create( apexDragX, apexDragY ), // drag force
+        -this.gravityProperty.value * this.mass, {
+          apex: true
+        }
+      );
 
-        this.dataPoints.push( apexPoint );
+      this.dataPoints.push( apexPoint );
 
-        assert && assert( this.apexPoint === null, 'already have an apex point' );
+      assert && assert( this.apexPoint === null, 'already have an apex point' );
 
-        this.apexPoint = apexPoint; // save apex point
+      this.apexPoint = apexPoint; // save apex point
 
-        this.getDataProbe().updateDataIfWithinRange( apexPoint ); //update data probe if apex point is within range
-      }
+      this.getDataProbe().updateDataIfWithinRange( apexPoint ); //update data probe if apex point is within range
+    }
 
-      let newPoint;
+    let newPoint;
 
-      // Has reached ground or below
-      if ( newY <= 0 ) {
-        this.reachedGround = true; // store the information that it has reached the ground
+    // Has reached ground or below
+    if ( newY <= 0 ) {
+      this.reachedGround = true; // store the information that it has reached the ground
 
-        // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-        let timeToGround = null;
-        if ( previousPoint.acceleration.y === 0 ) {
-          if ( previousPoint.position.y === 0 ) {
-            // We are already on the ground.
-            timeToGround = 0;
-          }
-          else if ( previousPoint.velocity.y === 0 ) {
-            assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
-          }
-          else {
-            timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
-          }
+      // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
+      let timeToGround = null;
+      if ( previousPoint.acceleration.y === 0 ) {
+        if ( previousPoint.position.y === 0 ) {
+          // We are already on the ground.
+          timeToGround = 0;
+        }
+        else if ( previousPoint.velocity.y === 0 ) {
+          assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
         }
         else {
-          const squareRoot = -Math.sqrt(
-            previousPoint.velocity.y * previousPoint.velocity.y -
-            2 * previousPoint.acceleration.y * previousPoint.position.y
-          );
-          timeToGround =
-            ( squareRoot - previousPoint.velocity.y ) /
-            previousPoint.acceleration.y;
+          timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
         }
-
-        newX =
-          previousPoint.position.x +
-          previousPoint.velocity.x * timeToGround +
-          0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
-        newY = 0;
-
-        newPoint = new DataPoint(
-          previousPoint.time + timeToGround,
-          Vector2.pool.create( newX, newY ),
-          this.airDensityProperty.value,
-          Vector2.pool.create( 0, 0 ), // velocity
-          Vector2.pool.create( 0, 0 ), // acceleration
-          Vector2.pool.create( 0, 0 ), // drag force
-          -this.gravityProperty.value * this.mass,
-          {
-            // add this special property to just the last datapoint collected for a trajectory
-            reachedGround: true
-          }
-        );
-        this.dataPoints.push( newPoint );
       }
       else {
-        // Still in the air
-        newPoint = new DataPoint(
-          previousPoint.time + dt,
-          Vector2.pool.create( newX, newY ),
-          this.airDensityProperty.value,
-          newVelocity,
-          Vector2.pool.create(
-            -newDragForce.x / this.mass,
-            -this.gravityProperty.value - newDragForce.y / this.mass
-          ), // acceleration
-          newDragForce,
-          -this.gravityProperty.value * this.mass
+        const squareRoot = -Math.sqrt(
+          previousPoint.velocity.y * previousPoint.velocity.y -
+          2 * previousPoint.acceleration.y * previousPoint.position.y
         );
-        this.dataPoints.push( newPoint );
+        timeToGround =
+          ( squareRoot - previousPoint.velocity.y ) /
+          previousPoint.acceleration.y;
       }
 
-      assert && assert( newPoint, 'should be defined' );
+      newX =
+        previousPoint.position.x +
+        previousPoint.velocity.x * timeToGround +
+        0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
+      newY = 0;
 
-      // and update dataProbe tool
-      this.getDataProbe().updateDataIfWithinRange( newPoint );
-    }
+      newPoint = new DataPoint(
+        previousPoint.time + timeToGround,
+        Vector2.pool.create( newX, newY ),
+        this.airDensityProperty.value,
+        Vector2.pool.create( 0, 0 ), // velocity
+        Vector2.pool.create( 0, 0 ), // acceleration
+        Vector2.pool.create( 0, 0 ), // drag force
+        -this.gravityProperty.value * this.mass,
+        {
+          // add this special property to just the last datapoint collected for a trajectory
+          reachedGround: true
+        }
+      );
+      this.dataPoints.push( newPoint );
 
-    // increment position of projectile object, unless it has reached the end
-    if ( this.projectileObject.index < this.dataPoints.length - 1 ) {
-      // if the next point in front of the projectile is the apex, increment an additional data point
-      this.projectileObject.index += this.dataPoints.get( this.projectileObject.index + 1 ).apex ? 2 : 1;
-      const currentDataPoint = this.dataPoints.get( this.projectileObject.index );
-      assert && assert( currentDataPoint, 'Data point is out of array bounds' );
-      this.projectileObject.dataPointProperty.set( currentDataPoint );
-    }
-
-    // if it has just reached the ground, check if landed on target
-    else if ( !this.projectileObject.checkedScore ) {
       this.numberOfMovingProjectilesProperty.value--;
       const displacement = this.projectileObject.dataPointProperty.get().position.x;
 
       // checkIfHitTarget calls back to the target in the common model, where the checking takes place
       this.hasHitTarget = this.checkIfHitTarget( displacement );
-      this.projectileObject.checkedScore = true;
     }
+    else {
+      // Still in the air
+      newPoint = new DataPoint(
+        previousPoint.time + dt,
+        Vector2.pool.create( newX, newY ),
+        this.airDensityProperty.value,
+        newVelocity,
+        Vector2.pool.create(
+          -newDragForce.x / this.mass,
+          -this.gravityProperty.value - newDragForce.y / this.mass
+        ), // acceleration
+        newDragForce,
+        -this.gravityProperty.value * this.mass
+      );
+      this.dataPoints.push( newPoint );
+    }
+
+    assert && assert( newPoint, 'should be defined' );
+
+    // and update dataProbe tool
+    this.getDataProbe().updateDataIfWithinRange( newPoint );
+
+    this.projectileObject.dataPointProperty.set( newPoint );
   }
 
   /**

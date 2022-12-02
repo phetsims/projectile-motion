@@ -14,17 +14,9 @@ import DataPoint from './DataPoint.js';
 class ProjectileObject {
 
   /**
-   * @param {number} index - incremented as more projectiles are added to the Trajectory this projectile object is on.
    * @param {DataPoint} currentDataPoint - the data point that this projectile object is currently at on its trajectory.
    */
-  constructor( index, currentDataPoint ) {
-
-    // @public
-    this.index = index;
-
-    // @public {boolean} Has this projectile been checked to see if it has hit the target after landing?
-    this.checkedScore = false;
-
+  constructor( currentDataPoint ) {
     // Doesn't need PhET-iO instrumentation because it is redundant with Trajectory.dataPoints.
     this.dataPointProperty = new Property( currentDataPoint, {
       phetioValueType: DataPoint.DataPointIO
