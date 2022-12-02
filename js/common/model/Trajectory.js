@@ -122,9 +122,6 @@ class Trajectory extends PhetioObject {
     // @private {function():DataProbe|null} accessor for DataProbe component
     this.getDataProbe = getDataProbe;
 
-    // @private local reference to the dataProbe to updateDataIfWithinRange for initial point
-    const dataProbe = this.getDataProbe();
-
     // @public {Property.<number>}
     this.rankProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'rankProperty' ),
@@ -180,10 +177,8 @@ class Trajectory extends PhetioObject {
       dragForce, // drag force
       -this.gravityProperty.value * this.mass // force gravity
     );
-    this.dataPoints.push( initialPoint );
 
-    // It is not guaranteed that the dataProbe exists
-    dataProbe && dataProbe.updateDataIfWithinRange( initialPoint );
+    this.addDataPoint( initialPoint );
 
     // The "projectile object" is really just what data point the projectile is currently at.
     this.projectileDataPointProperty = new Property( initialPoint, {
@@ -258,38 +253,13 @@ class Trajectory extends PhetioObject {
       newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, newDt );
     }
 
+    const newPosition = Vector2.pool.create( newX, newY );
     const newVelocity = Vector2.pool.fetch().setXY( newVx, newVy );
     const newDragForce = this.dragForceForVelocity( newVelocity );
 
     //if the apex has been reached
     if ( previousPoint.velocity.y > 0 && newVelocity.y < 0 ) {
-      const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
-      const apexX = Utils.linear( 0, dt, previousPoint.position.x, newX, dtToApex );
-      const apexY = Utils.linear( 0, dt, previousPoint.position.y, newY, dtToApex );
-      const apexVelocityX = Utils.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
-      const apexVelocityY = Utils.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
-      const apexDragX = Utils.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
-      const apexDragY = Utils.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
-
-      const apexPoint = new DataPoint(
-        previousPoint.time + dtToApex,
-        Vector2.pool.create( apexX, apexY ),
-        this.airDensityProperty.value,
-        Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
-        Vector2.pool.create(
-          -apexDragX / this.mass,
-          -this.gravityProperty.value - apexDragY / this.mass
-        ), // acceleration
-        Vector2.pool.create( apexDragX, apexDragY ), // drag force
-        -this.gravityProperty.value * this.mass, {
-          apex: true
-        }
-      );
-
-      this.dataPoints.push( apexPoint );
-      assert && assert( this.apexPoint === null, 'already have an apex point' );
-      this.apexPoint = apexPoint; // save apex point
-      this.getDataProbe().updateDataIfWithinRange( apexPoint ); //update data probe if apex point is within range
+      this.handleApex( previousPoint, newPosition, newVelocity, newDragForce, dt );
     }
 
     let newPoint;
@@ -298,7 +268,7 @@ class Trajectory extends PhetioObject {
     if ( newY > 0 ) {
       newPoint = new DataPoint(
         previousPoint.time + dt,
-        Vector2.pool.create( newX, newY ),
+        newPosition,
         this.airDensityProperty.value,
         newVelocity,
         Vector2.pool.create(
@@ -308,10 +278,9 @@ class Trajectory extends PhetioObject {
         newDragForce,
         -this.gravityProperty.value * this.mass
       );
-      this.dataPoints.push( newPoint );
     }
-    // Has reached ground or below
-    else {
+    else { // Has reached ground or below
+
       this.reachedGround = true; // store the information that it has reached the ground
 
       // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
@@ -346,7 +315,7 @@ class Trajectory extends PhetioObject {
 
       newPoint = new DataPoint(
         previousPoint.time + timeToGround,
-        Vector2.pool.create( newX, newY ),
+        newPosition,
         this.airDensityProperty.value,
         Vector2.pool.create( 0, 0 ), // velocity
         Vector2.pool.create( 0, 0 ), // acceleration
@@ -357,8 +326,15 @@ class Trajectory extends PhetioObject {
           reachedGround: true
         }
       );
-      this.dataPoints.push( newPoint );
+    }
 
+    assert && assert( newPoint, 'new data point should be defined' );
+
+    this.addDataPoint( newPoint );
+
+    this.projectileDataPointProperty.set( newPoint );
+
+    if ( this.reachedGround ) {
       this.trajectoryLandedEmitter.emit( this );
 
       this.numberOfMovingProjectilesProperty.value--;
@@ -367,13 +343,54 @@ class Trajectory extends PhetioObject {
       // checkIfHitTarget calls back to the target in the common model, where the checking takes place
       this.hasHitTarget = this.checkIfHitTarget( displacement );
     }
+  }
 
-    assert && assert( newPoint, 'new data point should be defined' );
+  /**
+   * @private
+   * @param {DataPoint} previousPoint
+   * @param {Vector2} newPosition
+   * @param {Vector2} newVelocity
+   * @param {Vector2} newDragForce
+   * @param {number} dt
+   */
+  handleApex( previousPoint, newPosition, newVelocity, newDragForce, dt ) {
+    const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
+    const apexX = Utils.linear( 0, dt, previousPoint.position.x, newPosition.x, dtToApex );
+    const apexY = Utils.linear( 0, dt, previousPoint.position.y, newPosition.y, dtToApex );
+    const apexVelocityX = Utils.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
+    const apexVelocityY = Utils.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
+    const apexDragX = Utils.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
+    const apexDragY = Utils.linear( 0, dt, previousPoint.dragForce.y, newDragForce.y, dtToApex );
 
-    // and update dataProbe tool
-    this.getDataProbe().updateDataIfWithinRange( newPoint );
+    const apexPoint = new DataPoint(
+      previousPoint.time + dtToApex,
+      Vector2.pool.create( apexX, apexY ),
+      this.airDensityProperty.value,
+      Vector2.pool.create( apexVelocityX, apexVelocityY ), // velocity
+      Vector2.pool.create(
+        -apexDragX / this.mass,
+        -this.gravityProperty.value - apexDragY / this.mass
+      ), // acceleration
+      Vector2.pool.create( apexDragX, apexDragY ), // drag force
+      -this.gravityProperty.value * this.mass, {
+        apex: true
+      }
+    );
 
-    this.projectileDataPointProperty.set( newPoint );
+    assert && assert( this.apexPoint === null, 'already have an apex point' );
+    this.apexPoint = apexPoint; // save apex point
+    this.addDataPoint( apexPoint );
+  }
+
+  /**
+   * @private
+   * @param {DataPoint} dataPoint
+   */
+  addDataPoint( dataPoint ) {
+    this.dataPoints.push( dataPoint );
+
+    // update data probe if apex point is within range
+    this.getDataProbe() && this.getDataProbe().updateDataIfWithinRange( dataPoint );
   }
 
   /**
@@ -390,7 +407,7 @@ class Trajectory extends PhetioObject {
       return null;
     }
 
-    // First, set nearest point and corresponding distance to the first datapoint.
+    // First, set the nearest point and corresponding distance to the first datapoint.
     let nearestPoint = this.dataPoints.get( 0 );
     let minDistance = nearestPoint.position.distanceXY( x, y );
 
@@ -406,25 +423,6 @@ class Trajectory extends PhetioObject {
       }
     }
     return nearestPoint;
-  }
-
-  /**
-   * Given another DataPoint reference, create a new cloned data point in this Trajectory.
-   * @param {DataPoint} dataPoint
-   * @public
-   */
-  addDataPointFromClone( dataPoint ) {
-    this.dataPoints.push(
-      new DataPoint(
-        dataPoint.time,
-        dataPoint.position,
-        dataPoint.airDensity,
-        dataPoint.velocity,
-        dataPoint.acceleration,
-        dataPoint.dragForce,
-        dataPoint.forceGravity
-      )
-    );
   }
 
   /**
