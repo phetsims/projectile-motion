@@ -249,6 +249,9 @@ class Trajectory extends PhetioObject {
     //if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
     if ( Math.sign( newVx ) !== Math.sign( previousPoint.velocity.x ) ) {
       newVx = 0;
+
+      const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
+      newX = previousPoint.position.x + previousPoint.velocity.x * newDt + 0.5 * previousPoint.acceleration.x * newDt * newDt;
     }
 
     const newVelocity = Vector2.pool.fetch().setXY( newVx, newVy );
@@ -323,11 +326,8 @@ class Trajectory extends PhetioObject {
       );
 
       this.dataPoints.push( apexPoint );
-
       assert && assert( this.apexPoint === null, 'already have an apex point' );
-
       this.apexPoint = apexPoint; // save apex point
-
       this.getDataProbe().updateDataIfWithinRange( apexPoint ); //update data probe if apex point is within range
     }
 
