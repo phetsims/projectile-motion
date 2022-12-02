@@ -243,7 +243,7 @@ class Trajectory extends PhetioObject {
     let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * dt;
     const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * dt;
 
-    //if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
+    // if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
     // We do not need to do this adjustment for the y direction because gravity is already resulting in a change in
     // direction, and because our air-resistance model cuts corners already (via linear interpolation).
     if ( Math.sign( newVx ) !== Math.sign( previousPoint.velocity.x ) ) {
