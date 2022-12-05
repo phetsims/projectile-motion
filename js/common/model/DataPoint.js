@@ -28,7 +28,7 @@ class DataPoint {
   constructor( time, position, airDensity, velocity, acceleration, dragForce, forceGravity, options ) {
 
     assert && assert( !isNaN( time ), `DataPoint time is ${time}` );
-    assert && assert( time !== 0 || position.x === 0, `Time is ${time}but x is ${position.x}` );
+    assert && assert( time !== 0 || position.x === 0, `Time is ${time}, but x is ${position.x}` );
 
     options = merge( {
       apex: false,

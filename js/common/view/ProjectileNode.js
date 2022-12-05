@@ -63,31 +63,27 @@ class ProjectileNode extends Node {
     }, options );
     super( options );
 
-    // @public (TrajectoryNode) - create a layer for the projectile object Node that would contain the flying object,
-    // and then the landed object
-    this.projectileViewLayer = new Node();
-
-    // @private
+    // @private - TODO: use disposeEmitter, https://github.com/phetsims/projectile-motion/issues/313
     this.disposeProjectileNodeEmitter = new Emitter();
 
+    let unlandedObjectView = null;
     let landedObjectView = null;
-    let projectileObjectView = null;
 
     // draw projectile object view, which has separate flying and landed views if it has a benchmark.
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     if ( objectType && objectType.viewCreationFunction ) {
-      projectileObjectView = objectType.viewCreationFunction( diameter, modelViewTransform, false );
+      unlandedObjectView = objectType.viewCreationFunction( diameter, modelViewTransform, false );
       landedObjectView = objectType.viewCreationFunction( diameter, modelViewTransform, true );
     }
     else {
-      projectileObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize, dragCoefficient );
+      unlandedObjectView = ProjectileObjectViewFactory.createCustom( transformedBallSize, dragCoefficient );
     }
     // Center the object view, and wrap it in a containing node, so we don't require bounds checks when animating
-    projectileObjectView.center = Vector2.ZERO;
-    projectileObjectView = new Node( {
-      children: [ projectileObjectView ]
+    unlandedObjectView.center = Vector2.ZERO;
+    unlandedObjectView = new Node( {
+      children: [ unlandedObjectView ]
     } );
-    this.projectileViewLayer.addChild( projectileObjectView );
+    this.addChild( unlandedObjectView );
 
 
     // @private {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
@@ -138,16 +134,16 @@ class ProjectileNode extends Node {
       // only rotate the object if it doesn't have an assigned benchmark, or it is an object that rotates
       if ( objectType ? objectType.rotates : true ) {
         let angle;
-        if ( dataPoint.velocity.x ) { // if x velocity is not zero
+        if ( dataPoint.velocity.x !== 0 ) {
           angle = Math.atan( dataPoint.velocity.y / dataPoint.velocity.x );
         }
         else { // x velocity is zero
           angle = dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2;
         }
-        projectileObjectView.setRotation( -angle );
+        unlandedObjectView.setRotation( -angle );
       }
 
-      projectileObjectView.translation = viewPoint.viewPosition;
+      unlandedObjectView.translation = viewPoint.viewPosition;
 
       if ( dataPoint.reachedGround ) {
 
@@ -163,10 +159,10 @@ class ProjectileNode extends Node {
             if ( objectType && ( objectType.benchmark === 'human' || objectType.benchmark === 'car' ) ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
-            if ( this.projectileViewLayer.hasChild( projectileObjectView ) ) {
-              this.projectileViewLayer.removeChild( projectileObjectView );
+            if ( this.hasChild( unlandedObjectView ) ) {
+              this.removeChild( unlandedObjectView );
             }
-            this.projectileViewLayer.addChild( landedObjectView );
+            this.addChild( landedObjectView );
           }
         }
       }
@@ -177,7 +173,6 @@ class ProjectileNode extends Node {
     // @private
     this.disposeProjectileNode = () => {
       this.viewPointProperty.dispose();
-      this.projectileViewLayer.dispose();
       this.disposeProjectileNodeEmitter.emit();
     };
   }

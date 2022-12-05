@@ -92,15 +92,11 @@ class StatsProjectileControlPanel extends Panel {
 
     for ( let i = 0; i < objectTypes.length; i++ ) {
       const projectileType = objectTypes[ i ];
-      assert &&
-        assert( projectileType.benchmark, 'benchmark needed for tandemName' );
+      assert && assert( projectileType.benchmark, 'benchmark needed for tandemName' );
 
       comboBoxItems[ i ] = {
         value: projectileType,
-        node:
-          i === 0
-            ? firstItemNode
-            : new Text( projectileType.name, itemNodeOptions ),
+        node: i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
         tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
       };
     }
@@ -152,12 +148,10 @@ class StatsProjectileControlPanel extends Panel {
       parameterLabel.setBoundsMethod( 'accurate' );
 
       valueProperty.link( value => {
-        const valueReadout = unitsString
-          ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-              value: value,
-              units: unitsString
-            } )
-          : Utils.toFixed( value, 2 );
+        const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+          value: value,
+          units: unitsString
+        } ) : Utils.toFixed( value, 2 );
         parameterLabel.setText( `${labelString}: ${valueReadout}` );
       } );
 
