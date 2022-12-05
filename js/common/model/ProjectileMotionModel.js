@@ -439,7 +439,6 @@ class ProjectileMotionModel {
         initialSpeed,
         this.cannonHeightProperty.value,
         initialAngle );
-      this.numberOfMovingProjectilesProperty.value++;
     }
 
     this.limitTrajectories();

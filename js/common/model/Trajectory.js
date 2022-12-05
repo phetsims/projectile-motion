@@ -98,6 +98,9 @@ class Trajectory extends PhetioObject {
     // @private {number} the number of projectiles that are currently in flight
     this.numberOfMovingProjectilesProperty = numberOfMovingProjectilesProperty;
 
+    //increment the value of numberOfMovingProjectilesProperty in the model
+    this.numberOfMovingProjectilesProperty.value++;
+
     // @private {Emitter} emitter to update the ranks of the trajectories
     this.updateTrajectoryRanksEmitter = updateTrajectoryRanksEmitter;
 
