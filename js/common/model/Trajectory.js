@@ -241,7 +241,7 @@ class Trajectory extends PhetioObject {
     const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
     let newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, dt );
-    let newY = nextPosition( previousPoint.position.y, previousPoint.velocity.y, previousPoint.acceleration.y, dt );
+    const newY = nextPosition( previousPoint.position.y, previousPoint.velocity.y, previousPoint.acceleration.y, dt );
 
     let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * dt;
     const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * dt;
@@ -314,7 +314,8 @@ class Trajectory extends PhetioObject {
         previousPoint.position.x +
         previousPoint.velocity.x * timeToGround +
         0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
-      newY = 0;
+
+      const newPosition = Vector2.pool.create( newX, 0 );
 
       const impactVx = previousPoint.velocity.x + previousPoint.acceleration.x * timeToGround;
       const impactVy = previousPoint.velocity.y + previousPoint.acceleration.y * timeToGround;
