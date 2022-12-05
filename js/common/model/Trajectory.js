@@ -313,14 +313,22 @@ class Trajectory extends PhetioObject {
         0.5 * previousPoint.acceleration.x * timeToGround * timeToGround;
       newY = 0;
 
+      const impactVx = previousPoint.velocity.x + previousPoint.acceleration.x * timeToGround;
+      const impactVy = previousPoint.velocity.y + previousPoint.acceleration.y * timeToGround;
+      const impactVelocity = Vector2.pool.fetch().setXY( impactVx, impactVy );
+      const impactDragForce = this.dragForceForVelocity( impactVelocity );
+
       newPoint = new DataPoint(
         previousPoint.time + timeToGround,
         newPosition,
         this.airDensityProperty.value,
-        Vector2.pool.create( 0, 0 ), // velocity
-        Vector2.pool.create( 0, 0 ), // acceleration
-        Vector2.pool.create( 0, 0 ), // drag force
-        -this.gravityProperty.value * this.mass,
+        impactVelocity,
+        Vector2.pool.create(
+          -impactDragForce.x / this.mass,
+          -this.gravityProperty.value - impactDragForce.y / this.mass
+        ), // acceleration
+        impactDragForce, // drag force
+        -this.gravityProperty.value * this.mass, // force gravity
         {
           // add this special property to just the last datapoint collected for a trajectory
           reachedGround: true
