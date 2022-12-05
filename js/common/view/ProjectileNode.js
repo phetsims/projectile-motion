@@ -10,7 +10,6 @@
  */
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import Emitter from '../../../../axon/js/Emitter.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -62,9 +61,6 @@ class ProjectileNode extends Node {
       preventFit: true
     }, options );
     super( options );
-
-    // @private - TODO: use disposeEmitter, https://github.com/phetsims/projectile-motion/issues/313
-    this.disposeProjectileNodeEmitter = new Emitter();
 
     let unlandedObjectView = null;
     let landedObjectView = null;
@@ -121,7 +117,7 @@ class ProjectileNode extends Node {
       this.addChild( freeBodyDiagram );
 
       // will be disposed if hits the ground, but cover the case where it is disposed mid-air
-      this.disposeProjectileNodeEmitter.addListener( () => !freeBodyDiagram.isDisposed && freeBodyDiagram.dispose() );
+      this.disposeEmitter.addListener( () => !freeBodyDiagram.isDisposed && freeBodyDiagram.dispose() );
     }
 
     // keep track of if this Projectile has been removed from the main layer yet so we don't do it twice.
@@ -173,7 +169,6 @@ class ProjectileNode extends Node {
     // @private
     this.disposeProjectileNode = () => {
       this.viewPointProperty.dispose();
-      this.disposeProjectileNodeEmitter.emit();
     };
   }
 
@@ -206,7 +201,7 @@ class ProjectileNode extends Node {
       }
     } );
 
-    this.disposeProjectileNodeEmitter.addListener( () => {
+    this.disposeEmitter.addListener( () => {
       multilink.dispose();
       xVelocityArrow.dispose();
       yVelocityArrow.dispose();
@@ -243,7 +238,7 @@ class ProjectileNode extends Node {
       }
     } );
 
-    this.disposeProjectileNodeEmitter.addListener( () => {
+    this.disposeEmitter.addListener( () => {
       multilink.dispose();
       totalVelocityArrow.dispose();
     } );
@@ -290,7 +285,7 @@ class ProjectileNode extends Node {
       }
     } );
 
-    this.disposeProjectileNodeEmitter.addListener( () => {
+    this.disposeEmitter.addListener( () => {
       multilink.dispose();
       xAccelerationArrow.dispose();
       yAccelerationArrow.dispose();
@@ -331,7 +326,7 @@ class ProjectileNode extends Node {
       }
     } );
 
-    this.disposeProjectileNodeEmitter.addListener( () => {
+    this.disposeEmitter.addListener( () => {
       totalAccelerationVectorMultilink.dispose();
       totalAccelerationArrow.dispose();
     } );
