@@ -365,9 +365,14 @@ class Trajectory extends PhetioObject {
    * @param {number} dt
    */
   handleApex( previousPoint, newPosition, newVelocity, newDragForce, dt ) {
+    // These are all approximations if there is air resistance
     const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
     const apexX = Utils.linear( 0, dt, previousPoint.position.x, newPosition.x, dtToApex );
-    const apexY = Utils.linear( 0, dt, previousPoint.position.y, newPosition.y, dtToApex );
+    const apexY =
+      previousPoint.position.y +
+      previousPoint.velocity.y * dtToApex +
+      0.5 * previousPoint.acceleration.y * dtToApex * dtToApex;
+
     const apexVelocityX = Utils.linear( 0, dt, previousPoint.velocity.x, newVelocity.x, dtToApex );
     const apexVelocityY = Utils.linear( 0, dt, previousPoint.velocity.y, newVelocity.y, dtToApex );
     const apexDragX = Utils.linear( 0, dt, previousPoint.dragForce.x, newDragForce.x, dtToApex );
