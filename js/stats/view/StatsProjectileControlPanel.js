@@ -210,8 +210,5 @@ class StatsProjectileControlPanel extends Panel {
   }
 }
 
-projectileMotion.register(
-  'StatsProjectileControlPanel',
-  StatsProjectileControlPanel
-);
+projectileMotion.register( 'StatsProjectileControlPanel', StatsProjectileControlPanel );
 export default StatsProjectileControlPanel;

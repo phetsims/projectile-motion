@@ -14,7 +14,6 @@ import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
@@ -25,6 +24,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
 import MagnifyingGlassZoomButtonGroup from '../../../../scenery-phet/js/MagnifyingGlassZoomButtonGroup.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
@@ -596,8 +596,5 @@ class ProjectileMotionScreenView extends ScreenView {
   }
 }
 
-projectileMotion.register(
-  'ProjectileMotionScreenView',
-  ProjectileMotionScreenView
-);
+projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 export default ProjectileMotionScreenView;
