@@ -185,7 +185,7 @@ class TrajectoryNode extends Node {
     function updateOpacity( rank ) {
       //if projectile opacity is set as constant (as in 'stats' screen)
       if ( constantTrajectoryOpacity ) {
-        pathsLayer.opacity = 0.1; // TODO: MOVE TO CONSTANTS, https://github.com/phetsims/projectile-motion/issues/314
+        pathsLayer.opacity = PATH_MAX_OPACITY;
       }
       else {
         const strength = ( maxNumberOfTrajectories - rank ) / maxNumberOfTrajectories;
