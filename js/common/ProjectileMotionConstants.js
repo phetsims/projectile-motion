@@ -42,9 +42,9 @@ const ProjectileMotionConstants = {
   RAPID_FIRE_DELTA_TIME: 0.2,
 
   //group size
-  GROUP_SIZE_DEFAULT: 20,
-  GROUP_SIZE_INCREMENT: 5,
-  GROUP_SIZE_MAX: 100,
+  GROUP_SIZE_DEFAULT: 10,
+  GROUP_SIZE_INCREMENT: 1,
+  GROUP_SIZE_MAX: 20,
 
   CANNON_HEIGHT_RANGE: new Range( 0, 15 ), // in m
   CANNON_ANGLE_RANGE: new Range( -90, 90 ), // in degrees
