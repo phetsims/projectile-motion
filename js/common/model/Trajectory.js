@@ -27,12 +27,8 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
-
-// constants
-const MAX_NUMBER_OF_TRAJECTORIES = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
 
 class Trajectory extends PhetioObject {
 
@@ -131,8 +127,8 @@ class Trajectory extends PhetioObject {
       phetioDocumentation: `${
         'The count of how old this projectile trajectory is. Older trajectories have more ' +
         'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
-        'The second most recent has rank 1. The oldest still on screen has rank '
-      }${MAX_NUMBER_OF_TRAJECTORIES - 1}`,
+        'The second most recent has rank 1.'
+      }`,
       phetioReadOnly: true
     } );
 

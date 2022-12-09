@@ -42,7 +42,7 @@ const TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
 class ProjectileMotionModel {
   /**
-   * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the each model
+   * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the model
    * @param {boolean} defaultAirResistance -  default air resistance on value
    * @param {ProjectileObjectType[]} possibleObjectTypes - a list of the possible ProjectileObjectTypes for the model
    * @param {Tandem} tandem
@@ -57,19 +57,21 @@ class ProjectileMotionModel {
   ) {
     options = merge(
       {
+        maxProjectiles: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
         defaultCannonHeight: 0,
         defaultCannonAngle: 80,
         defaultInitialSpeed: 18,
-        defaultSpeedStandardDeviation: 1,
-        defaultAngleStandardDeviation: 2,
-        phetioInstrumentAltitudeProperty: true,
-        statsScreen: false
+        defaultSpeedStandardDeviation: 0,
+        defaultAngleStandardDeviation: 0,
+        phetioInstrumentAltitudeProperty: true
       },
       options
     );
 
     assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType,
       'defaultProjectileObjectType should be a ProjectileObjectType' );
+
+    this.maxProjectiles = options.maxProjectiles;
 
     // @public {Target} model for handling scoring ( if/when projectile hits target )
     this.target = new Target(
@@ -95,11 +97,8 @@ class ProjectileMotionModel {
       }
     );
 
-    const speedInitialSD = options.statsScreen ? options.defaultSpeedStandardDeviation : 0;
-    const angleInitialSD = options.statsScreen ? options.defaultAngleStandardDeviation : 0;
-
     // @public {Property.<number>}
-    this.initialSpeedStandardDeviationProperty = new NumberProperty( speedInitialSD, {
+    this.initialSpeedStandardDeviationProperty = new NumberProperty( options.defaultSpeedStandardDeviation, {
       tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
       phetioDocumentation: 'The standard deviation of the launch speed',
       units: 'm/s',
@@ -120,7 +119,7 @@ class ProjectileMotionModel {
     );
 
     // @public {Property.<number>}
-    this.initialAngleStandardDeviationProperty = new NumberProperty( angleInitialSD, {
+    this.initialAngleStandardDeviationProperty = new NumberProperty( options.defaultAngleStandardDeviation, {
       tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
       phetioDocumentation: 'The standard deviation of the launch angle',
       units: '\u00B0', // degrees
@@ -265,10 +264,10 @@ class ProjectileMotionModel {
     this.fireEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
       ( numMoving, rapidFireMode ) =>
-        !rapidFireMode && numMoving < ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+        !rapidFireMode && numMoving < this.maxProjectiles,
       {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
-        phetioDocumentation: `The fire button is only enabled if there are less than ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES} projectiles in the air.`,
+        phetioDocumentation: `The fire button is only enabled if there are less than ${this.maxProjectiles} projectiles in the air.`,
         phetioValueType: BooleanIO
       }
     );
@@ -294,7 +293,7 @@ class ProjectileMotionModel {
       phetioReadOnly: true
     } );
 
-    // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to MAX_NUMBER_OF_TRAJECTORIES
+    // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to this.maxProjectiles
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
     this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
@@ -398,7 +397,7 @@ class ProjectileMotionModel {
   limitTrajectories() {
     // create a temporary array to hold all trajectories to be disposed, to avoid array mutation of trajectoryGroup while looping
     const trajectoriesToDispose = [];
-    const numTrajectoriesToDispose = this.trajectoryGroup.count - ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES;
+    const numTrajectoriesToDispose = this.trajectoryGroup.count - this.maxProjectiles;
     if ( numTrajectoriesToDispose > 0 ) {
       for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
         const trajectory = this.trajectoryGroup.getElement( i );
@@ -442,7 +441,6 @@ class ProjectileMotionModel {
     }
 
     this.limitTrajectories();
-    this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
   }
 
   /**

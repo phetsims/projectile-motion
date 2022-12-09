@@ -47,9 +47,9 @@ class TrajectoryNode extends Node {
     viewProperties,
     trajectory,
     transformProperty,
-    maxNumberOfTrajectories = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
-    constantTrajectoryOpacity = false,
-    showPath = true
+    maxNumberOfTrajectories,
+    showPath,
+    constantTrajectoryOpacity
   ) {
     super( { pickable: false, preventFit: true } );
 

@@ -35,11 +35,13 @@ class StatsModel extends ProjectileMotionModel {
     ];
 
     super( objectTypes[ 0 ], false, objectTypes, tandem, {
+      maxProjectiles: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
       defaultCannonHeight: 2,
       defaultCannonAngle: 60,
       defaultInitialSpeed: 15,
-      phetioInstrumentAltitudeProperty: false,
-      statsScreen: true
+      defaultSpeedStandardDeviation: 1,
+      defaultAngleStandardDeviation: 2,
+      phetioInstrumentAltitudeProperty: false
     } );
 
     this.objectTypes = objectTypes;
@@ -60,10 +62,10 @@ class StatsModel extends ProjectileMotionModel {
     this.fireMultipleEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.groupSizeProperty, this.rapidFireModeProperty ],
       ( numMoving, groupSize, rapidFireMode ) =>
-        !rapidFireMode && numMoving + groupSize <= ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+        !rapidFireMode && numMoving + groupSize <= ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
       {
         tandem: tandem.createTandem( 'fireMultipleEnabledProperty' ),
-        phetioDocumentation: `The fire-multi button is only enabled if the number of moving projectiles would not exceed ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES}.`,
+        phetioDocumentation: `The fire-multi button is only enabled if the number of moving projectiles would not exceed ${ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS}.`,
         phetioValueType: BooleanIO
       }
     );

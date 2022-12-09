@@ -70,7 +70,6 @@ class ProjectileMotionScreenView extends ScreenView {
    * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
    * @param {Tandem} tandem
    * @param {Object} [options]
-   * @param {boolean} showPaths - show the trajectory paths
    */
   constructor(
     model,
@@ -78,15 +77,15 @@ class ProjectileMotionScreenView extends ScreenView {
     bottomRightPanel,
     viewProperties,
     tandem,
-    options,
-    maxNumberOfTrajectories = ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
-    constantTrajectoryOpacity = false,
-    showPaths = true
+    options
   ) {
     options = merge( {
       tandem: tandem,
       cannonNodeOptions: {},
-      addFlatirons: true // if false, then flatirons easteregg will never be shown
+      addFlatirons: true, // if false, then flatirons easteregg will never be shown
+      maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES, // max number of trajectories that can be shown
+      showPaths: true, // if false, trajectory paths will not be drawn
+      constantTrajectoryOpacity: false // if true, trajectory paths will not be faded when new ones are added
     }, options );
 
     super( options );
@@ -124,9 +123,9 @@ class ProjectileMotionScreenView extends ScreenView {
         viewProperties,
         addedTrajectory,
         transformProperty,
-        maxNumberOfTrajectories,
-        constantTrajectoryOpacity,
-        showPaths
+        options.maxTrajectories,
+        options.showPaths,
+        options.constantTrajectoryOpacity
       );
 
       // add the view to scene graph

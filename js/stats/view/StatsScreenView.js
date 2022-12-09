@@ -30,7 +30,11 @@ class StatsScreenView extends ProjectileMotionScreenView {
   constructor( model, tandem, options ) {
     options = merge( {
       addFlatirons: false,
-      cannonNodeOptions: { preciseCannonDelta: true }
+      cannonNodeOptions: { preciseCannonDelta: true },
+      maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
+      showPaths: false,
+      constantTrajectoryOpacity: true
+
     }, options );
 
     // contains Properties about vector visibility, used in super class
@@ -80,10 +84,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
       statsPanel,
       visibilityProperties,
       tandem,
-      options,
-      ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
-      true, //constantTrajectoryOpacity
-      false //showPaths
+      options
     );
 
     // @private
