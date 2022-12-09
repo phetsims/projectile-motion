@@ -438,6 +438,8 @@ class ProjectileMotionModel {
         initialSpeed,
         this.cannonHeightProperty.value,
         initialAngle );
+
+      this.updateTrajectoryRanksEmitter.emit(); // increment rank of all trajectories
     }
 
     this.limitTrajectories();
