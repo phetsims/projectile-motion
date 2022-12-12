@@ -15,11 +15,17 @@ import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { Circle, DragListener, HBox, Node, Path, RadialGradient, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, HBox, Node, NodeOptions, Path, RadialGradient, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import DataProbe from '../model/DataProbe.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
+import TProperty from '../../../../axon/js/TProperty.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 const heightString = ProjectileMotionStrings.height;
 const mString = ProjectileMotionStrings.m;
@@ -65,29 +71,30 @@ const DATA_PROBE_CONTENT_WIDTH = 155;
 const RIGHT_SIDE_PADDING = 6;
 const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
+type SelfOptions = EmptySelfOptions;
+type DataProbeNodeOptions = SelfOptions & NodeOptions;
+
 class DataProbeNode extends Node {
+  public readonly isUserControlledProperty: TProperty<boolean>; // is this being handled by user?
+  private readonly dataProbe: DataProbe;
+  private readonly probeOrigin: Vector2; // where the crosshairs cross
 
-  /**
-   * @param {Score} dataProbe - model of the dataProbe tool
-   * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {Object} [options]
-   * @param {ScreenView} screenView
-   */
-  constructor( dataProbe, transformProperty, screenView, options ) {
+  // so events can be forwarded to it by ToolboxPanel
+  private readonly dragListener: DragListener;
+  private readonly rectangle: Rectangle;
 
-    options = merge( {
+  public constructor( dataProbe: DataProbe, transformProperty: TReadOnlyProperty<ModelViewTransform2>, screenView: ScreenView, providedOptions: DataProbeNodeOptions ) {
+
+    const options = optionize<DataProbeNodeOptions, SelfOptions, NodeOptions>()( {
       cursor: 'pointer',
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions );
 
     super();
-
-    // @public is this being handled by user?
     this.isUserControlledProperty = new BooleanProperty( false );
 
-    // @private
     this.dataProbe = dataProbe; // model
-    this.probeOrigin = Vector2.pool.create( 0, 0 ); // where the crosshairs cross
+    this.probeOrigin = Vector2.pool.create( 0, 0 );
 
     // draggable node
     const rectangle = new Rectangle(
@@ -103,7 +110,6 @@ class DataProbeNode extends Node {
       }
     );
 
-    // @private
     this.rectangle = rectangle;
 
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
@@ -138,7 +144,6 @@ class DataProbeNode extends Node {
 
     const dragBoundsProperty = new Property( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
 
-    // @public so events can be forwarded to it by ToolboxPanel
     this.dragListener = new DragListener( {
       positionProperty: dataProbe.positionProperty,
       transform: transformProperty.get(),
@@ -146,8 +151,7 @@ class DataProbeNode extends Node {
       useParentOffset: true,
       start: () => this.isUserControlledProperty.set( true ),
       end: () => this.isUserControlledProperty.set( false ),
-      tandem: options.tandem.createTandem( 'dragListener' ),
-      phetioDocumentation: 'the listener for the dataProbe tool Node'
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
 
     // label and values readouts
@@ -215,7 +219,7 @@ class DataProbeNode extends Node {
     } );
 
     // function align positions, and update model.
-    const updatePosition = position => {
+    const updatePosition = ( position: Vector2 ) => {
       this.probeOrigin.set( transformProperty.get().modelToViewPosition( position ) );
 
       crosshair.center = this.probeOrigin;
@@ -227,9 +231,10 @@ class DataProbeNode extends Node {
       textBox.left = rectangle.left + 2 * SPACING;
       textBox.top = rectangle.top + 2 * SPACING;
 
-      if ( dataProbe.dataPointProperty.get() ) {
-        haloNode.centerX = transformProperty.get().modelToViewX( dataProbe.dataPointProperty.get().position.x );
-        haloNode.centerY = transformProperty.get().modelToViewY( dataProbe.dataPointProperty.get().position.y );
+      const dataPoint = dataProbe.dataPointProperty.get();
+      if ( dataPoint ) {
+        haloNode.centerX = transformProperty.get().modelToViewX( dataPoint.position.x );
+        haloNode.centerY = transformProperty.get().modelToViewY( dataPoint.position.y );
       }
     };
 
@@ -276,12 +281,10 @@ class DataProbeNode extends Node {
     // DataProbeNode lasts for the lifetime of the sim, so links don't need to be disposed.
   }
 
-
   /**
    * Get the bounds of just the dataProbe, excluding the halo node
-   * @public
    */
-  getJustDataProbeBounds() {
+  public getJustDataProbeBounds(): Bounds2 {
     const dataProbeBounds = Bounds2.point( this.probeOrigin.x, this.probeOrigin.y );
 
     // include every child except for the halo in the calculations of dataProbe bounds
@@ -294,12 +297,8 @@ class DataProbeNode extends Node {
 
   /**
    * Create icon of DataProbe node
-   * @public
-   *
-   * @param {Tandem} tandem
-   * @returns {Node}
    */
-  static createIcon( tandem ) {
+  public static createIcon( tandem: Tandem ): Node {
     const rectangle = new Rectangle(
       0,
       0,
@@ -376,12 +375,8 @@ projectileMotion.register( 'DataProbeNode', DataProbeNode );
 
 /**
  * Auxiliary function to create label and number readout for information
- *
- * @param {number} maxWidth - max width for the label and value display
- * @param {string} labelString
- * @param {Property} readoutProperty
  */
-function createInformationBox( maxWidth, labelString, readoutProperty ) {
+function createInformationBox( maxWidth: number, labelString: string, readoutProperty: TReadOnlyProperty<string> ): Node {
 
   // width of white rectangular background, also used for calculating max width
   const backgroundWidth = 60;
