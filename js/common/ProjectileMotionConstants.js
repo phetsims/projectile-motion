@@ -68,7 +68,7 @@ const ProjectileMotionConstants = {
 
   // data point collection along the trajectory
   SLOW_MOTION_FACTOR: 0.33, // time slowdown factor
-  TIME_PER_DATA_POINT: 3, // milliseconds
+  TIME_PER_DATA_POINT: 8, // milliseconds
   TIME_PER_MINOR_DOT: 100, // milliseconds
   TIME_PER_MAJOR_DOT: 1000, // milliseconds
   SMALL_DOT_RADIUS: SMALL_DOT_RADIUS, // in global view coordinates
