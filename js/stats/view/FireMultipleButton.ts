@@ -1,30 +1,30 @@
 // Copyright 2022, University of Colorado Boulder
 
 /**
- * Fire button, just a simple subtype of RectangularPushButton.
+ * Button for firing multiple projectiles, just a simple subtype of RectangularPushButton.
  *
- * @author Andrea Lin (PhET Interactive Simulations)
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import { Image } from '../../../../scenery/js/imports.js';
-import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
+import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import fireMultipleButton_png from '../../../mipmaps/fireMultipleButton_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
+type SelfOptions = {
+  iconWidth?: number;
+};
+
+type FireMultipleButtonOptions = SelfOptions & RectangularPushButtonOptions;
+
 class FireMultipleButton extends RectangularPushButton {
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
-    options = merge(
-      {
-        baseColor: 'rgb( 60, 110, 240 )', // blue
-        iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
-      },
-      options
-    );
+  public constructor( providedOptions: FireMultipleButtonOptions ) {
+
+    const options = optionize<FireMultipleButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
+      baseColor: 'rgb( 60, 110, 240 )', // blue
+      iconWidth: 20 // width of icon, used for scaling, the aspect ratio will determine height
+    }, providedOptions );
 
     // fire button icon
     assert && assert( !options.content, 'this type sets its own content' );
