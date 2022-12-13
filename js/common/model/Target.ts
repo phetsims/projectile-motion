@@ -10,7 +10,6 @@
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -19,7 +18,7 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 class Target {
 
-  public readonly positionProperty: Property<number>;
+  public readonly positionProperty: NumberProperty;
   public readonly scoredEmitter: Emitter<number[]>;
 
   /**
