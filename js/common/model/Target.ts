@@ -5,26 +5,31 @@
  * Landed projectiles give their x position to this model.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matt Blackman (PhET Interactive Simulations)
  */
 
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 class Target {
 
+  public readonly positionProperty: Property<number>;
+  public readonly scoredEmitter: Emitter<number[]>;
+
   /**
-   * @param {number} initialXPosition - initial x position of the target
-   * @param {Tandem} tandem
+   * @param initialXPosition - initial x position of the target
+   * @param tandem
    */
-  constructor( initialXPosition, tandem ) {
+  public constructor( initialXPosition: number, tandem: Tandem ) {
 
     const targetXPropertyTandem = tandem.createTandem( 'positionProperty' );
 
-    // @public {Property.<number>} x position of target
     this.positionProperty = new NumberProperty( initialXPosition, {
       tandem: targetXPropertyTandem,
       phetioDocumentation: 'The x position of the target, in model coordinates',
@@ -38,7 +43,6 @@ class Target {
       }
     } );
 
-    // @public {Emitter} if projectile has scored
     this.scoredEmitter = new Emitter( {
       tandem: tandem.createTandem( 'scoredEmitter' ),
       phetioDocumentation: 'Emits when a projectile hits the target, indicating a "score." More stars are given ' +
@@ -52,20 +56,16 @@ class Target {
 
 
   /**
-   * Reset these Properties
-   * @public
-   * @override
+   * Reset these properties
    */
-  reset() {
+  public reset() : void {
     this.positionProperty.reset();
   }
 
   /**
-   * @public
-   * @returns {bool} is projectileX within the target
-   * @param {number} projectileX - x coordinate of projectile in model coordinates
+   * @param projectileX - x coordinate of projectile in model coordinates
    */
-  checkIfHitTarget( projectileX ) {
+  public checkIfHitTarget( projectileX: number ) : boolean {
     const distance = Math.abs( projectileX - this.positionProperty.get() );
     const hasHitTarget = distance <= ProjectileMotionConstants.TARGET_WIDTH / 2;
 
