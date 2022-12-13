@@ -15,13 +15,17 @@ import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import projectileMotion from '../../projectileMotion.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import Property from '../../../../axon/js/Property.js';
 
 class StatsModel extends ProjectileMotionModel {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
-    // @public
+
+  private objectTypes: ProjectileObjectType[];
+  private timeSinceLastProjectile: number;
+  public groupSizeProperty: Property<number>;
+  public fireMultipleEnabledProperty: DerivedProperty<boolean, number, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+
+  public constructor( tandem: Tandem ) {
     const objectTypes = [
       ProjectileObjectType.CANNONBALL,
       ProjectileObjectType.TANK_SHELL,
@@ -47,7 +51,6 @@ class StatsModel extends ProjectileMotionModel {
     this.objectTypes = objectTypes;
     this.timeSinceLastProjectile = 0;
 
-    // @public {Property.<number>}
     this.groupSizeProperty = new NumberProperty(
       ProjectileMotionConstants.GROUP_SIZE_DEFAULT,
       {
@@ -58,7 +61,6 @@ class StatsModel extends ProjectileMotionModel {
       }
     );
 
-    // @public {DerivedProperty.<boolean>}
     this.fireMultipleEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.groupSizeProperty, this.rapidFireModeProperty ],
       ( numMoving, groupSize, rapidFireMode ) =>
@@ -71,20 +73,11 @@ class StatsModel extends ProjectileMotionModel {
     );
   }
 
-  /**
-   * @public
-   */
-  fireMultipleProjectiles() {
+  public fireMultipleProjectiles(): void {
     super.fireNumProjectiles( this.groupSizeProperty.value );
   }
 
-  /**
-   * Steps the model forward in time using the created eventTimer
-   * @public
-   *
-   * @param {number} dt
-   */
-  step( dt ) {
+  public override step( dt: number ): void {
     super.step( dt );
 
     if ( this.isPlayingProperty.value && this.rapidFireModeProperty.value ) {
@@ -101,9 +94,8 @@ class StatsModel extends ProjectileMotionModel {
 
   /**
    * Reset these Properties
-   * @public
    */
-  reset() {
+  public override reset() : void {
     this.timeSinceLastProjectile = 0;
     this.groupSizeProperty.reset();
     super.reset();
