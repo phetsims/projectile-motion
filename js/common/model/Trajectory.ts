@@ -11,13 +11,13 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import createObservableArray from '../../../../axon/js/createObservableArray.js';
+import createObservableArray, { ObservableArray } from '../../../../axon/js/createObservableArray.js';
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import PhetioObject from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -28,100 +28,137 @@ import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataPoint from './DataPoint.js';
+import DataProbe from './DataProbe.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
+import ProjectileMotionModel from './ProjectileMotionModel.js';
+import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
+
+type TrajectoryOptions = {
+  tandem?: Tandem;
+  phetioDynamicElement?: boolean;
+  phetioType?: IOType;
+};
+
+type LandedEmitterParams = {
+  name?: string;
+  phetioType?: IOType;
+};
 
 class Trajectory extends PhetioObject {
+  private readonly projectileObjectType: ProjectileObjectType;
+  private readonly mass: number;
+  private readonly diameter: number;
+  private readonly dragCoefficient: number;
+  private readonly initialSpeed: number;
+  private readonly initialHeight: number;
+  private readonly initialAngle: number;
+  private readonly gravityProperty: NumberProperty;
+  private readonly airDensityProperty: NumberProperty;
+  private numberOfMovingProjectilesProperty: NumberProperty;
+  private readonly updateTrajectoryRanksEmitter: Emitter;
+  private apexPoint: DataPoint | null;
+  private maxHeight: number;
+  private horizontalDisplacement: number;
+  private flightTime: number;
+  private checkIfHitTarget: ( positionX: number ) => boolean;
+  public hasHitTarget: boolean;
+  private getDataProbe: () => DataProbe | null;
+  public rankProperty: Property<number>;
+  public changedInMidAir: boolean;
+  public readonly dataPoints: ObservableArray<DataPoint>;
+  protected reachedGround: boolean;
+  public projectileDataPointProperty: Property<DataPoint>;
+  private trajectoryLandedEmitter: Emitter<LandedEmitterParams[]>;
+  private disposeTrajectory: () => void;
 
   /**
-   * @param {ProjectileObjectType} projectileObjectType
-   * @param {number} projectileMass
-   * @param {number} projectileDiameter
-   * @param {number} projectileDragCoefficient
-   * @param {number} initialSpeed
-   * @param {number} initialHeight
-   * @param {number} initialAngle
-   * @param {NumberProperty} airDensityProperty
-   * @param {NumberProperty} gravityProperty
-   * @param {Emitter<[]>} updateTrajectoryRanksEmitter
-   * @param {NumberProperty} numberOfMovingProjectilesProperty
-   * @param {function(number):boolean} checkIfHitTarget
-   * @param {function():DataProbe|null} getDataProbe
-   * @param {Object} [options]
+   * @param projectileObjectType
+   * @param projectileMass
+   * @param projectileDiameter
+   * @param projectileDragCoefficient
+   * @param initialSpeed
+   * @param initialHeight
+   * @param initialAngle
+   * @param airDensityProperty
+   * @param gravityProperty
+   * @param updateTrajectoryRanksEmitter
+   * @param numberOfMovingProjectilesProperty
+   * @param checkIfHitTarget
+   * @param getDataProbe
+   * @param [providedOptions]
    */
-  constructor( projectileObjectType, projectileMass, projectileDiameter,
-               projectileDragCoefficient, initialSpeed, initialHeight, initialAngle,
-               airDensityProperty, gravityProperty,
-               updateTrajectoryRanksEmitter, numberOfMovingProjectilesProperty,
-               checkIfHitTarget, getDataProbe, options ) {
-    options = merge(
-      {
-        tandem: Tandem.REQUIRED,
-        phetioDynamicElement: true,
-        phetioType: Trajectory.TrajectoryIO
-      },
-      options
-    );
+  public constructor( projectileObjectType: ProjectileObjectType, projectileMass: number, projectileDiameter: number,
+                      projectileDragCoefficient: number, initialSpeed: number, initialHeight: number, initialAngle: number,
+                      airDensityProperty: NumberProperty, gravityProperty: NumberProperty,
+                      updateTrajectoryRanksEmitter: Emitter, numberOfMovingProjectilesProperty: NumberProperty,
+                      checkIfHitTarget: ( positionX: number ) => boolean, getDataProbe: () => DataProbe | null,
+                      providedOptions?: TrajectoryOptions ) {
+
+    const options = optionize<TrajectoryOptions>()( {
+      tandem: Tandem.REQUIRED,
+      phetioDynamicElement: true,
+      phetioType: Trajectory.TrajectoryIO
+    }, providedOptions );
 
     super( options );
 
-    // @private {ProjectileObjectType} the type of projectile being launched
+    // the type of projectile being launched
     this.projectileObjectType = projectileObjectType;
 
-    // @private {number} mass of projectiles in kilograms
+    // mass of projectiles in kilograms
     this.mass = projectileMass;
 
-    // @private {number} diameter of projectiles in meters
+    // diameter of projectiles in meters
     this.diameter = projectileDiameter;
 
-    // @private {number} drag coefficient of the projectiles
+    // drag coefficient of the projectiles
     this.dragCoefficient = projectileDragCoefficient;
 
-    // @private {number} launch speed of the projectiles
+    // launch speed of the projectiles
     this.initialSpeed = initialSpeed;
 
-    // @private {number} initial height of the projectiles
+    // initial height of the projectiles
     this.initialHeight = initialHeight;
 
-    // @private {number} cannon launch angle
+    // cannon launch angle
     this.initialAngle = initialAngle;
 
-    // @private {number} world gravity
+    // world gravity
     this.gravityProperty = gravityProperty;
 
-    // @private {number} air density
+    // air density
     this.airDensityProperty = airDensityProperty;
 
-    // @private {number} the number of projectiles that are currently in flight
+    // the number of projectiles that are currently in flight
     this.numberOfMovingProjectilesProperty = numberOfMovingProjectilesProperty;
 
     //increment the value of numberOfMovingProjectilesProperty in the model
     this.numberOfMovingProjectilesProperty.value++;
 
-    // @private {Emitter} emitter to update the ranks of the trajectories
+    // emitter to update the ranks of the trajectories
     this.updateTrajectoryRanksEmitter = updateTrajectoryRanksEmitter;
 
-    // @public {DataPoint|null} - contains reference to the apex point, or null if apex point doesn't exist/has been recorded
+    // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
 
-    // @public {number} the maximum height reached by the projectile
+    // the maximum height reached by the projectile
     this.maxHeight = this.initialHeight;
 
-    // @public {number} the horizontal displacement of the projectile from its launch point
+    // the horizontal displacement of the projectile from its launch point
     this.horizontalDisplacement = 0;
 
-    // @public {number} the horizontal displacement of the projectile from its launch point
+    // the horizontal displacement of the projectile from its launch point
     this.flightTime = 0;
 
-    // @private {boolean} the callback from the common Target to check and return if the projectile hit the target
+    // the callback from the common Target to check and return if the projectile hit the target
     this.checkIfHitTarget = checkIfHitTarget;
 
-    // @public {boolean} whether the projectile has hit the target
+    // whether the projectile has hit the target
     this.hasHitTarget = false;
 
-    // @private {function():DataProbe|null} accessor for DataProbe component
+    // accessor for DataProbe component
     this.getDataProbe = getDataProbe;
 
-    // @public {Property.<number>}
     this.rankProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'rankProperty' ),
       phetioDocumentation: `${
@@ -132,10 +169,10 @@ class Trajectory extends PhetioObject {
       phetioReadOnly: true
     } );
 
-    // @public did the trajectory path change in midair due to air density change
+    // did the trajectory path change in midair due to air density change
     this.changedInMidAir = false;
 
-    // @public (read-only) {ObservableArrayDef.<DataPoint>} record points along the trajectory with critical information
+    // record points along the trajectory with critical information
     this.dataPoints = createObservableArray( {
       phetioType: createObservableArray.ObservableArrayIO(
         DataPoint.DataPointIO
@@ -146,7 +183,7 @@ class Trajectory extends PhetioObject {
         'will be first'
     } );
 
-    // @public (read-only) set by TrajectoryIO.js
+    // set by TrajectoryIO.js
     this.reachedGround = false;
 
     // Add one to the rank
@@ -202,7 +239,6 @@ class Trajectory extends PhetioObject {
       }
     } );
 
-    // @private
     this.disposeTrajectory = () => {
       this.apexPoint = null; // remove reference
       this.dataPoints.dispose();
@@ -213,11 +249,9 @@ class Trajectory extends PhetioObject {
   }
 
   /**
-   * @private
-   * @param {Vector2} velocity - the velocity of the projectile
-   * @returns {Vector2} - the drag force on the projectile
+   * @param velocity - the velocity of the projectile
    */
-  dragForceForVelocity( velocity ) {
+  private dragForceForVelocity( velocity: Vector2 ): Vector2 {
     // cross-sectional area of the projectile
     const area = ( Math.PI * this.diameter * this.diameter ) / 4;
     return Vector2.pool.fetch().set( velocity ).multiplyScalar(
@@ -227,11 +261,9 @@ class Trajectory extends PhetioObject {
 
   /**
    * Does calculations and steps the trajectory elements forward given a time step
-   * @public
-   *
-   * @param {number} dt
+   * @param dt - the delta time of the step
    */
-  step( dt ) {
+  public step( dt: number ): void {
     assert && assert( !this.reachedGround, 'Trajectories should not step after reaching ground' );
 
     const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
@@ -283,11 +315,11 @@ class Trajectory extends PhetioObject {
       this.reachedGround = true; // store the information that it has reached the ground
 
       // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-      let timeToGround = null;
+      let timeToGround = 0;
       if ( previousPoint.acceleration.y === 0 ) {
         if ( previousPoint.position.y === 0 ) {
           // We are already on the ground.
-          timeToGround = 0;
+          // timeToGround = 0;
         }
         else if ( previousPoint.velocity.y === 0 ) {
           assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
@@ -354,14 +386,13 @@ class Trajectory extends PhetioObject {
   }
 
   /**
-   * @private
-   * @param {DataPoint} previousPoint
-   * @param {Vector2} newPosition
-   * @param {Vector2} newVelocity
-   * @param {Vector2} newDragForce
-   * @param {number} dt
+   * @param previousPoint
+   * @param newPosition
+   * @param newVelocity
+   * @param newDragForce
+   * @param dt
    */
-  handleApex( previousPoint, newPosition, newVelocity, newDragForce, dt ) {
+  private handleApex( previousPoint: DataPoint, newPosition: Vector2, newVelocity: Vector2, newDragForce: Vector2, dt: number ): void {
     // These are all approximations if there is air resistance
     const dtToApex = Utils.linear( previousPoint.velocity.y, newVelocity.y, 0, dt, 0 );
     const apexX = Utils.linear( 0, dt, previousPoint.position.x, newPosition.x, dtToApex );
@@ -395,27 +426,20 @@ class Trajectory extends PhetioObject {
     this.addDataPoint( apexPoint );
   }
 
-  /**
-   * @private
-   * @param {DataPoint} dataPoint
-   */
-  addDataPoint( dataPoint ) {
+  private addDataPoint( dataPoint: DataPoint ): void {
     this.dataPoints.push( dataPoint );
 
     // update data probe if apex point is within range
-    this.getDataProbe() && this.getDataProbe().updateDataIfWithinRange( dataPoint );
+    this.getDataProbe() && this.getDataProbe()?.updateDataIfWithinRange( dataPoint );
   }
 
   /**
    * Finds the dataPoint in this trajectory with the least euclidian distance to coordinates given,
    * or returns null if this trajectory has no datapoints
-   * @public
-   *
-   * @param {number} x - coordinate in model
-   * @param {number} y - coordinate in model
-   * @returns {DataPoint|null}
+   * @param x - coordinate in model
+   * @param y - coordinate in model
    */
-  getNearestPoint( x, y ) {
+  public getNearestPoint( x: number, y: number ): DataPoint | null {
     if ( this.dataPoints.length === 0 ) {
       return null;
     }
@@ -440,11 +464,10 @@ class Trajectory extends PhetioObject {
 
   /**
    * Create a PhetioGroup for the trajectories
-   * @param {ProjectileMotionModel} model
-   * @param {Tandem} tandem
-   * @public
+   * @param model
+   * @param tandem
    */
-  static createGroup( model, tandem ) {
+  public static createGroup( model: ProjectileMotionModel, tandem: Tandem ): PhetioGroup<Trajectory> {
     const checkIfHitTarget = model.target.checkIfHitTarget.bind( model.target );
     return new PhetioGroup(
       ( tandem, projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
@@ -474,19 +497,16 @@ class Trajectory extends PhetioObject {
 
   /**
    * Dispose this Trajectory, for memory management
-   * @public
    */
-  dispose() {
+  public override dispose(): void {
     this.disposeTrajectory();
     super.dispose();
   }
 
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
-   * @returns {Object.<string,IOType>}
-   * @public
    */
-  static get STATE_SCHEMA() {
+  public static get STATE_SCHEMA() : CompositeSchema {
     return {
       mass: NumberIO,
       diameter: NumberIO,
@@ -508,10 +528,9 @@ class Trajectory extends PhetioObject {
   }
 
   /**
-   * @returns {Array} - map from state object to parameters being passed to createNextElement
-   * @public
+   * @returns map from state object to parameters being passed to createNextElement
    */
-  static stateToArgsForConstructor( stateObject ) {
+  public static stateToArgsForConstructor( stateObject ) : Array {
     return [
       ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ),
       stateObject.mass,
@@ -522,23 +541,23 @@ class Trajectory extends PhetioObject {
       stateObject.initialAngle
     ];
   }
+
+  // Name the types needed to serialize each field on the Trajectory so that it can be used in
+// toStateObject, fromStateObject, and applyState.
+  public static readonly TrajectoryIO = new IOType( 'TrajectoryIO', {
+    valueType: Trajectory,
+
+    // TODO: Add explanation about every state key in STATE_SCHEMA (can be html ul), https://github.com/phetsims/phet-io-sim-specific/issues/7
+    documentation: 'A trajectory outlining the projectile\'s path',
+    stateSchema: Trajectory.STATE_SCHEMA,
+    stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
+  } );
 }
 
 // Calculate the next 1-d position using the basic kinematic function.
-const nextPosition = ( position, velocity, acceleration, time ) => {
+const nextPosition = ( position: number, velocity: number, acceleration: number, time: number ) => {
   return position + velocity * time + 0.5 * acceleration * time * time;
 };
-
-// Name the types needed to serialize each field on the Trajectory so that it can be used in
-// toStateObject, fromStateObject, and applyState.
-Trajectory.TrajectoryIO = new IOType( 'TrajectoryIO', {
-  valueType: Trajectory,
-
-  // TODO: Add explanation about every state key in STATE_SCHEMA (can be html ul), https://github.com/phetsims/phet-io-sim-specific/issues/7
-  documentation: 'A trajectory outlining the projectile\'s path',
-  stateSchema: Trajectory.STATE_SCHEMA,
-  stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
-} );
 
 projectileMotion.register( 'Trajectory', Trajectory );
 export default Trajectory;
