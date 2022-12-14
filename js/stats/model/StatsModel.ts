@@ -17,13 +17,14 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 class StatsModel extends ProjectileMotionModel {
 
   private objectTypes: ProjectileObjectType[];
   private timeSinceLastProjectile: number;
   public groupSizeProperty: Property<number>;
-  public fireMultipleEnabledProperty: DerivedProperty<boolean, number, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+  public readonly fireMultipleEnabledProperty: TReadOnlyProperty<boolean>;
 
   public constructor( tandem: Tandem ) {
     const objectTypes = [
