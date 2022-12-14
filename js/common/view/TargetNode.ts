@@ -7,19 +7,24 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import StarNode from '../../../../scenery-phet/js/StarNode.js';
-import { Circle, DragListener, Node } from '../../../../scenery/js/imports.js';
+import { Circle, DragListener, Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import Target from '../model/Target.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 const mString = ProjectileMotionStrings.m;
@@ -32,29 +37,33 @@ const REWARD_NODE_INITIAL_Y_OFFSET = -10; // in screen coords
 const REWARD_NODE_Y_MOVEMENT = 70; // in screen coords
 const REWARD_NODE_GROWTH_AMOUNT = 0.5; // scale factor, larger = more growth
 
-class TargetNode extends Node {
-  /**
-   * @param {Target} target - model of the target and scoring algorithms
-   * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {ScreenView} screenView
-   * @param {Object} [options]
-   */
-  constructor( target, transformProperty, screenView, options ) {
+type SelfOptions = EmptySelfOptions;
 
-    options = merge( {
+type TargetNodeOptions = SelfOptions & NodeOptions;
+
+class TargetNode extends Node {
+
+  // for coordinate transforms as well as adding the stars as children
+  private readonly screenView: ScreenView;
+
+  // local var to improve readability
+  private readonly positionProperty: NumberProperty;
+  private readonly transformProperty: Property<ModelViewTransform2>;
+
+  // keeps track of rewardNodes that animate when projectile has scored
+  private rewardNodes: Node[];
+
+  public constructor( target: Target, transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions?: TargetNodeOptions ) {
+
+    const options = optionize<TargetNodeOptions, SelfOptions, NodeOptions>()( {
       phetioInputEnabledPropertyInstrumented: true,
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions );
 
     super( options );
 
-    // @private for coordinate transforms as well as adding the stars as children
     this.screenView = screenView;
-
-    // @private - local var to improve readability
     this.positionProperty = target.positionProperty;
-
-    // @private
     this.transformProperty = transformProperty;
 
     // red and white circles of the target
@@ -78,11 +87,7 @@ class TargetNode extends Node {
     const targetView = new Node( {
       pickable: true,
       cursor: 'pointer',
-      children: [
-        outerCircle,
-        middleCircle,
-        innerCircle
-      ]
+      children: [ outerCircle, middleCircle, innerCircle ]
     } );
 
     // scaling the target to the right size
@@ -96,9 +101,9 @@ class TargetNode extends Node {
     // add target to scene graph
     this.addChild( targetView );
 
-    // @private variables used in drag handler
-    let startPoint;
-    let startX;
+    // variables used in drag handler
+    let startPoint: Vector2;
+    let startX: number;
     let mousePoint;
     const horizontalDragHandler = new DragListener( {
       start: event => {
@@ -117,8 +122,7 @@ class TargetNode extends Node {
       },
 
       allowTouchSnag: true,
-      tandem: options.tandem.createTandem( 'dragListener' ),
-      phetioDocumentation: 'The listener to drag the target, this can only drag in a horizontal angle'
+      tandem: options.tandem.createTandem( 'dragListener' )
     } );
 
     // drag target to change horizontal position
@@ -132,7 +136,7 @@ class TargetNode extends Node {
     const distanceLabel = new NumberDisplay(
       this.positionProperty,
       this.positionProperty.range,
-      merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+      combineOptions<NumberDisplayOptions>( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
         textOptions: {
           fill: 'black'
         },
@@ -151,13 +155,12 @@ class TargetNode extends Node {
     // drag text to change horizontal position
     distanceLabel.addInputListener( horizontalDragHandler );
 
-    // @private {Array.<Node>} keeps track of rewardNodes that animate when projectile has scored
     this.rewardNodes = [];
 
     // listen to model for whether target indicator should be shown
     target.scoredEmitter.addListener( numberOfStars => {
 
-      let rewardNode;
+      let rewardNode: Node;
       if ( numberOfStars === 1 ) {
         rewardNode = new Node( {
           children: [
@@ -192,7 +195,7 @@ class TargetNode extends Node {
       const rewardNodeAnimation = new Animation( {
         duration: 1,
         easing: Easing.QUADRATIC_OUT,
-        setValue: newYPos => {
+        setValue: ( newYPos: number ) => {
           rewardNode.centerY = newYPos;
           const animationProportionCompleted = Math.abs( newYPos - rewardNodeStartPosition.y ) / REWARD_NODE_Y_MOVEMENT;
           rewardNode.opacity = 1 - animationProportionCompleted;
@@ -213,7 +216,7 @@ class TargetNode extends Node {
     } );
 
     // Observe changes in the model horizontal position and update the view correspondingly
-    const updateHorizontalPosition = targetX => {
+    const updateHorizontalPosition = ( targetX: number ) => {
       targetView.centerX = this.transformProperty.get().modelToViewX( targetX );
       distanceLabel.centerX = targetView.centerX;
       distanceLabel.top = targetView.bottom + 2;
@@ -236,12 +239,7 @@ class TargetNode extends Node {
 
   }
 
-
-  /**
-   * @private
-   * @param {ModelViewTransform2} transform
-   */
-  updateTargetXRange( transform ) {
+  private updateTargetXRange( transform: ModelViewTransform2 ) : void {
 
     const newRange = new Range(
       transform.viewToModelX( this.screenView.layoutBounds.minX ),
@@ -252,10 +250,8 @@ class TargetNode extends Node {
 
   /**
    * Remove animations
-   * @public
-   * @override
    */
-  reset() {
+  public reset(): void {
     this.rewardNodes.forEach( rewardNode => {
       if ( this.screenView.hasChild( rewardNode ) ) {
         this.screenView.removeChild( rewardNode );

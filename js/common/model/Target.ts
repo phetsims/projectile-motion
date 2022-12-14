@@ -19,7 +19,7 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 class Target {
 
   public readonly positionProperty: NumberProperty;
-  public readonly scoredEmitter: Emitter<number[]>;
+  public readonly scoredEmitter: Emitter<[ number ]>;
 
   /**
    * @param initialXPosition - initial x position of the target
@@ -57,14 +57,14 @@ class Target {
   /**
    * Reset these properties
    */
-  public reset() : void {
+  public reset(): void {
     this.positionProperty.reset();
   }
 
   /**
    * @param projectileX - x coordinate of projectile in model coordinates
    */
-  public checkIfHitTarget( projectileX: number ) : boolean {
+  public checkIfHitTarget( projectileX: number ): boolean {
     const distance = Math.abs( projectileX - this.positionProperty.get() );
     const hasHitTarget = distance <= ProjectileMotionConstants.TARGET_WIDTH / 2;
 

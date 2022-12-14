@@ -10,6 +10,7 @@ import Range from '../../../dot/js/Range.js';
 import Vector2 from '../../../dot/js/Vector2.js';
 import { Shape } from '../../../kite/js/imports.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
+import { NumberDisplayOptions } from '../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
 import { Circle, Node, Path } from '../../../scenery/js/imports.js';
@@ -171,7 +172,7 @@ const ProjectileMotionConstants = {
     backgroundStroke: 'lightGray',
     align: 'right',
     yMargin: 4
-  },
+  } satisfies NumberDisplayOptions,
 
   LABEL_TEXT_OPTIONS: { font: new PhetFont( 14 ) },
 
