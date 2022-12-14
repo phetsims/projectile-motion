@@ -19,7 +19,7 @@ type DataPointOptions = {
   reachedGround?: boolean;
 };
 
-type DataPointStateObject = {
+export type DataPointStateObject = {
   time: number;
   position: Vector2StateObject;
   airDensity: number;
