@@ -6,7 +6,7 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import Vector2 from '../../../../dot/js/Vector2.js';
+import Vector2, { Vector2StateObject } from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -19,16 +19,16 @@ type DataPointOptions = {
   reachedGround?: boolean;
 };
 
-type StateObject = {
-  time?: number;
-  position?: Vector2;
-  airDensity?: number;
-  velocity?: Vector2;
-  acceleration?: Vector2;
-  dragForce?: Vector2;
-  forceGravity?: number;
-  apex?: boolean;
-  reachedGround?: boolean;
+type DataPointStateObject = {
+  time: number;
+  position: Vector2StateObject;
+  airDensity: number;
+  velocity: Vector2StateObject;
+  acceleration: Vector2StateObject;
+  dragForce: Vector2StateObject;
+  forceGravity: number;
+  apex: boolean;
+  reachedGround: boolean;
 };
 
 class DataPoint {
@@ -113,11 +113,11 @@ class DataPoint {
   /**
    * Deserializes a DataPoint instance.
    */
-  public static fromStateObject( stateObject : StateObject ) : DataPoint {
+  public static fromStateObject( stateObject : DataPointStateObject ) : DataPoint {
     return new DataPoint(
       stateObject.time ? stateObject.time : 0,
       Vector2.Vector2IO.fromStateObject( stateObject.position ),
-      stateObject.airDensity!,
+      stateObject.airDensity,
       Vector2.Vector2IO.fromStateObject( stateObject.velocity ),
       Vector2.Vector2IO.fromStateObject( stateObject.acceleration ),
       Vector2.Vector2IO.fromStateObject( stateObject.dragForce ),
