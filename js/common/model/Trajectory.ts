@@ -25,9 +25,9 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
-import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
+import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import projectileMotion from '../../projectileMotion.js';
-import DataPoint from './DataPoint.js';
+import DataPoint, { DataPointStateObject } from './DataPoint.js';
 import DataProbe from './DataProbe.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 import ProjectileMotionModel from './ProjectileMotionModel.js';
@@ -44,6 +44,33 @@ type LandedEmitterParams = {
   phetioType?: IOType;
 };
 
+type TrajectoryStateObject = {
+  mass: number;
+  diameter: number;
+  dragCoefficient: number;
+  changedInMidAir: boolean;
+  reachedGround: boolean;
+  apexPoint: DataPointStateObject | null;
+  maxHeight: number;
+  horizontalDisplacement: number;
+  flightTime: number;
+  hasHitTarget: boolean;
+  projectileObjectType: ReferenceIOState;
+  initialSpeed: number;
+  initialHeight: number;
+  initialAngle: number;
+};
+
+type TrajectoryGroupCreateElementArguments = [
+  ProjectileObjectType,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+];
+
 class Trajectory extends PhetioObject {
   private readonly projectileObjectType: ProjectileObjectType;
   private readonly mass: number;
@@ -56,7 +83,7 @@ class Trajectory extends PhetioObject {
   private readonly airDensityProperty: NumberProperty;
   private numberOfMovingProjectilesProperty: NumberProperty;
   private readonly updateTrajectoryRanksEmitter: Emitter;
-  private apexPoint: DataPoint | null;
+  public apexPoint: DataPoint | null;
   private maxHeight: number;
   private horizontalDisplacement: number;
   private flightTime: number;
@@ -469,10 +496,14 @@ class Trajectory extends PhetioObject {
    */
   public static createGroup( model: ProjectileMotionModel, tandem: Tandem ): PhetioGroup<Trajectory> {
     const checkIfHitTarget = model.target.checkIfHitTarget.bind( model.target );
+
+    // @ts-expect-error - why is this needed right now? + issue comment
     return new PhetioGroup(
       ( tandem, projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
         initialSpeed, initialHeight, initialAngle ) => {
         return new Trajectory( projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
+
+          // @ts-expect-error - why is this needed right now? + issue comment
           initialSpeed, initialHeight, initialAngle, model.airDensityProperty, model.gravityProperty,
           model.updateTrajectoryRanksEmitter, model.numberOfMovingProjectilesProperty, checkIfHitTarget,
           () => {
@@ -506,7 +537,7 @@ class Trajectory extends PhetioObject {
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
    */
-  public static get STATE_SCHEMA() : CompositeSchema {
+  public static get STATE_SCHEMA(): CompositeSchema {
     return {
       mass: NumberIO,
       diameter: NumberIO,
@@ -530,7 +561,7 @@ class Trajectory extends PhetioObject {
   /**
    * @returns map from state object to parameters being passed to createNextElement
    */
-  public static stateToArgsForConstructor( stateObject ) : Array {
+  public static stateToArgsForConstructor( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
     return [
       ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ),
       stateObject.mass,
