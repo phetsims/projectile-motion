@@ -126,6 +126,7 @@ const ProjectileMotionConstants = {
 
   // target
   TARGET_X_DEFAULT: 15, // meters
+  TARGET_X_STATS: 20, // meters
   TARGET_WIDTH: 3, // meters
   TARGET_HEIGHT: 0.6, // meters
 

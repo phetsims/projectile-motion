@@ -46,6 +46,7 @@ class StatsModel extends ProjectileMotionModel {
       defaultInitialSpeed: 15,
       defaultSpeedStandardDeviation: 1,
       defaultAngleStandardDeviation: 2,
+      targetX: ProjectileMotionConstants.TARGET_X_STATS,
       phetioInstrumentAltitudeProperty: false
     } );
 

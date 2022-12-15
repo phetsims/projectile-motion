@@ -63,6 +63,7 @@ class ProjectileMotionModel {
         defaultInitialSpeed: 18,
         defaultSpeedStandardDeviation: 0,
         defaultAngleStandardDeviation: 0,
+        targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
         phetioInstrumentAltitudeProperty: true
       },
       options
@@ -75,7 +76,7 @@ class ProjectileMotionModel {
 
     // @public {Target} model for handling scoring ( if/when projectile hits target )
     this.target = new Target(
-      ProjectileMotionConstants.TARGET_X_DEFAULT,
+      options.targetX,
       tandem.createTandem( 'target' )
     );
 
