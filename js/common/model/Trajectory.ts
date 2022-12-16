@@ -92,27 +92,11 @@ class Trajectory extends PhetioObject {
   public rankProperty: Property<number>;
   public changedInMidAir: boolean;
   public readonly dataPoints: ObservableArray<DataPoint>;
-  protected reachedGround: boolean;
+  public reachedGround: boolean;
   public projectileDataPointProperty: Property<DataPoint>;
   private trajectoryLandedEmitter: Emitter<LandedEmitterParams[]>;
   private disposeTrajectory: () => void;
 
-  /**
-   * @param projectileObjectType
-   * @param projectileMass
-   * @param projectileDiameter
-   * @param projectileDragCoefficient
-   * @param initialSpeed
-   * @param initialHeight
-   * @param initialAngle
-   * @param airDensityProperty
-   * @param gravityProperty
-   * @param updateTrajectoryRanksEmitter
-   * @param numberOfMovingProjectilesProperty
-   * @param checkIfHitTarget
-   * @param getDataProbe
-   * @param [providedOptions]
-   */
   public constructor( projectileObjectType: ProjectileObjectType, projectileMass: number, projectileDiameter: number,
                       projectileDragCoefficient: number, initialSpeed: number, initialHeight: number, initialAngle: number,
                       airDensityProperty: NumberProperty, gravityProperty: NumberProperty,
@@ -411,13 +395,6 @@ class Trajectory extends PhetioObject {
     }
   }
 
-  /**
-   * @param previousPoint
-   * @param newPosition
-   * @param newVelocity
-   * @param newDragForce
-   * @param dt
-   */
   private handleApex( previousPoint: DataPoint ): void {
     // These are all approximations if there is air resistance
     const dtToApex = Math.abs( previousPoint.velocity.y / previousPoint.acceleration.y );
@@ -490,11 +467,10 @@ class Trajectory extends PhetioObject {
    * @param model
    * @param tandem
    */
-  public static createGroup( model: ProjectileMotionModel, tandem: Tandem ): PhetioGroup<Trajectory> {
+  public static createGroup( model: ProjectileMotionModel, tandem: Tandem ): PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments> {
     const checkIfHitTarget = model.target.checkIfHitTarget.bind( model.target );
 
-    // @ts-expect-error - why is this needed right now? + issue comment
-    return new PhetioGroup(
+    return new PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>(
       ( tandem, projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
         initialSpeed, initialHeight, initialAngle ) => {
         return new Trajectory( projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
