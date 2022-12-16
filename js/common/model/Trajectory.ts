@@ -446,13 +446,19 @@ class Trajectory extends PhetioObject {
     ];
   }
 
-  // Name the types needed to serialize each field on the Trajectory so that it can be used in
-// toStateObject, fromStateObject, and applyState.
+  // Name the types needed to serialize each field on the Trajectory so that it can be used in toStateObject, fromStateObject, and applyState.
   public static readonly TrajectoryIO = new IOType( 'TrajectoryIO', {
     valueType: Trajectory,
 
-    // TODO: Add explanation about every state key in STATE_SCHEMA (can be html ul), https://github.com/phetsims/phet-io-sim-specific/issues/7
-    documentation: 'A trajectory outlining the projectile\'s path',
+    documentation: 'A trajectory outlining the projectile\'s path. The following are passed into the state schema:' +
+                   '<ul>' +
+                   '<li>mass: the mass of the projectile' +
+                   '<li>diameter: the diameter of the projectile' +
+                   '<li>dragCoefficient: the drag coefficient of the projectile' +
+                   '<li>initialSpeed: the initial speed of the projectile' +
+                   '<li>initialHeight: the initial height of the projectile' +
+                   '<li>initialAngle: the initial angle of the projectile' +
+                   '</ul>',
     stateSchema: Trajectory.STATE_SCHEMA,
     stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
   } );
