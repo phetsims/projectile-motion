@@ -71,7 +71,7 @@ class EditableProjectileObjectType extends ProjectileObjectType {
       projectileObjectType.dragCoefficient,
       projectileObjectType.benchmark,
       projectileObjectType.rotates,
-      merge( projectileObjectType.options, {
+      merge( projectileObjectType.projectileObjectTypeOptions, {
         phetioType: EditableProjectileObjectType.EditableProjectileObjectTypeIO,
         tandem: tandem
       } ) );
