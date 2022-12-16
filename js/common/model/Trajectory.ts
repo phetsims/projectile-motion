@@ -317,7 +317,6 @@ class Trajectory extends PhetioObject {
       newVelocity, newAcceleration, newDragForce, this.gravityForce(), { reachedGround: this.reachedGround }
     );
 
-    assert && assert( newPoint, 'new data point should be defined' );
     this.addDataPoint( newPoint );
     this.projectileDataPointProperty.set( newPoint );
   }
