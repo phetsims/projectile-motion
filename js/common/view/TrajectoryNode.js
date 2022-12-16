@@ -59,6 +59,24 @@ class TrajectoryNode extends Node {
     // null until after first point is added (nulled out on transform change too).
     let lastViewPosition = null;
 
+    let projectileNode;
+
+    const addProjectileNode = () => {
+      projectileNode && projectileNode.dispose();
+
+      projectileNode = new ProjectileNode(
+        viewProperties,
+        trajectory.projectileDataPointProperty,
+        trajectory.projectileObjectType,
+        trajectory.diameter,
+        trajectory.dragCoefficient,
+        transformProperty.get()
+      );
+      this.addChild( projectileNode );
+    };
+
+    addProjectileNode();
+
     let currentPathShape = null;
     let currentPathStroke = null;
 
@@ -134,24 +152,6 @@ class TrajectoryNode extends Node {
     // view listens to whether a datapoint has been added in the model
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
-
-    let projectileNode;
-
-    const addProjectileNode = () => {
-      projectileNode && projectileNode.dispose();
-
-      projectileNode = new ProjectileNode(
-        viewProperties,
-        trajectory.projectileDataPointProperty,
-        trajectory.projectileObjectType,
-        trajectory.diameter,
-        trajectory.dragCoefficient,
-        transformProperty.get()
-      );
-      this.addChild( projectileNode );
-    };
-
-    addProjectileNode();
 
     function updateTransform() {
       pathsLayer.removeAllChildren();
