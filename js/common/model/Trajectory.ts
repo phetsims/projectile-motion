@@ -234,7 +234,6 @@ class Trajectory extends PhetioObject {
       ]
     } );
 
-    // TODO: move this logic into the step(), https://github.com/phetsims/projectile-motion/issues/308
     this.dataPoints.elementAddedEmitter.addListener( addedDataPoint => {
       this.maxHeight = Math.max( addedDataPoint.position.y, this.maxHeight );
       this.horizontalDisplacement = addedDataPoint.position.x;
@@ -276,29 +275,32 @@ class Trajectory extends PhetioObject {
     );
   }
 
-  /**
-   * Does calculations and steps the trajectory elements forward given a time step
-   * @param dt - the delta time of the step
-   */
   public step( dt: number ): void {
     assert && assert( !this.reachedGround, 'Trajectories should not step after reaching ground' );
 
     const previousPoint = this.dataPoints.get( this.dataPoints.length - 1 );
 
-    let newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, dt );
-    let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * dt;
+    let newY = nextPosition( previousPoint.position.y, previousPoint.velocity.y, previousPoint.acceleration.y, dt );
 
-    const newY = nextPosition( previousPoint.position.y, previousPoint.velocity.y, previousPoint.acceleration.y, dt );
-    const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * dt;
+    if ( newY <= 0 ) {
+      newY = 0;
+      this.reachedGround = true;
+      this.handleLanded();
+    }
+
+    const cappedDeltaTime = this.reachedGround ? this.timeToGround( previousPoint ) : dt;
+
+    let newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, cappedDeltaTime );
+    let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * cappedDeltaTime;
+    const newVy = previousPoint.velocity.y + previousPoint.acceleration.y * cappedDeltaTime;
 
     // if drag force reverses the x-velocity in this step, set vx to zero to better approximate reality
     // We do not need to do this adjustment for the y direction because gravity is already resulting in a change in
     // direction, and because our air-resistance model is not 100% accurate already (via linear interpolation).
     if ( Math.sign( newVx ) !== Math.sign( previousPoint.velocity.x ) ) {
+      const deltaTimeForLargeDragForceX = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
+      newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, deltaTimeForLargeDragForceX );
       newVx = 0;
-
-      const newDt = -1 * previousPoint.velocity.x / previousPoint.acceleration.x;
-      newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, newDt );
     }
 
     const newPosition = Vector2.pool.fetch().setXY( newX, newY );
@@ -311,88 +313,39 @@ class Trajectory extends PhetioObject {
       this.handleApex( previousPoint );
     }
 
-    let newPoint;
-
-    // Still in flight
-    if ( newY > 0 ) {
-      newPoint = new DataPoint(
-        previousPoint.time + dt,
-        newPosition,
-        this.airDensityProperty.value,
-        newVelocity,
-        newAcceleration,
-        newDragForce,
-        this.gravityForce()
-      );
-    }
-    else { // Has reached ground or below
-
-      this.reachedGround = true; // store the information that it has reached the ground
-
-      // recalculate by hand, the time it takes for projectile to reach the ground, within the next dt
-      let timeToGround = 0;
-      if ( previousPoint.acceleration.y === 0 ) {
-        if ( previousPoint.position.y === 0 ) {
-          // We are already on the ground.
-          // timeToGround = 0;
-        }
-        else if ( previousPoint.velocity.y === 0 ) {
-          assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
-        }
-        else {
-          timeToGround = -previousPoint.position.y / previousPoint.velocity.y;
-        }
-      }
-      else {
-        const squareRoot = -Math.sqrt(
-          previousPoint.velocity.y * previousPoint.velocity.y -
-          2 * previousPoint.acceleration.y * previousPoint.position.y
-        );
-        timeToGround =
-          ( squareRoot - previousPoint.velocity.y ) /
-          previousPoint.acceleration.y;
-      }
-
-      newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, timeToGround );
-
-      const newPosition = Vector2.pool.fetch().setXY( newX, 0 );
-
-      const impactVx = previousPoint.velocity.x + previousPoint.acceleration.x * timeToGround;
-      const impactVy = previousPoint.velocity.y + previousPoint.acceleration.y * timeToGround;
-      const impactVelocity = Vector2.pool.fetch().setXY( impactVx, impactVy );
-      const impactDragForce = this.dragForceForVelocity( impactVelocity );
-      const impactAcceleration = this.accelerationForDragForce( impactDragForce );
-
-      newPoint = new DataPoint(
-        previousPoint.time + timeToGround,
-        newPosition,
-        this.airDensityProperty.value,
-        impactVelocity,
-        impactAcceleration,
-        impactDragForce,
-        this.gravityForce(),
-        {
-          // add this special property to just the last datapoint collected for a trajectory
-          reachedGround: true
-        }
-      );
-    }
+    const newPoint = new DataPoint( previousPoint.time + cappedDeltaTime, newPosition, this.airDensityProperty.value,
+      newVelocity, newAcceleration, newDragForce, this.gravityForce(), { reachedGround: this.reachedGround }
+    );
 
     assert && assert( newPoint, 'new data point should be defined' );
-
     this.addDataPoint( newPoint );
-
     this.projectileDataPointProperty.set( newPoint );
+  }
 
-    if ( this.reachedGround ) {
-      this.trajectoryLandedEmitter.emit( this );
-
-      this.numberOfMovingProjectilesProperty.value--;
-      const displacement = this.projectileDataPointProperty.get().position.x;
-
-      // checkIfHitTarget calls back to the target in the common model, where the checking takes place
-      this.hasHitTarget = this.checkIfHitTarget( displacement );
+  private timeToGround( previousPoint: DataPoint ): number {
+    if ( previousPoint.acceleration.y === 0 ) {
+      if ( previousPoint.velocity.y === 0 ) {
+        assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
+        return 0;
+      }
+      else {
+        return -previousPoint.position.y / previousPoint.velocity.y;
+      }
     }
+    else {
+      const squareRoot = -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y -
+                                     2 * previousPoint.acceleration.y * previousPoint.position.y );
+      return ( squareRoot - previousPoint.velocity.y ) / previousPoint.acceleration.y;
+    }
+  }
+
+  private handleLanded(): void {
+    this.trajectoryLandedEmitter.emit( this );
+    this.numberOfMovingProjectilesProperty.value--;
+    const displacement = this.projectileDataPointProperty.get().position.x;
+
+    // checkIfHitTarget calls back to the target in the common model, where the checking takes place
+    this.hasHitTarget = this.checkIfHitTarget( displacement );
   }
 
   private handleApex( previousPoint: DataPoint ): void {
