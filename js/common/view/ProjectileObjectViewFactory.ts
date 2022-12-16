@@ -22,20 +22,83 @@ import pumpkin1_png from '../../../images/pumpkin1_png.js';
 import pumpkin2_png from '../../../images/pumpkin2_png.js';
 import tankShell_png from '../../../images/tankShell_png.js';
 import projectileMotion from '../../projectileMotion.js';
+import type { ProjectileObjectViewCreator } from '../model/ProjectileObjectType.js';
 
-// image
-
-const ProjectileObjectViewFactory = {
+export default class ProjectileObjectViewFactory {
 
   /**
-   * A custom object view
-   * @public
-   *
-   * @param {number} diameter - in meters in model coordinates
-   * @param {number} dragCoefficient
-   * @returns {Circle}
+   * Preset object view functions for benchmarks, some benchmarks have different landed objects
+   * {number} diameter - in meters in model coordinates
+   * {ModelViewTransform2} modelViewTransform
+   * {boolean} landed - whether we want the landed object view, as opposed to a flying projectile view
    */
-  createCustom( diameter, dragCoefficient ) {
+
+  public static createCannonball: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    return new Circle( transformedBallSize / 2, { fill: 'black' } );
+  };
+
+  public static createPumpkin: ProjectileObjectViewCreator = ( diameter, modelViewTransform, landed ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    if ( landed ) {
+      return new Image( pumpkin2_png, { maxHeight: transformedBallSize * 0.75 } );
+    }
+    else {
+      return new Image( pumpkin1_png, { maxHeight: transformedBallSize * 0.95 } );
+    }
+  };
+
+  public static createBaseball: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    return new Image( baseball_png, { maxWidth: transformedBallSize } );
+  };
+
+  public static createCar: ProjectileObjectViewCreator = ( diameter, modelViewTransform, landed ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    if ( landed ) {
+      return new Image( car2_png, { maxHeight: transformedBallSize * 1.7 } );
+    }
+    else {
+      return new Image( car1_png, { maxHeight: transformedBallSize * 0.75 } );
+    }
+  };
+
+  public static createFootball: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    return new Image( football_png, { maxHeight: transformedBallSize } );
+  };
+
+  public static createHuman: ProjectileObjectViewCreator = ( diameter, modelViewTransform, landed ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    if ( landed ) {
+      return new Image( human2_png, { maxWidth: transformedBallSize * 1.35 } );
+    }
+    else {
+      return new Image( human1_png, { maxHeight: transformedBallSize * 1.9 } );
+    }
+  };
+
+  public static createPiano: ProjectileObjectViewCreator = ( diameter, modelViewTransform, landed ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    if ( landed ) {
+      return new Image( piano2_png, { maxWidth: transformedBallSize * 1.3 } );
+    }
+    else {
+      return new Image( piano1_png, { maxWidth: transformedBallSize * 1.1 } );
+    }
+  };
+
+  public static createGolfBall: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
+  };
+
+  public static createTankShell: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
+    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
+    return new Image( tankShell_png, { maxHeight: transformedBallSize } );
+  };
+
+  public static createCustom( diameter: number, dragCoefficient: number ): Node {
 
     // drag coefficients estimated from three sources:
     // https://en.wikipedia.org/wiki/Drag_coefficient#Drag_coefficient_cd_examples
@@ -62,7 +125,7 @@ const ProjectileObjectViewFactory = {
       }
       shape.lineTo( -radius, 0 );
 
-      // to maintain the same cross sectional area
+      // to maintain the same cross-sectional area
       const currentCrossSectionalRadius = ( shape.bounds.maxY - shape.bounds.minY ) / 2;
       const scaleFactor = radius / currentCrossSectionalRadius;
 
@@ -88,84 +151,7 @@ const ProjectileObjectViewFactory = {
       shape.arc( newCenterX, 0, newRadius, -angle, angle, false );
       return new Path( shape, { fill: 'black' } );
     }
-  },
-
-  /**
-   * Preset object view functions for benchmarks, some benchmarks have different landed objects
-   * @public
-   *
-   * @param {number} diameter - in meters in model coordinates
-   * @param {ModelViewTransform2} modelViewTransform
-   * @param {boolean} landed - whether we want the landed object view, as opposed to a flying projectile view
-   * @returns {Circle|Image|Path}
-   */
-
-  createCannonball( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Circle( transformedBallSize / 2, { fill: 'black' } );
-  },
-
-  createPumpkin( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    if ( landed ) {
-      return new Image( pumpkin2_png, { maxHeight: transformedBallSize * 0.75 } );
-    }
-    else {
-      return new Image( pumpkin1_png, { maxHeight: transformedBallSize * 0.95 } );
-    }
-  },
-
-  createBaseball( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( baseball_png, { maxWidth: transformedBallSize } );
-  },
-
-  createCar( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    if ( landed ) {
-      return new Image( car2_png, { maxHeight: transformedBallSize * 1.7 } );
-    }
-    else {
-      return new Image( car1_png, { maxHeight: transformedBallSize * 0.75 } );
-    }
-  },
-
-  createFootball( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( football_png, { maxHeight: transformedBallSize } );
-  },
-
-  createHuman( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    if ( landed ) {
-      return new Image( human2_png, { maxWidth: transformedBallSize * 1.35 } );
-    }
-    else {
-      return new Image( human1_png, { maxHeight: transformedBallSize * 1.9 } );
-    }
-  },
-
-  createPiano( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    if ( landed ) {
-      return new Image( piano2_png, { maxWidth: transformedBallSize * 1.3 } );
-    }
-    else {
-      return new Image( piano1_png, { maxWidth: transformedBallSize * 1.1 } );
-    }
-  },
-
-  createGolfBall( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Circle( transformedBallSize / 2, { fill: 'white', stroke: 'gray' } );
-  },
-
-  createTankShell( diameter, modelViewTransform, landed ) {
-    const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
-    return new Image( tankShell_png, { maxHeight: transformedBallSize } );
   }
-};
+}
 
 projectileMotion.register( 'ProjectileObjectViewFactory', ProjectileObjectViewFactory );
-
-export default ProjectileObjectViewFactory;
