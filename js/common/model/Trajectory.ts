@@ -71,24 +71,24 @@ type TrajectoryGroupCreateElementArguments = [
 ];
 
 class Trajectory extends PhetioObject {
-  private readonly projectileObjectType: ProjectileObjectType;
-  private readonly mass: number;
-  private readonly diameter: number;
-  private readonly dragCoefficient: number;
-  private readonly initialSpeed: number;
-  private readonly initialHeight: number;
-  private readonly initialAngle: number;
-  private readonly gravityProperty: NumberProperty;
-  private readonly airDensityProperty: NumberProperty;
-  private numberOfMovingProjectilesProperty: NumberProperty;
-  private readonly updateTrajectoryRanksEmitter: Emitter;
-  public apexPoint: DataPoint | null;
-  private maxHeight: number;
-  private horizontalDisplacement: number;
-  private flightTime: number;
-  private checkIfHitTarget: ( positionX: number ) => boolean;
-  public hasHitTarget: boolean;
-  private getDataProbe: () => DataProbe | null;
+  private readonly projectileObjectType: ProjectileObjectType; // the type of projectile being launched
+  private readonly mass: number; // mass of projectiles in kilograms
+  private readonly diameter: number; // diameter of projectiles in meters
+  private readonly dragCoefficient: number; // drag coefficient of the projectiles
+  private readonly initialSpeed: number; // launch speed of the projectiles
+  private readonly initialHeight: number; // initial height of the projectiles
+  private readonly initialAngle: number; // cannon launch angle
+  private readonly gravityProperty: NumberProperty; // world gravity
+  private readonly airDensityProperty: NumberProperty; // air density
+  private numberOfMovingProjectilesProperty: NumberProperty; // the number of projectiles that are currently in flight
+  private readonly updateTrajectoryRanksEmitter: Emitter; // emitter to update the ranks of the trajectories
+  public apexPoint: DataPoint | null; // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
+  private maxHeight: number; // the maximum height reached by the projectile
+  private horizontalDisplacement: number; // the horizontal displacement of the projectile from its launch point
+  private flightTime: number; // the horizontal displacement of the projectile from its launch point
+  private checkIfHitTarget: ( positionX: number ) => boolean; // the callback from the common Target to check and return if the projectile hit the target
+  public hasHitTarget: boolean; // whether the projectile has hit the target
+  private getDataProbe: () => DataProbe | null; // accessor for DataProbe component
   public rankProperty: Property<number>;
   public changedInMidAir: boolean;
   public readonly dataPoints: ObservableArray<DataPoint>;
@@ -112,61 +112,24 @@ class Trajectory extends PhetioObject {
 
     super( options );
 
-    // the type of projectile being launched
     this.projectileObjectType = projectileObjectType;
-
-    // mass of projectiles in kilograms
     this.mass = projectileMass;
-
-    // diameter of projectiles in meters
     this.diameter = projectileDiameter;
-
-    // drag coefficient of the projectiles
     this.dragCoefficient = projectileDragCoefficient;
-
-    // launch speed of the projectiles
     this.initialSpeed = initialSpeed;
-
-    // initial height of the projectiles
     this.initialHeight = initialHeight;
-
-    // cannon launch angle
     this.initialAngle = initialAngle;
-
-    // world gravity
     this.gravityProperty = gravityProperty;
-
-    // air density
     this.airDensityProperty = airDensityProperty;
-
-    // the number of projectiles that are currently in flight
     this.numberOfMovingProjectilesProperty = numberOfMovingProjectilesProperty;
-
-    //increment the value of numberOfMovingProjectilesProperty in the model
     this.numberOfMovingProjectilesProperty.value++;
-
-    // emitter to update the ranks of the trajectories
     this.updateTrajectoryRanksEmitter = updateTrajectoryRanksEmitter;
-
-    // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
     this.apexPoint = null;
-
-    // the maximum height reached by the projectile
     this.maxHeight = this.initialHeight;
-
-    // the horizontal displacement of the projectile from its launch point
     this.horizontalDisplacement = 0;
-
-    // the horizontal displacement of the projectile from its launch point
     this.flightTime = 0;
-
-    // the callback from the common Target to check and return if the projectile hit the target
     this.checkIfHitTarget = checkIfHitTarget;
-
-    // whether the projectile has hit the target
     this.hasHitTarget = false;
-
-    // accessor for DataProbe component
     this.getDataProbe = getDataProbe;
 
     this.rankProperty = new NumberProperty( 0, {
@@ -210,14 +173,8 @@ class Trajectory extends PhetioObject {
     const dragForce = this.dragForceForVelocity( velocity );
     const acceleration = this.accelerationForDragForce( dragForce );
 
-    const initialPoint = new DataPoint(
-      0,
-      Vector2.pool.create( 0, this.initialHeight ), // position
-      this.airDensityProperty.value,
-      velocity,
-      acceleration,
-      dragForce,
-      this.gravityForce()
+    const initialPoint = new DataPoint( 0, Vector2.pool.create( 0, this.initialHeight ), this.airDensityProperty.value,
+      velocity, acceleration, dragForce, this.gravityForce()
     );
 
     this.addDataPoint( initialPoint );
