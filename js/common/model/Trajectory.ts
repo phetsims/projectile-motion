@@ -360,17 +360,9 @@ class Trajectory extends PhetioObject {
     const apexDragForce = this.dragForceForVelocity( apexVelocity );
     const apexAcceleration = this.accelerationForDragForce( apexDragForce );
 
-    const apexPoint = new DataPoint(
-      previousPoint.time + dtToApex,
-      Vector2.pool.fetch().setXY( apexX, apexY ),
-      this.airDensityProperty.value,
-      apexVelocity,
-      apexAcceleration,
-      apexDragForce,
-      this.gravityForce(),
-      {
-        apex: true
-      }
+    const apexPoint = new DataPoint( previousPoint.time + dtToApex, Vector2.pool.fetch().setXY( apexX, apexY ),
+      this.airDensityProperty.value, apexVelocity, apexAcceleration, apexDragForce, this.gravityForce(),
+      { apex: true }
     );
 
     assert && assert( this.apexPoint === null, 'already have an apex point' );
