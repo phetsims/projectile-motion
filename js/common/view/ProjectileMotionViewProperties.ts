@@ -7,32 +7,42 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 
-class ProjectileMotionViewProperties {
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+type ProjectileMotionViewPropertiesOptions = {
+  tandem: Tandem;
+  forceProperties: boolean;
+  accelerationProperties: boolean;
+};
 
-    options = merge( {
+class ProjectileMotionViewProperties {
+  public forceProperties: boolean;
+  public accelerationProperties: boolean;
+  public totalVelocityVectorOnProperty: Property<boolean>; // whether total velocity vector is showing
+  public componentsVelocityVectorsOnProperty: Property<boolean>; // whether component velocity vectors are showing
+  public totalAccelerationVectorOnProperty?: Property<boolean>; // whether total acceleration vector is shown
+  public componentsAccelerationVectorsOnProperty?: Property<boolean>; // whether component acceleration vectors are showing
+  public totalForceVectorOnProperty?: Property<boolean>; // whether total force vector is showing
+  public componentsForceVectorsOnProperty?: Property<boolean>; // whether component force vectors are showing
+  public constructor( providedOptions: ProjectileMotionViewPropertiesOptions ) {
+
+    const options = optionize<ProjectileMotionViewPropertiesOptions>()( {
       tandem: Tandem.OPTIONAL,
       forceProperties: true,
       accelerationProperties: true
-    }, options );
+    }, providedOptions );
 
     this.forceProperties = options.forceProperties;
     this.accelerationProperties = options.accelerationProperties;
 
-    // @public whether total velocity vector is showing
     this.totalVelocityVectorOnProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'totalVelocityVectorOnProperty' ),
       phetioDocumentation: 'Whether or not to display the total velocity vectors for flying projectiles'
     } );
 
-    // @public whether component velocity vectors are showing
     this.componentsVelocityVectorsOnProperty = new BooleanProperty( false, {
       tandem: options.tandem.createTandem( 'componentsVelocityVectorsOnProperty' ),
       phetioDocumentation: 'Whether or not to display the component velocity vectors for flying projectiles'
@@ -40,13 +50,11 @@ class ProjectileMotionViewProperties {
 
     if ( options.accelerationProperties ) {
 
-      // @public whether total acceleration vector is shown
       this.totalAccelerationVectorOnProperty = new BooleanProperty( false, {
         tandem: options.tandem.createTandem( 'totalAccelerationVectorOnProperty' ),
         phetioDocumentation: 'Whether or not to display the total acceleration vectors for flying projectiles'
       } );
 
-      // @public whether component acceleration vectors are showing
       this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false, {
         tandem: options.tandem.createTandem( 'componentsAccelerationVectorsOnProperty' ),
         phetioDocumentation: 'Whether or not to display the component acceleration vectors for flying projectiles'
@@ -55,13 +63,11 @@ class ProjectileMotionViewProperties {
 
     if ( options.forceProperties ) {
 
-      // @public whether total force vector is showing
       this.totalForceVectorOnProperty = new BooleanProperty( false, {
         tandem: options.tandem.createTandem( 'totalForceVectorOnProperty' ),
         phetioDocumentation: 'Whether or not to display the total force vectors in a free body diagram for flying projectiles'
       } );
 
-      // @public whether component force vectors are showing
       this.componentsForceVectorsOnProperty = new BooleanProperty( false, {
         tandem: options.tandem.createTandem( 'componentsForceVectorsOnProperty' ),
         phetioDocumentation: 'Whether or not to display the component force vectors in a free body diagram for flying projectiles'
@@ -70,22 +76,17 @@ class ProjectileMotionViewProperties {
     }
   }
 
-  /**
-   * Reset these Properties
-   * @public
-   * @override
-   */
-  reset() {
+  public reset(): void {
     this.totalVelocityVectorOnProperty.reset();
     this.componentsVelocityVectorsOnProperty.reset();
 
     if ( this.accelerationProperties ) {
-      this.totalAccelerationVectorOnProperty.reset();
-      this.componentsAccelerationVectorsOnProperty.reset();
+      this.totalAccelerationVectorOnProperty?.reset();
+      this.componentsAccelerationVectorsOnProperty?.reset();
     }
     if ( this.forceProperties ) {
-      this.totalForceVectorOnProperty.reset();
-      this.componentsForceVectorsOnProperty.reset();
+      this.totalForceVectorOnProperty?.reset();
+      this.componentsForceVectorsOnProperty?.reset();
     }
   }
 }
