@@ -13,7 +13,7 @@ import fireButton_png from '../../../mipmaps/fireButton_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
 type SelfOptions = {
-  baseColor:string;
+  baseColor?:string;
   iconWidth?: number;
 };
 type FireButtonOptions = SelfOptions & RectangularPushButtonOptions;

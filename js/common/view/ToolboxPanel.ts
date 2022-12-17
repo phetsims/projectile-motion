@@ -21,10 +21,10 @@ import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 
 type SelfOptions = {
-  xMargin: number;
-  yMargin: number;
-  fill: string;
-  minWidth: number;
+  xMargin?: number;
+  yMargin?: number;
+  fill?: string;
+  minWidth?: number;
   tandem: Tandem;
 };
 

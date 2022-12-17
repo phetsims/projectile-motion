@@ -73,12 +73,12 @@ const opacityLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_OPACITY_INI
 const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL, MUZZLE_FLASH_SCALE_FINAL );
 
 type SelfOptions = {
-  renderer: string | null;
+  renderer?: string | null;
   preciseCannonDelta?: boolean;
-  tandem: Tandem;
+  tandem?: Tandem;
 };
 
-type CannonNodeOptions = SelfOptions & NodeOptions;
+export type CannonNodeOptions = SelfOptions & NodeOptions;
 
 class CannonNode extends Node {
   private isIntroScreen: boolean;

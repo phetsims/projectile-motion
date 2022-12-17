@@ -16,8 +16,8 @@ import projectileMotion from '../../projectileMotion.js';
 
 class ProjectileMotionMeasuringTape {
 
-  public readonly basePositionProperty: Property<Vector2>;
-  public readonly tipPositionProperty: Property<Vector2>;
+  public readonly basePositionProperty: Vector2Property;
+  public readonly tipPositionProperty: Vector2Property;
   public readonly isActiveProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {

@@ -35,7 +35,7 @@ class BackgroundNode extends Node {
   private road: Rectangle;
   private roadDashedLine: Line;
   private flatirons: Image;
-  public constructor( layoutBounds: Bounds2, providedOptions: BackgroundNodeOptions ) {
+  public constructor( layoutBounds: Bounds2, providedOptions?: BackgroundNodeOptions ) {
 
     const options = optionize<BackgroundNodeOptions, SelfOptions, NodeOptions>()( {
       pickable: false
