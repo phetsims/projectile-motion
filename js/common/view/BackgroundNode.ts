@@ -6,8 +6,10 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Image, Line, LinearGradient, Node, Rectangle } from '../../../../scenery/js/imports.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import { Image, Line, LinearGradient, Node, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
 import flatirons_png from '../../../images/flatirons_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -21,19 +23,26 @@ const YELLOW_LINE_WIDTH = 1.5;
 const FLATIRONS_WIDTH = 450;
 const FLATIRONS_LEFT = 8; // in meters
 
+type SelfOptions = {
+  pickable: boolean;
+};
+
+type BackgroundNodeOptions = SelfOptions & NodeOptions;
+
 class BackgroundNode extends Node {
-  /**
-   * @param {Bounds2} layoutBounds - the ScreenView layoutBounds
-   * @param {Object} [options]
-   */
-  constructor( layoutBounds, options ) {
-    options = merge( {
+  private sky: Rectangle;
+  private grass: Rectangle;
+  private road: Rectangle;
+  private roadDashedLine: Line;
+  private flatirons: Image;
+  public constructor( layoutBounds: Bounds2, providedOptions: BackgroundNodeOptions ) {
+
+    const options = optionize<BackgroundNodeOptions, SelfOptions, NodeOptions>()( {
       pickable: false
-    }, options );
+    }, providedOptions );
 
-    super();
+    super( options );
 
-    // @private
     this.sky = new Rectangle( 0, 0, 0, 0 );
     this.grass = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 0, 173, 78 )' } );
     this.road = new Rectangle( 0, 0, 0, 0, { fill: 'rgb( 77, 77, 75 )' } );
@@ -51,18 +60,7 @@ class BackgroundNode extends Node {
     this.mutate( options );
   }
 
-
-  /**
-   * Layout nodes part of the background
-   * @public
-   *
-   * @param {number} offsetX
-   * @param {number} offsetY
-   * @param {number} width
-   * @param {number} height
-   * @param {number} layoutScale
-   */
-  layout( offsetX, offsetY, width, height, layoutScale ) {
+  public layout = ( offsetX: number, offsetY: number, width: number, height: number, layoutScale: number ): void => {
     const dashedLineY = ProjectileMotionConstants.VIEW_ORIGIN.y;
 
     this.sky.setRect( -offsetX, -offsetY, width / layoutScale, height / layoutScale );
@@ -75,27 +73,17 @@ class BackgroundNode extends Node {
     this.roadDashedLine.setLine( -offsetX, dashedLineY, width / layoutScale, dashedLineY );
 
     this.flatirons.bottom = ProjectileMotionConstants.VIEW_ORIGIN.y;
-  }
+  };
 
-  /**
-   * Makes flatirons image visible or invisible
-   * @public
-   *
-   * @param {boolean} visibility
-   */
-  showOrHideFlatirons( visibility ) {
+  // Makes flatirons image visible or invisible
+  public showOrHideFlatirons = ( visibility: boolean ): void => {
     this.flatirons.visible = visibility;
-  }
+  };
 
-  /**
-   * Update position of the mountains if transform changes
-   * @public
-   *
-   * @param {ModelViewTransform2} transform
-   */
-  updateFlatironsPosition( transform ) {
+  // Update position of the mountains if transform changes
+  public updateFlatironsPosition = ( transform: ModelViewTransform2 ): void => {
     this.flatirons.left = transform.modelToViewX( FLATIRONS_LEFT );
-  }
+  };
 }
 
 projectileMotion.register( 'BackgroundNode', BackgroundNode );
