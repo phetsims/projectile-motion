@@ -8,13 +8,18 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, Path } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
+import Trajectory from '../model/Trajectory.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import ProjectileNode from './ProjectileNode.js';
+import DataPoint from '../model/DataPoint.js';
 
 const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
 const PATH_MIN_OPACITY = 0.1;
@@ -34,51 +39,31 @@ const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT; // in m
 const DOT_GREEN = 'rgb( 50, 255, 50 )';
 
 class TrajectoryNode extends Node {
-  /**
-   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown,
-   * only needed to pass down to ProjectileNode
-   * @param {Trajectory} trajectory - model for the trajectory
-   * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {int} maxNumberOfTrajectories
-   * @param {boolean} constantTrajectoryOpacity
-   * @param {boolean} showPath - draw the trajectory path
-   */
-  constructor(
-    viewProperties,
-    trajectory,
-    transformProperty,
-    maxNumberOfTrajectories,
-    showPath,
-    constantTrajectoryOpacity
-  ) {
+  private disposeTrajectoryNode: () => void;
+
+  public constructor( viewProperties: ProjectileMotionViewProperties, trajectory: Trajectory, transformProperty: Property<ModelViewTransform2>,
+                      maxNumberOfTrajectories: number, showPath: boolean, constantTrajectoryOpacity: boolean ) {
     super( { pickable: false, preventFit: true } );
 
     // A single Vector2 instance used for each new model DataPoint to save on memory.
     const addedPointViewPosition = new Vector2( 0, 0 );
 
     // null until after first point is added (nulled out on transform change too).
-    let lastViewPosition = null;
-
-    let projectileNode;
+    let lastViewPosition: Vector2 | null = null;
+    let projectileNode: ProjectileNode | null;
 
     const addProjectileNode = () => {
       projectileNode && projectileNode.dispose();
 
-      projectileNode = new ProjectileNode(
-        viewProperties,
-        trajectory.projectileDataPointProperty,
-        trajectory.projectileObjectType,
-        trajectory.diameter,
-        trajectory.dragCoefficient,
-        transformProperty.get()
-      );
+      projectileNode = new ProjectileNode( viewProperties, trajectory.projectileDataPointProperty, trajectory.projectileObjectType,
+        trajectory.diameter, trajectory.dragCoefficient, transformProperty.value );
       this.addChild( projectileNode );
     };
 
     addProjectileNode();
 
-    let currentPathShape = null;
-    let currentPathStroke = null;
+    let currentPathShape: Shape | null = null;
+    let currentPathStroke: string | null = null;
 
     // Each new Path (created based on change in stroke) will be added as a child to this container.
     const pathsLayer = new Node();
@@ -92,10 +77,10 @@ class TrajectoryNode extends Node {
     this.addChild( pathsLayer );
     this.addChild( dotsPath );
 
-    let apexDot = null;
+    let apexDot: Circle | null = null;
 
     // add view nodes based on new dataPoints added
-    const handleDataPointAdded = addedPoint => {
+    const handleDataPointAdded = ( addedPoint: DataPoint ): void => {
       if ( !showPath ) {
         return; // do not draw the path if showPath is false
       }
@@ -153,7 +138,7 @@ class TrajectoryNode extends Node {
     trajectory.dataPoints.forEach( handleDataPointAdded );
     trajectory.dataPoints.addItemAddedListener( handleDataPointAdded );
 
-    function updateTransform() {
+    const updateTransform = (): void => {
       pathsLayer.removeAllChildren();
 
       currentPathShape = null;
@@ -177,12 +162,12 @@ class TrajectoryNode extends Node {
       trajectory.dataPoints.forEach( handleDataPointAdded );
       addProjectileNode();
       updateOpacity( trajectory.rankProperty.value );
-    }
+    };
 
     // update if model view transform changes
     transformProperty.lazyLink( updateTransform );
 
-    function updateOpacity( rank ) {
+    const updateOpacity = ( rank: number ): void => {
       //if projectile opacity is set as constant (as in 'stats' screen)
       if ( constantTrajectoryOpacity ) {
         pathsLayer.opacity = PATH_MAX_OPACITY;
@@ -198,14 +183,15 @@ class TrajectoryNode extends Node {
         }
         dotsPath.opacity = Math.max( DOTS_MIN_OPACITY, DOTS_MIN_OPACITY + strength * ( DOTS_MAX_OPACITY - DOTS_MIN_OPACITY ) );
       }
-    }
+    };
 
     // change decrease in opacity with each successive projectiled fired
     trajectory.rankProperty.link( updateOpacity );
 
     this.disposeTrajectoryNode = () => {
       while ( pathsLayer.children.length ) {
-        pathsLayer.children.pop().dispose();
+        const childToDispose: Node | undefined = pathsLayer.children.pop();
+        childToDispose?.dispose();
       }
       dotsPath.dispose();
       projectileNode && projectileNode.dispose();
@@ -215,12 +201,7 @@ class TrajectoryNode extends Node {
     };
   }
 
-  /**
-   * Dispose this trajectory for memory management
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeTrajectoryNode();
     super.dispose();
   }

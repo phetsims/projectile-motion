@@ -90,7 +90,7 @@ class ProjectileMotionModel {
    * options
    */
   public constructor( defaultProjectileObjectType: ProjectileObjectType, defaultAirResistanceOn: boolean,
-                      possibleObjectTypes: ProjectileObjectType[], tandem: Tandem, providedOptions: ProjectileMotionModelOptions ) {
+                      possibleObjectTypes: ProjectileObjectType[], tandem: Tandem, providedOptions?: ProjectileMotionModelOptions ) {
 
     const options = optionize<ProjectileMotionModelOptions>()( {
       maxProjectiles: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,

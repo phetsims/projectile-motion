@@ -80,7 +80,7 @@ class DataProbeNode extends Node {
   private readonly probeOrigin: Vector2; // where the crosshairs cross
 
   // so events can be forwarded to it by ToolboxPanel
-  private readonly dragListener: DragListener;
+  public readonly dragListener: DragListener;
   private readonly rectangle: Rectangle;
 
   public constructor( dataProbe: DataProbe, transformProperty: TReadOnlyProperty<ModelViewTransform2>, screenView: ScreenView, providedOptions: DataProbeNodeOptions ) {

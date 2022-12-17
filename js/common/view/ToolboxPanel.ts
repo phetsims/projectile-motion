@@ -19,7 +19,6 @@ import DataProbe from '../model/DataProbe.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 type SelfOptions = {
   xMargin: number;
@@ -49,10 +48,7 @@ class ToolboxPanel extends Panel {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
 
-    //***********
-    //ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS
-    //***********
-
+    //TODO: Combine with ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS - see https://github.com/phetsims/projectile-motion/issues/306
     const options = optionize<ToolboxPanelOptions, SelfOptions, PanelOptions>()( {
       xMargin: 12,
       yMargin: 18,

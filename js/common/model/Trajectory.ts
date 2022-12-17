@@ -63,10 +63,10 @@ type TrajectoryStateObject = {
 export type TrajectoryGroupCreateElementArguments = [ ProjectileObjectType, number, number, number, number, number, number ];
 
 class Trajectory extends PhetioObject {
-  private readonly projectileObjectType: ProjectileObjectType; // the type of projectile being launched
+  public readonly projectileObjectType: ProjectileObjectType; // the type of projectile being launched
   private readonly mass: number; // mass of projectiles in kilograms
-  private readonly diameter: number; // diameter of projectiles in meters
-  private readonly dragCoefficient: number; // drag coefficient of the projectiles
+  public readonly diameter: number; // diameter of projectiles in meters
+  public readonly dragCoefficient: number; // drag coefficient of the projectiles
   private readonly initialSpeed: number; // launch speed of the projectiles
   private readonly initialHeight: number; // initial height of the projectiles
   private readonly initialAngle: number; // cannon launch angle
