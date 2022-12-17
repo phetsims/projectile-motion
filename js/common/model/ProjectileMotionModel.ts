@@ -17,9 +17,10 @@ import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.j
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import EventTimer from '../../../../phet-core/js/EventTimer.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
+import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -31,7 +32,7 @@ import DataProbe from './DataProbe.js';
 import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 import Target from './Target.js';
-import Trajectory from './Trajectory.js';
+import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
 
 // constants
 const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
@@ -40,54 +41,72 @@ const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
 
 const TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
-class ProjectileMotionModel {
-  /**
-   * @param {ProjectileObjectType} defaultProjectileObjectType -  default object type for the model
-   * @param {boolean} defaultAirResistance -  default air resistance on value
-   * @param {ProjectileObjectType[]} possibleObjectTypes - a list of the possible ProjectileObjectTypes for the model
-   * @param {Tandem} tandem
-   * @param options
-   */
-  constructor(
-    defaultProjectileObjectType,
-    defaultAirResistance,
-    possibleObjectTypes,
-    tandem,
-    options
-  ) {
-    options = merge(
-      {
-        maxProjectiles: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
-        defaultCannonHeight: 0,
-        defaultCannonAngle: 80,
-        defaultInitialSpeed: 18,
-        defaultSpeedStandardDeviation: 0,
-        defaultAngleStandardDeviation: 0,
-        targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
-        phetioInstrumentAltitudeProperty: true
-      },
-      options
-    );
+type ProjectileMotionModelOptions = {
+  maxProjectiles: number;
+  defaultCannonHeight: number;
+  defaultCannonAngle: number;
+  defaultInitialSpeed: number;
+  defaultSpeedStandardDeviation: number;
+  defaultAngleStandardDeviation: number;
+  targetX: number;
+  phetioInstrumentAltitudeProperty: boolean;
+};
 
-    assert && assert( defaultProjectileObjectType instanceof ProjectileObjectType,
-      'defaultProjectileObjectType should be a ProjectileObjectType' );
+class ProjectileMotionModel {
+  public maxProjectiles: number;
+  public target: Target;
+  public measuringTape: ProjectileMotionMeasuringTape;
+  public cannonHeightProperty: NumberProperty;
+  public initialSpeedStandardDeviationProperty: NumberProperty;
+  public initialSpeedProperty: VarianceNumberProperty;
+  public initialAngleStandardDeviationProperty: NumberProperty;
+  public cannonAngleProperty: VarianceNumberProperty;
+  public projectileMassProperty: NumberProperty;
+  public projectileDiameterProperty: NumberProperty;
+  public projectileDragCoefficientProperty: NumberProperty;
+  public selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>;
+  public gravityProperty: NumberProperty;
+  public altitudeProperty: NumberProperty;
+  public airResistanceOnProperty: BooleanProperty;
+  public airDensityProperty: DerivedProperty<number, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+  public timeSpeedProperty: EnumerationProperty<TimeSpeed>;
+  public isPlayingProperty: BooleanProperty;
+  public readonly davidHeight: number;
+  public readonly davidPosition: Vector2;
+  public numberOfMovingProjectilesProperty: NumberProperty;
+  public rapidFireModeProperty: BooleanProperty;
+  public fireEnabledProperty: DerivedProperty<boolean, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+  public updateTrajectoryRanksEmitter: Emitter;
+  private eventTimer: EventTimer;
+  public muzzleFlashStepper: Emitter<number[]>; // emits when cannon needs to update its muzzle flash animation
+  public zoomProperty: NumberProperty;
+  public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
+  public dataProbe: DataProbe;
+  /**
+   * {ProjectileObjectType} defaultProjectileObjectType -  default object type for the model
+   * {boolean} defaultAirResistanceOn -  default air resistance on value
+   * {ProjectileObjectType[]} possibleObjectTypes - a list of the possible ProjectileObjectTypes for the model
+   * {Tandem} tandem
+   * options
+   */
+  public constructor( defaultProjectileObjectType: ProjectileObjectType, defaultAirResistanceOn: boolean,
+                      possibleObjectTypes: ProjectileObjectType[], tandem: Tandem, providedOptions: ProjectileMotionModelOptions ) {
+
+    const options = optionize<ProjectileMotionModelOptions>()( {
+      maxProjectiles: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES,
+      defaultCannonHeight: 0,
+      defaultCannonAngle: 80,
+      defaultInitialSpeed: 18,
+      defaultSpeedStandardDeviation: 0,
+      defaultAngleStandardDeviation: 0,
+      targetX: ProjectileMotionConstants.TARGET_X_DEFAULT,
+      phetioInstrumentAltitudeProperty: true
+    }, providedOptions );
 
     this.maxProjectiles = options.maxProjectiles;
+    this.target = new Target( options.targetX, tandem.createTandem( 'target' ) );
+    this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
 
-    // @public {Target} model for handling scoring ( if/when projectile hits target )
-    this.target = new Target(
-      options.targetX,
-      tandem.createTandem( 'target' )
-    );
-
-    // @public {ProjectileMotionMeasuringTape} model for measuring tape
-    this.measuringTape = new ProjectileMotionMeasuringTape(
-      tandem.createTandem( 'measuringTape' )
-    );
-
-    // --initial values
-
-    // @public {Property.<number>}
     this.cannonHeightProperty = new NumberProperty(
       options.defaultCannonHeight,
       {
@@ -95,10 +114,8 @@ class ProjectileMotionModel {
         phetioDocumentation: 'Height of the cannon',
         units: 'm',
         range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
-      }
-    );
+      } );
 
-    // @public {Property.<number>}
     this.initialSpeedStandardDeviationProperty = new NumberProperty( options.defaultSpeedStandardDeviation, {
       tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
       phetioDocumentation: 'The standard deviation of the launch speed',
@@ -106,7 +123,6 @@ class ProjectileMotionModel {
       range: new Range( 0, 10 )
     } );
 
-    // @public {Property.<number>}
     this.initialSpeedProperty = new VarianceNumberProperty(
       options.defaultInitialSpeed, value => {
         return StatUtils.randomFromNormal( value, this.initialSpeedStandardDeviationProperty.value );
@@ -116,10 +132,8 @@ class ProjectileMotionModel {
         phetioDocumentation: 'The speed on launch',
         units: 'm/s',
         range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
-      }
-    );
+      } );
 
-    // @public {Property.<number>}
     this.initialAngleStandardDeviationProperty = new NumberProperty( options.defaultAngleStandardDeviation, {
       tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
       phetioDocumentation: 'The standard deviation of the launch angle',
@@ -127,7 +141,6 @@ class ProjectileMotionModel {
       range: new Range( 0, 30 )
     } );
 
-    // @public {Property.<number>}
     this.cannonAngleProperty = new VarianceNumberProperty(
       options.defaultCannonAngle, value => {
         return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
@@ -137,12 +150,8 @@ class ProjectileMotionModel {
         phetioDocumentation: 'Angle of the cannon',
         units: '\u00B0', // degrees
         range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
-      }
-    );
+      } );
 
-    // --parameters for next projectile fired
-
-    // @public {Property.<number>}
     this.projectileMassProperty = new NumberProperty(
       defaultProjectileObjectType.mass,
       {
@@ -150,10 +159,8 @@ class ProjectileMotionModel {
         phetioDocumentation: 'Mass of the projectile',
         units: 'kg',
         range: ProjectileMotionConstants.PROJECTILE_MASS_RANGE
-      }
-    );
+      } );
 
-    // @public {Property.<number>}
     this.projectileDiameterProperty = new NumberProperty(
       defaultProjectileObjectType.diameter,
       {
@@ -161,10 +168,8 @@ class ProjectileMotionModel {
         phetioDocumentation: 'Diameter of the projectile',
         units: 'm',
         range: ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
-      }
-    );
+      } );
 
-    // @public {Property.<number>}
     this.projectileDragCoefficientProperty = new NumberProperty(
       defaultProjectileObjectType.dragCoefficient,
       {
@@ -172,10 +177,8 @@ class ProjectileMotionModel {
         phetioDocumentation:
           'Drag coefficient of the projectile, unitless as it is a coefficient',
         range: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
-      }
-    );
+      } );
 
-    // @public {Property.<ProjectileObjectType>}
     this.selectedProjectileObjectTypeProperty = new Property(
       defaultProjectileObjectType,
       {
@@ -183,22 +186,16 @@ class ProjectileMotionModel {
         phetioDocumentation: 'The currently selected projectile object type',
         phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
         validValues: possibleObjectTypes
-      }
-    );
+      } );
 
-    // --Properties that change the environment and affect all projectiles, called global
-
-    // @public
     this.gravityProperty = new NumberProperty(
       PhysicalConstants.GRAVITY_ON_EARTH,
       {
         tandem: tandem.createTandem( 'gravityProperty' ),
         phetioDocumentation: 'Acceleration due to gravity',
         units: 'm/s^2'
-      }
-    );
+      } );
 
-    // @public
     this.altitudeProperty = new NumberProperty( 0, {
       tandem: options.phetioInstrumentAltitudeProperty ? tandem.createTandem( 'altitudeProperty' ) : Tandem.OPT_OUT,
       phetioDocumentation: 'Altitude of the environment',
@@ -206,13 +203,11 @@ class ProjectileMotionModel {
       units: 'm'
     } );
 
-    // @public
-    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistance, {
+    this.airResistanceOnProperty = new BooleanProperty( defaultAirResistanceOn, {
       tandem: tandem.createTandem( 'airResistanceOnProperty' ),
       phetioDocumentation: 'Whether air resistance is on'
     } );
 
-    // @public {DerivedProperty.<number>}
     this.airDensityProperty = new DerivedProperty(
       [ this.altitudeProperty, this.airResistanceOnProperty ],
       calculateAirDensity,
@@ -222,46 +217,36 @@ class ProjectileMotionModel {
         phetioDocumentation:
           'air density, depends on altitude and whether air resistance is on',
         phetioValueType: NumberIO
-      }
-    );
+      } );
 
-    // --animation controls
-
-    // @public {Property.<boolean>}
     this.timeSpeedProperty = new EnumerationProperty( TimeSpeed.NORMAL, {
       validValues: [ TimeSpeed.NORMAL, TimeSpeed.SLOW ],
       tandem: tandem.createTandem( 'timeSpeedProperty' ),
       phetioDocumentation: 'Speed of animation, either normal or slow.'
     } );
 
-    // @public
     this.isPlayingProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
       phetioDocumentation:
         'whether animation is playing (as opposed to paused)'
     } );
 
-    // @public (read-only)
     this.davidHeight = 2; // meters
     this.davidPosition = new Vector2( 7, 0 ); // meters
 
-    // @public
     this.numberOfMovingProjectilesProperty = new NumberProperty( 0, {
       tandem: tandem.createTandem( 'numberOfMovingProjectilesProperty' ),
       phetioReadOnly: true,
       phetioDocumentation: 'number of projectiles that are still moving'
     } );
 
-    // @private {Property.<boolean>}
     this.rapidFireModeProperty = new BooleanProperty(
       false,
       {
         tandem: tandem.createTandem( 'rapidFireModeProperty' ),
         phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
-      }
-    );
+      } );
 
-    // @public {DerivedProperty.<boolean>}
     this.fireEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
       ( numMoving, rapidFireMode ) =>
@@ -270,22 +255,17 @@ class ProjectileMotionModel {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
         phetioDocumentation: `The fire button is only enabled if there are less than ${this.maxProjectiles} projectiles in the air.`,
         phetioValueType: BooleanIO
-      }
-    );
+      } );
 
-    // @public {Emitter}
     this.updateTrajectoryRanksEmitter = new Emitter();
 
-    // @private {EventTimer}
     this.eventTimer = new EventTimer(
       new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ),
       this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 )
     );
 
-    // @public {Emitter} emits when cannon needs to update its muzzle flash animation
-    this.muzzleFlashStepper = new Emitter( { parameters: [ { valueType: 'number' } ] } );
+    this.muzzleFlashStepper = new Emitter<number[]>();
 
-    // zoom Property
     this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
       tandem: tandem.createTandem( 'zoomProperty' ),
       range: new Range( MIN_ZOOM, MAX_ZOOM ),
@@ -294,11 +274,9 @@ class ProjectileMotionModel {
       phetioReadOnly: true
     } );
 
-    // @public {PhetioGroup.<Trajectory>} a group of trajectories, limited to this.maxProjectiles
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
     this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
-    // @public {DataProbe} model for the dataProbe probe
     this.dataProbe = new DataProbe(
       this.trajectoryGroup,
       10,
@@ -329,12 +307,7 @@ class ProjectileMotionModel {
     );
   }
 
-  /**
-   * Reset these Properties
-   * @public
-   * @override
-   */
-  reset() {
+  public reset(): void {
     // disposes all trajectories and resets number of moving projectiles Property
     this.eraseTrajectories();
 
@@ -361,13 +334,7 @@ class ProjectileMotionModel {
     this.muzzleFlashStepper.emit( 0 );
   }
 
-  /**
-   * Steps the model forward in time using the created eventTimer
-   * @public
-   *
-   * @param {number} dt
-   */
-  step( dt ) {
+  public step( dt: number ): void {
     if ( this.isPlayingProperty.value ) {
       this.eventTimer.step(
         ( this.timeSpeedProperty.value === TimeSpeed.SLOW ? 0.33 : 1 ) * dt
@@ -375,13 +342,8 @@ class ProjectileMotionModel {
     }
   }
 
-  /**
-   * Steps model elements given a time step, used by the step button
-   * @public
-   *
-   * @param {number} dt
-   */
-  stepModelElements( dt ) {
+  // Steps model elements given a time step, used by the step button
+  public stepModelElements( dt: number ): void {
     for ( let i = 0; i < this.trajectoryGroup.count; i++ ) {
       const trajectory = this.trajectoryGroup.getElement( i );
       if ( !trajectory.reachedGround ) {
@@ -391,11 +353,8 @@ class ProjectileMotionModel {
     this.muzzleFlashStepper.emit( dt );
   }
 
-  /**
-   * Remove and dispose old trajectories that are over the limit from the observable array
-   * @public
-   */
-  limitTrajectories() {
+  // Remove and dispose old trajectories that are over the limit from the observable array
+  public limitTrajectories(): void {
     // create a temporary array to hold all trajectories to be disposed, to avoid array mutation of trajectoryGroup while looping
     const trajectoriesToDispose = [];
     const numTrajectoriesToDispose = this.trajectoryGroup.count - this.maxProjectiles;
@@ -413,21 +372,16 @@ class ProjectileMotionModel {
     }
   }
 
-  /**
-   * Removes all trajectories and resets corresponding Properties
-   * @public
-   */
-  eraseTrajectories() {
+  // Removes all trajectories and resets corresponding Properties
+  public eraseTrajectories(): void {
     this.trajectoryGroup.clear();
     this.numberOfMovingProjectilesProperty.reset();
   }
 
   /**
-   * @public
-   *
-   * @param {number} numProjectiles - the number of simultaneous projectiles to fire
+   * {number} numProjectiles - the number of simultaneous projectiles to fire
    */
-  fireNumProjectiles( numProjectiles ) {
+  public fireNumProjectiles( numProjectiles: number ): void {
     for ( let i = 0; i < numProjectiles; i++ ) {
       const initialSpeed = this.initialSpeedProperty.getRandomizedValue();
       const initialAngle = this.cannonAngleProperty.getRandomizedValue();
@@ -446,11 +400,8 @@ class ProjectileMotionModel {
     this.limitTrajectories();
   }
 
-  /**
-   * Set changedInMidAir to true for trajectories with currently moving projectiles
-   * @private
-   */
-  markMovingTrajectoriesChangedMidAir() {
+  // Set changedInMidAir to true for trajectories with currently moving projectiles
+  private markMovingTrajectoriesChangedMidAir(): void {
     let trajectory;
 
     for ( let j = 0; j < this.trajectoryGroup.count; j++ ) {
@@ -465,11 +416,9 @@ class ProjectileMotionModel {
 
   /**
    * Set mass, diameter, and drag coefficient based on the currently selected projectile object type
-   * @private
-   *
-   * @param {ProjectileObjectType} selectedProjectileObjectType - contains information such as mass, diameter, etc.
+   * {ProjectileObjectType} selectedProjectileObjectType - contains information such as mass, diameter, etc.
    */
-  setProjectileParameters( selectedProjectileObjectType ) {
+  private setProjectileParameters( selectedProjectileObjectType: ProjectileObjectType ): void {
     this.projectileMassProperty.set( selectedProjectileObjectType.mass );
     this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
     this.projectileDragCoefficientProperty.set(
@@ -479,13 +428,10 @@ class ProjectileMotionModel {
 }
 
 /**
- * @param {number} altitude - in meters
- * @param {boolean} airResistanceOn - if off, zero air density
- * @returns {number} - air density
+ * {number} altitude - in meters
+ * {boolean} airResistanceOn - if off, zero air density
  */
-function
-
-calculateAirDensity( altitude, airResistanceOn ) {
+const calculateAirDensity = ( altitude: number, airResistanceOn: boolean ): number => {
   // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
   // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html
 
@@ -517,7 +463,7 @@ calculateAirDensity( altitude, airResistanceOn ) {
   else {
     return 0;
   }
-}
+};
 
 projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 

@@ -60,15 +60,7 @@ type TrajectoryStateObject = {
   initialAngle: number;
 };
 
-type TrajectoryGroupCreateElementArguments = [
-  ProjectileObjectType,
-  number,
-  number,
-  number,
-  number,
-  number,
-  number
-];
+export type TrajectoryGroupCreateElementArguments = [ ProjectileObjectType, number, number, number, number, number, number ];
 
 class Trajectory extends PhetioObject {
   private readonly projectileObjectType: ProjectileObjectType; // the type of projectile being launched
@@ -245,7 +237,7 @@ class Trajectory extends PhetioObject {
       this.handleLanded();
     }
 
-    const cappedDeltaTime = this.reachedGround ? this.timeToGround( previousPoint ) : dt;
+    const cappedDeltaTime = this.reachedGround ? timeToGround( previousPoint ) : dt;
 
     let newX = nextPosition( previousPoint.position.x, previousPoint.velocity.x, previousPoint.acceleration.x, cappedDeltaTime );
     let newVx = previousPoint.velocity.x + previousPoint.acceleration.x * cappedDeltaTime;
@@ -276,23 +268,6 @@ class Trajectory extends PhetioObject {
 
     this.addDataPoint( newPoint );
     this.projectileDataPointProperty.set( newPoint );
-  }
-
-  private timeToGround( previousPoint: DataPoint ): number {
-    if ( previousPoint.acceleration.y === 0 ) {
-      if ( previousPoint.velocity.y === 0 ) {
-        assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
-        return 0;
-      }
-      else {
-        return -previousPoint.position.y / previousPoint.velocity.y;
-      }
-    }
-    else {
-      const squareRoot = -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y -
-                                     2 * previousPoint.acceleration.y * previousPoint.position.y );
-      return ( squareRoot - previousPoint.velocity.y ) / previousPoint.acceleration.y;
-    }
   }
 
   private handleLanded(): void {
@@ -467,6 +442,23 @@ class Trajectory extends PhetioObject {
 // Calculate the next 1-d position using the basic kinematic function.
 const nextPosition = ( position: number, velocity: number, acceleration: number, time: number ) => {
   return position + velocity * time + 0.5 * acceleration * time * time;
+};
+
+const timeToGround = ( previousPoint: DataPoint ): number => {
+  if ( previousPoint.acceleration.y === 0 ) {
+    if ( previousPoint.velocity.y === 0 ) {
+      assert && assert( false, 'How did newY reach <=0 if there was no velocity.y?' );
+      return 0;
+    }
+    else {
+      return -previousPoint.position.y / previousPoint.velocity.y;
+    }
+  }
+  else {
+    const squareRoot = -Math.sqrt( previousPoint.velocity.y * previousPoint.velocity.y -
+                                   2 * previousPoint.acceleration.y * previousPoint.position.y );
+    return ( squareRoot - previousPoint.velocity.y ) / previousPoint.acceleration.y;
+  }
 };
 
 projectileMotion.register( 'Trajectory', Trajectory );

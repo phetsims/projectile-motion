@@ -19,7 +19,7 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
-import Trajectory from './Trajectory.js';
+import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
 
 // constants
 const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
@@ -29,7 +29,7 @@ class DataProbe {
   public readonly positionProperty: Property<Vector2>;
   public readonly isActiveProperty: Property<boolean>;
   public readonly dataPointProperty: Property<null | DataPoint>;
-  private readonly trajectoryGroup: PhetioGroup<Trajectory>;
+  private readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>;
 
   // used to adjust the tolerance of the sensing radius when detecting data points on trajectories.
   private readonly zoomProperty: TReadOnlyProperty<number>;
@@ -41,7 +41,7 @@ class DataProbe {
    * @param zoomProperty - current zoom of the play area
    * @param tandem
    */
-  public constructor( trajectoryGroup: PhetioGroup<Trajectory>, dataProbeX: number, dataProbeY: number,
+  public constructor( trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>, dataProbeX: number, dataProbeY: number,
                       zoomProperty: TReadOnlyProperty<number>, tandem: Tandem ) {
 
     this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {

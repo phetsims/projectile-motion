@@ -72,9 +72,9 @@ class ProjectileObjectType extends PhetioObject {
   public name: string | null; // name of the object, such as 'Golf ball', or null if it doesn't have a name
   public benchmark: string | null; // identifier of the object benchmark, such as 'tankShell', also considered a 'name' for it like for Tandems. null for screens with only one object type
   public rotates: boolean; // whether the object rotates or just translates in air
-  private mass: number; // in kg
-  private diameter: number; // in meters
-  private dragCoefficient: number;
+  public mass: number; // in kg
+  public diameter: number; // in meters
+  public dragCoefficient: number;
   public readonly initialMass: number;
   public readonly initialDiameter: number;
   public readonly initialDragCoefficient: number;
