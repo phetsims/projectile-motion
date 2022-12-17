@@ -8,38 +8,59 @@
  */
 
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import merge from '../../../../phet-core/js/merge.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
 import { DragListener, HBox } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataProbeNode from './DataProbeNode.js';
+import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
+import DataProbe from '../model/DataProbe.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+
+type SelfOptions = {
+  xMargin: number;
+  yMargin: number;
+  fill: string;
+  minWidth: number;
+  tandem: Tandem;
+};
+
+type ToolboxPanelOptions = SelfOptions & PanelOptions;
 
 class ToolboxPanel extends Panel {
 
   /**
-   * @param {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
-   * @param {DataProbe} dataProbe - model for the dataProbe tool
-   * @param {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
-   * @param {DataProbeNode} dataProbeNode - view for the dataProbe tool
-   * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {Object} [options]
+   * {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
+   * {DataProbe} dataProbe - model for the dataProbe tool
+   * {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
+   * {DataProbeNode} dataProbeNode - view for the dataProbe tool
+   * {Property.<ModelViewTransform2>} transformProperty
+   * {Object} [options]
    */
-  constructor( measuringTape, dataProbe, measuringTapeNode, dataProbeNode, transformProperty, options ) {
+  public constructor( measuringTape: ProjectileMotionMeasuringTape, dataProbe: DataProbe, measuringTapeNode: MeasuringTapeNode,
+                      dataProbeNode: DataProbeNode, transformProperty: Property<ModelViewTransform2>, providedOptions: ToolboxPanelOptions ) {
 
     // The first object is an empty placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+
+    //***********
+    //ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS
+    //***********
+
+    const options = optionize<ToolboxPanelOptions, SelfOptions, PanelOptions>()( {
       xMargin: 12,
       yMargin: 18,
       fill: 'white',
       minWidth: 200,
       tandem: Tandem.REQUIRED
-    }, options );
+
+    }, providedOptions );
 
     // Create the icon Node for the dataProbe tool
     const dataProbeIconNode = DataProbeNode.createIcon( options.tandem.createTandem( 'dataProbeIconNode' ) );
