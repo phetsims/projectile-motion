@@ -6,9 +6,12 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
+import Property from '../../../../axon/js/Property.js';
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox, Node, Text, VBox } from '../../../../scenery/js/imports.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import { HBox, Node, Text, TextOptions, VBox, VBoxOptions } from '../../../../scenery/js/imports.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -21,22 +24,25 @@ const dragCoefficientString = ProjectileMotionStrings.dragCoefficient;
 // constants
 const AIR_RESISTANCE_ICON = ProjectileMotionConstants.AIR_RESISTANCE_ICON;
 
-class AirResistanceControl extends VBox {
+type SelfOptions = {
+  labelOptions?: TextOptions;
+  minWidth?: number;
+  xMargin?: number;
+  align?: string;
+  tandem?: Tandem;
+};
 
-  /**
-   * @param {Property.<boolean>} airResistanceOnProperty
-   * @param {Property.<number>} projectileDragCoefficientProperty
-   * @param {Object} [options]
-   */
-  constructor( airResistanceOnProperty, projectileDragCoefficientProperty, options ) {
-    options = merge( {
+type AirResistanceControlOptions = SelfOptions & VBoxOptions;
+
+class AirResistanceControl extends VBox {
+  public constructor( airResistanceOnProperty: BooleanProperty, projectileDragCoefficientProperty: Property<number>, providedOptions: AirResistanceControlOptions ) {
+    const options = optionize<AirResistanceControlOptions, SelfOptions, VBoxOptions>()( {
       labelOptions: {},
       minWidth: 100,
       xMargin: 5,
       align: 'left',
-
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions );
 
     const dragCoefficientText = new Text( '', merge( {}, options.labelOptions, {
       maxWidth: options.minWidth - 2 * options.xMargin,
