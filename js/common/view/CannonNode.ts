@@ -17,7 +17,7 @@ import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import { Color, DragListener, Image, Line, LinearGradient, Node, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
+import { Color, DragListener, Image, Line, LinearGradient, Node, NodeOptions, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
@@ -26,6 +26,11 @@ import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import Property from '../../../../axon/js/Property.js';
+import Emitter from '../../../../axon/js/Emitter.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 
 // image
 
@@ -67,29 +72,35 @@ const DEGREES = MathSymbols.DEGREES;
 const opacityLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_OPACITY_INITIAL, MUZZLE_FLASH_OPACITY_FINAL );
 const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL, MUZZLE_FLASH_SCALE_FINAL );
 
-class CannonNode extends Node {
-  /**
-   * @param {Property.<number>} heightProperty - height of the cannon
-   * @param {Property.<number>} angleProperty - angle of the cannon, in degrees
-   * @param {Emitter} muzzleFlashStepper - emits whenever model steps
-   * @param {Property.<ModelViewTransform2>} transformProperty
-   * @param {ScreenView} screenView
-   * @param {Object} [options]
-   */
-  constructor( heightProperty, angleProperty, muzzleFlashStepper, transformProperty, screenView, options ) {
+type SelfOptions = {
+  renderer: string | null;
+  preciseCannonDelta?: boolean;
+  tandem: Tandem;
+};
 
-    options = merge( {
+type CannonNodeOptions = SelfOptions & NodeOptions;
+
+class CannonNode extends Node {
+  private isIntroScreen: boolean;
+  private heightCueingArrows: Node;
+  private muzzleFlashPlaying: boolean;
+  private muzzleFlashStage: number;
+
+  public constructor( heightProperty: Property<number>, angleProperty: Property<number>, muzzleFlashStepper: Emitter<number[]>,
+                      transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions: CannonNodeOptions ) {
+
+    const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {
       renderer: platform.mobileSafari ? 'canvas' : null,
       preciseCannonDelta: false,
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions );
 
     super( options );
 
     // where the projectile is fired from
-    const viewOrgin = transformProperty.get().modelToViewPosition( new Vector2( 0, 0 ) );
+    const viewOrgin = transformProperty.value.modelToViewPosition( new Vector2( 0, 0 ) );
 
-    // the cannon, muzzle flash, and pedestal are not visible under ground
+    // the cannon, muzzle flash, and pedestal are not visible underground
     const clipContainer = new Node(); // no transform, just for clip area
 
     const cylinderNode = new Node( {
@@ -98,7 +109,7 @@ class CannonNode extends Node {
     clipContainer.addChild( cylinderNode );
 
     // shape used for ground circle and top of pedestal
-    const ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2 );
+    const ellipseShape = Shape.ellipse( 0, 0, ELLIPSE_WIDTH / 2, ELLIPSE_HEIGHT / 2, 0 );
 
     // ground circle, which shows the "inside" of the circular hole that the cannon is sitting in
     const groundFill = new LinearGradient( -ELLIPSE_WIDTH / 2, 0, ELLIPSE_WIDTH / 2, 0 )
@@ -148,14 +159,14 @@ class CannonNode extends Node {
     const cannonBaseTop = new Image( cannonBaseTop_png, { bottom: 0, centerX: 0 } );
     cannonBase.addChild( cannonBaseTop );
 
-    const viewHeightLeaderLineX = transformProperty.get().modelToViewX( HEIGHT_LEADER_LINE_X );
+    const viewHeightLeaderLineX = transformProperty.value.modelToViewX( HEIGHT_LEADER_LINE_X );
 
     // add dashed line for indicating the height
     const heightLeaderLine = new Line(
       viewHeightLeaderLineX,
       viewOrgin.y,
       viewHeightLeaderLineX,
-      transformProperty.get().modelToViewY( heightProperty.get() ), {
+      transformProperty.value.modelToViewY( heightProperty.get() ), {
         stroke: 'black',
         lineDash: [ 5, 5 ]
       }
@@ -166,7 +177,7 @@ class CannonNode extends Node {
       viewHeightLeaderLineX,
       viewOrgin.y,
       viewHeightLeaderLineX,
-      transformProperty.get().modelToViewY( heightProperty.get() ), {
+      transformProperty.value.modelToViewY( heightProperty.get() ), {
         headHeight: 5,
         headWidth: 5,
         tailWidth: 0,
@@ -186,7 +197,7 @@ class CannonNode extends Node {
       stroke: 'black',
       lineWidth: 2
     } );
-    heightLeaderLineBottomCap.x = heightLeaderArrows.tipX;
+    heightLeaderLineBottomCap.x = heightLeaderArrows.getTipX();
     heightLeaderLineBottomCap.y = viewOrgin.y;
 
     // height readout
@@ -202,15 +213,14 @@ class CannonNode extends Node {
     } ), heightLabelOptions );
     heightLabelText.setMouseArea( heightLabelText.bounds.dilatedXY( 8, 10 ) );
     heightLabelText.setTouchArea( heightLabelText.bounds.dilatedXY( 10, 12 ) );
-    heightLabelText.centerX = heightLeaderArrows.tipX;
+    heightLabelText.centerX = heightLeaderArrows.getTipX();
 
     // cueing arrow for dragging height
     const heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
     const heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
     const heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
-    heightCueingArrows.centerX = heightLeaderArrows.tipX;
+    heightCueingArrows.centerX = heightLeaderArrows.getTipX();
 
-    // @private for use in inherit methods
     this.isIntroScreen = ( heightProperty.initialValue !== 0 );
     this.heightCueingArrows = heightCueingArrows;
 
@@ -288,21 +298,21 @@ class CannonNode extends Node {
     this.muzzleFlashStage = 0; // 0 means animation starting, 1 means animation ended.
 
     // Listen to the muzzleFlashStepper to step the muzzle flash animation
-    muzzleFlashStepper.addListener( dt => {
-      if ( this.muzzleFlashPlaying ) {
-        if ( this.muzzleFlashStage < 1 ) {
-          const animationPercentComplete = muzzleFlashDurationCompleteToAnimationPercentComplete( this.muzzleFlashStage );
-          muzzleFlash.opacity = opacityLinearFunction.evaluate( animationPercentComplete );
-          muzzleFlash.setScaleMagnitude( scaleLinearFunction.evaluate( animationPercentComplete ) );
-          this.muzzleFlashStage += ( dt / MUZZLE_FLASH_DURATION );
+    muzzleFlashStepper.addListener( ( dt: number ): void => {
+        if ( this.muzzleFlashPlaying ) {
+          if ( this.muzzleFlashStage < 1 ) {
+            const animationPercentComplete = muzzleFlashDurationCompleteToAnimationPercentComplete( this.muzzleFlashStage );
+            muzzleFlash.opacity = opacityLinearFunction.evaluate( animationPercentComplete );
+            muzzleFlash.setScaleMagnitude( scaleLinearFunction.evaluate( animationPercentComplete ) );
+            this.muzzleFlashStage += ( dt / MUZZLE_FLASH_DURATION );
+          }
+          else {
+            muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
+            muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_FINAL );
+            this.muzzleFlashPlaying = false;
+          }
         }
-        else {
-          muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
-          muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_FINAL );
-          this.muzzleFlashPlaying = false;
-        }
-      }
-    } );
+      } );
 
     // rendering order
     this.setChildren( [
@@ -338,8 +348,8 @@ class CannonNode extends Node {
     let scaleMagnitude = 1;
 
     // Function to transform everything to the right height
-    const updateHeight = height => {
-      const viewHeightPoint = Vector2.pool.create( 0, transformProperty.get().modelToViewY( height ) );
+    const updateHeight = ( height: number ) => {
+      const viewHeightPoint = Vector2.pool.create( 0, transformProperty.value.modelToViewY( height ) );
       const heightInClipCoordinates = this.globalToLocalPoint( screenView.localToGlobalPoint( viewHeightPoint ) ).y;
 
       cannonBarrel.y = heightInClipCoordinates;
@@ -373,26 +383,26 @@ class CannonNode extends Node {
       clipContainer.setClipArea( clipArea.transformed( cylinderNode.matrix ) );
 
       heightLeaderArrows.setTailAndTip(
-        heightLeaderArrows.tailX,
-        heightLeaderArrows.tailY,
-        heightLeaderArrows.tipX,
-        transformProperty.get().modelToViewY( height )
+        heightLeaderArrows.getTailX(),
+        heightLeaderArrows.getTailY(),
+        heightLeaderArrows.getTipX(),
+        transformProperty.value.modelToViewY( height )
       );
-      heightLeaderLine.setLine( heightLeaderArrows.tailX, heightLeaderArrows.tailY, heightLeaderArrows.tipX, heightLeaderArrows.tipY );
-      heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
-      heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
+      heightLeaderLine.setLine( heightLeaderArrows.getTailX(), heightLeaderArrows.getTailY(), heightLeaderArrows.getTipX(), heightLeaderArrows.getTipY() );
+      heightLeaderLineTopCap.x = heightLeaderArrows.getTipX();
+      heightLeaderLineTopCap.y = heightLeaderArrows.getTipY();
       heightLabelText.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         value: Utils.toFixedNumber( height, 2 ),
         units: mString
       } );
-      heightLabelText.centerX = heightLeaderArrows.tipX;
-      heightLabelText.y = heightLeaderArrows.tipY - 5;
+      heightLabelText.centerX = heightLeaderArrows.getTipX();
+      heightLabelText.y = heightLeaderArrows.getTipY() - 5;
       heightLabelBackground.setRectWidth( heightLabelText.width + 2 );
       heightLabelBackground.setRectHeight( heightLabelText.height );
       heightLabelBackground.center = heightLabelText.center;
       heightCueingArrows.y = heightLabelText.centerY;
 
-      angleIndicator.y = transformProperty.get().modelToViewY( height );
+      angleIndicator.y = transformProperty.value.modelToViewY( height );
     };
 
     // Observe changes in model height and update the cannon view
@@ -406,17 +416,15 @@ class CannonNode extends Node {
     // Update the layout of cannon Nodes based on the current transform.
     const updateCannonLayout = () => {
 
-      const transform = transformProperty.get();
-
       // Scale everything to be based on the cannon barrel.
-      scaleMagnitude = transform.modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
+      scaleMagnitude = transformProperty.value.modelToViewDeltaX( CANNON_LENGTH ) / cannonBarrelTop.width;
       cylinderNode.setScaleMagnitude( scaleMagnitude );
       groundCircle.setScaleMagnitude( scaleMagnitude );
       cannonBarrel.setScaleMagnitude( scaleMagnitude );
       cannonBase.setScaleMagnitude( scaleMagnitude );
 
       // Transform the cylindrical Nodes over, because they are offset from the orgin.
-      const newX = transform.modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
+      const newX = transformProperty.value.modelToViewX( CYLINDER_DISTANCE_FROM_ORIGIN );
       cylinderNode.x = newX;
       groundCircle.x = newX;
     };
@@ -429,12 +437,12 @@ class CannonNode extends Node {
 
     // Links in CannonNode last for the lifetime of the sim, so they don't need to be disposed
 
-    // @private variables used for drag listeners
-    let startPoint;
-    let startAngle;
-    let startPointAngle;
-    let mousePoint;
-    let startHeight;
+    // variables used for drag listeners
+    let startPoint: Vector2;
+    let startAngle: number;
+    let startPointAngle: number;
+    let mousePoint: Vector2;
+    let startHeight: number;
 
     // drag the tip of the cannon to change angle
     cannonBarrelTop.addInputListener( new DragListener( {
@@ -482,15 +490,14 @@ class CannonNode extends Node {
       useInputListenerCursor: true,
       allowTouchSnag: true,
       tandem: options.tandem.createTandem( 'barrelTopDragListener' ),
-      phetioEnabledPropertyInstrumented: true,
-      phetioDocumentation: 'the drag listener for the barrel of the cannon to change the angle'
+      phetioEnabledPropertyInstrumented: true
     } ) );
 
     // drag listener for controlling the height
     const heightDragListener = new DragListener( {
       start: event => {
         startPoint = this.globalToLocalPoint( event.pointer.point );
-        startHeight = transformProperty.get().modelToViewY( heightProperty.get() ); // view units
+        startHeight = transformProperty.value.modelToViewY( heightProperty.get() ); // view units
       },
 
       drag: event => {
@@ -519,8 +526,7 @@ class CannonNode extends Node {
       useInputListenerCursor: true,
       allowTouchSnag: true,
       tandem: options.tandem.createTandem( 'heightDragListener' ),
-      phetioEnabledPropertyInstrumented: true,
-      phetioDocumentation: 'the listener to change the height of the cannon, used on multiple Nodes'
+      phetioEnabledPropertyInstrumented: true
     } );
 
     // multiple parts of the cannon can be dragged to change height
@@ -534,29 +540,20 @@ class CannonNode extends Node {
     heightDragListener.enabledProperty.linkAttribute( heightCueingArrows, 'visible' );
   }
 
-  /**
-   * Reset this cannon
-   * @public
-   * @override
-   */
-  reset() {
+  public reset(): void {
     this.muzzleFlashStage = 1;
     this.heightCueingArrows.visible = this.isIntroScreen;
   }
 
-  /**
-   * Make the muzzle flash
-   * @public
-   */
-  flashMuzzle() {
+  public flashMuzzle(): void {
     this.muzzleFlashPlaying = true;
     this.muzzleFlashStage = 0;
   }
 }
 
-function muzzleFlashDurationCompleteToAnimationPercentComplete( timePercentComplete ) {
+const muzzleFlashDurationCompleteToAnimationPercentComplete = ( timePercentComplete: number ): number => {
   return -Math.pow( 2, -10 * timePercentComplete ) + 1; //easing out function
-}
+};
 
 projectileMotion.register( 'CannonNode', CannonNode );
 
