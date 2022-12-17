@@ -5,7 +5,8 @@
 import dotRandom from '../../../dot/js/dotRandom.js';
 
 const StatUtils = {
-  randomFromNormal: ( mean, stardardDeviation ) => {
+
+  randomFromNormal: function( mean: number, stardardDeviation: number ): number {
     let u = 0;
     let v = 0;
     while ( u === 0 ) {
