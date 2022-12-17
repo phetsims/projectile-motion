@@ -17,7 +17,7 @@ const HEIGHT = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.height;
 class DragIconNode extends Rectangle {
   /**
    */
-  constructor() {
+  public constructor() {
 
     // create the background
     const backgroundFill = new LinearGradient( 0, 0, 0, HEIGHT ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
