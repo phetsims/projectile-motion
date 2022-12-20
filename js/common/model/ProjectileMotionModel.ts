@@ -57,30 +57,30 @@ class ProjectileMotionModel {
   public maxProjectiles: number;
   public target: Target;
   public measuringTape: ProjectileMotionMeasuringTape;
-  public cannonHeightProperty: NumberProperty;
-  public initialSpeedStandardDeviationProperty: NumberProperty;
+  public cannonHeightProperty: Property<number>;
+  public initialSpeedStandardDeviationProperty: Property<number>;
   public initialSpeedProperty: VarianceNumberProperty;
-  public initialAngleStandardDeviationProperty: NumberProperty;
+  public initialAngleStandardDeviationProperty: Property<number>;
   public cannonAngleProperty: VarianceNumberProperty;
-  public projectileMassProperty: NumberProperty;
-  public projectileDiameterProperty: NumberProperty;
-  public projectileDragCoefficientProperty: NumberProperty;
+  public projectileMassProperty: Property<number>;
+  public projectileDiameterProperty: Property<number>;
+  public projectileDragCoefficientProperty: Property<number>;
   public selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>;
-  public gravityProperty: NumberProperty;
-  public altitudeProperty: NumberProperty;
-  public airResistanceOnProperty: BooleanProperty;
+  public gravityProperty: Property<number>;
+  public altitudeProperty: Property<number>;
+  public airResistanceOnProperty: Property<boolean>;
   public airDensityProperty: TReadOnlyProperty<number>;
   public timeSpeedProperty: EnumerationProperty<TimeSpeed>;
-  public isPlayingProperty: BooleanProperty;
+  public isPlayingProperty: Property<boolean>;
   public readonly davidHeight: number;
   public readonly davidPosition: Vector2;
-  public numberOfMovingProjectilesProperty: NumberProperty;
-  public rapidFireModeProperty: BooleanProperty;
+  public numberOfMovingProjectilesProperty: Property<number>;
+  public rapidFireModeProperty: Property<boolean>;
   public fireEnabledProperty: TReadOnlyProperty<boolean>;
   public updateTrajectoryRanksEmitter: Emitter;
   private eventTimer: EventTimer;
-  public muzzleFlashStepper: Emitter<number[]>; // emits when cannon needs to update its muzzle flash animation
-  public zoomProperty: NumberProperty;
+  public muzzleFlashStepper: Emitter<[number]>; // emits when cannon needs to update its muzzle flash animation
+  public zoomProperty: Property<number>;
   public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
   public dataProbe: DataProbe;
   /**
