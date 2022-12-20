@@ -15,9 +15,8 @@ import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import ScreenView from '../../../../joist/js/ScreenView.js';
+import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import merge from '../../../../phet-core/js/merge.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -30,18 +29,24 @@ import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { Image, Node } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import ProjectileMotionModel from '../model/ProjectileMotionModel.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import BackgroundNode from './BackgroundNode.js';
 import CannonNode from './CannonNode.js';
+import type { CannonNodeOptions } from './CannonNode.js';
 import DataProbeNode from './DataProbeNode.js';
 import FireButton from './FireButton.js';
+import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import TargetNode from './TargetNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Trajectory from '../model/Trajectory.js';
 
 const initialSpeedString = ProjectileMotionStrings.initialSpeed;
 const initialAngleString = ProjectileMotionStrings.angle;
@@ -62,31 +67,52 @@ const Y_MARGIN = 5;
 const FIRE_BUTTON_MARGIN_X = 40;
 const FLATIRONS_RANGE = new Range( 1500, 1700 );
 
+type SelfOptions = {
+  tandem: Tandem;
+  cannonNodeOptions?: CannonNodeOptions;
+  addFlatirons?: boolean;
+  maxTrajectories?: number;
+  showPaths?: boolean;
+  constantTrajectoryOpacity?: boolean;
+};
+type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions;
+
 class ProjectileMotionScreenView extends ScreenView {
+  private cannonNode: CannonNode;
+  private topRightPanel: Panel;
+  private bottomRightPanel: Panel;
+  private toolboxPanel: ToolboxPanel;
+  private resetAllButton: ResetAllButton;
+  private backgroundNode: BackgroundNode;
+  private zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
+  private eraserButton: EraserButton;
+  private fireButton: FireButton;
+  private timeControlNode: TimeControlNode;
+  private initialSpeedPanel: Panel;
+  private initialAnglePanel: Panel;
+
   /**
-   * @param {ProjectileMotionModel} model
-   * @param {Panel} topRightPanel - the projectile control panel at the top right
-   * @param {Panel} bottomRightPanel - the vectors control panel at the bottom right
-   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * @param {Tandem} tandem
-   * @param {Object} [options]
+   * {ProjectileMotionModel} model
+   * {Panel} topRightPanel - the projectile control panel at the top right
+   * {Panel} bottomRightPanel - the vectors control panel at the bottom right
+   * {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
+   * {Tandem} tandem
+   * {Object} [options]
    */
-  constructor(
-    model,
-    topRightPanel,
-    bottomRightPanel,
-    viewProperties,
-    tandem,
-    options
-  ) {
-    options = merge( {
+  public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel, viewProperties: ProjectileMotionViewProperties,
+                      tandem: Tandem, providedOptions: ProjectileMotionScreenViewOptions ) {
+    const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
       tandem: tandem,
-      cannonNodeOptions: {},
+      cannonNodeOptions: {
+        renderer: platform.mobileSafari ? 'canvas' : null,
+        preciseCannonDelta: false,
+        tandem: Tandem.REQUIRED
+      },
       addFlatirons: true, // if false, then flatirons easteregg will never be shown
       maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES, // max number of trajectories that can be shown
       showPaths: true, // if false, trajectory paths will not be drawn
       constantTrajectoryOpacity: false // if true, trajectory paths will not be faded when new ones are added
-    }, options );
+    }, providedOptions );
 
     super( options );
 
@@ -117,7 +143,7 @@ class ProjectileMotionScreenView extends ScreenView {
     // trajectories layer, so all trajectories are in front of control panel but behind measuring tape
     const trajectoriesLayer = new Node();
 
-    function handleTrajectoryAdded( addedTrajectory ) {
+    const handleTrajectoryAdded = ( addedTrajectory: Trajectory ): void => {
       // create the view representation for added trajectory
       const trajectoryNode = new TrajectoryNode(
         viewProperties,
@@ -142,7 +168,7 @@ class ProjectileMotionScreenView extends ScreenView {
           }
         }
       );
-    }
+    };
 
     // view listens to whether a trajectory has been added in the model
     model.trajectoryGroup.forEach( handleTrajectoryAdded );
@@ -157,7 +183,7 @@ class ProjectileMotionScreenView extends ScreenView {
       model.muzzleFlashStepper,
       transformProperty,
       this,
-      merge( options.cannonNodeOptions, { tandem: tandem.createTandem( 'cannonNode' ) } )
+      combineOptions<CannonNodeOptions>( { tandem: tandem.createTandem( 'cannonNode' ) }, options.cannonNodeOptions )
     );
 
     // results in '{{value}} m/s'
@@ -253,7 +279,7 @@ class ProjectileMotionScreenView extends ScreenView {
     // panel under the cannon, controls initial speed of projectiles
     const initialSpeedPanel = new Panel(
       initialSpeedNumberControl,
-      merge(
+      combineOptions<PanelOptions>(
         {
           left: this.layoutBounds.left + X_MARGIN,
           bottom: this.layoutBounds.bottom - 10,
@@ -266,7 +292,7 @@ class ProjectileMotionScreenView extends ScreenView {
     // panel under the cannon, controls initial speed of projectiles
     const initialAnglePanel = new Panel(
       initialAngleNumberControl,
-      merge(
+      combineOptions<PanelOptions>(
         {
           left: initialSpeedPanel.right + X_MARGIN,
           bottom: initialSpeedPanel.bottom,
@@ -277,21 +303,18 @@ class ProjectileMotionScreenView extends ScreenView {
     );
 
     // Create a measuring tape (set to invisible initially)
-    const measuringTapeNode = new MeasuringTapeNode(
-      new Property( { name: metersString, multiplier: 1 } ),
-      {
-        visibleProperty: model.measuringTape.isActiveProperty,
-        modelViewTransform: transformProperty.get(),
-        basePositionProperty: model.measuringTape.basePositionProperty,
-        tipPositionProperty: model.measuringTape.tipPositionProperty,
-        textColor: 'black',
-        textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
-        significantFigures: 2,
-        textFont: new PhetFont( { size: 16, weight: 'bold' } ),
-        tandem: tandem.createTandem( 'measuringTapeNode' ),
-        phetioDocumentation: 'the Node for the measuring tape'
-      }
-    );
+    const measuringTapeNode = new MeasuringTapeNode( new Property( { name: metersString, multiplier: 1 } ), {
+      visibleProperty: model.measuringTape.isActiveProperty,
+      modelViewTransform: transformProperty.get(),
+      basePositionProperty: model.measuringTape.basePositionProperty,
+      tipPositionProperty: model.measuringTape.tipPositionProperty,
+      textColor: 'black',
+      textBackgroundColor: 'rgba( 255, 255, 255, 0.6 )', // translucent white background
+      significantFigures: 2,
+      textFont: new PhetFont( { size: 16, weight: 'bold' } ),
+      tandem: tandem.createTandem( 'measuringTapeNode' ),
+      phetioDocumentation: 'the Node for the measuring tape'
+    } );
 
     // {DerivedProperty.<Bounds2>} The measuring tape's drag bounds in model coordinates, constrained
     // so that it remains easily visible and grabbable. Unlike DataProbeNode, MeasuringTapeNode does
@@ -361,9 +384,7 @@ class ProjectileMotionScreenView extends ScreenView {
       dataProbeNode,
       transformProperty,
       {
-        tandem: tandem.createTandem( 'toolboxPanel' ),
-        phetioDocumentation:
-          'the panel that holds the tools when not in the play area'
+        tandem: tandem.createTandem( 'toolboxPanel' )
       }
     );
 
@@ -430,7 +451,7 @@ class ProjectileMotionScreenView extends ScreenView {
           },
           radius: 12,
           stroke: 'black',
-          fill: '#005566',
+          // fill: '#005566',
           touchAreaDilation: 4
         }
       },
@@ -473,7 +494,6 @@ class ProjectileMotionScreenView extends ScreenView {
       backgroundNode.updateFlatironsPosition( transform );
     } );
 
-    // @private for layout convenience
     this.cannonNode = cannonNode;
     this.topRightPanel = topRightPanel;
     this.bottomRightPanel = bottomRightPanel;
@@ -533,14 +553,7 @@ class ProjectileMotionScreenView extends ScreenView {
     // Panels last for the life time of the sim, so their links don't need to be disposed
   }
 
-  /**
-   * Layout nodes part of the screen view
-   *
-   * @param {Bounds2} viewBounds
-   * @public (joist-internal)
-   * @override
-   */
-  layout( viewBounds ) {
+  public override layout( viewBounds: Bounds2 ): void {
     this.resetTransform();
 
     const scale = this.getLayoutScale( viewBounds );
