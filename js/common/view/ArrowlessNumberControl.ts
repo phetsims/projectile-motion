@@ -7,51 +7,59 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
+import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
-import { Text } from '../../../../scenery/js/imports.js';
+import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
+import { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
+import { Text, TextOptions } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../ProjectileMotionConstants.js';
 
 const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
+
+type SelfOptions = {
+  containerWidth?: number;
+};
+
+type ArrowlessNumberControlOptions = SelfOptions & ProjectileMotionUIOptions;
 
 class ArrowlessNumberControl extends NumberControl {
 
   /**
    * Auxiliary function that creates a NumberControl
-   * @param {string} labelString - label for the parameter
-   * @param {string} unitsString - units
-   * @param {Property.<number>} valueProperty - the Property that is set and linked to
-   * @param {Range} range - range for the valueProperty value
-   * @param {Number} round - for minor ticks
-   * @param {Object} [options]
-   * @returns {VBox}
+   * {string} labelString - label for the parameter
+   * {string} unitsString - units
+   * {Property.<number>} valueProperty - the Property that is set and linked to
+   * {Range} range - range for the valueProperty value
+   * {Number} round - for minor ticks
+   * {Object} [options]
    */
-  constructor( labelString, unitsString, valueProperty, range, round, options ) {
-
+  public constructor( labelString: string, unitsString: string, valueProperty: Property<number>, range: Range,
+                      round: number, providedOptions: ArrowlessNumberControlOptions ) {
     // options used to compute other option values
-    options = merge( {
+    const initialOptions = optionize<ArrowlessNumberControlOptions, SelfOptions, ProjectileMotionUIOptions>()( {
       containerWidth: 200,
       numberDisplayMaxWidth: 50, // this is a separate option as it is used to compute other components' maxWidth.
       xMargin: 8
-    }, options );
+    }, providedOptions );
 
     // compute maxWidth for subcomponents
-    const titleMaxWidth = options.containerWidth - 3 * options.xMargin - options.numberDisplayMaxWidth;
+    const titleMaxWidth = initialOptions.containerWidth - 3 * initialOptions.xMargin - initialOptions.numberDisplayMaxWidth;
 
     // now specify the rest of the options
-    options = merge( {
-      titleNodeOptions: merge( {}, ProjectileMotionConstants.PANEL_LABEL_OPTIONS, {
+    const options = optionize<ArrowlessNumberControlOptions, EmptySelfOptions, NumberControlOptions>()( {
+      titleNodeOptions: combineOptions<TextOptions>( {}, ProjectileMotionConstants.PANEL_LABEL_OPTIONS, {
         maxWidth: titleMaxWidth
       } ),
-      numberDisplayOptions: merge( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
+      numberDisplayOptions: combineOptions<NumberDisplayOptions>( {}, ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS, {
         valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: unitsString } ),
         decimalPlaces: null,
-        maxWidth: options.numberDisplayMaxWidth
+        maxWidth: initialOptions.numberDisplayMaxWidth
       } ),
       sliderOptions: {
         constrainValue: value => Utils.roundToInterval( value, round ), // two decimal place accuracy
@@ -59,7 +67,7 @@ class ArrowlessNumberControl extends NumberControl {
         minorTickLength: 5,
         minorTickSpacing: round,
         tickLabelSpacing: 2,
-        trackSize: new Dimension2( options.containerWidth - 2 * options.xMargin - 30, 0.5 ),
+        trackSize: new Dimension2( initialOptions.containerWidth - 2 * initialOptions.xMargin - 30, 0.5 ),
         thumbSize: new Dimension2( 13, 22 ),
         thumbTouchAreaXDilation: 6,
         thumbTouchAreaYDilation: 4, // smaller to prevent overlap with above number spinner buttons
@@ -70,9 +78,9 @@ class ArrowlessNumberControl extends NumberControl {
       },
       includeArrowButtons: false,
       layoutFunction: NumberControl.createLayoutFunction4( {
-        sliderPadding: options.xMargin / 2
+        sliderPadding: initialOptions.xMargin / 2
       } )
-    }, options );
+    }, initialOptions );
 
     super( labelString, valueProperty, range, options );
   }
