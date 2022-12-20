@@ -265,7 +265,9 @@ class ProjectileMotionModel {
       this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 )
     );
 
-    this.muzzleFlashStepper = new Emitter<number[]>();
+    this.muzzleFlashStepper = new Emitter( {
+      parameters: [ { valueType: 'number' } ]
+    } );
 
     this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
       tandem: tandem.createTandem( 'zoomProperty' ),
