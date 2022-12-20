@@ -31,6 +31,7 @@ import DataProbe from './DataProbe.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 import ProjectileMotionModel from './ProjectileMotionModel.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 type TrajectoryOptions = {
   tandem?: Tandem;
@@ -71,7 +72,7 @@ class Trajectory extends PhetioObject {
   private readonly initialHeight: number; // initial height of the projectiles
   private readonly initialAngle: number; // cannon launch angle
   private readonly gravityProperty: NumberProperty; // world gravity
-  private readonly airDensityProperty: NumberProperty; // air density
+  private readonly airDensityProperty: TReadOnlyProperty<number>; // air density
   private numberOfMovingProjectilesProperty: NumberProperty; // the number of projectiles that are currently in flight
   private readonly updateTrajectoryRanksEmitter: Emitter; // emitter to update the ranks of the trajectories
   public apexPoint: DataPoint | null; // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
@@ -91,7 +92,7 @@ class Trajectory extends PhetioObject {
 
   public constructor( projectileObjectType: ProjectileObjectType, projectileMass: number, projectileDiameter: number,
                       projectileDragCoefficient: number, initialSpeed: number, initialHeight: number, initialAngle: number,
-                      airDensityProperty: NumberProperty, gravityProperty: NumberProperty,
+                      airDensityProperty: TReadOnlyProperty<number>, gravityProperty: NumberProperty,
                       updateTrajectoryRanksEmitter: Emitter, numberOfMovingProjectilesProperty: NumberProperty,
                       checkIfHitTarget: ( positionX: number ) => boolean, getDataProbe: () => DataProbe | null,
                       providedOptions?: TrajectoryOptions ) {
@@ -234,7 +235,6 @@ class Trajectory extends PhetioObject {
     if ( newY <= 0 ) {
       newY = 0;
       this.reachedGround = true;
-      this.handleLanded();
     }
 
     const cappedDeltaTime = this.reachedGround ? timeToGround( previousPoint ) : dt;
@@ -268,6 +268,9 @@ class Trajectory extends PhetioObject {
 
     this.addDataPoint( newPoint );
     this.projectileDataPointProperty.set( newPoint );
+
+    // make sure the data point is created before calling handleLanded and notifying any listeners
+    this.reachedGround && this.handleLanded();
   }
 
   private handleLanded(): void {
@@ -351,7 +354,6 @@ class Trajectory extends PhetioObject {
         initialSpeed, initialHeight, initialAngle ) => {
         return new Trajectory( projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
 
-          // @ts-expect-error - why is this needed right now? + issue comment
           initialSpeed, initialHeight, initialAngle, model.airDensityProperty, model.gravityProperty,
           model.updateTrajectoryRanksEmitter, model.numberOfMovingProjectilesProperty, checkIfHitTarget,
           () => {
