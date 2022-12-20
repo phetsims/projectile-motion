@@ -55,7 +55,6 @@ class ToolboxPanel extends Panel {
       fill: 'white',
       minWidth: 200,
       tandem: Tandem.REQUIRED
-
     }, providedOptions );
 
     // Create the icon Node for the dataProbe tool

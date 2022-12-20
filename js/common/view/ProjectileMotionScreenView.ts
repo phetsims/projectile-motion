@@ -105,8 +105,7 @@ class ProjectileMotionScreenView extends ScreenView {
       tandem: tandem,
       cannonNodeOptions: {
         renderer: platform.mobileSafari ? 'canvas' : null,
-        preciseCannonDelta: false,
-        tandem: Tandem.REQUIRED
+        preciseCannonDelta: false
       },
       addFlatirons: true, // if false, then flatirons easteregg will never be shown
       maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES, // max number of trajectories that can be shown

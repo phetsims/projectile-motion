@@ -157,7 +157,7 @@ const ProjectileMotionConstants = {
     textDisplayHeight: 24,
     readoutXMargin: 7,
     sliderLabelSpacing: 6
-  } satisfies PanelOptions,
+  } satisfies ProjectileMotionUIOptions,
 
   INITIAL_VALUE_PANEL_OPTIONS: {
     fill: 'rgb( 235, 235, 235 )',

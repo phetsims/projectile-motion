@@ -74,7 +74,7 @@ const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL
 type SelfOptions = {
   renderer: string | null;
   preciseCannonDelta: boolean;
-  tandem: Tandem;
+  tandem?: Tandem;
 };
 
 export type CannonNodeOptions = SelfOptions & NodeOptions;
@@ -88,7 +88,9 @@ class CannonNode extends Node {
   public constructor( heightProperty: Property<number>, angleProperty: Property<number>, muzzleFlashStepper: Emitter<number[]>,
                       transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions: CannonNodeOptions ) {
 
-    const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
+    const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {
+      tandem: Tandem.REQUIRED
+    }, providedOptions );
 
     super( options );
 
