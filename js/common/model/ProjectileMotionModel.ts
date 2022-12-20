@@ -43,14 +43,14 @@ const DEFAULT_ZOOM = ProjectileMotionConstants.DEFAULT_ZOOM;
 const TIME_PER_DATA_POINT = ProjectileMotionConstants.TIME_PER_DATA_POINT; // ms
 
 type ProjectileMotionModelOptions = {
-  maxProjectiles: number;
-  defaultCannonHeight: number;
-  defaultCannonAngle: number;
-  defaultInitialSpeed: number;
-  defaultSpeedStandardDeviation: number;
-  defaultAngleStandardDeviation: number;
-  targetX: number;
-  phetioInstrumentAltitudeProperty: boolean;
+  maxProjectiles?: number;
+  defaultCannonHeight?: number;
+  defaultCannonAngle?: number;
+  defaultInitialSpeed?: number;
+  defaultSpeedStandardDeviation?: number;
+  defaultAngleStandardDeviation?: number;
+  targetX?: number;
+  phetioInstrumentAltitudeProperty?: boolean;
 };
 
 class ProjectileMotionModel {
