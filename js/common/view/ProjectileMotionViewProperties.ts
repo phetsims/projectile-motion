@@ -81,12 +81,18 @@ class ProjectileMotionViewProperties {
     this.componentsVelocityVectorsOnProperty.reset();
 
     if ( this.accelerationProperties ) {
-      this.totalAccelerationVectorOnProperty?.reset();
-      this.componentsAccelerationVectorsOnProperty?.reset();
+      assert && assert( this.totalAccelerationVectorOnProperty, 'If accelerationProperties is true, totalAccelerationVectorOnProperty must be set' );
+      this.totalAccelerationVectorOnProperty!.reset();
+
+      assert && assert( this.componentsAccelerationVectorsOnProperty, 'If accelerationProperties is true, componentsAccelerationVectorsOnProperty must be set' );
+      this.componentsAccelerationVectorsOnProperty!.reset();
     }
     if ( this.forceProperties ) {
-      this.totalForceVectorOnProperty?.reset();
-      this.componentsForceVectorsOnProperty?.reset();
+      assert && assert( this.totalForceVectorOnProperty, 'If forceProperties is true, totalForceVectorOnProperty must be set' );
+      this.totalForceVectorOnProperty!.reset();
+
+      assert && assert( this.componentsForceVectorsOnProperty, 'If forceProperties is true, componentsForceVectorsOnProperty must be set' );
+      this.componentsForceVectorsOnProperty!.reset();
     }
   }
 }
