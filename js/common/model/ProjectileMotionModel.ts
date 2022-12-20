@@ -80,7 +80,7 @@ class ProjectileMotionModel {
   public updateTrajectoryRanksEmitter: Emitter;
   private eventTimer: EventTimer;
   public muzzleFlashStepper: Emitter<[number]>; // emits when cannon needs to update its muzzle flash animation
-  public zoomProperty: Property<number>;
+  public zoomProperty: NumberProperty;
   public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
   public dataProbe: DataProbe;
   /**

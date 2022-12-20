@@ -71,9 +71,9 @@ class Trajectory extends PhetioObject {
   private readonly initialSpeed: number; // launch speed of the projectiles
   private readonly initialHeight: number; // initial height of the projectiles
   private readonly initialAngle: number; // cannon launch angle
-  private readonly gravityProperty: NumberProperty; // world gravity
+  private readonly gravityProperty: Property<number>; // world gravity
   private readonly airDensityProperty: TReadOnlyProperty<number>; // air density
-  private numberOfMovingProjectilesProperty: NumberProperty; // the number of projectiles that are currently in flight
+  private numberOfMovingProjectilesProperty: Property<number>; // the number of projectiles that are currently in flight
   private readonly updateTrajectoryRanksEmitter: Emitter; // emitter to update the ranks of the trajectories
   public apexPoint: DataPoint | null; // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
   private maxHeight: number; // the maximum height reached by the projectile
@@ -92,8 +92,8 @@ class Trajectory extends PhetioObject {
 
   public constructor( projectileObjectType: ProjectileObjectType, projectileMass: number, projectileDiameter: number,
                       projectileDragCoefficient: number, initialSpeed: number, initialHeight: number, initialAngle: number,
-                      airDensityProperty: TReadOnlyProperty<number>, gravityProperty: NumberProperty,
-                      updateTrajectoryRanksEmitter: Emitter, numberOfMovingProjectilesProperty: NumberProperty,
+                      airDensityProperty: TReadOnlyProperty<number>, gravityProperty: Property<number>,
+                      updateTrajectoryRanksEmitter: Emitter, numberOfMovingProjectilesProperty: Property<number>,
                       checkIfHitTarget: ( positionX: number ) => boolean, getDataProbe: () => DataProbe | null,
                       providedOptions?: TrajectoryOptions ) {
 
