@@ -7,7 +7,7 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import { Shape } from '../../../../kite/js/imports.js';
-import { Image, LinearGradient, Path, Rectangle } from '../../../../scenery/js/imports.js';
+import { Image, LinearGradient, NodeOptions, Path, Rectangle } from '../../../../scenery/js/imports.js';
 import uncenteredHuman1_png from '../../../images/uncenteredHuman1_png.js';
 import projectileMotion from '../../projectileMotion.js';
 
@@ -18,10 +18,9 @@ const PATH_WIDTH = 2;
 const PATH_COLOR = 'blue';
 
 class IntroIconNode extends Rectangle {
-  /**
-   * @param {string} type - 'nav' or 'screen'
-   */
-  constructor( type ) {
+
+  // {string} type - 'nav' or 'screen'
+  public constructor( type: string ) {
 
     super( 0, 0, 0, 0 );
 
@@ -63,7 +62,8 @@ class IntroIconNode extends Rectangle {
 
     // create the background
     const backgroundFill = new LinearGradient( 0, 0, 0, height ).addColorStop( 0, '#02ace4' ).addColorStop( 1, '#cfecfc' );
-    this.mutate( { fill: backgroundFill } );
+    this.mutate( { fill: backgroundFill } as NodeOptions );
+
     this.setRectWidth( width );
     this.setRectHeight( height );
   }
