@@ -13,8 +13,19 @@ import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import { NumberDisplayOptions } from '../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Circle, Node, Path } from '../../../scenery/js/imports.js';
+import { Circle, Node, Path, TextOptions } from '../../../scenery/js/imports.js';
+import { PanelOptions } from '../../../sun/js/Panel.js';
 import projectileMotion from '../projectileMotion.js';
+
+export type ProjectileMotionUIOptions = {
+  controlsVerticalSpace: number;
+  xSpacing: number;
+  textDisplayWidth: number;
+  numberDisplayMaxWidth: number;
+  textDisplayHeight: number;
+  readoutXMargin: number;
+  sliderLabelSpacing: number;
+} & PanelOptions;
 
 // constants
 const AIR_RESISTANCE_ICON_PATH = new Path(
@@ -146,7 +157,7 @@ const ProjectileMotionConstants = {
     textDisplayHeight: 24,
     readoutXMargin: 7,
     sliderLabelSpacing: 6
-  },
+  } satisfies PanelOptions,
 
   INITIAL_VALUE_PANEL_OPTIONS: {
     fill: 'rgb( 235, 235, 235 )',
@@ -154,13 +165,16 @@ const ProjectileMotionConstants = {
     stroke: 'black',
     xMargin: 10,
     yMargin: 5
-  },
+  } satisfies PanelOptions,
 
   PANEL_TITLE_OPTIONS: {
     font: new PhetFont( { size: 14, weight: 'bold' } ),
     align: 'center'
   },
-  PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) },
+  PANEL_LABEL_OPTIONS: {
+    font: new PhetFont( 14 )
+  } satisfies TextOptions,
+
   PANEL_BOLD_LABEL_OPTIONS: {
     font: new PhetFont( { size: 14, weight: 'bold' } )
   },
