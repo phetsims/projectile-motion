@@ -13,13 +13,19 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import merge from '../../../../phet-core/js/merge.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import FreeBodyDiagram from './FreeBodyDiagram.js';
 import ProjectileObjectViewFactory from './ProjectileObjectViewFactory.js';
+import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
+import DataPoint from '../model/DataPoint.js';
+import ProjectileObjectType from '../model/ProjectileObjectType.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
+import Property from '../../../../axon/js/Property.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const VELOCITY_ARROW_FILL = ProjectileMotionConstants.VELOCITY_ARROW_FILL;
@@ -44,26 +50,41 @@ const COMPONENT_ACCELERATION_ARROW_OPTIONS = {
 const VELOCITY_SCALAR = 15; // scales the velocity arrow representations
 const ACCELERATION_SCALAR = 15; // scales the acceleration arrow represenations
 
+export type ViewPoint = {
+  viewPosition: Vector2;
+  dataPoint: DataPoint;
+};
+
+type SelfOptions = {
+  preventFit: boolean;
+};
+type ProjectileNodeOptions = SelfOptions & NodeOptions;
+
 class ProjectileNode extends Node {
+  private disposeProjectileNode: () => void;
+  public readonly viewPointProperty: TReadOnlyProperty<ViewPoint>;
 
   /**
-   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * @param {Property.<DataPoint>} dataPointProperty - data for where the projectile is
-   * @param {ProjectileObjectType} objectType
-   * @param {number} diameter - how big the object is, in meters
-   * @param {number} dragCoefficient - shape of the object
-   * @param {ModelViewTransform2} modelViewTransform - meters to scale, inverted y axis, translated origin
-   * @param {Object} [options]
+   *  viewProperties - Properties that determine which vectors are shown
+   *  dataPointProperty - data for where the projectile is
+   *  objectType
+   *  diameter - how big the object is, in meters
+   *  dragCoefficient - shape of the object
+   *  modelViewTransform - meters to scale, inverted y-axis, translated origin
+   *  [providedOptions]
    */
-  constructor( viewProperties, dataPointProperty, objectType, diameter, dragCoefficient, modelViewTransform, options ) {
+  public constructor( viewProperties: ProjectileMotionViewProperties, dataPointProperty: Property<DataPoint>,
+                      objectType: ProjectileObjectType, diameter: number, dragCoefficient: number,
+                      modelViewTransform: ModelViewTransform2, providedOptions?: ProjectileNodeOptions ) {
 
-    options = merge( {
+    const options = optionize<ProjectileNodeOptions, SelfOptions, NodeOptions>()( {
       preventFit: true
-    }, options );
+    }, providedOptions );
+
     super( options );
 
-    let unlandedObjectView = null;
-    let landedObjectView = null;
+    let unlandedObjectView: Node | null = null;
+    let landedObjectView: Node | null = null;
 
     // draw projectile object view, which has separate flying and landed views if it has a benchmark.
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
@@ -81,17 +102,16 @@ class ProjectileNode extends Node {
     } );
     this.addChild( unlandedObjectView );
 
-
-    // @private {Property.<{viewPosition: {Vector2}, dataPoint: {DataPoint}}>}
     this.viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
       assert && assert( !dataPoint.apex, 'Projectile current data point should never be the apex' );
       const viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
       viewPosition.x = Utils.roundSymmetric( viewPosition.x * 10000 ) / 10000;
       viewPosition.y = Utils.roundSymmetric( viewPosition.y * 10000 ) / 10000;
-      return {
+      const retVal: ViewPoint = {
         viewPosition: viewPosition,
         dataPoint: dataPoint
       };
+      return retVal;
     } );
 
     // Add support for velocity vectors
@@ -108,23 +128,22 @@ class ProjectileNode extends Node {
 
 
     // Add support for force vectors via the FreeBodyDiagram if applicable
-    let freeBodyDiagram = null;
-    const addFreeBodyDiagram = viewProperties.totalForceVectorOnProperty &&
-                               viewProperties.componentsForceVectorsOnProperty;
-    if ( addFreeBodyDiagram ) {
+    let freeBodyDiagram: FreeBodyDiagram | null = null;
+
+    if ( !!viewProperties.totalForceVectorOnProperty && !!viewProperties.componentsForceVectorsOnProperty ) {
       freeBodyDiagram = new FreeBodyDiagram( this.viewPointProperty, viewProperties.totalForceVectorOnProperty,
         viewProperties.componentsForceVectorsOnProperty );
-      this.addChild( freeBodyDiagram );
+      freeBodyDiagram && this.addChild( freeBodyDiagram );
 
-      // will be disposed if hits the ground, but cover the case where it is disposed mid-air
-      this.disposeEmitter.addListener( () => !freeBodyDiagram.isDisposed && freeBodyDiagram.dispose() );
+      // will be disposed if hits the ground, but cover the case where it is disposed midair
+      this.disposeEmitter.addListener( () => !freeBodyDiagram?.isDisposed && freeBodyDiagram?.dispose() );
     }
 
     // keep track of if this Projectile has been removed from the main layer yet so we don't do it twice.
     let removed = false;
 
     // Update the projectile's object view.
-    const updateProjectileObjectView = viewPoint => {
+    const updateProjectileObjectView = ( viewPoint: ViewPoint ): void => {
       const dataPoint = viewPoint.dataPoint;
 
       // only rotate the object if it doesn't have an assigned benchmark, or it is an object that rotates
@@ -136,26 +155,24 @@ class ProjectileNode extends Node {
         else { // x velocity is zero
           angle = dataPoint.velocity.y > 0 ? Math.PI / 2 : 3 * Math.PI / 2;
         }
-        unlandedObjectView.setRotation( -angle );
+        unlandedObjectView?.setRotation( -angle );
       }
 
-      unlandedObjectView.translation = viewPoint.viewPosition;
+      unlandedObjectView?.setTranslation( viewPoint.viewPosition );
 
       if ( dataPoint.reachedGround ) {
 
         // only remove it once
         if ( !removed ) {
           removed = true;
-          if ( addFreeBodyDiagram ) {
-            freeBodyDiagram.dispose();
-          }
+          freeBodyDiagram && freeBodyDiagram.dispose();
 
           if ( landedObjectView ) {
             landedObjectView.center = viewPoint.viewPosition;
             if ( objectType && ( objectType.benchmark === 'human' || objectType.benchmark === 'car' ) ) {
               landedObjectView.bottom = landedObjectView.centerY;
             }
-            if ( this.hasChild( unlandedObjectView ) ) {
+            if ( unlandedObjectView && this.hasChild( unlandedObjectView ) ) {
               this.removeChild( unlandedObjectView );
             }
             this.addChild( landedObjectView );
@@ -166,18 +183,12 @@ class ProjectileNode extends Node {
 
     this.viewPointProperty.link( updateProjectileObjectView );
 
-    // @private
     this.disposeProjectileNode = () => {
       this.viewPointProperty.dispose();
     };
   }
 
-  /**
-   * Add vectors that show the velocity x/y components
-   * @private
-   * @param {Property.<boolean>} property
-   */
-  addComponentsVelocityVectors( property ) {
+  private addComponentsVelocityVectors( property: Property<boolean> ): void {
 
     // add vector view for velocity x component
     const xVelocityArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_VELOCITY_ARROW_OPTIONS );
@@ -208,13 +219,7 @@ class ProjectileNode extends Node {
     } );
   }
 
-  /**
-   *
-   * Add vector that show the total velocity
-   * @private
-   * @param {Property.<boolean>} property
-   */
-  addTotalVelocityVector( property ) {
+  private addTotalVelocityVector( property: Property<boolean> ): void {
 
     // add vector view for total velocity
     const totalVelocityArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -244,12 +249,7 @@ class ProjectileNode extends Node {
     } );
   }
 
-  /**
-   * Add vectors that show the acceleration x/y components
-   * @private
-   * @param {Property.<boolean>} property
-   */
-  addComponentsAccelerationVectors( property ) {
+  private addComponentsAccelerationVectors( property: Property<boolean> ): void {
 
     // add vector view for acceleration x component
     const xAccelerationArrow = new ArrowNode( 0, 0, 0, 0, COMPONENT_ACCELERATION_ARROW_OPTIONS );
@@ -292,13 +292,8 @@ class ProjectileNode extends Node {
     } );
   }
 
-  /**
-   *
-   * Add vector that shows the total acceleration
-   * @private
-   * @param {Property.<boolean>} property
-   */
-  addTotalAccelerationVector( property ) {
+  // Add vector that shows the total acceleration
+  private addTotalAccelerationVector( property: Property<boolean> ): void {
 
     // add vector view for total acceleration
     const totalAccelerationArrow = new ArrowNode( 0, 0, 0, 0, {
@@ -332,12 +327,7 @@ class ProjectileNode extends Node {
     } );
   }
 
-  /**
-   * Dispose this trajectory for memory management
-   * @public
-   * @override
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeProjectileNode();
     Node.prototype.dispose.call( this );
   }
