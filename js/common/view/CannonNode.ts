@@ -13,7 +13,6 @@ import Vector2 from '../../../../dot/js/Vector2.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
-import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -73,9 +72,9 @@ const opacityLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_OPACITY_INI
 const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL, MUZZLE_FLASH_SCALE_FINAL );
 
 type SelfOptions = {
-  renderer?: string | null;
-  preciseCannonDelta?: boolean;
-  tandem?: Tandem;
+  renderer: string | null;
+  preciseCannonDelta: boolean;
+  tandem: Tandem;
 };
 
 export type CannonNodeOptions = SelfOptions & NodeOptions;
@@ -89,11 +88,7 @@ class CannonNode extends Node {
   public constructor( heightProperty: Property<number>, angleProperty: Property<number>, muzzleFlashStepper: Emitter<number[]>,
                       transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions: CannonNodeOptions ) {
 
-    const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {
-      renderer: platform.mobileSafari ? 'canvas' : null,
-      preciseCannonDelta: false,
-      tandem: Tandem.REQUIRED
-    }, providedOptions );
+    const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {}, providedOptions );
 
     super( options );
 
@@ -197,7 +192,7 @@ class CannonNode extends Node {
       stroke: 'black',
       lineWidth: 2
     } );
-    heightLeaderLineBottomCap.x = heightLeaderArrows.getTipX();
+    heightLeaderLineBottomCap.x = heightLeaderArrows.tipX;
     heightLeaderLineBottomCap.y = viewOrgin.y;
 
     // height readout
@@ -213,13 +208,13 @@ class CannonNode extends Node {
     } ), heightLabelOptions );
     heightLabelText.setMouseArea( heightLabelText.bounds.dilatedXY( 8, 10 ) );
     heightLabelText.setTouchArea( heightLabelText.bounds.dilatedXY( 10, 12 ) );
-    heightLabelText.centerX = heightLeaderArrows.getTipX();
+    heightLabelText.centerX = heightLeaderArrows.tipX;
 
     // cueing arrow for dragging height
     const heightCueingTopArrow = new ArrowNode( 0, -12, 0, -27, CUEING_ARROW_OPTIONS );
     const heightCueingBottomArrow = new ArrowNode( 0, 17, 0, 32, CUEING_ARROW_OPTIONS );
     const heightCueingArrows = new Node( { children: [ heightCueingTopArrow, heightCueingBottomArrow ] } );
-    heightCueingArrows.centerX = heightLeaderArrows.getTipX();
+    heightCueingArrows.centerX = heightLeaderArrows.tipX;
 
     this.isIntroScreen = ( heightProperty.initialValue !== 0 );
     this.heightCueingArrows = heightCueingArrows;
@@ -383,20 +378,20 @@ class CannonNode extends Node {
       clipContainer.setClipArea( clipArea.transformed( cylinderNode.matrix ) );
 
       heightLeaderArrows.setTailAndTip(
-        heightLeaderArrows.getTailX(),
-        heightLeaderArrows.getTailY(),
-        heightLeaderArrows.getTipX(),
+        heightLeaderArrows.tailX,
+        heightLeaderArrows.tailY,
+        heightLeaderArrows.tipX,
         transformProperty.value.modelToViewY( height )
       );
-      heightLeaderLine.setLine( heightLeaderArrows.getTailX(), heightLeaderArrows.getTailY(), heightLeaderArrows.getTipX(), heightLeaderArrows.getTipY() );
-      heightLeaderLineTopCap.x = heightLeaderArrows.getTipX();
-      heightLeaderLineTopCap.y = heightLeaderArrows.getTipY();
+      heightLeaderLine.setLine( heightLeaderArrows.tailX, heightLeaderArrows.tailY, heightLeaderArrows.tipX, heightLeaderArrows.tipY );
+      heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
+      heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
       heightLabelText.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         value: Utils.toFixedNumber( height, 2 ),
         units: mString
       } );
-      heightLabelText.centerX = heightLeaderArrows.getTipX();
-      heightLabelText.y = heightLeaderArrows.getTipY() - 5;
+      heightLabelText.centerX = heightLeaderArrows.tipX;
+      heightLabelText.y = heightLeaderArrows.tipY - 5;
       heightLabelBackground.setRectWidth( heightLabelText.width + 2 );
       heightLabelBackground.setRectHeight( heightLabelText.height );
       heightLabelBackground.center = heightLabelText.center;
@@ -472,7 +467,7 @@ class CannonNode extends Node {
 
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
-          const delta = options.preciseCannonDelta ? 1 : 5;
+          const delta = providedOptions.preciseCannonDelta ? 1 : 5;
           angleProperty.set( Utils.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
 
