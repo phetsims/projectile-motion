@@ -12,9 +12,11 @@
 import Multilink from '../../../../axon/js/Multilink.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, Node, Rectangle, RichText } from '../../../../scenery/js/imports.js';
+import { Circle, Node, NodeOptions, Rectangle, RichText } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import type { ViewPoint } from './ProjectileNode.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const FORCE_ARROW_OPTIONS = {
@@ -38,22 +40,13 @@ const yDragForceText = new RichText( 'F<sub>dy</sub>', LABEL_OPTIONS );
 const forceGravityText = new RichText( 'F<sub>g</sub>', LABEL_OPTIONS );
 const totalDragForceText = new RichText( 'F<sub>d</sub>', LABEL_OPTIONS );
 
-
-/**
- * @param {Object} [options]
- * @constructor
- */
 class FreeBodyDiagram extends Node {
+  private readonly disposeFreeBodyDiagram: () => void;
 
-  /**
-   * @param {Property.<Object>} viewPointProperty - see ProjectileNode.viewPointProperty for more info
-   * @param {Property.<boolean>} totalForceProperty
-   * @param {Property.<boolean>} componentsForceProperty
-   * @param {Object} [options]
-   */
-  constructor( viewPointProperty, totalForceProperty, componentsForceProperty, options ) {
+  public constructor( viewPointProperty: TReadOnlyProperty<ViewPoint>, totalForceProperty: TReadOnlyProperty<boolean>,
+                      componentsForceProperty: TReadOnlyProperty<boolean>, providedOptions?: NodeOptions ) {
 
-    super( options );
+    super( providedOptions );
 
     // forces view
     const forcesBox = new Rectangle( 0, 0, 10, 50, {
@@ -65,7 +58,7 @@ class FreeBodyDiagram extends Node {
     const diagramContainer = new Node();
     this.addChild( diagramContainer );
 
-    const freeBody = new Circle( FREE_BODY_RADIUS, { x: 0, y: 0, fill: 'black' } );
+    const freeBody: Node = new Circle( FREE_BODY_RADIUS, { x: 0, y: 0, fill: 'black' } );
 
     // The component force vectors
     const freeBodyComponentVectorsNode = new Node();
@@ -155,7 +148,7 @@ class FreeBodyDiagram extends Node {
       }
     } );
 
-    const viewPointListener = point => {
+    const viewPointListener = ( point: ViewPoint ): void => {
       const dragForceExists = point.dataPoint.airDensity > 0;
       xDragForceLabel.visible = dragForceExists;
       yDragForceLabel.visible = dragForceExists;
@@ -177,11 +170,7 @@ class FreeBodyDiagram extends Node {
     };
   }
 
-  /**
-   * @override
-   * @public
-   */
-  dispose() {
+  public override dispose(): void {
     this.disposeFreeBodyDiagram();
     super.dispose();
   }
