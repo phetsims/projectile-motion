@@ -13,6 +13,7 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
@@ -68,14 +69,14 @@ class ProjectileMotionModel {
   public gravityProperty: NumberProperty;
   public altitudeProperty: NumberProperty;
   public airResistanceOnProperty: BooleanProperty;
-  public airDensityProperty: DerivedProperty<number, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+  public airDensityProperty: TReadOnlyProperty<number>;
   public timeSpeedProperty: EnumerationProperty<TimeSpeed>;
   public isPlayingProperty: BooleanProperty;
   public readonly davidHeight: number;
   public readonly davidPosition: Vector2;
   public numberOfMovingProjectilesProperty: NumberProperty;
   public rapidFireModeProperty: BooleanProperty;
-  public fireEnabledProperty: DerivedProperty<boolean, number, boolean, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown, unknown>;
+  public fireEnabledProperty: TReadOnlyProperty<boolean>;
   public updateTrajectoryRanksEmitter: Emitter;
   private eventTimer: EventTimer;
   public muzzleFlashStepper: Emitter<number[]>; // emits when cannon needs to update its muzzle flash animation
