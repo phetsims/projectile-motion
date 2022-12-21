@@ -1,5 +1,5 @@
 {
-  "comment": "# projectile-motion 1.0.19 Wed Dec 14 2022 22:08:39 GMT-0700 (Mountain Standard Time)",
+  "comment": "# projectile-motion 1.0.20-rc.1 Tue Dec 20 2022 21:19:15 GMT-0700 (Mountain Standard Time)",
   "assert": {
     "sha": "928741cfc8fe804334d5b35292140314511f8678",
     "branch": "HEAD"
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "a45641a0675fedd9fc72dd1f7f6e52788896c8af",
+    "sha": "0714d272ea77f77cb0fa05b6f48691c51a36ebd9",
     "branch": "1.0"
   },
   "query-string-machine": {
