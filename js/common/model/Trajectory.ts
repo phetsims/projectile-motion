@@ -411,7 +411,7 @@ class Trajectory extends PhetioObject {
   /**
    * @returns map from state object to parameters being passed to createNextElement
    */
-  public static stateToArgsForConstructor( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
+  public static stateObjectToCreateElementArguments( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
     return [
       ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ),
       stateObject.mass,
@@ -437,7 +437,7 @@ class Trajectory extends PhetioObject {
                    '<li>initialAngle: the initial angle of the projectile' +
                    '</ul>',
     stateSchema: Trajectory.STATE_SCHEMA,
-    stateToArgsForConstructor: s => Trajectory.stateToArgsForConstructor( s )
+    stateObjectToCreateElementArguments: s => Trajectory.stateObjectToCreateElementArguments( s )
   } );
 }
 
