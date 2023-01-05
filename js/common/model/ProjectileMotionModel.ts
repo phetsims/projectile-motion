@@ -110,8 +110,7 @@ class ProjectileMotionModel {
     this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
 
     this.cannonHeightProperty = new NumberProperty(
-      options.defaultCannonHeight,
-      {
+      options.defaultCannonHeight, {
         tandem: tandem.createTandem( 'cannonHeightProperty' ),
         phetioDocumentation: 'Height of the cannon',
         units: 'm',
@@ -128,8 +127,7 @@ class ProjectileMotionModel {
     this.initialSpeedProperty = new VarianceNumberProperty(
       options.defaultInitialSpeed, value => {
         return StatUtils.randomFromNormal( value, this.initialSpeedStandardDeviationProperty.value );
-      },
-      {
+      }, {
         tandem: tandem.createTandem( 'initialSpeedProperty' ),
         phetioDocumentation: 'The speed on launch',
         units: 'm/s',
@@ -146,8 +144,7 @@ class ProjectileMotionModel {
     this.cannonAngleProperty = new VarianceNumberProperty(
       options.defaultCannonAngle, value => {
         return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
-      },
-      {
+      }, {
         tandem: tandem.createTandem( 'cannonAngleProperty' ),
         phetioDocumentation: 'Angle of the cannon',
         units: '\u00B0', // degrees
@@ -155,8 +152,7 @@ class ProjectileMotionModel {
       } );
 
     this.projectileMassProperty = new NumberProperty(
-      defaultProjectileObjectType.mass,
-      {
+      defaultProjectileObjectType.mass, {
         tandem: tandem.createTandem( 'projectileMassProperty' ),
         phetioDocumentation: 'Mass of the projectile',
         units: 'kg',
@@ -164,8 +160,7 @@ class ProjectileMotionModel {
       } );
 
     this.projectileDiameterProperty = new NumberProperty(
-      defaultProjectileObjectType.diameter,
-      {
+      defaultProjectileObjectType.diameter, {
         tandem: tandem.createTandem( 'projectileDiameterProperty' ),
         phetioDocumentation: 'Diameter of the projectile',
         units: 'm',
@@ -173,8 +168,7 @@ class ProjectileMotionModel {
       } );
 
     this.projectileDragCoefficientProperty = new NumberProperty(
-      defaultProjectileObjectType.dragCoefficient,
-      {
+      defaultProjectileObjectType.dragCoefficient, {
         tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
         phetioDocumentation:
           'Drag coefficient of the projectile, unitless as it is a coefficient',
@@ -182,8 +176,7 @@ class ProjectileMotionModel {
       } );
 
     this.selectedProjectileObjectTypeProperty = new Property(
-      defaultProjectileObjectType,
-      {
+      defaultProjectileObjectType, {
         tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
         phetioDocumentation: 'The currently selected projectile object type',
         phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
@@ -191,8 +184,7 @@ class ProjectileMotionModel {
       } );
 
     this.gravityProperty = new NumberProperty(
-      PhysicalConstants.GRAVITY_ON_EARTH,
-      {
+      PhysicalConstants.GRAVITY_ON_EARTH, {
         tandem: tandem.createTandem( 'gravityProperty' ),
         phetioDocumentation: 'Acceleration due to gravity',
         units: 'm/s^2'
@@ -212,8 +204,7 @@ class ProjectileMotionModel {
 
     this.airDensityProperty = new DerivedProperty(
       [ this.altitudeProperty, this.airResistanceOnProperty ],
-      calculateAirDensity,
-      {
+      calculateAirDensity, {
         tandem: tandem.createTandem( 'airDensityProperty' ),
         units: 'kg/m^3',
         phetioDocumentation:
@@ -243,8 +234,7 @@ class ProjectileMotionModel {
     } );
 
     this.rapidFireModeProperty = new BooleanProperty(
-      false,
-      {
+      false, {
         tandem: tandem.createTandem( 'rapidFireModeProperty' ),
         phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
       } );
@@ -252,8 +242,7 @@ class ProjectileMotionModel {
     this.fireEnabledProperty = new DerivedProperty(
       [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
       ( numMoving, rapidFireMode ) =>
-        !rapidFireMode && numMoving < this.maxProjectiles,
-      {
+        !rapidFireMode && numMoving < this.maxProjectiles, {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
         phetioDocumentation: `The fire button is only enabled if there are less than ${this.maxProjectiles} projectiles in the air.`,
         phetioValueType: BooleanIO
