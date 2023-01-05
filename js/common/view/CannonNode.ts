@@ -95,13 +95,13 @@ class CannonNode extends Node {
     super( options );
 
     // where the projectile is fired from
-    const viewOrgin = transformProperty.value.modelToViewPosition( new Vector2( 0, 0 ) );
+    const viewOrigin = transformProperty.value.modelToViewPosition( new Vector2( 0, 0 ) );
 
     // the cannon, muzzle flash, and pedestal are not visible underground
     const clipContainer = new Node(); // no transform, just for clip area
 
     const cylinderNode = new Node( {
-      y: viewOrgin.y
+      y: viewOrigin.y
     } );
     clipContainer.addChild( cylinderNode );
 
@@ -114,7 +114,7 @@ class CannonNode extends Node {
       .addColorStop( 0.3, 'white' )
       .addColorStop( 1, 'gray' );
     const groundCircle = new Path( ellipseShape, {
-      y: viewOrgin.y,
+      y: viewOrigin.y,
       fill: groundFill,
       stroke: BRIGHT_GRAY_COLOR
     } );
@@ -133,8 +133,8 @@ class CannonNode extends Node {
 
     // cannon
     const cannonBarrel = new Node( {
-      x: viewOrgin.x,
-      y: viewOrgin.y
+      x: viewOrigin.x,
+      y: viewOrigin.y
     } );
     clipContainer.addChild( cannonBarrel );
 
@@ -146,8 +146,8 @@ class CannonNode extends Node {
     cannonBarrel.addChild( cannonBarrelTop );
 
     const cannonBase = new Node( {
-      x: viewOrgin.x,
-      y: viewOrgin.y
+      x: viewOrigin.x,
+      y: viewOrigin.y
     } );
     clipContainer.addChild( cannonBase );
 
@@ -161,7 +161,7 @@ class CannonNode extends Node {
     // add dashed line for indicating the height
     const heightLeaderLine = new Line(
       viewHeightLeaderLineX,
-      viewOrgin.y,
+      viewOrigin.y,
       viewHeightLeaderLineX,
       transformProperty.value.modelToViewY( heightProperty.get() ), {
         stroke: 'black',
@@ -172,7 +172,7 @@ class CannonNode extends Node {
     // added arrows for indicating height
     const heightLeaderArrows = new ArrowNode(
       viewHeightLeaderLineX,
-      viewOrgin.y,
+      viewOrigin.y,
       viewHeightLeaderLineX,
       transformProperty.value.modelToViewY( heightProperty.get() ), {
         headHeight: 5,
@@ -195,7 +195,7 @@ class CannonNode extends Node {
       lineWidth: 2
     } );
     heightLeaderLineBottomCap.x = heightLeaderArrows.tipX;
-    heightLeaderLineBottomCap.y = viewOrgin.y;
+    heightLeaderLineBottomCap.y = viewOrigin.y;
 
     // height readout
     const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
@@ -226,7 +226,7 @@ class CannonNode extends Node {
 
     // angle indicator
     const angleIndicator = new Node();
-    angleIndicator.x = viewOrgin.x; // centered at the origin, independent of the cylinder position
+    angleIndicator.x = viewOrigin.x; // centered at the origin, independent of the cylinder position
 
     // crosshair view
     const crosshairShape = new Shape()

@@ -161,9 +161,7 @@ class Trajectory extends PhetioObject {
     this.reachedGround = false;
 
     // Add one to the rank
-    const incrementRank = () => {
-      this.rankProperty.value++;
-    };
+    const incrementRank = () => this.rankProperty.value++;
 
     // Listen to whether this rank should be incremented
     this.updateTrajectoryRanksEmitter.addListener( incrementRank );
