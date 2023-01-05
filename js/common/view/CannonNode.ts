@@ -296,20 +296,20 @@ class CannonNode extends Node {
 
     // Listen to the muzzleFlashStepper to step the muzzle flash animation
     muzzleFlashStepper.addListener( ( dt: number ): void => {
-        if ( this.muzzleFlashPlaying ) {
-          if ( this.muzzleFlashStage < 1 ) {
-            const animationPercentComplete = muzzleFlashDurationCompleteToAnimationPercentComplete( this.muzzleFlashStage );
-            muzzleFlash.opacity = opacityLinearFunction.evaluate( animationPercentComplete );
-            muzzleFlash.setScaleMagnitude( scaleLinearFunction.evaluate( animationPercentComplete ) );
-            this.muzzleFlashStage += ( dt / MUZZLE_FLASH_DURATION );
-          }
-          else {
-            muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
-            muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_FINAL );
-            this.muzzleFlashPlaying = false;
-          }
+      if ( this.muzzleFlashPlaying ) {
+        if ( this.muzzleFlashStage < 1 ) {
+          const animationPercentComplete = muzzleFlashDurationCompleteToAnimationPercentComplete( this.muzzleFlashStage );
+          muzzleFlash.opacity = opacityLinearFunction.evaluate( animationPercentComplete );
+          muzzleFlash.setScaleMagnitude( scaleLinearFunction.evaluate( animationPercentComplete ) );
+          this.muzzleFlashStage += ( dt / MUZZLE_FLASH_DURATION );
         }
-      } );
+        else {
+          muzzleFlash.opacity = MUZZLE_FLASH_OPACITY_FINAL;
+          muzzleFlash.setScaleMagnitude( MUZZLE_FLASH_SCALE_FINAL );
+          this.muzzleFlashPlaying = false;
+        }
+      }
+    } );
 
     // rendering order
     this.setChildren( [

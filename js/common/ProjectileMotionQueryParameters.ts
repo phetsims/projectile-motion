@@ -10,7 +10,7 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import projectileMotion from '../projectileMotion.js';
 
-const ProjectileMotionQueryParameters = QueryStringMachine.getAll( { } );
+const ProjectileMotionQueryParameters = QueryStringMachine.getAll( {} );
 
 projectileMotion.register( 'ProjectileMotionQueryParameters', ProjectileMotionQueryParameters );
 

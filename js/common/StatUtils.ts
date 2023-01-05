@@ -18,8 +18,8 @@ const StatUtils = {
     return (
       mean +
       stardardDeviation *
-        Math.sqrt( -2.0 * Math.log( u ) ) *
-        Math.cos( 2.0 * Math.PI * v )
+      Math.sqrt( -2.0 * Math.log( u ) ) *
+      Math.cos( 2.0 * Math.PI * v )
     );
   }
 };

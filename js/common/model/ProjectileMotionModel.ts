@@ -79,10 +79,11 @@ class ProjectileMotionModel {
   public fireEnabledProperty: TReadOnlyProperty<boolean>;
   public updateTrajectoryRanksEmitter: Emitter;
   private eventTimer: EventTimer;
-  public muzzleFlashStepper: Emitter<[number]>; // emits when cannon needs to update its muzzle flash animation
+  public muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
   public zoomProperty: NumberProperty;
   public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
   public dataProbe: DataProbe;
+
   /**
    * {ProjectileObjectType} defaultProjectileObjectType -  default object type for the model
    * {boolean} defaultAirResistanceOn -  default air resistance on value

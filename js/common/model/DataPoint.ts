@@ -76,7 +76,7 @@ class DataPoint {
   /**
    * Whether this dataPoint is equal to given dataPoint
    */
-  public equals( dataPoint: DataPoint ) : boolean {
+  public equals( dataPoint: DataPoint ): boolean {
     return this.position.equals( dataPoint.position )
            && this.time === dataPoint.time
            && this.airDensity === dataPoint.airDensity
@@ -86,7 +86,7 @@ class DataPoint {
            && this.forceGravity === dataPoint.forceGravity;
   }
 
-  public dispose() : void {
+  public dispose(): void {
     this.position.freeToPool();
     this.velocity.freeToPool();
     this.acceleration.freeToPool();
@@ -96,7 +96,7 @@ class DataPoint {
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
    */
-  public static get STATE_SCHEMA() : CompositeSchema {
+  public static get STATE_SCHEMA(): CompositeSchema {
     return {
       time: NumberIO,
       position: Vector2.Vector2IO,
@@ -113,7 +113,7 @@ class DataPoint {
   /**
    * Deserializes a DataPoint instance.
    */
-  public static fromStateObject( stateObject : DataPointStateObject ) : DataPoint {
+  public static fromStateObject( stateObject: DataPointStateObject ): DataPoint {
     return new DataPoint(
       stateObject.time ? stateObject.time : 0,
       Vector2.Vector2IO.fromStateObject( stateObject.position ),

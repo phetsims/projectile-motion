@@ -239,7 +239,7 @@ class TargetNode extends Node {
 
   }
 
-  private updateTargetXRange( transform: ModelViewTransform2 ) : void {
+  private updateTargetXRange( transform: ModelViewTransform2 ): void {
 
     const newRange = new Range(
       transform.viewToModelX( this.screenView.layoutBounds.minX ),
