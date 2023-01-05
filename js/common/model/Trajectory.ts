@@ -90,11 +90,19 @@ class Trajectory extends PhetioObject {
   private trajectoryLandedEmitter: Emitter<LandedEmitterParams[]>;
   private disposeTrajectory: () => void;
 
-  public constructor( projectileObjectType: ProjectileObjectType, projectileMass: number, projectileDiameter: number,
-                      projectileDragCoefficient: number, initialSpeed: number, initialHeight: number, initialAngle: number,
-                      airDensityProperty: TReadOnlyProperty<number>, gravityProperty: Property<number>,
-                      updateTrajectoryRanksEmitter: Emitter, numberOfMovingProjectilesProperty: Property<number>,
-                      checkIfHitTarget: ( positionX: number ) => boolean, getDataProbe: () => DataProbe | null,
+  public constructor( projectileObjectType: ProjectileObjectType,
+                      projectileMass: number,
+                      projectileDiameter: number,
+                      projectileDragCoefficient: number,
+                      initialSpeed: number,
+                      initialHeight: number,
+                      initialAngle: number,
+                      airDensityProperty: TReadOnlyProperty<number>,
+                      gravityProperty: Property<number>,
+                      updateTrajectoryRanksEmitter: Emitter,
+                      numberOfMovingProjectilesProperty: Property<number>,
+                      checkIfHitTarget: ( positionX: number ) => boolean,
+                      getDataProbe: () => DataProbe | null,
                       providedOptions?: TrajectoryOptions ) {
 
     const options = optionize<TrajectoryOptions>()( {
