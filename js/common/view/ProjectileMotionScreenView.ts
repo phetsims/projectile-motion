@@ -187,19 +187,15 @@ class ProjectileMotionScreenView extends ScreenView {
 
     // results in '{{value}} m/s'
     const valuePatternSpeed = StringUtils.fillIn(
-      pattern0Value1UnitsWithSpaceString,
-      {
+      pattern0Value1UnitsWithSpaceString, {
         units: metersPerSecondString
-      }
-    );
+      } );
 
     // results in '{{value}} degrees'
     const valuePatternAngle = StringUtils.fillIn(
-      pattern0Value1UnitsString,
-      {
+      pattern0Value1UnitsString, {
         units: degreesString
-      }
-    );
+      } );
 
     const angleIncrement = options.cannonNodeOptions.preciseCannonDelta ? 1 : 5;
 
@@ -210,8 +206,7 @@ class ProjectileMotionScreenView extends ScreenView {
     const initialSpeedNumberControl = new NumberControl(
       initialSpeedString,
       model.initialSpeedProperty,
-      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE,
-      {
+      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         titleNodeOptions: {
           font: TEXT_FONT,
           maxWidth: 120 // empirically determined
@@ -237,15 +232,13 @@ class ProjectileMotionScreenView extends ScreenView {
         tandem: initialSpeedPanelTandem.createTandem( 'numberControl' ),
         phetioDocumentation:
           'the control for the initial speed as a projectile leaves the cannon'
-      }
-    );
+      } );
 
     // initial angle readout, slider, and tweakers
     const initialAngleNumberControl = new NumberControl(
       initialAngleString,
       model.cannonAngleProperty,
-      ProjectileMotionConstants.CANNON_ANGLE_RANGE,
-      {
+      ProjectileMotionConstants.CANNON_ANGLE_RANGE, {
         titleNodeOptions: {
           font: TEXT_FONT,
           maxWidth: 120 // empirically determined
@@ -272,14 +265,12 @@ class ProjectileMotionScreenView extends ScreenView {
         tandem: initialAnglePanelTandem.createTandem( 'numberControl' ),
         phetioDocumentation:
           'the control for the initial angle as a projectile leaves the cannon'
-      }
-    );
+      } );
 
     // panel under the cannon, controls initial speed of projectiles
     const initialSpeedPanel = new Panel(
       initialSpeedNumberControl,
-      combineOptions<PanelOptions>(
-        {
+      combineOptions<PanelOptions>( {
           left: this.layoutBounds.left + X_MARGIN,
           bottom: this.layoutBounds.bottom - 10,
           tandem: initialSpeedPanelTandem
@@ -291,8 +282,7 @@ class ProjectileMotionScreenView extends ScreenView {
     // panel under the cannon, controls initial speed of projectiles
     const initialAnglePanel = new Panel(
       initialAngleNumberControl,
-      combineOptions<PanelOptions>(
-        {
+      combineOptions<PanelOptions>( {
           left: initialSpeedPanel.right + X_MARGIN,
           bottom: initialSpeedPanel.bottom,
           tandem: initialAnglePanelTandem
@@ -333,16 +323,13 @@ class ProjectileMotionScreenView extends ScreenView {
     const dataProbeNode = new DataProbeNode(
       model.dataProbe,
       transformProperty,
-      this,
-      {
+      this, {
         tandem: tandem.createTandem( 'dataProbeNode' ),
         phetioDocumentation: 'the Node for the dataProbe tool'
-      }
-    );
+      } );
 
     const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup(
-      model.zoomProperty,
-      {
+      model.zoomProperty, {
         applyZoomIn: currentZoom => currentZoom * 2,
         applyZoomOut: currentZoom => currentZoom / 2,
         spacing: X_MARGIN,
@@ -361,8 +348,7 @@ class ProjectileMotionScreenView extends ScreenView {
         // phet-io
         tandem: tandem.createTandem( 'zoomButtonGroup' ),
         phetioDocumentation: 'Container for the zoom in and out buttons'
-      }
-    );
+      } );
 
     // Watch the zoomProperty and update transform Property accordingly
     model.zoomProperty.link( zoomFactor => {
@@ -381,11 +367,9 @@ class ProjectileMotionScreenView extends ScreenView {
       model.dataProbe,
       measuringTapeNode,
       dataProbeNode,
-      transformProperty,
-      {
+      transformProperty, {
         tandem: tandem.createTandem( 'toolboxPanel' )
-      }
-    );
+      } );
 
     // reset all button, also a closure for and measuringTape
     const resetAllButton = new ResetAllButton( {

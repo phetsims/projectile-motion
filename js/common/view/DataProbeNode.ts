@@ -246,7 +246,7 @@ class DataProbeNode extends Node {
     } );
 
     // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
-    screenView.visibleBoundsProperty.link( bounds => {
+    screenView.visibleBoundsProperty.link( () => {
       dragBoundsProperty.value = transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
       updatePosition( dataProbe.positionProperty.get() );
     } );
