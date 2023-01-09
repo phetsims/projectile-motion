@@ -68,7 +68,6 @@ const FIRE_BUTTON_MARGIN_X = 40;
 const FLATIRONS_RANGE = new Range( 1500, 1700 );
 
 type SelfOptions = {
-  tandem: Tandem;
   cannonNodeOptions?: CannonNodeOptions;
   addFlatirons?: boolean;
   maxTrajectories?: number;
@@ -102,7 +101,6 @@ class ProjectileMotionScreenView extends ScreenView {
   public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel, viewProperties: ProjectileMotionViewProperties,
                       tandem: Tandem, providedOptions: ProjectileMotionScreenViewOptions ) {
     const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
-      tandem: tandem,
       cannonNodeOptions: {
         renderer: platform.mobileSafari ? 'canvas' : null,
         preciseCannonDelta: false

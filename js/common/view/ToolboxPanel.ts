@@ -11,7 +11,6 @@ import ScreenView from '../../../../joist/js/ScreenView.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
 import { DragListener, HBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataProbeNode from './DataProbeNode.js';
 import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
@@ -19,16 +18,16 @@ import DataProbe from '../model/DataProbe.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 type SelfOptions = {
   xMargin?: number;
   yMargin?: number;
   fill?: string;
   minWidth?: number;
-  tandem: Tandem;
 };
 
-type ToolboxPanelOptions = SelfOptions & PanelOptions;
+type ToolboxPanelOptions = SelfOptions & PanelOptions & PickRequired<PanelOptions, 'tandem'>;
 
 class ToolboxPanel extends Panel {
 
@@ -53,8 +52,7 @@ class ToolboxPanel extends Panel {
       xMargin: 12,
       yMargin: 18,
       fill: 'white',
-      minWidth: 200,
-      tandem: Tandem.REQUIRED
+      minWidth: 200
     }, providedOptions );
 
     // Create the icon Node for the dataProbe tool

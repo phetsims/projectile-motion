@@ -18,13 +18,13 @@ import { PanelOptions } from '../../../sun/js/Panel.js';
 import projectileMotion from '../projectileMotion.js';
 
 export type ProjectileMotionUIOptions = {
-  controlsVerticalSpace: number;
-  xSpacing: number;
-  textDisplayWidth: number;
-  numberDisplayMaxWidth: number;
-  textDisplayHeight: number;
-  readoutXMargin: number;
-  sliderLabelSpacing: number;
+  controlsVerticalSpace?: number;
+  xSpacing?: number;
+  textDisplayWidth?: number;
+  numberDisplayMaxWidth?: number;
+  textDisplayHeight?: number;
+  readoutXMargin?: number;
+  sliderLabelSpacing?: number;
 } & PanelOptions;
 
 // constants

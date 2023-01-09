@@ -9,6 +9,7 @@
 
 import Range, { RangeStateObject } from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Node } from '../../../../scenery/js/imports.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
@@ -51,8 +52,11 @@ type SelfOptions = {
   viewCreationFunction?: ProjectileObjectViewCreator | null;
 };
 
-// viewCreationFunction should never be null if provided
-type ProjectileObjectTypeOptions = SelfOptions & PhetioObjectOptions & { viewCreationFunction?: ProjectileObjectViewCreator };
+type ProjectileObjectTypeOptions = SelfOptions &
+  PhetioObjectOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
+
+  // viewCreationFunction should never be null if provided
+  { viewCreationFunction?: ProjectileObjectViewCreator };
 
 type ProjectileObjectTypeStateObject = {
   name: string | null;
@@ -98,7 +102,6 @@ class ProjectileObjectType extends PhetioObject {
       // most objectTypes have a max of 1
       dragCoefficientRange: new Range( ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE.min, 1 ),
       viewCreationFunction: null,
-      tandem: Tandem.REQUIRED,
       phetioType: ProjectileObjectType.ProjectileObjectTypeIO
     }, providedOptions );
 

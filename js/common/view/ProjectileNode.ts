@@ -56,7 +56,7 @@ export type ViewPoint = {
 };
 
 type SelfOptions = {
-  preventFit: boolean;
+  preventFit?: boolean;
 };
 type ProjectileNodeOptions = SelfOptions & NodeOptions;
 

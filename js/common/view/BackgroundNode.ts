@@ -24,7 +24,7 @@ const FLATIRONS_WIDTH = 450;
 const FLATIRONS_LEFT = 8; // in meters
 
 type SelfOptions = {
-  pickable: boolean;
+  pickable?: boolean;
 };
 
 type BackgroundNodeOptions = SelfOptions & NodeOptions;

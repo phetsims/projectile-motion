@@ -13,9 +13,9 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 
 type ProjectileMotionViewPropertiesOptions = {
-  tandem: Tandem;
-  forceProperties: boolean;
-  accelerationProperties: boolean;
+  tandem?: Tandem;
+  forceProperties?: boolean;
+  accelerationProperties?: boolean;
 };
 
 class ProjectileMotionViewProperties {
