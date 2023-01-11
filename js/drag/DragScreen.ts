@@ -31,7 +31,7 @@ class DragScreen extends Screen {
 
     super(
       () => new DragModel( tandem.createTandem( 'model' ) ),
-      model => new DragScreenView( model, tandem.createTandem( 'view' ) ),
+      model => new DragScreenView( model, { tandem: tandem.createTandem( 'view' ) } ),
       options
     );
   }

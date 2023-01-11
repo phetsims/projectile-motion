@@ -36,7 +36,7 @@ class StatsScreen extends Screen {
 
     super(
       () => new StatsModel( tandem.createTandem( 'model' ) ),
-      model => new StatsScreenView( model, tandem.createTandem( 'view' ) ),
+      model => new StatsScreenView( model, { tandem: tandem.createTandem( 'view' ) } ),
       options
     );
   }

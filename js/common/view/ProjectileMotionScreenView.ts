@@ -30,7 +30,6 @@ import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import { Image, Node } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
@@ -95,11 +94,10 @@ class ProjectileMotionScreenView extends ScreenView {
    * {Panel} topRightPanel - the projectile control panel at the top right
    * {Panel} bottomRightPanel - the vectors control panel at the bottom right
    * {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * {Tandem} tandem
    * {Object} [options]
    */
-  public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel, viewProperties: ProjectileMotionViewProperties,
-                      tandem: Tandem, providedOptions: ProjectileMotionScreenViewOptions ) {
+  public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel,
+                      viewProperties: ProjectileMotionViewProperties, providedOptions: ProjectileMotionScreenViewOptions ) {
     const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
       cannonNodeOptions: {
         renderer: platform.mobileSafari ? 'canvas' : null,
@@ -112,6 +110,8 @@ class ProjectileMotionScreenView extends ScreenView {
     }, providedOptions );
 
     super( options );
+
+    const tandem = options.tandem;
 
     // If on mobile device, don't draw things beyond boundary. For performance.
     if ( platform.mobileSafari ) {

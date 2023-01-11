@@ -17,17 +17,16 @@ class VectorsScreenView extends ProjectileMotionScreenView {
 
   /**
    * @param {VectorsModel} model
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, tandem, options ) {
+  constructor( model, options ) {
 
     options = merge( {
       addFlatirons: false
     }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new VectorsViewProperties( tandem.createTandem( 'viewProperties' ) );
+    const visibilityProperties = new VectorsViewProperties( options.tandem.createTandem( 'viewProperties' ) );
 
     super(
       model,
@@ -37,11 +36,10 @@ class VectorsScreenView extends ProjectileMotionScreenView {
         model.projectileMassProperty,
         model.airResistanceOnProperty,
         model.projectileDragCoefficientProperty,
-        { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+        { tandem: options.tandem.createTandem( 'projectileControlPanel' ) }
       ),
-      new VectorsVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new VectorsVectorsControlPanel( visibilityProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
-      tandem,
       options
     );
   }

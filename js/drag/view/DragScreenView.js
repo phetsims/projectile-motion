@@ -16,13 +16,12 @@ class DragScreenView extends ProjectileMotionScreenView {
 
   /**
    * @param {DragModel} model
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, tandem, options ) {
+  constructor( model, options ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new DragViewProperties( tandem.createTandem( 'viewProperties' ) );
+    const visibilityProperties = new DragViewProperties( options.tandem.createTandem( 'viewProperties' ) );
 
     super(
       model,
@@ -31,12 +30,12 @@ class DragScreenView extends ProjectileMotionScreenView {
         model.projectileDragCoefficientProperty,
         model.projectileDiameterProperty,
         model.projectileMassProperty,
-        model.altitudeProperty,
-        { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+        model.altitudeProperty, {
+          tandem: options.tandem.createTandem( 'projectileControlPanel' )
+        }
       ),
-      new DragVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new DragVectorsControlPanel( visibilityProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
-      tandem,
       options );
   }
 }

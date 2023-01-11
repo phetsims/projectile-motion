@@ -35,7 +35,7 @@ class IntroScreen extends Screen {
 
     super(
       () => new IntroModel( tandem.createTandem( 'model' ) ),
-      model => new IntroScreenView( model, tandem.createTandem( 'view' ) ),
+      model => new IntroScreenView( model, { tandem: tandem.createTandem( 'view' ) } ),
       options
     );
   }

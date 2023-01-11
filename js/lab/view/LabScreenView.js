@@ -21,10 +21,9 @@ class LabScreenView extends ProjectileMotionScreenView {
 
   /**
    * @param {LabModel} model
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, tandem, options ) {
+  constructor( model, options ) {
 
     options = merge( { cannonNodeOptions: { preciseCannonDelta: true } }, options );
 
@@ -34,14 +33,14 @@ class LabScreenView extends ProjectileMotionScreenView {
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
     const keypadLayer = new KeypadLayer( {
-      tandem: tandem.createTandem( 'keypadLayer' ),
+      tandem: options.tandem.createTandem( 'keypadLayer' ),
       phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
     } );
     const labProjectilePanel = new LabProjectileControlPanel(
       comboBoxListParent,
       keypadLayer,
       model,
-      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+      { tandem: options.tandem.createTandem( 'projectileControlPanel' ) }
     );
 
     super(
@@ -50,11 +49,10 @@ class LabScreenView extends ProjectileMotionScreenView {
         model.cannonHeightProperty,
         model.cannonAngleProperty,
         model.initialSpeedProperty,
-        { tandem: tandem.createTandem( 'initialValuesPanel' ) }
+        { tandem: options.tandem.createTandem( 'initialValuesPanel' ) }
       ),
       labProjectilePanel,
       visibilityProperties,
-      tandem,
       options
     );
 

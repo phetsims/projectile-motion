@@ -17,10 +17,9 @@ class IntroScreenView extends ProjectileMotionScreenView {
 
   /**
    * @param {IntroModel} model
-   * @param {Tandem} tandem
    * @param {Object} [options]
    */
-  constructor( model, tandem, options ) {
+  constructor( model, options ) {
 
     options = merge( {
       addFlatirons: false
@@ -28,7 +27,7 @@ class IntroScreenView extends ProjectileMotionScreenView {
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new ProjectileMotionViewProperties( {
-      tandem: tandem.createTandem( 'viewProperties' ),
+      tandem: options.tandem.createTandem( 'viewProperties' ),
       forceProperties: false
     } );
 
@@ -43,15 +42,14 @@ class IntroScreenView extends ProjectileMotionScreenView {
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
       model.airResistanceOnProperty,
-      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
+      { tandem: options.tandem.createTandem( 'projectileControlPanel' ) }
     );
 
     super(
       model,
       projectilePanel,
-      new IntroVectorsControlPanel( visibilityProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new IntroVectorsControlPanel( visibilityProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
-      tandem,
       options
     );
 
