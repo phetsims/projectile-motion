@@ -51,11 +51,11 @@ class DragVectorsControlPanel extends Panel {
     };
 
     const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
-      createNode: tandem => new Text( totalString, titleOptions ),
+      createNode: () => new Text( totalString, titleOptions ),
       tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
     }, {
-      createNode: tandem => new Text( componentsString, titleOptions ),
+      createNode: () => new Text( componentsString, titleOptions ),
       tandemName: 'componentsRadioButton',
       value: VectorsDisplayEnumeration.COMPONENTS
     } ], {
