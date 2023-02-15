@@ -16,7 +16,7 @@ import IntroModel from './model/IntroModel.js';
 import IntroIconNode from './view/IntroIconNode.js';
 import IntroScreenView from './view/IntroScreenView.js';
 
-class IntroScreen extends Screen {
+class IntroScreen extends Screen<IntroModel, IntroScreenView> {
   public constructor( tandem: Tandem ) {
 
     const options: ScreenOptions = {

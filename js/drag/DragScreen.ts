@@ -16,7 +16,7 @@ import DragModel from './model/DragModel.js';
 import DragIconNode from './view/DragIconNode.js';
 import DragScreenView from './view/DragScreenView.js';
 
-class DragScreen extends Screen {
+class DragScreen extends Screen<DragModel, DragScreenView> {
   public constructor( tandem: Tandem ) {
 
     const options = {

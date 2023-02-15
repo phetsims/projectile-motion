@@ -17,6 +17,7 @@ import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.js';
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import TModel from '../../../../joist/js/TModel.js';
 import EventTimer from '../../../../phet-core/js/EventTimer.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
@@ -53,7 +54,7 @@ type ProjectileMotionModelOptions = {
   phetioInstrumentAltitudeProperty?: boolean;
 };
 
-class ProjectileMotionModel {
+class ProjectileMotionModel implements TModel {
   public maxProjectiles: number;
   public target: Target;
   public measuringTape: ProjectileMotionMeasuringTape;
