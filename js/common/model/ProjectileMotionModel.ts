@@ -309,11 +309,11 @@ class ProjectileMotionModel implements TModel {
     this.measuringTape.reset();
     this.dataProbe.reset();
     this.zoomProperty.reset();
-
     this.cannonHeightProperty.reset();
     this.cannonAngleProperty.reset();
     this.initialAngleStandardDeviationProperty.reset();
     this.initialSpeedProperty.reset();
+    this.initialSpeedStandardDeviationProperty.reset();
     this.selectedProjectileObjectTypeProperty.reset();
     this.projectileMassProperty.reset();
     this.projectileDiameterProperty.reset();
