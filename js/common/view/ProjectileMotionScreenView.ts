@@ -432,7 +432,7 @@ class ProjectileMotionScreenView extends ScreenView {
           },
           radius: 12,
           stroke: 'black',
-          // fill: '#005566',
+          iconFill: '#005566',
           touchAreaDilation: 4
         }
       },
