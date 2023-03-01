@@ -82,7 +82,7 @@ class InitialValuesPanel extends Panel {
                                value: Utils.toFixedNumber( value, 2 ),
                                units: unitsString
                              } );
-        parameterLabel.setText( `${labelString}: ${valueReadout}` );
+        parameterLabel.setString( `${labelString}: ${valueReadout}` );
       } );
 
       return new VBox( {

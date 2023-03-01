@@ -132,7 +132,7 @@ class IntroProjectileControlPanel extends Panel {
           value: value,
           units: unitsString
         } ) : Utils.toFixed( value, 2 );
-        parameterLabel.setText( `${labelString}: ${valueReadout}` );
+        parameterLabel.setString( `${labelString}: ${valueReadout}` );
       } );
 
       return new VBox( {

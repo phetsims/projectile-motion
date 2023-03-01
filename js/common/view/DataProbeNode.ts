@@ -404,7 +404,7 @@ function createInformationBox( maxWidth: number, labelString: string, readoutPro
 
   // update text readout if information changes
   readoutProperty.link( readout => {
-    numberNode.setText( readout );
+    numberNode.setString( readout );
     if ( readout === noValueString ) {
       numberNode.center = backgroundNode.center;
     }

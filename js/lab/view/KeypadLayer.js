@@ -154,7 +154,7 @@ class KeypadLayer extends Plane {
 
     // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
     this.keypadNode.stringProperty.link( string => { // no unlink required
-      valueNode.text = string;
+      valueNode.string = string;
       valueNode.center = valueBackgroundNode.center;
     } );
 
@@ -200,7 +200,7 @@ class KeypadLayer extends Plane {
       max: valueRange.max,
       units: unitsString ? unitsString : ''
     } ).trim();
-    this.rangeMessageText.setText( rangeMessage );
+    this.rangeMessageText.setString( rangeMessage );
 
     // display the keypad
     this.visible = true;

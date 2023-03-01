@@ -332,7 +332,7 @@ class CannonNode extends Node {
                        ? Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180, true )
                        : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
-      angleLabel.text = StringUtils.fillIn( pattern0Value1UnitsString, {
+      angleLabel.string = StringUtils.fillIn( pattern0Value1UnitsString, {
         value: Utils.toFixedNumber( angleProperty.get(), 2 ),
         units: DEGREES
       } );
@@ -388,7 +388,7 @@ class CannonNode extends Node {
       heightLeaderLine.setLine( heightLeaderArrows.tailX, heightLeaderArrows.tailY, heightLeaderArrows.tipX, heightLeaderArrows.tipY );
       heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
       heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
-      heightLabelText.text = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
+      heightLabelText.string = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
         value: Utils.toFixedNumber( height, 2 ),
         units: mString
       } );

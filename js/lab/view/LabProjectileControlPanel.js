@@ -369,7 +369,7 @@ class LabProjectileControlPanel extends Node {
 
       // exists for the lifetime of the simulation
       this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
-        dragCoefficientText.text = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
+        dragCoefficientText.string = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
       } );
 
 
