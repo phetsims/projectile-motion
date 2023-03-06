@@ -23,15 +23,15 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
     // @public vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),
-      phetioDocumentation: 'Whether or not to display velocity vectors for flying projectiles'
+      phetioDocumentation: 'Whether to display velocity vectors for flying projectiles'
     } );
     this.accelerationVectorsOnProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'accelerationVectorsOnProperty' ),
-      phetioDocumentation: 'Whether or not to display the acceleration vectors for flying projectiles'
+      phetioDocumentation: 'Whether to display the acceleration vectors for flying projectiles'
     } );
     this.forceVectorsOnProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'forceVectorsOnProperty' ),
-      phetioDocumentation: 'Whether or not to display the force vectors in a free body diagram for flying projectiles'
+      phetioDocumentation: 'Whether to display the force vectors in a free body diagram for flying projectiles'
     } );
     this.vectorsDisplayProperty = new EnumerationDeprecatedProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
       tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
