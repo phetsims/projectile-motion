@@ -28,11 +28,8 @@ export type ProjectileMotionUIOptions = {
 } & PanelOptions;
 
 // constants
-const AIR_RESISTANCE_ICON_PATH = new Path(
-  Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ),
-  {
-    lineWidth: 3,
-    stroke: 'rgb( 252, 40, 252 )'
+const AIR_RESISTANCE_ICON_PATH = new Path( Shape.arc( 0, 0, 10, Math.PI * 1.15, Math.PI * 1.85 ), {
+    lineWidth: 3, stroke: 'rgb( 252, 40, 252 )'
   }
 );
 const SMALL_DOT_RADIUS = 1.65; // in global view coordinates, empirically determined
@@ -113,9 +110,7 @@ const ProjectileMotionConstants = {
     headHeight: 8
   } ),
   AIR_RESISTANCE_ICON: new Node( {
-    centerY: 0,
-    left: 0,
-    children: [
+    centerY: 0, left: 0, children: [
       AIR_RESISTANCE_ICON_PATH,
       new Circle( 2.2, {
         x: AIR_RESISTANCE_ICON_PATH.right - 0.8,
@@ -167,22 +162,12 @@ const ProjectileMotionConstants = {
     yMargin: 5
   } satisfies PanelOptions,
 
-  PANEL_TITLE_OPTIONS: {
-    font: new PhetFont( { size: 14, weight: 'bold' } ),
-    align: 'center'
-  },
-  PANEL_LABEL_OPTIONS: {
-    font: new PhetFont( 14 )
-  } satisfies TextOptions,
-
-  PANEL_BOLD_LABEL_OPTIONS: {
-    font: new PhetFont( { size: 14, weight: 'bold' } )
-  },
+  PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ), align: 'center' },
+  PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) } satisfies TextOptions,
+  PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
 
   NUMBER_DISPLAY_OPTIONS: {
-    textOptions: {
-      font: new PhetFont( 14 )
-    },
+    textOptions: { font: new PhetFont( 14 ) },
     backgroundFill: 'white',
     backgroundStroke: 'lightGray',
     align: 'right',
