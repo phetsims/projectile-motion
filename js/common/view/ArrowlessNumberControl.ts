@@ -30,6 +30,14 @@ type ArrowlessNumberControlOptions = SelfOptions & ProjectileMotionUIOptions;
 
 class ArrowlessNumberControl extends NumberControl {
 
+  /**
+   * Auxiliary function that creates a NumberControl
+   * @param labelString - label for the parameter
+   * @param unitsString - units
+   * @param valueProperty - the Property that is set and linked to
+   * @param range - range for the valueProperty value
+   * @param round - for minor ticks
+   */
   public constructor( labelString: string, unitsString: string, valueProperty: Property<number>, range: Range,
                       round: number, providedOptions: ArrowlessNumberControlOptions ) {
     // options used to compute other option values

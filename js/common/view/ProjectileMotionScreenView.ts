@@ -89,6 +89,11 @@ class ProjectileMotionScreenView extends ScreenView {
   private initialSpeedPanel: Panel;
   private initialAnglePanel: Panel;
 
+  /**
+   * @param topRightPanel - the projectile control panel at the top right
+   * @param bottomRightPanel - the vectors control panel at the bottom right
+   * @param viewProperties - Properties that determine which vectors are shown
+   */
   public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel,
                       viewProperties: ProjectileMotionViewProperties, providedOptions: ProjectileMotionScreenViewOptions ) {
 

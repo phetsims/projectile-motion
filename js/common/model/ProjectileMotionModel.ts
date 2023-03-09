@@ -85,6 +85,11 @@ class ProjectileMotionModel implements TModel {
   public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
   public dataProbe: DataProbe;
 
+  /**
+   * @param defaultProjectileObjectType -  default object type for the model
+   * @param defaultAirResistanceOn -  default air resistance on value
+   * @param possibleObjectTypes - a list of the possible ProjectileObjectTypes for the model
+   */
   public constructor( defaultProjectileObjectType: ProjectileObjectType, defaultAirResistanceOn: boolean,
                       possibleObjectTypes: ProjectileObjectType[], tandem: Tandem, providedOptions?: ProjectileMotionModelOptions ) {
 
@@ -343,6 +348,9 @@ class ProjectileMotionModel implements TModel {
     this.numberOfMovingProjectilesProperty.reset();
   }
 
+  /**
+   * @param numProjectiles - the number of simultaneous projectiles to fire
+   */
   public fireNumProjectiles( numProjectiles: number ): void {
     for ( let i = 0; i < numProjectiles; i++ ) {
       const initialSpeed = this.initialSpeedProperty.getRandomizedValue();
@@ -375,6 +383,10 @@ class ProjectileMotionModel implements TModel {
     }
   }
 
+  /**
+   * Set mass, diameter, and drag coefficient based on the currently selected projectile object type
+   * @param selectedProjectileObjectType - contains information such as mass, diameter, etc.
+   */
   private setProjectileParameters( selectedProjectileObjectType: ProjectileObjectType ): void {
     this.projectileMassProperty.set( selectedProjectileObjectType.mass );
     this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
@@ -382,6 +394,10 @@ class ProjectileMotionModel implements TModel {
   }
 }
 
+/**
+ * @param altitude - in meters
+ * @param airResistanceOn - if off, zero air density
+ */
 const calculateAirDensity = ( altitude: number, airResistanceOn: boolean ): number => {
   // Atmospheric model algorithm is taken from https://www.grc.nasa.gov/www/k-12/airplane/atmosmet.html
   // Checked the values at http://www.engineeringtoolbox.com/standard-atmosphere-d_604.html

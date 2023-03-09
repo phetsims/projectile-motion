@@ -27,7 +27,7 @@ class ProjectileMotionViewProperties {
   public componentsAccelerationVectorsOnProperty?: Property<boolean>; // whether component acceleration vectors are showing
   public totalForceVectorOnProperty?: Property<boolean>; // whether total force vector is showing
   public componentsForceVectorsOnProperty?: Property<boolean>; // whether component force vectors are showing
-  public constructor( providedOptions: ProjectileMotionViewPropertiesOptions ) {
+  public constructor( providedOptions?: ProjectileMotionViewPropertiesOptions ) {
 
     const options = optionize<ProjectileMotionViewPropertiesOptions>()( {
       tandem: Tandem.OPTIONAL,
