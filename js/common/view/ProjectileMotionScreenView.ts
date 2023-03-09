@@ -95,7 +95,7 @@ class ProjectileMotionScreenView extends ScreenView {
    * @param viewProperties - Properties that determine which vectors are shown
    */
   public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel,
-                      viewProperties: ProjectileMotionViewProperties, providedOptions: ProjectileMotionScreenViewOptions ) {
+                      viewProperties: ProjectileMotionViewProperties, providedOptions?: ProjectileMotionScreenViewOptions ) {
 
     const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
       cannonNodeOptions: { renderer: platform.mobileSafari ? 'canvas' : null, preciseCannonDelta: false },

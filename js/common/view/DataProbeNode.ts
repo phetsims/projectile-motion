@@ -83,7 +83,7 @@ class DataProbeNode extends Node {
   public readonly dragListener: DragListener;
   private readonly rectangle: Rectangle;
 
-  public constructor( dataProbe: DataProbe, transformProperty: TReadOnlyProperty<ModelViewTransform2>, screenView: ScreenView, providedOptions: DataProbeNodeOptions ) {
+  public constructor( dataProbe: DataProbe, transformProperty: TReadOnlyProperty<ModelViewTransform2>, screenView: ScreenView, providedOptions?: DataProbeNodeOptions ) {
 
     const options = optionize<DataProbeNodeOptions, SelfOptions, NodeOptions>()( {
       cursor: 'pointer',

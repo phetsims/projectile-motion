@@ -38,7 +38,7 @@ class ToolboxPanel extends Panel {
    * @param dataProbeNode - view for the dataProbe tool
    */
   public constructor( measuringTape: ProjectileMotionMeasuringTape, dataProbe: DataProbe, measuringTapeNode: MeasuringTapeNode,
-                      dataProbeNode: DataProbeNode, transformProperty: Property<ModelViewTransform2>, providedOptions: ToolboxPanelOptions ) {
+                      dataProbeNode: DataProbeNode, transformProperty: Property<ModelViewTransform2>, providedOptions?: ToolboxPanelOptions ) {
 
     // The first object is an empty placeholder so none of the others get mutated
     // The second object is the default, in the constants files

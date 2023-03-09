@@ -19,7 +19,7 @@ type SelfOptions = {
 type FireMultipleButtonOptions = SelfOptions & RectangularPushButtonOptions;
 
 class FireMultipleButton extends RectangularPushButton {
-  public constructor( providedOptions: FireMultipleButtonOptions ) {
+  public constructor( providedOptions?: FireMultipleButtonOptions ) {
 
     const options = optionize<FireMultipleButtonOptions, SelfOptions, RectangularPushButtonOptions>()( {
       baseColor: 'rgb( 60, 110, 240 )', // blue

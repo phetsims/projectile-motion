@@ -39,7 +39,7 @@ class ArrowlessNumberControl extends NumberControl {
    * @param round - for minor ticks
    */
   public constructor( labelString: string, unitsString: string, valueProperty: Property<number>, range: Range,
-                      round: number, providedOptions: ArrowlessNumberControlOptions ) {
+                      round: number, providedOptions?: ArrowlessNumberControlOptions ) {
     // options used to compute other option values
     const initialOptions = optionize<ArrowlessNumberControlOptions, SelfOptions, ProjectileMotionUIOptions>()( {
       containerWidth: 200,

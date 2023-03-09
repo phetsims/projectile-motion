@@ -50,7 +50,6 @@ class DataPoint {
    * @param acceleration - acceleration at this point, magnitude in m/s^2
    * @param dragForce - drag force at this point, magnitude in N
    * @param forceGravity - force of gravity, in N
-   * @param [providedOptions]
    */
   public constructor( time: number, position: Vector2, airDensity: number, velocity: Vector2, acceleration: Vector2, dragForce: Vector2, forceGravity: number, providedOptions?: DataPointOptions ) {
 

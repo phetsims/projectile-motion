@@ -86,7 +86,7 @@ class CannonNode extends Node {
   private muzzleFlashStage: number;
 
   public constructor( heightProperty: Property<number>, angleProperty: Property<number>, muzzleFlashStepper: Emitter<number[]>,
-                      transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions: CannonNodeOptions ) {
+                      transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions?: CannonNodeOptions ) {
 
     const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {
       tandem: Tandem.REQUIRED
@@ -469,7 +469,7 @@ class CannonNode extends Node {
 
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
-          const delta = providedOptions.preciseCannonDelta ? 1 : 5;
+          const delta = providedOptions?.preciseCannonDelta ? 1 : 5;
           angleProperty.set( Utils.roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
 

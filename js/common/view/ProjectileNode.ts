@@ -65,13 +65,11 @@ class ProjectileNode extends Node {
   public readonly viewPointProperty: TReadOnlyProperty<ViewPoint>;
 
   /**
-   *  viewProperties - Properties that determine which vectors are shown
-   *  dataPointProperty - data for where the projectile is
-   *  objectType
-   *  diameter - how big the object is, in meters
-   *  dragCoefficient - shape of the object
-   *  modelViewTransform - meters to scale, inverted y-axis, translated origin
-   *  [providedOptions]
+   *  @param viewProperties - Properties that determine which vectors are shown
+   *  @param dataPointProperty - data for where the projectile is
+   *  @param diameter - how big the object is, in meters
+   *  @param dragCoefficient - shape of the object
+   *  @param modelViewTransform - meters to scale, inverted y-axis, translated origin
    */
   public constructor( viewProperties: ProjectileMotionViewProperties, dataPointProperty: Property<DataPoint>,
                       objectType: ProjectileObjectType, diameter: number, dragCoefficient: number,

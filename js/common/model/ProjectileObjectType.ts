@@ -91,7 +91,7 @@ class ProjectileObjectType extends PhetioObject {
   public readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
 
   public constructor( name: string | null, mass: number, diameter: number, dragCoefficient: number,
-                      benchmark: string | null, rotates: boolean, providedOptions: ProjectileObjectTypeOptions ) {
+                      benchmark: string | null, rotates: boolean, providedOptions?: ProjectileObjectTypeOptions ) {
 
     const options = optionize<ProjectileObjectTypeOptions, SelfOptions, PhetioObjectOptions>()( {
       massRange: new Range( 1, 10 ),

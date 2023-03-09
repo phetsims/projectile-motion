@@ -36,7 +36,7 @@ type AirResistanceControlOptions = SelfOptions & VBoxOptions;
 
 class AirResistanceControl extends VBox {
   public constructor( airResistanceOnProperty: BooleanProperty, projectileDragCoefficientProperty: Property<number>,
-                      providedOptions: AirResistanceControlOptions ) {
+                      providedOptions?: AirResistanceControlOptions ) {
     const options = optionize<AirResistanceControlOptions, SelfOptions, VBoxOptions>()( {
       labelOptions: {},
       minWidth: 100,
