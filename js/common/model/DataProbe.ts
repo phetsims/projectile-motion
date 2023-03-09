@@ -98,15 +98,9 @@ class DataProbe {
         this.dataPointProperty.set( currentTrajectory.apexPoint );
         return;
       }
-      const point = currentTrajectory.getNearestPoint(
-        this.positionProperty.get().x,
-        this.positionProperty.get().y
-      );
-      const pointIsReadable =
-        point &&
-        ( point.apex ||
-          point.position.y === 0 ||
-          Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+      const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
+      const pointIsReadable = point && ( point.apex || point.position.y === 0 ||
+                                         Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
         this.dataPointProperty.set( point );
         return;
@@ -120,8 +114,7 @@ class DataProbe {
    */
   public updateDataIfWithinRange( point: DataPoint ): void {
     // point can be read by dataProbe if it exists, it is on the ground, or it is the right timestep
-    const pointIsReadable = point &&
-                            ( point.apex || point.position.y === 0 ||
+    const pointIsReadable = point && ( point.apex || point.position.y === 0 ||
                               Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
     if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
       this.dataPointProperty.set( point );
