@@ -135,11 +135,9 @@ class Trajectory extends PhetioObject {
 
     this.rankProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'rankProperty' ),
-      phetioDocumentation: `${
-        'The count of how old this projectile trajectory is. Older trajectories have more ' +
-        'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
-        'The second most recent has rank 1.'
-      }`,
+      phetioDocumentation: `${'The count of how old this projectile trajectory is. Older trajectories have more ' +
+                              'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
+                              'The second most recent has rank 1.'}`,
       phetioReadOnly: true
     } );
 
@@ -148,13 +146,10 @@ class Trajectory extends PhetioObject {
 
     // record points along the trajectory with critical information
     this.dataPoints = createObservableArray( {
-      phetioType: createObservableArray.ObservableArrayIO(
-        DataPoint.DataPointIO
-      ),
+      phetioType: createObservableArray.ObservableArrayIO( DataPoint.DataPointIO ),
       tandem: options.tandem.createTandem( 'dataPoints' ),
-      phetioDocumentation:
-        'An ordered list of all data points taken on this trajectory. The earliest data point ' +
-        'will be first'
+      phetioDocumentation: 'An ordered list of all data points taken on this trajectory. The earliest data point ' +
+                           'will be first'
     } );
 
     // set by TrajectoryIO.js
@@ -173,21 +168,16 @@ class Trajectory extends PhetioObject {
     const acceleration = this.accelerationForDragForce( dragForce );
 
     const initialPoint = new DataPoint( 0, Vector2.pool.create( 0, this.initialHeight ), this.airDensityProperty.value,
-      velocity, acceleration, dragForce, this.gravityForce()
-    );
+      velocity, acceleration, dragForce, this.gravityForce() );
 
     this.addDataPoint( initialPoint );
 
     // The "projectile object" is really just what data point the projectile is currently at.
-    this.projectileDataPointProperty = new Property( initialPoint, {
-      phetioValueType: DataPoint.DataPointIO
-    } );
+    this.projectileDataPointProperty = new Property( initialPoint, { phetioValueType: DataPoint.DataPointIO } );
 
     this.trajectoryLandedEmitter = new Emitter( {
       tandem: options.tandem.createTandem( 'trajectoryLandedEmitter' ),
-      parameters: [
-        { name: 'trajectory', phetioType: Trajectory.TrajectoryIO }
-      ]
+      parameters: [ { name: 'trajectory', phetioType: Trajectory.TrajectoryIO } ]
     } );
 
     this.dataPoints.elementAddedEmitter.addListener( addedDataPoint => {
@@ -359,15 +349,12 @@ class Trajectory extends PhetioObject {
       ( tandem, projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
         initialSpeed, initialHeight, initialAngle ) => {
         return new Trajectory( projectileObjectType, projectileMass, projectileDiameter, projectileDragCoefficient,
-
           initialSpeed, initialHeight, initialAngle, model.airDensityProperty, model.gravityProperty,
           model.updateTrajectoryRanksEmitter, model.numberOfMovingProjectilesProperty, checkIfHitTarget,
           () => {
             return model.dataProbe;
           },
-          {
-            tandem: tandem
-          } );
+          { tandem: tandem } );
       },
       [ model.selectedProjectileObjectTypeProperty.value,
         model.projectileMassProperty.value, model.projectileDiameterProperty.value,
@@ -376,8 +363,7 @@ class Trajectory extends PhetioObject {
       {
         tandem: tandem,
         phetioType: PhetioGroup.PhetioGroupIO( Trajectory.TrajectoryIO ),
-        phetioDocumentation:
-          'The container for any trajectory that is created when a projectile is fired.'
+        phetioDocumentation: 'The container for any trajectory that is created when a projectile is fired.'
       }
     );
   }

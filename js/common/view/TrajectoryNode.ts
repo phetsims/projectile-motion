@@ -24,10 +24,8 @@ import DataPoint from '../model/DataPoint.js';
 const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
 const PATH_MIN_OPACITY = 0.1;
 const PATH_MAX_OPACITY = 1;
-const AIR_RESISTANCE_OFF_PATH_COLOR =
-  ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
-const AIR_RESISTANCE_ON_COLOR =
-  ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
+const AIR_RESISTANCE_OFF_PATH_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_OFF_PATH_COLOR;
+const AIR_RESISTANCE_ON_COLOR = ProjectileMotionConstants.AIR_RESISTANCE_ON_PATH_COLOR;
 
 const SMALL_DOT_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS; // view units
 const LARGE_DOT_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS; // view units
@@ -70,9 +68,7 @@ class TrajectoryNode extends Node {
 
     // Holds all visible data points that can be read with the tool (except the apex point)
     let dotsShape = new Shape();
-    const dotsPath = new Path( dotsShape, {
-      stroke: 'black'
-    } );
+    const dotsPath = new Path( dotsShape, { stroke: 'black' } );
 
     this.addChild( pathsLayer );
     this.addChild( dotsPath );
@@ -152,12 +148,8 @@ class TrajectoryNode extends Node {
 
       lastViewPosition = null;
 
-      assert && assert(
-        trajectory.dataPoints.get( 0 ).position.x === 0,
-        `Initial point x is not zero but ${
-          trajectory.dataPoints.get( 0 ).position.x
-        }`
-      );
+      assert && assert( trajectory.dataPoints.get( 0 ).position.x === 0, `Initial point x is not zero but ${
+        trajectory.dataPoints.get( 0 ).position.x}` );
 
       trajectory.dataPoints.forEach( handleDataPointAdded );
       addProjectileNode();

@@ -99,10 +99,7 @@ class ProjectileMotionScreenView extends ScreenView {
   public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel,
                       viewProperties: ProjectileMotionViewProperties, providedOptions: ProjectileMotionScreenViewOptions ) {
     const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
-      cannonNodeOptions: {
-        renderer: platform.mobileSafari ? 'canvas' : null,
-        preciseCannonDelta: false
-      },
+      cannonNodeOptions: { renderer: platform.mobileSafari ? 'canvas' : null, preciseCannonDelta: false },
       addFlatirons: true, // if false, then flatirons easteregg will never be shown
       maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES, // max number of trajectories that can be shown
       showPaths: true, // if false, trajectory paths will not be drawn
@@ -121,12 +118,7 @@ class ProjectileMotionScreenView extends ScreenView {
     }
 
     // model view transform
-    const modelViewTransform =
-      ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-        Vector2.ZERO,
-        ProjectileMotionConstants.VIEW_ORIGIN,
-        DEFAULT_SCALE
-      );
+    const modelViewTransform = ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, ProjectileMotionConstants.VIEW_ORIGIN, DEFAULT_SCALE );
 
     // tracks changes to modelViewTransform
     const transformProperty = new Property( modelViewTransform );
@@ -142,14 +134,8 @@ class ProjectileMotionScreenView extends ScreenView {
 
     const handleTrajectoryAdded = ( addedTrajectory: Trajectory ): void => {
       // create the view representation for added trajectory
-      const trajectoryNode = new TrajectoryNode(
-        viewProperties,
-        addedTrajectory,
-        transformProperty,
-        options.maxTrajectories,
-        options.showPaths,
-        options.constantTrajectoryOpacity
-      );
+      const trajectoryNode = new TrajectoryNode( viewProperties, addedTrajectory, transformProperty, options.maxTrajectories,
+        options.showPaths, options.constantTrajectoryOpacity );
 
       // add the view to scene graph
       trajectoriesLayer.addChild( trajectoryNode );
@@ -159,9 +145,7 @@ class ProjectileMotionScreenView extends ScreenView {
         function removalListener( removedTrajectory ) {
           if ( removedTrajectory === addedTrajectory ) {
             trajectoryNode.dispose();
-            model.trajectoryGroup.elementDisposedEmitter.removeListener(
-              removalListener
-            );
+            model.trajectoryGroup.elementDisposedEmitter.removeListener( removalListener );
           }
         }
       );
@@ -169,31 +153,17 @@ class ProjectileMotionScreenView extends ScreenView {
 
     // view listens to whether a trajectory has been added in the model
     model.trajectoryGroup.forEach( handleTrajectoryAdded );
-    model.trajectoryGroup.elementCreatedEmitter.addListener(
-      handleTrajectoryAdded
-    );
+    model.trajectoryGroup.elementCreatedEmitter.addListener( handleTrajectoryAdded );
 
     // cannon
-    const cannonNode = new CannonNode(
-      model.cannonHeightProperty,
-      model.cannonAngleProperty,
-      model.muzzleFlashStepper,
-      transformProperty,
-      this,
-      combineOptions<CannonNodeOptions>( { tandem: tandem.createTandem( 'cannonNode' ) }, options.cannonNodeOptions )
-    );
+    const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this,
+      combineOptions<CannonNodeOptions>( { tandem: tandem.createTandem( 'cannonNode' ) }, options.cannonNodeOptions ) );
 
     // results in '{{value}} m/s'
-    const valuePatternSpeed = StringUtils.fillIn(
-      pattern0Value1UnitsWithSpaceString, {
-        units: metersPerSecondString
-      } );
+    const valuePatternSpeed = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: metersPerSecondString } );
 
     // results in '{{value}} degrees'
-    const valuePatternAngle = StringUtils.fillIn(
-      pattern0Value1UnitsString, {
-        units: degreesString
-      } );
+    const valuePatternAngle = StringUtils.fillIn( pattern0Value1UnitsString, { units: degreesString } );
 
     const angleIncrement = options.cannonNodeOptions.preciseCannonDelta ? 1 : 5;
 
@@ -266,28 +236,22 @@ class ProjectileMotionScreenView extends ScreenView {
       } );
 
     // panel under the cannon, controls initial speed of projectiles
-    const initialSpeedPanel = new Panel(
-      initialSpeedNumberControl,
-      combineOptions<PanelOptions>( {
-          left: this.layoutBounds.left + X_MARGIN,
-          bottom: this.layoutBounds.bottom - 10,
-          tandem: initialSpeedPanelTandem
-        },
-        ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
-      )
-    );
+    const initialSpeedPanel = new Panel( initialSpeedNumberControl, combineOptions<PanelOptions>( {
+        left: this.layoutBounds.left + X_MARGIN,
+        bottom: this.layoutBounds.bottom - 10,
+        tandem: initialSpeedPanelTandem
+      },
+      ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
+    ) );
 
     // panel under the cannon, controls initial speed of projectiles
-    const initialAnglePanel = new Panel(
-      initialAngleNumberControl,
-      combineOptions<PanelOptions>( {
-          left: initialSpeedPanel.right + X_MARGIN,
-          bottom: initialSpeedPanel.bottom,
-          tandem: initialAnglePanelTandem
-        },
-        ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
-      )
-    );
+    const initialAnglePanel = new Panel( initialAngleNumberControl, combineOptions<PanelOptions>( {
+        left: initialSpeedPanel.right + X_MARGIN,
+        bottom: initialSpeedPanel.bottom,
+        tandem: initialAnglePanelTandem
+      },
+      ProjectileMotionConstants.INITIAL_VALUE_PANEL_OPTIONS
+    ) );
 
     // Create a measuring tape (set to invisible initially)
     const measuringTapeNode = new MeasuringTapeNode( new Property( { name: metersString, multiplier: 1 } ), {
@@ -318,45 +282,30 @@ class ProjectileMotionScreenView extends ScreenView {
     } );
 
     // add view for dataProbe
-    const dataProbeNode = new DataProbeNode(
-      model.dataProbe,
-      transformProperty,
-      this, {
-        tandem: tandem.createTandem( 'dataProbeNode' ),
-        phetioDocumentation: 'the Node for the dataProbe tool'
-      } );
+    const dataProbeNode = new DataProbeNode( model.dataProbe, transformProperty, this, {
+      tandem: tandem.createTandem( 'dataProbeNode' ),
+      phetioDocumentation: 'the Node for the dataProbe tool'
+    } );
 
-    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup(
-      model.zoomProperty, {
-        applyZoomIn: currentZoom => currentZoom * 2,
-        applyZoomOut: currentZoom => currentZoom / 2,
-        spacing: X_MARGIN,
-        touchAreaXDilation: 3,
-        touchAreaYDilation: 6,
+    const zoomButtonGroup = new MagnifyingGlassZoomButtonGroup( model.zoomProperty, {
+      applyZoomIn: currentZoom => currentZoom * 2,
+      applyZoomOut: currentZoom => currentZoom / 2,
+      spacing: X_MARGIN,
+      touchAreaXDilation: 3,
+      touchAreaYDilation: 6,
+      magnifyingGlassNodeOptions: { glassRadius: 8 },
+      buttonOptions: { xMargin: 3, yMargin: 3, baseColor: '#E7E8E9' },
 
-        magnifyingGlassNodeOptions: {
-          glassRadius: 8
-        },
-        buttonOptions: {
-          xMargin: 3,
-          yMargin: 3,
-          baseColor: '#E7E8E9'
-        },
-
-        // phet-io
-        tandem: tandem.createTandem( 'zoomButtonGroup' ),
-        phetioDocumentation: 'Container for the zoom in and out buttons'
-      } );
+      // phet-io
+      tandem: tandem.createTandem( 'zoomButtonGroup' ),
+      phetioDocumentation: 'Container for the zoom in and out buttons'
+    } );
 
     // Watch the zoomProperty and update transform Property accordingly
     model.zoomProperty.link( zoomFactor => {
-      transformProperty.set(
-        ModelViewTransform2.createSinglePointScaleInvertedYMapping(
-          Vector2.ZERO,
-          ProjectileMotionConstants.VIEW_ORIGIN,
-          DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
-        )
-      );
+      transformProperty.set( ModelViewTransform2.createSinglePointScaleInvertedYMapping( Vector2.ZERO, ProjectileMotionConstants.VIEW_ORIGIN,
+        DEFAULT_SCALE * zoomFactor // scale for meters to view units, with zoom taken into consideration
+      ) );
     } );
 
     // toolbox panel contains measuring tape. lab screen will add a dataProbe tool
@@ -465,13 +414,9 @@ class ProjectileMotionScreenView extends ScreenView {
     // listen to transform Property
     transformProperty.link( transform => {
       measuringTapeNode.modelViewTransformProperty.value = transform;
-      davidNode.maxHeight = Math.abs(
-        transform.modelToViewDeltaY( model.davidHeight )
-      );
+      davidNode.maxHeight = Math.abs( transform.modelToViewDeltaY( model.davidHeight ) );
       davidNode.centerX = transform.modelToViewX( model.davidPosition.x );
-      davidNode.bottom = transformProperty
-        .get()
-        .modelToViewY( model.davidPosition.y );
+      davidNode.bottom = transformProperty.get().modelToViewY( model.davidPosition.y );
       backgroundNode.updateFlatironsPosition( transform );
     } );
 
@@ -492,21 +437,14 @@ class ProjectileMotionScreenView extends ScreenView {
       // For PhET-iO support to turn off the flat irons easter egg without instrumenting anything in the BackgroundNode.
       const flatironsVisibleProperty = new BooleanProperty( true, {
         tandem: tandem.createTandem( 'flatironsVisibleProperty' ),
-        phetioDocumentation:
-          'when false, the flat irons "easter egg" will not display when at the appropriate altitude.'
+        phetioDocumentation: 'when false, the flat irons "easter egg" will not display when at the appropriate altitude.'
       } );
 
       // flatirons
-      Multilink.multilink(
-        [ model.altitudeProperty, flatironsVisibleProperty ],
-        altitude => {
-          backgroundNode.showOrHideFlatirons(
-            flatironsVisibleProperty.value &&
-            altitude >= FLATIRONS_RANGE.min &&
-            altitude <= FLATIRONS_RANGE.max
-          );
-        }
-      );
+      Multilink.multilink( [ model.altitudeProperty, flatironsVisibleProperty ], altitude => {
+        backgroundNode.showOrHideFlatirons( flatironsVisibleProperty.value && altitude >= FLATIRONS_RANGE.min && altitude <= FLATIRONS_RANGE.max
+        );
+      } );
     }
 
     // rendering order
@@ -566,26 +504,15 @@ class ProjectileMotionScreenView extends ScreenView {
     // layout controls
     this.topRightPanel.right = width / scale - offsetX - X_MARGIN;
     this.topRightPanel.top = Y_MARGIN - offsetY;
-    this.bottomRightPanel.setRightTop(
-      this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN )
-    );
-    this.toolboxPanel.setRightTop(
-      this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 )
-    );
+    this.bottomRightPanel.setRightTop( this.topRightPanel.rightBottom.plusXY( 0, Y_MARGIN ) );
+    this.toolboxPanel.setRightTop( this.topRightPanel.leftTop.minusXY( X_MARGIN, 0 ) );
     this.resetAllButton.right = this.topRightPanel.right;
     this.eraserButton.right = this.resetAllButton.left - X_MARGIN;
     this.zoomButtonGroup.top = 2 * Y_MARGIN - offsetY;
     this.zoomButtonGroup.left = this.layoutBounds.minX + X_MARGIN;
 
     // set visible bounds, which are different from layout bounds
-    this.visibleBoundsProperty.set(
-      new Bounds2(
-        -offsetX,
-        -offsetY,
-        width / scale - offsetX,
-        height / scale - offsetY
-      )
-    );
+    this.visibleBoundsProperty.set( new Bounds2( -offsetX, -offsetY, width / scale - offsetX, height / scale - offsetY ) );
   }
 }
 
