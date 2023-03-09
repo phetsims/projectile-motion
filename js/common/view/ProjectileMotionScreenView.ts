@@ -89,15 +89,9 @@ class ProjectileMotionScreenView extends ScreenView {
   private initialSpeedPanel: Panel;
   private initialAnglePanel: Panel;
 
-  /**
-   * {ProjectileMotionModel} model
-   * {Panel} topRightPanel - the projectile control panel at the top right
-   * {Panel} bottomRightPanel - the vectors control panel at the bottom right
-   * {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * {Object} [options]
-   */
   public constructor( model: ProjectileMotionModel, topRightPanel: Panel, bottomRightPanel: Panel,
                       viewProperties: ProjectileMotionViewProperties, providedOptions: ProjectileMotionScreenViewOptions ) {
+
     const options = optionize<ProjectileMotionScreenViewOptions, SelfOptions, ScreenViewOptions>()( {
       cannonNodeOptions: { renderer: platform.mobileSafari ? 'canvas' : null, preciseCannonDelta: false },
       addFlatirons: true, // if false, then flatirons easteregg will never be shown

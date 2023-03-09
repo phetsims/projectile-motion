@@ -21,7 +21,6 @@ class ProjectileMotionMeasuringTape {
   public readonly isActiveProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
-
     this.basePositionProperty = new Vector2Property( new Vector2( 0, 0 ), {
       tandem: tandem.createTandem( 'basePositionProperty' ),
       units: 'm',

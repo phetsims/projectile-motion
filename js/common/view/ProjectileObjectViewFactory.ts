@@ -26,13 +26,6 @@ import type { ProjectileObjectViewCreator } from '../model/ProjectileObjectType.
 
 export default class ProjectileObjectViewFactory {
 
-  /**
-   * Preset object view functions for benchmarks, some benchmarks have different landed objects
-   * {number} diameter - in meters in model coordinates
-   * {ModelViewTransform2} modelViewTransform
-   * {boolean} landed - whether we want the landed object view, as opposed to a flying projectile view
-   */
-
   public static createCannonball: ProjectileObjectViewCreator = ( diameter, modelViewTransform ) => {
     const transformedBallSize = modelViewTransform.modelToViewDeltaX( diameter );
     return new Circle( transformedBallSize / 2, { fill: 'black' } );

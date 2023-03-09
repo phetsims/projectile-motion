@@ -30,15 +30,6 @@ type SelfOptions = {
 type ToolboxPanelOptions = SelfOptions & PanelOptions & PickRequired<PanelOptions, 'tandem'>;
 
 class ToolboxPanel extends Panel {
-
-  /**
-   * {ProjectileMotionMeasuringTape} measuringTape - model for the measuring tape
-   * {DataProbe} dataProbe - model for the dataProbe tool
-   * {MeasuringTapeNode} measuringTapeNode - view for the measuring tape
-   * {DataProbeNode} dataProbeNode - view for the dataProbe tool
-   * {Property.<ModelViewTransform2>} transformProperty
-   * {Object} [options]
-   */
   public constructor( measuringTape: ProjectileMotionMeasuringTape, dataProbe: DataProbe, measuringTapeNode: MeasuringTapeNode,
                       dataProbeNode: DataProbeNode, transformProperty: Property<ModelViewTransform2>, providedOptions: ToolboxPanelOptions ) {
 
