@@ -83,7 +83,7 @@ class DataProbe {
    * if the position provided is close enough to the dataProbe position to be sensed.
    */
   private pointWithinTolerance( dataPointPosition: Vector2 ): boolean {
-    return ( dataPointPosition.distance( this.positionProperty.get() ) <= SENSING_RADIUS / this.zoomProperty.value );
+    return dataPointPosition.distance( this.positionProperty.get() ) <= SENSING_RADIUS / this.zoomProperty.value;
   }
 
   /**
