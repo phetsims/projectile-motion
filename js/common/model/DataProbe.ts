@@ -47,22 +47,19 @@ class DataProbe {
     this.positionProperty = new Vector2Property( new Vector2( dataProbeX, dataProbeY ), {
       tandem: tandem.createTandem( 'positionProperty' ),
       units: 'm',
-      phetioDocumentation:
-        'The position of the dataProbe in model coordinates, in meters.'
+      phetioDocumentation: 'The position of the dataProbe in model coordinates, in meters.'
     } );
 
     this.dataPointProperty = new Property<null | DataPoint>( null, {
       tandem: tandem.createTandem( 'dataPointProperty' ),
-      phetioDocumentation:
-        'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
-        'See DataPointIO for more information about the data point value.',
+      phetioDocumentation: 'Data point that the dataProbe is displaying information about, or null if no info displayed. ' +
+                           'See DataPointIO for more information about the data point value.',
       phetioValueType: NullableIO( DataPoint.DataPointIO )
     } );
 
     this.isActiveProperty = new BooleanProperty( false, {
       tandem: tandem.createTandem( 'isActiveProperty' ),
-      phetioDocumentation:
-        'Whether the dataProbe is out in the play area (false when in toolbox)'
+      phetioDocumentation: 'Whether the dataProbe is out in the play area (false when in toolbox)'
     } );
 
     this.zoomProperty = zoomProperty;
@@ -86,10 +83,7 @@ class DataProbe {
    * if the position provided is close enough to the dataProbe position to be sensed.
    */
   private pointWithinTolerance( dataPointPosition: Vector2 ): boolean {
-    return (
-      dataPointPosition.distance( this.positionProperty.get() ) <=
-      SENSING_RADIUS / this.zoomProperty.value
-    );
+    return ( dataPointPosition.distance( this.positionProperty.get() ) <= SENSING_RADIUS / this.zoomProperty.value );
   }
 
   /**

@@ -110,13 +110,12 @@ class ProjectileMotionModel implements TModel {
     this.target = new Target( options.targetX, tandem.createTandem( 'target' ) );
     this.measuringTape = new ProjectileMotionMeasuringTape( tandem.createTandem( 'measuringTape' ) );
 
-    this.cannonHeightProperty = new NumberProperty(
-      options.defaultCannonHeight, {
-        tandem: tandem.createTandem( 'cannonHeightProperty' ),
-        phetioDocumentation: 'Height of the cannon',
-        units: 'm',
-        range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
-      } );
+    this.cannonHeightProperty = new NumberProperty( options.defaultCannonHeight, {
+      tandem: tandem.createTandem( 'cannonHeightProperty' ),
+      phetioDocumentation: 'Height of the cannon',
+      units: 'm',
+      range: ProjectileMotionConstants.CANNON_HEIGHT_RANGE
+    } );
 
     this.initialSpeedStandardDeviationProperty = new NumberProperty( options.defaultSpeedStandardDeviation, {
       tandem: tandem.createTandem( 'initialSpeedStandardDeviationProperty' ),
@@ -125,15 +124,14 @@ class ProjectileMotionModel implements TModel {
       range: new Range( 0, 10 )
     } );
 
-    this.initialSpeedProperty = new VarianceNumberProperty(
-      options.defaultInitialSpeed, value => {
-        return StatUtils.randomFromNormal( value, this.initialSpeedStandardDeviationProperty.value );
-      }, {
-        tandem: tandem.createTandem( 'initialSpeedProperty' ),
-        phetioDocumentation: 'The speed on launch',
-        units: 'm/s',
-        range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
-      } );
+    this.initialSpeedProperty = new VarianceNumberProperty( options.defaultInitialSpeed, value => {
+      return StatUtils.randomFromNormal( value, this.initialSpeedStandardDeviationProperty.value );
+    }, {
+      tandem: tandem.createTandem( 'initialSpeedProperty' ),
+      phetioDocumentation: 'The speed on launch',
+      units: 'm/s',
+      range: ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE
+    } );
 
     this.initialAngleStandardDeviationProperty = new NumberProperty( options.defaultAngleStandardDeviation, {
       tandem: tandem.createTandem( 'initialAngleStandardDeviationProperty' ),
@@ -142,54 +140,48 @@ class ProjectileMotionModel implements TModel {
       range: new Range( 0, 30 )
     } );
 
-    this.cannonAngleProperty = new VarianceNumberProperty(
-      options.defaultCannonAngle, value => {
-        return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
-      }, {
-        tandem: tandem.createTandem( 'cannonAngleProperty' ),
-        phetioDocumentation: 'Angle of the cannon',
-        units: '\u00B0', // degrees
-        range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
-      } );
+    this.cannonAngleProperty = new VarianceNumberProperty( options.defaultCannonAngle, value => {
+      return StatUtils.randomFromNormal( value, this.initialAngleStandardDeviationProperty.value );
+    }, {
+      tandem: tandem.createTandem( 'cannonAngleProperty' ),
+      phetioDocumentation: 'Angle of the cannon',
+      units: '\u00B0', // degrees
+      range: ProjectileMotionConstants.CANNON_ANGLE_RANGE
+    } );
 
-    this.projectileMassProperty = new NumberProperty(
-      defaultProjectileObjectType.mass, {
-        tandem: tandem.createTandem( 'projectileMassProperty' ),
-        phetioDocumentation: 'Mass of the projectile',
-        units: 'kg',
-        range: ProjectileMotionConstants.PROJECTILE_MASS_RANGE
-      } );
+    this.projectileMassProperty = new NumberProperty( defaultProjectileObjectType.mass, {
+      tandem: tandem.createTandem( 'projectileMassProperty' ),
+      phetioDocumentation: 'Mass of the projectile',
+      units: 'kg',
+      range: ProjectileMotionConstants.PROJECTILE_MASS_RANGE
+    } );
 
-    this.projectileDiameterProperty = new NumberProperty(
-      defaultProjectileObjectType.diameter, {
-        tandem: tandem.createTandem( 'projectileDiameterProperty' ),
-        phetioDocumentation: 'Diameter of the projectile',
-        units: 'm',
-        range: ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
-      } );
+    this.projectileDiameterProperty = new NumberProperty( defaultProjectileObjectType.diameter, {
+      tandem: tandem.createTandem( 'projectileDiameterProperty' ),
+      phetioDocumentation: 'Diameter of the projectile',
+      units: 'm',
+      range: ProjectileMotionConstants.PROJECTILE_DIAMETER_RANGE
+    } );
 
-    this.projectileDragCoefficientProperty = new NumberProperty(
-      defaultProjectileObjectType.dragCoefficient, {
-        tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
-        phetioDocumentation:
-          'Drag coefficient of the projectile, unitless as it is a coefficient',
-        range: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
-      } );
+    this.projectileDragCoefficientProperty = new NumberProperty( defaultProjectileObjectType.dragCoefficient, {
+      tandem: tandem.createTandem( 'projectileDragCoefficientProperty' ),
+      phetioDocumentation:
+        'Drag coefficient of the projectile, unitless as it is a coefficient',
+      range: ProjectileMotionConstants.PROJECTILE_DRAG_COEFFICIENT_RANGE
+    } );
 
-    this.selectedProjectileObjectTypeProperty = new Property(
-      defaultProjectileObjectType, {
-        tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
-        phetioDocumentation: 'The currently selected projectile object type',
-        phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
-        validValues: possibleObjectTypes
-      } );
+    this.selectedProjectileObjectTypeProperty = new Property( defaultProjectileObjectType, {
+      tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
+      phetioDocumentation: 'The currently selected projectile object type',
+      phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
+      validValues: possibleObjectTypes
+    } );
 
-    this.gravityProperty = new NumberProperty(
-      PhysicalConstants.GRAVITY_ON_EARTH, {
-        tandem: tandem.createTandem( 'gravityProperty' ),
-        phetioDocumentation: 'Acceleration due to gravity',
-        units: 'm/s^2'
-      } );
+    this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
+      tandem: tandem.createTandem( 'gravityProperty' ),
+      phetioDocumentation: 'Acceleration due to gravity',
+      units: 'm/s^2'
+    } );
 
     this.altitudeProperty = new NumberProperty( 0, {
       tandem: options.phetioInstrumentAltitudeProperty ? tandem.createTandem( 'altitudeProperty' ) : Tandem.OPT_OUT,
@@ -203,15 +195,13 @@ class ProjectileMotionModel implements TModel {
       phetioDocumentation: 'Whether air resistance is on'
     } );
 
-    this.airDensityProperty = new DerivedProperty(
-      [ this.altitudeProperty, this.airResistanceOnProperty ],
-      calculateAirDensity, {
-        tandem: tandem.createTandem( 'airDensityProperty' ),
-        units: 'kg/m^3',
-        phetioDocumentation:
-          'air density, depends on altitude and whether air resistance is on',
-        phetioValueType: NumberIO
-      } );
+    this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], calculateAirDensity, {
+      tandem: tandem.createTandem( 'airDensityProperty' ),
+      units: 'kg/m^3',
+      phetioDocumentation:
+        'air density, depends on altitude and whether air resistance is on',
+      phetioValueType: NumberIO
+    } );
 
     this.timeSpeedProperty = new EnumerationProperty( TimeSpeed.NORMAL, {
       validValues: [ TimeSpeed.NORMAL, TimeSpeed.SLOW ],
@@ -221,8 +211,7 @@ class ProjectileMotionModel implements TModel {
 
     this.isPlayingProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
-      phetioDocumentation:
-        'whether animation is playing (as opposed to paused)'
+      phetioDocumentation: 'whether animation is playing (as opposed to paused)'
     } );
 
     this.davidHeight = 2; // meters
@@ -234,14 +223,12 @@ class ProjectileMotionModel implements TModel {
       phetioDocumentation: 'number of projectiles that are still moving'
     } );
 
-    this.rapidFireModeProperty = new BooleanProperty(
-      false, {
-        tandem: tandem.createTandem( 'rapidFireModeProperty' ),
-        phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
-      } );
+    this.rapidFireModeProperty = new BooleanProperty( false, {
+      tandem: tandem.createTandem( 'rapidFireModeProperty' ),
+      phetioDocumentation: 'Is the stats screen in rapid-fire mode?'
+    } );
 
-    this.fireEnabledProperty = new DerivedProperty(
-      [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
+    this.fireEnabledProperty = new DerivedProperty( [ this.numberOfMovingProjectilesProperty, this.rapidFireModeProperty ],
       ( numMoving, rapidFireMode ) =>
         !rapidFireMode && numMoving < this.maxProjectiles, {
         tandem: tandem.createTandem( 'fireEnabledProperty' ),
@@ -263,21 +250,14 @@ class ProjectileMotionModel implements TModel {
     this.zoomProperty = new NumberProperty( DEFAULT_ZOOM, {
       tandem: tandem.createTandem( 'zoomProperty' ),
       range: new Range( MIN_ZOOM, MAX_ZOOM ),
-      phetioDocumentation:
-        'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
+      phetioDocumentation: 'Used to adjust to visual zoom for this screen. Each new zoom level increases the value by a factor of 2.',
       phetioReadOnly: true
     } );
 
     // Create this after model properties to support the PhetioGroup creating the prototype immediately
     this.trajectoryGroup = Trajectory.createGroup( this, tandem.createTandem( 'trajectoryGroup' ) );
 
-    this.dataProbe = new DataProbe(
-      this.trajectoryGroup,
-      10,
-      10,
-      this.zoomProperty,
-      tandem.createTandem( 'dataProbe' )
-    ); // position arbitrary
+    this.dataProbe = new DataProbe( this.trajectoryGroup, 10, 10, this.zoomProperty, tandem.createTandem( 'dataProbe' ) ); // position arbitrary
 
     // Links in this constructor last for the lifetime of the sim, so no need to dispose
 
@@ -330,9 +310,7 @@ class ProjectileMotionModel implements TModel {
 
   public step( dt: number ): void {
     if ( this.isPlayingProperty.value ) {
-      this.eventTimer.step(
-        ( this.timeSpeedProperty.value === TimeSpeed.SLOW ? 0.33 : 1 ) * dt
-      );
+      this.eventTimer.step( ( this.timeSpeedProperty.value === TimeSpeed.SLOW ? 0.33 : 1 ) * dt );
     }
   }
 
@@ -397,7 +375,6 @@ class ProjectileMotionModel implements TModel {
   // Set changedInMidAir to true for trajectories with currently moving projectiles
   private markMovingTrajectoriesChangedMidAir(): void {
     let trajectory;
-
     for ( let j = 0; j < this.trajectoryGroup.count; j++ ) {
       trajectory = this.trajectoryGroup.getElement( j );
 
@@ -415,9 +392,7 @@ class ProjectileMotionModel implements TModel {
   private setProjectileParameters( selectedProjectileObjectType: ProjectileObjectType ): void {
     this.projectileMassProperty.set( selectedProjectileObjectType.mass );
     this.projectileDiameterProperty.set( selectedProjectileObjectType.diameter );
-    this.projectileDragCoefficientProperty.set(
-      selectedProjectileObjectType.dragCoefficient
-    );
+    this.projectileDragCoefficientProperty.set( selectedProjectileObjectType.dragCoefficient );
   }
 }
 
