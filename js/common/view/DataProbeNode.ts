@@ -146,7 +146,7 @@ class DataProbeNode extends Node {
 
     this.dragListener = new DragListener( {
       positionProperty: dataProbe.positionProperty,
-      transform: transformProperty.get(),
+      transform: transformProperty,
       dragBoundsProperty: dragBoundsProperty,
       useParentOffset: true,
       start: () => this.isUserControlledProperty.set( true ),
@@ -240,7 +240,6 @@ class DataProbeNode extends Node {
 
     // Observe changes in the modelViewTransform and update/adjust positions accordingly
     transformProperty.link( transform => {
-      this.dragListener.transform = transform;
       dragBoundsProperty.value = transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
       updatePosition( dataProbe.positionProperty.get() );
     } );
