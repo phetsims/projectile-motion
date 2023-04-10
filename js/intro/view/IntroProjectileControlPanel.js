@@ -90,7 +90,7 @@ class IntroProjectileControlPanel extends Panel {
 
       comboBoxItems[ i ] = {
         value: projectileType,
-        node: ( i === 0 ) ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        createNode: () => ( i === 0 ) ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
         tandemName: `${projectileType.benchmark}${ComboBox.ITEM_TANDEM_NAME_SUFFIX}`
       };
     }
