@@ -26,6 +26,7 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import TProperty from '../../../../axon/js/TProperty.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
 
 const heightString = ProjectileMotionStrings.height;
 const mString = ProjectileMotionStrings.m;
@@ -155,9 +156,9 @@ class DataProbeNode extends Node {
     } );
 
     // label and values readouts
-    const timeReadoutProperty = new Property( noValueString );
-    const rangeReadoutProperty = new Property( noValueString );
-    const heightReadoutProperty = new Property( noValueString );
+    const timeReadoutProperty = new StringProperty( noValueString );
+    const rangeReadoutProperty = new StringProperty( noValueString );
+    const heightReadoutProperty = new StringProperty( noValueString );
 
     const timeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, timeString, timeReadoutProperty );
     const rangeBox = createInformationBox( DATA_PROBE_CONTENT_WIDTH, rangeString, rangeReadoutProperty );
