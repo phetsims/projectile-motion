@@ -44,10 +44,20 @@
         ],
         "simulation": true,
         "supportsOutputJS": true,
-        "published": true
+        "published": true,
+        "screenNameKeys": [
+          "PROJECTILE_MOTION/screen.intro",
+          "PROJECTILE_MOTION/screen.vectors",
+          "PROJECTILE_MOTION/screen.drag",
+          "PROJECTILE_MOTION/screen.lab",
+          "PROJECTILE_MOTION/screen.stats"
+        ]
       },
       "eslintConfig": {
-        "extends": "../chipper/eslint/sim_eslintrc.js"
+        "extends": "../chipper/eslint/sim_eslintrc.js",
+        "rules": {
+          "no-view-imported-from-model": "off"
+        }
       }
     };
   window.phet.chipper.stringRepos =
