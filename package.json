@@ -13,6 +13,12 @@
     "requirejsNamespace": "PROJECTILE_MOTION",
     "preload": [
       "../sherpa/lib/Tween-r12.js"
+    ],
+    "screenNameKeys": [
+      "PROJECTILE_MOTION/screen.intro",
+      "PROJECTILE_MOTION/screen.vectors",
+      "PROJECTILE_MOTION/screen.drag",
+      "PROJECTILE_MOTION/screen.lab"
     ]
   }
 }
