@@ -35,6 +35,7 @@ import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 import Target from './Target.js';
 import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // constants
 const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;
@@ -261,18 +262,18 @@ class ProjectileMotionModel implements TModel {
 
     // if any of the global Properties change, update the status of moving projectiles
     this.airDensityProperty.link( () => {
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         this.markMovingTrajectoriesChangedMidAir();
       }
     } );
     this.gravityProperty.link( () => {
-      if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+      if ( !isSettingPhetioStateProperty.value ) {
         this.markMovingTrajectoriesChangedMidAir();
       }
     } );
     this.selectedProjectileObjectTypeProperty.link(
       selectedProjectileObjectType => {
-        if ( !phet.joist.sim.isSettingPhetioStateProperty.value ) {
+        if ( !isSettingPhetioStateProperty.value ) {
           this.setProjectileParameters( selectedProjectileObjectType );
         }
       }
