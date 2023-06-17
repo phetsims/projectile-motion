@@ -361,6 +361,7 @@ class Trajectory extends PhetioObject {
         model.projectileDragCoefficientProperty.value, model.initialSpeedProperty.value,
         model.cannonHeightProperty.value, model.cannonAngleProperty.value ],
       {
+        groupElementStartingIndex: 0,
         tandem: tandem,
         phetioType: PhetioGroup.PhetioGroupIO( Trajectory.TrajectoryIO ),
         phetioDocumentation: 'The container for any trajectory that is created when a projectile is fired.'
