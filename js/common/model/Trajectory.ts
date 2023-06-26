@@ -16,9 +16,9 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
-import PhetioObject from '../../../../tandem/js/PhetioObject.js';
+import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
@@ -33,11 +33,7 @@ import ProjectileMotionModel from './ProjectileMotionModel.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
-type TrajectoryOptions = {
-  tandem?: Tandem;
-  phetioDynamicElement?: boolean;
-  phetioType?: IOType;
-};
+type TrajectoryOptions = EmptySelfOptions & PhetioObjectOptions;
 
 type LandedEmitterParams = {
   name?: string;
@@ -105,7 +101,7 @@ class Trajectory extends PhetioObject {
                       getDataProbe: () => DataProbe | null,
                       providedOptions?: TrajectoryOptions ) {
 
-    const options = optionize<TrajectoryOptions>()( {
+    const options = optionize<TrajectoryOptions, EmptySelfOptions, PhetioObjectOptions>()( {
       tandem: Tandem.REQUIRED,
       phetioDynamicElement: true,
       phetioType: Trajectory.TrajectoryIO

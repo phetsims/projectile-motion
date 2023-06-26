@@ -74,7 +74,6 @@ const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL
 type SelfOptions = {
   renderer: string | null;
   preciseCannonDelta: boolean;
-  tandem?: Tandem;
 };
 
 export type CannonNodeOptions = SelfOptions & NodeOptions;

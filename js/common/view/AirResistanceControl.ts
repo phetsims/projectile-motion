@@ -29,7 +29,6 @@ type SelfOptions = {
   minWidth?: number;
   xMargin?: number;
   align?: string;
-  tandem?: Tandem;
 };
 
 type AirResistanceControlOptions = SelfOptions & VBoxOptions;
