@@ -9,14 +9,14 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
-type ProjectileMotionViewPropertiesOptions = {
-  tandem?: Tandem;
+type SelfOptions = {
   forceProperties?: boolean;
   accelerationProperties?: boolean;
 };
+type ProjectileMotionViewPropertiesOptions = SelfOptions & Pick<PhetioObjectOptions, 'tandem'>;
 
 class ProjectileMotionViewProperties {
   public forceProperties: boolean;
@@ -29,8 +29,7 @@ class ProjectileMotionViewProperties {
   public componentsForceVectorsOnProperty?: Property<boolean>; // whether component force vectors are showing
   public constructor( providedOptions?: ProjectileMotionViewPropertiesOptions ) {
 
-    const options = optionize<ProjectileMotionViewPropertiesOptions>()( {
-      tandem: Tandem.OPTIONAL,
+    const options = optionize<ProjectileMotionViewPropertiesOptions, SelfOptions>()( {
       forceProperties: true,
       accelerationProperties: true
     }, providedOptions );
@@ -39,24 +38,24 @@ class ProjectileMotionViewProperties {
     this.accelerationProperties = options.accelerationProperties;
 
     this.totalVelocityVectorOnProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'totalVelocityVectorOnProperty' ),
+      tandem: options.tandem?.createTandem( 'totalVelocityVectorOnProperty' ),
       phetioDocumentation: 'Whether to display the total velocity vectors for flying projectiles'
     } );
 
     this.componentsVelocityVectorsOnProperty = new BooleanProperty( false, {
-      tandem: options.tandem.createTandem( 'componentsVelocityVectorsOnProperty' ),
+      tandem: options.tandem?.createTandem( 'componentsVelocityVectorsOnProperty' ),
       phetioDocumentation: 'Whether to display the component velocity vectors for flying projectiles'
     } );
 
     if ( options.accelerationProperties ) {
 
       this.totalAccelerationVectorOnProperty = new BooleanProperty( false, {
-        tandem: options.tandem.createTandem( 'totalAccelerationVectorOnProperty' ),
+        tandem: options.tandem?.createTandem( 'totalAccelerationVectorOnProperty' ),
         phetioDocumentation: 'Whether to display the total acceleration vectors for flying projectiles'
       } );
 
       this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false, {
-        tandem: options.tandem.createTandem( 'componentsAccelerationVectorsOnProperty' ),
+        tandem: options.tandem?.createTandem( 'componentsAccelerationVectorsOnProperty' ),
         phetioDocumentation: 'Whether to display the component acceleration vectors for flying projectiles'
       } );
     }
@@ -64,12 +63,12 @@ class ProjectileMotionViewProperties {
     if ( options.forceProperties ) {
 
       this.totalForceVectorOnProperty = new BooleanProperty( false, {
-        tandem: options.tandem.createTandem( 'totalForceVectorOnProperty' ),
+        tandem: options.tandem?.createTandem( 'totalForceVectorOnProperty' ),
         phetioDocumentation: 'Whether to display the total force vectors in a free body diagram for flying projectiles'
       } );
 
       this.componentsForceVectorsOnProperty = new BooleanProperty( false, {
-        tandem: options.tandem.createTandem( 'componentsForceVectorsOnProperty' ),
+        tandem: options.tandem?.createTandem( 'componentsForceVectorsOnProperty' ),
         phetioDocumentation: 'Whether to display the component force vectors in a free body diagram for flying projectiles'
       } );
 
