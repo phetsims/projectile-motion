@@ -3,9 +3,9 @@
 This document contains miscellaneous notes related to the implementation of Projectile Motion. It
 supplements the internal (source code) documentation, and (hopefully) provides insight into
 "big picture" implementation issues.  The audience for this document is software developers who are familiar
-with JavaScript and PhET simulation development (as described in [PhET Development Overview](https://github.com/phetsims/phet-info/blob/master/doc/phet-development-overview.md)).
+with JavaScript and PhET simulation development (as described in [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)).
 
-First, read [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md), which provides
+First, read [model.md](https://github.com/phetsims/projectile-motion/blob/main/doc/model.md), which provides
 a high-level description of the simulation model.
 
 ## General
@@ -13,7 +13,7 @@ a high-level description of the simulation model.
 This section describes how this simulation uses patterns that are common to most PhET simulations.
 
 **Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate frames
-(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/master/js/view/ModelViewTransform2.js)).
+(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/main/js/view/ModelViewTransform2.js)).
 This simulation uses a model-view transform to convert from model units (meters) to view units (in the ScreenView coordinates).
 The zoom Property can change this model-view transform, which means a meter may map to a larger or smaller number of view units.
 
@@ -37,7 +37,7 @@ the Drag and Vectors screens don't feature benchmarks, they, along with the cust
 projectileObjectTypes( INTRO, VECTORS, and CUSTOM, respectively ). Since each screen has a different default object type, it is 
 passed as an argument to the model constructor.
 
-View the full list of projectile object benchmarks at [ProjectileObjectType.js](https://github.com/phetsims/projectile-motion/blob/master/js/common/model/ProjectileObjectType.js).
+View the full list of projectile object benchmarks at [ProjectileObjectType.js](https://github.com/phetsims/projectile-motion/blob/main/js/common/model/ProjectileObjectType.js).
 
 ProjectileObjectType contains the model information for each type of projectile object, and to create the corresponding view (which may
 be an image or node), ProjectileNode calls on methods in ProjectileObjectViewFactory.
@@ -47,7 +47,7 @@ be an image or node), ProjectileNode calls on methods in ProjectileObjectViewFac
 A Trajectory keeps track of the path and the projectile objects that fly on it. Each time a Trajectory is created, a 
 TrajectoryNode is created. Each time a projectile is added to a Trajectory, TrajectoryNode creates and stores a ProjectileNode.
 
-First, read a general explanation at [model.md](https://github.com/phetsims/projectile-motion/blob/master/doc/model.md). It starts with
+First, read a general explanation at [model.md](https://github.com/phetsims/projectile-motion/blob/main/doc/model.md). It starts with
 "There is no limit to the number of projectiles".
 
 This means that a new Trajectory is created if the fire button is pressed *and* if this new projectile fired is not the same as the previous one.
