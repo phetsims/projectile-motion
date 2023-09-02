@@ -61,7 +61,7 @@ class AirResistanceControl extends VBox {
       children: [ titleText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
     } );
 
-    const airResistanceCheckbox = new Checkbox( airResistanceOnProperty, airResistanceCheckboxContent, {
+    const checkbox = new Checkbox( airResistanceOnProperty, airResistanceCheckboxContent, {
       maxWidth: options.minWidth - 3 * options.xMargin, // left, right, and spacing between text and icon
       boxWidth: 18,
       tandem: options.tandem.createTandem( 'checkbox' )
@@ -79,7 +79,7 @@ class AirResistanceControl extends VBox {
     } );
 
     assert && assert( !options.children, 'AirResistanceControl sets its own children' );
-    options.children = [ airResistanceCheckbox, dragCoefficientText ];
+    options.children = [ checkbox, dragCoefficientText ];
 
     // xMargin is used for FlowBox
     super( _.omit( options, 'xMargin' ) );

@@ -50,7 +50,7 @@ class VectorsVectorsControlPanel extends Panel {
       boxWidth: 18
     };
 
-    const totalOrComponentsRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
+    const vectorsDisplayRadioButtonGroup = new VerticalAquaRadioButtonGroup( viewProperties.vectorsDisplayProperty, [ {
       createNode: () => new Text( totalString, LABEL_OPTIONS ),
       tandemName: 'totalRadioButton',
       value: VectorsDisplayEnumeration.TOTAL
@@ -102,7 +102,7 @@ class VectorsVectorsControlPanel extends Panel {
       align: 'left',
       spacing: options.controlsVerticalSpace,
       children: [
-        totalOrComponentsRadioButtonGroup,
+        vectorsDisplayRadioButtonGroup,
         velocityCheckbox,
         accelerationCheckbox,
         forceCheckbox

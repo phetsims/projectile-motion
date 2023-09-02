@@ -37,7 +37,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new ProjectileMotionViewProperties( {
+    const viewProperties = new ProjectileMotionViewProperties( {
       tandem: options.tandem.createTandem( 'viewProperties' ),
       forceProperties: false
     } );
@@ -45,7 +45,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
 
-    const projectilePanel = new StatsProjectileControlPanel(
+    const projectileControlPanel = new StatsProjectileControlPanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
       comboBoxListParent,
@@ -56,12 +56,12 @@ class StatsScreenView extends ProjectileMotionScreenView {
       { tandem: options.tandem.createTandem( 'projectileControlPanel' ) }
     );
 
-    const statsPanel = new StatsControlPanel(
+    const statsControlPanel = new StatsControlPanel(
       model.groupSizeProperty,
       model.initialSpeedStandardDeviationProperty,
       model.initialAngleStandardDeviationProperty,
       model.rapidFireModeProperty,
-      visibilityProperties,
+      viewProperties,
       { tandem: options.tandem.createTandem( 'statsControlPanel' ) }
     );
 
@@ -79,15 +79,15 @@ class StatsScreenView extends ProjectileMotionScreenView {
 
     super(
       model,
-      projectilePanel,
-      statsPanel,
-      visibilityProperties,
+      projectileControlPanel,
+      statsControlPanel,
+      viewProperties,
       options
     );
 
     // @private
-    this.projectilePanel = projectilePanel;
-    this.statsPanel = statsPanel;
+    this.projectilePanel = projectileControlPanel;
+    this.statsPanel = statsControlPanel;
     this.fireMultipleButton = fireMultipleButton;
 
     model.fireMultipleEnabledProperty.link( enable => {

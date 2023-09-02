@@ -26,7 +26,7 @@ class IntroScreenView extends ProjectileMotionScreenView {
     }, options );
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new ProjectileMotionViewProperties( {
+    const viewProperties = new ProjectileMotionViewProperties( {
       tandem: options.tandem.createTandem( 'viewProperties' ),
       forceProperties: false
     } );
@@ -34,7 +34,7 @@ class IntroScreenView extends ProjectileMotionScreenView {
     // acts as listParent for the projectile dropdown box
     const comboBoxListParent = new Node();
 
-    const projectilePanel = new IntroProjectileControlPanel(
+    const projectileControlPanel = new IntroProjectileControlPanel(
       model.objectTypes,
       model.selectedProjectileObjectTypeProperty,
       comboBoxListParent,
@@ -47,14 +47,14 @@ class IntroScreenView extends ProjectileMotionScreenView {
 
     super(
       model,
-      projectilePanel,
-      new IntroVectorsControlPanel( visibilityProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
-      visibilityProperties,
+      projectileControlPanel,
+      new IntroVectorsControlPanel( viewProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
+      viewProperties,
       options
     );
 
     // @private
-    this.projectilePanel = projectilePanel;
+    this.projectilePanel = projectileControlPanel;
 
     // insert dropdown right on top of the right-side panels
     this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );

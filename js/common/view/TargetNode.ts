@@ -105,7 +105,9 @@ class TargetNode extends Node {
     let startPoint: Vector2;
     let startX: number;
     let mousePoint;
-    const horizontalDragHandler = new DragListener( {
+
+    // Horizontal drag only
+    const dragListener = new DragListener( {
       start: event => {
         startPoint = screenView.globalToLocalPoint( event.pointer.point );
         startX = targetView.centerX; // view units
@@ -126,7 +128,7 @@ class TargetNode extends Node {
     } );
 
     // drag target to change horizontal position
-    targetView.addInputListener( horizontalDragHandler );
+    targetView.addInputListener( dragListener );
 
     // update the range based on the current transform
     this.updateTargetXRange( this.transformProperty.get() );
@@ -153,7 +155,7 @@ class TargetNode extends Node {
     this.addChild( distanceLabel );
 
     // drag text to change horizontal position
-    distanceLabel.addInputListener( horizontalDragHandler );
+    distanceLabel.addInputListener( dragListener );
 
     this.rewardNodes = [];
 

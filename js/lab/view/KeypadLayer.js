@@ -85,6 +85,7 @@ class KeypadLayer extends Plane {
       children: [ valueBackgroundNode, valueNode ]
     } );
 
+    // eslint-disable-next-line tandem-name-should-match
     this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
       accumulatorOptions: {
         maxDigits: options.maxDigits,

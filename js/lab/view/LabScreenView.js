@@ -36,7 +36,8 @@ class LabScreenView extends ProjectileMotionScreenView {
       tandem: options.tandem.createTandem( 'keypadLayer' ),
       phetioDocumentation: 'The container for the keypad, responsible displaying and laying out the keypad'
     } );
-    const labProjectilePanel = new LabProjectileControlPanel(
+
+    const projectileControlPanel = new LabProjectileControlPanel(
       comboBoxListParent,
       keypadLayer,
       model,
@@ -51,7 +52,7 @@ class LabScreenView extends ProjectileMotionScreenView {
         model.initialSpeedProperty,
         { tandem: options.tandem.createTandem( 'initialValuesPanel' ) }
       ),
-      labProjectilePanel,
+      projectileControlPanel,
       visibilityProperties,
       options
     );
@@ -63,7 +64,7 @@ class LabScreenView extends ProjectileMotionScreenView {
     this.addChild( keypadLayer );
 
     // @private, for layout
-    this.labProjectilePanel = labProjectilePanel;
+    this.labProjectilePanel = projectileControlPanel;
     this.keypadLayer = keypadLayer;
   }
 
