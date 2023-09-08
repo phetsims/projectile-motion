@@ -375,7 +375,7 @@ class Trajectory extends PhetioObject {
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
    */
-  public static get STATE_SCHEMA(): CompositeSchema {
+  public static get STATE_SCHEMA(): CompositeSchema<TrajectoryStateObject> {
     return {
       mass: NumberIO,
       diameter: NumberIO,

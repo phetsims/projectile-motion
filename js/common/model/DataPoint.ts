@@ -95,7 +95,7 @@ class DataPoint {
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
    */
-  public static get STATE_SCHEMA(): CompositeSchema {
+  public static get STATE_SCHEMA(): CompositeSchema<DataPointStateObject> {
     return {
       time: NumberIO,
       position: Vector2.Vector2IO,

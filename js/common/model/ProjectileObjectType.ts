@@ -147,7 +147,7 @@ class ProjectileObjectType extends PhetioObject {
     };
   }
 
-  public static get STATE_SCHEMA(): CompositeSchema {
+  public static get STATE_SCHEMA(): CompositeSchema<ProjectileObjectTypeStateObject> {
     return {
       name: NullableIO( StringIO ),
       mass: NumberIO,
