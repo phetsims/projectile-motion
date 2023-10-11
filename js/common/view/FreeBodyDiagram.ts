@@ -149,10 +149,15 @@ class FreeBodyDiagram extends Node {
     } );
 
     const viewPointListener = ( point: ViewPoint ): void => {
-      const dragForceExists = point.dataPoint.airDensity > 0;
-      xDragForceLabel.visible = dragForceExists;
-      yDragForceLabel.visible = dragForceExists;
-      totalDragForceLabel.visible = dragForceExists;
+
+      // Another listener may have disposed of this FreeBodyDiagram. It is OK to not update visibility in that case
+      // because dispose removes from scene graph. See https://github.com/phetsims/projectile-motion/issues/323.
+      if ( !this.isDisposed ) {
+        const dragForceExists = point.dataPoint.airDensity > 0;
+        xDragForceLabel.visible = dragForceExists;
+        yDragForceLabel.visible = dragForceExists;
+        totalDragForceLabel.visible = dragForceExists;
+      }
     };
     viewPointProperty.link( viewPointListener );
 
