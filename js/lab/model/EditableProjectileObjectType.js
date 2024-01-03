@@ -40,7 +40,7 @@ class EditableProjectileObjectType extends ProjectileObjectType {
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
 
-    // @public (IO Type) - these mutable values also store their initial values
+    // @public (IOType) - these mutable values also store their initial values
     this.initialMass = mass;
     this.initialDiameter = diameter;
     this.initialDragCoefficient = dragCoefficient;
