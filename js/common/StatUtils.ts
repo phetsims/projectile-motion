@@ -1,6 +1,10 @@
-// Copyright 2022-2023, University of Colorado Boulder
+// Copyright 2016-2023, University of Colorado Boulder
 
-// import projectileMotion from "../projectileMotion";
+/**
+ * Statistics utilities for the projectile motion sim.
+ *
+ * @author Matthew Blackman (PhET Interactive Simulations)
+ */
 
 import dotRandom from '../../../dot/js/dotRandom.js';
 
