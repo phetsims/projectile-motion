@@ -10,7 +10,7 @@ import dotRandom from '../../../dot/js/dotRandom.js';
 
 const StatUtils = {
 
-  randomFromNormal: function( mean: number, stardardDeviation: number ): number {
+  randomFromNormal: function( mean: number, standardDeviation: number ): number {
     let u = 0;
     let v = 0;
     while ( u === 0 ) {
@@ -21,7 +21,7 @@ const StatUtils = {
     }
     return (
       mean +
-      stardardDeviation *
+      standardDeviation *
       Math.sqrt( -2.0 * Math.log( u ) ) *
       Math.cos( 2.0 * Math.PI * v )
     );
