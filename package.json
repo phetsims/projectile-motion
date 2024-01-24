@@ -29,7 +29,12 @@
       "PROJECTILE_MOTION/screen.drag",
       "PROJECTILE_MOTION/screen.lab",
       "PROJECTILE_MOTION/screen.stats"
-    ]
+    ],
+    "phet-io": {
+      "wrappers": [
+        "phet-io-sim-specific/repos/projectile-motion/wrappers/statistics-integration"
+      ]
+    }
   },
   "eslintConfig": {
     "extends": "../chipper/eslint/sim_eslintrc.js",
