@@ -12,7 +12,6 @@ import Tandem from '../../tandem/js/Tandem.js';
 import DragScreen from './drag/DragScreen.js';
 import IntroScreen from './intro/IntroScreen.js';
 import LabScreen from './lab/LabScreen.js';
-import StatsScreen from './stats/StatsScreen.js';
 import ProjectileMotionStrings from './ProjectileMotionStrings.js';
 import VectorsScreen from './vectors/VectorsScreen.js';
 
@@ -36,8 +35,8 @@ simLauncher.launch( () => {
       new IntroScreen( Tandem.ROOT.createTandem( 'introScreen' ) ),
       new VectorsScreen( Tandem.ROOT.createTandem( 'vectorsScreen' ) ),
       new DragScreen( Tandem.ROOT.createTandem( 'dragScreen' ) ),
-      new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) ),
-      new StatsScreen( Tandem.ROOT.createTandem( 'statsScreen' ) )
+      new LabScreen( Tandem.ROOT.createTandem( 'labScreen' ) )
+      // new StatsScreen( Tandem.ROOT.createTandem( 'statsScreen' ) )
     ],
     simOptions
   );
