@@ -208,7 +208,7 @@ class KeypadLayer extends Plane {
     this.visible = true;
 
     // add listener for clicking outside of the keypad, will be removed on endEdit
-    this.addInputListener( this.clickOutsideFireListener );
+    !this.hasInputListener( this.clickOutsideFireListener ) && this.addInputListener( this.clickOutsideFireListener );
 
     // execute client-specific hook
     options.onBeginEdit && options.onBeginEdit();
