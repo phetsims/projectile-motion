@@ -83,7 +83,7 @@ class ProjectileMotionModel implements TModel {
   private eventTimer: EventTimer;
   public muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
   public zoomProperty: NumberProperty;
-  public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectiles
+  public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
   public dataProbe: DataProbe;
 
   /**
