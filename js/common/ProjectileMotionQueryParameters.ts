@@ -10,7 +10,15 @@
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import projectileMotion from '../projectileMotion.js';
 
-const ProjectileMotionQueryParameters = QueryStringMachine.getAll( {} );
+const SCHEMA_MAP = {
+  stats: {
+    type: 'flag',
+    public: true
+  }
+} as const;
+
+const ProjectileMotionQueryParameters = QueryStringMachine.getAll( SCHEMA_MAP );
+export default ProjectileMotionQueryParameters;
 
 projectileMotion.register( 'ProjectileMotionQueryParameters', ProjectileMotionQueryParameters );
 
@@ -18,5 +26,3 @@ projectileMotion.register( 'ProjectileMotionQueryParameters', ProjectileMotionQu
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
 logGlobal( 'phet.projectileMotion.ProjectileMotionQueryParameters' );
-
-export default ProjectileMotionQueryParameters;
