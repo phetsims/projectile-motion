@@ -33,7 +33,7 @@
     "branch": "HEAD"
   },
   "phetcommon": {
-    "sha": "3e93332e0ca901150ebe25e58443dcd18f6cbf3d",
+    "sha": "4ea7a95b842d0ace5a3524224f33201d2a9326b8",
     "branch": "HEAD"
   },
   "phetmarks": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "e1650e6502c23f7677b4c31a27103f7bf5d872a9",
+    "sha": "efea193efd199cdedaea3ef660b3a66bd7af2de3",
     "branch": "1.0"
   },
   "query-string-machine": {
