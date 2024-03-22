@@ -7,21 +7,21 @@
  * @author Matthew Blackman(PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import { Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
-import Panel from '../../../../sun/js/Panel.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
+import Utils from '../../../../dot/js/Utils.js';
+import merge from '../../../../phet-core/js/merge.js';
+import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
+import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
+import { Text, VBox, VStrut } from '../../../../scenery/js/imports.js';
+import Checkbox from '../../../../sun/js/Checkbox.js';
+import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
-import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
-import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
-import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import projectileMotion from '../../projectileMotion.js';
+import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
 const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
 const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
