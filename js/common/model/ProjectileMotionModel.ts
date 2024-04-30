@@ -18,7 +18,7 @@ import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.j
 import Range from '../../../../dot/js/Range.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import TModel from '../../../../joist/js/TModel.js';
-import EventTimer from '../../../../phet-core/js/EventTimer.js';
+import EventTimer, { ConstantEventModel } from '../../../../phet-core/js/EventTimer.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
@@ -238,7 +238,7 @@ class ProjectileMotionModel implements TModel {
     this.updateTrajectoryRanksEmitter = new Emitter();
 
     this.eventTimer = new EventTimer(
-      new EventTimer.ConstantEventModel( 1000 / TIME_PER_DATA_POINT ),
+      new ConstantEventModel( 1000 / TIME_PER_DATA_POINT ),
       this.stepModelElements.bind( this, TIME_PER_DATA_POINT / 1000 )
     );
 
