@@ -32,6 +32,7 @@ import ProjectileObjectType from './ProjectileObjectType.js';
 import ProjectileMotionModel from './ProjectileMotionModel.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 type TrajectoryOptions = EmptySelfOptions & PhetioObjectOptions;
 
@@ -166,9 +167,11 @@ class Trajectory extends PhetioObject {
     const initialPoint = new DataPoint( 0, Vector2.pool.create( 0, this.initialHeight ), this.airDensityProperty.value,
       velocity, acceleration, dragForce, this.gravityForce() );
 
-    this.addDataPoint( initialPoint );
+    // the data points apply their own state
+    !isSettingPhetioStateProperty.value && this.addDataPoint( initialPoint );
 
     // The "projectile object" is really just what data point the projectile is currently at.
+    // TODO: this should be PhET-iO instrumented as a ReferenceIO, https://github.com/phetsims/projectile-motion/issues/262
     this.projectileDataPointProperty = new Property( initialPoint, { phetioValueType: DataPoint.DataPointIO } );
 
     this.trajectoryLandedEmitter = new Emitter( {
