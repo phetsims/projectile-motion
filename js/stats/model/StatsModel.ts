@@ -58,7 +58,6 @@ class StatsModel extends ProjectileMotionModel {
       {
         tandem: tandem.createTandem( 'groupSizeProperty' ),
         phetioDocumentation: 'Number of simultaneous projectiles launched',
-        units: '',
         range: new Range( ProjectileMotionConstants.GROUP_SIZE_INCREMENT, ProjectileMotionConstants.GROUP_SIZE_MAX )
       }
     );
@@ -97,7 +96,7 @@ class StatsModel extends ProjectileMotionModel {
   /**
    * Reset these Properties
    */
-  public override reset() : void {
+  public override reset(): void {
     this.timeSinceLastProjectile = 0;
     this.groupSizeProperty.reset();
     super.reset();
