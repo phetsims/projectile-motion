@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "e1a7dd2feb056a8b4637babf62c3c19efec94d6e",
+    "sha": "a3c5789a58cb3e143ef17ae0db30b4f18bfd29f4",
     "branch": "1.0"
   },
   "query-string-machine": {
@@ -49,7 +49,7 @@
     "branch": "HEAD"
   },
   "scenery": {
-    "sha": "86e6c7cf86f23ea5b0230ca903a6c7c43616954c",
+    "sha": "29cfdd2a9c270a1d501f37f6696b397cd44b9d06",
     "branch": "HEAD"
   },
   "scenery-phet": {
