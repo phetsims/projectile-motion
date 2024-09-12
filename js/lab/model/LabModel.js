@@ -6,7 +6,7 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
-import Tandem from '../../../../tandem/js/Tandem.js';
+import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -63,7 +63,7 @@ class LabModel extends ProjectileMotionModel {
 
     // Once the state is set, set again values determined by the object type, as they may be out of sync from view
     // listeners (such as NumberControl.enabledRangeObserver) called during the state set, see https://github.com/phetsims/projectile-motion/issues/213
-    Tandem.PHET_IO_ENABLED && phet.phetio.phetioEngine.phetioStateEngine.stateSetEmitter.addListener( ( state, scopeTandem ) => {
+    phetioStateSetEmitter.addListener( ( state, scopeTandem ) => {
       tandem.hasAncestor( scopeTandem ) && this.resetModelValuesToInitial();
     } );
   }
