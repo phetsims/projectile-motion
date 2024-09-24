@@ -40,18 +40,6 @@
     "extends": "../chipper/eslint/sim_eslintrc.js",
     "rules": {
       "no-view-imported-from-model": "off"
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/*.ts"
-        ],
-        "parserOptions": {
-          "project": [
-            "../chipper/tsconfig/eslint-all/tsconfig.json"
-          ]
-        }
-      }
-    ]
+    }
   }
 }
