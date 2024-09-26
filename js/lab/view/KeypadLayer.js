@@ -86,7 +86,7 @@ class KeypadLayer extends Plane {
     } );
 
     // TODO: Disable line below should be removed, see https://github.com/phetsims/phet-io/issues/1959
-    // eslint-disable-next-line tandem-name-should-match
+    // eslint-disable-next-line phet/tandem-name-should-match
     this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
       accumulatorOptions: {
         maxDigits: options.maxDigits,
