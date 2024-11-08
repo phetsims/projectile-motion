@@ -22,6 +22,7 @@ import EventTimer, { ConstantEventModel } from '../../../../phet-core/js/EventTi
 import optionize from '../../../../phet-core/js/optionize.js';
 import PhysicalConstants from '../../../../phet-core/js/PhysicalConstants.js';
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
@@ -35,7 +36,6 @@ import ProjectileMotionMeasuringTape from './ProjectileMotionMeasuringTape.js';
 import ProjectileObjectType from './ProjectileObjectType.js';
 import Target from './Target.js';
 import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 
 // constants
 const MIN_ZOOM = ProjectileMotionConstants.MIN_ZOOM;

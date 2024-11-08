@@ -6,9 +6,9 @@
  * @author Andrea Lin(PhET Interactive Simulations)
  */
 
+import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class IntroModel extends ProjectileMotionModel {

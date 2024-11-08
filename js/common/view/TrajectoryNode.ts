@@ -15,11 +15,11 @@ import { Shape } from '../../../../kite/js/imports.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import { Circle, Node, Path } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
+import DataPoint from '../model/DataPoint.js';
 import Trajectory from '../model/Trajectory.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import ProjectileNode from './ProjectileNode.js';
-import DataPoint from '../model/DataPoint.js';
 
 const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
 const PATH_MIN_OPACITY = 0.1;

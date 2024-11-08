@@ -10,13 +10,13 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Circle, Node, NodeOptions, Rectangle, RichText } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import type { ViewPoint } from './ProjectileNode.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 // constants
 const FORCE_ARROW_OPTIONS = {

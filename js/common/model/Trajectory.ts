@@ -15,8 +15,10 @@ import createObservableArray, { ObservableArray } from '../../../../axon/js/crea
 import Emitter from '../../../../axon/js/Emitter.js';
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
@@ -25,14 +27,12 @@ import IOType from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
+import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
 import projectileMotion from '../../projectileMotion.js';
 import DataPoint, { DataPointStateObject } from './DataPoint.js';
 import DataProbe from './DataProbe.js';
-import ProjectileObjectType from './ProjectileObjectType.js';
 import ProjectileMotionModel from './ProjectileMotionModel.js';
-import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
+import ProjectileObjectType from './ProjectileObjectType.js';
 
 type TrajectoryOptions = EmptySelfOptions & PhetioObjectOptions;
 

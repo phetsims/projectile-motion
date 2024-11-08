@@ -8,25 +8,25 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringProperty from '../../../../axon/js/StringProperty.js';
+import TProperty from '../../../../axon/js/TProperty.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Circle, DragListener, HBox, Node, NodeOptions, Path, RadialGradient, Rectangle, Text, VBox } from '../../../../scenery/js/imports.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataProbe from '../model/DataProbe.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import ScreenView from '../../../../joist/js/ScreenView.js';
-import TProperty from '../../../../axon/js/TProperty.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
-import StringProperty from '../../../../axon/js/StringProperty.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 const heightString = ProjectileMotionStrings.height;
 const mString = ProjectileMotionStrings.m;

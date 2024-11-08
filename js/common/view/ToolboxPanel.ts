@@ -7,18 +7,18 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
 import { DragListener, HBox } from '../../../../scenery/js/imports.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import projectileMotion from '../../projectileMotion.js';
-import DataProbeNode from './DataProbeNode.js';
-import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
 import DataProbe from '../model/DataProbe.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
+import DataProbeNode from './DataProbeNode.js';
 
 type SelfOptions = {
   xMargin?: number;

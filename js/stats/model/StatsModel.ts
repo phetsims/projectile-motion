@@ -6,18 +6,18 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
+import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
+import NumberProperty from '../../../../axon/js/NumberProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import Range from '../../../../dot/js/Range.js';
 import TimeSpeed from '../../../../scenery-phet/js/TimeSpeed.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
-import NumberProperty from '../../../../axon/js/NumberProperty.js';
-import Range from '../../../../dot/js/Range.js';
-import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import projectileMotion from '../../projectileMotion.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import Property from '../../../../axon/js/Property.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 
 class StatsModel extends ProjectileMotionModel {
 

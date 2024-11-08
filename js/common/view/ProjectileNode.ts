@@ -11,21 +11,21 @@
 
 import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
+import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
+import optionize from '../../../../phet-core/js/optionize.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import { Node, NodeOptions } from '../../../../scenery/js/imports.js';
 import projectileMotion from '../../projectileMotion.js';
-import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
-import FreeBodyDiagram from './FreeBodyDiagram.js';
-import ProjectileObjectViewFactory from './ProjectileObjectViewFactory.js';
-import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import DataPoint from '../model/DataPoint.js';
 import ProjectileObjectType from '../model/ProjectileObjectType.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import Property from '../../../../axon/js/Property.js';
-import optionize from '../../../../phet-core/js/optionize.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import FreeBodyDiagram from './FreeBodyDiagram.js';
+import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
+import ProjectileObjectViewFactory from './ProjectileObjectViewFactory.js';
 
 // constants
 const VELOCITY_ARROW_FILL = ProjectileMotionConstants.VELOCITY_ARROW_FILL;

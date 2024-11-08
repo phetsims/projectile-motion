@@ -17,6 +17,7 @@ import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import platform from '../../../../phet-core/js/platform.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -34,6 +35,7 @@ import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionModel from '../model/ProjectileMotionModel.js';
+import Trajectory from '../model/Trajectory.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import BackgroundNode from './BackgroundNode.js';
 import type { CannonNodeOptions } from './CannonNode.js';
@@ -44,8 +46,6 @@ import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js'
 import TargetNode from './TargetNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
-import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
-import Trajectory from '../model/Trajectory.js';
 
 const initialSpeedString = ProjectileMotionStrings.initialSpeed;
 const initialAngleString = ProjectileMotionStrings.angle;

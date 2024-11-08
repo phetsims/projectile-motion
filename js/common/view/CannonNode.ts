@@ -7,13 +7,18 @@
  * @author Andrea Lin (PhET Interactive Simulations)
  */
 
+import Emitter from '../../../../axon/js/Emitter.js';
+import Property from '../../../../axon/js/Property.js';
+import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import LinearFunction from '../../../../dot/js/LinearFunction.js';
+import ScreenView from '../../../../joist/js/ScreenView.js';
 import { Shape } from '../../../../kite/js/imports.js';
 import merge from '../../../../phet-core/js/merge.js';
+import optionize from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import { Color, DragListener, Image, Line, LinearGradient, Node, NodeOptions, Path, Rectangle, Text } from '../../../../scenery/js/imports.js';
@@ -25,11 +30,6 @@ import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
-import Property from '../../../../axon/js/Property.js';
-import Emitter from '../../../../axon/js/Emitter.js';
-import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
-import ScreenView from '../../../../joist/js/ScreenView.js';
-import optionize from '../../../../phet-core/js/optionize.js';
 
 // image
 
