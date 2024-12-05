@@ -39,24 +39,28 @@ class ProjectileMotionViewProperties {
 
     this.totalVelocityVectorOnProperty = new BooleanProperty( false, {
       tandem: options.tandem?.createTandem( 'totalVelocityVectorOnProperty' ),
-      phetioDocumentation: 'Whether to display the total velocity vectors for flying projectiles'
+      phetioDocumentation: 'Whether to display the total velocity vectors for flying projectiles',
+      phetioFeatured: true
     } );
 
     this.componentsVelocityVectorsOnProperty = new BooleanProperty( false, {
       tandem: options.tandem?.createTandem( 'componentsVelocityVectorsOnProperty' ),
-      phetioDocumentation: 'Whether to display the component velocity vectors for flying projectiles'
+      phetioDocumentation: 'Whether to display the component velocity vectors for flying projectiles',
+      phetioFeatured: true
     } );
 
     if ( options.accelerationProperties ) {
 
       this.totalAccelerationVectorOnProperty = new BooleanProperty( false, {
         tandem: options.tandem?.createTandem( 'totalAccelerationVectorOnProperty' ),
-        phetioDocumentation: 'Whether to display the total acceleration vectors for flying projectiles'
+        phetioDocumentation: 'Whether to display the total acceleration vectors for flying projectiles',
+        phetioFeatured: true
       } );
 
       this.componentsAccelerationVectorsOnProperty = new BooleanProperty( false, {
         tandem: options.tandem?.createTandem( 'componentsAccelerationVectorsOnProperty' ),
-        phetioDocumentation: 'Whether to display the component acceleration vectors for flying projectiles'
+        phetioDocumentation: 'Whether to display the component acceleration vectors for flying projectiles',
+        phetioFeatured: true
       } );
     }
 

@@ -191,7 +191,8 @@ class ProjectileMotionModel implements TModel {
 
     this.airResistanceOnProperty = new BooleanProperty( defaultAirResistanceOn, {
       tandem: tandem.createTandem( 'airResistanceOnProperty' ),
-      phetioDocumentation: 'Whether air resistance is on'
+      phetioDocumentation: 'Whether air resistance is on',
+      phetioFeatured: true
     } );
 
     this.airDensityProperty = new DerivedProperty( [ this.altitudeProperty, this.airResistanceOnProperty ], calculateAirDensity, {
