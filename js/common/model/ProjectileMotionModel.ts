@@ -206,6 +206,7 @@ class ProjectileMotionModel implements TModel {
     this.timeSpeedProperty = new EnumerationProperty( TimeSpeed.NORMAL, {
       validValues: [ TimeSpeed.NORMAL, TimeSpeed.SLOW ],
       tandem: tandem.createTandem( 'timeSpeedProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'Speed of animation, either normal or slow.'
     } );
 

@@ -38,6 +38,7 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
     } );
     this.vectorsDisplayProperty = new EnumerationDeprecatedProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
       tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
+      phetioFeatured: true,
       phetioDocumentation: 'Property for which type of vectors are displayed for flying projectiles: either component ' +
                            'vectors or total vectors.'
     } );
