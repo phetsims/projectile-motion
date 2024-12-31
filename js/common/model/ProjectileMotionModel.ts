@@ -173,7 +173,8 @@ class ProjectileMotionModel implements TModel {
       tandem: tandem.createTandem( 'selectedProjectileObjectTypeProperty' ),
       phetioDocumentation: 'The currently selected projectile object type',
       phetioValueType: ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ),
-      validValues: possibleObjectTypes
+      validValues: possibleObjectTypes,
+      phetioFeatured: true
     } );
 
     this.gravityProperty = new NumberProperty( PhysicalConstants.GRAVITY_ON_EARTH, {
