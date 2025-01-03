@@ -395,7 +395,7 @@ class ProjectileMotionScreenView extends ScreenView {
           radius: 8
         }
       },
-      buttonGroupXSpacing: 2 * PLAY_CONTROLS_INSET,
+      flowBoxSpacing: 2 * PLAY_CONTROLS_INSET,
 
       centerY: initialSpeedPanel.centerY,
       left: fireButton.right + FIRE_BUTTON_MARGIN_X, // empirically determined
