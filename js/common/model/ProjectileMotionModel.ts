@@ -213,7 +213,8 @@ class ProjectileMotionModel implements TModel {
 
     this.isPlayingProperty = new BooleanProperty( true, {
       tandem: tandem.createTandem( 'isPlayingProperty' ),
-      phetioDocumentation: 'whether animation is playing (as opposed to paused)'
+      phetioDocumentation: 'whether animation is playing (as opposed to paused)',
+      phetioFeatured: true
     } );
 
     this.davidHeight = 2; // meters
