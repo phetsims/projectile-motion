@@ -7,7 +7,9 @@
 
 import Screen from '../../../../joist/js/Screen.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
-import { Circle, LinearGradient, Rectangle } from '../../../../scenery/js/imports.js';
+import Circle from '../../../../scenery/js/nodes/Circle.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import projectileMotion from '../../projectileMotion.js';
 
 // constants

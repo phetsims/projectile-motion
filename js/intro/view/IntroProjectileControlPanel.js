@@ -11,7 +11,10 @@
 import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import { HSeparator, HStrut, Text, VBox } from '../../../../scenery/js/imports.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import HStrut from '../../../../scenery/js/nodes/HStrut.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';

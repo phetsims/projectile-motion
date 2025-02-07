@@ -8,12 +8,15 @@
 
 import Range from '../../../dot/js/Range.js';
 import Vector2 from '../../../dot/js/Vector2.js';
-import { Shape } from '../../../kite/js/imports.js';
+import Shape from '../../../kite/js/Shape.js';
 import ArrowNode from '../../../scenery-phet/js/ArrowNode.js';
 import { NumberDisplayOptions } from '../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../scenery-phet/js/PhetColorScheme.js';
 import PhetFont from '../../../scenery-phet/js/PhetFont.js';
-import { Circle, Node, Path, TextOptions } from '../../../scenery/js/imports.js';
+import Circle from '../../../scenery/js/nodes/Circle.js';
+import Node from '../../../scenery/js/nodes/Node.js';
+import Path from '../../../scenery/js/nodes/Path.js';
+import { TextOptions } from '../../../scenery/js/nodes/Text.js';
 import { PanelOptions } from '../../../sun/js/Panel.js';
 import projectileMotion from '../projectileMotion.js';
 

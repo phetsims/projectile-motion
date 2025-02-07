@@ -7,7 +7,7 @@
  */
 
 import optionize from '../../../../phet-core/js/optionize.js';
-import { Image } from '../../../../scenery/js/imports.js';
+import Image from '../../../../scenery/js/nodes/Image.js';
 import RectangularPushButton, { RectangularPushButtonOptions } from '../../../../sun/js/buttons/RectangularPushButton.js';
 import fireMultipleButton_png from '../../../mipmaps/fireMultipleButton_png.js';
 import projectileMotion from '../../projectileMotion.js';

@@ -7,7 +7,7 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { Node } from '../../../../scenery/js/imports.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import '../../common/ProjectileMotionQueryParameters.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';

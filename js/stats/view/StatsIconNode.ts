@@ -7,7 +7,9 @@
  */
 
 import Screen from '../../../../joist/js/Screen.js';
-import { LinearGradient, NodeOptions, Rectangle } from '../../../../scenery/js/imports.js';
+import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
+import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
+import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import projectileMotion from '../../projectileMotion.js';
 
 // constants

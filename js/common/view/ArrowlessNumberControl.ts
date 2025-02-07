@@ -15,7 +15,7 @@ import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-co
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
 import { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
-import { Text, TextOptions } from '../../../../scenery/js/imports.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../ProjectileMotionConstants.js';

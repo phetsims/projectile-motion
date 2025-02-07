@@ -8,7 +8,10 @@
  */
 
 import merge from '../../../../phet-core/js/merge.js';
-import { HBox, HSeparator, Text, VBox } from '../../../../scenery/js/imports.js';
+import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
+import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
+import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
+import Text from '../../../../scenery/js/nodes/Text.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
