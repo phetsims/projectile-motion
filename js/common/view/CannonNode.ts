@@ -80,7 +80,7 @@ const opacityLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_OPACITY_INI
 const scaleLinearFunction = new LinearFunction( 0, 1, MUZZLE_FLASH_SCALE_INITIAL, MUZZLE_FLASH_SCALE_FINAL );
 
 type SelfOptions = {
-  preciseCannonDelta: boolean;
+  preciseCannonDelta?: boolean;
 };
 
 export type CannonNodeOptions = SelfOptions & NodeOptions;
@@ -95,6 +95,7 @@ class CannonNode extends Node {
                       transformProperty: Property<ModelViewTransform2>, screenView: ScreenView, providedOptions?: CannonNodeOptions ) {
 
     const options = optionize<CannonNodeOptions, SelfOptions, NodeOptions>()( {
+      preciseCannonDelta: false,
       tandem: Tandem.REQUIRED
     }, providedOptions );
 
