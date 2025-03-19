@@ -29,11 +29,11 @@ type SelfOptions = EmptySelfOptions;
 type BackgroundNodeOptions = SelfOptions & NodeOptions;
 
 class BackgroundNode extends Node {
-  private sky: Rectangle;
-  private grass: Rectangle;
-  private road: Rectangle;
-  private roadDashedLine: Line;
-  private flatirons: Node;
+  private readonly sky: Rectangle;
+  private readonly grass: Rectangle;
+  private readonly road: Rectangle;
+  private readonly roadDashedLine: Line;
+  private readonly flatirons: Node;
 
   public constructor( layoutBounds: Bounds2, providedOptions?: BackgroundNodeOptions ) {
 

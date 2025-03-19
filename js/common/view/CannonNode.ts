@@ -87,8 +87,8 @@ type SelfOptions = {
 export type CannonNodeOptions = SelfOptions & NodeOptions;
 
 class CannonNode extends Node {
-  private isIntroScreen: boolean;
-  private heightCueingArrows: Node;
+  private readonly isIntroScreen: boolean;
+  private readonly heightCueingArrows: Node;
   private muzzleFlashPlaying: boolean;
   private muzzleFlashStage: number;
 

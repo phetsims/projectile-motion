@@ -61,7 +61,7 @@ type SelfOptions = {
 type ProjectileNodeOptions = SelfOptions & NodeOptions;
 
 class ProjectileNode extends Node {
-  private disposeProjectileNode: () => void;
+  private readonly disposeProjectileNode: () => void;
   public readonly viewPointProperty: TReadOnlyProperty<ViewPoint>;
 
   /**

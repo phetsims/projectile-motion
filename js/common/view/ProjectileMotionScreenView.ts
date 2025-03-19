@@ -77,18 +77,18 @@ type SelfOptions = {
 type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions;
 
 class ProjectileMotionScreenView extends ScreenView {
-  private cannonNode: CannonNode;
-  private topRightPanel: Panel;
-  private bottomRightPanel: Panel;
-  private toolboxPanel: ToolboxPanel;
-  private resetAllButton: ResetAllButton;
-  private backgroundNode: BackgroundNode;
-  private zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
-  private eraserButton: EraserButton;
-  private fireButton: FireButton;
-  private timeControlNode: TimeControlNode;
-  private initialSpeedPanel: Panel;
-  private initialAnglePanel: Panel;
+  private readonly cannonNode: CannonNode;
+  private readonly topRightPanel: Panel;
+  private readonly bottomRightPanel: Panel;
+  private readonly toolboxPanel: ToolboxPanel;
+  private readonly resetAllButton: ResetAllButton;
+  private readonly backgroundNode: BackgroundNode;
+  private readonly zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
+  private readonly eraserButton: EraserButton;
+  private readonly fireButton: FireButton;
+  private readonly timeControlNode: TimeControlNode;
+  private readonly initialSpeedPanel: Panel;
+  private readonly initialAnglePanel: Panel;
 
   /**
    * @param topRightPanel - the projectile control panel at the top right

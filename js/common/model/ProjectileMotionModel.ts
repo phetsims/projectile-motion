@@ -56,35 +56,35 @@ type ProjectileMotionModelOptions = {
 };
 
 class ProjectileMotionModel implements TModel {
-  public maxProjectiles: number;
-  public target: Target;
-  public measuringTape: ProjectileMotionMeasuringTape;
-  public cannonHeightProperty: Property<number>;
-  public initialSpeedStandardDeviationProperty: Property<number>;
-  public initialSpeedProperty: VarianceNumberProperty;
-  public initialAngleStandardDeviationProperty: Property<number>;
-  public cannonAngleProperty: VarianceNumberProperty;
-  public projectileMassProperty: Property<number>;
-  public projectileDiameterProperty: Property<number>;
-  public projectileDragCoefficientProperty: Property<number>;
-  public selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>;
-  public gravityProperty: Property<number>;
-  public altitudeProperty: Property<number>;
-  public airResistanceOnProperty: Property<boolean>;
-  public airDensityProperty: TReadOnlyProperty<number>;
-  public timeSpeedProperty: EnumerationProperty<TimeSpeed>;
-  public isPlayingProperty: Property<boolean>;
+  public readonly maxProjectiles: number;
+  public readonly target: Target;
+  public readonly measuringTape: ProjectileMotionMeasuringTape;
+  public readonly cannonHeightProperty: Property<number>;
+  public readonly initialSpeedStandardDeviationProperty: Property<number>;
+  public readonly initialSpeedProperty: VarianceNumberProperty;
+  public readonly initialAngleStandardDeviationProperty: Property<number>;
+  public readonly cannonAngleProperty: VarianceNumberProperty;
+  public readonly projectileMassProperty: Property<number>;
+  public readonly projectileDiameterProperty: Property<number>;
+  public readonly projectileDragCoefficientProperty: Property<number>;
+  public readonly selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>;
+  public readonly gravityProperty: Property<number>;
+  public readonly altitudeProperty: Property<number>;
+  public readonly airResistanceOnProperty: Property<boolean>;
+  public readonly airDensityProperty: TReadOnlyProperty<number>;
+  public readonly timeSpeedProperty: EnumerationProperty<TimeSpeed>;
+  public readonly isPlayingProperty: Property<boolean>;
   public readonly davidHeight: number;
   public readonly davidPosition: Vector2;
-  public numberOfMovingProjectilesProperty: Property<number>;
-  public rapidFireModeProperty: Property<boolean>;
-  public fireEnabledProperty: TReadOnlyProperty<boolean>;
-  public updateTrajectoryRanksEmitter: Emitter;
-  private eventTimer: EventTimer;
-  public muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
-  public zoomProperty: NumberProperty;
-  public trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
-  public dataProbe: DataProbe;
+  public readonly numberOfMovingProjectilesProperty: Property<number>;
+  public readonly rapidFireModeProperty: Property<boolean>;
+  public readonly fireEnabledProperty: TReadOnlyProperty<boolean>;
+  public readonly updateTrajectoryRanksEmitter: Emitter;
+  private readonly eventTimer: EventTimer;
+  public readonly muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
+  public readonly zoomProperty: NumberProperty;
+  public readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
+  public readonly dataProbe: DataProbe;
 
   /**
    * @param defaultProjectileObjectType -  default object type for the model
