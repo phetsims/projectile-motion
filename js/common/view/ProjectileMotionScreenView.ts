@@ -30,7 +30,7 @@ import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 import TimeControlNode from '../../../../scenery-phet/js/TimeControlNode.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
-import Node from '../../../../scenery/js/nodes/Node.js';
+import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import david_png from '../../../images/david_png.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -47,6 +47,7 @@ import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js'
 import TargetNode from './TargetNode.js';
 import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 
 const initialSpeedString = ProjectileMotionStrings.initialSpeed;
 const initialAngleString = ProjectileMotionStrings.angle;
@@ -74,7 +75,7 @@ type SelfOptions = {
   showPaths?: boolean;
   constantTrajectoryOpacity?: boolean;
 };
-type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions;
+type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions & PickRequired<NodeOptions, 'tandem'>;
 
 class ProjectileMotionScreenView extends ScreenView {
   protected readonly topRightPanel: Panel;
