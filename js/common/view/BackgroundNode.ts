@@ -18,8 +18,6 @@ import flatirons_png from '../../../images/flatirons_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
-// image
-
 // constants
 const CEMENT_WIDTH = 20;
 const GRASS_ABOVE_ROAD_WIDTH = 4;
@@ -35,7 +33,7 @@ class BackgroundNode extends Node {
   private grass: Rectangle;
   private road: Rectangle;
   private roadDashedLine: Line;
-  private flatirons: Image;
+  private flatirons: Node;
 
   public constructor( layoutBounds: Bounds2, providedOptions?: BackgroundNodeOptions ) {
 
