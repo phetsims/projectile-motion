@@ -10,7 +10,6 @@
 import NumberProperty from '../../../../axon/js/NumberProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -28,6 +27,8 @@ import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import Target from '../model/Target.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import { clamp } from '../../../../dot/js/util/clamp.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 
 const mString = ProjectileMotionStrings.m;
 const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
@@ -121,8 +122,8 @@ class TargetNode extends Node {
         // change in x, view units
         const xChange = mousePoint.x - startPoint.x;
 
-        const newTargetX = Utils.roundSymmetric( this.transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
-        this.positionProperty.set( Utils.clamp( newTargetX, this.positionProperty.range.min, this.positionProperty.range.max ) );
+        const newTargetX = roundSymmetric( this.transformProperty.get().viewToModelX( startX + xChange ) * 10 ) / 10;
+        this.positionProperty.set( clamp( newTargetX, this.positionProperty.range.min, this.positionProperty.range.max ) );
       },
 
       allowTouchSnag: true,
@@ -249,7 +250,7 @@ class TargetNode extends Node {
       transform.viewToModelX( this.screenView.layoutBounds.minX ),
       transform.viewToModelX( this.screenView.layoutBounds.maxX )
     );
-    this.positionProperty.setValueAndRange( Utils.clamp( this.positionProperty.value, newRange.min, newRange.max ), newRange );
+    this.positionProperty.setValueAndRange( clamp( this.positionProperty.value, newRange.min, newRange.max ), newRange );
   }
 
   /**
