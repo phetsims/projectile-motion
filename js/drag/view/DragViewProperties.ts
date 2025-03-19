@@ -4,26 +4,31 @@
  * View Properties that are specific to visibility of vectors
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
-import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
+import Property from '../../../../axon/js/Property.js';
+import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 
 class DragViewProperties extends ProjectileMotionViewProperties {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+
+  private readonly velocityVectorsOnProperty: Property<boolean>;
+  private readonly forceVectorsOnProperty: Property<boolean>;
+  private readonly vectorsDisplayProperty: EnumerationProperty<VectorsDisplayEnumeration>;
+
+  public constructor( tandem: Tandem ) {
     super( {
       accelerationProperties: false
     } );
 
-    // @public vectors visibility for velocity and force, total or component
-    this.velocityVectorsOnProperty = new BooleanProperty( false, {
+    // vectors visibility for velocity and force, total or component
+    this.velocityVectorsOnProperty = new Property( false, {
       tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),
       phetioDocumentation: 'Whether to display velocity vectors for flying projectiles',
       phetioFeatured: true
@@ -33,7 +38,8 @@ class DragViewProperties extends ProjectileMotionViewProperties {
       phetioDocumentation: 'Whether to display the force vectors in a free body diagram for flying projectiles',
       phetioFeatured: true
     } );
-    this.vectorsDisplayProperty = new EnumerationDeprecatedProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
+    this.vectorsDisplayProperty = new EnumerationProperty( VectorsDisplayEnumeration.TOTAL, {
+      validValues: [ VectorsDisplayEnumeration.TOTAL, VectorsDisplayEnumeration.COMPONENTS ],
       tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'Property for which type of vectors are displayed for flying projectiles: either component ' +
@@ -51,12 +57,7 @@ class DragViewProperties extends ProjectileMotionViewProperties {
   }
 
 
-  /**
-   * Reset these Properties
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.velocityVectorsOnProperty.reset();
     this.forceVectorsOnProperty.reset();
@@ -65,20 +66,20 @@ class DragViewProperties extends ProjectileMotionViewProperties {
 
   /**
    * Update vector visibilities based on whether velocity and/or force vectors are on, and whether total or components
-   * @private
-   *
-   * @param {boolean} velocityVectorsOn
-   * @param {boolean} forceVectorsOn
-   * @param {string} vectorsDisplay
    */
-  updateVectorVisibilities( velocityVectorsOn, forceVectorsOn, vectorsDisplay ) {
+  private updateVectorVisibilities( velocityVectorsOn: boolean, forceVectorsOn: boolean, vectorsDisplay: VectorsDisplayEnumeration ): void {
     const displayTotal = vectorsDisplay === VectorsDisplayEnumeration.TOTAL;
     const displayComponents = vectorsDisplay === VectorsDisplayEnumeration.COMPONENTS;
 
     this.totalVelocityVectorOnProperty.set( velocityVectorsOn && displayTotal );
     this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && displayComponents );
-    this.totalForceVectorOnProperty.set( forceVectorsOn && displayTotal );
-    this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
+
+    if ( this.totalForceVectorOnProperty !== undefined ) {
+      this.totalForceVectorOnProperty.set( forceVectorsOn && displayTotal );
+    }
+    if ( this.componentsForceVectorsOnProperty !== undefined ) {
+      this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
+    }
   }
 }
 
