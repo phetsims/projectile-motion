@@ -11,12 +11,10 @@ import Emitter from '../../../../axon/js/Emitter.js';
 import Property from '../../../../axon/js/Property.js';
 import LinearFunction from '../../../../dot/js/LinearFunction.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
@@ -27,11 +25,13 @@ import Line from '../../../../scenery/js/nodes/Line.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
 import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
@@ -206,12 +206,12 @@ class CannonNode extends Node {
 
     // height readout
     const heightLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
-    const heightLabelOptions = merge( {
+    const heightLabelOptions = combineOptions<TextOptions>( {
       pickable: true,
       maxWidth: 40 // empirically determined
     }, LABEL_OPTIONS );
     const heightLabelText = new Text( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-      value: Utils.toFixedNumber( heightProperty.get(), 2 ),
+      value: toFixedNumber( heightProperty.get(), 2 ),
       units: mString,
       tandem: options.tandem.createTandem( 'heightLabelText' )
     } ), heightLabelOptions );
@@ -262,7 +262,7 @@ class CannonNode extends Node {
     const angleLabelBackground = new Rectangle( 0, 0, 0, 0, { fill: TRANSPARENT_WHITE } );
     angleIndicator.addChild( angleLabelBackground );
     const angleLabel = new Text( StringUtils.fillIn( pattern0Value1UnitsString, {
-      value: Utils.toFixedNumber( angleProperty.get(), 2 ),
+      value: toFixedNumber( angleProperty.get(), 2 ),
       units: DEGREES
     } ), LABEL_OPTIONS );
     angleLabel.bottom = -5;
@@ -340,7 +340,7 @@ class CannonNode extends Node {
                        : Shape.arc( 0, 0, CROSSHAIR_LENGTH * 2 / 3, 0, -angle * Math.PI / 180 );
       angleArc.setShape( arcShape );
       angleLabel.string = StringUtils.fillIn( pattern0Value1UnitsString, {
-        value: Utils.toFixedNumber( angleProperty.get(), 2 ),
+        value: toFixedNumber( angleProperty.get(), 2 ),
         units: DEGREES
       } );
       angleLabelBackground.setRectWidth( angleLabel.width + 2 );
@@ -396,7 +396,7 @@ class CannonNode extends Node {
       heightLeaderLineTopCap.x = heightLeaderArrows.tipX;
       heightLeaderLineTopCap.y = heightLeaderArrows.tipY;
       heightLabelText.string = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-        value: Utils.toFixedNumber( height, 2 ),
+        value: toFixedNumber( height, 2 ),
         units: mString
       } );
       heightLabelText.centerX = heightLeaderArrows.tipX;
@@ -477,7 +477,7 @@ class CannonNode extends Node {
         // mouse dragged angle is within angle range
         if ( angleRange.contains( unboundedNewAngle ) ) {
           const delta = providedOptions?.preciseCannonDelta ? 1 : 5;
-          angleProperty.set( Utils.roundSymmetric( unboundedNewAngle / delta ) * delta );
+          angleProperty.set( roundSymmetric( unboundedNewAngle / delta ) * delta );
         }
 
         // the current, unchanged, angle is closer to max than min
@@ -512,7 +512,7 @@ class CannonNode extends Node {
 
         // mouse dragged height is within height range
         if ( HEIGHT_RANGE.contains( unboundedNewHeight ) ) {
-          heightProperty.set( Utils.roundSymmetric( unboundedNewHeight ) );
+          heightProperty.set( roundSymmetric( unboundedNewHeight ) );
         }
         // the current, unchanged, height is closer to max than min
         else if ( HEIGHT_RANGE.max + HEIGHT_RANGE.min < 2 * heightProperty.get() ) {

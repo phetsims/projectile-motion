@@ -12,12 +12,10 @@ import StringProperty from '../../../../axon/js/StringProperty.js';
 import TProperty from '../../../../axon/js/TProperty.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
-import merge from '../../../../phet-core/js/merge.js';
-import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
@@ -28,13 +26,14 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 const heightString = ProjectileMotionStrings.height;
 const mString = ProjectileMotionStrings.m;
@@ -50,7 +49,7 @@ const OPAQUE_BLUE = 'rgb( 41, 66, 150 )';
 const TRANSPARENT_WHITE = 'rgba( 255, 255, 255, 0.2 )';
 const SPACING = 4; // {number} x and y spacing and margins
 const TIME_PER_MAJOR_DOT = ProjectileMotionConstants.TIME_PER_MAJOR_DOT;
-const LABEL_OPTIONS = merge( {}, ProjectileMotionConstants.LABEL_TEXT_OPTIONS, { fill: 'white' } );
+const LABEL_OPTIONS = combineOptions<TextOptions>( { fill: 'white' }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
 const SMALL_HALO_RADIUS = ProjectileMotionConstants.SMALL_DOT_RADIUS * 5;
 const LARGE_HALO_RADIUS = ProjectileMotionConstants.LARGE_DOT_RADIUS * 5;
 const YELLOW_HALO_COLOR = 'rgba( 255, 255, 0, 0.8 )';
@@ -191,15 +190,15 @@ class DataProbeNode extends Node {
     dataProbe.dataPointProperty.link( point => {
       if ( point !== null ) {
         timeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Utils.toFixedNumber( point.time, 2 ),
+          value: toFixedNumber( point.time, 2 ),
           units: sString
         } ) );
         rangeReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Utils.toFixedNumber( point.position.x, 2 ),
+          value: toFixedNumber( point.position.x, 2 ),
           units: mString
         } ) );
         heightReadoutProperty.set( StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-          value: Utils.toFixedNumber( point.position.y, 2 ),
+          value: toFixedNumber( point.position.y, 2 ),
           units: mString
         } ) );
         haloNode.centerX = transformProperty.get().modelToViewX( point.position.x );
@@ -210,7 +209,7 @@ class DataProbeNode extends Node {
           haloNode.shape = smallHaloShape;
           haloNode.fill = GREEN_HALO_FILL;
         }
-        else if ( Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MAJOR_DOT === 0 ) {
+        else if ( toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MAJOR_DOT === 0 ) {
           haloNode.shape = largeHaloShape;
           haloNode.fill = YELLOW_HALO_FILL_LARGE;
         }
@@ -390,12 +389,12 @@ function createInformationBox( maxWidth: number, labelString: string, readoutPro
   const backgroundWidth = 60;
 
   // label
-  const labelText = new Text( labelString, merge( {}, LABEL_OPTIONS, {
+  const labelText = new Text( labelString, combineOptions<TextOptions>( {
     maxWidth: maxWidth - backgroundWidth - 25
-  } ) );
+  }, LABEL_OPTIONS ) );
 
   // number
-  const numberOptions = merge( {}, ProjectileMotionConstants.LABEL_TEXT_OPTIONS, { maxWidth: backgroundWidth - 6 } );
+  const numberOptions = combineOptions<TextOptions>( { maxWidth: backgroundWidth - 6 }, ProjectileMotionConstants.LABEL_TEXT_OPTIONS );
   const numberNode = new Text( readoutProperty.get(), numberOptions );
 
   const backgroundNode = new Rectangle(

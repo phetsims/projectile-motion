@@ -8,9 +8,8 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox, { VBoxOptions } from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -47,18 +46,18 @@ class AirResistanceControl extends VBox {
       tandem: Tandem.REQUIRED
     }, providedOptions );
 
-    const dragCoefficientText = new Text( '', merge( {}, options.labelOptions, {
+    const dragCoefficientText = new Text( '', combineOptions<TextOptions>( {
       maxWidth: options.minWidth - 2 * options.xMargin,
       tandem: options.tandem.createTandem( 'dragCoefficientText' ),
       stringPropertyOptions: { phetioReadOnly: true } // because this display shouldn't be edited
-    } ) );
+    }, options.labelOptions ) );
 
     dragCoefficientText.setBoundsMethod( 'accurate' );
 
     // air resistance
-    const titleText = new Text( airResistanceString, merge( {}, options.labelOptions, {
+    const titleText = new Text( airResistanceString, combineOptions<TextOptions>( {
       tandem: options.tandem.createTandem( 'titleText' )
-    } ) );
+    }, options.labelOptions ) );
     const airResistanceCheckboxContent = new HBox( {
       spacing: options.xMargin,
       children: [ titleText, new Node( { children: [ AIR_RESISTANCE_ICON ] } ) ]
@@ -78,7 +77,7 @@ class AirResistanceControl extends VBox {
 
     // Listen to changes in model drag coefficient and update the view text
     projectileDragCoefficientProperty.link( value => {
-      dragCoefficientText.setString( `${dragCoefficientString}: ${Utils.toFixed( value, 2 )}` );
+      dragCoefficientText.setString( `${dragCoefficientString}: ${toFixed( value, 2 )}` );
     } );
 
     assert && assert( !options.children, 'AirResistanceControl sets its own children' );
