@@ -132,9 +132,9 @@ class Trajectory extends PhetioObject {
 
     this.rankProperty = new NumberProperty( 0, {
       tandem: options.tandem.createTandem( 'rankProperty' ),
-      phetioDocumentation: `${'The count of how old this projectile trajectory is. Older trajectories have more ' +
-                              'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
-                              'The second most recent has rank 1.'}`,
+      phetioDocumentation: 'The count of how old this projectile trajectory is. Older trajectories have more ' +
+                           'opacity until they are subsequently removed. The most recent trajectory fired has rank 0. ' +
+                           'The second most recent has rank 1.',
       phetioReadOnly: true
     } );
 
