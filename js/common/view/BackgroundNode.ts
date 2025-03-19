@@ -7,7 +7,7 @@
  */
 
 import Bounds2 from '../../../../dot/js/Bounds2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
 import Line from '../../../../scenery/js/nodes/Line.js';
@@ -27,10 +27,7 @@ const YELLOW_LINE_WIDTH = 1.5;
 const FLATIRONS_WIDTH = 450;
 const FLATIRONS_LEFT = 8; // in meters
 
-type SelfOptions = {
-  pickable?: boolean;
-};
-
+type SelfOptions = EmptySelfOptions;
 type BackgroundNodeOptions = SelfOptions & NodeOptions;
 
 class BackgroundNode extends Node {
