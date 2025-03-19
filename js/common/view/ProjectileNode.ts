@@ -13,7 +13,6 @@ import DerivedProperty from '../../../../axon/js/DerivedProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -26,6 +25,7 @@ import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import FreeBodyDiagram from './FreeBodyDiagram.js';
 import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import ProjectileObjectViewFactory from './ProjectileObjectViewFactory.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 
 // constants
 const VELOCITY_ARROW_FILL = ProjectileMotionConstants.VELOCITY_ARROW_FILL;
@@ -60,7 +60,7 @@ type ProjectileNodeOptions = SelfOptions & NodeOptions;
 
 class ProjectileNode extends Node {
   private readonly disposeProjectileNode: () => void;
-  public readonly viewPointProperty: TReadOnlyProperty<ViewPoint>;
+  private readonly viewPointProperty: TReadOnlyProperty<ViewPoint>;
 
   /**
    *  @param viewProperties - Properties that determine which vectors are shown
@@ -101,8 +101,8 @@ class ProjectileNode extends Node {
     this.viewPointProperty = new DerivedProperty( [ dataPointProperty ], dataPoint => {
       assert && assert( !dataPoint.apex, 'Projectile current data point should never be the apex' );
       const viewPosition = modelViewTransform.modelToViewPosition( dataPoint.position );
-      viewPosition.x = Utils.roundSymmetric( viewPosition.x * 10000 ) / 10000;
-      viewPosition.y = Utils.roundSymmetric( viewPosition.y * 10000 ) / 10000;
+      viewPosition.x = roundSymmetric( viewPosition.x * 10000 ) / 10000;
+      viewPosition.y = roundSymmetric( viewPosition.y * 10000 ) / 10000;
       const retVal: ViewPoint = {
         viewPosition: viewPosition,
         dataPoint: dataPoint

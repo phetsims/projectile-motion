@@ -19,15 +19,16 @@ type SelfOptions = {
 type ProjectileMotionViewPropertiesOptions = SelfOptions & Pick<PhetioObjectOptions, 'tandem'>;
 
 class ProjectileMotionViewProperties {
-  public readonly forceProperties: boolean;
-  public readonly accelerationProperties: boolean;
-  public readonly totalVelocityVectorOnProperty: Property<boolean>; // whether total velocity vector is showing
   public readonly componentsVelocityVectorsOnProperty: Property<boolean>; // whether component velocity vectors are showing
-  public readonly totalAccelerationVectorOnProperty?: Property<boolean>; // whether total acceleration vector is shown
+  public readonly totalVelocityVectorOnProperty: Property<boolean>; // whether total velocity vector is showing
   public readonly componentsAccelerationVectorsOnProperty?: Property<boolean>; // whether component acceleration vectors are showing
+  public readonly totalAccelerationVectorOnProperty?: Property<boolean>; // whether total acceleration vector is shown
   public readonly totalForceVectorOnProperty?: Property<boolean>; // whether total force vector is showing
   public readonly componentsForceVectorsOnProperty?: Property<boolean>; // whether component force vectors are showing
-  
+
+  private readonly forceProperties: boolean;
+  private readonly accelerationProperties: boolean;
+
   public constructor( providedOptions?: ProjectileMotionViewPropertiesOptions ) {
 
     const options = optionize<ProjectileMotionViewPropertiesOptions, SelfOptions>()( {

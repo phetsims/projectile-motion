@@ -3,31 +3,28 @@
 /**
  * ScreenView for the 'Intro' screen
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
 import IntroProjectileControlPanel from './IntroProjectileControlPanel.js';
 import IntroVectorsControlPanel from './IntroVectorsControlPanel.js';
+import IntroModel from '../model/IntroModel.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class IntroScreenView extends ProjectileMotionScreenView {
 
-  /**
-   * @param {IntroModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
+  private readonly projectileControlPanel;
 
-    options = merge( {
-      addFlatirons: false
-    }, options );
+  public constructor( model: IntroModel, tandem: Tandem ) {
 
     // contains Properties about vector visibility, used in super class
     const viewProperties = new ProjectileMotionViewProperties( {
-      tandem: options.tandem.createTandem( 'viewProperties' ),
+      tandem: tandem.createTandem( 'viewProperties' ),
       forceProperties: false
     } );
 
@@ -42,32 +39,32 @@ class IntroScreenView extends ProjectileMotionScreenView {
       model.projectileDiameterProperty,
       model.projectileDragCoefficientProperty,
       model.airResistanceOnProperty,
-      { tandem: options.tandem.createTandem( 'projectileControlPanel' ) }
+      { tandem: tandem.createTandem( 'projectileControlPanel' ) }
     );
 
     super(
       model,
       projectileControlPanel,
-      new IntroVectorsControlPanel( viewProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new IntroVectorsControlPanel( viewProperties, { tandem: tandem.createTandem( 'vectorsControlPanel' ) } ),
       viewProperties,
-      options
+      {
+        tandem: tandem,
+        addFlatirons: false
+      }
     );
 
-    // @private
-    this.projectilePanel = projectileControlPanel;
+    this.projectileControlPanel = projectileControlPanel;
 
     // insert dropdown right on top of the right-side panels
     this.insertChild( this.indexOfChild( this.topRightPanel ) + 1, comboBoxListParent );
   }
 
   /**
-   * Layout
-   * @param {Bounds2} viewBounds
-   * @public (joist-internal)
-   * @override
+   *
+   * @param viewBounds
    */
-  layout( viewBounds ) {
-    this.projectilePanel.hideComboBoxList();
+  public override layout( viewBounds: Bounds2 ) : void {
+    this.projectileControlPanel.hideComboBoxList();
     super.layout( viewBounds );
   }
 }

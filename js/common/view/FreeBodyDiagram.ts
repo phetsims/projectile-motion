@@ -6,6 +6,7 @@
  * invisible, as there is nothing to show.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 

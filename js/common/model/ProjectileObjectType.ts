@@ -73,22 +73,23 @@ type ProjectileObjectTypeStateObject = {
 };
 
 class ProjectileObjectType extends PhetioObject {
-  public name: string | null; // name of the object, such as 'Golf ball', or null if it doesn't have a name
-  public benchmark: string | null; // identifier of the object benchmark, such as 'tankShell', also considered a 'name' for it like for Tandems. null for screens with only one object type
-  public rotates: boolean; // whether the object rotates or just translates in air
   public mass: number; // in kg
   public diameter: number; // in meters
   public dragCoefficient: number;
-  public readonly initialMass: number;
-  public readonly initialDiameter: number;
-  public readonly initialDragCoefficient: number;
-  public massRange: Range;
-  public massRound: number;
-  public diameterRange: Range;
-  public diameterRound: number;
-  public dragCoefficientRange: Range;
   public viewCreationFunction: ProjectileObjectViewCreator | null;
-  public readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
+  public rotates: boolean; // whether the object rotates or just translates in air
+  public benchmark: string | null; // identifier of the object benchmark, such as 'tankShell', also considered a 'name' for it like for Tandems. null for screens with only one object type
+  public name: string | null; // name of the object, such as 'Golf ball', or null if it doesn't have a name
+
+  private readonly initialMass: number;
+  private readonly initialDiameter: number;
+  private readonly initialDragCoefficient: number;
+  private massRange: Range;
+  private massRound: number;
+  private diameterRange: Range;
+  private diameterRound: number;
+  private dragCoefficientRange: Range;
+  private readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
 
   public constructor( name: string | null, mass: number, diameter: number, dragCoefficient: number,
                       benchmark: string | null, rotates: boolean, providedOptions?: ProjectileObjectTypeOptions ) {
@@ -131,7 +132,7 @@ class ProjectileObjectType extends PhetioObject {
     this.viewCreationFunction = options.viewCreationFunction;
   }
 
-  public toStateObject(): ProjectileObjectTypeStateObject {
+  private toStateObject(): ProjectileObjectTypeStateObject {
     return {
       name: NullableIO( StringIO ).toStateObject( this.name ),
       mass: this.mass,
@@ -147,7 +148,7 @@ class ProjectileObjectType extends PhetioObject {
     };
   }
 
-  public static get STATE_SCHEMA(): CompositeSchema<ProjectileObjectTypeStateObject> {
+  private static get STATE_SCHEMA(): CompositeSchema<ProjectileObjectTypeStateObject> {
     return {
       name: NullableIO( StringIO ),
       mass: NumberIO,
@@ -336,7 +337,7 @@ class ProjectileObjectType extends PhetioObject {
     }
   );
 
-  public static readonly CUSTOM = new ProjectileObjectType(
+  private static readonly CUSTOM = new ProjectileObjectType(
     customString,
     100,
     1,

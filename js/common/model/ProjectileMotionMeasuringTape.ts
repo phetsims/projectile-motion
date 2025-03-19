@@ -14,7 +14,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class ProjectileMotionMeasuringTape {
-
   public readonly basePositionProperty: Property<Vector2>;
   public readonly tipPositionProperty: Property<Vector2>;
   public readonly isActiveProperty: Property<boolean>;

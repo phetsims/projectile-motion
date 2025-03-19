@@ -17,7 +17,6 @@ import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 class Target {
-
   public readonly positionProperty: NumberProperty;
   public readonly scoredEmitter: Emitter<[ number ]>;
 

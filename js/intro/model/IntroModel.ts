@@ -14,6 +14,7 @@ import projectileMotion from '../../projectileMotion.js';
 class IntroModel extends ProjectileMotionModel {
 
   public objectTypes: ProjectileObjectType[];
+
   public constructor( tandem: Tandem ) {
 
     const objectTypes = [

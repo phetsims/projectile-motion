@@ -11,7 +11,6 @@
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
@@ -21,6 +20,7 @@ import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
 import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 // constants
 const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
@@ -28,8 +28,9 @@ const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT;
 
 class DataProbe {
   public readonly positionProperty: Property<Vector2>;
-  public readonly isActiveProperty: Property<boolean>;
   public readonly dataPointProperty: Property<null | DataPoint>;
+  public readonly isActiveProperty: Property<boolean>;
+
   private readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>;
 
   // used to adjust the tolerance of the sensing radius when detecting data points on trajectories.
@@ -101,7 +102,7 @@ class DataProbe {
       }
       const point = currentTrajectory.getNearestPoint( this.positionProperty.get().x, this.positionProperty.get().y );
       const pointIsReadable = point &&
-                              ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                              ( point.apex || point.position.y === 0 || toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
       if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
         this.dataPointProperty.set( point );
         return;
@@ -116,7 +117,7 @@ class DataProbe {
   public updateDataIfWithinRange( point: DataPoint ): void {
     // point can be read by dataProbe if it exists, it is on the ground, or it is the right timestep
     const pointIsReadable = point &&
-                            ( point.apex || point.position.y === 0 || Utils.toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
+                            ( point.apex || point.position.y === 0 || toFixedNumber( point.time * 1000, 0 ) % TIME_PER_MINOR_DOT === 0 );
     if ( pointIsReadable && this.pointWithinTolerance( point.position ) ) {
       this.dataPointProperty.set( point );
     }

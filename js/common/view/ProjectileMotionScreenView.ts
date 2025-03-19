@@ -77,12 +77,13 @@ type SelfOptions = {
 type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions;
 
 class ProjectileMotionScreenView extends ScreenView {
+  protected readonly topRightPanel: Panel;
+
+  private readonly backgroundNode: BackgroundNode;
   private readonly cannonNode: CannonNode;
-  private readonly topRightPanel: Panel;
   private readonly bottomRightPanel: Panel;
   private readonly toolboxPanel: ToolboxPanel;
   private readonly resetAllButton: ResetAllButton;
-  private readonly backgroundNode: BackgroundNode;
   private readonly zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
   private readonly eraserButton: EraserButton;
   private readonly fireButton: FireButton;

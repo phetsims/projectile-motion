@@ -23,8 +23,8 @@ class StatsModel extends ProjectileMotionModel {
 
   private objectTypes: ProjectileObjectType[];
   private timeSinceLastProjectile: number;
-  public groupSizeProperty: Property<number>;
-  public readonly fireMultipleEnabledProperty: TReadOnlyProperty<boolean>;
+  private groupSizeProperty: Property<number>;
+  private readonly fireMultipleEnabledProperty: TReadOnlyProperty<boolean>;
 
   public constructor( tandem: Tandem ) {
     const objectTypes = [
@@ -74,7 +74,7 @@ class StatsModel extends ProjectileMotionModel {
     );
   }
 
-  public fireMultipleProjectiles(): void {
+  private fireMultipleProjectiles(): void {
     super.fireNumProjectiles( this.groupSizeProperty.value );
   }
 

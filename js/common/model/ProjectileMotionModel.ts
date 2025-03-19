@@ -56,19 +56,19 @@ type ProjectileMotionModelOptions = {
 };
 
 class ProjectileMotionModel implements TModel {
-  public readonly maxProjectiles: number;
   public readonly target: Target;
   public readonly measuringTape: ProjectileMotionMeasuringTape;
+  public readonly dataProbe: DataProbe;
   public readonly cannonHeightProperty: Property<number>;
-  public readonly initialSpeedStandardDeviationProperty: Property<number>;
   public readonly initialSpeedProperty: VarianceNumberProperty;
-  public readonly initialAngleStandardDeviationProperty: Property<number>;
   public readonly cannonAngleProperty: VarianceNumberProperty;
   public readonly projectileMassProperty: Property<number>;
   public readonly projectileDiameterProperty: Property<number>;
   public readonly projectileDragCoefficientProperty: Property<number>;
   public readonly selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>;
   public readonly gravityProperty: Property<number>;
+  public readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
+  public readonly zoomProperty: NumberProperty;
   public readonly altitudeProperty: Property<number>;
   public readonly airResistanceOnProperty: Property<boolean>;
   public readonly airDensityProperty: TReadOnlyProperty<number>;
@@ -77,14 +77,16 @@ class ProjectileMotionModel implements TModel {
   public readonly davidHeight: number;
   public readonly davidPosition: Vector2;
   public readonly numberOfMovingProjectilesProperty: Property<number>;
-  public readonly rapidFireModeProperty: Property<boolean>;
+  public readonly muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
   public readonly fireEnabledProperty: TReadOnlyProperty<boolean>;
   public readonly updateTrajectoryRanksEmitter: Emitter;
+
+  protected readonly rapidFireModeProperty: Property<boolean>;
+
+  private readonly maxProjectiles: number;
+  private readonly initialSpeedStandardDeviationProperty: Property<number>;
+  private readonly initialAngleStandardDeviationProperty: Property<number>;
   private readonly eventTimer: EventTimer;
-  public readonly muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
-  public readonly zoomProperty: NumberProperty;
-  public readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
-  public readonly dataProbe: DataProbe;
 
   /**
    * @param defaultProjectileObjectType -  default object type for the model
@@ -329,7 +331,7 @@ class ProjectileMotionModel implements TModel {
   }
 
   // Remove and dispose old trajectories that are over the limit from the observable array
-  public limitTrajectories(): void {
+  private limitTrajectories(): void {
     // create a temporary array to hold all trajectories to be disposed, to avoid array mutation of trajectoryGroup while looping
     const trajectoriesToDispose = [];
     const numTrajectoriesToDispose = this.trajectoryGroup.count - this.maxProjectiles;

@@ -37,7 +37,6 @@ class IntroProjectileControlPanel extends Panel {
   /**
    * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
    * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
-   * @param {Node} comboBoxListParent - node for containing the combo box
    * @param {Property.<number>} projectileMassProperty
    * @param {Property.<number>} projectileDiameterProperty
    * @param {Property.<number>} projectileDragCoefficientProperty

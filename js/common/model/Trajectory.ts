@@ -61,10 +61,17 @@ type TrajectoryStateObject = {
 export type TrajectoryGroupCreateElementArguments = [ ProjectileObjectType, number, number, number, number, number, number ];
 
 class Trajectory extends PhetioObject {
+  public apexPoint: DataPoint | null; // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
+  public reachedGround: boolean;
+  public changedInMidAir: boolean;
+  public rankProperty: Property<number>;
   public readonly projectileObjectType: ProjectileObjectType; // the type of projectile being launched
-  private readonly mass: number; // mass of projectiles in kilograms
   public readonly diameter: number; // diameter of projectiles in meters
   public readonly dragCoefficient: number; // drag coefficient of the projectiles
+  public projectileDataPointProperty: Property<DataPoint>;
+  public readonly dataPoints: ObservableArray<DataPoint>;
+
+  private readonly mass: number; // mass of projectiles in kilograms
   private readonly initialSpeed: number; // launch speed of the projectiles
   private readonly initialHeight: number; // initial height of the projectiles
   private readonly initialAngle: number; // cannon launch angle
@@ -72,18 +79,12 @@ class Trajectory extends PhetioObject {
   private readonly airDensityProperty: TReadOnlyProperty<number>; // air density
   private numberOfMovingProjectilesProperty: Property<number>; // the number of projectiles that are currently in flight
   private readonly updateTrajectoryRanksEmitter: Emitter; // emitter to update the ranks of the trajectories
-  public apexPoint: DataPoint | null; // contains reference to the apex point, or null if apex point doesn't exist/has been recorded
   private maxHeight: number; // the maximum height reached by the projectile
   private horizontalDisplacement: number; // the horizontal displacement of the projectile from its launch point
   private flightTime: number; // the horizontal displacement of the projectile from its launch point
   private checkIfHitTarget: ( positionX: number ) => boolean; // the callback from the common Target to check and return if the projectile hit the target
-  public hasHitTarget: boolean; // whether the projectile has hit the target
+  private hasHitTarget: boolean; // whether the projectile has hit the target
   private getDataProbe: () => DataProbe | null; // accessor for DataProbe component
-  public rankProperty: Property<number>;
-  public changedInMidAir: boolean;
-  public readonly dataPoints: ObservableArray<DataPoint>;
-  public reachedGround: boolean;
-  public projectileDataPointProperty: Property<DataPoint>;
   private trajectoryLandedEmitter: Emitter<LandedEmitterParams[]>;
   private disposeTrajectory: () => void;
 
@@ -378,7 +379,7 @@ class Trajectory extends PhetioObject {
   /**
    * Returns a map of state keys and their associated IOTypes, see IOType for details.
    */
-  public static get STATE_SCHEMA(): CompositeSchema<TrajectoryStateObject> {
+  private static get STATE_SCHEMA(): CompositeSchema<TrajectoryStateObject> {
     return {
       mass: NumberIO,
       diameter: NumberIO,
@@ -402,7 +403,7 @@ class Trajectory extends PhetioObject {
   /**
    * @returns map from state object to parameters being passed to createNextElement
    */
-  public static stateObjectToCreateElementArguments( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
+  private static stateObjectToCreateElementArguments( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
     return [
       ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ),
       stateObject.mass,
@@ -415,7 +416,7 @@ class Trajectory extends PhetioObject {
   }
 
   // Name the types needed to serialize each field on the Trajectory so that it can be used in toStateObject, fromStateObject, and applyState.
-  public static readonly TrajectoryIO = new IOType( 'TrajectoryIO', {
+  private static readonly TrajectoryIO = new IOType( 'TrajectoryIO', {
     valueType: Trajectory,
 
     documentation: 'A trajectory outlining the projectile\'s path. The following are passed into the state schema:' +

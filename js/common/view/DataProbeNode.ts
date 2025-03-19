@@ -84,11 +84,12 @@ type DataProbeNodeOptions = SelfOptions & NodeOptions;
 
 class DataProbeNode extends Node {
   public readonly isUserControlledProperty: TProperty<boolean>; // is this being handled by user?
+  public readonly dragListener: DragListener;
+
   private readonly dataProbe: DataProbe;
   private readonly probeOrigin: Vector2; // where the crosshairs cross
 
   // so events can be forwarded to it by ToolboxPanel
-  public readonly dragListener: DragListener;
   private readonly rectangle: Rectangle;
 
   public constructor( dataProbe: DataProbe, transformProperty: TReadOnlyProperty<ModelViewTransform2>, screenView: ScreenView, providedOptions?: DataProbeNodeOptions ) {
