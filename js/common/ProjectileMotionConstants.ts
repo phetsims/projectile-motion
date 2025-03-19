@@ -167,7 +167,7 @@ const ProjectileMotionConstants = {
 
   PANEL_TITLE_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ), align: 'center' },
   PANEL_LABEL_OPTIONS: { font: new PhetFont( 14 ) } satisfies TextOptions,
-  PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) },
+  PANEL_BOLD_LABEL_OPTIONS: { font: new PhetFont( { size: 14, weight: 'bold' } ) } satisfies TextOptions,
 
   NUMBER_DISPLAY_OPTIONS: {
     textOptions: { font: new PhetFont( 14 ) },
@@ -182,14 +182,6 @@ const ProjectileMotionConstants = {
   // Light gray, used as the 'disabled' color
   LIGHT_GRAY: 'rgb( 220, 220, 220 )',
   SEPARATOR_COLOR: 'gray', // horizontal dividing line in the control panels
-
-  YELLOW_BUTTON_OPTIONS: {
-    font: new PhetFont( 14 ),
-    baseColor: PhetColorScheme.BUTTON_YELLOW,
-    cornerRadius: 4,
-    xMargin: 12,
-    yMargin: 7
-  },
 
   // zooming
   MIN_ZOOM: 0.25,
