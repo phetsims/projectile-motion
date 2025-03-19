@@ -15,7 +15,7 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
@@ -55,9 +55,7 @@ export type ViewPoint = {
   dataPoint: DataPoint;
 };
 
-type SelfOptions = {
-  preventFit?: boolean;
-};
+type SelfOptions = EmptySelfOptions;
 type ProjectileNodeOptions = SelfOptions & NodeOptions;
 
 class ProjectileNode extends Node {
