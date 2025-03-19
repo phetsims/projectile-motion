@@ -9,7 +9,7 @@
 
 import Property from '../../../../axon/js/Property.js';
 import ScreenView from '../../../../joist/js/ScreenView.js';
-import optionize from '../../../../phet-core/js/optionize.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js';
@@ -21,13 +21,7 @@ import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
 import DataProbeNode from './DataProbeNode.js';
 
-type SelfOptions = {
-  xMargin?: number;
-  yMargin?: number;
-  fill?: string;
-  minWidth?: number;
-};
-
+type SelfOptions = EmptySelfOptions;
 type ToolboxPanelOptions = SelfOptions & PanelOptions & PickRequired<PanelOptions, 'tandem'>;
 
 class ToolboxPanel extends Panel {
@@ -46,7 +40,6 @@ class ToolboxPanel extends Panel {
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
 
-    //TODO: Combine with ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS - see https://github.com/phetsims/projectile-motion/issues/306
     const options = optionize<ToolboxPanelOptions, SelfOptions, PanelOptions>()( {
       xMargin: 12,
       yMargin: 18,
