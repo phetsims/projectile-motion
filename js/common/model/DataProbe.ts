@@ -5,6 +5,7 @@
  * Knows about trajectories, which contain arrays of points on their paths
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';

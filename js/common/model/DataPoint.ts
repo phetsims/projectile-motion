@@ -4,6 +4,7 @@
  * A subtype of Vector2 that contains information about a data point on a trajectory.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Vector2, { Vector2StateObject } from '../../../../dot/js/Vector2.js';
