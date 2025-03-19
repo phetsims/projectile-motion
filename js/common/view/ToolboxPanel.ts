@@ -20,9 +20,10 @@ import projectileMotion from '../../projectileMotion.js';
 import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
 import DataProbeNode from './DataProbeNode.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 
 type SelfOptions = EmptySelfOptions;
-type ToolboxPanelOptions = SelfOptions & PanelOptions & PickRequired<PanelOptions, 'tandem'>;
+type ToolboxPanelOptions = SelfOptions & PanelOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class ToolboxPanel extends Panel {
 
