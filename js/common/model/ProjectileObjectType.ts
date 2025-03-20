@@ -53,7 +53,7 @@ type SelfOptions = {
   viewCreationFunction?: ProjectileObjectViewCreator | null;
 };
 
-type ProjectileObjectTypeOptions = SelfOptions &
+export type ProjectileObjectTypeOptions = SelfOptions &
   PhetioObjectOptions & PickRequired<PhetioObjectOptions, 'tandem'> &
 
   // viewCreationFunction should never be null if provided

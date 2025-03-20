@@ -8,15 +8,13 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import Keypad from '../../../../scenery-phet/js/keypad/Keypad.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Plane from '../../../../scenery/js/nodes/Plane.js';
+import Plane, { PlaneOptions } from '../../../../scenery/js/nodes/Plane.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
@@ -25,6 +23,11 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import PhetFont from '../../../../scenery-phet/js/PhetFont.js';
 
 const enterString = ProjectileMotionStrings.enter;
 const rangeMessageString = ProjectileMotionStrings.rangeMessage;
@@ -33,6 +36,20 @@ const rangeMessageString = ProjectileMotionStrings.rangeMessage;
 const TEXT_FONT = ProjectileMotionConstants.LABEL_TEXT_OPTIONS.font;
 const TEXT_FILL_DEFAULT = 'black';
 const TEXT_FILL_ERROR = 'red';
+
+type SelfOptions = {
+  valueFont?: PhetFont;
+  valueBoxWidth?: number; // width of the value field, height determined by valueFont
+  valueYMargin?: number; // vertical margin inside the value box
+  maxDigits?: number; // maximum number of digits that can be entered on the keypad
+  maxDecimals?: number; // maximum number of decimal places that can be entered on the keypd
+};
+type KeypadLayerOptions = SelfOptions & PlaneOptions;
+
+type BeginEditOptions = {
+  onBeginEdit: ( () => void ) | null;
+  onEndEdit: ( () => void ) | null;
+};
 
 class KeypadLayer extends Plane {
 
@@ -48,7 +65,7 @@ class KeypadLayer extends Plane {
   private onEndEdit: ( () => void ) | null;
   private saidHello;
 
-    options = merge( {
+  public constructor( providedOptions: KeypadLayerOptions ) {
 
       valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
       valueYMargin: 3, // {number} vertical margin inside the value box
@@ -123,7 +140,7 @@ class KeypadLayer extends Plane {
 
     const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
 
-    // @private for convenient access by methods
+    // for convenient access by methods
     this.valueNode = valueNode;
     this.rangeMessageText = rangeMessageText;
 

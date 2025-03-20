@@ -14,6 +14,7 @@ import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import StatsModel from './model/StatsModel.js';
 import StatsIconNode from './view/StatsIconNode.js';
 import StatsScreenView from './view/StatsScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
 class StatsScreen extends Screen<StatsModel, StatsScreenView> {
 

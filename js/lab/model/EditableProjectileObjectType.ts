@@ -7,11 +7,16 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
-import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import ProjectileObjectType, { ProjectileObjectTypeOptions } from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+
+type SelfOptions = EmptySelfOptions;
+type EditableProjectileObjectTypeOptions = SelfOptions & ProjectileObjectTypeOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class EditableProjectileObjectType extends ProjectileObjectType {
 
@@ -36,35 +41,24 @@ class EditableProjectileObjectType extends ProjectileObjectType {
 
     super( name, mass, diameter, dragCoefficient, benchmark, rotates, options );
 
-    // @public - These overwrite the supertype values, but as a way to declare them as writeable fields.
+    // These overwrite the supertype values, but as a way to declare them as writeable fields.
     this.mass = mass;
     this.diameter = diameter;
     this.dragCoefficient = dragCoefficient;
 
-    // @public (IOType) - these mutable values also store their initial values
+    // IOType - these mutable values also store their initial values
     this.initialMass = mass;
     this.initialDiameter = diameter;
     this.initialDragCoefficient = dragCoefficient;
   }
 
-  /**
-   * Reset the editable pieces of the objecty type
-   * @public
-   */
-  reset() {
+  public reset(): void {
     this.mass = this.initialMass;
     this.diameter = this.initialDiameter;
     this.dragCoefficient = this.initialDragCoefficient;
   }
 
-  /**
-   *
-   * @param {ProjectileObjectType} projectileObjectType
-   * @param {Tandem} tandem
-   * @returns {EditableProjectileObjectType}
-   * @public
-   */
-  static fromProjectileObjectType( projectileObjectType, tandem ) {
+  public static fromProjectileObjectType( projectileObjectType: ProjectileObjectType, tandem: Tandem ): EditableProjectileObjectType {
     return new EditableProjectileObjectType(
       projectileObjectType.name,
       projectileObjectType.mass,

@@ -15,8 +15,9 @@ import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import VectorsModel from './model/VectorsModel.js';
 import VectorsIconNode from './view/VectorsIconNode.js';
 import VectorsScreenView from './view/VectorsScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-class VectorsScreen extends Screen {
+class VectorsScreen extends Screen<VectorsModel, VectorsScreenView> {
 
   public constructor( tandem: Tandem ) {
 

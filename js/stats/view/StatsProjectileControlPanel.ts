@@ -9,20 +9,24 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import Property from '../../../../axon/js/Property.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 const diameterString = ProjectileMotionStrings.diameter;
 const kgString = ProjectileMotionStrings.kg;
@@ -33,6 +37,9 @@ const pattern0Value1UnitsWithSpaceString =
 
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
+
+type SelfOptions = EmptySelfOptions;
+type StatsProjectileControlPanelOptions = SelfOptions & PanelOptions;
 
 class StatsProjectileControlPanel extends Panel {
 

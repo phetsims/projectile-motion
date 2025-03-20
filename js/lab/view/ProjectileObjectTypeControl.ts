@@ -10,6 +10,11 @@
  */
 
 import projectileMotion from '../../projectileMotion.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+
+type SelfOptions = EmptySelfOptions;
+export type ProjectileObjectTypeControlOptions = SelfOptions;
 
 class ProjectileObjectTypeControl {
 

@@ -7,18 +7,20 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import VarianceNumberProperty from '../../../../axon/js/VarianceNumberProperty.js';
 
 const angleString = ProjectileMotionStrings.angle;
 const heightString = ProjectileMotionStrings.height;
@@ -33,6 +35,9 @@ const speedString = ProjectileMotionStrings.speed;
 const TITLE_OPTIONS = ProjectileMotionConstants.PANEL_TITLE_OPTIONS;
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 const DEGREES = MathSymbols.DEGREES;
+
+type SelfOptions = EmptySelfOptions;
+type InitialValuesPanelOptions = SelfOptions & PanelOptions;
 
 class InitialValuesPanel extends Panel {
 
@@ -52,16 +57,9 @@ class InitialValuesPanel extends Panel {
 
     /**
      * Auxiliary function that creates VBox for a parameter label and slider
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Range} range - range for the valueProperty value
-     * @param {Tandem} tandem
-     * @param {string} [degreeString] - just for the angle
-     * @returns {VBox}
      */
-    function createReadout( labelString, unitsString, valueProperty, range, tandem, degreeString ) {
-      const parameterLabel = new Text( '', merge( {}, LABEL_OPTIONS, {
+    function createReadout( labelString: string, unitsString: string | null, valueProperty: Property<number>, tandem: Tandem, degreeString: string | null ): VBox {
+      const parameterLabel = new Text( '', combineOptions<TextOptions>( LABEL_OPTIONS, {
         maxWidth: maxWidth,
 
         // phet-io
@@ -92,15 +90,14 @@ class InitialValuesPanel extends Panel {
       heightString,
       mString,
       cannonHeightProperty,
-      ProjectileMotionConstants.CANNON_HEIGHT_RANGE,
-      options.tandem.createTandem( 'heightText' )
+      options.tandem.createTandem( 'heightText' ),
+      null
     );
 
     const angleText = createReadout(
       angleString,
       null,
       cannonAngleProperty,
-      ProjectileMotionConstants.CANNON_ANGLE_RANGE,
       options.tandem.createTandem( 'angleText' ),
       DEGREES
     );
@@ -109,8 +106,8 @@ class InitialValuesPanel extends Panel {
       speedString,
       metersPerSecondString,
       initialSpeedProperty,
-      ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE,
-      options.tandem.createTandem( 'velocityText' )
+      options.tandem.createTandem( 'velocityText' ),
+      null
     );
 
     // contents of the panel

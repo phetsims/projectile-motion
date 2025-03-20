@@ -7,19 +7,20 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import VectorsViewProperties from './VectorsViewProperties.js';
 
 const accelerationVectorsString = ProjectileMotionStrings.accelerationVectors;
 const componentsString = ProjectileMotionStrings.components;
@@ -32,6 +33,9 @@ const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 const VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
 const ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_ICON;
 const FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
+
+type SelfOptions = EmptySelfOptions;
+type VectorsVectorsControlPanelOptions = SelfOptions & ProjectileMotionUIOptions;
 
 class VectorsVectorsControlPanel extends Panel {
 

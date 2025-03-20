@@ -12,8 +12,11 @@ import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
 import EditableProjectileObjectType from './EditableProjectileObjectType.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class LabModel extends ProjectileMotionModel {
+
+  public readonly objectTypes: EditableProjectileObjectType[];
 
   public constructor( tandem: Tandem ) {
 

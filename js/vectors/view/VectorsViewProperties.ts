@@ -14,6 +14,7 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
 
 class VectorsViewProperties extends ProjectileMotionViewProperties {
   public readonly vectorsDisplayProperty;
@@ -25,7 +26,7 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
 
     super();
 
-    // @public vectors visibility for velocity and force, total or component
+    // Vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new Property( false, {
       phetioValueType: BooleanIO,
       tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),

@@ -9,9 +9,8 @@
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
-import NumberDisplay from '../../../../scenery-phet/js/NumberDisplay.js';
+import NumberDisplay, { NumberDisplayOptions } from '../../../../scenery-phet/js/NumberDisplay.js';
 import PhetColorScheme from '../../../../scenery-phet/js/PhetColorScheme.js';
 import AlignGroup from '../../../../scenery/js/layout/constraints/AlignGroup.js';
 import AlignBox from '../../../../scenery/js/layout/nodes/AlignBox.js';
@@ -19,14 +18,21 @@ import FireListener from '../../../../scenery/js/listeners/FireListener.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import Color from '../../../../scenery/js/util/Color.js';
 import editSolidShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
-import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
+import ProjectileObjectTypeControl, { ProjectileObjectTypeControlOptions } from './ProjectileObjectTypeControl.js';
+import LabModel from '../model/LabModel.js';
+import KeypadLayer from './KeypadLayer.js';
+import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import Range from '../../../../dot/js/Range.js';
 
 const altitudeString = ProjectileMotionStrings.altitude;
 const diameterString = ProjectileMotionStrings.diameter;
@@ -42,6 +48,14 @@ const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 const NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
+
+type SelfOptions = {
+  xMargin?: number;
+  minWidth?: number;
+  readoutXMargin?: number;
+  textDisplayWidth?: number;
+};
+type CustomProjectileObjectTypeControlOptions = SelfOptions & ProjectileObjectTypeControlOptions;
 
 class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
 
@@ -62,7 +76,6 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     // correctly
     super();
 
-    // @private
     this.keypadLayer = keypadLayer;
     this.options = options;
 

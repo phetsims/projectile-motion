@@ -15,8 +15,9 @@ import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import LabModel from './model/LabModel.js';
 import LabIconNode from './view/LabIconNode.js';
 import LabScreenView from './view/LabScreenView.js';
+import Tandem from '../../../tandem/js/Tandem.js';
 
-class LabScreen extends Screen {
+class LabScreen extends Screen<LabModel, LabScreenView> {
 
   public constructor( tandem: Tandem ) {
 

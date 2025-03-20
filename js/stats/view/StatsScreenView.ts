@@ -6,20 +6,25 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import '../../common/ProjectileMotionQueryParameters.js';
-import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
+import ProjectileMotionScreenView, { ProjectileMotionScreenViewOptions } from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
 import FireMultipleButton from './FireMultipleButton.js';
 import StatsControlPanel from './StatsControlPanel.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
+import Bounds2 from '../../../../dot/js/Bounds2.js';
+import StatsModel from '../model/StatsModel.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 
 // constants
 const X_MARGIN = 10;
 const FIRE_BUTTON_MARGIN_X = 40;
+
+type SelfOptions = EmptySelfOptions;
+type StatsScreenViewOptions = SelfOptions & ProjectileMotionScreenViewOptions;
 
 class StatsScreenView extends ProjectileMotionScreenView {
 

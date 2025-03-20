@@ -7,12 +7,16 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
-import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
+import ProjectileMotionScreenView, { ProjectileMotionScreenViewOptions } from '../../common/view/ProjectileMotionScreenView.js';
 import projectileMotion from '../../projectileMotion.js';
 import VectorsProjectileControlPanel from './VectorsProjectileControlPanel.js';
 import VectorsVectorsControlPanel from './VectorsVectorsControlPanel.js';
 import VectorsViewProperties from './VectorsViewProperties.js';
+import VectorsModel from '../model/VectorsModel.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+
+type SelfOptions = EmptySelfOptions;
+type VectorsScreenViewOptions = SelfOptions & ProjectileMotionScreenViewOptions;
 
 class VectorsScreenView extends ProjectileMotionScreenView {
 

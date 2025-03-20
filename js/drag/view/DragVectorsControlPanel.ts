@@ -7,12 +7,11 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import merge from '../../../../phet-core/js/merge.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
-import Text from '../../../../scenery/js/nodes/Text.js';
-import Checkbox from '../../../../sun/js/Checkbox.js';
+import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
+import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';

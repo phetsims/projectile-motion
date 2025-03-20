@@ -77,7 +77,7 @@ type SelfOptions = {
   showPaths?: boolean;
   constantTrajectoryOpacity?: boolean;
 };
-type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+export type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class ProjectileMotionScreenView extends ScreenView {
   protected readonly topRightPanel: Panel;
