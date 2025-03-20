@@ -67,11 +67,13 @@ class KeypadLayer extends Plane {
 
   public constructor( providedOptions: KeypadLayerOptions ) {
 
-      valueBoxWidth: 85, // {number} width of the value field, height determined by valueFont
-      valueYMargin: 3, // {number} vertical margin inside the value box
+    const options = optionize<KeypadLayerOptions, SelfOptions, PlaneOptions>()( {
+
+      valueBoxWidth: 85,
+      valueYMargin: 3,
       valueFont: TEXT_FONT,
-      maxDigits: 8, // {number} maximum number of digits that can be entered on the keypad
-      maxDecimals: 2, // {number} maximum number of decimal places that can be entered on the keypd
+      maxDigits: 8,
+      maxDecimals: 2,
 
       // supertype options
       visible: false,
@@ -81,7 +83,7 @@ class KeypadLayer extends Plane {
 
     super( options );
 
-    // @private - clicking outside the keypad cancels the edit
+    // clicking outside the keypad cancels the edit
     this.clickOutsideFireListener = new FireListener( {
       fire: event => {
         if ( event.trail.lastNode() === this ) {
@@ -208,10 +210,10 @@ class KeypadLayer extends Plane {
    */
   public beginEdit( valueProperty: Property<number>, valueRange: Range, unitsString: string, providedOptions: BeginEditOptions ): void {
 
-    options = merge( {
-      onBeginEdit: null, // {function} called by beginEdit
-      onEndEdit: null // {function} called by endEdit
-    }, options );
+    const options = combineOptions<BeginEditOptions>( {
+      onBeginEdit: null, // function called by beginEdit
+      onEndEdit: null // function called by endEdit
+    }, providedOptions );
 
     this.valueProperty = valueProperty; // remove this reference in endEdit
     this.onEndEdit = options.onEndEdit;

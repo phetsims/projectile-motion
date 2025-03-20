@@ -45,10 +45,11 @@ class VectorsVectorsControlPanel extends Panel {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
-      align: 'left',
-      tandem: Tandem.REQUIRED
-    }, options );
+    const options = optionize<VectorsVectorsControlPanelOptions, SelfOptions, PanelOptions>()(
+      combineOptions<VectorsVectorsControlPanelOptions>( ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+        align: 'left',
+        tandem: Tandem.REQUIRED
+      } ), providedOptions );
 
     const checkboxOptions = {
       maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width,
@@ -80,7 +81,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, merge( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions ) );
+    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, combineOptions<CheckboxOptions>( { tandem: options.tandem.createTandem( 'velocityCheckbox' ) }, checkboxOptions ) );
 
     const accelerationLabel = new Text( accelerationVectorsString, LABEL_OPTIONS );
     const accelerationCheckboxContent = new HBox( {
@@ -90,7 +91,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ ACCELERATION_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const accelerationCheckbox = new Checkbox( viewProperties.accelerationVectorsOnProperty, accelerationCheckboxContent, merge( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions ) );
+    const accelerationCheckbox = new Checkbox( viewProperties.accelerationVectorsOnProperty, accelerationCheckboxContent, combineOptions<CheckboxOptions>( { tandem: options.tandem.createTandem( 'accelerationCheckbox' ) }, checkboxOptions ) );
 
     const forceLabel = new Text( forceVectorsString, LABEL_OPTIONS );
     const forceCheckboxContent = new HBox( {
@@ -100,7 +101,7 @@ class VectorsVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, merge( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions ) );
+    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, combineOptions<CheckboxOptions>( { tandem: options.tandem.createTandem( 'forceCheckbox' ) }, checkboxOptions ) );
 
     // The contents of the control panel
     const content = new VBox( {

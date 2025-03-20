@@ -47,10 +47,11 @@ class InitialValuesPanel extends Panel {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
-      yMargin: 5,
-      tandem: Tandem.REQUIRED
-    }, options );
+    const options = optionize<InitialValuesPanelOptions, SelfOptions, ProjectileMotionUIOptions>()(
+      combineOptions<ProjectileMotionUIOptions>( ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+        yMargin: 5,
+        tandem: Tandem.REQUIRED
+      } ), providedOptions );
 
     // Max width for all components in this panel
     const maxWidth = options.minWidth - 2 * options.xMargin;

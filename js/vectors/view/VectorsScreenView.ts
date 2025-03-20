@@ -22,9 +22,9 @@ class VectorsScreenView extends ProjectileMotionScreenView {
 
   public constructor( model: VectorsModel, providedOptions: VectorsScreenViewOptions ) {
 
-    options = merge( {
+    const options = optionize<VectorsScreenViewOptions, SelfOptions, ProjectileMotionScreenViewOptions>()( {
       addFlatirons: false
-    }, options );
+    }, providedOptions );
 
     // contains Properties about vector visibility, used in super class
     const visibilityProperties = new VectorsViewProperties( options.tandem.createTandem( 'viewProperties' ) );

@@ -65,12 +65,12 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
   public constructor( model: LabModel, keypadLayer: KeypadLayer, objectType: ProjectileObjectType, tandem: Tandem, providedOptions: CustomProjectileObjectTypeControlOptions ) {
 
     // arbitrary values, as these should be provided by the LabProjectileControlPanel
-    options = merge( {
+    const options = optionize<CustomProjectileObjectTypeControlOptions, SelfOptions, ProjectileMotionUIOptions>()( {
       xMargin: 5,
       minWidth: 200,
       readoutXMargin: 20,
       textDisplayWidth: 50
-    }, options );
+    }, providedOptions );
 
     // Instead of passing up parameters here, set them after the fact. After construction all members will be set
     // correctly
@@ -132,7 +132,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
   private createCustomControl( labelString: string, unitsString: string | null, valueProperty: Property<number>, range: Range, tandem: Tandem ): Node {
 
     // label
-    const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'labelText' ) }, LABEL_OPTIONS ) );
+    const parameterLabel = new Text( labelString, combineOptions<TextOptions>( { tandem: tandem.createTandem( 'labelText' ) }, LABEL_OPTIONS ) );
 
     // value text
     const valuePattern = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
@@ -141,7 +141,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       units: ''
     } );
 
-    const valueLabelOptions = merge( {}, NUMBER_DISPLAY_OPTIONS, {
+    const valueLabelOptions = combineOptions<NumberDisplayOptions>( NUMBER_DISPLAY_OPTIONS, {
       backgroundStroke: 'black',
       decimalPlaces: null,
       cornerRadius: 4,
@@ -153,10 +153,8 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     } );
 
     const numberDisplayTandem = tandem.createTandem( 'numberDisplay' );
-    const numberDisplay = new NumberDisplay(
-      valueProperty,
-      range,
-      merge( valueLabelOptions, { tandem: numberDisplayTandem, valuePattern: valuePattern } )
+    const numberDisplay = new NumberDisplay( valueProperty, range,
+      combineOptions<NumberDisplayOptions>( valueLabelOptions, { tandem: numberDisplayTandem, valuePattern: valuePattern } )
     );
 
     const editValue = () => {

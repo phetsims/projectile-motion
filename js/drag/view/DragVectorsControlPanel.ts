@@ -49,7 +49,7 @@ class DragVectorsControlPanel extends Panel {
         tandem: Tandem.REQUIRED
       } ), providedOptions );
 
-    const titleOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
+    const titleOptions = combineOptions<TextOptions>( LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
     const checkboxOptions = {
       maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width, // arbitrary icon
       boxWidth: 18
@@ -80,7 +80,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ VELOCITY_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, merge( {
+    const velocityCheckbox = new Checkbox( viewProperties.velocityVectorsOnProperty, velocityCheckboxContent, combineOptions<CheckboxOptions>( {
       tandem: options.tandem.createTandem( 'velocityCheckbox' ),
       phetioDocumentation: 'whether or not to display velocity vectors with the flying projectile'
     }, checkboxOptions ) );
@@ -93,7 +93,7 @@ class DragVectorsControlPanel extends Panel {
         new Node( { children: [ FORCE_VECTOR_ICON ] } ) // so that HBox transforms the intermediary Node
       ]
     } );
-    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, merge( {
+    const forceCheckbox = new Checkbox( viewProperties.forceVectorsOnProperty, forceCheckboxContent, combineOptions<CheckboxOptions>( {
       tandem: options.tandem.createTandem( 'forceCheckbox' ),
       phetioDocumentation: 'whether or not to display force vectors in a free body diagram with the flying projectile'
     }, checkboxOptions ) );

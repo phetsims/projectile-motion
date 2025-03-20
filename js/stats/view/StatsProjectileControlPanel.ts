@@ -59,17 +59,12 @@ class StatsProjectileControlPanel extends Panel {
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge(
-      {},
-      ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS,
-      {
-        tandem: Tandem.REQUIRED
-      },
-      options
+    const options = optionize<StatsProjectileControlPanelOptions, SelfOptions, ProjectileMotionUIOptions>()(
+      ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, providedOptions
     );
 
     // maxWidth of the labels within the dropdown empirically determined
-    const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
+    const itemNodeOptions = combineOptions<TextOptions>( LABEL_OPTIONS, { maxWidth: 170 } );
 
     const firstItemNode = new VBox( {
       align: 'left',
@@ -128,25 +123,13 @@ class StatsProjectileControlPanel extends Panel {
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
-     * @private
-     *
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Tandem} tandem
-     * @returns {VBox}
      */
-    function createReadout( labelString, unitsString, valueProperty, tandem ) {
-      const parameterLabel = new Text(
-        '',
-        merge(
-          {
-            tandem: tandem,
-            stringPropertyOptions: { phetioReadOnly: true }
-          },
-          parameterLabelOptions
-        )
-      );
+    function createReadout( labelString: string, unitsString: string, valueProperty: Property<number>, tandem: Tandem ): VBox {
+      const parameterLabel = new Text( '', combineOptions<TextOptions>( {
+          tandem: tandem,
+          stringPropertyOptions: { phetioReadOnly: true }
+        },
+        parameterLabelOptions ) );
 
       parameterLabel.setBoundsMethod( 'accurate' );
 

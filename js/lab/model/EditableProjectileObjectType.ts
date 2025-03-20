@@ -34,10 +34,9 @@ class EditableProjectileObjectType extends ProjectileObjectType {
 
     // Options contains data about range and rounding for mass, diameter, drag coefficient.
     // defaults to those of custom objects for screens that don't have benchmarks
-    options = merge( {
-      tandem: Tandem.REQUIRED,
+    const options = optionize<EditableProjectileObjectTypeOptions, SelfOptions, EditableProjectileObjectTypeOptions>()( {
       phetioType: EditableProjectileObjectType.EditableProjectileObjectTypeIO
-    }, options );
+    }, providedOptions );
 
     super( name, mass, diameter, dragCoefficient, benchmark, rotates, options );
 
@@ -66,7 +65,7 @@ class EditableProjectileObjectType extends ProjectileObjectType {
       projectileObjectType.dragCoefficient,
       projectileObjectType.benchmark,
       projectileObjectType.rotates,
-      merge( projectileObjectType.projectileObjectTypeOptions, {
+      combineOptions<EditableProjectileObjectTypeOptions>( projectileObjectType.projectileObjectTypeOptions, {
         phetioType: EditableProjectileObjectType.EditableProjectileObjectTypeIO,
         tandem: tandem
       } ) );

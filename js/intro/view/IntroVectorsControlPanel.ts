@@ -51,7 +51,7 @@ class IntroVectorsControlPanel extends Panel {
     const velocityVectorsTandem = options.tandem.createTandem( 'velocityVectors' );
     const accelerationVectorsTandem = options.tandem.createTandem( 'accelerationVectors' );
 
-    const titleOptions = merge( {}, TITLE_OPTIONS, {
+    const titleOptions = combineOptions<TextOptions>( TITLE_OPTIONS, {
       maxWidth: options.minWidth - 3 * options.xMargin - VELOCITY_VECTOR_ICON.width
     } );
     const velocityVectorsTitle = new Text( velocityVectorsString, titleOptions );
@@ -66,10 +66,10 @@ class IntroVectorsControlPanel extends Panel {
 
     const checkboxOptions = { maxWidth: titleOptions.maxWidth, boxWidth: 18 };
     const totalVelocityLabel = new Text( totalString, LABEL_OPTIONS );
-    const totalVelocityCheckbox = new Checkbox( viewProperties.totalVelocityVectorOnProperty, totalVelocityLabel, merge( { tandem: velocityVectorsTandem.createTandem( 'totalCheckbox' ) }, checkboxOptions ) );
+    const totalVelocityCheckbox = new Checkbox( viewProperties.totalVelocityVectorOnProperty, totalVelocityLabel, combineOptions<CheckboxOptions>( { tandem: velocityVectorsTandem.createTandem( 'totalCheckbox' ) }, checkboxOptions ) );
 
     const componentsVelocityLabel = new Text( componentsString, LABEL_OPTIONS );
-    const componentsVelocityCheckbox = new Checkbox( viewProperties.componentsVelocityVectorsOnProperty, componentsVelocityLabel, merge( { tandem: velocityVectorsTandem.createTandem( 'componentsCheckbox' ) }, checkboxOptions ) );
+    const componentsVelocityCheckbox = new Checkbox( viewProperties.componentsVelocityVectorsOnProperty, componentsVelocityLabel, combineOptions<CheckboxOptions>( { tandem: velocityVectorsTandem.createTandem( 'componentsCheckbox' ) }, checkboxOptions ) );
 
     const accelerationVectorsTitle = new Text( accelerationVectorsString, titleOptions );
     const accelerationTitleBox = new HBox( {

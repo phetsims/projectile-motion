@@ -39,8 +39,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
       maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
       showPaths: false,
       constantTrajectoryOpacity: true
-
-    }, options );
+    }, providedOptions );
 
     // contains Properties about vector visibility, used in super class
     const viewProperties = new ProjectileMotionViewProperties( {
