@@ -3,6 +3,7 @@
 /**
  * ProjectileObjectType subtype that contains editable (mutable) properties of the projectile type
  *
+ * @author Matthew Blackman (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 

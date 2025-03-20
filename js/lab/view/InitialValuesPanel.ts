@@ -4,6 +4,7 @@
  * Control panel that allows users to modify initial values for how the cannon fires a projectile.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Utils from '../../../../dot/js/Utils.js';

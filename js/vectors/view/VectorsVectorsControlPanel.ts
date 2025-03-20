@@ -4,6 +4,7 @@
  * Control panel for choosing which vectors are visible.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import merge from '../../../../phet-core/js/merge.js';

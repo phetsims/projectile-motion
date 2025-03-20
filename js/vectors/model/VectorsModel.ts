@@ -3,7 +3,8 @@
 /**
  * Model for the 'Vectors' Screen.
  *
- * @author Andrea Lin(PhET Interactive Simulations)
+ * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';

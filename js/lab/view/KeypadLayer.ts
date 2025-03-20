@@ -3,8 +3,9 @@
 /**
  * KeypadLayer handles creation and management of a modal keypad.
  *
- * @author Chris Malley (PixelZoom, Inc.)
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Chris Malley (PixelZoom, Inc.)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Utils from '../../../../dot/js/Utils.js';

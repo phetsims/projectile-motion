@@ -3,6 +3,7 @@
 /**
  * icon node for the 'Vectors' screen
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Screen from '../../../../joist/js/Screen.js';

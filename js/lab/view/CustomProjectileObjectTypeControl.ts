@@ -4,6 +4,7 @@
  * The controls for the "custom" projectile type. This is a special type because, unlike the others, for this type the
  * projectile panel is populated with controls to adjust values via a Keypad (instead of just NumberControl).
  *
+ * @author Matthew Blackman (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 

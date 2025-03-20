@@ -5,6 +5,7 @@
  * type. Since this is just a data structure, subtypes can call super and then set items after the fact, as long as
  * every control is set to be a Node before construction is complete.
  *
+ * @author Matthew Blackman (PhET Interactive Simulations)
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 

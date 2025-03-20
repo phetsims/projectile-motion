@@ -3,7 +3,7 @@
 /**
  * Control panel that allows users to choose what kind of projectile to fire
  * and view the properties of this projectile.
- * Also includes a checkbox for turning on and off air resistance.
+ * Also includes a checkbox for air resistance.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
  * @author Matthew Blackman (PhET Interactive Simulations)

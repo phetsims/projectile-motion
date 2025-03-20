@@ -4,6 +4,7 @@
  * The 'Vectors' screen.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Property from '../../../axon/js/Property.js';

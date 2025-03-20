@@ -4,6 +4,7 @@
  * Main entry point for the sim.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Sim from '../../joist/js/Sim.js';

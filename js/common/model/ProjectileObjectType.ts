@@ -5,6 +5,7 @@
  * Creates constants that are used by projectile choice dropdown on the Intro Screen.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Range, { RangeStateObject } from '../../../../dot/js/Range.js';

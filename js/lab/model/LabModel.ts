@@ -4,6 +4,7 @@
  * Model for the 'Lab' screen.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
