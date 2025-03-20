@@ -7,7 +7,6 @@
  * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -15,6 +14,7 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 class DragViewProperties extends ProjectileMotionViewProperties {
 
@@ -30,11 +30,13 @@ class DragViewProperties extends ProjectileMotionViewProperties {
     // vectors visibility for velocity and force, total or component
     this.velocityVectorsOnProperty = new Property( false, {
       tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),
+      phetioValueType: BooleanIO,
       phetioDocumentation: 'Whether to display velocity vectors for flying projectiles',
       phetioFeatured: true
     } );
-    this.forceVectorsOnProperty = new BooleanProperty( false, {
+    this.forceVectorsOnProperty = new Property( false, {
       tandem: tandem.createTandem( 'forceVectorsOnProperty' ),
+      phetioValueType: BooleanIO,
       phetioDocumentation: 'Whether to display the force vectors in a free body diagram for flying projectiles',
       phetioFeatured: true
     } );
