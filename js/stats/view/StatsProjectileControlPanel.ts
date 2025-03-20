@@ -68,7 +68,7 @@ class StatsProjectileControlPanel extends Panel {
 
     const firstItemNode = new VBox( {
       align: 'left',
-      children: [ new Text( objectTypes[ 0 ].name, itemNodeOptions ) ]
+      children: [ new Text( objectTypes[ 0 ].name ?? '', itemNodeOptions ) ]
     } );
 
     const comboBoxWidth = options.minWidth - 2 * options.xMargin;
@@ -94,7 +94,7 @@ class StatsProjectileControlPanel extends Panel {
 
       comboBoxItems[ i ] = {
         value: projectileType,
-        createNode: () => i === 0 ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        createNode: () => i === 0 ? firstItemNode : new Text( projectileType.name ?? '', itemNodeOptions ),
         tandemName: `${projectileType.benchmark}Item`
       };
     }
@@ -117,7 +117,7 @@ class StatsProjectileControlPanel extends Panel {
     );
 
     // local var for layout and formatting
-    const parameterLabelOptions = merge( {}, LABEL_OPTIONS, {
+    const parameterLabelOptions = combineOptions<TextOptions>( LABEL_OPTIONS, {
       maxWidth: options.minWidth - 2 * options.xMargin
     } );
 
@@ -133,7 +133,7 @@ class StatsProjectileControlPanel extends Panel {
 
       parameterLabel.setBoundsMethod( 'accurate' );
 
-      valueProperty.link( value => {
+      valueProperty.link( ( value: number ) => {
         const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
@@ -143,7 +143,7 @@ class StatsProjectileControlPanel extends Panel {
 
       return new VBox( {
         align: 'left',
-        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ) ]
+        children: [ parameterLabel, new HStrut( parameterLabelOptions.maxWidth ?? 0 ) ]
       } );
     }
 

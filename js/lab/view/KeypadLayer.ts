@@ -79,14 +79,14 @@ class KeypadLayer extends Plane {
       visible: false,
       fill: 'rgba( 0, 0, 0, 0.2 )',
       tandem: Tandem.REQUIRED
-    }, options );
+    }, providedOptions );
 
     super( options );
 
     // clicking outside the keypad cancels the edit
     this.clickOutsideFireListener = new FireListener( {
       fire: event => {
-        if ( event.trail.lastNode() === this ) {
+        if ( event && event.trail.lastNode() === this ) {
           this.cancelEdit();
 
           // Because firing this involves hiding this Node, we need to clear the current over pointer in order make sure
@@ -95,12 +95,15 @@ class KeypadLayer extends Plane {
         }
       },
       fireOnDown: true,
-      tandem: options.tandem.createTandem( 'clickOutsideFireListener' ),
-      phetioDocumentation: 'Listener responsible for hiding the KeypadLayer when space outside of the keypad is pressed.'
+      tandem: options.tandem.createTandem( 'clickOutsideFireListener' )
+
+      //TODO: How to document this? - see https://github.com/phetsims/projectile-motion/issues/306
+      // phetioDocumentation: 'Listener responsible for hiding the KeypadLayer when space outside the keypad is pressed.'
     } );
 
-    // @private these will be set when the client calls beginEdit
+    // these will be set when the client calls beginEdit
     this.valueProperty = null;
+    this.valueRange = null;
     this.onEndEdit = null; // {function} called by endEdit
 
     const valueNode = new Text( '', {

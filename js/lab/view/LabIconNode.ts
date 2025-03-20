@@ -88,7 +88,7 @@ class LabIconNode extends Rectangle {
     scalableNode.setScaleMagnitude( cannonLength / cannonBarrelTop.width );
 
     //pedestal
-    const ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2 );
+    const ellipseShape = Shape.ellipse( 0, 0, scaledEllipseWidth / 2, scaledEllipseHeight / 2, 0 );
     const cylinderTop = new Path( ellipseShape, {
       x: cannonX,
       y: scalableNode.bottom - scaledEllipseHeight / 4,

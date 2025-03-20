@@ -72,9 +72,8 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       textDisplayWidth: 50
     }, providedOptions );
 
-    // Instead of passing up parameters here, set them after the fact. After construction all members will be set
-    // correctly
-    super();
+    // Instead of passing up parameters here, set them after the fact. After construction all members will be set correctly
+    super( null, null, null, null, null, providedOptions );
 
     this.keypadLayer = keypadLayer;
     this.options = options;
@@ -158,7 +157,7 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
     );
 
     const editValue = () => {
-      this.keypadLayer.beginEdit( valueProperty, range, unitsString, {
+      this.keypadLayer.beginEdit( valueProperty, range, unitsString ?? '', {
         onBeginEdit: () => { numberDisplay.backgroundFill = PhetColorScheme.BUTTON_YELLOW; },
         onEndEdit: () => { numberDisplay.backgroundFill = 'white'; }
       } );
@@ -190,8 +189,10 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
       enabledProperty: editEnabledProperty,
 
       // phet-io
-      tandem: numberDisplayTandem.createTandem( 'fireListener' ),
-      phetioDocumentation: 'When fired, calls listener to open UI to edit the value for this NumberDisplay'
+      tandem: numberDisplayTandem.createTandem( 'fireListener' )
+
+      // TODO: How to document this? - see https://github.com/phetsims/projectile-motion/issues/306
+      // phetioDocumentation: 'When fired, calls listener to open UI to edit the value for this NumberDisplay'
     } ) );
 
     const valueNode = new Node( { children: [ numberDisplay, editButton ] } );

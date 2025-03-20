@@ -85,10 +85,18 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
 
     this.totalVelocityVectorOnProperty.set( velocityVectorsOn && displayTotal );
     this.componentsVelocityVectorsOnProperty.set( velocityVectorsOn && displayComponents );
-    this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && displayTotal );
-    this.componentsAccelerationVectorsOnProperty.set( accelerationVectorsOn && displayComponents );
-    this.totalForceVectorOnProperty.set( forceVectorsOn && displayTotal );
-    this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
+    if ( this.totalAccelerationVectorOnProperty ) {
+      this.totalAccelerationVectorOnProperty.set( accelerationVectorsOn && displayTotal );
+    }
+    if ( this.componentsAccelerationVectorsOnProperty ) {
+      this.componentsAccelerationVectorsOnProperty.set( accelerationVectorsOn && displayComponents );
+    }
+    if ( this.totalForceVectorOnProperty ) {
+      this.totalForceVectorOnProperty.set( forceVectorsOn && displayTotal );
+    }
+    if ( this.componentsForceVectorsOnProperty ) {
+      this.componentsForceVectorsOnProperty.set( forceVectorsOn && displayComponents );
+    }
   }
 }
 
