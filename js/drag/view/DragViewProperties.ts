@@ -17,10 +17,9 @@ import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumerati
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 
 class DragViewProperties extends ProjectileMotionViewProperties {
-
-  private readonly velocityVectorsOnProperty: Property<boolean>;
-  private readonly forceVectorsOnProperty: Property<boolean>;
-  private readonly vectorsDisplayProperty: EnumerationProperty<VectorsDisplayEnumeration>;
+  public readonly vectorsDisplayProperty: EnumerationProperty<VectorsDisplayEnumeration>;
+  public readonly velocityVectorsOnProperty: Property<boolean>;
+  public readonly forceVectorsOnProperty: Property<boolean>;
 
   public constructor( tandem: Tandem ) {
     super( {
