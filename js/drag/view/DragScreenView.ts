@@ -4,6 +4,7 @@
  * ScreenView for the 'Drag' screen.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
@@ -11,17 +12,21 @@ import projectileMotion from '../../projectileMotion.js';
 import DragProjectileControlPanel from './DragProjectileControlPanel.js';
 import DragVectorsControlPanel from './DragVectorsControlPanel.js';
 import DragViewProperties from './DragViewProperties.js';
+import DragModel from '../model/DragModel.js';
+import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+
+type SelfOptions = EmptySelfOptions;
+type DragScreenViewOptions = SelfOptions & ScreenViewOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class DragScreenView extends ProjectileMotionScreenView {
 
-  /**
-   * @param {DragModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
+  public constructor( model: DragModel, providedOptions: DragScreenViewOptions ) {
 
     // contains Properties about vector visibility, used in super class
-    const visibilityProperties = new DragViewProperties( options.tandem.createTandem( 'viewProperties' ) );
+    const visibilityProperties = new DragViewProperties( providedOptions.tandem.createTandem( 'viewProperties' ) );
 
     super(
       model,
@@ -31,12 +36,12 @@ class DragScreenView extends ProjectileMotionScreenView {
         model.projectileDiameterProperty,
         model.projectileMassProperty,
         model.altitudeProperty, {
-          tandem: options.tandem.createTandem( 'projectileControlPanel' )
+          tandem: providedOptions.tandem.createTandem( 'projectileControlPanel' )
         }
       ),
-      new DragVectorsControlPanel( visibilityProperties, { tandem: options.tandem.createTandem( 'vectorsControlPanel' ) } ),
+      new DragVectorsControlPanel( visibilityProperties, { tandem: providedOptions.tandem.createTandem( 'vectorsControlPanel' ) } ),
       visibilityProperties,
-      options );
+      providedOptions );
   }
 }
 

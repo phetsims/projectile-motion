@@ -4,6 +4,7 @@
  * Control panel for choosing which vectors are visible.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import merge from '../../../../phet-core/js/merge.js';
@@ -12,13 +13,15 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
-import Panel from '../../../../sun/js/Panel.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioButtonGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import DragViewProperties from './DragViewProperties.js';
 
 const componentsString = ProjectileMotionStrings.components;
 const forceVectorsString = ProjectileMotionStrings.forceVectors;
@@ -30,22 +33,22 @@ const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 const VELOCITY_VECTOR_ICON = ProjectileMotionConstants.VELOCITY_VECTOR_ICON;
 const FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 
+type SelfOptions = EmptySelfOptions;
+type DragVectorsControlPanelOptions = SelfOptions & PanelOptions;
+
 class DragVectorsControlPanel extends Panel {
 
-  /**
-   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * @param {Object} [options]
-   */
-  constructor( viewProperties, options ) {
+  public constructor( viewProperties: DragViewProperties, providedOptions: DragVectorsControlPanelOptions ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
-      align: 'left',
-      tandem: Tandem.REQUIRED
-    }, options );
+    const options = optionize<DragVectorsControlPanelOptions, SelfOptions, ProjectileMotionUIOptions>()(
+      combineOptions<ProjectileMotionUIOptions>( ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
+        align: 'left',
+        tandem: Tandem.REQUIRED
+      } ), providedOptions );
 
     const titleOptions = merge( {}, LABEL_OPTIONS, { maxWidth: options.minWidth - 2 * options.xMargin } );
     const checkboxOptions = {
