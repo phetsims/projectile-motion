@@ -80,15 +80,15 @@ class ProjectileObjectType extends PhetioObject {
   public rotates: boolean; // whether the object rotates or just translates in air
   public benchmark: string | null; // identifier of the object benchmark, such as 'tankShell', also considered a 'name' for it like for Tandems. null for screens with only one object type
   public name: string | null; // name of the object, such as 'Golf ball', or null if it doesn't have a name
+  public diameterRange: Range;
+  public diameterRound: number;
+  public massRange: Range;
+  public massRound: number;
+  public dragCoefficientRange: Range;
 
   private readonly initialMass: number;
   private readonly initialDiameter: number;
   private readonly initialDragCoefficient: number;
-  private massRange: Range;
-  private massRound: number;
-  private diameterRange: Range;
-  private diameterRound: number;
-  private dragCoefficientRange: Range;
   private readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
 
   public constructor( name: string | null, mass: number, diameter: number, dragCoefficient: number,
