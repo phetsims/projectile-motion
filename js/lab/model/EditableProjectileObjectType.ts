@@ -20,17 +20,22 @@ type EditableProjectileObjectTypeOptions = SelfOptions & ProjectileObjectTypeOpt
 
 class EditableProjectileObjectType extends ProjectileObjectType {
 
-  /**
-   * @param {string|null} name - name of the object, such as 'Golf ball', or null if it doesn't have a name
-   * @param {number} mass - in kg
-   * @param {number} diameter - in meters
-   * @param {number} dragCoefficient
-   * @param {string|null} benchmark - identifier of the object benchmark, such as 'tankShell', also considered a
-   *                                      'name' for it like for Tandems. null for screens with only one object type
-   * @param {boolean} rotates - whether the object rotates or just translates in air
-   * @param {Object} [options]
-   */
-  constructor( name, mass, diameter, dragCoefficient, benchmark, rotates, options ) {
+  public static EditableProjectileObjectTypeIO = new IOType<EditableProjectileObjectType>(
+    'EditableProjectileObjectTypeIO',
+    {
+      valueType: ProjectileObjectType,
+      documentation: 'A data type that stores the variables for a given object type.',
+      supertype: ProjectileObjectType.ProjectileObjectTypeIO,
+      applyState: ( phetioObjectType, fromStateObject ) => {
+        ProjectileObjectType.ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
+        phetioObjectType.initialMass = phetioObjectType.mass;
+        phetioObjectType.initialDiameter = phetioObjectType.diameter;
+        phetioObjectType.initialDragCoefficient = phetioObjectType.dragCoefficient;
+      }
+    }
+  );
+
+  public constructor( name: string | null, mass: number, diameter: number, dragCoefficient: number, benchmark: string | null, rotates: boolean, providedOptions: EditableProjectileObjectTypeOptions ) {
 
     // Options contains data about range and rounding for mass, diameter, drag coefficient.
     // defaults to those of custom objects for screens that don't have benchmarks
@@ -71,21 +76,6 @@ class EditableProjectileObjectType extends ProjectileObjectType {
       } ) );
   }
 }
-
-EditableProjectileObjectType.EditableProjectileObjectTypeIO = new IOType( 'EditableProjectileObjectTypeIO', {
-  valueType: ProjectileObjectType,
-  documentation: 'A data type that stores the variables for a given object type.',
-  supertype: ProjectileObjectType.ProjectileObjectTypeIO,
-
-  applyState: ( phetioObjectType, fromStateObject ) => {
-    ProjectileObjectType.ProjectileObjectTypeIO.applyState( phetioObjectType, fromStateObject );
-
-    // These were just set on the phetioObjectType in the supertype applyState
-    phetioObjectType.initialMass = phetioObjectType.mass;
-    phetioObjectType.initialDiameter = phetioObjectType.diameter;
-    phetioObjectType.initialDragCoefficient = phetioObjectType.dragCoefficient;
-  }
-} );
 
 projectileMotion.register( 'EditableProjectileObjectType', EditableProjectileObjectType );
 
