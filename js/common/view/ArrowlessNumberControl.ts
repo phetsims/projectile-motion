@@ -10,7 +10,6 @@
 import Property from '../../../../axon/js/Property.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl, { NumberControlOptions } from '../../../../scenery-phet/js/NumberControl.js';
@@ -19,6 +18,7 @@ import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../ProjectileMotionConstants.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 
 const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
 
@@ -61,7 +61,7 @@ class ArrowlessNumberControl extends NumberControl {
         maxWidth: initialOptions.numberDisplayMaxWidth
       } ),
       sliderOptions: {
-        constrainValue: value => Utils.roundToInterval( value, round ), // two decimal place accuracy
+        constrainValue: value => roundToInterval( value, round ), // two decimal place accuracy
         majorTickLength: 12,
         minorTickLength: 5,
         minorTickSpacing: round,

@@ -4,13 +4,16 @@
  * Control panel allows the user to change a projectile's parameters
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
+import { log10 } from '../../../../dot/js/util/log10.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
@@ -282,10 +285,10 @@ class LabProjectileControlPanel extends Node {
 
             // '{{value}} kg'
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: kgString } ),
-            decimalPlaces: Math.ceil( -Utils.log10( objectType.massRound ) )
+            decimalPlaces: Math.ceil( -log10( objectType.massRound ) )
           },
           sliderOptions: {
-            constrainValue: value => Utils.roundSymmetric( value / objectType.massRound ) * objectType.massRound,
+            constrainValue: value => roundSymmetric( value / objectType.massRound ) * objectType.massRound,
             majorTicks: [ {
               value: objectType.massRange.min,
               label: new Text( objectType.massRange.min, LABEL_OPTIONS )
@@ -307,10 +310,10 @@ class LabProjectileControlPanel extends Node {
 
             // '{{value}} m'
             valuePattern: StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: mString } ),
-            decimalPlaces: Math.ceil( -Utils.log10( objectType.diameterRound ) )
+            decimalPlaces: Math.ceil( -log10( objectType.diameterRound ) )
           },
           sliderOptions: {
-            constrainValue: value => Utils.roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
+            constrainValue: value => roundSymmetric( value / objectType.diameterRound ) * objectType.diameterRound,
             majorTicks: [ {
               value: objectType.diameterRange.min,
               label: new Text( objectType.diameterRange.min, LABEL_OPTIONS )
@@ -340,7 +343,7 @@ class LabProjectileControlPanel extends Node {
             maxWidth: this.textDisplayWidth + GRAVITY_READOUT_X_MARGIN
           },
           sliderOptions: {
-            constrainValue: value => Utils.roundSymmetric( value * 100 ) / 100
+            constrainValue: value => roundSymmetric( value * 100 ) / 100
           },
           tandem: generalComponentTandem.createTandem( 'gravityNumberControl' ),
           phetioDocumentation: 'UI control to adjust the force of gravity on the projectile'
@@ -360,7 +363,7 @@ class LabProjectileControlPanel extends Node {
             decimalPlaces: 0
           },
           sliderOptions: {
-            constrainValue: value => Utils.roundSymmetric( value / 100 ) * 100
+            constrainValue: value => roundSymmetric( value / 100 ) * 100
           },
           tandem: generalComponentTandem.createTandem( 'altitudeNumberControl' ),
           phetioDocumentation: 'UI control to adjust the altitude of position where the projectile is being launched'
@@ -374,7 +377,7 @@ class LabProjectileControlPanel extends Node {
 
       // exists for the lifetime of the simulation
       this.model.projectileDragCoefficientProperty.link( dragCoefficient => {
-        dragCoefficientText.string = `${dragCoefficientString}: ${Utils.toFixed( dragCoefficient, 2 )}`;
+        dragCoefficientText.string = `${dragCoefficientString}: ${toFixed( dragCoefficient, 2 )}`;
       } );
 
 

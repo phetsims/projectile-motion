@@ -7,7 +7,6 @@
  */
 
 import Matrix3 from '../../../../dot/js/Matrix3.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Shape from '../../../../kite/js/Shape.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Image from '../../../../scenery/js/nodes/Image.js';
@@ -27,6 +26,7 @@ import pumpkin2_png from '../../../images/pumpkin2_png.js';
 import tankShell_png from '../../../images/tankShell_png.js';
 import projectileMotion from '../../projectileMotion.js';
 import type { ProjectileObjectViewCreator } from '../model/ProjectileObjectType.js';
+import { linear } from '../../../../dot/js/util/linear.js';
 
 export default class ProjectileObjectViewFactory {
 
@@ -116,7 +116,7 @@ export default class ProjectileObjectViewFactory {
 
       // Algorithm from http://mathworld.wolfram.com/TeardropCurve.html
       // drag coefficient ranges from [ 0.04 , 0.47 ], and m ranges from 0 to 7
-      const m = Utils.linear( 0.04, 0.47, 4, 0, dragCoefficient );
+      const m = linear( 0.04, 0.47, 4, 0, dragCoefficient );
       shape = new Shape();
       shape.moveTo( -radius, 0 );
       let t;
@@ -147,7 +147,7 @@ export default class ProjectileObjectViewFactory {
       shape.arc( 0, 0, radius, Math.PI / 2, 3 * Math.PI / 2, false );
       shape.moveTo( 0, -radius );
 
-      angle = Utils.linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
+      angle = linear( 0.47, 1.17, Math.PI / 2, 0, dragCoefficient );
       newRadius = radius / Math.sin( angle );
       newCenterX = -radius / Math.tan( angle );
       shape.arc( newCenterX, 0, newRadius, -angle, angle, false );

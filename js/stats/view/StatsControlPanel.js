@@ -9,8 +9,8 @@
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import MathSymbols from '../../../../scenery-phet/js/MathSymbols.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -128,7 +128,7 @@ class StatsControlPanel extends Panel {
           }
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundToInterval( value, 1 )
+          constrainValue: value => roundToInterval( value, 1 )
         },
         delta: 1,
         layoutFunction: NumberControl.createLayoutFunction4( {
@@ -152,7 +152,7 @@ class StatsControlPanel extends Panel {
           }
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundToInterval( value, 1 )
+          constrainValue: value => roundToInterval( value, 1 )
         },
         delta: 1,
         layoutFunction: NumberControl.createLayoutFunction4( {

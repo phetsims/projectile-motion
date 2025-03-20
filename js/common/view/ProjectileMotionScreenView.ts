@@ -14,7 +14,6 @@ import Property from '../../../../axon/js/Property.js';
 import Bounds2 from '../../../../dot/js/Bounds2.js';
 import Dimension2 from '../../../../dot/js/Dimension2.js';
 import Range from '../../../../dot/js/Range.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.js';
 import Shape from '../../../../kite/js/Shape.js';
@@ -159,7 +158,6 @@ class ProjectileMotionScreenView extends ScreenView {
     model.trajectoryGroup.forEach( handleTrajectoryAdded );
     model.trajectoryGroup.elementCreatedEmitter.addListener( handleTrajectoryAdded );
 
-    // cannon
     const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this,
       combineOptions<CannonNodeOptions>( { tandem: tandem.createTandem( 'cannonNode' ) }, options.cannonNodeOptions ) );
 
@@ -192,7 +190,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 80 // empirically determined
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundSymmetric( value ),
+          constrainValue: value => roundSymmetric( value ),
           trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
           thumbSize: new Dimension2( 13, 22 )
         },
@@ -224,7 +222,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 80 // empirically determined
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundToInterval( value, angleIncrement ),
+          constrainValue: value => roundToInterval( value, angleIncrement ),
           trackSize: new Dimension2( 120, 0.5 ), // width is empirically determined
           thumbSize: new Dimension2( 13, 22 )
         },

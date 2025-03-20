@@ -5,10 +5,10 @@
  * Also includes a slider for changing altitude, which changes air density.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Dimension2 from '../../../../dot/js/Dimension2.js';
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import NumberControl from '../../../../scenery-phet/js/NumberControl.js';
@@ -18,6 +18,7 @@ import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
@@ -130,7 +131,7 @@ class DragProjectileControlPanel extends Panel {
           xMargin: 8
         },
         sliderOptions: {
-          constrainValue: value => Utils.roundToInterval( value, 100 )
+          constrainValue: value => roundToInterval( value, 100 )
         },
         delta: 100,
         layoutFunction: NumberControl.createLayoutFunction4( {
@@ -171,7 +172,7 @@ class DragProjectileControlPanel extends Panel {
                     DRAG_OBJECT_MAX_WIDTH
         },
         numberDisplayOptions: {
-          constrainValue: value => Utils.roundToInterval( value, 0.01 ),
+          constrainValue: value => roundToInterval( value, 0.01 ),
           decimalPlaces: 2
         },
 

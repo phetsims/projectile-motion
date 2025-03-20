@@ -6,10 +6,10 @@
  * Creates and contains projectileNodes
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
 import Property from '../../../../axon/js/Property.js';
-import Utils from '../../../../dot/js/Utils.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Shape from '../../../../kite/js/Shape.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
@@ -22,6 +22,8 @@ import Trajectory from '../model/Trajectory.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileMotionViewProperties from './ProjectileMotionViewProperties.js';
 import ProjectileNode from './ProjectileNode.js';
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 
 const PATH_WIDTH = ProjectileMotionConstants.PATH_WIDTH; // view units
 const PATH_MIN_OPACITY = 0.1;
@@ -86,8 +88,8 @@ class TrajectoryNode extends Node {
       // To be set by the transform
       addedPointViewPosition.set( addedPoint.position );
       transformProperty.get().getMatrix().multiplyVector2( addedPointViewPosition );
-      addedPointViewPosition.x = Utils.roundSymmetric( addedPointViewPosition.x * 10000 ) / 10000;
-      addedPointViewPosition.y = Utils.roundSymmetric( addedPointViewPosition.y * 10000 ) / 10000;
+      addedPointViewPosition.x = roundSymmetric( addedPointViewPosition.x * 10000 ) / 10000;
+      addedPointViewPosition.y = roundSymmetric( addedPointViewPosition.y * 10000 ) / 10000;
 
       if ( lastViewPosition ) {
         const pathStroke = addedPoint.airDensity > 0 ? AIR_RESISTANCE_ON_COLOR : AIR_RESISTANCE_OFF_PATH_COLOR;
@@ -109,7 +111,7 @@ class TrajectoryNode extends Node {
       lastViewPosition.set( addedPointViewPosition );
 
       // draw dot if it is time for data point should be shown (in ms)
-      const addedPointTime = Utils.toFixedNumber( addedPoint.time * 1000, 0 );
+      const addedPointTime = toFixedNumber( addedPoint.time * 1000, 0 );
       if ( addedPointTime % TIME_PER_MAJOR_DOT === 0 ) {
         dotsShape.moveTo( addedPointViewPosition.x + LARGE_DOT_RADIUS, addedPointViewPosition.y )
           .circle( addedPointViewPosition.x, addedPointViewPosition.y, LARGE_DOT_RADIUS );
