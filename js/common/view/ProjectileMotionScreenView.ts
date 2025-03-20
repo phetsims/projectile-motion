@@ -19,7 +19,6 @@ import ScreenView, { ScreenViewOptions } from '../../../../joist/js/ScreenView.j
 import Shape from '../../../../kite/js/Shape.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import platform from '../../../../phet-core/js/platform.js';
-import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import EraserButton from '../../../../scenery-phet/js/buttons/EraserButton.js';
 import ResetAllButton from '../../../../scenery-phet/js/buttons/ResetAllButton.js';
@@ -49,14 +48,9 @@ import ToolboxPanel from './ToolboxPanel.js';
 import TrajectoryNode from './TrajectoryNode.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-
-const initialSpeedString = ProjectileMotionStrings.initialSpeed;
-const initialAngleString = ProjectileMotionStrings.angle;
-const metersPerSecondString = ProjectileMotionStrings.metersPerSecond;
-const metersString = ProjectileMotionStrings.meters;
-const degreesString = MathSymbols.DEGREES;
-const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value1UnitsWithSpace;
-const pattern0Value1UnitsString = ProjectileMotionStrings.pattern0Value1Units;
+import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
+import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
+import PatternStringProperty from '../../../../axon/js/PatternStringProperty.js';
 
 // constants
 const DEFAULT_SCALE = 30;
@@ -160,20 +154,22 @@ class ProjectileMotionScreenView extends ScreenView {
     const cannonNode = new CannonNode( model.cannonHeightProperty, model.cannonAngleProperty, model.muzzleFlashStepper, transformProperty, this,
       combineOptions<CannonNodeOptions>( { tandem: tandem.createTandem( 'cannonNode' ) }, options.cannonNodeOptions ) );
 
-    // results in '{{value}} m/s'
-    const valuePatternSpeed = StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, { units: metersPerSecondString } );
-
-    // results in '{{value}} degrees'
-    const valuePatternAngle = StringUtils.fillIn( pattern0Value1UnitsString, { units: degreesString } );
-
-    const angleIncrement = options.cannonNodeOptions.preciseCannonDelta ? 1 : 5;
-
     const initialSpeedPanelTandem = tandem.createTandem( 'initialSpeedPanel' );
     const initialAnglePanelTandem = tandem.createTandem( 'initialAnglePanel' );
 
+    const angleIncrement = options.cannonNodeOptions.preciseCannonDelta ? 1 : 5;
+
+    const initialSpeedPatternStringProperty = new PatternStringProperty( ProjectileMotionStrings.pattern0Value1UnitsWithSpaceStringProperty, {
+      units: ProjectileMotionStrings.metersPerSecondStringProperty
+    } );
+
+    const initialAnglePatternStringProperty = new PatternStringProperty( ProjectileMotionStrings.pattern0Value1UnitsStringProperty, {
+      units: MathSymbols.DEGREES
+    } );
+
     // initial speed readout, slider, and tweakers
     const initialSpeedNumberControl = new NumberControl(
-      initialSpeedString,
+      ProjectileMotionStrings.initialSpeedStringProperty,
       model.initialSpeedProperty,
       ProjectileMotionConstants.LAUNCH_VELOCITY_RANGE, {
         titleNodeOptions: {
@@ -181,7 +177,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 120 // empirically determined
         },
         numberDisplayOptions: {
-          valuePattern: valuePatternSpeed,
+          valuePattern: initialSpeedPatternStringProperty,
           align: 'right',
           textOptions: {
             font: TEXT_FONT
@@ -205,7 +201,7 @@ class ProjectileMotionScreenView extends ScreenView {
 
     // initial angle readout, slider, and tweakers
     const initialAngleNumberControl = new NumberControl(
-      initialAngleString,
+      ProjectileMotionStrings.angleStringProperty,
       model.cannonAngleProperty,
       ProjectileMotionConstants.CANNON_ANGLE_RANGE, {
         titleNodeOptions: {
@@ -213,7 +209,7 @@ class ProjectileMotionScreenView extends ScreenView {
           maxWidth: 120 // empirically determined
         },
         numberDisplayOptions: {
-          valuePattern: valuePatternAngle,
+          valuePattern: initialAnglePatternStringProperty,
           align: 'right',
           textOptions: {
             font: TEXT_FONT
@@ -255,7 +251,15 @@ class ProjectileMotionScreenView extends ScreenView {
     ) );
 
     // Create a measuring tape (set to invisible initially)
-    const measuringTapeNode = new MeasuringTapeNode( new Property( { name: metersString, multiplier: 1 } ), {
+
+    const measuringTapeUnitsProperty = new DerivedProperty( [ ProjectileMotionStrings.metersStringProperty ], metersString => {
+      return {
+        name: metersString,
+        multiplier: 1
+      };
+    } );
+
+    const measuringTapeNode = new MeasuringTapeNode( measuringTapeUnitsProperty, {
       visibleProperty: model.measuringTape.isActiveProperty,
       modelViewTransform: transformProperty.get(),
       basePositionProperty: model.measuringTape.basePositionProperty,
