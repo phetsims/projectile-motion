@@ -120,9 +120,7 @@ class KeypadLayer extends Plane {
       children: [ valueBackgroundNode, valueNode ]
     } );
 
-    // TODO: Disable line below should be removed, see https://github.com/phetsims/phet-io/issues/1959
-    // eslint-disable-next-line phet/tandem-name-should-match
-    this.keypadNode = new Keypad( Keypad.PositiveFloatingPointLayout, {
+    this.keypad = new Keypad( Keypad.PositiveFloatingPointLayout, {
       accumulatorOptions: {
         maxDigits: options.maxDigits,
         maxDigitsRightOfMantissa: options.maxDecimals
@@ -137,13 +135,13 @@ class KeypadLayer extends Plane {
       content: new Text( enterString, {
         font: TEXT_FONT,
         fill: 'black',
-        maxWidth: this.keypadNode.width // i18n
+        maxWidth: this.keypad.width // i18n
       } ),
       tandem: options.tandem.createTandem( 'enterButton' ),
       phetioDocumentation: 'The button to submit a custom number with the keypad'
     } );
 
-    const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypadNode.width } );
+    const rangeMessageText = new Text( '', { font: TEXT_FONT, maxWidth: this.keypad.width } );
 
     // for convenient access by methods
     this.valueNode = valueNode;
@@ -158,7 +156,7 @@ class KeypadLayer extends Plane {
     const contentNode = new VBox( {
       spacing: 10,
       align: 'center',
-      children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
+      children: [ valueAndRangeMessage, this.keypad, enterButton ]
     } );
 
     this.saidHello = false;
@@ -187,13 +185,13 @@ class KeypadLayer extends Plane {
     this.addChild( this.keypadPanel );
 
     // The keypad lasts for the lifetime of the sim, so the links don't need to be disposed
-    this.keypadNode.stringProperty.link( string => { // no unlink required
+    this.keypad.stringProperty.link( string => { // no unlink required
       valueNode.string = string;
       valueNode.center = valueBackgroundNode.center;
     } );
 
     // for resetting color of value to black when it has been red.
-    this.keypadNode.accumulatedKeysProperty.link( keys => {
+    this.keypad.accumulatedKeysProperty.link( keys => {
       valueNode.fill = TEXT_FILL_DEFAULT;
       rangeMessageText.fill = TEXT_FILL_DEFAULT;
     } );
@@ -245,7 +243,7 @@ class KeypadLayer extends Plane {
   private endEdit(): void {
 
     // clear the keypad
-    this.keypadNode.clear();
+    this.keypad.clear();
 
     // hide the keypad
     this.visible = false;
@@ -268,7 +266,7 @@ class KeypadLayer extends Plane {
   private warnOutOfRange(): void {
     this.valueNode.fill = TEXT_FILL_ERROR;
     this.rangeMessageText.fill = TEXT_FILL_ERROR;
-    this.keypadNode.setClearOnNextKeyPress( true );
+    this.keypad.setClearOnNextKeyPress( true );
   }
 
   /**
@@ -279,17 +277,19 @@ class KeypadLayer extends Plane {
     const valueRange = this.valueRange;
 
     // get the value from the keypad
-    const value = this.keypadNode.valueProperty.get();
+    const value = this.keypad.valueProperty.get();
 
     // not entering a value in the keypad is a cancel
-    if ( this.keypadNode.stringProperty.get() === '' ) {
+    if ( this.keypad.stringProperty.get() === '' ) {
       this.cancelEdit();
       return;
     }
 
     // if the keypad contains a valid value ...
-    if ( valueRange.contains( value ) ) {
-      this.valueProperty.set( Utils.toFixedNumber( value, 2 ) );
+    if ( valueRange && value !== null && valueRange.contains( value ) ) {
+      if ( this.valueProperty ) {
+        this.valueProperty.set( toFixedNumber( value, 2 ) );
+      }
       this.endEdit();
     }
     else if ( value === 43110 ) {

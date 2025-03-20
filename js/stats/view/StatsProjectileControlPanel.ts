@@ -137,7 +137,7 @@ class StatsProjectileControlPanel extends Panel {
         const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
-        } ) : Utils.toFixed( value, 2 );
+        } ) : toFixed( value, 2 );
         parameterLabel.setString( `${labelString}: ${valueReadout}` );
       } );
 

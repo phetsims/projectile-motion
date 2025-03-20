@@ -71,11 +71,11 @@ class InitialValuesPanel extends Panel {
       valueProperty.link( value => {
         const valueReadout = degreeString ?
                              StringUtils.fillIn( pattern0Value1UnitsString, {
-                               value: Utils.toFixedNumber( value, 2 ),
+                               value: toFixedNumber( value, 2 ),
                                units: degreeString
                              } ) :
                              StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
-                               value: Utils.toFixedNumber( value, 2 ),
+                               value: toFixedNumber( value, 2 ),
                                units: unitsString
                              } );
         parameterLabel.setString( `${labelString}: ${valueReadout}` );
