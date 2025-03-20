@@ -1,4 +1,4 @@
-// Copyright 2016-2023, University of Colorado Boulder
+// Copyright 2016-2025, University of Colorado Boulder
 
 /**
  * A subtype of Vector2 that contains information about a data point on a trajectory.
