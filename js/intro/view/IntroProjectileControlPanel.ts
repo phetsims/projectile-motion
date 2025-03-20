@@ -3,12 +3,12 @@
 /**
  * Control panel that allows users to choose what kind of projectile to fire
  * and view the properties of this projectile.
- * Also includes a checkbox for turning on and off air resistance.
+ * Also includes a checkbox for air resistance.
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import Utils from '../../../../dot/js/Utils.js';
 import merge from '../../../../phet-core/js/merge.js';
 import StringUtils from '../../../../phetcommon/js/util/StringUtils.js';
 import HSeparator from '../../../../scenery/js/layout/nodes/HSeparator.js';
@@ -16,12 +16,20 @@ import VBox from '../../../../scenery/js/layout/nodes/VBox.js';
 import HStrut from '../../../../scenery/js/nodes/HStrut.js';
 import Text from '../../../../scenery/js/nodes/Text.js';
 import ComboBox from '../../../../sun/js/ComboBox.js';
-import Panel from '../../../../sun/js/Panel.js';
-import Tandem from '../../../../tandem/js/Tandem.js';
-import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
+import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
+import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
 import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
+import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import Property from '../../../../axon/js/Property.js';
+import Node from '../../../../scenery/js/nodes/Node.js';
+import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
+import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
+import type ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
+import { toFixed } from '../../../../dot/js/util/toFixed.js';
+import Tandem from '../../../../tandem/js/Tandem.js';
+import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 
 const diameterString = ProjectileMotionStrings.diameter;
 const kgString = ProjectileMotionStrings.kg;
@@ -32,33 +40,28 @@ const pattern0Value1UnitsWithSpaceString = ProjectileMotionStrings.pattern0Value
 // constants
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
+type SelfOptions = EmptySelfOptions;
+type IntroProjectileControlPanelOptions = SelfOptions & PanelOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
+
 class IntroProjectileControlPanel extends Panel {
 
-  /**
-   * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
-   * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
-   * @param {Property.<number>} projectileMassProperty
-   * @param {Property.<number>} projectileDiameterProperty
-   * @param {Property.<number>} projectileDragCoefficientProperty
-   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
-   * @param {Object} [options]
-   */
-  constructor( objectTypes,
-               selectedProjectileObjectTypeProperty,
-               comboBoxListParent,
-               projectileMassProperty,
-               projectileDiameterProperty,
-               projectileDragCoefficientProperty,
-               airResistanceOnProperty,
-               options ) {
+  private projectileChoiceComboBox;
+
+  public constructor( objectTypes: ProjectileObjectType[],
+                      selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>,
+                      comboBoxListParent: Node,
+                      projectileMassProperty: Property<number>,
+                      projectileDiameterProperty: Property<number>,
+                      projectileDragCoefficientProperty: Property<number>,
+                      airResistanceOnProperty: BooleanProperty,
+                      providedOptions: IntroProjectileControlPanelOptions ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
     // The third object is options specific to this panel, which overrides the defaults
     // The fourth object is options given at time of construction, which overrides all the others
-    options = merge( {}, ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, {
-      tandem: Tandem.REQUIRED
-    }, options );
+    const options = optionize<IntroProjectileControlPanelOptions, SelfOptions, ProjectileMotionUIOptions>()(
+      ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS, providedOptions );
 
     // maxWidth of the labels within the dropdown empirically determined
     const itemNodeOptions = merge( {}, LABEL_OPTIONS, { maxWidth: 170 } );
@@ -66,7 +69,7 @@ class IntroProjectileControlPanel extends Panel {
     const firstItemNode = new VBox( {
       align: 'left',
       children: [
-        new Text( objectTypes[ 0 ].name, itemNodeOptions )
+        new Text( objectTypes[ 0 ].name ?? '', itemNodeOptions )
       ]
     } );
 
@@ -92,7 +95,7 @@ class IntroProjectileControlPanel extends Panel {
 
       comboBoxItems[ i ] = {
         value: projectileType,
-        createNode: () => ( i === 0 ) ? firstItemNode : new Text( projectileType.name, itemNodeOptions ),
+        createNode: () => ( i === 0 ) ? firstItemNode : new Text( projectileType.name ?? '', itemNodeOptions ),
         tandemName: `${projectileType.benchmark}Item`
       };
     }
@@ -113,15 +116,8 @@ class IntroProjectileControlPanel extends Panel {
 
     /**
      * Auxiliary function that creates vbox for a parameter label and readouts
-     * @private
-     *
-     * @param {string} labelString - label for the parameter
-     * @param {string} unitsString - units
-     * @param {Property.<number>} valueProperty - the Property that is set and linked to
-     * @param {Tandem} tandem
-     * @returns {VBox}
      */
-    function createReadout( labelString, unitsString, valueProperty, tandem ) {
+    function createReadout( labelString: string, unitsString: string, valueProperty: Property<number>, tandem: Tandem ): VBox {
       const parameterLabel = new Text( '', merge( {
         tandem: tandem,
         stringPropertyOptions: { phetioReadOnly: true }
@@ -133,7 +129,7 @@ class IntroProjectileControlPanel extends Panel {
         const valueReadout = unitsString ? StringUtils.fillIn( pattern0Value1UnitsWithSpaceString, {
           value: value,
           units: unitsString
-        } ) : Utils.toFixed( value, 2 );
+        } ) : toFixed( value, 2 );
         parameterLabel.setString( `${labelString}: ${valueReadout}` );
       } );
 
@@ -178,12 +174,10 @@ class IntroProjectileControlPanel extends Panel {
 
     super( content, options );
 
-    // @private make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
   }
 
-  // @public for use by screen view
-  hideComboBoxList() {
+  public hideComboBoxList(): void {
     this.projectileChoiceComboBox.hideListBox();
   }
 }

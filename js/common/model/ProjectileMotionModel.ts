@@ -70,7 +70,7 @@ class ProjectileMotionModel implements TModel {
   public readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>; // a group of trajectories, limited to this.maxProjectilesVSMField
   public readonly zoomProperty: NumberProperty;
   public readonly altitudeProperty: Property<number>;
-  public readonly airResistanceOnProperty: Property<boolean>;
+  public readonly airResistanceOnProperty: BooleanProperty;
   public readonly airDensityProperty: TReadOnlyProperty<number>;
   public readonly timeSpeedProperty: EnumerationProperty<TimeSpeed>;
   public readonly isPlayingProperty: Property<boolean>;
