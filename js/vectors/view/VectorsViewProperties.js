@@ -4,11 +4,13 @@
  * View Properties that are specific to visibility of vectors
  *
  * @author Andrea Lin (PhET Interactive Simulations)
+ * @author Matthew Blackman (PhET Interactive Simulations)
  */
 
-import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
-import EnumerationDeprecatedProperty from '../../../../axon/js/EnumerationDeprecatedProperty.js';
+import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Multilink from '../../../../axon/js/Multilink.js';
+import Property from '../../../../axon/js/Property.js';
+import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
 import projectileMotion from '../../projectileMotion.js';
@@ -21,22 +23,26 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
     super();
 
     // @public vectors visibility for velocity and force, total or component
-    this.velocityVectorsOnProperty = new BooleanProperty( false, {
+    this.velocityVectorsOnProperty = new Property( false, {
+      phetioValueType: BooleanIO,
       tandem: tandem.createTandem( 'velocityVectorsOnProperty' ),
       phetioDocumentation: 'Whether to display velocity vectors for flying projectiles',
       phetioFeatured: true
     } );
-    this.accelerationVectorsOnProperty = new BooleanProperty( false, {
+    this.accelerationVectorsOnProperty = new Property( false, {
+      phetioValueType: BooleanIO,
       tandem: tandem.createTandem( 'accelerationVectorsOnProperty' ),
       phetioDocumentation: 'Whether to display the acceleration vectors for flying projectiles',
       phetioFeatured: true
     } );
-    this.forceVectorsOnProperty = new BooleanProperty( false, {
+    this.forceVectorsOnProperty = new Property( false, {
+      phetioValueType: BooleanIO,
       phetioDocumentation: 'Whether to display the force vectors in a free body diagram for flying projectiles',
       tandem: tandem.createTandem( 'forceVectorsOnProperty' ),
       phetioFeatured: true
     } );
-    this.vectorsDisplayProperty = new EnumerationDeprecatedProperty( VectorsDisplayEnumeration, VectorsDisplayEnumeration.TOTAL, {
+    this.vectorsDisplayProperty = new EnumerationProperty( VectorsDisplayEnumeration.TOTAL, {
+      validValues: [ VectorsDisplayEnumeration.TOTAL, VectorsDisplayEnumeration.COMPONENTS ],
       tandem: tandem.createTandem( 'vectorsDisplayProperty' ),
       phetioFeatured: true,
       phetioDocumentation: 'Property for which type of vectors are displayed for flying projectiles: either component ' +
