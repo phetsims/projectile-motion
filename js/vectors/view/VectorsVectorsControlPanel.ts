@@ -34,11 +34,8 @@ const ACCELERATION_VECTOR_ICON = ProjectileMotionConstants.ACCELERATION_VECTOR_I
 const FORCE_VECTOR_ICON = ProjectileMotionConstants.FORCE_VECTOR_ICON;
 
 class VectorsVectorsControlPanel extends Panel {
-  /**
-   * @param {ProjectileMotionViewProperties} viewProperties - Properties that determine which vectors are shown
-   * @param {Object} [options]
-   */
-  constructor( viewProperties, options ) {
+
+  public constructor( viewProperties: VectorsViewProperties, providedOptions: VectorsVectorsControlPanelOptions ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files

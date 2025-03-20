@@ -22,12 +22,13 @@ const X_MARGIN = 10;
 const FIRE_BUTTON_MARGIN_X = 40;
 
 class StatsScreenView extends ProjectileMotionScreenView {
-  /**
-   * @param {StatsModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
-    options = merge( {
+
+  private readonly projectilePanel;
+  private readonly statsPanel;
+  private readonly fireMultipleButton;
+
+  public constructor( model: StatsModel, providedOptions: StatsScreenViewOptions ) {
+    const options = optionize<StatsScreenViewOptions, SelfOptions, ProjectileMotionScreenViewOptions>()( {
       addFlatirons: false,
       cannonNodeOptions: { preciseCannonDelta: true },
       maxTrajectories: ProjectileMotionConstants.MAX_NUMBER_OF_TRAJECTORIES_STATS,
@@ -85,7 +86,6 @@ class StatsScreenView extends ProjectileMotionScreenView {
       options
     );
 
-    // @private
     this.projectilePanel = projectileControlPanel;
     this.statsPanel = statsControlPanel;
     this.fireMultipleButton = fireMultipleButton;
@@ -108,13 +108,7 @@ class StatsScreenView extends ProjectileMotionScreenView {
     this.timeControlNode.left = this.fireMultipleButton.right + FIRE_BUTTON_MARGIN_X;
   }
 
-  /**
-   * Layout
-   * @param {Bounds2} viewBounds
-   * @public (joist-internal)
-   * @override
-   */
-  layout( viewBounds ) {
+  public override layout( viewBounds: Bounds2 ): void {
     this.projectilePanel.hideComboBoxList();
     super.layout( viewBounds );
   }

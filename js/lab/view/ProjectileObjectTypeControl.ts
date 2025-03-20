@@ -13,16 +13,18 @@ import projectileMotion from '../../projectileMotion.js';
 
 class ProjectileObjectTypeControl {
 
-  /**
-   * @param {Node} massControl
-   * @param {Node} diameterControl
-   * @param {Node} gravityControl
-   * @param {Node} altitudeControl
-   * @param {Node} dragCoefficientControl
-   */
-  constructor( massControl, diameterControl, gravityControl, altitudeControl, dragCoefficientControl ) {
+  public massControl;
+  public diameterControl;
+  public gravityControl;
+  public altitudeControl;
+  public dragCoefficientControl;
 
-    // @public (read-only) {Node} - settable by subtypes
+  public constructor( massControl: Node | null,
+                      diameterControl: Node | null,
+                      gravityControl: Node | null,
+                      altitudeControl: Node | null,
+                      dragCoefficientControl: Node | null,
+                      providedOptions: ProjectileObjectTypeControlOptions ) {
     this.massControl = massControl;
     this.diameterControl = diameterControl;
     this.gravityControl = gravityControl;

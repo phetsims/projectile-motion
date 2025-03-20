@@ -23,10 +23,8 @@ const ARROW_HEAD_WIDTH = 12;
 const ARROW_HEAD_HEIGHT = 12;
 
 class VectorsIconNode extends Rectangle {
-  /**
-   * @param {string} type - 'nav' or 'screen'
-   */
-  constructor( type ) {
+
+  public constructor( type: 'nav' | 'screen' ) {
 
     super( 0, 0, 0, 0 );
 

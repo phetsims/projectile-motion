@@ -14,10 +14,8 @@ import projectileMotion from '../../projectileMotion.js';
 import EditableProjectileObjectType from './EditableProjectileObjectType.js';
 
 class LabModel extends ProjectileMotionModel {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+
+  public constructor( tandem: Tandem ) {
 
     const objectTypesTandem = tandem.createTandem( 'objectTypes' );
 
@@ -48,7 +46,6 @@ class LabModel extends ProjectileMotionModel {
 
     super( objectTypes[ 1 ], false, objectTypes, tandem );
 
-    // @public
     this.objectTypes = objectTypes;
 
     // Dynamically save the current values onto the current, editable object type..
@@ -70,12 +67,7 @@ class LabModel extends ProjectileMotionModel {
   }
 
 
-  /**
-   * Reset these Properties
-   * @public
-   * @override
-   */
-  reset() {
+  public override reset(): void {
     super.reset();
 
     // reset saved values
@@ -85,14 +77,13 @@ class LabModel extends ProjectileMotionModel {
   }
 
   /**
-   * @public
    * Update model values that are editable in the sim that are based on the projectile object type. Only
    * values from ProjectileObjectTypes need to be set here, since they change based on the selected projectile type.
-   * The gravity and altitude (etc), though editable on the Lab screen, are not updated based on the current projectile
+   * The gravity and altitude (etc.), though editable on the Lab screen, are not updated based on the current projectile
    * object type. Reset back to the initial value, not the current value. Note that setting PhET-iO state will set that
    * value as the initial state, just like PropertyIO.js
    */
-  resetModelValuesToInitial() {
+  public resetModelValuesToInitial(): void {
 
     const currentProjectileObjectType = this.selectedProjectileObjectTypeProperty.value;
     this.projectileMassProperty.set( currentProjectileObjectType.initialMass );

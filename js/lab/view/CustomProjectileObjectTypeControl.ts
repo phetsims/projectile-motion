@@ -45,15 +45,10 @@ const NUMBER_DISPLAY_OPTIONS = ProjectileMotionConstants.NUMBER_DISPLAY_OPTIONS;
 
 class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
 
-  /**
-   * @private
-   * @param {LabModel} model
-   * @param {KeypadLayer} keypadLayer
-   * @param {ProjectileObjectType} objectType
-   * @param {Tandem} tandem
-   * @param {Object} [options]
-   */
-  constructor( model, keypadLayer, objectType, tandem, options ) {
+  private keypadLayer;
+  private options;
+
+  public constructor( model: LabModel, keypadLayer: KeypadLayer, objectType: ProjectileObjectType, tandem: Tandem, providedOptions: CustomProjectileObjectTypeControlOptions ) {
 
     // arbitrary values, as these should be provided by the LabProjectileControlPanel
     options = merge( {
@@ -120,15 +115,8 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
 
   /**
    * Auxiliary function that creates VBox for a parameter label and readouts
-   * @param {string} labelString - label for the parameter
-   * @param {string} unitsString - units
-   * @param {Property.<number>} valueProperty - the Property that is set and linked to
-   * @param {Range} range - range for the valueProperty value
-   * @param {Tandem} tandem
-   * @returns {VBox}
-   * @private
    */
-  createCustomControl( labelString, unitsString, valueProperty, range, tandem ) {
+  private createCustomControl( labelString: string, unitsString: string | null, valueProperty: Property<number>, range: Range, tandem: Tandem ): Node {
 
     // label
     const parameterLabel = new Text( labelString, merge( { tandem: tandem.createTandem( 'labelText' ) }, LABEL_OPTIONS ) );

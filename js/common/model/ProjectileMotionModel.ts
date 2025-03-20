@@ -80,12 +80,11 @@ class ProjectileMotionModel implements TModel {
   public readonly muzzleFlashStepper: Emitter<[ number ]>; // emits when cannon needs to update its muzzle flash animation
   public readonly fireEnabledProperty: TReadOnlyProperty<boolean>;
   public readonly updateTrajectoryRanksEmitter: Emitter;
-
-  protected readonly rapidFireModeProperty: Property<boolean>;
+  public readonly initialSpeedStandardDeviationProperty: Property<number>;
+  public readonly initialAngleStandardDeviationProperty: Property<number>;
+  public readonly rapidFireModeProperty: Property<boolean>;
 
   private readonly maxProjectiles: number;
-  private readonly initialSpeedStandardDeviationProperty: Property<number>;
-  private readonly initialAngleStandardDeviationProperty: Property<number>;
   private readonly eventTimer: EventTimer;
 
   /**

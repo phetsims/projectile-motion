@@ -16,11 +16,7 @@ import VectorsViewProperties from './VectorsViewProperties.js';
 
 class VectorsScreenView extends ProjectileMotionScreenView {
 
-  /**
-   * @param {VectorsModel} model
-   * @param {Object} [options]
-   */
-  constructor( model, options ) {
+  public constructor( model: VectorsModel, providedOptions: VectorsScreenViewOptions ) {
 
     options = merge( {
       addFlatirons: false

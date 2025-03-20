@@ -28,10 +28,8 @@ const BRIGHT_GRAY_COLOR = new Color( 230, 230, 230, 1 );
 const DARK_GRAY_COLOR = new Color( 103, 103, 103, 1 );
 
 class LabIconNode extends Rectangle {
-  /**
-   * @param {string} type - 'nav' or 'screen'
-   */
-  constructor( type ) {
+
+  public constructor( type: 'nav' | 'screen' ) {
 
     assert && assert( type === 'nav' || type === 'screen', `invalid value for type: ${type}` );
 

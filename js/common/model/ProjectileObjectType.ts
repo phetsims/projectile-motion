@@ -86,11 +86,10 @@ class ProjectileObjectType extends PhetioObject {
   public massRange: Range;
   public massRound: number;
   public dragCoefficientRange: Range;
-
-  private readonly initialMass: number;
-  private readonly initialDiameter: number;
-  private readonly initialDragCoefficient: number;
-  private readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
+  public initialMass: number;
+  public initialDiameter: number;
+  public initialDragCoefficient: number;
+  public readonly projectileObjectTypeOptions: ProjectileObjectTypeOptions;
 
   public constructor( name: string | null, mass: number, diameter: number, dragCoefficient: number,
                       benchmark: string | null, rotates: boolean, providedOptions?: ProjectileObjectTypeOptions ) {
@@ -338,7 +337,7 @@ class ProjectileObjectType extends PhetioObject {
     }
   );
 
-  private static readonly CUSTOM = new ProjectileObjectType(
+  public static readonly CUSTOM = new ProjectileObjectType(
     customString,
     100,
     1,

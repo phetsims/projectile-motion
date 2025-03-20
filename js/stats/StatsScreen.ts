@@ -15,11 +15,9 @@ import StatsModel from './model/StatsModel.js';
 import StatsIconNode from './view/StatsIconNode.js';
 import StatsScreenView from './view/StatsScreenView.js';
 
-class StatsScreen extends Screen {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+class StatsScreen extends Screen<StatsModel, StatsScreenView> {
+
+  public constructor( tandem: Tandem ) {
     const options = {
       name: ProjectileMotionStrings.screen.statsStringProperty,
       backgroundColorProperty: new Property( 'white' ),

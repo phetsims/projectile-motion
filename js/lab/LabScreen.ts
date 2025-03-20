@@ -18,10 +18,7 @@ import LabScreenView from './view/LabScreenView.js';
 
 class LabScreen extends Screen {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: ProjectileMotionStrings.screen.labStringProperty,
@@ -39,7 +36,7 @@ class LabScreen extends Screen {
 
     super(
       () => new LabModel( tandem.createTandem( 'model' ) ),
-      model => new LabScreenView( model, { tandem: tandem.createTandem( 'view' ) } ),
+      ( model: LabModel ) => new LabScreenView( model, { tandem: tandem.createTandem( 'view' ) } ),
       options
     );
   }

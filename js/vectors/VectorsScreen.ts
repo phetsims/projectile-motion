@@ -18,10 +18,7 @@ import VectorsScreenView from './view/VectorsScreenView.js';
 
 class VectorsScreen extends Screen {
 
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public constructor( tandem: Tandem ) {
 
     const options = {
       name: ProjectileMotionStrings.screen.vectorsStringProperty,

@@ -35,25 +35,18 @@ const pattern0Value1UnitsWithSpaceString =
 const LABEL_OPTIONS = ProjectileMotionConstants.PANEL_LABEL_OPTIONS;
 
 class StatsProjectileControlPanel extends Panel {
-  /**
-   * @param {Array.<ProjectileObjectType>} objectTypes - types of objects available for the dropdown model
-   * @param {Property.<ProjectileObjectType>} selectedProjectileObjectTypeProperty - currently selected type of object
-   * @param {Node} comboBoxListParent - node for containing the combo box
-   * @param {Property.<number>} projectileMassProperty
-   * @param {Property.<number>} projectileDiameterProperty
-   * @param {Property.<number>} projectileDragCoefficientProperty
-   * @param {Property.<boolean>} airResistanceOnProperty - whether air resistance is on
-   * @param {Object} [options]
-   */
-  constructor(
-    objectTypes,
-    selectedProjectileObjectTypeProperty,
-    comboBoxListParent,
-    projectileMassProperty,
-    projectileDiameterProperty,
-    projectileDragCoefficientProperty,
-    airResistanceOnProperty,
-    options
+
+  private projectileChoiceComboBox;
+
+  public constructor(
+    objectTypes: ProjectileObjectType[],
+    selectedProjectileObjectTypeProperty: Property<ProjectileObjectType>,
+    comboBoxListParent: Node,
+    projectileMassProperty: Property<number>,
+    projectileDiameterProperty: Property<number>,
+    projectileDragCoefficientProperty: Property<number>,
+    airResistanceOnProperty: BooleanProperty,
+    providedOptions: StatsProjectileControlPanelOptions
   ) {
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
@@ -203,12 +196,12 @@ class StatsProjectileControlPanel extends Panel {
 
     super( content, options );
 
-    // @private make visible to methods
+    // make visible to methods
     this.projectileChoiceComboBox = projectileChoiceComboBox;
   }
 
-  // @public for use by screen view
-  hideComboBoxList() {
+  // for use by screen view
+  public hideComboBoxList(): void {
     this.projectileChoiceComboBox.hideListBox();
   }
 }

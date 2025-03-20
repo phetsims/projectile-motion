@@ -20,11 +20,11 @@ import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js
 import projectileMotion from '../../projectileMotion.js';
 
 class StatsModel extends ProjectileMotionModel {
+  public objectTypes: ProjectileObjectType[];
+  public groupSizeProperty: Property<number>;
+  public readonly fireMultipleEnabledProperty: TReadOnlyProperty<boolean>;
 
-  private objectTypes: ProjectileObjectType[];
   private timeSinceLastProjectile: number;
-  private groupSizeProperty: Property<number>;
-  private readonly fireMultipleEnabledProperty: TReadOnlyProperty<boolean>;
 
   public constructor( tandem: Tandem ) {
     const objectTypes = [
@@ -74,7 +74,7 @@ class StatsModel extends ProjectileMotionModel {
     );
   }
 
-  private fireMultipleProjectiles(): void {
+  public fireMultipleProjectiles(): void {
     super.fireNumProjectiles( this.groupSizeProperty.value );
   }
 

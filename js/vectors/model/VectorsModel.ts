@@ -12,10 +12,8 @@ import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import projectileMotion from '../../projectileMotion.js';
 
 class VectorsModel extends ProjectileMotionModel {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+
+  public constructor( tandem: Tandem ) {
     super( ProjectileObjectType.COMPANIONLESS, true,
       [ ProjectileObjectType.COMPANIONLESS ], tandem, {
         phetioInstrumentAltitudeProperty: false

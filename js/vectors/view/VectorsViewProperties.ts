@@ -16,10 +16,13 @@ import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumerati
 import projectileMotion from '../../projectileMotion.js';
 
 class VectorsViewProperties extends ProjectileMotionViewProperties {
-  /**
-   * @param {Tandem} tandem
-   */
-  constructor( tandem ) {
+  public readonly vectorsDisplayProperty;
+  public readonly velocityVectorsOnProperty;
+  public readonly accelerationVectorsOnProperty;
+  public readonly forceVectorsOnProperty;
+
+  public constructor( tandem: Tandem ) {
+
     super();
 
     // @public vectors visibility for velocity and force, total or component
@@ -63,10 +66,8 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
 
   /**
    * Reset these Properties
-   * @public
-   * @override
    */
-  reset() {
+  public override reset(): void {
     super.reset();
     this.velocityVectorsOnProperty.reset();
     this.accelerationVectorsOnProperty.reset();
@@ -75,16 +76,9 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
   }
 
   /**
-   * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether
-   * total or components
-   * @private
-   *
-   * @param {boolean} velocityVectorsOn
-   * @param {boolean} accelerationVectorsOn
-   * @param {boolean} forceVectorsOn
-   * @param {string} vectorsDisplay
+   * Update vector visibilities based on whether velocity, acceleration, and/or force vectors are on, and whether total or components
    */
-  updateVectorVisibilities( velocityVectorsOn, accelerationVectorsOn, forceVectorsOn, vectorsDisplay ) {
+  private updateVectorVisibilities( velocityVectorsOn: boolean, accelerationVectorsOn: boolean, forceVectorsOn: boolean, vectorsDisplay: VectorsDisplayEnumeration ): void {
     const displayTotal = vectorsDisplay === VectorsDisplayEnumeration.TOTAL;
     const displayComponents = vectorsDisplay === VectorsDisplayEnumeration.COMPONENTS;
 

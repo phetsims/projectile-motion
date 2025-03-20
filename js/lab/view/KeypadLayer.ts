@@ -36,10 +36,17 @@ const TEXT_FILL_ERROR = 'red';
 
 class KeypadLayer extends Plane {
 
-  /**
-   * @param {Object} [options]
-   */
-  constructor( options ) {
+  private readonly addHelloText;
+  private readonly clickOutsideFireListener;
+  private readonly valueNode;
+  private readonly rangeMessageText;
+  private readonly removeHelloText;
+  private readonly keypad;
+  private readonly keypadPanel;
+  private valueRange: Range | null;
+  private valueProperty: Property<number> | null;
+  private onEndEdit: ( () => void ) | null;
+  private saidHello;
 
     options = merge( {
 
@@ -132,11 +139,8 @@ class KeypadLayer extends Plane {
       children: [ valueAndRangeMessage, this.keypadNode, enterButton ]
     } );
 
-    // @private
     this.saidHello = false;
     const helloText = new Text( 'Hello!', { font: TEXT_FONT } );
-
-    // @private
 
     this.addHelloText = () => {
       if ( !contentNode.hasChild( helloText ) && !this.saidHello ) {
@@ -177,22 +181,15 @@ class KeypadLayer extends Plane {
 
   /**
    * Positions keypad
-   * @param {function:KeypadPanel} setKeypadPosition - function that lays out keypad, no return
-   * @public
    */
-  positionKeypad( setKeypadPosition ) {
+  public positionKeypad( setKeypadPosition: ( keypadPanel: Panel ) => void ): void {
     this.keypadPanel && setKeypadPosition( this.keypadPanel );
   }
 
   /**
    * Begins an edit, by opening a modal keypad.
-   * @public
-   *
-   * @param {Property.<number>} valueProperty - the Property to be set by the keypad
-   * @param {Range} valueRange
-   * @param {Object} [options]
    */
-  beginEdit( valueProperty, valueRange, unitsString, options ) {
+  public beginEdit( valueProperty: Property<number>, valueRange: Range, unitsString: string, providedOptions: BeginEditOptions ): void {
 
     options = merge( {
       onBeginEdit: null, // {function} called by beginEdit
@@ -213,7 +210,7 @@ class KeypadLayer extends Plane {
     // display the keypad
     this.visible = true;
 
-    // add listener for clicking outside of the keypad, will be removed on endEdit
+    // add listener for clicking outside the keypad, will be removed on endEdit
     !this.hasInputListener( this.clickOutsideFireListener ) && this.addInputListener( this.clickOutsideFireListener );
 
     // execute client-specific hook
@@ -222,9 +219,8 @@ class KeypadLayer extends Plane {
 
   /**
    * Ends an edit, used by commitEdit and cancelEdit
-   * @private
    */
-  endEdit() {
+  private endEdit(): void {
 
     // clear the keypad
     this.keypadNode.clear();
@@ -246,9 +242,8 @@ class KeypadLayer extends Plane {
 
   /**
    * Warns the user that out of range
-   * @private
    */
-  warnOutOfRange() {
+  private warnOutOfRange(): void {
     this.valueNode.fill = TEXT_FILL_ERROR;
     this.rangeMessageText.fill = TEXT_FILL_ERROR;
     this.keypadNode.setClearOnNextKeyPress( true );
@@ -256,9 +251,8 @@ class KeypadLayer extends Plane {
 
   /**
    * Commits an edit
-   * @private
    */
-  commitEdit() {
+  private commitEdit(): void {
 
     const valueRange = this.valueRange;
 
@@ -292,16 +286,12 @@ class KeypadLayer extends Plane {
 
   /**
    * Cancels an edit
-   * @private
    */
-  cancelEdit() {
+  private cancelEdit(): void {
     this.endEdit();
   }
 
-  /**
-   * @private
-   */
-  sayHi() {
+  private sayHi(): void {
     this.addHelloText();
   }
 }

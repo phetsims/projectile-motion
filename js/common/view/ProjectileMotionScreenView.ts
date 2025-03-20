@@ -81,18 +81,18 @@ type ProjectileMotionScreenViewOptions = SelfOptions & ScreenViewOptions & PickR
 
 class ProjectileMotionScreenView extends ScreenView {
   protected readonly topRightPanel: Panel;
+  protected readonly bottomRightPanel: Panel;
+  protected readonly cannonNode: CannonNode;
+  protected readonly fireButton: FireButton;
+  protected readonly initialAnglePanel: Panel;
+  protected readonly timeControlNode: TimeControlNode;
 
   private readonly backgroundNode: BackgroundNode;
-  private readonly cannonNode: CannonNode;
-  private readonly bottomRightPanel: Panel;
   private readonly toolboxPanel: ToolboxPanel;
   private readonly resetAllButton: ResetAllButton;
   private readonly zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
   private readonly eraserButton: EraserButton;
-  private readonly fireButton: FireButton;
-  private readonly timeControlNode: TimeControlNode;
   private readonly initialSpeedPanel: Panel;
-  private readonly initialAnglePanel: Panel;
 
   /**
    * @param topRightPanel - the projectile control panel at the top right

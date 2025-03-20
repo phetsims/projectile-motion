@@ -36,13 +36,7 @@ const DEGREES = MathSymbols.DEGREES;
 
 class InitialValuesPanel extends Panel {
 
-  /**
-   * @param {Property.<number>} cannonHeightProperty - height of the cannon
-   * @param {Property.<number>} cannonAngleProperty - angle of the cannon, in degrees
-   * @param {Property.<number>} initialSpeedProperty - velocity of next projectile to be fired
-   * @param {Object} [options]
-   */
-  constructor( cannonHeightProperty, cannonAngleProperty, initialSpeedProperty, options ) {
+  public constructor( cannonHeightProperty: Property<number>, cannonAngleProperty: VarianceNumberProperty, initialSpeedProperty: VarianceNumberProperty, providedOptions: InitialValuesPanelOptions ) {
 
     // The first object is a placeholder so none of the others get mutated
     // The second object is the default, in the constants files
