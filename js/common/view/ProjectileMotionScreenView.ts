@@ -91,7 +91,6 @@ class ProjectileMotionScreenView extends ScreenView {
   private readonly resetAllButton: ResetAllButton;
   private readonly zoomButtonGroup: MagnifyingGlassZoomButtonGroup;
   private readonly eraserButton: EraserButton;
-  private readonly initialSpeedPanel: Panel;
 
   /**
    * @param topRightPanel - the projectile control panel at the top right
@@ -432,7 +431,6 @@ class ProjectileMotionScreenView extends ScreenView {
     this.eraserButton = eraserButton;
     this.fireButton = fireButton;
     this.timeControlNode = timeControlNode;
-    this.initialSpeedPanel = initialSpeedPanel;
     this.initialAnglePanel = initialAnglePanel;
 
     if ( options.addFlatirons ) {
