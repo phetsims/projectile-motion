@@ -9,6 +9,7 @@
 
 import Vector2, { Vector2StateObject } from '../../../../dot/js/Vector2.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
@@ -127,7 +128,7 @@ class DataPoint {
       } );
   }
 
-  public static readonly DataPointIO = new IOType( 'DataPointIO', {
+  public static readonly DataPointIO = new IOType<IntentionalAny, IntentionalAny>( 'DataPointIO', {
     valueType: DataPoint,
     stateSchema: DataPoint.STATE_SCHEMA,
     fromStateObject: stateObject => DataPoint.fromStateObject( stateObject ),

@@ -10,6 +10,7 @@
 
 import Range, { RangeStateObject } from '../../../../dot/js/Range.js';
 import optionize from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
@@ -178,7 +179,7 @@ class ProjectileObjectType extends PhetioObject {
     this.dragCoefficientRange = Range.RangeIO.fromStateObject( stateObject.dragCoefficientRange );
   }
 
-  public static readonly ProjectileObjectTypeIO = new IOType( 'ProjectileObjectTypeIO', {
+  public static readonly ProjectileObjectTypeIO = new IOType<IntentionalAny, IntentionalAny>( 'ProjectileObjectTypeIO', {
     valueType: ProjectileObjectType,
     toStateObject: projectileObjectType => projectileObjectType.toStateObject(),
     applyState: ( projectileObjectType, stateObject ) => projectileObjectType.applyState( stateObject ),

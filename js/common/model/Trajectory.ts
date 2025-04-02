@@ -18,12 +18,13 @@ import Property from '../../../../axon/js/Property.js';
 import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import isSettingPhetioStateProperty from '../../../../tandem/js/isSettingPhetioStateProperty.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import PhetioObject, { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
-import IOType from '../../../../tandem/js/types/IOType.js';
+import IOType, { AnyIOType } from '../../../../tandem/js/types/IOType.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
@@ -38,7 +39,7 @@ type TrajectoryOptions = EmptySelfOptions & PhetioObjectOptions;
 
 type LandedEmitterParams = {
   name?: string;
-  phetioType?: IOType;
+  phetioType?: AnyIOType;
 };
 
 type TrajectoryStateObject = {
@@ -405,7 +406,7 @@ class Trajectory extends PhetioObject {
    */
   private static stateObjectToCreateElementArguments( stateObject: TrajectoryStateObject ): TrajectoryGroupCreateElementArguments {
     return [
-      ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ),
+      ReferenceIO( ProjectileObjectType.ProjectileObjectTypeIO ).fromStateObject( stateObject.projectileObjectType ) as ProjectileObjectType,
       stateObject.mass,
       stateObject.diameter,
       stateObject.dragCoefficient,
@@ -416,7 +417,7 @@ class Trajectory extends PhetioObject {
   }
 
   // Name the types needed to serialize each field on the Trajectory so that it can be used in toStateObject, fromStateObject, and applyState.
-  private static readonly TrajectoryIO = new IOType( 'TrajectoryIO', {
+  private static readonly TrajectoryIO = new IOType<IntentionalAny, IntentionalAny>( 'TrajectoryIO', {
     valueType: Trajectory,
 
     documentation: 'A trajectory outlining the projectile\'s path. The following are passed into the state schema:' +

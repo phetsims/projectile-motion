@@ -7,20 +7,21 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import IOType from '../../../../tandem/js/types/IOType.js';
-import ProjectileObjectType, { ProjectileObjectTypeOptions } from '../../common/model/ProjectileObjectType.js';
-import projectileMotion from '../../projectileMotion.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
+import IntentionalAny from '../../../../phet-core/js/types/IntentionalAny.js';
 import PickRequired from '../../../../phet-core/js/types/PickRequired.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import IOType from '../../../../tandem/js/types/IOType.js';
+import ProjectileObjectType, { ProjectileObjectTypeOptions } from '../../common/model/ProjectileObjectType.js';
+import projectileMotion from '../../projectileMotion.js';
 
 type SelfOptions = EmptySelfOptions;
 type EditableProjectileObjectTypeOptions = SelfOptions & ProjectileObjectTypeOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
 
 class EditableProjectileObjectType extends ProjectileObjectType {
 
-  public static EditableProjectileObjectTypeIO = new IOType<EditableProjectileObjectType>(
+  public static EditableProjectileObjectTypeIO = new IOType<EditableProjectileObjectType, IntentionalAny>(
     'EditableProjectileObjectTypeIO',
     {
       valueType: ProjectileObjectType,
