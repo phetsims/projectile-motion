@@ -11,7 +11,7 @@
  */
 
 import Multilink from '../../../../axon/js/Multilink.js';
-import TReadOnlyProperty from '../../../../axon/js/TReadOnlyProperty.js';
+import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
