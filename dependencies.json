@@ -21,7 +21,7 @@
     "branch": "HEAD"
   },
   "joist": {
-    "sha": "2a055c49e27f8a39124af9033e5f3f95766d9ee1",
+    "sha": "4f4b3c09c29335439604fe9940d4a18b3e0c6b14",
     "branch": "HEAD"
   },
   "kite": {
@@ -41,7 +41,7 @@
     "branch": "HEAD"
   },
   "projectile-motion": {
-    "sha": "80b5c97238fac7e8331f28f0deb912754cff94ca",
+    "sha": "6aad9c0a09098087fd7566e28d908ddefa027d54",
     "branch": "1.0"
   },
   "query-string-machine": {
