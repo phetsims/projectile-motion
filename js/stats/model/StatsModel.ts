@@ -17,7 +17,6 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 
 class StatsModel extends ProjectileMotionModel {
   public objectTypes: ProjectileObjectType[];
@@ -102,7 +101,5 @@ class StatsModel extends ProjectileMotionModel {
     super.reset();
   }
 }
-
-projectileMotion.register( 'StatsModel', StatsModel );
 
 export default StatsModel;

@@ -28,7 +28,6 @@ import Tandem from '../../../../tandem/js/Tandem.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO from '../../../../tandem/js/types/ReferenceIO.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import StatUtils from '../StatUtils.js';
 import DataProbe from './DataProbe.js';
@@ -437,7 +436,5 @@ const calculateAirDensity = ( altitude: number, airResistanceOn: boolean ): numb
     return 0;
   }
 };
-
-projectileMotion.register( 'ProjectileMotionModel', ProjectileMotionModel );
 
 export default ProjectileMotionModel;

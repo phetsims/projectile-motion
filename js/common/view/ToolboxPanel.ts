@@ -16,7 +16,6 @@ import MeasuringTapeNode from '../../../../scenery-phet/js/MeasuringTapeNode.js'
 import HBox from '../../../../scenery/js/layout/nodes/HBox.js';
 import DragListener from '../../../../scenery/js/listeners/DragListener.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
-import projectileMotion from '../../projectileMotion.js';
 import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionMeasuringTape from '../model/ProjectileMotionMeasuringTape.js';
 import DataProbeNode from './DataProbeNode.js';
@@ -138,5 +137,4 @@ class ToolboxPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'ToolboxPanel', ToolboxPanel );
 export default ToolboxPanel;

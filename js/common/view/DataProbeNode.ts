@@ -29,7 +29,6 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -377,8 +376,6 @@ class DataProbeNode extends Node {
     } );
   }
 }
-
-projectileMotion.register( 'DataProbeNode', DataProbeNode );
 
 
 /**

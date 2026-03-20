@@ -15,7 +15,6 @@ import Checkbox, { CheckboxOptions } from '../../../../sun/js/Checkbox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
@@ -129,5 +128,4 @@ class IntroVectorsControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'IntroVectorsControlPanel', IntroVectorsControlPanel );
 export default IntroVectorsControlPanel;

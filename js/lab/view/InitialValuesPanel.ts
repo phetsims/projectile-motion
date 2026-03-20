@@ -15,7 +15,6 @@ import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
@@ -140,5 +139,4 @@ class InitialValuesPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'InitialValuesPanel', InitialValuesPanel );
 export default InitialValuesPanel;

@@ -17,7 +17,6 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import VectorsViewProperties from './VectorsViewProperties.js';
@@ -119,5 +118,4 @@ class VectorsVectorsControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'VectorsVectorsControlPanel', VectorsVectorsControlPanel );
 export default VectorsVectorsControlPanel;

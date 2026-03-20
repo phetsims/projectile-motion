@@ -13,7 +13,6 @@ import Property from '../../../../axon/js/Property.js';
 import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
-import projectileMotion from '../../projectileMotion.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 class VectorsViewProperties extends ProjectileMotionViewProperties {
@@ -99,7 +98,5 @@ class VectorsViewProperties extends ProjectileMotionViewProperties {
     }
   }
 }
-
-projectileMotion.register( 'VectorsViewProperties', VectorsViewProperties );
 
 export default VectorsViewProperties;

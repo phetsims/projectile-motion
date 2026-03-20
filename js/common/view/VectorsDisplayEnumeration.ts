@@ -6,7 +6,6 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import projectileMotion from '../../projectileMotion.js';
 import EnumerationValue from '../../../../phet-core/js/EnumerationValue.js';
 import Enumeration from '../../../../phet-core/js/Enumeration.js';
 
@@ -17,5 +16,3 @@ export default class VectorsDisplayEnumeration extends EnumerationValue {
 
   private static readonly enumeration = new Enumeration( VectorsDisplayEnumeration );
 }
-
-projectileMotion.register( 'VectorsDisplayEnumeration', VectorsDisplayEnumeration );

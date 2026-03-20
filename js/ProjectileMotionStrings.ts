@@ -114,6 +114,4 @@ type StringsType = {
 
 const ProjectileMotionStrings = getStringModule( 'PROJECTILE_MOTION' ) as StringsType;
 
-projectileMotion.register( 'ProjectileMotionStrings', ProjectileMotionStrings );
-
 export default ProjectileMotionStrings;

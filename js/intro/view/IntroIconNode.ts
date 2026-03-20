@@ -13,7 +13,6 @@ import Path from '../../../../scenery/js/nodes/Path.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import uncenteredHuman1_png from '../../../images/uncenteredHuman1_png.js';
-import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -72,7 +71,5 @@ class IntroIconNode extends Rectangle {
     this.setRectHeight( height );
   }
 }
-
-projectileMotion.register( 'IntroIconNode', IntroIconNode );
 
 export default IntroIconNode;

@@ -9,7 +9,6 @@
 
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
-import projectileMotion from '../../projectileMotion.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
 class VectorsModel extends ProjectileMotionModel {
@@ -21,7 +20,5 @@ class VectorsModel extends ProjectileMotionModel {
       } );
   }
 }
-
-projectileMotion.register( 'VectorsModel', VectorsModel );
 
 export default VectorsModel;

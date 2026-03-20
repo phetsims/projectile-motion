@@ -8,7 +8,6 @@
  */
 
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
-import projectileMotion from '../../projectileMotion.js';
 import DragProjectileControlPanel from './DragProjectileControlPanel.js';
 import DragVectorsControlPanel from './DragVectorsControlPanel.js';
 import DragViewProperties from './DragViewProperties.js';
@@ -45,5 +44,4 @@ class DragScreenView extends ProjectileMotionScreenView {
   }
 }
 
-projectileMotion.register( 'DragScreenView', DragScreenView );
 export default DragScreenView;

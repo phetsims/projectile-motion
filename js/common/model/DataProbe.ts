@@ -16,7 +16,6 @@ import Vector2Property from '../../../../dot/js/Vector2Property.js';
 import PhetioGroup from '../../../../tandem/js/PhetioGroup.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import NullableIO from '../../../../tandem/js/types/NullableIO.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import DataPoint from './DataPoint.js';
 import Trajectory, { TrajectoryGroupCreateElementArguments } from './Trajectory.js';
@@ -123,7 +122,5 @@ class DataProbe {
     }
   }
 }
-
-projectileMotion.register( 'DataProbe', DataProbe );
 
 export default DataProbe;

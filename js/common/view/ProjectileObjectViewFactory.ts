@@ -24,7 +24,6 @@ import piano2_png from '../../../images/piano2_png.js';
 import pumpkin1_png from '../../../images/pumpkin1_png.js';
 import pumpkin2_png from '../../../images/pumpkin2_png.js';
 import tankShell_png from '../../../images/tankShell_png.js';
-import projectileMotion from '../../projectileMotion.js';
 import type { ProjectileObjectViewCreator } from '../model/ProjectileObjectType.js';
 import { linear } from '../../../../dot/js/util/linear.js';
 
@@ -155,5 +154,3 @@ export default class ProjectileObjectViewFactory {
     }
   }
 }
-
-projectileMotion.register( 'ProjectileObjectViewFactory', ProjectileObjectViewFactory );

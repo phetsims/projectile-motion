@@ -22,7 +22,6 @@ import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
 const TEXT_FONT = ProjectileMotionConstants.PANEL_LABEL_OPTIONS.font;
@@ -198,5 +197,4 @@ class StatsControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'StatsControlPanel', StatsControlPanel );
 export default StatsControlPanel;

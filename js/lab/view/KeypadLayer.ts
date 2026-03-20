@@ -21,7 +21,6 @@ import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushBut
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { combineOptions } from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
@@ -317,7 +316,5 @@ class KeypadLayer extends Plane {
     this.addHelloText();
   }
 }
-
-projectileMotion.register( 'KeypadLayer', KeypadLayer );
 
 export default KeypadLayer;

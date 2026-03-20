@@ -22,7 +22,6 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
 import StringIO from '../../../../tandem/js/types/StringIO.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import ProjectileObjectViewFactory from '../view/ProjectileObjectViewFactory.js';
@@ -369,7 +368,5 @@ class ProjectileObjectType extends PhetioObject {
     }
   );
 }
-
-projectileMotion.register( 'ProjectileObjectType', ProjectileObjectType );
 
 export default ProjectileObjectType;

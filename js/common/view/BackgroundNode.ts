@@ -15,7 +15,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import flatirons_png from '../../../images/flatirons_png.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
 // constants
@@ -85,7 +84,5 @@ class BackgroundNode extends Node {
     this.flatirons.left = transform.modelToViewX( FLATIRONS_LEFT );
   };
 }
-
-projectileMotion.register( 'BackgroundNode', BackgroundNode );
 
 export default BackgroundNode;

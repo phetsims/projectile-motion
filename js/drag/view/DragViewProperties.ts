@@ -9,7 +9,6 @@
 
 import Multilink from '../../../../axon/js/Multilink.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
-import projectileMotion from '../../projectileMotion.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import EnumerationProperty from '../../../../axon/js/EnumerationProperty.js';
 import Property from '../../../../axon/js/Property.js';
@@ -83,7 +82,5 @@ class DragViewProperties extends ProjectileMotionViewProperties {
     }
   }
 }
-
-projectileMotion.register( 'DragViewProperties', DragViewProperties );
 
 export default DragViewProperties;

@@ -10,7 +10,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import optionize from '../../../../phet-core/js/optionize.js';
 import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
-import projectileMotion from '../../projectileMotion.js';
 
 type SelfOptions = {
   forceProperties?: boolean;
@@ -101,7 +100,5 @@ class ProjectileMotionViewProperties {
     }
   }
 }
-
-projectileMotion.register( 'ProjectileMotionViewProperties', ProjectileMotionViewProperties );
 
 export default ProjectileMotionViewProperties;

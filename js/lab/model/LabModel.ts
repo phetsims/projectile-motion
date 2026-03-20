@@ -10,7 +10,6 @@
 import phetioStateSetEmitter from '../../../../tandem/js/phetioStateSetEmitter.js';
 import ProjectileMotionModel from '../../common/model/ProjectileMotionModel.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
-import projectileMotion from '../../projectileMotion.js';
 import EditableProjectileObjectType from './EditableProjectileObjectType.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 
@@ -94,7 +93,5 @@ class LabModel extends ProjectileMotionModel {
     this.projectileDragCoefficientProperty.set( currentProjectileObjectType.initialDragCoefficient );
   }
 }
-
-projectileMotion.register( 'LabModel', LabModel );
 
 export default LabModel;

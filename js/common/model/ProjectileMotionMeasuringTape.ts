@@ -11,7 +11,6 @@ import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import projectileMotion from '../../projectileMotion.js';
 
 class ProjectileMotionMeasuringTape {
   public readonly basePositionProperty: Property<Vector2>;
@@ -48,7 +47,5 @@ class ProjectileMotionMeasuringTape {
     this.isActiveProperty.reset();
   }
 }
-
-projectileMotion.register( 'ProjectileMotionMeasuringTape', ProjectileMotionMeasuringTape );
 
 export default ProjectileMotionMeasuringTape;

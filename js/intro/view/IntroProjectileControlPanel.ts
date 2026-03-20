@@ -19,7 +19,6 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Property from '../../../../axon/js/Property.js';
@@ -182,5 +181,4 @@ class IntroProjectileControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'IntroProjectileControlPanel', IntroProjectileControlPanel );
 export default IntroProjectileControlPanel;

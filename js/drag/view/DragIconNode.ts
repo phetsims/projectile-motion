@@ -9,7 +9,6 @@ import Screen from '../../../../joist/js/Screen.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
-import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const WIDTH = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE.width;
@@ -45,7 +44,5 @@ class DragIconNode extends Rectangle {
 
   }
 }
-
-projectileMotion.register( 'DragIconNode', DragIconNode );
 
 export default DragIconNode;

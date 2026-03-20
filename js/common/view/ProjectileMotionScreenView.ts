@@ -32,7 +32,6 @@ import Image from '../../../../scenery/js/nodes/Image.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import david_png from '../../../images/david_png.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionModel from '../model/ProjectileMotionModel.js';
 import Trajectory from '../model/Trajectory.js';
@@ -520,5 +519,4 @@ class ProjectileMotionScreenView extends ScreenView {
   }
 }
 
-projectileMotion.register( 'ProjectileMotionScreenView', ProjectileMotionScreenView );
 export default ProjectileMotionScreenView;

@@ -10,7 +10,6 @@ import Screen from '../../../../joist/js/Screen.js';
 import { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -77,7 +76,5 @@ class StatsIconNode extends Rectangle {
     this.setRectHeight( height );
   }
 }
-
-projectileMotion.register( 'StatsIconNode', StatsIconNode );
 
 export default StatsIconNode;

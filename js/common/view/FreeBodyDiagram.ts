@@ -18,7 +18,6 @@ import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import RichText from '../../../../scenery/js/nodes/RichText.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 import type { ViewPoint } from './ProjectileNode.js';
 
@@ -185,5 +184,4 @@ class FreeBodyDiagram extends Node {
   }
 }
 
-projectileMotion.register( 'FreeBodyDiagram', FreeBodyDiagram );
 export default FreeBodyDiagram;

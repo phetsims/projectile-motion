@@ -14,7 +14,6 @@ import BooleanIO from '../../../../tandem/js/types/BooleanIO.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
-import projectileMotion from '../../projectileMotion.js';
 
 type DataPointOptions = {
   apex?: boolean;
@@ -145,5 +144,4 @@ class DataPoint {
   } );
 }
 
-projectileMotion.register( 'DataPoint', DataPoint );
 export default DataPoint;

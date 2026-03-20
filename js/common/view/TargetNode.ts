@@ -23,7 +23,6 @@ import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import Animation from '../../../../twixt/js/Animation.js';
 import Easing from '../../../../twixt/js/Easing.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import Target from '../model/Target.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -268,7 +267,5 @@ class TargetNode extends Node {
     this.updateTargetXRange( this.transformProperty.value );
   }
 }
-
-projectileMotion.register( 'TargetNode', TargetNode );
 
 export default TargetNode;

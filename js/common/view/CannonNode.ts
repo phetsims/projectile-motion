@@ -35,7 +35,6 @@ import { roundSymmetric } from '../../../../dot/js/util/roundSymmetric.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
 import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
@@ -558,7 +557,5 @@ class CannonNode extends Node {
 const muzzleFlashDurationCompleteToAnimationPercentComplete = ( timePercentComplete: number ): number => {
   return -Math.pow( 2, -10 * timePercentComplete ) + 1; //easing out function
 };
-
-projectileMotion.register( 'CannonNode', CannonNode );
 
 export default CannonNode;

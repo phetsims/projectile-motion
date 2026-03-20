@@ -14,7 +14,6 @@ import { PhetioObjectOptions } from '../../../../tandem/js/PhetioObject.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import IOType from '../../../../tandem/js/types/IOType.js';
 import ProjectileObjectType, { ProjectileObjectTypeOptions } from '../../common/model/ProjectileObjectType.js';
-import projectileMotion from '../../projectileMotion.js';
 
 type SelfOptions = EmptySelfOptions;
 type EditableProjectileObjectTypeOptions = SelfOptions & ProjectileObjectTypeOptions & PickRequired<PhetioObjectOptions, 'tandem'>;
@@ -77,7 +76,5 @@ class EditableProjectileObjectType extends ProjectileObjectType {
       } ) );
   }
 }
-
-projectileMotion.register( 'EditableProjectileObjectType', EditableProjectileObjectType );
 
 export default EditableProjectileObjectType;

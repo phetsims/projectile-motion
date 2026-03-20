@@ -11,7 +11,6 @@ import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import LinearGradient from '../../../../scenery/js/util/LinearGradient.js';
-import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -98,7 +97,5 @@ class VectorsIconNode extends Rectangle {
     this.setRectHeight( height );
   }
 }
-
-projectileMotion.register( 'VectorsIconNode', VectorsIconNode );
 
 export default VectorsIconNode;

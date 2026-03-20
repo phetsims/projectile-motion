@@ -22,7 +22,6 @@ import { roundToInterval } from '../../../../dot/js/util/roundToInterval.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
 const altitudeString = ProjectileMotionStrings.altitude;
@@ -209,5 +208,4 @@ class DragProjectileControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'DragProjectileControlPanel', DragProjectileControlPanel );
 export default DragProjectileControlPanel;

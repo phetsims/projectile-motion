@@ -11,7 +11,6 @@ import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js
 import '../../common/ProjectileMotionQueryParameters.js';
 import ProjectileMotionScreenView, { ProjectileMotionScreenViewOptions } from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
-import projectileMotion from '../../projectileMotion.js';
 import FireMultipleButton from './FireMultipleButton.js';
 import StatsControlPanel from './StatsControlPanel.js';
 import StatsProjectileControlPanel from './StatsProjectileControlPanel.js';
@@ -118,5 +117,4 @@ class StatsScreenView extends ProjectileMotionScreenView {
   }
 }
 
-projectileMotion.register( 'StatsScreenView', StatsScreenView );
 export default StatsScreenView;

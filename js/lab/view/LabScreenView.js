@@ -9,7 +9,6 @@ import merge from '../../../../phet-core/js/merge.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
-import projectileMotion from '../../projectileMotion.js';
 import InitialValuesPanel from './InitialValuesPanel.js';
 import KeypadLayer from './KeypadLayer.js';
 import LabProjectileControlPanel from './LabProjectileControlPanel.js';
@@ -93,5 +92,4 @@ class LabScreenView extends ProjectileMotionScreenView {
   }
 }
 
-projectileMotion.register( 'LabScreenView', LabScreenView );
 export default LabScreenView;

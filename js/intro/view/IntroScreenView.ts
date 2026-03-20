@@ -9,7 +9,6 @@
 import Node from '../../../../scenery/js/nodes/Node.js';
 import ProjectileMotionScreenView from '../../common/view/ProjectileMotionScreenView.js';
 import ProjectileMotionViewProperties from '../../common/view/ProjectileMotionViewProperties.js';
-import projectileMotion from '../../projectileMotion.js';
 import IntroProjectileControlPanel from './IntroProjectileControlPanel.js';
 import IntroVectorsControlPanel from './IntroVectorsControlPanel.js';
 import IntroModel from '../model/IntroModel.js';
@@ -69,5 +68,4 @@ class IntroScreenView extends ProjectileMotionScreenView {
   }
 }
 
-projectileMotion.register( 'IntroScreenView', IntroScreenView );
 export default IntroScreenView;

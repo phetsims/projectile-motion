@@ -9,7 +9,6 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import projectileMotion from '../projectileMotion.js';
 import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import StatsModel from './model/StatsModel.js';
 import StatsIconNode from './view/StatsIconNode.js';
@@ -41,5 +40,4 @@ class StatsScreen extends Screen<StatsModel, StatsScreenView> {
   }
 }
 
-projectileMotion.register( 'StatsScreen', StatsScreen );
 export default StatsScreen;

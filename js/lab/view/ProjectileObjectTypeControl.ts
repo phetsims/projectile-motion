@@ -9,7 +9,6 @@
  * @author Michael Kauzmann (PhET Interactive Simulations)
  */
 
-import projectileMotion from '../../projectileMotion.js';
 import { EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 
@@ -37,7 +36,5 @@ class ProjectileObjectTypeControl {
     this.dragCoefficientControl = dragCoefficientControl;
   }
 }
-
-projectileMotion.register( 'ProjectileObjectTypeControl', ProjectileObjectTypeControl );
 
 export default ProjectileObjectTypeControl;

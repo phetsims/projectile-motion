@@ -29,7 +29,6 @@ import NullableIO from '../../../../tandem/js/types/NullableIO.js';
 import NumberIO from '../../../../tandem/js/types/NumberIO.js';
 import ReferenceIO, { ReferenceIOState } from '../../../../tandem/js/types/ReferenceIO.js';
 import { CompositeSchema } from '../../../../tandem/js/types/StateSchema.js';
-import projectileMotion from '../../projectileMotion.js';
 import DataPoint, { DataPointStateObject } from './DataPoint.js';
 import DataProbe from './DataProbe.js';
 import ProjectileMotionModel from './ProjectileMotionModel.js';
@@ -456,5 +455,4 @@ const timeToGround = ( previousPoint: DataPoint ): number => {
   }
 };
 
-projectileMotion.register( 'Trajectory', Trajectory );
 export default Trajectory;

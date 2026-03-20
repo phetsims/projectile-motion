@@ -8,7 +8,6 @@
  */
 
 import ProjectileMotionScreenView, { ProjectileMotionScreenViewOptions } from '../../common/view/ProjectileMotionScreenView.js';
-import projectileMotion from '../../projectileMotion.js';
 import VectorsProjectileControlPanel from './VectorsProjectileControlPanel.js';
 import VectorsVectorsControlPanel from './VectorsVectorsControlPanel.js';
 import VectorsViewProperties from './VectorsViewProperties.js';
@@ -46,5 +45,4 @@ class VectorsScreenView extends ProjectileMotionScreenView {
   }
 }
 
-projectileMotion.register( 'VectorsScreenView', VectorsScreenView );
 export default VectorsScreenView;

@@ -10,7 +10,6 @@
 import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
-import projectileMotion from '../projectileMotion.js';
 import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import VectorsModel from './model/VectorsModel.js';
 import VectorsIconNode from './view/VectorsIconNode.js';
@@ -43,5 +42,4 @@ class VectorsScreen extends Screen<VectorsModel, VectorsScreenView> {
   }
 }
 
-projectileMotion.register( 'VectorsScreen', VectorsScreen );
 export default VectorsScreen;

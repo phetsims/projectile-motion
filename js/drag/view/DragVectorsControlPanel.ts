@@ -17,7 +17,6 @@ import VerticalAquaRadioButtonGroup from '../../../../sun/js/VerticalAquaRadioBu
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import VectorsDisplayEnumeration from '../../common/view/VectorsDisplayEnumeration.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import DragViewProperties from './DragViewProperties.js';
@@ -113,5 +112,4 @@ class DragVectorsControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'DragVectorsControlPanel', DragVectorsControlPanel );
 export default DragVectorsControlPanel;

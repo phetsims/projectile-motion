@@ -16,7 +16,6 @@ import Node from '../../../../scenery/js/nodes/Node.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import Checkbox from '../../../../sun/js/Checkbox.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
 
@@ -87,7 +86,5 @@ class AirResistanceControl extends VBox {
     super( _.omit( options, 'xMargin' ) );
   }
 }
-
-projectileMotion.register( 'AirResistanceControl', AirResistanceControl );
 
 export default AirResistanceControl;

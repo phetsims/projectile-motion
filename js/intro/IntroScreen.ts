@@ -10,7 +10,6 @@ import Property from '../../../axon/js/Property.js';
 import Screen, { ScreenOptions } from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import projectileMotion from '../projectileMotion.js';
 import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import IntroModel from './model/IntroModel.js';
 import IntroIconNode from './view/IntroIconNode.js';
@@ -41,5 +40,4 @@ class IntroScreen extends Screen<IntroModel, IntroScreenView> {
   }
 }
 
-projectileMotion.register( 'IntroScreen', IntroScreen );
 export default IntroScreen;

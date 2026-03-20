@@ -23,7 +23,6 @@ import Color from '../../../../scenery/js/util/Color.js';
 import editSolidShape from '../../../../sherpa/js/fontawesome-5/editSolidShape.js';
 import RectangularPushButton from '../../../../sun/js/buttons/RectangularPushButton.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import ProjectileObjectTypeControl, { ProjectileObjectTypeControlOptions } from './ProjectileObjectTypeControl.js';
 import LabModel from '../model/LabModel.js';
@@ -213,5 +212,4 @@ class CustomProjectileObjectTypeControl extends ProjectileObjectTypeControl {
   }
 }
 
-projectileMotion.register( 'CustomProjectileObjectTypeControl', CustomProjectileObjectTypeControl );
 export default CustomProjectileObjectTypeControl;

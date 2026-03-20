@@ -18,7 +18,6 @@ import cannonBarrelTop_png from '../../../images/cannonBarrelTop_png.js';
 import cannonBarrel_png from '../../../mipmaps/cannonBarrel_png.js';
 import cannonBaseBottom_png from '../../../mipmaps/cannonBaseBottom_png.js';
 import cannonBaseTop_png from '../../../mipmaps/cannonBaseTop_png.js';
-import projectileMotion from '../../projectileMotion.js';
 
 // constants
 const SCREEN_ICON_SIZE = Screen.MINIMUM_HOME_SCREEN_ICON_SIZE;
@@ -148,7 +147,5 @@ class LabIconNode extends Rectangle {
 
   }
 }
-
-projectileMotion.register( 'LabIconNode', LabIconNode );
 
 export default LabIconNode;

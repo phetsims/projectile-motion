@@ -19,7 +19,6 @@ import Panel, { PanelOptions } from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants, { ProjectileMotionUIOptions } from '../../common/ProjectileMotionConstants.js';
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import optionize, { combineOptions, EmptySelfOptions } from '../../../../phet-core/js/optionize.js';
 import ProjectileObjectType from '../../common/model/ProjectileObjectType.js';
@@ -196,5 +195,4 @@ class StatsProjectileControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'StatsProjectileControlPanel', StatsProjectileControlPanel );
 export default StatsProjectileControlPanel;

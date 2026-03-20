@@ -9,7 +9,6 @@
 
 import logGlobal from '../../../phet-core/js/logGlobal.js';
 import { QueryStringMachine } from '../../../query-string-machine/js/QueryStringMachineModule.js';
-import projectileMotion from '../projectileMotion.js';
 
 const ProjectileMotionQueryParameters = QueryStringMachine.getAll( {
   stats: {
@@ -19,8 +18,6 @@ const ProjectileMotionQueryParameters = QueryStringMachine.getAll( {
 } );
 
 export default ProjectileMotionQueryParameters;
-
-projectileMotion.register( 'ProjectileMotionQueryParameters', ProjectileMotionQueryParameters );
 
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );

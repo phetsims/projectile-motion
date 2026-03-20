@@ -16,7 +16,6 @@ import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransfo
 import Circle from '../../../../scenery/js/nodes/Circle.js';
 import Node from '../../../../scenery/js/nodes/Node.js';
 import Path from '../../../../scenery/js/nodes/Path.js';
-import projectileMotion from '../../projectileMotion.js';
 import DataPoint from '../model/DataPoint.js';
 import Trajectory from '../model/Trajectory.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -202,7 +201,5 @@ class TrajectoryNode extends Node {
     super.dispose();
   }
 }
-
-projectileMotion.register( 'TrajectoryNode', TrajectoryNode );
 
 export default TrajectoryNode;

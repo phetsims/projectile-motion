@@ -26,7 +26,6 @@ import ComboBox from '../../../../sun/js/ComboBox.js';
 import Panel from '../../../../sun/js/Panel.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
 import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import CustomProjectileObjectTypeControl from './CustomProjectileObjectTypeControl.js';
 import ProjectileObjectTypeControl from './ProjectileObjectTypeControl.js';
@@ -400,5 +399,4 @@ class LabProjectileControlPanel extends Node {
   }
 }
 
-projectileMotion.register( 'LabProjectileControlPanel', LabProjectileControlPanel );
 export default LabProjectileControlPanel;

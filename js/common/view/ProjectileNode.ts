@@ -18,7 +18,6 @@ import optionize, { EmptySelfOptions } from '../../../../phet-core/js/optionize.
 import ModelViewTransform2 from '../../../../phetcommon/js/view/ModelViewTransform2.js';
 import ArrowNode from '../../../../scenery-phet/js/ArrowNode.js';
 import Node, { NodeOptions } from '../../../../scenery/js/nodes/Node.js';
-import projectileMotion from '../../projectileMotion.js';
 import DataPoint from '../model/DataPoint.js';
 import ProjectileObjectType from '../model/ProjectileObjectType.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -329,5 +328,4 @@ class ProjectileNode extends Node {
   }
 }
 
-projectileMotion.register( 'ProjectileNode', ProjectileNode );
 export default ProjectileNode;

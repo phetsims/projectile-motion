@@ -18,7 +18,6 @@ import ProjectileMotionConstants from '../../common/ProjectileMotionConstants.js
 import AirResistanceControl from '../../common/view/AirResistanceControl.js';
 import ArrowlessNumberControl from '../../common/view/ArrowlessNumberControl.js';
 import ProjectileObjectViewFactory from '../../common/view/ProjectileObjectViewFactory.js';
-import projectileMotion from '../../projectileMotion.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 
 const cannonballString = ProjectileMotionStrings.cannonball;
@@ -129,5 +128,4 @@ class VectorsProjectileControlPanel extends Panel {
   }
 }
 
-projectileMotion.register( 'VectorsProjectileControlPanel', VectorsProjectileControlPanel );
 export default VectorsProjectileControlPanel;

@@ -10,7 +10,6 @@ import Property from '../../../axon/js/Property.js';
 import Screen from '../../../joist/js/Screen.js';
 import ScreenIcon from '../../../joist/js/ScreenIcon.js';
 import Tandem from '../../../tandem/js/Tandem.js';
-import projectileMotion from '../projectileMotion.js';
 import ProjectileMotionStrings from '../ProjectileMotionStrings.js';
 import DragModel from './model/DragModel.js';
 import DragIconNode from './view/DragIconNode.js';
@@ -37,5 +36,4 @@ class DragScreen extends Screen<DragModel, DragScreenView> {
   }
 }
 
-projectileMotion.register( 'DragScreen', DragScreen );
 export default DragScreen;
