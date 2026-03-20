@@ -22,4 +22,4 @@ export default ProjectileMotionQueryParameters;
 // Log query parameters
 logGlobal( 'phet.chipper.queryParameters' );
 logGlobal( 'phet.preloads.phetio.queryParameters' );
-logGlobal( 'phet.projectileMotion.ProjectileMotionQueryParameters' );
+phet.log && phet.log( `ProjectileMotionQueryParameters: ${JSON.stringify( ProjectileMotionQueryParameters, null, 2 )}` );
