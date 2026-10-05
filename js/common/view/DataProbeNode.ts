@@ -285,18 +285,19 @@ class DataProbeNode extends Node {
     const getViewDragBounds = () => {
       const visibleBounds = screenView.visibleBoundsProperty.get();
       const dataProbeWidth = rectangle.width + crosshairMount.width + 2 * CIRCLE_AROUND_CROSSHAIR_RADIUS;
+      const dataProbeHalfHeight = Math.max( rectangle.height / 2, CIRCLE_AROUND_CROSSHAIR_RADIUS );
       return dataProbe.probeOrientationProperty.value === 'right' ?
              new Bounds2(
                visibleBounds.minX + CIRCLE_AROUND_CROSSHAIR_RADIUS,
-               visibleBounds.minY,
+               visibleBounds.minY + dataProbeHalfHeight,
                visibleBounds.maxX - dataProbeWidth + CIRCLE_AROUND_CROSSHAIR_RADIUS,
-               visibleBounds.maxY
+               visibleBounds.maxY - dataProbeHalfHeight
              ) :
              new Bounds2(
                visibleBounds.minX + dataProbeWidth - CIRCLE_AROUND_CROSSHAIR_RADIUS,
-               visibleBounds.minY,
+               visibleBounds.minY + dataProbeHalfHeight,
                visibleBounds.maxX - CIRCLE_AROUND_CROSSHAIR_RADIUS,
-               visibleBounds.maxY
+               visibleBounds.maxY - dataProbeHalfHeight
              );
     };
 
@@ -321,16 +322,31 @@ class DataProbeNode extends Node {
       }
     };
 
+    const getDataProbeViewBounds = () => Bounds2.point( this.probeOrigin.x, this.probeOrigin.y )
+      .includeBounds( circle.bounds )
+      .includeBounds( crosshairMount.bounds )
+      .includeBounds( rectangle.bounds );
+
+    const returnToToolboxIfOutsideCanvas = () => {
+      if ( dataProbe.isActiveProperty.value &&
+           !this.isUserControlledProperty.value &&
+           !screenView.visibleBoundsProperty.get().containsBounds( getDataProbeViewBounds() ) ) {
+        dataProbe.isActiveProperty.value = false;
+      }
+    };
+
     // Observe changes in the modelViewTransform and update/adjust positions accordingly
     transformProperty.link( transform => {
       updateDragBounds();
       updatePosition( dataProbe.positionProperty.get() );
+      returnToToolboxIfOutsideCanvas();
     } );
 
     // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
     screenView.visibleBoundsProperty.link( () => {
       updateDragBounds();
       updatePosition( dataProbe.positionProperty.get() );
+      returnToToolboxIfOutsideCanvas();
     } );
 
     dataProbe.probeOrientationProperty.link( orientation => {
