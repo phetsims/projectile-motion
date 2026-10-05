@@ -78,6 +78,7 @@ const GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
 const DATA_PROBE_CONTENT_WIDTH = 155;
 const RIGHT_SIDE_PADDING = 6;
 const DATA_PROBE_HEIGHT = 112;
+const EDGE_FLIP_EPSILON = 1e-4;
 const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
 type SelfOptions = EmptySelfOptions;
@@ -304,11 +305,19 @@ class DataProbeNode extends Node {
       dragBoundsProperty.value = transformProperty.get().viewToModelBounds( viewDragBounds );
     };
 
-    const constrainPositionToDragBounds = () => {
+    const updateOrientationForCanvasEdge = () => {
       const viewPosition = transformProperty.get().modelToViewPosition( dataProbe.positionProperty.value );
-      const constrainedViewPosition = getViewDragBounds().closestPointTo( viewPosition );
-      if ( !constrainedViewPosition.equals( viewPosition ) ) {
-        dataProbe.positionProperty.value = transformProperty.get().viewToModelPosition( constrainedViewPosition );
+      const viewDragBounds = getViewDragBounds();
+
+      if ( viewDragBounds.minX <= viewDragBounds.maxX &&
+           dataProbe.probeOrientationProperty.value === 'right' &&
+           viewPosition.x >= viewDragBounds.maxX - EDGE_FLIP_EPSILON ) {
+        dataProbe.probeOrientationProperty.value = 'left';
+      }
+      else if ( viewDragBounds.minX <= viewDragBounds.maxX &&
+                dataProbe.probeOrientationProperty.value === 'left' &&
+                viewPosition.x <= viewDragBounds.minX + EDGE_FLIP_EPSILON ) {
+        dataProbe.probeOrientationProperty.value = 'right';
       }
     };
 
@@ -328,12 +337,13 @@ class DataProbeNode extends Node {
       pointLeftButton.visible = orientation === 'right';
       pointRightButton.visible = orientation === 'left';
       updateDragBounds();
-      constrainPositionToDragBounds();
+      updateOrientationForCanvasEdge();
       updatePosition( dataProbe.positionProperty.get() );
     } );
 
     // Listen for position changes, align positions, and update model.
     dataProbe.positionProperty.link( position => {
+      updateOrientationForCanvasEdge();
       updatePosition( position );
       this.dataProbe.updateData();
     } );
