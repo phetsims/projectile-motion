@@ -10,6 +10,7 @@
 
 import BooleanProperty from '../../../../axon/js/BooleanProperty.js';
 import Property from '../../../../axon/js/Property.js';
+import StringUnionProperty from '../../../../axon/js/StringUnionProperty.js';
 import { TReadOnlyProperty } from '../../../../axon/js/TReadOnlyProperty.js';
 import Vector2 from '../../../../dot/js/Vector2.js';
 import Vector2Property from '../../../../dot/js/Vector2Property.js';
@@ -24,11 +25,14 @@ import { toFixedNumber } from '../../../../dot/js/util/toFixedNumber.js';
 // constants
 const SENSING_RADIUS = 0.2; // meters, will change to view units. How close the dataProbe needs to get to a datapoint
 const TIME_PER_MINOR_DOT = ProjectileMotionConstants.TIME_PER_MINOR_DOT;
+const PROBE_ORIENTATION_VALUES = [ 'left', 'right' ] as const;
+type ProbeOrientation = typeof PROBE_ORIENTATION_VALUES[ number ];
 
 class DataProbe {
   public readonly positionProperty: Property<Vector2>;
   public readonly dataPointProperty: Property<null | DataPoint>;
   public readonly isActiveProperty: Property<boolean>;
+  public readonly probeOrientationProperty: StringUnionProperty<ProbeOrientation>;
 
   private readonly trajectoryGroup: PhetioGroup<Trajectory, TrajectoryGroupCreateElementArguments>;
 
@@ -63,6 +67,12 @@ class DataProbe {
       phetioDocumentation: 'Whether the dataProbe is out in the play area (false when in toolbox)'
     } );
 
+    this.probeOrientationProperty = new StringUnionProperty( 'right', {
+      tandem: tandem.createTandem( 'probeOrientationProperty' ),
+      validValues: PROBE_ORIENTATION_VALUES,
+      phetioDocumentation: 'Whether the dataProbe readout points to the left or right of its crosshair.'
+    } );
+
     this.zoomProperty = zoomProperty;
     this.trajectoryGroup = trajectoryGroup;
 
@@ -78,6 +88,7 @@ class DataProbe {
     this.positionProperty.reset();
     this.dataPointProperty.reset();
     this.isActiveProperty.reset();
+    this.probeOrientationProperty.reset();
   }
 
   /**

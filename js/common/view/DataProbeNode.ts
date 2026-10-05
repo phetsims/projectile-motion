@@ -29,6 +29,7 @@ import Rectangle from '../../../../scenery/js/nodes/Rectangle.js';
 import Text, { TextOptions } from '../../../../scenery/js/nodes/Text.js';
 import RadialGradient from '../../../../scenery/js/util/RadialGradient.js';
 import Tandem from '../../../../tandem/js/Tandem.js';
+import ArrowButton from '../../../../sun/js/buttons/ArrowButton.js';
 import ProjectileMotionStrings from '../../ProjectileMotionStrings.js';
 import DataProbe from '../model/DataProbe.js';
 import ProjectileMotionConstants from '../ProjectileMotionConstants.js';
@@ -76,6 +77,8 @@ const GREEN_HALO_FILL = new RadialGradient( 0, 0, 0, 0, 0, SMALL_HALO_RADIUS )
 
 const DATA_PROBE_CONTENT_WIDTH = 155;
 const RIGHT_SIDE_PADDING = 6;
+const DATA_PROBE_HEIGHT = 112;
+const EDGE_FLIP_EPSILON = 1e-4;
 const READOUT_X_MARGIN = ProjectileMotionConstants.RIGHTSIDE_PANEL_OPTIONS.readoutXMargin;
 
 type SelfOptions = EmptySelfOptions;
@@ -109,7 +112,7 @@ class DataProbeNode extends Node {
       0,
       0,
       DATA_PROBE_CONTENT_WIDTH + RIGHT_SIDE_PADDING,
-      95, {
+      DATA_PROBE_HEIGHT, {
         cornerRadius: 8,
         fill: OPAQUE_BLUE,
         stroke: 'gray',
@@ -122,10 +125,6 @@ class DataProbeNode extends Node {
 
     rectangle.setMouseArea( rectangle.bounds.dilatedXY( 10, 2 ) );
     rectangle.setTouchArea( rectangle.bounds.dilatedXY( 15, 6 ) );
-
-    // shift the dataProbe drag bounds so that it can only be dragged until the center reaches the left or right side
-    // of the screen
-    const dragBoundsShift = -DATA_PROBE_CONTENT_WIDTH / 2 + RIGHT_SIDE_PADDING;
 
     // crosshair view
     const crosshairShape = new Shape()
@@ -150,7 +149,7 @@ class DataProbeNode extends Node {
       { fill: 'gray' }
     );
 
-    const dragBoundsProperty = new Property( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
+    const dragBoundsProperty = new Property( transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get() ) );
 
     this.dragListener = new DragListener( {
       positionProperty: dataProbe.positionProperty,
@@ -179,6 +178,29 @@ class DataProbeNode extends Node {
         rangeBox,
         heightBox
       ]
+    } );
+
+    const pointLeftButton = new ArrowButton( 'left', () => {
+      dataProbe.probeOrientationProperty.value = 'left';
+    }, {
+      arrowHeight: 8,
+      xMargin: 4,
+      yMargin: 3,
+      fireOnHold: false,
+      baseColor: 'white',
+      tandem: options.tandem.createTandem( 'pointLeftButton' ),
+      phetioDocumentation: 'button that points the dataProbe readout to the left of the crosshair'
+    } );
+    const pointRightButton = new ArrowButton( 'right', () => {
+      dataProbe.probeOrientationProperty.value = 'right';
+    }, {
+      arrowHeight: 8,
+      xMargin: 4,
+      yMargin: 3,
+      fireOnHold: false,
+      baseColor: 'white',
+      tandem: options.tandem.createTandem( 'pointRightButton' ),
+      phetioDocumentation: 'button that points the dataProbe readout to the right of the crosshair'
     } );
 
     // halo node for highlighting the dataPoint whose information is shown in the dataProbe tool
@@ -232,12 +254,26 @@ class DataProbeNode extends Node {
 
       crosshair.center = this.probeOrigin;
       circle.center = this.probeOrigin;
-      crosshairMount.left = this.probeOrigin.x + CIRCLE_AROUND_CROSSHAIR_RADIUS;
       crosshairMount.centerY = this.probeOrigin.y;
-      rectangle.left = crosshairMount.right;
       rectangle.centerY = this.probeOrigin.y;
+      if ( dataProbe.probeOrientationProperty.value === 'right' ) {
+        crosshairMount.left = this.probeOrigin.x + CIRCLE_AROUND_CROSSHAIR_RADIUS;
+        rectangle.left = crosshairMount.right;
+        textBox.left = rectangle.left + 2 * SPACING;
+        pointLeftButton.right = rectangle.right - SPACING;
+        pointRightButton.right = rectangle.right - SPACING;
+      }
+      else {
+        crosshairMount.right = this.probeOrigin.x - CIRCLE_AROUND_CROSSHAIR_RADIUS;
+        rectangle.right = crosshairMount.left;
+        textBox.left = rectangle.left + 2 * SPACING;
+        pointLeftButton.left = rectangle.left + SPACING;
+        pointRightButton.left = rectangle.left + SPACING;
+      }
       textBox.left = rectangle.left + 2 * SPACING;
-      textBox.top = rectangle.top + 2 * SPACING;
+      textBox.top = rectangle.top + 3 * SPACING + pointLeftButton.height;
+      pointLeftButton.top = rectangle.top + SPACING;
+      pointRightButton.top = rectangle.top + SPACING;
 
       const dataPoint = dataProbe.dataPointProperty.get();
       if ( dataPoint ) {
@@ -246,20 +282,84 @@ class DataProbeNode extends Node {
       }
     };
 
+    const getViewDragBounds = () => {
+      const visibleBounds = screenView.visibleBoundsProperty.get();
+      const dataProbeWidth = rectangle.width + crosshairMount.width + 2 * CIRCLE_AROUND_CROSSHAIR_RADIUS;
+      const dataProbeHalfHeight = Math.max( rectangle.height / 2, CIRCLE_AROUND_CROSSHAIR_RADIUS );
+      return dataProbe.probeOrientationProperty.value === 'right' ?
+             new Bounds2(
+               visibleBounds.minX + CIRCLE_AROUND_CROSSHAIR_RADIUS,
+               visibleBounds.minY + dataProbeHalfHeight,
+               visibleBounds.maxX - dataProbeWidth + CIRCLE_AROUND_CROSSHAIR_RADIUS,
+               visibleBounds.maxY - dataProbeHalfHeight
+             ) :
+             new Bounds2(
+               visibleBounds.minX + dataProbeWidth - CIRCLE_AROUND_CROSSHAIR_RADIUS,
+               visibleBounds.minY + dataProbeHalfHeight,
+               visibleBounds.maxX - CIRCLE_AROUND_CROSSHAIR_RADIUS,
+               visibleBounds.maxY - dataProbeHalfHeight
+             );
+    };
+
+    const updateDragBounds = () => {
+      const viewDragBounds = getViewDragBounds();
+      dragBoundsProperty.value = transformProperty.get().viewToModelBounds( viewDragBounds );
+    };
+
+    const updateOrientationForCanvasEdge = () => {
+      const viewPosition = transformProperty.get().modelToViewPosition( dataProbe.positionProperty.value );
+      const viewDragBounds = getViewDragBounds();
+
+      if ( viewDragBounds.minX <= viewDragBounds.maxX &&
+           dataProbe.probeOrientationProperty.value === 'right' &&
+           viewPosition.x >= viewDragBounds.maxX - EDGE_FLIP_EPSILON ) {
+        dataProbe.probeOrientationProperty.value = 'left';
+      }
+      else if ( viewDragBounds.minX <= viewDragBounds.maxX &&
+                dataProbe.probeOrientationProperty.value === 'left' &&
+                viewPosition.x <= viewDragBounds.minX + EDGE_FLIP_EPSILON ) {
+        dataProbe.probeOrientationProperty.value = 'right';
+      }
+    };
+
+    const getDataProbeViewBounds = () => Bounds2.point( this.probeOrigin.x, this.probeOrigin.y )
+      .includeBounds( circle.bounds )
+      .includeBounds( crosshairMount.bounds )
+      .includeBounds( rectangle.bounds );
+
+    const returnToToolboxIfOutsideCanvas = () => {
+      if ( dataProbe.isActiveProperty.value &&
+           !this.isUserControlledProperty.value &&
+           !screenView.visibleBoundsProperty.get().containsBounds( getDataProbeViewBounds() ) ) {
+        dataProbe.isActiveProperty.value = false;
+      }
+    };
+
     // Observe changes in the modelViewTransform and update/adjust positions accordingly
     transformProperty.link( transform => {
-      dragBoundsProperty.value = transform.viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
+      updateDragBounds();
       updatePosition( dataProbe.positionProperty.get() );
+      returnToToolboxIfOutsideCanvas();
     } );
 
     // Observe changes in the visible bounds and update drag bounds and adjust positions accordingly
     screenView.visibleBoundsProperty.link( () => {
-      dragBoundsProperty.value = transformProperty.get().viewToModelBounds( screenView.visibleBoundsProperty.get().shiftedX( dragBoundsShift ) );
+      updateDragBounds();
+      updatePosition( dataProbe.positionProperty.get() );
+      returnToToolboxIfOutsideCanvas();
+    } );
+
+    dataProbe.probeOrientationProperty.link( orientation => {
+      pointLeftButton.visible = orientation === 'right';
+      pointRightButton.visible = orientation === 'left';
+      updateDragBounds();
+      updateOrientationForCanvasEdge();
       updatePosition( dataProbe.positionProperty.get() );
     } );
 
     // Listen for position changes, align positions, and update model.
     dataProbe.positionProperty.link( position => {
+      updateOrientationForCanvasEdge();
       updatePosition( position );
       this.dataProbe.updateData();
     } );
@@ -270,6 +370,8 @@ class DataProbeNode extends Node {
       haloNode,
       crosshairMount,
       rectangle,
+      pointLeftButton,
+      pointRightButton,
       circle,
       crosshair,
       textBox
