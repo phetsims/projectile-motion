@@ -4,9 +4,9 @@ This document contains miscellaneous notes related to the implementation of Proj
 internal (source code) documentation, and (hopefully) provides insight into
 "big picture" implementation issues. The audience for this document is software developers who are familiar with
 JavaScript and PhET simulation development (as described
-in [PhET Development Overview](https://github.com/phetsims/phet-info/blob/main/doc/phet-development-overview.md)).
+in [PhET Development Overview](../../phet-info/doc/phet-development-overview.md)).
 
-First, read [model.md](https://github.com/phetsims/projectile-motion/blob/main/doc/model.md), which provides a
+First, read [model.md](model.md), which provides a
 high-level description of the simulation model.
 
 ## General
@@ -15,7 +15,7 @@ This section describes how this simulation uses patterns that are common to most
 
 **Model-view transform**: Many PhET simulations have a model-view transform that maps between model and view coordinate
 frames
-(see [ModelViewTransform2](https://github.com/phetsims/phetcommon/blob/main/js/view/ModelViewTransform2.js)). This
+(see [ModelViewTransform2](../../phetcommon/js/view/ModelViewTransform2.ts)). This
 simulation uses a model-view transform to convert from model units (meters) to view units (in the ScreenView
 coordinates). The zoom Property can change this model-view transform, which means a meter may map to a larger or smaller
 number of view units.
@@ -45,7 +45,7 @@ projectileObjectTypes( INTRO, VECTORS, and CUSTOM, respectively ). Since each sc
 type, it is passed as an argument to the model constructor.
 
 View the full list of projectile object benchmarks
-at [ProjectileObjectType.js](https://github.com/phetsims/projectile-motion/blob/main/js/common/model/ProjectileObjectType.js).
+at [ProjectileObjectType.js](../js/common/model/ProjectileObjectType.ts).
 
 ProjectileObjectType contains the model information for each type of projectile object, and to create the corresponding
 view (which may be an image or node), ProjectileNode calls on methods in ProjectileObjectViewFactory.
@@ -56,7 +56,7 @@ A Trajectory keeps track of the path and the projectile objects that fly on it. 
 TrajectoryNode is created. Each time a projectile is added to a Trajectory, TrajectoryNode creates and stores a
 ProjectileNode.
 
-First, read a general explanation at [model.md](https://github.com/phetsims/projectile-motion/blob/main/doc/model.md).
+First, read a general explanation at [model.md](model.md).
 It starts with
 "There is no limit to the number of projectiles".
 
